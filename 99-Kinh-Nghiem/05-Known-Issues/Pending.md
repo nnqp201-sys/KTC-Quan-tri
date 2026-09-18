@@ -2,17 +2,19 @@
 
 Lỗi và khoảng trống **đã biết nhưng chưa xử lý**. Ghi lại để không quên và không tốn công phát hiện lại.
 
-**Cập nhật:** 13/9/2026
+**Cập nhật:** 18/9/2026
 
 ---
 
 ## Đã giải quyết
 
-Xem lịch sử ở cuối tệp (mục "Resolved"). Danh sách còn mở dưới đây.
+Các mục đã đóng ghi trạng thái "Resolved"/"ĐÃ ĐÓNG" ngay trong mục của nó (ví dụ `KI-004`, `KI-009`,
+`KI-012`, `KI-013`) — không có mục riêng ở cuối tệp. Danh sách còn mở dưới đây.
 
 ## KI-001 — Phụ lục Ia/Ib chưa có cột `Task_ID`
 
-**Status:** Open · **Priority:** Cao — chặn toàn bộ khả năng đối chiếu tự động
+**Status:** Open — đã có đề xuất kỹ thuật cụ thể 18/9/2026, chờ người có thẩm quyền xác nhận trước khi áp
+dụng · **Priority:** Cao — chặn toàn bộ khả năng đối chiếu tự động
 
 Nguồn dữ liệu kế hoạch (Phụ lục Ia/Ib của TB736) không có cột mã nhiệm vụ, nên kế hoạch và báo cáo chỉ đối
 chiếu được **gần đúng** theo Trục + so khớp tên nhiệm vụ.
@@ -35,11 +37,16 @@ Nếu lấy ngưỡng 60% làm chuẩn khớp thì cả 5 đều bị tính nh�
 nhiệm vụ hành chính dùng khuôn chữ lặp lại, phần phân biệt chỉ là số hiệu và ngày ban hành — chiếm tỷ lệ
 nhỏ trong câu. **Kết luận: không dùng ngưỡng dưới 100% cho bất kỳ đối chiếu tự động nào.**
 
+**Đề xuất kỹ thuật đầy đủ 18/9/2026** (vị trí cột, định dạng, cách sửa `read_bc736_excel.py`, lộ trình áp
+dụng — không hồi tố dữ liệu cũ):
+`12-Output/2026-09-18/De-xuat/De-xuat-Bo-sung-Cot-Task_ID-Phu-luc-TB736.md`.
+
 ---
 
 ## KI-002 — Danh mục 122 nhiệm vụ chuẩn chưa phủ 6 Khoa
 
-**Status:** Open — người dùng xác nhận **sẽ bổ sung sau** · **Priority:** Cao
+**Status:** Open — người dùng xác nhận lại 18/9/2026 **sẽ hoàn thiện sau**, không xử lý trong đợt dọn việc
+mở này · **Priority:** Cao
 
 1.358 nhiệm vụ gốc chỉ đến từ 5 Phòng (TH-HC&QT 402, QLKHCN&HTPT 387, QLĐT&BĐCL 366, Phòng Tổ chức 126,
 TC-KT 77). Lĩnh vực `S. Nhiệm vụ chuyên môn nhà giáo` chỉ có 4 mã, sinh từ viên chức Phòng có giảng dạy.
@@ -51,7 +58,8 @@ Tuyệt đối không ép về mã gần đúng.
 
 ## KI-003 — Bảng mã đơn vị chỉ có một cấp
 
-**Status:** Open · **Priority:** Trung bình
+**Status:** Open — người dùng xác nhận 18/9/2026 **sẽ hoàn thiện sau**, không xử lý trong đợt dọn việc mở
+này · **Priority:** Trung bình
 
 Cột "Đơn vị chủ trì" trong dữ liệu thật chứa cả bộ phận nội bộ và nhóm người: `Ban Truyền thông` (19×),
 `Nhà giáo` (6×), `Các bộ môn và nhà giáo` (4×), `Bộ môn CK&XD` (4×), `Giáo vụ khoa` (3×), `Chi bộ khoa` (2×),
@@ -95,7 +103,8 @@ memory tự ghi *"Còn treo: Gộp v3.1"*.
 
 ## KI-006 — Bốn lỗi thể thức hồ sơ tháng 8/2026 chưa khắc phục
 
-**Status:** Open · **Priority:** Cao — chặn việc chốt kỳ tháng 8 · **Xem:** `PM-20260913-001`
+**Status:** Đã có bản dự thảo Công văn nhắc 6 đơn vị 18/9/2026, chờ Phòng TH-HC&QT kiểm tra và trình Hiệu
+trưởng ký — không tự sửa hồ sơ đơn vị · **Priority:** Cao — chặn việc chốt kỳ tháng 8 · **Xem:** `PM-20260913-001`
 
 | Đơn vị | Lỗi |
 |---|---|
@@ -104,23 +113,53 @@ memory tự ghi *"Còn treo: Gộp v3.1"*.
 | Khoa KT-CN | Sai cấu trúc cột — cột (8) là "Thời gian hoàn thành" thay vì "Điểm chấm công việc" |
 | Khoa Sư phạm | Tiêu đề tự chế, chỉ 7 nhiệm vụ so với trung bình 25 |
 
-Kèm theo: Khoa CKHCB và Khoa KT-NL thiếu mục Trục 2 và Trục 5; 5 tệp còn để nguyên sheet mẫu trống.
+Kèm theo: Khoa CKHCB và Khoa KT-NL thiếu mục Trục 2 và Trục 5; 5 tệp còn để nguyên sheet mẫu trống (không
+xác định được đơn vị nào trong số này — không quy kết đích danh).
+
+**Đã dựng 18/9/2026** — bản dự thảo Công văn (hệ A, phát triển từ văn bản đã ban hành
+`KTC-Database/04-Good-Documents/04-08- Cong van/1. CV gop y cac DT TTr, QD, DA Dang kiem lan 4.docx` theo
+NT-1, căn cứ Thông báo 736/TB-CĐKT và 817/TB-CĐKT, đã rà soát nhanh theo Checklist 08 — sửa 4 lỗi thể thức
+tự phát hiện: sai mẫu ký hiệu công văn, chính tả "CỘNG HOÀ"→"CỘNG HÒA", tên Phòng TCCB lệch giữa hai nguồn
+nội bộ, thiếu viết hoa sau dấu hai chấm):
+`12-Output/2026-09-18/Cong-Van/DU-THAO_CV_Bo-sung-chinh-sua-ho-so-KH-BC-thang-8-9-2026.docx`.
+
+**Còn cần người có thẩm quyền:** điền số/ngày ban hành thật, xác nhận người ký (bản dự thảo tạm để Hiệu
+trưởng ký trực tiếp theo đúng mẫu văn bản gốc — chưa xác nhận đây có phải thẩm quyền/cấp ký đúng quy trình
+nội bộ cho loại nhắc nhở này hay nên ủy quyền TL./TUQ. cho Trưởng phòng TH-HC&QT), và xác nhận hạn phản hồi
+(bản dự thảo đề xuất 24/9/2026, chỉ là gợi ý).
 
 ---
 
 ## KI-007 — Sai lệch số liệu trong danh mục sản phẩm
 
-**Status:** Open · **Priority:** Thấp
+**Status:** ĐÃ TÌM RA NGUYÊN NHÂN 18/9/2026 — còn chờ người giữ tệp tự sửa (không tự ý sửa nguồn) ·
+**Priority:** Thấp
 
-Sheet `Tong hop theo Truc` ghi Trục 1 có **102** sản phẩm, nhưng cộng theo nhóm trên chính dòng đó ra
-**103** (54+37+7+4+1), và đếm trực tiếp trên sheet dữ liệu cũng ra 103. Lệch 1 sản phẩm, chưa rõ nguyên
-nhân. Không tự ý sửa nguồn.
+Tệp xác định: `KTC-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx`,
+sheet `Tong hop theo Truc`, ô "Số sản phẩm" dòng Trục 1 = **102** (giá trị gõ cứng, không phải công thức).
+
+**Đã kiểm chứng dứt điểm:**
+- Đếm trực tiếp số dòng sản phẩm có `Trục = "Trục 1"` trên sheet `Danh muc san pham`: **103** dòng.
+- Cộng theo Nhóm trên chính dòng đó (54+37+7+4+1): **103**.
+- Đối chiếu 5 Trục còn lại: cả 5 dòng đều khớp đúng giữa "Số sản phẩm" và tổng theo Nhóm (Trục 2:
+  54=27+26+1 · Trục 3: 46=24+21+0+0+1 · Trục 4: 66=37+28+0+0+1 · Trục 5: 71=36+35 · Trục 6: 31=19+12).
+
+**Kết luận:** chỉ một ô duy nhất (Trục 1 / "Số sản phẩm") gõ sai, giá trị đúng là **103**. Không phải lỗi
+cấu trúc, không có dòng trùng/lạc. Đề nghị người giữ tệp sửa ô đó thành 103.
+
+**Phát hiện thêm liên quan trực tiếp KI-014** (xem mục đó): trong chính sheet `Danh muc san pham`
+(371 dòng), 201/371 dòng (54%) mang nhãn "Nhóm" của thang 5 nhóm nhưng cột Điểm vẫn là giá trị thang 4
+mức (100/120/150/200) — nghi là việc gắn nhãn "Nhóm" mới chưa cập nhật hết cột Điểm tương ứng, không phải
+hai thang cố ý cùng tồn tại trong nội bộ một tệp. 3 dòng khác có Điểm bất thường không khớp thang nào
+(dòng 128, 252, 370 — Điểm = 30/0,5/0,3). 4 dòng vi phạm công thức Hệ số = Điểm × 1% (dòng 21, 252, 305,
+370). Đã ghi rõ vị trí dòng để người giữ tệp tự kiểm, không tự sửa.
 
 ---
 
 ## KI-008 — Chưa xác minh "phần mềm KPI"
 
-**Status:** Đã xác định tên, còn treo phạm vi · **Priority:** Cao trước khi số hóa quy trình
+**Status:** Đã tra sâu KTC-Database 18/9/2026, vẫn treo phạm vi — cần hỏi bên ngoài · **Priority:** Cao
+trước khi số hóa quy trình
 **Cập nhật 14/9/2026** (từ `PM-20260914-Chay-thu-KH-thang-9`): `KH-834/KH-CĐKT` ngày 6/9/2026 có nhiệm vụ
 *"Ban hành kế hoạch triển khai phần mềm **VNPT KPI** - Hệ thống quản lý đánh giá, xếp loại..."*.
 
@@ -128,8 +167,23 @@ nhân. Không tự ý sửa nguồn.
 triển khai**, chưa vận hành — nên nguy cơ Master Task Register làm trùng chức năng là **chưa xảy ra**,
 nhưng sẽ xảy ra nếu VNPT KPI đi vào vận hành trước khi Register chốt.
 
-**Còn phải xác minh:** VNPT KPI quản lý tới đâu (chỉ chấm điểm cá nhân, hay cả giao việc và theo dõi tiến
-độ?), và có API/xuất dữ liệu được không. Chưa có tài liệu nào trong kho trả lời.
+**Cập nhật 18/9/2026 — đã tìm sâu theo nguyên tắc bất biến #10** (quét toàn văn 173 tệp `.docx` trong
+`KTC-Database/02-KTC-Regulations`, không chỉ tra tên tệp):
+- **Đã loại trừ nhầm lẫn quan trọng**: hệ thống "**VNPT-Office / VNPT-iOffice**" xuất hiện trong ~10 văn bản
+  (quy chế làm việc, quản lý sáng kiến, đề tài KHCN, lưu hồ sơ dạy học...) là **hệ quản lý văn bản và điều
+  hành** do VNPT Quảng Ngãi cung cấp — **khác hoàn toàn** với "VNPT KPI". Không được nhầm hai hệ này khi
+  tra cứu tiếp.
+- **Không tìm thấy thêm tài liệu nào** trong 173 tệp mô tả phạm vi quản lý hay khả năng xuất dữ liệu của
+  riêng VNPT KPI, ngoài câu nhắc trong `KH-834`.
+- Có văn bản liên quan gần nhất: `QD-CDKT_Phe-duyet-DM-san-pham-ca-nhan-Lanh-dao-Quy-III-2026` (số
+  1883/QĐ-CĐKT, 27/8/2026) — phê duyệt danh mục sản phẩm cá nhân lãnh đạo theo quý, do Phòng TCCB &
+  CTHSSV đề nghị. Đây là đầu mối phụ trách đánh giá KPI hiện tại, **có thể** là nơi nắm phạm vi VNPT KPI,
+  nhưng phụ lục chi tiết của QĐ này không có trong kho (chỉ có văn bản bìa) nên không kiểm chứng được qua
+  tài liệu.
+
+**Còn phải xác minh (không thể làm tiếp bằng tra cứu nội bộ):** VNPT KPI quản lý tới đâu (chỉ chấm điểm cá
+nhân, hay cả giao việc và theo dõi tiến độ?), và có API/xuất dữ liệu được không. **Đề xuất:** hỏi trực tiếp
+Phòng Tổ chức cán bộ và Công tác học sinh – sinh viên (đầu mối theo QĐ 1923 và QĐ 1883).
 
 <details><summary>Nội dung gốc</summary>
 
@@ -145,15 +199,31 @@ thì Master Task Register có nguy cơ làm trùng chức năng.
 
 ## KI-011 — Danh mục nhiệm vụ chuẩn lệch tên Trục/Nội hàm với TB 817
 
-**Status:** Open · **Priority:** Cao — ảnh hưởng mọi phân loại
+**Status:** Đã dựng xong bảng đối chiếu đầy đủ 18/9/2026 — chờ người giữ tệp áp dụng (không tự sửa nguồn)
+· **Priority:** Cao — ảnh hưởng mọi phân loại
 
 `KTC-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Bang tong hop_phan tich_DANH_MUC_NHIEM_VU_CHUAN_TRUC_NOI_HAM_HE_SO.xlsx`
-(122 nhiệm vụ, dự thảo lần 4) dùng tên Trục và Nội hàm **khác** `TB 817/TB-CĐKT` ngày 14/7/2026.
-Ví dụ Trục 1: TB 817 ghi "Thực hiện mục tiêu phát triển kinh tế – xã hội và nhiệm vụ chính trị được giao",
-file danh mục ghi "Lãnh đạo thực hiện nhiệm vụ chính trị". Nội hàm 3 Trục 4 cũng khác tên.
+(122 nhiệm vụ, dự thảo lần 4, sheet `2. Phân loại theo loại TL`) dùng tên Trục **khác** TB 817/TB-CĐKT
+(số 817/TB-CĐKT, 14/7/2026, đã đọc trực tiếp từ `KTC-Database/02-KTC-Regulations/05. TB-817-...docx`).
 
-Hiện lấy TB 817 làm chuẩn (văn bản đã ban hành; BC-375 cũng đặt tiêu đề theo TB 817). Cần rà soát, cập nhật
-file danh mục cho khớp, hoặc xác nhận đây là hai hệ phân loại khác nhau dùng cho hai mục đích khác nhau.
+**Bảng đối chiếu đầy đủ cả 6 Trục** (không chỉ ví dụ Trục 1 như bản ghi cũ):
+
+| Trục | TB 817 (chuẩn, 14/7/2026) | File danh mục (dự thảo lần 4) | Mức lệch |
+|---|---|---|---|
+| 1 | Thực hiện mục tiêu phát triển kinh tế – xã hội và nhiệm vụ chính trị được giao | Lãnh đạo thực hiện nhiệm vụ chính trị | Lớn — thiếu hẳn phần "phát triển kinh tế – xã hội" |
+| 2 | Hoàn thiện thể chế, đẩy mạnh phân cấp, phân quyền gắn với kiểm tra, giám sát | Xây dựng, hoàn thiện thể chế; nâng cao hiệu lực, hiệu quả quản trị và quản lý nhà trường | Trung bình — chung gốc "hoàn thiện thể chế", khác phần còn lại |
+| 3 | Thúc đẩy phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số | Phát triển khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số | Nhỏ — chỉ thiếu động từ "Thúc đẩy" đầu câu |
+| 4 | Xây dựng Đảng và hệ thống chính trị trong sạch, vững mạnh; giữ gìn đoàn kết, thống nhất nội bộ; phòng, chống tham nhũng, lãng phí, tiêu cực | Xây dựng Đảng, hệ thống chính trị; xây dựng đội ngũ cán bộ, viên chức; phát huy sức mạnh đại đoàn kết toàn trường | Lớn — thiếu hẳn phần "phòng, chống tham nhũng, tiêu cực"; thêm phần "đội ngũ cán bộ, viên chức" TB 817 không có ở tên Trục |
+| 5 | Phát triển văn hóa, con người, bảo đảm an sinh xã hội, nâng cao đời sống nhân dân | Phát triển văn hóa, con người; quản lý, khai thác, sử dụng hiệu quả các nguồn lực; bảo vệ môi trường và thực hiện trách nhiệm xã hội | Trung bình — chung "phát triển văn hóa, con người", khác hẳn phần sau |
+| 6 | Củng cố quốc phòng, an ninh, giữ vững ổn định chính trị - xã hội, nâng cao hiệu quả đối ngoại và hội nhập quốc tế | Tăng cường quốc phòng, an ninh, đối ngoại và hội nhập quốc tế | Nhỏ — bản rút gọn, không sai ý |
+
+**Đã xác nhận không phải lỗi ở nơi khác**: `read_bc736_excel.py` (script đọc Phụ lục TB736 thật) đã dùng
+đúng nguyên văn 6 tên Trục của TB 817 — script này KHÔNG bị ảnh hưởng. Vấn đề khoanh vùng đúng vào một
+tệp: danh mục 122 nhiệm vụ chuẩn dự thảo lần 4.
+
+Hiện lấy TB 817 làm chuẩn (văn bản đã ban hành; BC-375 cũng đặt tiêu đề theo TB 817). **Việc còn lại không
+tự làm được**: quyết định cập nhật tên Trục trong file danh mục cho khớp TB 817, hay xác nhận đây là hai
+hệ phân loại cố ý khác nhau — cần người giữ tệp `KTC-Du-lieu-Cong-Viec` quyết định và áp dụng.
 
 ---
 
@@ -236,7 +306,34 @@ danh mục sản phẩm theo loại văn bản, hiện mới là dự thảo l�
 
 **Không tự đặt quy tắc chuyển đổi giữa hai thang.** Điểm quy đổi gắn với đánh giá viên chức.
 
-**Liên quan:** `KI-011` (lệch tên Trục/Nội hàm) · `CP-20260914-001` mục 2.2
+**Bằng chứng bổ sung 18/9/2026 — nghiêng về hướng "di chuyển dở dang" hơn là "hai hệ cố ý độc lập"**
+(chỉ trình bày dữ kiện, không tự kết luận thay người có thẩm quyền):
+- Ngay trong chính tệp đề xuất thang 5 nhóm (`Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx`, sheet
+  `Danh muc san pham`, 371 dòng sản phẩm), có **201/371 dòng (54%)** mang nhãn "Nhóm" (1–5) nhưng cột Điểm
+  của chính dòng đó lại là giá trị của thang 4 mức (100/120/150/200), không phải giá trị thang 5 nhóm đúng
+  nhãn (50/120/250/350/450). Chỉ **167/371 dòng (45%)** có Điểm khớp đúng thang 5 nhóm theo nhãn Nhóm của
+  nó. 3 dòng còn lại có Điểm bất thường (30/0,5/0,3 — có thể là lỗi nhập liệu, xem `KI-007`).
+- Công thức `Hệ số = Điểm × 1%` vẫn đúng **367/371 dòng (99%)** bất kể dòng đó mang giá trị của thang nào —
+  công thức này không giúp phân định thang, chỉ xác nhận lại phát hiện đã có ở dữ liệu vận hành thật.
+- Đã tra `KTC-Database` (173 văn bản `02-KTC-Regulations`): **không tìm thấy Quyết định/Thông báo nào**
+  ban hành chính thức thang 5 nhóm hoặc danh mục sản phẩm theo loại văn bản. Có QĐ 1883/QĐ-CĐKT (27/8/2026)
+  phê duyệt "Danh mục sản phẩm/công việc Quý III/2026" nhưng là danh mục **cá nhân lãnh đạo** (khung đánh
+  giá quý theo Đảng/Nhà nước), khác phạm vi với danh mục sản phẩm 6-Trục toàn Trường đang xét — và phụ lục
+  chi tiết của QĐ này không có trong kho để đối chiếu thang điểm.
+- **Dữ kiện, không phải kết luận:** số liệu cho thấy bản dự thảo lần 4 có thể đang ở giữa chừng một đợt gắn
+  lại nhãn "Nhóm" mới lên dữ liệu cũ mà chưa cập nhật hết cột Điểm — nhưng đây chỉ là một cách đọc dữ kiện,
+  không loại trừ khả năng thang 5 nhóm được cố ý thiết kế khác và 201 dòng kia đúng là cần sửa theo hướng
+  ngược lại. Không đủ căn cứ để AI chọn thay.
+
+**Đề xuất quy trình quyết định** (không phải quyết định): người có thẩm quyền (đơn vị giữ
+`KTC-Du-lieu-Cong-Viec`, phối hợp Phòng TCCB & CTHSSV) xác nhận 1 trong 3 hướng — (a) thang 4 mức là chuẩn
+chính thức, thang 5 nhóm chỉ là bản nháp chưa hoàn thiện việc gắn nhãn; (b) thang 5 nhóm sẽ thay thế thang
+4 mức khi danh mục sản phẩm được ban hành chính thức, cần hoàn thiện lại 201 dòng lệch trước; (c) hai thang
+độc lập thật, cần quy tắc chọn tường minh khi một nhiệm vụ rơi vào cả hai. Sau khi chọn, mới cập nhật
+Master Task Register và các skill liên quan.
+
+**Liên quan:** `KI-011` (lệch tên Trục/Nội hàm) · `KI-007` (cùng tệp, lỗi đếm 102/103) ·
+`CP-20260914-001` mục 2.2
 
 ---
 
@@ -262,7 +359,8 @@ trường hợp soạn lại từ đầu. Regression: `99-Kinh-Nghiem/02-Regress
 
 ## KI-010 — Chưa có nhật ký đợt chạy thử trên Claude Chat
 
-**Status:** Open · **Priority:** Trung bình
+**Status:** Open — đã xác nhận 18/9/2026 không thể tự xử lý, cần người dùng cung cấp · **Priority:** Trung
+bình
 
 Người phụ trách hệ cho biết `ktc-bao-cao` và `ktc-ke-hoach` **đã chạy thử trên Claude Chat**. Dự án
 **chưa có bất kỳ ghi chép nào** về đợt chạy đó: chạy tác vụ gì, đầu vào nào, đầu ra đạt/không đạt ở đâu.
@@ -270,5 +368,9 @@ Người phụ trách hệ cho biết `ktc-bao-cao` và `ktc-ke-hoach` **đã ch
 Đây là dữ liệu vận hành có giá trị cao nhất hiện có (bằng chứng thật về hành vi của skill trên nền tảng
 khác Code) nhưng đang nằm ngoài hệ. Không được suy đoán kết quả.
 
-**Cần làm:** lấy transcript hoặc ghi lại theo mẫu `03-Nhat-Ky-Van-Hanh/02-Mau-Process-Memory.md`, đặc biệt
-ghi các điểm skill **không chạy được trên Chat** do thiếu `python-docx`/`openpyxl`.
+**Đã xác nhận (18/9/2026):** đây là việc AI không tự làm được — cần transcript hoặc mô tả lại từ chính
+phiên Claude Chat đó, dữ liệu này chỉ người dùng có. Không có cách tra cứu nội bộ nào thay thế được.
+
+**Cần làm:** lấy transcript hoặc ghi lại theo mẫu `03-Nhat-Ky-Van-Hanh/02-Mau-Process-Memory.md`, chú ý ghi
+rõ điểm skill **không chạy được trên Chat** do thiếu `python-docx`/`openpyxl` (đo lề/cỡ chữ thật, thao tác
+Track Changes mức OOXML) — đây là thông tin có giá trị cao nhất cần lấy từ đợt chạy đó.
