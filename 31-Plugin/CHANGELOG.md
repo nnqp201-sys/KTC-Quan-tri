@@ -1,5 +1,11 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.5.1 — 2026-09-18
+
+- Đính chính `DL-20260918-005`: chỉ bản chép KTC-Database trên máy bị xóa (đã cũ: thiếu 163/1.171 tệp). Skill/script
+  đọc **bản gốc trên Google Drive** (`duong_dan.py` dò ổ Drive). 5 skill: quan-tri 1.5 · ke-hoach 3.6 · theo-doi-cv 1.4 ·
+  bao-cao 3.11 · soan-thao-vb 1.5. C12 so kích thước trước, không tải cả kho từ Drive.
+
 ## 0.5.0 — 2026-09-18
 
 - **Nguyên tắc 4** (`DL-20260918-005`) nhân xuống 5 skill: quan-tri 1.4 · ke-hoach 3.5 · theo-doi-cv 1.3 · bao-cao 3.10 ·

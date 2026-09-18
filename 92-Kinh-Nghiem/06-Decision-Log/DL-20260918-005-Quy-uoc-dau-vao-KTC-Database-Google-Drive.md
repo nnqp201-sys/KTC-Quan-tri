@@ -7,8 +7,10 @@
    mỗi loại tài liệu một nơi lưu · tìm KTC-Database không qua ổ đĩa · quy tắc Google Drive · kiểm trùng.
 2. **Giữ cả hai nơi** cho 2 tệp gốc năm 2026 trùng KTC-Database (CTCT năm 2026 + QĐ ban hành) — "dữ liệu gốc
    của năm 2026". Ghi thành ngoại lệ tại `10-Dau-Vao/02-Cap-Truong/00-Danh-Muc-Tro-KTC-Database.md`.
-3. **Môi trường:** `.CLAUDE code/` là một thư mục Google Drive dùng chung (tra cứu, quản trị). Bản trên ổ `D:` chỉ
-   để chạy code, **sẽ bị xóa**; về sau chỉ dùng trên Drive. ⇒ Không chỗ nào được phụ thuộc ký tự ổ đĩa.
+3. **Môi trường (người dùng đính chính cùng ngày):** chỉ **bản chép KTC-Database trên ổ `D:`** sẽ bị xóa; bản gốc
+   ở Google Drive `My Drive/KTC-Database` (máy này gắn ở `H:`). **KTC-Quan-tri vẫn chạy tại máy** — git, backup
+   GitHub, Task Scheduler giữ nguyên. Đo 18/9/2026: bản `D:` thiếu 163/1.171 tệp so với Drive ⇒ đã cho script đọc
+   thẳng bản Drive (`duong_dan.py` dò ổ Google Drive), C12 so kích thước trước để không tải cả kho.
 4. **`02-Cap-Truong/` chia `01-Nam/` · `02-Quy/` · `03-Thang/` · `04-Chuyen-De/`** (người dùng yêu cầu Nam/Quy/Thang;
    thêm Chuyên đề vì skill kế hoạch đã có kỳ `YYYY-CD-…` dùng nhánh này).
 
@@ -21,9 +23,7 @@
   `test_c12_c13_kho_va_o_dia.py` (6 ca, có ca ngược).
 - Đề xuất nạp KH Quý III/2026 điều chỉnh (chưa có trong kho): `30-Ket-Qua/2026-09-18/De-xuat/`.
 
-## Việc còn lại khi chuyển hẳn lên Google Drive (chưa làm — chờ người dùng)
-- **Git + GitHub backup:** không nên để thư mục `.git` trong thư mục Drive đồng bộ (Drive có thể làm hỏng kho git
-  khi đồng bộ nhiều tệp nhỏ đang ghi). Khi bỏ bản `D:`, cần chọn: giữ một bản làm việc cục bộ ngoài Drive cho
-  code/backup, hoặc bỏ backup GitHub.
-- **Task Scheduler** backup 21:00 đang trỏ `D:\…` — phải trỏ lại hoặc tắt khi xóa bản `D:`.
-- Hook nhật ký/doctor tự dò dự án theo thư mục làm việc — không phụ thuộc ổ đĩa.
+## Trước khi xóa bản chép `D:\…\KTC-Database`
+- Kiểm tra thư mục `.CLAUDE code` trên ổ `D:` **không** được Google Drive đồng bộ kiểu "phản chiếu/sao lưu máy tính"
+  — nếu có, xóa ở máy sẽ xóa luôn bản trên Drive của mục đó. Bản gốc ở `My Drive/KTC-Database` là thư mục riêng.
+- Sau khi xóa: chạy `python 29-Cong-Cu/kiem_tra_he_thong.py` — C12 phải vẫn tìm thấy kho (qua ổ Google Drive).

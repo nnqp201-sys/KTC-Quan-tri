@@ -23,10 +23,10 @@ NGOAI = os.path.dirname(DU_AN)
 
 # He dang dung -> (thu muc, goi .skill)
 HE = {
-    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.10.skill"),
-    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.5.skill"),
-    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.4.skill"),
-    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.3.skill"),
+    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.11.skill"),
+    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.6.skill"),
+    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.5.skill"),
+    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.4.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
 }
 # He da thay the — bo qua, khong bat loi
@@ -509,16 +509,41 @@ def ngoai_le_trung(du_an):
 def c12_trung_kho(du_an=DU_AN, kho=None):
     """Da mac 18/9/2026: 2 tep 10-Dau-Vao trung byte voi KTC-Database ma khong ai biet."""
     tieu_de("C12. Đầu vào trùng KTC-Database (Nguyên tắc 4.4 — trỏ thay vì chép)")
-    kho = kho or os.path.join(os.environ.get("KTC_DATABASE_DIR") or os.path.dirname(du_an), "KTC-Database") \
-        if not kho else kho
+    if not kho:
+        sys.path.insert(0, os.path.join(DU_AN, "29-Cong-Cu"))
+        from duong_dan import ktc_database
+        try:
+            kho = ktc_database()
+        except FileNotFoundError:
+            kho = ""
     if not os.path.isdir(kho):
         canh_bao.append("C12: không tìm thấy KTC-Database — bỏ qua kiểm trùng")
         print("  ⚠ không tìm thấy KTC-Database — bỏ qua"); return
-    bam = {}
+    # Kho nam tren Google Drive (tai theo yeu cau): chi doc KICH THUOC (metadata, khong tai tep);
+    # chi bam tep kho co cung kich thuoc voi mot tep dau vao. Tep Google (.gdoc/.gsheet) khong co byte -> bo.
+    theo_co = {}
     for r, ds, fs in os.walk(kho):
         for f in fs:
-            if f != "desktop.ini" and not f.endswith(".md"):
-                bam.setdefault(md5(os.path.join(r, f)), os.path.relpath(os.path.join(r, f), kho))
+            if f == "desktop.ini" or f.endswith((".md", ".gdoc", ".gsheet", ".gslides")):
+                continue
+            p = os.path.join(r, f)
+            try:
+                theo_co.setdefault(os.path.getsize(p), []).append(p)
+            except OSError:
+                pass
+    bam_kho = {}
+
+    def trung_trong_kho(p):
+        for q in theo_co.get(os.path.getsize(p), []):
+            if q not in bam_kho:
+                try:
+                    bam_kho[q] = md5(q)
+                except OSError:
+                    bam_kho[q] = None
+            if bam_kho[q] and bam_kho[q] == md5(p):
+                return os.path.relpath(q, kho)
+        return None
+
     cho_phep = ngoai_le_trung(du_an)
     vao = os.path.join(du_an, "10-Dau-Vao")
     n = trung_ok = 0
@@ -527,7 +552,7 @@ def c12_trung_kho(du_an=DU_AN, kho=None):
             if f == "desktop.ini" or f.endswith(".md"):
                 continue
             p = os.path.join(r, f); n += 1
-            k = bam.get(md5(p))
+            k = trung_trong_kho(p)
             if not k:
                 continue
             if os.path.normpath(p) in cho_phep:

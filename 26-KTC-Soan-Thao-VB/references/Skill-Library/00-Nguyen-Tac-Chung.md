@@ -73,8 +73,9 @@ mẫu → cảnh báo cho đơn vị tự sửa, không tự sửa số liệu. 
 
 ## Nguyên tắc 4 — Nơi lưu đầu vào, cách tìm KTC-Database, làm việc trên Google Drive (18/9/2026)
 
-KTC-Quan-tri và KTC-Database là **hai thư mục ngang cấp trong cùng một thư mục Google Drive dùng chung**.
-Bản sao trên ổ máy chỉ để chạy script, sẽ bị bỏ — **không phụ thuộc ký tự ổ đĩa** (`D:`, `G:`…).
+**KTC-Database chỉ còn bản gốc trên Google Drive** (`My Drive/KTC-Database`, tài khoản quản trị kho). Bản chép
+ở máy sẽ bị xóa và đã cũ (18/9/2026: thiếu 163/1.171 tệp). KTC-Quan-tri chạy tại máy. **Không ghi cứng ký tự
+ổ đĩa** — ổ Google Drive khác nhau giữa các máy (`G:`, `H:`…).
 
 **4.1. Mỗi loại tài liệu một nơi lưu**
 
@@ -90,15 +91,17 @@ Bản sao trên ổ máy chỉ để chạy script, sẽ bị bỏ — **không 
 `02-Cap-Truong/` được giữ song song với KTC-Database (người dùng quyết 18/9/2026) — liệt kê tại
 `10-Dau-Vao/02-Cap-Truong/00-Danh-Muc-Tro-KTC-Database.md`; tệp trùng ngoài danh mục đó là lỗi phải báo.
 
-**4.2. Tìm KTC-Database theo thứ tự** (không ghi cứng đường dẫn ổ đĩa)
+**4.2. Tìm KTC-Database theo thứ tự** (không ghi cứng đường dẫn ổ đĩa — công cụ: `29-Cong-Cu/duong_dan.py`)
 1. Biến môi trường `KTC_DATABASE_DIR`.
-2. Thư mục ngang cấp: `<thư mục cha của KTC-Quan-tri>/KTC-Database`.
-3. Chat/Cowork/tài khoản Team: tìm thư mục tên `KTC-Database` qua kết nối Google Drive.
-4. Không thấy → **dừng và hỏi** (Nguyên tắc bất biến).
+2. Ổ Google Drive for Desktop: `<ổ>:/My Drive/KTC-Database` (hoặc `Drive của tôi`, `Shared drives/*/`) — **bản gốc**.
+3. Thư mục ngang cấp `<cha của KTC-Quan-tri>/KTC-Database` — bản chép cục bộ, **có thể cũ**, phải cảnh báo.
+4. Chat/Cowork/tài khoản Team: tìm thư mục tên `KTC-Database` qua kết nối Google Drive.
+5. Không thấy → **dừng và hỏi** (Nguyên tắc bất biến).
 
 **4.3. Google Drive**
 - Máy chạy script: đặt cả hai thư mục **"Có sẵn khi không có mạng"** (Available offline) để đọc được byte thật.
-- Tệp Google Docs/Sheets: tải xuống `.docx`/`.xlsx` rồi mới đưa vào đầu vào.
+- Tệp Google Docs/Sheets (`.gdoc`/`.gsheet`) không có byte để đọc: tải xuống `.docx`/`.xlsx` rồi mới dùng làm đầu vào hay căn cứ.
+- Không băm/tải cả kho trên Drive: so kích thước trước (metadata), chỉ đọc tệp nghi trùng.
 - Đóng tệp đang mở trong Word/Excel trước khi chạy tổng hợp (tệp mở bị khóa, không đọc/dời được).
 - Bản trùng Drive tự sinh (hậu tố `(1)`): chỉ báo cáo, không tự xóa.
 - Quyền: thành viên Team **xem** KTC-Database; chỉ đầu mối quản trị được sửa.
