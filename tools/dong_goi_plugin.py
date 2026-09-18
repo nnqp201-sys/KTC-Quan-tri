@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """Dong goi KTC-Quan-tri thanh MOT plugin Claude Code/Cowork (5 skill con chung 1 plugin).
 
-Nguon: tai dung nguyen ven noi dung 5 goi .skill DA XAC MINH trong phien 18/9/2026
-(DL-20260918-001) — khong doc lai tu 01-Chuan-Chung/references roi/ de tranh nguy co
-lech ban giua hai duong dong goi song song. Chi doi:
-  1. Ten thu muc + frontmatter `name:` — bo tien to "ktc-" (goi da la namespace).
-  2. 3 tham chieu co that nhung CHUA duoc dong goi trong ktc-soan-thao-vb (phat hien
-     18/9/2026 khi doi chieu): 14-Nguyen-Tac-Soan-Thao-Bat-Bien.md,
-     15-Skill-Track-Changes.md, tools/ktc_trackchanges.py.
+Nguon: tai dung nguyen ven noi dung 5 goi .skill DA XAC MINH — khong doc lai tu
+01-Chuan-Chung/references roi/ de tranh nguy co lech ban giua hai duong dong goi
+song song. Chi doi ten thu muc + frontmatter `name:` — bo tien to "ktc-" (goi da
+la namespace).
+
+Lich su: ban dau (18/9/2026) ktc-soan-thao-vb-v1.1 thieu 3 tham chieu that
+(14-Nguyen-Tac-Soan-Thao-Bat-Bien.md, 15-Skill-Track-Changes.md,
+tools/ktc_trackchanges.py) nen script nay tung phai tu va rieng. Da sua tan goc
+trong ktc-soan-thao-vb-v1.2 (them 3 tep vao chinh references/Skill-Library/ cua
+he do) — script nay khong can va nua, chi giai nen thuan tuy nhu 4 he con lai.
 
 Chay: python tools/dong_goi_plugin.py
 """
@@ -27,17 +30,25 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
     (os.path.join(DU_AN, "KTC-Bao-Cao", "ktc-bao-cao-v3.7.skill"), "ktc-bao-cao", "bao-cao"),
     (os.path.join(DU_AN, "KTC-Ke-Hoach", "ktc-ke-hoach-v3.3.skill"), "ktc-ke-hoach", "ke-hoach"),
-    (os.path.join(DU_AN, "KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.1.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
+    (os.path.join(DU_AN, "KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.2.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.1.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
 ]
 
-PLUGIN_VERSION = "0.1.0"
+PLUGIN_VERSION = "0.1.1"  # 0.1.0 (18/9) -> 0.1.1: soan-thao-vb doi sang v1.2, khong con phai vá rieng
+
+
+# Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc plugin/ la viet
+# tay, KHONG duoc dong o day — bai hoc 18/9/2026: lan dau don ca thu muc goc da
+# xoa mat ca hai tep nay.
+THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts"]
 
 
 def don_sach(p: str):
-    if os.path.exists(p):
-        shutil.rmtree(p)
-    os.makedirs(p)
+    os.makedirs(p, exist_ok=True)
+    for ten in THU_MUC_SINH_TU_DONG:
+        con = os.path.join(p, ten)
+        if os.path.exists(con):
+            shutil.rmtree(con)
 
 
 def giai_nen_skill(goi: str, ten_goc: str, dich: str):
@@ -80,46 +91,6 @@ def build_skills():
         print(f"  ✓ {ten_moi:14s} <- {os.path.relpath(goi, DU_AN)}  ({n} tep)")
 
 
-def vas_lo_hong_soan_thao_vb():
-    """3 tham chieu co that trong SKILL.md nhung chua duoc dong goi (phat hien 18/9/2026)."""
-    print("── Vá 3 lỗ hổng tham chiếu của ktc-soan-thao-vb ──")
-    dich = os.path.join(PLUGIN_DIR, "skills", "soan-thao-vb")
-
-    # 1) hai tep .md tu 01-Chuan-Chung/
-    for ten in ("14-Nguyen-Tac-Soan-Thao-Bat-Bien.md", "15-Skill-Track-Changes.md"):
-        src = os.path.join(DU_AN, "01-Chuan-Chung", ten)
-        dst = os.path.join(dich, "references", ten)
-        shutil.copyfile(src, dst)
-        print(f"  ✓ them {ten} vao skills/soan-thao-vb/references/")
-
-    # 2) cong cu Track Changes -> scripts/ dung chung cap plugin
-    scripts_dir = os.path.join(PLUGIN_DIR, "scripts")
-    os.makedirs(scripts_dir, exist_ok=True)
-    shutil.copyfile(os.path.join(DU_AN, "tools", "ktc_trackchanges.py"),
-                     os.path.join(scripts_dir, "ktc_trackchanges.py"))
-    print("  ✓ them tools/ktc_trackchanges.py -> plugin/scripts/ktc_trackchanges.py")
-
-    # 3) sua duong dan trong SKILL.md cho khop vi tri moi
-    skill_md = os.path.join(dich, "SKILL.md")
-    s = io.open(skill_md, encoding="utf-8").read()
-    thay = {
-        "`KTC-Quan-tri/01-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`":
-            "`${CLAUDE_PLUGIN_ROOT}/skills/soan-thao-vb/references/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`",
-        "`01-Chuan-Chung/15-Skill-Track-Changes.md`":
-            "`${CLAUDE_PLUGIN_ROOT}/skills/soan-thao-vb/references/15-Skill-Track-Changes.md`",
-        "`KTC-Quan-tri/tools/ktc_trackchanges.py`":
-            "`${CLAUDE_PLUGIN_ROOT}/scripts/ktc_trackchanges.py`",
-    }
-    n = 0
-    for cu, moi in thay.items():
-        if cu not in s:
-            raise SystemExit(f"KHONG tim thay chuoi can thay trong SKILL.md: {cu!r}")
-        s = s.replace(cu, moi)
-        n += 1
-    io.open(skill_md, "w", encoding="utf-8").write(s)
-    print(f"  ✓ sua {n} duong dan trong skills/soan-thao-vb/SKILL.md -> \\${{CLAUDE_PLUGIN_ROOT}}/...")
-
-
 def ghi_json(path: str, obj: dict):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     io.open(path, "w", encoding="utf-8").write(
@@ -145,11 +116,12 @@ def build_manifest():
         "keywords": ["ktc", "vietnam", "quan-tri", "ke-hoach", "bao-cao", "soan-thao-van-ban"],
         "defaultEnabled": False,
         "metadata": {
-            "builtFrom": "5 gói .skill đã xác minh 18/9/2026 (DL-20260918-001)",
+            "builtFrom": "5 gói .skill đã xác minh 18/9/2026 (DL-20260918-001; soan-thao-vb nâng lên v1.2 "
+                         "cùng ngày để vá 3 tham chiếu gãy)",
             "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
                                        "bắt buộc chạy `claude plugin validate ./plugin --strict` trước khi bật.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.7.skill", "ktc-ke-hoach-v3.3.skill",
-                              "ktc-soan-thao-vb-v1.1.skill", "ktc-theo-doi-cv-v1.1.skill"],
+                              "ktc-soan-thao-vb-v1.2.skill", "ktc-theo-doi-cv-v1.1.skill"],
         },
     }
     ghi_json(os.path.join(PLUGIN_DIR, ".claude-plugin", "plugin.json"), manifest)
@@ -246,7 +218,6 @@ def build_doctor_script():
 if __name__ == "__main__":
     don_sach(PLUGIN_DIR)
     build_skills()
-    vas_lo_hong_soan_thao_vb()
     build_manifest()
     build_hooks()
     build_doctor_script()

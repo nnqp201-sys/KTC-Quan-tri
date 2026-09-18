@@ -3,7 +3,7 @@
 Plugin Claude Code/Cowork cho chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum:
 Kế hoạch → Theo dõi → Kết quả/Bằng chứng → Báo cáo, kèm hệ soạn thảo văn bản hành chính.
 
-**Nguồn dựng:** 5 gói `.skill` đã xác minh byte-for-byte ngày 18/9/2026 (xem
+**Nguồn dựng:** 5 gói `.skill` hiện hành theo `tools/kiem_tra_he_thong.py` (xem
 `99-Kinh-Nghiem/06-Decision-Log/DL-20260918-001-...md` trong repo dự án) — không dựng lại từ đầu, không
 đọc lại nguồn rời, để tránh nguy cơ lệch bản giữa hai đường đóng gói song song.
 
@@ -24,8 +24,8 @@ Gọi bằng `<tên-plugin>:<tên-skill>`, ví dụ `ktc-quan-tri:bao-cao`.
 - **Cowork:** Skills + subagents + connectors + local file tools khi được cấp quyền. Hook `SessionStart`
   chạy được.
 - **Claude Code:** Đầy đủ Skills + hooks + script trong `scripts/`. Đây là nền tảng duy nhất chạy được
-  `scripts/ktc_trackchanges.py` (thao tác Track Changes mức OOXML, cần `python-docx`) và đo lề/cỡ chữ thật
-  từ `.docx`.
+  `skills/soan-thao-vb/references/Skill-Library/ktc_trackchanges.py` (thao tác Track Changes mức OOXML,
+  cần `python-docx`) và đo lề/cỡ chữ thật từ `.docx`.
 - **Claude Chat:** chưa thử nghiệm qua đường plugin này (Chat trước nay dùng đường Skill rời từng hệ, xem
   `KI-010` trong repo dự án — chưa có nhật ký đợt chạy đó).
 
@@ -53,5 +53,14 @@ trước khi coi là sẵn sàng phát hành**, đúng quy tắc runtime của d
 python tools/dong_goi_plugin.py
 ```
 
-Chạy từ gốc dự án `KTC-Quan-tri`. Script tái dựng toàn bộ `plugin/` từ 5 gói `.skill` đang được
-`tools/kiem_tra_he_thong.py` coi là hiện hành — không sửa tay bất kỳ tệp nào trong `plugin/skills/`.
+Chạy từ gốc dự án `KTC-Quan-tri`. Script chỉ dọn và tái dựng các thư mục sinh tự động
+(`skills/`, `.claude-plugin/`, `hooks/`, `scripts/`) từ 5 gói `.skill` đang được `tools/kiem_tra_he_thong.py`
+coi là hiện hành — **không đụng tới** `README.md`/`CHANGELOG.md` này (viết tay) và không sửa tay bất kỳ
+tệp nào trong `plugin/skills/`.
+
+Sau khi build, muốn cập nhật bản cài trong marketplace cục bộ thì tự chép đè:
+
+```bash
+rm -rf ~/.claude/ktc-marketplace/ktc-quan-tri
+cp -r plugin ~/.claude/ktc-marketplace/ktc-quan-tri
+```

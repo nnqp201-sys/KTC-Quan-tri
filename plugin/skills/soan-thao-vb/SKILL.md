@@ -5,7 +5,7 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.1 — 14/9/2026
+## Phiên bản: v1.2 — 18/9/2026
 
 Kế thừa từ `KTC-DIS-Tong-Hop-VB`, **thu hẹp có chủ đích** về đúng năng lực soạn thảo.
 Căn cứ quyết định: `99-Kinh-Nghiem/06-Decision-Log/DL-20260914-001-Vai-tro-KTC-DIS-Tong-Hop-VB.md`.
@@ -37,14 +37,14 @@ Chi tiết: `references/Skill-Library/00-Nguyen-Tac-Chung.md`.
 
 ## Bốn nguyên tắc soạn thảo bắt buộc
 
-Đặc tả đầy đủ: `${CLAUDE_PLUGIN_ROOT}/skills/soan-thao-vb/references/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`.
+Đặc tả đầy đủ: `references/Skill-Library/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`.
 
 1. **Phát triển từ văn bản cùng loại đã ban hành**, không dựng từ mẫu trống. Mẫu trống có bố cục nhưng
    **không chứa văn phong, độ nén, cách nêu số liệu**. Thứ tự nguồn: cùng loại cùng kỳ đã ban hành →
    kỳ gần nhất trong `04-Good-Documents/` → cùng loại khác cấp → mẫu trống `.dotx` (chỉ lấy số đo).
 2. **Soạn trên văn bản đã có thì bật Track Changes** và xuất phát từ chính tệp gốc — không soạn lại rồi
-   trình bày như bản sửa. Quy trình: `${CLAUDE_PLUGIN_ROOT}/skills/soan-thao-vb/references/15-Skill-Track-Changes.md`; công cụ:
-   `${CLAUDE_PLUGIN_ROOT}/scripts/ktc_trackchanges.py`. Chỉ chạy được trên Claude Code.
+   trình bày như bản sửa. Quy trình: `references/Skill-Library/15-Skill-Track-Changes.md`; công cụ:
+   `references/Skill-Library/ktc_trackchanges.py`. Chỉ chạy được trên Claude Code.
 3. **Dùng bộ quy tắc `ktc-ra-soat-897` ngay từ lúc bắt đầu viết**, không đợi bước rà soát cuối.
 4. **`KTC-Database` là cơ sở dữ liệu tham mưu** — tra sâu chiến lược, đề án, kế hoạch và báo cáo chuyên đề,
    quy định nội bộ để có căn cứ; không chỉ tra một văn bản lẻ.

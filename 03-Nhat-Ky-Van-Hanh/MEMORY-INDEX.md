@@ -137,7 +137,7 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 | Bộ kiểm tra Tầng 1 | **11 phép kiểm**, 4 ca hồi quy. C5 soi cả bản trong `.skill` — `DL-20260914-002` |
 | Gói `ktc-bao-cao` | **`ktc-bao-cao-v3.7.skill`** (15/9/2026) — build đã xong từ 15/9 nhưng chưa gắn vào hệ; xác minh và trỏ chính thức 18/9/2026 (`DL-20260918-001`). Các gói cũ (`v3.6` trở về trước) giữ lại để hoàn tác, **không dùng** |
 | Gói `ktc-ke-hoach` | **`ktc-ke-hoach-v3.3.skill`** (15/9/2026) — cùng đợt hoàn tất 18/9/2026 (`DL-20260918-001`). Gói cũ (`v3.2` trở về trước) giữ lại để hoàn tác, **không dùng** |
-| Gói soạn thảo | **`ktc-soan-thao-vb-v1.1.skill`** (15/9/2026) — cùng đợt hoàn tất 18/9/2026 (`DL-20260918-001`), thay `ktc-soan-thao-vb.skill` (v1.0). Hệ `ktc-dis-tong-hop-vb` cũ chờ dọn thủ công |
+| Gói soạn thảo | **`ktc-soan-thao-vb-v1.2.skill`** (18/9/2026) — vá 3 tham chiếu gãy có từ trước (nguyên tắc soạn thảo bất biến, quy trình + công cụ Track Changes chưa từng nằm trong gói). Gói cũ (`v1.1` trở về trước) giữ để hoàn tác. Hệ `ktc-dis-tong-hop-vb` cũ chờ dọn thủ công |
 | SKILL.md | v1.1 — bộ định tuyến 5 tác vụ |
 | Lớp chuẩn chung | `01-Chuan-Chung/` — 9 tệp, 4 tệp riêng còn ở trạng thái dự thảo |
 | Master Task Register | `Master-Task-Register_20260913_v0.1.xlsx` — 46 trường, sổ trống |
