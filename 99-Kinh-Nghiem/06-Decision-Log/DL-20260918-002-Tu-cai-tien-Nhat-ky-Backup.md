@@ -1,6 +1,6 @@
 # DL-20260918-002 — Thêm agent tự cải tiến, tự ghi nhật ký, tự backup GitHub vào plugin
 
-**Ngày:** 18/9/2026 · **Trạng thái:** ✅ Đã thực hiện (backup còn chờ URL repo) · **Plugin:** `ktc-quan-tri` 0.2.0
+**Ngày:** 18/9/2026 · **Trạng thái:** ✅ Đã thực hiện — backup đã nối `nnqp201-sys/KTC-Quan-tri` (private), push lần đầu 18/9/2026 20:03 · **Plugin:** `ktc-quan-tri` 0.2.0
 **Yêu cầu:** người dùng — "thêm Agent Self-improving, cơ chế tự log và lưu vào context, cơ chế tự backup mỗi ngày lên GitHub"
 
 ## Quyết định thiết kế
