@@ -12,23 +12,13 @@ Mục tiêu cuối: **một nhiệm vụ – một mã – một dòng dữ li�
 
 ```
 KTC-Quan-tri/
-├── CLAUDE.md · 00-README.md
-├── SKILL.md · ktc-quan-tri.skill   Gói Claude Skill cấp dự án (bản tham chiếu + gói cài)
+├── CLAUDE.md · 00-README.md · README.md
 │
-├── 01-Chuan-Chung/          Bản GỐC của quy tắc và bảng mã dùng chung
-├── 02-Master-Task-Register/ Sổ dữ liệu trung tâm của 3 hệ — ưu tiên số 1
-├── 03-Nhat-Ky-Van-Hanh/     Bộ nhớ quá trình — MEMORY-INDEX, mẫu PM, 03-Process-Memory/
-├── 04-Tai-Lieu-Thiet-Ke/    Kế hoạch hợp nhất, mô tả Hệ thống KTC, ghi chú kiểm chứng
-├── 12-Output/YYYY-MM-DD/    Kết quả xuất ra
-├── 99-Kinh-Nghiem/          Lớp tiến hóa tri thức — bài học, quyết định, lỗi đã biết, release notes
-├── 99-Luu-Tru/              Bản trùng, bản thay thế
-│
-└── Năm hệ con:
-    ├── KTC-Ke-Hoach/          PIS — lập kế hoạch, sinh nhiệm vụ chuẩn, cấp Task_ID
-    ├── KTC-Theo-doi-CV/       Control tower — vòng đời, tiến độ, cảnh báo, minh chứng
-    ├── KTC-Bao-Cao/           RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
-    ├── KTC-Soan-Thao-VB/   Soạn thảo, chuẩn hóa văn bản hành chính
-    └── Du-lieu-Cong-Viec/ Dữ liệu nền định lượng — nhiệm vụ chuẩn, sản phẩm, KPI, khung đánh giá
+├── INPUT     10-Dau-Vao/ · 11-Du-lieu-Cong-Viec/
+├── PROCESS   20-Chuan-Chung/ · 21-Master-Task-Register/ · 22-Dieu-Phoi/ (skill ktc-quan-tri)
+│             23-KTC-Ke-Hoach/ · 24-KTC-Theo-doi-CV/ · 25-KTC-Bao-Cao/ · 26-KTC-Soan-Thao-VB/ · 29-Cong-Cu/
+├── OUTPUT    30-Ket-Qua/YYYY-MM-DD/ · 31-Plugin/
+└── QUẢN TRỊ  90-Nhat-Ky-Van-Hanh/ · 91-Tai-Lieu-Thiet-Ke/ · 92-Kinh-Nghiem/ · 99-Luu-Tru/
 ```
 
 ## Đọc theo thứ tự này
@@ -36,15 +26,15 @@ KTC-Quan-tri/
 | # | Tài liệu | Để biết |
 |---|---|---|
 | 1 | `CLAUDE.md` | Quy ước làm việc, nguyên tắc bất biến, cách liên kết `KTC-Database` |
-| 2 | `04-Tai-Lieu-Thiet-Ke/Ke-hoach-hop-nhat-KTC-Ke-Hoach-KTC-Bao-Cao-KTC-Theo-Doi.md` | Kiến trúc hợp nhất, lộ trình 6 giai đoạn — tài liệu điều khiển chính |
-| 3 | `01-Chuan-Chung/11-Quy-Tac-Task-ID.md` | Phân biệt Task_ID với mã nhiệm vụ chuẩn — nhầm chỗ này là hỏng gốc |
-| 4 | `01-Chuan-Chung/13-Bang-Ma-Don-Vi.md` | 11 mã đơn vị và mức lệch dữ liệu đang có |
-| 5 | `02-Master-Task-Register/00-README.md` | Bộ 46 trường, phân quyền ghi, việc cần xong trước v1.0 |
-| 6 | `04-Tai-Lieu-Thiet-Ke/Mo-Ta-Chi-Tiet-He-hệ thống KTC-...md` | Toàn cảnh 5 Hệ thống KTC, khác biệt Chat/Cowork/Code |
+| 2 | `91-Tai-Lieu-Thiet-Ke/Ke-hoach-hop-nhat-KTC-Ke-Hoach-KTC-Bao-Cao-KTC-Theo-Doi.md` | Kiến trúc hợp nhất, lộ trình 6 giai đoạn — tài liệu điều khiển chính |
+| 3 | `20-Chuan-Chung/11-Quy-Tac-Task-ID.md` | Phân biệt Task_ID với mã nhiệm vụ chuẩn — nhầm chỗ này là hỏng gốc |
+| 4 | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` | 11 mã đơn vị và mức lệch dữ liệu đang có |
+| 5 | `21-Master-Task-Register/00-README.md` | Bộ 46 trường, phân quyền ghi, việc cần xong trước v1.0 |
+| 6 | `91-Tai-Lieu-Thiet-Ke/Mo-Ta-Chi-Tiet-He-hệ thống KTC-...md` | Toàn cảnh 5 Hệ thống KTC, khác biệt Chat/Cowork/Code |
 
-**Mở đầu mỗi phiên làm việc:** đọc `03-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md` trước tiên — sự thật vận hành hiện
+**Mở đầu mỗi phiên làm việc:** đọc `90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md` trước tiên — sự thật vận hành hiện
 hành, phiên bản đang dùng, thứ tự ưu tiên nguồn. Việc đang mở xem
-`99-Kinh-Nghiem/05-Known-Issues/Pending.md`.
+`92-Kinh-Nghiem/05-Known-Issues/Pending.md`.
 
 ## Gói Claude Skill cấp dự án
 
@@ -54,8 +44,8 @@ và cấp Task_ID · theo dõi và cảnh báo · đối chiếu ba hệ · ch�
 Cài bằng nút **Save skill** trên Claude. Gói **không mang theo dữ liệu** — vẫn cần Project kết nối Google
 Drive tới `KTC-Quan-tri/` và `KTC-Database/`.
 
-`SKILL.md` ở gốc là **bản tham chiếu**; bản chính thức nằm trong gói `.skill`. Bốn tệp tham chiếu `12`,
-`20`, `21`, `22` trong gói là bản sao của `01-Chuan-Chung/` — sửa ở bản gốc trước, rồi đóng gói lại.
+`22-Dieu-Phoi/SKILL.md` là **bản tham chiếu**; bản chính thức nằm trong gói `.skill`. Bốn tệp tham chiếu `12`,
+`20`, `21`, `22` trong gói là bản sao của `20-Chuan-Chung/` — sửa ở bản gốc trước, rồi đóng gói lại.
 
 ## Nguồn dữ liệu ngoài dự án
 
@@ -74,4 +64,4 @@ Ba nút thắt cần gỡ, theo thứ tự:
 1. **Phụ lục Ia/Ib của TB736 chưa có cột `Task_ID`** — chừng nào chưa có, kế hoạch và báo cáo chỉ đối chiếu
    gần đúng theo Trục + tên nhiệm vụ, không đối chiếu 1-1 được.
 2. **Danh mục 122 nhiệm vụ chuẩn mới phủ 5/11 đơn vị**, sáu Khoa hoàn toàn vắng mặt.
-3. **Hai nhánh `.skill` của `KTC-Bao-Cao` chưa gộp** — xem `KTC-Bao-Cao/00-TRANG-THAI-GOI-SKILL.md`.
+3. **Hai nhánh `.skill` của `KTC-Bao-Cao` chưa gộp** — xem `25-KTC-Bao-Cao/00-TRANG-THAI-GOI-SKILL.md`.

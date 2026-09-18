@@ -1,8 +1,8 @@
 # Cache Python — sinh lai moi lan chay, khong dua vao backup
 __pycache__/
 *.pyc
-# Ket qua trung gian cua tools/ (CLAUDE.md: "xoa duoc")
-tools/_trung_gian/
+# Ket qua trung gian cua 29-Cong-Cu/ (CLAUDE.md: "xoa duoc")
+29-Cong-Cu/_trung_gian/
 
 # Tệp do ứng dụng Claude (Desktop/Cowork) xuất ra — bản nháp cá nhân, không đưa lên GitHub
 Claude outputs/

@@ -2,7 +2,7 @@
 
 Thư mục gốc của dự án hợp nhất ba hệ **KTC-Kế-Hoạch → KTC-Theo-Dõi → KTC-Báo-Cáo** thành một chu trình
 quản trị nhiệm vụ khép kín cho Trường Cao đẳng Kon Tum, kèm hệ soạn thảo văn bản hành chính
-`KTC-Soan-Thao-VB` và kho dữ liệu nền định lượng `Du-lieu-Cong-Viec`.
+`KTC-Soan-Thao-VB` và kho dữ liệu nền định lượng `11-Du-lieu-Cong-Viec`.
 
 Chu trình đích:
 > Chủ trương/Văn bản → Nhiệm vụ → Kế hoạch → Giao việc → Theo dõi → Kết quả/Bằng chứng → Báo cáo →
@@ -17,45 +17,57 @@ Mở đầu **mỗi phiên**: đọc mục 1 rồi mục 2 trước — sự th�
 
 | Thứ tự | Tài liệu | Nội dung |
 |---|---|---|
-| 1 | `03-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md` | Sự thật vận hành hiện hành, phiên bản đang dùng, thứ tự ưu tiên nguồn |
-| 2 | `99-Kinh-Nghiem/05-Known-Issues/Pending.md` | Việc đang mở; không lặp lại trạng thái ở đây |
-| 3 | `04-Tai-Lieu-Thiet-Ke/Ke-hoach-hop-nhat-KTC-Ke-Hoach-KTC-Bao-Cao-KTC-Theo-Doi.md` | Kiến trúc hợp nhất, Master Task Register, lộ trình 6 giai đoạn — tài liệu điều khiển chính |
-| 4 | `01-Chuan-Chung/11-Quy-Tac-Task-ID.md` | Phân biệt Task_ID với mã nhiệm vụ chuẩn `A01`–`S04` — nhầm chỗ này là hỏng gốc |
-| 5 | `01-Chuan-Chung/13-Bang-Ma-Don-Vi.md` | 11 mã đơn vị chuẩn và mức lệch dữ liệu thật đang có |
-| 6 | `04-Tai-Lieu-Thiet-Ke/Mo-Ta-Chi-Tiet-He-KTC-DIS-Chat-Cowork-Code.md` | Toàn cảnh 5 Hệ thống KTC, khác biệt Chat/Cowork/Code, các khoảng lệch cần xử lý |
-| 7 | `04-Tai-Lieu-Thiet-Ke/GHI-CHU-CAU-NOI-3-HE.md` | Kiểm chứng khóa liên kết Theo-dõi-CV ↔ Báo-Cáo. **Lưu ý**: kết luận "tên đơn vị khớp 100%" dựa trên dữ liệu mẫu, đã bị đối chiếu thật bác bỏ — lấy theo mục 5 |
+| 1 | `90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md` | Sự thật vận hành hiện hành, phiên bản đang dùng, thứ tự ưu tiên nguồn |
+| 2 | `92-Kinh-Nghiem/05-Known-Issues/Pending.md` | Việc đang mở; không lặp lại trạng thái ở đây |
+| 3 | `91-Tai-Lieu-Thiet-Ke/Ke-hoach-hop-nhat-KTC-Ke-Hoach-KTC-Bao-Cao-KTC-Theo-Doi.md` | Kiến trúc hợp nhất, Master Task Register, lộ trình 6 giai đoạn — tài liệu điều khiển chính |
+| 4 | `20-Chuan-Chung/11-Quy-Tac-Task-ID.md` | Phân biệt Task_ID với mã nhiệm vụ chuẩn `A01`–`S04` — nhầm chỗ này là hỏng gốc |
+| 5 | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` | 11 mã đơn vị chuẩn và mức lệch dữ liệu thật đang có |
+| 6 | `91-Tai-Lieu-Thiet-Ke/Mo-Ta-Chi-Tiet-He-KTC-DIS-Chat-Cowork-Code.md` | Toàn cảnh 5 Hệ thống KTC, khác biệt Chat/Cowork/Code, các khoảng lệch cần xử lý |
+| 7 | `91-Tai-Lieu-Thiet-Ke/GHI-CHU-CAU-NOI-3-HE.md` | Kiểm chứng khóa liên kết Theo-dõi-CV ↔ Báo-Cáo. **Lưu ý**: kết luận "tên đơn vị khớp 100%" dựa trên dữ liệu mẫu, đã bị đối chiếu thật bác bỏ — lấy theo mục 5 |
 | 8 | `<mỗi hệ con>/00-README.md` | Phạm vi, quy trình và ràng buộc riêng của từng hệ |
 
 ## Cấu trúc
 
 ```
 KTC-Quan-tri/
-├── SKILL.md · ktc-quan-tri.skill   Gói Skill cấp dự án v1.1 (SKILL.md ở gốc là bản tham chiếu)
-├── .claude/rules/           Quy tắc nạp THEO PHẠM VI — chỉ vào ngữ cảnh khi chạm thư mục khớp
-├── references/              Nguồn rời của gói cấp dự án — 15 tệp, đóng gói từ đây
-├── 00-README-ktc-quan-tri.md   README của gói skill (khác `00-README.md` — README của dự án)
-├── 01-Chuan-Chung/          Bản GỐC của quy tắc và bảng mã dùng chung
-├── 02-Master-Task-Register/ Sổ dữ liệu trung tâm của 3 hệ — ưu tiên số 1
-├── 03-Nhat-Ky-Van-Hanh/     Bộ nhớ quá trình — đọc MEMORY-INDEX.md đầu mỗi phiên
-├── 04-Tai-Lieu-Thiet-Ke/    Tài liệu kiến trúc và ghi chú kiểm chứng
-├── 11-Du-Lieu-Dau-Vao/      Kho đầu vào DÙNG CHUNG — 4 nhánh theo nguồn gốc dữ liệu
-├── 12-Output/YYYY-MM-DD/    Kết quả xuất ra
-├── 99-Kinh-Nghiem/          Bài học · quyết định · lỗi đã biết · release notes
-├── 99-Luu-Tru/              Bản trùng, bản thay thế
-├── tools/                   10 script Python + `_trung_gian/` (kết quả trung gian, xóa được)
+├── CLAUDE.md · README.md · .claude/ · .claude-plugin/   (bắt buộc ở gốc)
 │
-├── KTC-Ke-Hoach/          Hệ PIS — lập kế hoạch, sinh nhiệm vụ chuẩn (nguồn gốc Task_ID)
-├── KTC-Theo-doi-CV/       Control tower — vòng đời nhiệm vụ, tiến độ, cảnh báo, minh chứng (gói v1.0)
-├── KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
-├── KTC-Soan-Thao-VB/      Hệ soạn thảo văn bản hành chính (7 loại VB + 6 lĩnh vực nghiệp vụ)
-└── Du-lieu-Cong-Viec/ Dữ liệu nền định lượng — danh mục nhiệm vụ/sản phẩm, KPI, khung đánh giá
+│   ── INPUT (1x) ──────────────────────────────────────────────
+├── 10-Dau-Vao/               Kho đầu vào DÙNG CHUNG — 4 nhánh theo nguồn gốc dữ liệu
+├── 11-Du-lieu-Cong-Viec/     Dữ liệu nền định lượng — danh mục nhiệm vụ/sản phẩm, KPI, khung đánh giá
+│
+│   ── PROCESS (2x) ────────────────────────────────────────────
+├── 20-Chuan-Chung/           Bản GỐC của quy tắc và bảng mã dùng chung
+├── 21-Master-Task-Register/  Sổ dữ liệu trung tâm của 3 hệ — ưu tiên số 1
+├── 22-Dieu-Phoi/             Skill cấp dự án `ktc-quan-tri`: SKILL.md (tham chiếu) · references/ (nguồn rời) · .skill
+├── 23-KTC-Ke-Hoach/          Hệ PIS — lập kế hoạch, sinh nhiệm vụ chuẩn (nguồn gốc Task_ID)
+├── 24-KTC-Theo-doi-CV/       Control tower — vòng đời nhiệm vụ, tiến độ, cảnh báo, minh chứng
+├── 25-KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
+├── 26-KTC-Soan-Thao-VB/      Hệ soạn thảo văn bản hành chính (7 loại VB + 6 lĩnh vực nghiệp vụ)
+├── 29-Cong-Cu/               Script Python · `plugin_src/` (nguồn hook/agent) · `_trung_gian/` (xóa được)
+│
+│   ── OUTPUT (3x) ─────────────────────────────────────────────
+├── 30-Ket-Qua/YYYY-MM-DD/<loại>/   Kết quả xuất ra
+├── 31-Plugin/                Bản dựng plugin — sinh bởi `29-Cong-Cu/dong_goi_plugin.py`, không sửa tay
+│
+│   ── QUẢN TRỊ HỆ (9x) ────────────────────────────────────────
+├── 90-Nhat-Ky-Van-Hanh/      Bộ nhớ quá trình — đọc MEMORY-INDEX.md đầu mỗi phiên
+├── 91-Tai-Lieu-Thiet-Ke/     Tài liệu kiến trúc và ghi chú kiểm chứng
+├── 92-Kinh-Nghiem/           Bài học · quyết định · lỗi đã biết · hồi quy
+└── 99-Luu-Tru/               Bản trùng, bản thay thế
 ```
 
 ### Lớp chuẩn chung — đọc trước khi sửa bất cứ quy tắc dùng chung nào
 
-`01-Chuan-Chung/` giữ **bản gốc**; các hệ giữ **bản sao**. Gói `.skill` là zip tự chứa nên bản sao trong
+`20-Chuan-Chung/` giữ **bản gốc**; các hệ giữ **bản sao**. Gói `.skill` là zip tự chứa nên bản sao trong
 `<hệ>/references/Skill-Library/` là **bắt buộc** — xóa để "khử trùng lặp" sẽ làm hỏng skill khi đóng gói
-lại. Sửa ở `01-Chuan-Chung/` trước, rồi nhân bản xuống tại bước build.
+lại. Sửa ở `20-Chuan-Chung/` trước, rồi nhân bản xuống tại bước build.
+
+### Đầu vào khi dùng qua plugin Team (tài khoản thành viên)
+
+Tài khoản phòng/khoa/bộ môn dùng plugin cấp Team **không có** thư mục `10-Dau-Vao/`. Mọi skill lấy đầu vào
+theo thứ tự: **tệp đính kèm trong phiên** ("Add files and photos" — Chat/Cowork/Code) → thư mục dự án nếu có →
+hỏi người dùng. Không từ chối xử lý chỉ vì thiếu thư mục. Đặc tả: `20-Chuan-Chung/00-Nguyen-Tac-Chung.md`.
 
 ## Bộ mã và phân loại dùng chung
 
@@ -63,18 +75,18 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 
 | Nội dung | Đọc |
 |---|---|
-| 6 Trục / 38 Nội hàm (TB 817) | `01-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `references/10-Sau-Truc-38-Noi-Ham.md` |
-| 17 lĩnh vực, mã `A01`–`S04`, danh mục sản phẩm | `references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
-| Quy đổi KPI và xếp loại chất lượng | `references/30-KPI-Va-Xep-Loai.md` |
-| Mã đơn vị | `01-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
+| 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
+| 17 lĩnh vực, mã `A01`–`S04`, danh mục sản phẩm | `22-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
+| Quy đổi KPI và xếp loại chất lượng | `22-Dieu-Phoi/references/30-KPI-Va-Xep-Loai.md` |
+| Mã đơn vị | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
 
 Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trục, không dùng số nội hàm đứng một mình.
 
 **Hai thang điểm — không trộn.** Cùng khái niệm quy đổi khối lượng công việc đang có hai thang
 (`KI-014`, chưa có văn bản phân định). Thang đang xuất hiện trên dữ liệu vận hành (cột điểm/hệ số Phụ lục
-TB736) nằm trong `01-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md`. Thang 5 nhóm 50/120/250/350/450 trong
+TB736) nằm trong `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md`. Thang 5 nhóm 50/120/250/350/450 trong
 danh mục sản phẩm là **bảng gợi ý, dự thảo lần 4**, không phải danh sách giá trị hợp lệ — xem
-`references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`. Không dùng thang 5 nhóm để kiểm dữ liệu vận hành.
+`22-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`. Không dùng thang 5 nhóm để kiểm dữ liệu vận hành.
 Không tự đặt quy tắc chuyển đổi giữa hai thang.
 
 **Cơ quan chủ quản trong thể thức**: `UBND TỈNH QUẢNG NGÃI` – `TRƯỜNG CAO ĐẲNG KON TUM` (nhất quán trong toàn
@@ -94,11 +106,11 @@ Hai hệ liên quan nằm **ngoài** thư mục này, ngang cấp ở `D:\.CLAUD
 ## Chạy thử hệ thống
 
 ```bash
-python tools/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 11 phép kiểm, mã thoát 0/1
+python 29-Cong-Cu/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 11 phép kiểm, mã thoát 0/1
 ```
 
 **Bắt buộc chạy sau mỗi lần sửa skill và trước/sau mỗi lần đóng gói.** Ba tầng kiểm thử đầy đủ và quy tắc
-đóng gói: `.claude/rules/22-kiem-thu-va-dong-goi.md` (tự nạp khi chạm `tools/` hoặc tệp `.skill`).
+đóng gói: `.claude/rules/22-kiem-thu-va-dong-goi.md` (tự nạp khi chạm `29-Cong-Cu/` hoặc tệp `.skill`).
 
 ## Nguyên tắc bất biến
 
@@ -109,11 +121,11 @@ python tools/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 11 phép kiểm, m�
 5. **Mọi thay đổi phải có lịch sử**: giá trị cũ → lý do → căn cứ → người thay đổi → thời gian → giá trị mới.
 6. **AI không thay thế dữ liệu gốc và không quyết định thay người có thẩm quyền.** Vai trò AI: đọc, đối chiếu, phân loại, phát hiện thiếu/sai, tổng hợp, đề xuất, dự thảo.
 7. **Phát triển từ file tương đồng đã ban hành**, không dựng văn bản từ mẫu trống. Mẫu trống chỉ cho số đo thể thức, không chứa văn phong.
-8. **Soạn trên văn bản đã có thì phải bật Track Changes** và xuất phát từ chính file gốc — không soạn lại rồi trình bày như bản sửa. Kích hoạt khi nghe "track changes" hoặc "ghi nhật ký sửa đổi"; công cụ: `tools/ktc_trackchanges.py`, quy trình: `01-Chuan-Chung/15-Skill-Track-Changes.md`.
+8. **Soạn trên văn bản đã có thì phải bật Track Changes** và xuất phát từ chính file gốc — không soạn lại rồi trình bày như bản sửa. Kích hoạt khi nghe "track changes" hoặc "ghi nhật ký sửa đổi"; công cụ: `29-Cong-Cu/ktc_trackchanges.py`, quy trình: `20-Chuan-Chung/15-Skill-Track-Changes.md`.
 9. **Bộ quy tắc `KTC-Ra-Soat-897` dùng từ lúc bắt đầu viết**, không đợi đến bước rà soát cuối. Chốt chặn trước trình ký vẫn giữ nguyên.
 10. **`KTC-Database` là cơ sở dữ liệu tham mưu quản trị** — phải tìm kiếm sâu chiến lược, đề án, kế hoạch/báo cáo chuyên đề, quy định để có cơ sở, không chỉ tra cứu một văn bản lẻ.
 
-Bốn nguyên tắc 7–10 được đặc tả đầy đủ tại **`01-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`** — đọc
+Bốn nguyên tắc 7–10 được đặc tả đầy đủ tại **`20-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`** — đọc
 trước mọi tác vụ sinh văn bản.
 
 ## Nguồn dữ liệu chuẩn (khi hai nơi mâu thuẫn, lấy theo cột này)
@@ -121,7 +133,7 @@ trước mọi tác vụ sinh văn bản.
 | Loại dữ liệu | Hệ nguồn chuẩn |
 |---|---|
 | Văn bản pháp lý, quy định, mẫu | `KTC-Database` (kho 01–04) |
-| Danh mục nhiệm vụ chuẩn, sản phẩm, điểm/hệ số, KPI, khung đánh giá | `Du-lieu-Cong-Viec` |
+| Danh mục nhiệm vụ chuẩn, sản phẩm, điểm/hệ số, KPI, khung đánh giá | `11-Du-lieu-Cong-Viec` |
 | Nhiệm vụ, baseline kế hoạch | `KTC-Ke-Hoach` |
 | Trạng thái, % tiến độ, minh chứng | `KTC-Theo-doi-CV` |
 | Kết quả đã xác nhận theo kỳ | `KTC-Bao-Cao` |
@@ -135,22 +147,22 @@ thống và phải ghi rõ nguồn trong kết quả.
 định dùng chung. Đọc trực tiếp, **không sao chép dữ liệu sang KTC-Quan-tri**.
 
 **Chỉ mục đầy đủ 8 kho, văn bản gốc chống lưng, cảnh báo về kho 03, quy tắc metadata:**
-`references/02-Chi-Muc-KTC-Database.md` — đọc tệp đó trước khi tra kho, đừng duyệt cây thư mục mò.
+`22-Dieu-Phoi/references/02-Chi-Muc-KTC-Database.md` — đọc tệp đó trước khi tra kho, đừng duyệt cây thư mục mò.
 
 Ba ràng buộc **luôn có hiệu lực**, không đợi đọc chỉ mục:
 
 - **Kho chỉ đọc.** Hook chặn mọi thao tác ghi, kể cả sửa metadata cho đúng hơn. Cần sửa kho thì viết đề
-  xuất ra `12-Output/YYYY-MM-DD/` để người có thẩm quyền tự áp vào Drive; không tìm cách lách.
+  xuất ra `30-Ket-Qua/YYYY-MM-DD/` để người có thẩm quyền tự áp vào Drive; không tìm cách lách.
 - **Chỉ tạo kết quả sau khi đã đối chiếu thật** với kho 01–04. Không đọc được kho → **dừng lại và hỏi**.
   Nếu người dùng yêu cầu cứ làm, ghi ngay đầu kết quả: "⚠️ Chưa đối chiếu với kho 01-04 — độ tin cậy hạn chế".
 - **Tuyệt đối không trích dẫn file mẫu/checklist nội bộ làm "Căn cứ" pháp lý** — theo quy tắc của
   KTC-Ra-Soat-897, đây luôn là lỗi Mức 1.
 - **Trích dẫn cụ thể** số hiệu, ngày ban hành, tên mẫu — không chỉ nêu tên tệp.
-- **Kết quả hoàn chỉnh xuất `.docx`** vào `12-Output/YYYY-MM-DD/<loại thao tác>/`.
+- **Kết quả hoàn chỉnh xuất `.docx`** vào `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/`.
 
 ## Quy ước khi làm việc trong thư mục này
 
-- **Đơn vị luôn ghi bằng mã chuẩn** (`P-THHC`, `K-KTCN`…) theo `01-Chuan-Chung/13-Bang-Ma-Don-Vi.md` — không ghi tên tự do. Cùng một đơn vị hiện đang tồn tại ba kiểu viết khác nhau trong dự án, một kiểu sai chính tả.
+- **Đơn vị luôn ghi bằng mã chuẩn** (`P-THHC`, `K-KTCN`…) theo `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` — không ghi tên tự do. Cùng một đơn vị hiện đang tồn tại ba kiểu viết khác nhau trong dự án, một kiểu sai chính tả.
 - **Phân loại nghiệp vụ dùng chung**: 6 Trục kết quả trọng tâm theo TB 817; 4 hệ quy chiếu thể thức A (hành chính, NĐ 30) / B (Đảng, HD 05-HD/VPTW — tuyệt đối không áp NĐ 30) / C (VBQPPL) / D (đoàn thể); 4 mức vấn đề khi rà soát (1 bắt buộc sửa → 4 góp ý).
 - **File `.skill` là gói đã đóng** — không sửa trực tiếp. Sửa nguồn trong `references/` của hệ tương ứng rồi đóng gói lại.
 - **`desktop.ini`** là file của Google Drive for Desktop — không sửa, không xóa, không đưa vào tài liệu.
@@ -162,5 +174,5 @@ Ba ràng buộc **luôn có hiệu lực**, không đợi đọc chỉ mục:
 
 Không ghi trạng thái tại đây — sẽ cũ. Lấy tại:
 
-- `03-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md` — sự thật vận hành hiện hành, phiên bản đang dùng
-- `99-Kinh-Nghiem/05-Known-Issues/Pending.md` — việc còn mở
+- `90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md` — sự thật vận hành hiện hành, phiên bản đang dùng
+- `92-Kinh-Nghiem/05-Known-Issues/Pending.md` — việc còn mở

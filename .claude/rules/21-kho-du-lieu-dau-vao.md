@@ -1,13 +1,13 @@
 ---
 paths:
-  - "11-Du-Lieu-Dau-Vao/**"
+  - "10-Dau-Vao/**"
 description: Bốn nhánh của kho đầu vào và ba quy tắc nạp liệu
 ---
 
-# Kho dữ liệu đầu vào dùng chung — `11-Du-Lieu-Dau-Vao/`
+# Kho dữ liệu đầu vào dùng chung — `10-Dau-Vao/`
 
 Từ 14/9/2026, đầu vào của **mọi hệ** nằm chung một chỗ, tổ chức theo **nguồn gốc dữ liệu** chứ không theo
-hệ tiêu thụ. Đọc `11-Du-Lieu-Dau-Vao/00-README.md` trước khi nạp liệu.
+hệ tiêu thụ. Đọc `10-Dau-Vao/00-README.md` trước khi nạp liệu.
 
 | Nhánh | Chứa gì |
 |---|---|
@@ -20,4 +20,4 @@ Ba quy tắc: **chỉ tạo thư mục khi có dữ liệu** (thư mục rỗng 
 đầu mối dùng **mã chuẩn** · tên kỳ theo `YYYY` / `YYYY-Qn` / `YYYY-MM` / `YYYY-CD-<tên-ngắn>`.
 
 Đây là **nguồn đầu vào duy nhất** kể từ 14/9/2026 — `Nhap_Ke_Hoach/` và `Nhap_Bao_Cao/` đã chuyển hết,
-60 thư mục rỗng còn lại chờ xóa thủ công (`12-Output/2026-09-14/Danh-muc-can-don-toan-he.md`).
+60 thư mục rỗng còn lại chờ xóa thủ công (`30-Ket-Qua/2026-09-14/Danh-muc-can-don-toan-he.md`).
