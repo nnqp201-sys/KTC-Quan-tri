@@ -13,7 +13,7 @@ Các mục đã đóng ghi trạng thái "Resolved"/"ĐÃ ĐÓNG" ngay trong m�
 
 ## KI-001 — Phụ lục Ia/Ib chưa có cột `Task_ID`
 
-**Status:** Open — đã có đề xuất kỹ thuật cụ thể 18/9/2026, chờ người có thẩm quyền xác nhận trước khi áp
+**Status:** Open — đã có đề xuất kỹ thuật + Phiếu xin ý kiến `.docx` 18/9/2026, chờ người có thẩm quyền xác nhận trước khi áp
 dụng · **Priority:** Cao — chặn toàn bộ khả năng đối chiếu tự động
 
 Nguồn dữ liệu kế hoạch (Phụ lục Ia/Ib của TB736) không có cột mã nhiệm vụ, nên kế hoạch và báo cáo chỉ đối
@@ -103,7 +103,8 @@ memory tự ghi *"Còn treo: Gộp v3.1"*.
 
 ## KI-006 — Bốn lỗi thể thức hồ sơ tháng 8/2026 chưa khắc phục
 
-**Status:** Đã có bản dự thảo Công văn nhắc 6 đơn vị 18/9/2026, chờ Phòng TH-HC&QT kiểm tra và trình Hiệu
+**Status:** Dự thảo CV đã rà soát chính thức 897 (0 Mức 1) và sửa Mức 2/3 bằng Track Changes 18/9/2026 —
+`12-Output/2026-09-18/Cong-Van/…_sua-theo-ra-soat.docx`; chờ phòng TH-HC&QT kiểm tra, chốt thời hạn và trình Hiệu
 trưởng ký — không tự sửa hồ sơ đơn vị · **Priority:** Cao — chặn việc chốt kỳ tháng 8 · **Xem:** `PM-20260913-001`
 
 | Đơn vị | Lỗi |
