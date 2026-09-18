@@ -29,11 +29,33 @@ Gọi bằng `<tên-plugin>:<tên-skill>`, ví dụ `ktc-quan-tri:bao-cao`.
 - **Claude Chat:** chưa thử nghiệm qua đường plugin này (Chat trước nay dùng đường Skill rời từng hệ, xem
   `KI-010` trong repo dự án — chưa có nhật ký đợt chạy đó).
 
+## Agent
+
+`ktc-tu-cai-tien` — agent tự cải tiến. Gọi khi muốn hệ "rút kinh nghiệm": nói *"chạy agent tự cải tiến"*.
+Chỉ viết đề xuất `CP-...` *Chờ duyệt* vào `99-Kinh-Nghiem/03-Change-Proposals/`, không tự sửa gì.
+
 ## Hooks
 
-Chỉ có `SessionStart` → `scripts/ktc_quan_tri_doctor.py`: in banner phiên bản tự khai của cả 5 skill khi
-phiên khởi động, để phát hiện sớm tình trạng "gói build xong nhưng chưa gắn vào hệ" (nguyên nhân của
-`DL-20260918-001`). **Không có** `PreToolUse` guard chặn ghi `KTC-Database` — plugin `ktc-ra-soat-897` đã
+| Sự kiện | Script | Việc |
+|---|---|---|
+| `SessionStart` | `ktc_quan_tri_doctor.py` | In phiên bản tự khai 5 skill |
+| `SessionStart` | `ktc_nhat_ky.py nap` | Nạp tóm tắt nhật ký 2 ngày gần nhất vào context |
+| `SessionStart` | `ktc_backup_github.py --neu-can` | Backup bù nếu đã quá 24h (chỉ khi từng push thành công) |
+| `PostToolUse` | `ktc_nhat_ky.py ghi` | Ghi 1 dòng log mỗi thao tác Write/Edit/Bash/Skill/Agent |
+| `SessionEnd` | `ktc_nhat_ky.py ket-phien` | Đánh dấu kết thúc phiên |
+
+Nhật ký: `03-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/YYYY-MM-DD.jsonl` — chỉ tên công cụ và đường dẫn/lệnh (cắt
+200 ký tự), không ghi nội dung tệp. Chỉ ghi khi đang làm việc trong KTC-Quan-tri.
+
+## Backup GitHub hằng ngày
+
+Task Scheduler `KTC-Quan-tri-Backup-GitHub` chạy 21:00 (chạy bù khi máy bật lại). Commit + push thường,
+không bao giờ force-push. Dừng nếu phát hiện tệp tên giống bí mật. Trạng thái: `.git/ktc-backup.json`.
+Xem lần cuối: `python tools/plugin_src/scripts/ktc_backup_github.py --trang-thai`.
+
+## Không có guard chặn ghi
+
+**Không có** `PreToolUse` guard chặn ghi `KTC-Database` — plugin `ktc-ra-soat-897` đã
 cung cấp guard đó khi được cài cùng; nếu chạy plugin này một mình (không có `ktc-ra-soat-897`), quy ước
 "kho chỉ đọc" trong `CLAUDE.md` của dự án vẫn có hiệu lực theo quy ước làm việc, nhưng **không được hook
 chặn tự động**.

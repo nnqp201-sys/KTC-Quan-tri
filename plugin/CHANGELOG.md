@@ -1,5 +1,22 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.2.0 — 2026-09-18
+
+Thêm 3 cơ chế theo yêu cầu người dùng. Nguồn viết tay ở `tools/plugin_src/` (script build chép vào, không sửa
+trong `plugin/`). Hồi quy: `99-Kinh-Nghiem/02-Regression/Cases/test_plugin_nhat_ky_backup.py` — 10 ca, có ca ngược.
+
+- **Agent `ktc-tu-cai-tien`** (`agents/`): đọc nhật ký tự động, Process Memory, Known Issues, Decision Log, kết
+  quả `kiem_tra_he_thong.py` → viết đề xuất `CP-YYYYMMDD-NNN` trạng thái *Chờ duyệt* vào
+  `99-Kinh-Nghiem/03-Change-Proposals/`. **Không tự sửa** skill/quy tắc/dữ liệu (nguyên tắc bất biến #6);
+  bị chặn công cụ `Edit`.
+- **Tự ghi nhật ký + nạp vào context** (`scripts/ktc_nhat_ky.py`): `PostToolUse` ghi 1 dòng JSONL cho mỗi
+  Write/Edit/Bash/PowerShell/Skill/Agent vào `03-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/YYYY-MM-DD.jsonl` (chỉ
+  tên công cụ + đối tượng, **không** ghi nội dung tệp); `SessionStart` in tóm tắt 2 ngày gần nhất vào
+  context; `SessionEnd` đánh dấu kết thúc phiên. Chỉ hoạt động trong thư mục KTC-Quan-tri.
+- **Tự backup GitHub** (`scripts/ktc_backup_github.py`): commit + push thường (không force), Task Scheduler
+  21:00 hằng ngày (`KTC-Quan-tri-Backup-GitHub`, chạy bù khi máy bật lại) + `SessionStart` chạy bù nếu quá
+  24h. Dừng nếu có tệp tên giống bí mật. **Chưa nối remote** — cần người dùng cung cấp URL repo private.
+
 ## 0.1.1 — 2026-09-18
 
 - `ktc-soan-thao-vb` nâng lên **v1.2** ở nguồn (gói `.skill` gốc, không chỉ trong plugin): thêm hẳn

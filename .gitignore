@@ -1,0 +1,5 @@
+# Cache Python — sinh lai moi lan chay, khong dua vao backup
+__pycache__/
+*.pyc
+# Ket qua trung gian cua tools/ (CLAUDE.md: "xoa duoc")
+tools/_trung_gian/

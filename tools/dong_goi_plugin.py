@@ -34,13 +34,15 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.1.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
 ]
 
-PLUGIN_VERSION = "0.1.1"  # 0.1.0 (18/9) -> 0.1.1: soan-thao-vb doi sang v1.2, khong con phai vá rieng
+PLUGIN_VERSION = "0.2.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc plugin/ la viet
 # tay, KHONG duoc dong o day — bai hoc 18/9/2026: lan dau don ca thu muc goc da
 # xoa mat ca hai tep nay.
-THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts"]
+THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts", "agents"]
+# Nguon viet tay cua script/agent them vao plugin (khong sua trong plugin/)
+PLUGIN_SRC = os.path.join(DU_AN, "tools", "plugin_src")
 
 
 def don_sach(p: str):
@@ -108,7 +110,8 @@ def build_manifest():
             "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: "
             "Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin "
             "cho Claude Cowork và Claude Code. Gồm 5 skill: quan-tri (điều phối), "
-            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv."
+            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv; agent ktc-tu-cai-tien; hook tự ghi nhật ký "
+            "và nạp lại vào context; tự backup GitHub hằng ngày."
         ),
         "author": {
             "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
@@ -128,24 +131,43 @@ def build_manifest():
     print("  ✓ plugin.json")
 
 
+def lenh(script: str, *args: str) -> dict:
+    tham_so = "".join(f" {a}" for a in args)
+    return {"type": "command",
+            "command": f'python "${{CLAUDE_PLUGIN_ROOT}}/scripts/{script}"{tham_so}'}
+
+
 def build_hooks():
-    print("── Ghi hooks/hooks.json (chỉ SessionStart doctor — không lặp guard 897) ──")
+    print("── Ghi hooks/hooks.json (doctor + nhật ký + backup bù; không lặp guard 897) ──")
     hooks = {
         "hooks": {
-            "SessionStart": [
-                {
-                    "hooks": [
-                        {
-                            "type": "command",
-                            "command": 'python "${CLAUDE_PLUGIN_ROOT}/scripts/ktc_quan_tri_doctor.py"',
-                        }
-                    ]
-                }
-            ]
+            "SessionStart": [{"hooks": [
+                lenh("ktc_quan_tri_doctor.py"),
+                lenh("ktc_nhat_ky.py", "nap"),
+                {**lenh("ktc_backup_github.py", "--neu-can"), "timeout": 120},
+            ]}],
+            # Khong ghi Read/Grep/Glob de log khong bi ngap; chi thao tac co tac dung.
+            "PostToolUse": [{"matcher": "Write|Edit|Bash|PowerShell|Skill|Agent",
+                             "hooks": [lenh("ktc_nhat_ky.py", "ghi")]}],
+            "SessionEnd": [{"hooks": [lenh("ktc_nhat_ky.py", "ket-phien")]}],
         }
     }
     ghi_json(os.path.join(PLUGIN_DIR, "hooks", "hooks.json"), hooks)
     print("  ✓ hooks.json")
+
+
+def chep_nguon_viet_tay():
+    print("── Chép script/agent viết tay từ tools/plugin_src/ ──")
+    for thu_muc in ("scripts", "agents"):
+        src = os.path.join(PLUGIN_SRC, thu_muc)
+        if not os.path.isdir(src):
+            continue
+        dst = os.path.join(PLUGIN_DIR, thu_muc)
+        os.makedirs(dst, exist_ok=True)
+        for f in sorted(os.listdir(src)):
+            if f.endswith((".py", ".md")):
+                shutil.copyfile(os.path.join(src, f), os.path.join(dst, f))
+                print(f"  ✓ {thu_muc}/{f}")
 
 
 DOCTOR_SCRIPT = r'''# -*- coding: utf-8 -*-
@@ -221,5 +243,6 @@ if __name__ == "__main__":
     build_manifest()
     build_hooks()
     build_doctor_script()
+    chep_nguon_viet_tay()
     print()
     print(f"Đã dựng plugin tại: {PLUGIN_DIR}")
