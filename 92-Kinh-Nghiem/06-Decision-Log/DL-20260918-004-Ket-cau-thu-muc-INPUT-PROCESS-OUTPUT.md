@@ -29,3 +29,7 @@ theo thứ tự tệp đính kèm trong phiên → thư mục dự án → hỏi
 
 **Sự cố trong lúc làm:** quy tắc thay `plugin` bắt nhầm cả chữ "plugin" trong câu văn (11 tệp) — đã rà và
 trả lại; chỉ giữ `31-Plugin` ở chỗ là đường dẫn. `12-Output/` rỗng còn sót do Windows khóa — người dùng xóa tay.
+
+**Điều chỉnh 18/9/2026 (người dùng):** `22-Dieu-Phoi/` → **`22-KTC-Dieu-Phoi/`**. Lý do: tiền tố `KTC` (Kon Tum
+College) đánh dấu thư mục chứa chức năng/skill chính, nhất quán với `23-KTC-Ke-Hoach` … `26-KTC-Soan-Thao-VB`.
+Không gói `.skill` nào chứa đường dẫn này → không đóng gói lại skill.

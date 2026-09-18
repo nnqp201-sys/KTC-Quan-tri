@@ -15,7 +15,7 @@ KTC-Quan-tri/
 ├── CLAUDE.md · 00-README.md · README.md
 │
 ├── INPUT     10-Dau-Vao/ · 11-Du-lieu-Cong-Viec/
-├── PROCESS   20-Chuan-Chung/ · 21-Master-Task-Register/ · 22-Dieu-Phoi/ (skill ktc-quan-tri)
+├── PROCESS   20-Chuan-Chung/ · 21-Master-Task-Register/ · 22-KTC-Dieu-Phoi/ (skill ktc-quan-tri)
 │             23-KTC-Ke-Hoach/ · 24-KTC-Theo-doi-CV/ · 25-KTC-Bao-Cao/ · 26-KTC-Soan-Thao-VB/ · 29-Cong-Cu/
 ├── OUTPUT    30-Ket-Qua/YYYY-MM-DD/ · 31-Plugin/
 └── QUẢN TRỊ  90-Nhat-Ky-Van-Hanh/ · 91-Tai-Lieu-Thiet-Ke/ · 92-Kinh-Nghiem/ · 99-Luu-Tru/
@@ -44,7 +44,7 @@ và cấp Task_ID · theo dõi và cảnh báo · đối chiếu ba hệ · ch�
 Cài bằng nút **Save skill** trên Claude. Gói **không mang theo dữ liệu** — vẫn cần Project kết nối Google
 Drive tới `KTC-Quan-tri/` và `KTC-Database/`.
 
-`22-Dieu-Phoi/SKILL.md` là **bản tham chiếu**; bản chính thức nằm trong gói `.skill`. Bốn tệp tham chiếu `12`,
+`22-KTC-Dieu-Phoi/SKILL.md` là **bản tham chiếu**; bản chính thức nằm trong gói `.skill`. Bốn tệp tham chiếu `12`,
 `20`, `21`, `22` trong gói là bản sao của `20-Chuan-Chung/` — sửa ở bản gốc trước, rồi đóng gói lại.
 
 ## Nguồn dữ liệu ngoài dự án

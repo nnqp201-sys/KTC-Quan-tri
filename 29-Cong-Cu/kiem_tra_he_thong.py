@@ -27,7 +27,7 @@ HE = {
     "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.4.skill"),
     "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.3.skill"),
     "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.2.skill"),
-    "ktc-quan-tri":     ("22-Dieu-Phoi", "22-Dieu-Phoi/ktc-quan-tri.skill"),
+    "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
 }
 # He da thay the — bo qua, khong bat loi
 # KTC-DIS-Tong-Hop-VB da chuyen vao 99-Luu-Tru/He-da-thay-the/ ngay 14/9/2026,
@@ -184,7 +184,7 @@ def c2_lien_ket():
 # --------------------------------------------------------------- C3
 def c3_duong_dan_du_an():
     tieu_de("C3. Đường dẫn nêu trong tài liệu cấp dự án có thật không")
-    for f in ["CLAUDE.md", "00-README.md", "22-Dieu-Phoi/SKILL.md",
+    for f in ["CLAUDE.md", "00-README.md", "22-KTC-Dieu-Phoi/SKILL.md",
               "20-Chuan-Chung/00-README.md", "90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md"]:
         p = os.path.join(DU_AN, f)
         if not os.path.exists(p):

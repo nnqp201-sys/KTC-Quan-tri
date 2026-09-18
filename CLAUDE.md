@@ -39,7 +39,7 @@ KTC-Quan-tri/
 │   ── PROCESS (2x) ────────────────────────────────────────────
 ├── 20-Chuan-Chung/           Bản GỐC của quy tắc và bảng mã dùng chung
 ├── 21-Master-Task-Register/  Sổ dữ liệu trung tâm của 3 hệ — ưu tiên số 1
-├── 22-Dieu-Phoi/             Skill cấp dự án `ktc-quan-tri`: SKILL.md (tham chiếu) · references/ (nguồn rời) · .skill
+├── 22-KTC-Dieu-Phoi/             Skill cấp dự án `ktc-quan-tri`: SKILL.md (tham chiếu) · references/ (nguồn rời) · .skill
 ├── 23-KTC-Ke-Hoach/          Hệ PIS — lập kế hoạch, sinh nhiệm vụ chuẩn (nguồn gốc Task_ID)
 ├── 24-KTC-Theo-doi-CV/       Control tower — vòng đời nhiệm vụ, tiến độ, cảnh báo, minh chứng
 ├── 25-KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
@@ -75,9 +75,9 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 
 | Nội dung | Đọc |
 |---|---|
-| 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
-| 17 lĩnh vực, mã `A01`–`S04`, danh mục sản phẩm | `22-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
-| Quy đổi KPI và xếp loại chất lượng | `22-Dieu-Phoi/references/30-KPI-Va-Xep-Loai.md` |
+| 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-KTC-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
+| 17 lĩnh vực, mã `A01`–`S04`, danh mục sản phẩm | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
+| Quy đổi KPI và xếp loại chất lượng | `22-KTC-Dieu-Phoi/references/30-KPI-Va-Xep-Loai.md` |
 | Mã đơn vị | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
 
 Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trục, không dùng số nội hàm đứng một mình.
@@ -86,7 +86,7 @@ Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trụ
 (`KI-014`, chưa có văn bản phân định). Thang đang xuất hiện trên dữ liệu vận hành (cột điểm/hệ số Phụ lục
 TB736) nằm trong `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md`. Thang 5 nhóm 50/120/250/350/450 trong
 danh mục sản phẩm là **bảng gợi ý, dự thảo lần 4**, không phải danh sách giá trị hợp lệ — xem
-`22-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`. Không dùng thang 5 nhóm để kiểm dữ liệu vận hành.
+`22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`. Không dùng thang 5 nhóm để kiểm dữ liệu vận hành.
 Không tự đặt quy tắc chuyển đổi giữa hai thang.
 
 **Cơ quan chủ quản trong thể thức**: `UBND TỈNH QUẢNG NGÃI` – `TRƯỜNG CAO ĐẲNG KON TUM` (nhất quán trong toàn
@@ -147,7 +147,7 @@ thống và phải ghi rõ nguồn trong kết quả.
 định dùng chung. Đọc trực tiếp, **không sao chép dữ liệu sang KTC-Quan-tri**.
 
 **Chỉ mục đầy đủ 8 kho, văn bản gốc chống lưng, cảnh báo về kho 03, quy tắc metadata:**
-`22-Dieu-Phoi/references/02-Chi-Muc-KTC-Database.md` — đọc tệp đó trước khi tra kho, đừng duyệt cây thư mục mò.
+`22-KTC-Dieu-Phoi/references/02-Chi-Muc-KTC-Database.md` — đọc tệp đó trước khi tra kho, đừng duyệt cây thư mục mò.
 
 Ba ràng buộc **luôn có hiệu lực**, không đợi đọc chỉ mục:
 

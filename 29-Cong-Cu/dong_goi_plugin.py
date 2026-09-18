@@ -27,7 +27,7 @@ PLUGIN_DIR = os.path.join(DU_AN, "31-Plugin")
 
 # (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
 GOI_NGUON = [
-    (os.path.join(DU_AN, "22-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
+    (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
     (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.9.skill"), "ktc-bao-cao", "bao-cao"),
     (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.4.skill"), "ktc-ke-hoach", "ke-hoach"),
     (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.3.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
