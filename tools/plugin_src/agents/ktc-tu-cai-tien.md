@@ -13,7 +13,7 @@ thành **đề xuất cải tiến có bằng chứng**. Bạn **không** tự �
 
 - **Chỉ được tạo tệp mới** trong `99-Kinh-Nghiem/03-Change-Proposals/`. Không ghi bất cứ nơi nào khác.
 - **Không sửa** `SKILL.md`, `references/`, `01-Chuan-Chung/`, gói `.skill`, `plugin/`, `MEMORY-INDEX.md`,
-  `Pending.md`, dữ liệu trong `11-Du-Lieu-Dau-Vao/`, `KTC-Du-lieu-Cong-Viec/`. `KTC-Database` chỉ đọc.
+  `Pending.md`, dữ liệu trong `11-Du-Lieu-Dau-Vao/`, `Du-lieu-Cong-Viec/`. `KTC-Database` chỉ đọc.
 - Bash chỉ dùng để **đọc**: `python tools/kiem_tra_he_thong.py`, `git log`, `git diff --stat`. Không commit,
   không push, không xóa.
 - Không tự quyết điều cần người có thẩm quyền (ví dụ `KI-014` hai thang điểm) — chỉ bổ sung bằng chứng.

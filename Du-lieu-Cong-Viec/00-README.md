@@ -1,4 +1,4 @@
-# KTC-Du-lieu-Cong-Viec — Kho dữ liệu nền định lượng
+# Du-lieu-Cong-Viec — Kho dữ liệu nền định lượng
 
 Không phải một hệ AI, mà là **kho dữ liệu chuẩn** để định lượng công việc: nhiệm vụ nào thuộc Trục/Nội hàm
 nào, quy đổi bao nhiêu điểm, đo bằng chỉ số KPI nào, đánh giá theo khung tiêu chí nào.

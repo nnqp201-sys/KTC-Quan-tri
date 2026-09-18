@@ -1,7 +1,7 @@
 # Bảng mã đơn vị dùng chung — KTC-Quan-tri
 
 **Lập ngày:** 13/9/2026 · **Nguồn tên chính thức:** cột "Đơn vị:" trong 11 tệp Khung tiêu chí đánh giá
-tập thể (`KTC-Du-lieu-Cong-Viec/KHUNG TIEU CHI.../Khung tieu chi danh gia Tap the.../*.xlsx`) — đọc trực
+tập thể (`Du-lieu-Cong-Viec/KHUNG TIEU CHI.../Khung tieu chi danh gia Tap the.../*.xlsx`) — đọc trực
 tiếp từ tệp, không suy diễn từ tên tệp.
 
 ## Vì sao cần bảng này
@@ -12,7 +12,7 @@ bắt buộc trước khi chốt Master Task Register.
 
 ## Bảng chuẩn
 
-| Mã chuẩn | Tên chính thức (dùng trong văn bản) | Biến thể trong `KTC-Ke-Hoach/` | Biến thể trong `KTC-Du-lieu-Cong-Viec/` | Biến thể trong dữ liệu Excel thật |
+| Mã chuẩn | Tên chính thức (dùng trong văn bản) | Biến thể trong `KTC-Ke-Hoach/` | Biến thể trong `Du-lieu-Cong-Viec/` | Biến thể trong dữ liệu Excel thật |
 |---|---|---|---|---|
 | `P-TCCB` | Phòng Tổ chức cán bộ và Công tác học sinh, sinh viên | `Phong-TCCB-CTHHSV` ⚠️ | `Phong_TCCB_CTHSSV` | `Phòng Tổ chức` ⚠️ |
 | `P-QLDT` | Phòng Quản lý Đào tạo và Bảo đảm chất lượng | `Phong-QLDT-BDCL` | `Phong_QLDT_BDCL` | `Phòng QLĐT&BĐCL` |

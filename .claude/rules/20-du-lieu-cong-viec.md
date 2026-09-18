@@ -1,10 +1,10 @@
 ---
 paths:
-  - "KTC-Du-lieu-Cong-Viec/**"
+  - "Du-lieu-Cong-Viec/**"
 description: Danh mục nhiệm vụ chuẩn, sản phẩm quy đổi, KPI, khung đánh giá
 ---
 
-# KTC-Du-lieu-Cong-Viec — lớp dữ liệu nền của cả dự án
+# Du-lieu-Cong-Viec — lớp dữ liệu nền của cả dự án
 
 Không phải một hệ AI, mà là **kho dữ liệu chuẩn** để định lượng công việc; ba nhánh:
 

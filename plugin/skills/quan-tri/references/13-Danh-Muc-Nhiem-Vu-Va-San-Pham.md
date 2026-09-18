@@ -1,6 +1,6 @@
 # Danh mục nhiệm vụ chuẩn và quy đổi sản phẩm
 
-**Nguồn:** `KTC-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/` — hai tệp Excel.
+**Nguồn:** `Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/` — hai tệp Excel.
 **Căn cứ gốc:** Quyết định 1923/QĐ-CĐKT ngày 30/8/2026 và các Phụ lục I, II, III kèm theo.
 
 ## 1. Danh mục 122 nhiệm vụ chuẩn — 17 lĩnh vực

@@ -1,5 +1,12 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.2.1 — 2026-09-18
+
+- Thư mục dữ liệu nền đổi tên `KTC-Du-lieu-Cong-Viec` → `Du-lieu-Cong-Viec` (yêu cầu người dùng). Cập nhật
+  mọi tham chiếu còn hiệu lực (CLAUDE.md, README, 01-Chuan-Chung, references, agent); đóng gói lại
+  `ktc-quan-tri.skill` từ nguồn rời. Hồ sơ lịch sử trong `12-Output/` giữ nguyên tên cũ.
+- `Claude outputs/` (tệp ứng dụng Claude xuất ra) đưa vào `.gitignore` — không lên backup GitHub.
+
 ## 0.2.0 — 2026-09-18
 
 Thêm 3 cơ chế theo yêu cầu người dùng. Nguồn viết tay ở `tools/plugin_src/` (script build chép vào, không sửa

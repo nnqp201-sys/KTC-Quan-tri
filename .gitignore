@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 # Ket qua trung gian cua tools/ (CLAUDE.md: "xoa duoc")
 tools/_trung_gian/
+
+# Tệp do ứng dụng Claude (Desktop/Cowork) xuất ra — bản nháp cá nhân, không đưa lên GitHub
+Claude outputs/

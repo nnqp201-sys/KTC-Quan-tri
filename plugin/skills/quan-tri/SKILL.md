@@ -70,7 +70,7 @@ Khi chạm tới trường dữ liệu: tra `references/20-Tu-Dien-Truong-Du-Lie
 | Loại dữ liệu | Hệ nguồn chuẩn |
 |---|---|
 | Văn bản pháp lý, quy định, mẫu | `KTC-Database` kho 01–04 |
-| Danh mục nhiệm vụ chuẩn, sản phẩm, điểm/hệ số, KPI, khung đánh giá | `KTC-Du-lieu-Cong-Viec` |
+| Danh mục nhiệm vụ chuẩn, sản phẩm, điểm/hệ số, KPI, khung đánh giá | `Du-lieu-Cong-Viec` |
 | Nhiệm vụ, baseline kế hoạch | `KTC-Ke-Hoach` |
 | Trạng thái, % tiến độ, minh chứng | `KTC-Theo-doi-CV` |
 | Kết quả đã xác nhận theo kỳ | `KTC-Bao-Cao` |

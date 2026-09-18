@@ -53,7 +53,7 @@ Thay thế: QĐ 1490/QĐ-CĐKT ngày 04/10/2024 và QĐ 366/QĐ-CĐKT ngày 11/0
 
 ## Nguồn dữ liệu để tra
 
-Trong `KTC-Du-lieu-Cong-Viec/`:
+Trong `Du-lieu-Cong-Viec/`:
 
 - `CHI SO KPI/` — KPI cấp Trường phân bổ cho Lãnh đạo Trường; KPI cá nhân dùng chung theo 9 chức danh
   (Trưởng/Phó khoa, Trưởng/Phó bộ môn, Nhà giáo, Nhân viên y tế, Nhân viên ký túc xá, Lái xe, Viên chức

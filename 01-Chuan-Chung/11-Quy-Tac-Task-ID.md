@@ -11,7 +11,7 @@ Dự án đang có sẵn hai hệ mã hoàn toàn khác bản chất. Nhầm hai
 | Ví dụ | `A01`, `E07`, `S04` | `KTC-2026-Q3-00125` |
 | Trả lời câu hỏi | Đây là **loại** nhiệm vụ gì? | Đây là **lần giao việc** nào? |
 | Số lượng | 122, cố định, thay đổi hiếm | Tăng liên tục theo mỗi kỳ |
-| Ai sinh ra | `KTC-Du-lieu-Cong-Viec` (danh mục) | `KTC-Ke-Hoach` khi lập kế hoạch |
+| Ai sinh ra | `Du-lieu-Cong-Viec` (danh mục) | `KTC-Ke-Hoach` khi lập kế hoạch |
 | Vòng đời | Không có trạng thái | Có trạng thái, có tiến độ, có minh chứng |
 | Quan hệ | 1 mã chuẩn ↔ **N** Task_ID | 1 Task_ID ↔ **1** mã chuẩn (hoặc rỗng) |
 

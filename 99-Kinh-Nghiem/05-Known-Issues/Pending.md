@@ -135,7 +135,7 @@ nội bộ cho loại nhắc nhở này hay nên ủy quyền TL./TUQ. cho Trư�
 **Status:** ĐÃ TÌM RA NGUYÊN NHÂN 18/9/2026 — còn chờ người giữ tệp tự sửa (không tự ý sửa nguồn) ·
 **Priority:** Thấp
 
-Tệp xác định: `KTC-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx`,
+Tệp xác định: `Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx`,
 sheet `Tong hop theo Truc`, ô "Số sản phẩm" dòng Trục 1 = **102** (giá trị gõ cứng, không phải công thức).
 
 **Đã kiểm chứng dứt điểm:**
@@ -202,7 +202,7 @@ thì Master Task Register có nguy cơ làm trùng chức năng.
 **Status:** Đã dựng xong bảng đối chiếu đầy đủ 18/9/2026 — chờ người giữ tệp áp dụng (không tự sửa nguồn)
 · **Priority:** Cao — ảnh hưởng mọi phân loại
 
-`KTC-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Bang tong hop_phan tich_DANH_MUC_NHIEM_VU_CHUAN_TRUC_NOI_HAM_HE_SO.xlsx`
+`Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Bang tong hop_phan tich_DANH_MUC_NHIEM_VU_CHUAN_TRUC_NOI_HAM_HE_SO.xlsx`
 (122 nhiệm vụ, dự thảo lần 4, sheet `2. Phân loại theo loại TL`) dùng tên Trục **khác** TB 817/TB-CĐKT
 (số 817/TB-CĐKT, 14/7/2026, đã đọc trực tiếp từ `KTC-Database/02-KTC-Regulations/05. TB-817-...docx`).
 
@@ -223,7 +223,7 @@ tệp: danh mục 122 nhiệm vụ chuẩn dự thảo lần 4.
 
 Hiện lấy TB 817 làm chuẩn (văn bản đã ban hành; BC-375 cũng đặt tiêu đề theo TB 817). **Việc còn lại không
 tự làm được**: quyết định cập nhật tên Trục trong file danh mục cho khớp TB 817, hay xác nhận đây là hai
-hệ phân loại cố ý khác nhau — cần người giữ tệp `KTC-Du-lieu-Cong-Viec` quyết định và áp dụng.
+hệ phân loại cố ý khác nhau — cần người giữ tệp `Du-lieu-Cong-Viec` quyết định và áp dụng.
 
 ---
 
@@ -326,7 +326,7 @@ danh mục sản phẩm theo loại văn bản, hiện mới là dự thảo l�
   ngược lại. Không đủ căn cứ để AI chọn thay.
 
 **Đề xuất quy trình quyết định** (không phải quyết định): người có thẩm quyền (đơn vị giữ
-`KTC-Du-lieu-Cong-Viec`, phối hợp Phòng TCCB & CTHSSV) xác nhận 1 trong 3 hướng — (a) thang 4 mức là chuẩn
+`Du-lieu-Cong-Viec`, phối hợp Phòng TCCB & CTHSSV) xác nhận 1 trong 3 hướng — (a) thang 4 mức là chuẩn
 chính thức, thang 5 nhóm chỉ là bản nháp chưa hoàn thiện việc gắn nhãn; (b) thang 5 nhóm sẽ thay thế thang
 4 mức khi danh mục sản phẩm được ban hành chính thức, cần hoàn thiện lại 201 dòng lệch trước; (c) hai thang
 độc lập thật, cần quy tắc chọn tường minh khi một nhiệm vụ rơi vào cả hai. Sau khi chọn, mới cập nhật

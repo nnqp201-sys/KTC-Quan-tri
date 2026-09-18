@@ -18,7 +18,7 @@ input_files:
   - name: 99-Kinh-Nghiem/05-Known-Issues/Pending.md
     version_or_date: 13/9/2026 (trước khi sửa)
     role: danh sách việc mở đầu vào
-  - name: KTC-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx
+  - name: Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx
     version_or_date: đọc trực tiếp 18/9/2026
     role: nguồn số liệu KI-007 và bằng chứng bổ sung KI-014
   - name: KTC-Database/02-KTC-Regulations/05. TB-817-Noi-ham-06-Truc-Ket-qua-trong-tam-Truong-CDKT.docx
@@ -83,7 +83,7 @@ process_steps:
 
 key_findings:
   - id: F1
-    location: KTC-Du-lieu-Cong-Viec/.../Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx, sheet
+    location: Du-lieu-Cong-Viec/.../Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx, sheet
       "Tong hop theo Truc", ô B2
     issue: "Số sản phẩm" Trục 1 ghi 102 (gõ cứng), đúng phải 103
     hệ_quả: không ảnh hưởng dữ liệu vận hành thật (dòng chi tiết đã đúng), chỉ sai ở ô tổng hợp hiển thị
@@ -130,9 +130,9 @@ outputs:
 
 unresolved_items:
   - item: KI-014 — hai thang điểm, cần người có thẩm quyền chọn hướng (a)/(b)/(c)
-    needed_evidence: quyết định của đơn vị giữ KTC-Du-lieu-Cong-Viec + Phòng TCCB
+    needed_evidence: quyết định của đơn vị giữ Du-lieu-Cong-Viec + Phòng TCCB
   - item: KI-011 — cập nhật tên Trục trong danh mục 122 nhiệm vụ chuẩn hay xác nhận cố ý khác
-    needed_evidence: quyết định của người giữ tệp KTC-Du-lieu-Cong-Viec
+    needed_evidence: quyết định của người giữ tệp Du-lieu-Cong-Viec
   - item: KI-008 — phạm vi quản lý và khả năng xuất dữ liệu của phần mềm VNPT KPI
     needed_evidence: xác nhận từ Phòng TCCB & CTHSSV (đầu mối khả dĩ theo QĐ 1883)
   - item: KI-010 — nhật ký chạy thử trên Claude Chat

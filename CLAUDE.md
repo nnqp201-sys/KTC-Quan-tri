@@ -2,7 +2,7 @@
 
 Thư mục gốc của dự án hợp nhất ba hệ **KTC-Kế-Hoạch → KTC-Theo-Dõi → KTC-Báo-Cáo** thành một chu trình
 quản trị nhiệm vụ khép kín cho Trường Cao đẳng Kon Tum, kèm hệ soạn thảo văn bản hành chính
-`KTC-Soan-Thao-VB` và kho dữ liệu nền định lượng `KTC-Du-lieu-Cong-Viec`.
+`KTC-Soan-Thao-VB` và kho dữ liệu nền định lượng `Du-lieu-Cong-Viec`.
 
 Chu trình đích:
 > Chủ trương/Văn bản → Nhiệm vụ → Kế hoạch → Giao việc → Theo dõi → Kết quả/Bằng chứng → Báo cáo →
@@ -48,7 +48,7 @@ KTC-Quan-tri/
 ├── KTC-Theo-doi-CV/       Control tower — vòng đời nhiệm vụ, tiến độ, cảnh báo, minh chứng (gói v1.0)
 ├── KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
 ├── KTC-Soan-Thao-VB/      Hệ soạn thảo văn bản hành chính (7 loại VB + 6 lĩnh vực nghiệp vụ)
-└── KTC-Du-lieu-Cong-Viec/ Dữ liệu nền định lượng — danh mục nhiệm vụ/sản phẩm, KPI, khung đánh giá
+└── Du-lieu-Cong-Viec/ Dữ liệu nền định lượng — danh mục nhiệm vụ/sản phẩm, KPI, khung đánh giá
 ```
 
 ### Lớp chuẩn chung — đọc trước khi sửa bất cứ quy tắc dùng chung nào
@@ -121,7 +121,7 @@ trước mọi tác vụ sinh văn bản.
 | Loại dữ liệu | Hệ nguồn chuẩn |
 |---|---|
 | Văn bản pháp lý, quy định, mẫu | `KTC-Database` (kho 01–04) |
-| Danh mục nhiệm vụ chuẩn, sản phẩm, điểm/hệ số, KPI, khung đánh giá | `KTC-Du-lieu-Cong-Viec` |
+| Danh mục nhiệm vụ chuẩn, sản phẩm, điểm/hệ số, KPI, khung đánh giá | `Du-lieu-Cong-Viec` |
 | Nhiệm vụ, baseline kế hoạch | `KTC-Ke-Hoach` |
 | Trạng thái, % tiến độ, minh chứng | `KTC-Theo-doi-CV` |
 | Kết quả đã xác nhận theo kỳ | `KTC-Bao-Cao` |

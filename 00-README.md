@@ -28,7 +28,7 @@ KTC-Quan-tri/
     ├── KTC-Theo-doi-CV/       Control tower — vòng đời, tiến độ, cảnh báo, minh chứng
     ├── KTC-Bao-Cao/           RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
     ├── KTC-Soan-Thao-VB/   Soạn thảo, chuẩn hóa văn bản hành chính
-    └── KTC-Du-lieu-Cong-Viec/ Dữ liệu nền định lượng — nhiệm vụ chuẩn, sản phẩm, KPI, khung đánh giá
+    └── Du-lieu-Cong-Viec/ Dữ liệu nền định lượng — nhiệm vụ chuẩn, sản phẩm, KPI, khung đánh giá
 ```
 
 ## Đọc theo thứ tự này
