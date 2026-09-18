@@ -16,11 +16,20 @@ BK = os.path.join(GOC, "tools", "plugin_src", "scripts", "ktc_backup_github.py")
 loi = []
 
 
+THAT = os.path.join(GOC, "03-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
+
+
+def anh_log_that():
+    if not os.path.isdir(THAT):
+        return {}
+    return {f: os.path.getsize(os.path.join(THAT, f)) for f in os.listdir(THAT)}
+
+
 def chay(args, stdin=""):
     e = dict(os.environ)
     e.pop("CLAUDE_PROJECT_DIR", None)   # de script tu tim du an theo cwd trong input
     return subprocess.run([sys.executable, *args], input=stdin, capture_output=True, text=True,
-                          encoding="utf-8", env=e)
+                          encoding="utf-8", env=e, cwd=GOC)  # cwd = du an THAT: bat loi ghi nham
 
 
 def kiem(dk, ten):
@@ -33,6 +42,7 @@ def git(*a):
     subprocess.run(["git", *a], capture_output=True)
 
 
+truoc = anh_log_that()
 with tempfile.TemporaryDirectory() as t:
     du_an = os.path.join(t, "du_an"); khac = os.path.join(t, "khac")
     os.makedirs(os.path.join(du_an, "03-Nhat-Ky-Van-Hanh")); os.makedirs(khac)
@@ -71,5 +81,6 @@ with tempfile.TemporaryDirectory() as t:
          "ca ngược: tệp tên giống bí mật -> dừng, không push")
     kiem(os.path.exists(os.path.join(repo, "my-credentials.json")), "không xóa tệp của người dùng khi dừng")
 
+kiem(anh_log_that() == truoc, "ca ngược: kiểm thử không ghi gì vào nhật ký THẬT của dự án")
 print("KET LUAN:", "CO LOI " + str(loi) if loi else "SACH")
 sys.exit(1 if loi else 0)

@@ -1,5 +1,13 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.2.2 — 2026-09-18
+
+- Sửa lỗi nhật ký: khi hook báo thư mục làm việc nằm ngoài dự án, script vẫn lùi về thư mục đang chạy và
+  ghi nhầm vào nhật ký KTC-Quan-tri (phát hiện qua dòng "Write a" do kiểm thử sinh ra). Nay chỉ lùi về khi
+  hook không báo thư mục nào. Không ghi dòng rỗng khi dữ liệu hook hỏng.
+- Hồi quy thêm ca ngược: chạy kiểm thử từ chính thư mục dự án và kiểm nhật ký thật không đổi (ca này thất bại
+  với bản cũ, đạt với bản mới). Đã dọn 10 dòng rác khỏi nhật ký 18/9.
+
 ## 0.2.1 — 2026-09-18
 
 - Thư mục dữ liệu nền đổi tên `KTC-Du-lieu-Cong-Viec` → `Du-lieu-Cong-Viec` (yêu cầu người dùng). Cập nhật

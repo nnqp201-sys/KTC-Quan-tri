@@ -29,7 +29,12 @@ def doc_stdin() -> dict:
 
 
 def tim_du_an(data: dict):
-    for p in (os.environ.get("CLAUDE_PROJECT_DIR"), data.get("cwd"), os.getcwd()):
+    # Chi lui ve getcwd khi hook KHONG cho biet thu muc nao — neu hook da cho cwd ngoai du an
+    # thi phai bo qua, khong duoc ghi nham vao du an dang chua script (loi 18/9/2026).
+    ung_vien = [os.environ.get("CLAUDE_PROJECT_DIR"), data.get("cwd")]
+    if not any(ung_vien):
+        ung_vien.append(os.getcwd())
+    for p in ung_vien:
         if not p:
             continue
         p = os.path.abspath(p)
@@ -74,6 +79,8 @@ def che_do_ghi(data: dict, loai: str):
     if not du_an:
         return
     tool = data.get("tool_name", "")
+    if loai == "thao-tac" and not tool:
+        return  # du lieu hook hong/thieu — khong ghi dong rong
     dong = {
         "t": dt.datetime.now().isoformat(timespec="seconds"),
         "phien": (data.get("session_id") or "")[:8],
