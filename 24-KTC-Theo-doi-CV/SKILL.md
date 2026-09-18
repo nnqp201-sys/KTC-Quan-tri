@@ -5,7 +5,7 @@ description: "Theo doi vong doi nhiem vu cua Truong Cao dang Kon Tum: tiep nhan 
 
 # KTC-Theo-doi-CV — Control tower vòng đời nhiệm vụ
 
-**Phiên bản: 1.2 — 18/9/2026** — Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team
+**Phiên bản: 1.3 — 18/9/2026** — Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005). Trước đó 1.2: Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team
 
 ## Nguyên tắc tiên quyết — đọc trước khi làm bất cứ việc gì
 

@@ -26,9 +26,12 @@ Kiểm soát "cổng vào" của hệ KTC-PIS trước khi chạy Skill 35: xác
 | Nhánh | Chứa gì | Vai trò với Pre-flight |
 |---|---|---|
 | `01-Dau-Moi-Nop/<kỳ>/<mã đầu mối>/` | Hồ sơ 13 đầu mối nộp theo kỳ | **Luồng A** — đề xuất của đơn vị |
-| `02-Cap-Truong/<kỳ>/` | Văn bản cấp Trường đã ban hành (CTCT năm, KH quý, KH tháng, BC) | **Luồng B** — căn cứ cấp trên trực tiếp; nguồn 1 của kế hoạch tháng |
-| `04-Van-Ban-Cap-Tren/<năm>/` | Văn bản chỉ đạo của UBND tỉnh, Tỉnh ủy, Bộ… | **Luồng B/C** — nguồn 2 của kế hoạch tháng |
+| `02-Cap-Truong/<nhóm kỳ>/<kỳ>/` | Văn bản cấp Trường đã ban hành (CTCT năm, KH quý, KH tháng, BC) | **Luồng B** — căn cứ cấp trên trực tiếp; nguồn 1 của kế hoạch tháng |
+| `KTC-Database/01-Legal-Database/` (nạp qua `KTC-Database/11-Input/`) | Văn bản chỉ đạo của UBND tỉnh, Tỉnh ủy, Bộ… — **không** lưu trong `10-Dau-Vao` | **Luồng B/C** — nguồn 2 của kế hoạch tháng |
 | `03-Ket-Luan-Giao-Ban/<năm>/` | Thông báo kết luận giao ban tuần của Lãnh đạo Trường | **Nguồn 3** của kế hoạch tháng — mới, xem Skill 36 |
+
+> `<nhóm kỳ>` của `02-Cap-Truong/`: `01-Nam/` (kỳ `YYYY`) · `02-Quy/` (`YYYY-Qn`) · `03-Thang/` (`YYYY-MM`) · `04-Chuyen-De/` (`YYYY-CD-<tên-ngắn>`). Văn bản cấp trên **không** lưu ở `10-Dau-Vao` — đọc tại `KTC-Database/01-Legal-Database/` (DL-20260918-005).
+
 
 **Quy ước tên kỳ:** năm `YYYY` · quý `YYYY-Qn` · tháng `YYYY-MM` · chuyên đề `YYYY-CD-<tên-ngắn>`.
 
@@ -49,8 +52,8 @@ Kế hoạch chuyên đề do Ban Giám hiệu chỉ đạo hoặc phát sinh đ
 |---|---|
 | `01-Dau-Moi-Nop/<kỳ>/DT-CDCS/` | Kế hoạch hoạt động chuyên đề của Công đoàn |
 | `01-Dau-Moi-Nop/<kỳ>/DT-DTN/` | Kế hoạch hoạt động chuyên đề của Đoàn Thanh niên |
-| `04-Van-Ban-Cap-Tren/<năm>/` | KH/Chỉ thị cấp trên làm căn cứ chuyên đề |
-| `02-Cap-Truong/<kỳ>/` | Dự thảo KH chuyên đề cấp Trường do Phòng TH-HC&QT chủ trì |
+| `KTC-Database/01-Legal-Database/` | KH/Chỉ thị cấp trên làm căn cứ chuyên đề |
+| `02-Cap-Truong/<nhóm kỳ>/<kỳ>/` | Dự thảo KH chuyên đề cấp Trường do Phòng TH-HC&QT chủ trì |
 
 > ⚠️ Nếu thấy thư mục của Phòng/Khoa chuyên môn trong một kỳ chuyên đề → **cảnh báo**, không tự xử lý.
 
@@ -74,7 +77,7 @@ phải có thư mục rỗng. Pre-flight phải đối chiếu với **danh sác
 
 ### Luồng B — Kế hoạch đã ban hành (cấp trên/chỉ đạo, dùng cho Skill 37)
 - Áp dụng: mọi kỳ, kể cả Chuyên đề
-- Vị trí: `10-Dau-Vao/02-Cap-Truong/<kỳ>/` (cấp Trường) hoặc `10-Dau-Vao/04-Van-Ban-Cap-Tren/<năm>/` (cấp trên Trường)
+- Vị trí: `10-Dau-Vao/02-Cap-Truong/<nhóm kỳ>/<kỳ>/` (cấp Trường) hoặc `KTC-Database/01-Legal-Database/` (cấp trên Trường)
 - Tên file: `KH_[kỳ]_[kỳ-cụ-thể]_[Don-vi-ban-hanh]_[So-hieu-VB].docx`
   - Ví dụ: `KH_Nam_2026_Truong-CDKT_736-KH-CDKT.docx`
   - Ví dụ: `KH_Quy_2026-Q3_Truong-CDKT_817-KH-CDKT.docx`
@@ -89,7 +92,7 @@ phải có thư mục rỗng. Pre-flight phải đối chiếu với **danh sác
 
 ### Luồng C — Nhập hồi tố (kỳ trước thiếu KH cấp trên)
 - Áp dụng: khi hệ mới triển khai hoặc phát hiện thiếu KH cấp trên của kỳ đã qua
-- Vị trí: `10-Dau-Vao/04-Van-Ban-Cap-Tren/<năm>/` — cùng vị trí Luồng B
+- Vị trí: `KTC-Database/01-Legal-Database/` — cùng vị trí Luồng B
 - Tên file: thêm hậu tố `_HOITRO`: `KH_Nam_2025_Truong-CDKT_XXX_HOITRO.docx`
 - Metadata bổ sung: `Ghi chú nạp`: "Nhập hồi tố ngày [dd/mm/yyyy]"
 - Sau khi nạp → kiểm tra xem Skill 37 kỳ tương ứng có cần chạy lại không
@@ -120,7 +123,7 @@ Kết quả:
 - **Không tự đổi tên hoặc chuyển định dạng** — chỉ liệt kê để người dùng xử lý
 
 ### Kiểm tra 3 — Có KH cấp trên chưa? (điều kiện tiên quyết Skill 37)
-Kiểm tra `10-Dau-Vao/02-Cap-Truong/<kỳ>/` và `04-Van-Ban-Cap-Tren/<năm>/` có ≥1 file Luồng B/C đúng phạm vi:
+Kiểm tra `10-Dau-Vao/02-Cap-Truong/<nhóm kỳ>/<kỳ>/` và `KTC-Database/01-Legal-Database/` có ≥1 file Luồng B/C đúng phạm vi:
 - Lập tháng → cần KH quý tương ứng
 - Lập quý → cần KH năm tương ứng
 - Lập năm → không bắt buộc (kỳ đầu)

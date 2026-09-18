@@ -7,9 +7,11 @@ Bo phan loai dung CHINH mo ta noi ham lam tu vung (khong tu dat tu khoa).
 import json, math, os, re
 from docx import Document
 
-TB817 = (r"D:\.CLAUDE code\KTC-Database\02-KTC-Regulations"
-         r"\05. TB-817-Noi-ham-06-Truc-Ket-qua-trong-tam-Truong-CDKT.docx")
 HERE = os.path.dirname(os.path.abspath(__file__))
+import sys; sys.path.insert(0, HERE)
+from duong_dan import ktc_database  # noqa: E402
+TB817 = os.path.join(ktc_database(), "02-KTC-Regulations",
+                     "05. TB-817-Noi-ham-06-Truc-Ket-qua-trong-tam-Truong-CDKT.docx")
 
 STOP = set("""va của cho các được theo trong với tại về những một số như là có không
 đã và/hoặc khi từ đến trên dưới ra vào này đó nếu thì mà nhưng hoặc cùng bằng

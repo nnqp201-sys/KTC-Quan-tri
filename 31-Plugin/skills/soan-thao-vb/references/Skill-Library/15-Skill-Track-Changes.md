@@ -36,7 +36,7 @@ hàm `doi_chieu_goc()` chuyên để phát hiện nó.
 ### Bước 2 — Sửa có dấu vết
 
 ```python
-import sys; sys.path.insert(0, r"D:\.CLAUDE code\KTC-Quan-tri\tools")
+import sys; sys.path.insert(0, "29-Cong-Cu")  # chay tu goc du an KTC-Quan-tri
 from ktc_trackchanges import TrackChanges, kiem_tra, nhat_ky_sua_doi, doi_chieu_goc
 
 tc = TrackChanges("KH-834_goc.docx")          # luôn mở file GỐC

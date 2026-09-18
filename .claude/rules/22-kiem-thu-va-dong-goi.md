@@ -9,7 +9,7 @@ description: Ba tầng kiểm thử và quy tắc đóng gói .skill
 # Chạy thử hệ thống
 
 ```bash
-python 29-Cong-Cu/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 11 phép kiểm, mã thoát 0/1
+python 29-Cong-Cu/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 13 phép kiểm, mã thoát 0/1
 python 92-Kinh-Nghiem/02-Regression/Cases/test_kiem_tra_he_thong.py   # thử ngược
 ```
 

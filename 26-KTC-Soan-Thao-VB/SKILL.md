@@ -5,7 +5,9 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.3 — 18/9/2026
+## Phiên bản: v1.4 — 18/9/2026
+
+> v1.4: Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005); Track Changes không còn ghi cứng ổ đĩa.
 
 > v1.3: Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team.
 

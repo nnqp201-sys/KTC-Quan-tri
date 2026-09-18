@@ -71,6 +71,41 @@ mẫu → cảnh báo cho đơn vị tự sửa, không tự sửa số liệu. 
 - Tài khoản thành viên (không có dự án): trả tệp `.docx`/`.xlsx` để người dùng **tải về** (thư mục output của
   phiên); nhắc người dùng gửi tệp về đầu mối tổng hợp của Trường theo quy định — skill không tự nộp thay.
 
+## Nguyên tắc 4 — Nơi lưu đầu vào, cách tìm KTC-Database, làm việc trên Google Drive (18/9/2026)
+
+KTC-Quan-tri và KTC-Database là **hai thư mục ngang cấp trong cùng một thư mục Google Drive dùng chung**.
+Bản sao trên ổ máy chỉ để chạy script, sẽ bị bỏ — **không phụ thuộc ký tự ổ đĩa** (`D:`, `G:`…).
+
+**4.1. Mỗi loại tài liệu một nơi lưu**
+
+| Loại | Nơi lưu | Ghi chú |
+|---|---|---|
+| Văn bản pháp luật, văn bản cấp trên dùng làm căn cứ | `KTC-Database/01-Legal-Database/` (nạp qua `KTC-Database/11-Input/`) | KTC-Quan-tri chỉ trỏ tới, không lưu |
+| Văn bản cấp Trường đã ban hành | `KTC-Database/02-KTC-Regulations/` | Bản làm việc theo kỳ đặt ở `10-Dau-Vao/02-Cap-Truong/<nhóm kỳ>/<kỳ>/` |
+| Hồ sơ đơn vị nộp theo kỳ | `10-Dau-Vao/01-Dau-Moi-Nop/<kỳ>/<mã>/` | Không bao giờ đưa vào KTC-Database |
+| Kết luận giao ban tuần | `10-Dau-Vao/03-Ket-Luan-Giao-Ban/<năm>/` | Dữ liệu vận hành |
+| Tệp đính kèm của tài khoản Team | Không lưu | Nguyên tắc 3 |
+
+`<nhóm kỳ>`: `01-Nam/` · `02-Quy/` · `03-Thang/` · `04-Chuyen-De/`. **Ngoại lệ đã duyệt:** bản gốc năm 2026 trong
+`02-Cap-Truong/` được giữ song song với KTC-Database (người dùng quyết 18/9/2026) — liệt kê tại
+`10-Dau-Vao/02-Cap-Truong/00-Danh-Muc-Tro-KTC-Database.md`; tệp trùng ngoài danh mục đó là lỗi phải báo.
+
+**4.2. Tìm KTC-Database theo thứ tự** (không ghi cứng đường dẫn ổ đĩa)
+1. Biến môi trường `KTC_DATABASE_DIR`.
+2. Thư mục ngang cấp: `<thư mục cha của KTC-Quan-tri>/KTC-Database`.
+3. Chat/Cowork/tài khoản Team: tìm thư mục tên `KTC-Database` qua kết nối Google Drive.
+4. Không thấy → **dừng và hỏi** (Nguyên tắc bất biến).
+
+**4.3. Google Drive**
+- Máy chạy script: đặt cả hai thư mục **"Có sẵn khi không có mạng"** (Available offline) để đọc được byte thật.
+- Tệp Google Docs/Sheets: tải xuống `.docx`/`.xlsx` rồi mới đưa vào đầu vào.
+- Đóng tệp đang mở trong Word/Excel trước khi chạy tổng hợp (tệp mở bị khóa, không đọc/dời được).
+- Bản trùng Drive tự sinh (hậu tố `(1)`): chỉ báo cáo, không tự xóa.
+- Quyền: thành viên Team **xem** KTC-Database; chỉ đầu mối quản trị được sửa.
+
+**4.4. Kiểm trùng trước khi đưa tệp vào `10-Dau-Vao`** — so mã băm với KTC-Database; trùng thì trỏ thay vì chép
+(trừ ngoại lệ 4.1). Công cụ: phép kiểm C12 của `29-Cong-Cu/kiem_tra_he_thong.py`.
+
 ## Giới hạn kỹ thuật thật của bước "nạp vào 11-Input" — ĐỌC KỸ TRƯỚC KHI ÁP DỤNG
 
 **[Cập nhật 08/9/2026 — đã kiểm chứng bằng lệnh gọi thật, thay thế mô tả cũ]**

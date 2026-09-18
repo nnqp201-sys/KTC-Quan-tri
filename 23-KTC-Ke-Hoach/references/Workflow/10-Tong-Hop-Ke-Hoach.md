@@ -24,7 +24,7 @@ Kiểm tra 4 điều kiện:
 
 ### Bước 1 — Thu thập đề xuất
 - Luồng A: `10-Dau-Vao/01-Dau-Moi-Nop/<kỳ>/<mã>/DX_[kỳ]_[kỳ-cụ-thể]_[mã]_v[N].docx`
-- Luồng B: `10-Dau-Vao/02-Cap-Truong/<kỳ>/` hoặc `04-Van-Ban-Cap-Tren/<năm>/` — `KH_[kỳ]_[kỳ-cụ-thể]_[Don-vi]_[So-hieu].docx`
+- Luồng B: `10-Dau-Vao/02-Cap-Truong/<nhóm kỳ>/<kỳ>/` hoặc `KTC-Database/01-Legal-Database/` — `KH_[kỳ]_[kỳ-cụ-thể]_[Don-vi]_[So-hieu].docx`
 - Luồng C: tên Luồng B + `_HOITRO`
 - Chỉ chấp nhận `.docx` và `.xlsx`.
 
@@ -80,9 +80,9 @@ có checklist riêng cho Kế hoạch, `Checklist/08-Quy-Uoc-Rieng-CDKT.md` có 
 ```
 10-Dau-Vao/          ← kho dùng chung cấp dự án (từ 14/9/2026)
   01-Dau-Moi-Nop/<kỳ>/<mã>/  ← hồ sơ 13 đầu mối nộp; chỉ tạo khi có dữ liệu
-  02-Cap-Truong/<kỳ>/        ← văn bản cấp Trường đã ban hành
+  02-Cap-Truong/<nhóm kỳ>/<kỳ>/        ← văn bản cấp Trường đã ban hành
   03-Ket-Luan-Giao-Ban/<năm>/← kết luận giao ban tuần (nguồn 3)
-  04-Van-Ban-Cap-Tren/<năm>/ ← văn bản chỉ đạo cấp trên (nguồn 2)
+  (văn bản cấp trên: KTC-Database/01-Legal-Database/ — nguồn 2, không lưu ở đây)
   09-Chua-Phan-Loai/
 
 30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/   ← nơi xuất DUY NHẤT của toàn dự án

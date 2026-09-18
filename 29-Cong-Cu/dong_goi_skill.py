@@ -11,7 +11,7 @@ Truoc khi ghi de, phai so tung tep; tep nao trong goi moi hon thi GOP, khong ghi
 """
 import io, os, re, shutil, sys, tempfile, zipfile
 
-DU_AN = r"D:\.CLAUDE code\KTC-Quan-tri"
+DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def giai_nen(skill: str, dich: str) -> str:

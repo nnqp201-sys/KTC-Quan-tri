@@ -140,7 +140,7 @@ def quet(loai: str) -> list:
 
 # [SUA 14/9/2026] KH quy nay nam o kho dau vao master, nhanh 02-Cap-Truong,
 # khong con la mot thu muc con cua input don vi.
-KH_QUY = os.path.join(DU_AN, "10-Dau-Vao", "02-Cap-Truong", "2026-Q3",
+KH_QUY = os.path.join(DU_AN, "10-Dau-Vao", "02-Cap-Truong", "02-Quy", "2026-Q3",
                       "KH-cong-tac-Quy-III-2026-dieu-chinh-bo-sung.xlsx")
 
 

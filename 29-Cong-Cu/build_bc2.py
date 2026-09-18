@@ -17,10 +17,11 @@ from vanphong import cap_truong, kiem_tra                      # noqa: E402
 from noi_ham import trich, PhanLoai                            # noqa: E402
 import chuan_bao_cao as CBC                                    # noqa: E402
 
-GOC = (r"D:\.CLAUDE code\KTC-Database\02-KTC-Regulations"
-       r"\BC-375_Bao-cao-ket-qua-thang-8-2026_20260906_v1.docx")
+from duong_dan import ktc_database, DU_AN                      # noqa: E402
+GOC = os.path.join(ktc_database(), "02-KTC-Regulations",
+                   "BC-375_Bao-cao-ket-qua-thang-8-2026_20260906_v1.docx")
 NAR = os.path.join(HERE, "_trung_gian", "narrative.json")
-OUTDIR = r"D:\.CLAUDE code\KTC-Quan-tri\30-Ket-Qua\2026-09-14"
+OUTDIR = os.path.join(DU_AN, "30-Ket-Qua", "2026-09-14")
 
 TEN_TRUC = {                       # TB 817 — dung y nhu BC-375 dat tieu de
     1: "Thực hiện mục tiêu phát triển kinh tế - xã hội và nhiệm vụ chính trị",

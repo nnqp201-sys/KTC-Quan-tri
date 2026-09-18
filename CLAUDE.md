@@ -92,7 +92,7 @@ Không tự đặt quy tắc chuyển đổi giữa hai thang.
 **Cơ quan chủ quản trong thể thức**: `UBND TỈNH QUẢNG NGÃI` – `TRƯỜNG CAO ĐẲNG KON TUM` (nhất quán trong toàn
 bộ khung đánh giá hiện hành, sau sáp nhập tỉnh). Không dùng "UBND tỉnh Kon Tum" ở văn bản mới.
 
-Hai hệ liên quan nằm **ngoài** thư mục này, ngang cấp ở `D:\.CLAUDE code\`:
+Hai hệ liên quan nằm **ngoài** thư mục này, **ngang cấp** trong cùng thư mục Google Drive dùng chung (không phụ thuộc ổ đĩa — Nguyên tắc 4):
 - `KTC-Database` — nguồn chính thức của dữ liệu văn bản nội bộ (kho 01–04 + Input/Output). Mọi hệ trong dự án đều dùng chung.
 - `KTC-Ra-Soat-897-v2-Cai-tien` — lớp kiểm soát chất lượng **bắt buộc trước khi trình ký**, và là
   **bộ quy tắc soạn thảo dùng ngay từ lúc bắt đầu viết** (nguyên tắc 9). Dùng hai chiều:
@@ -106,7 +106,7 @@ Hai hệ liên quan nằm **ngoài** thư mục này, ngang cấp ở `D:\.CLAUD
 ## Chạy thử hệ thống
 
 ```bash
-python 29-Cong-Cu/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 11 phép kiểm, mã thoát 0/1
+python 29-Cong-Cu/kiem_tra_he_thong.py      # Tầng 1 — tĩnh, 13 phép kiểm, mã thoát 0/1
 ```
 
 **Bắt buộc chạy sau mỗi lần sửa skill và trước/sau mỗi lần đóng gói.** Ba tầng kiểm thử đầy đủ và quy tắc
@@ -143,7 +143,7 @@ thống và phải ghi rõ nguồn trong kết quả.
 
 ## Liên kết dữ liệu với KTC-Database
 
-Đường dẫn: `D:\.CLAUDE code\KTC-Database` — **ngang cấp, ngoài thư mục dự án**. Kho nền pháp lý và quy
+Đường dẫn: `../KTC-Database` — **ngang cấp, ngoài thư mục dự án**; script lấy qua `29-Cong-Cu/duong_dan.py` (biến `KTC_DATABASE_DIR` → thư mục ngang cấp). Nơi lưu từng loại đầu vào: `20-Chuan-Chung/00-Nguyen-Tac-Chung.md`, Nguyên tắc 4. Kho nền pháp lý và quy
 định dùng chung. Đọc trực tiếp, **không sao chép dữ liệu sang KTC-Quan-tri**.
 
 **Chỉ mục đầy đủ 8 kho, văn bản gốc chống lưng, cảnh báo về kho 03, quy tắc metadata:**

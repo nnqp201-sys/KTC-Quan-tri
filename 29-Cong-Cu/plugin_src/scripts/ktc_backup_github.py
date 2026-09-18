@@ -2,7 +2,7 @@
 """Tu backup du an KTC-Quan-tri len GitHub moi ngay.
 
 Cach chay:
-  python ktc_backup_github.py --du-an "D:\\.CLAUDE code\\KTC-Quan-tri"            # Task Scheduler 21:00
+  python ktc_backup_github.py --du-an "<thu muc KTC-Quan-tri>"                    # Task Scheduler 21:00
   python ktc_backup_github.py --du-an ... --neu-can                                # SessionStart: chi chay
                                                                                    # neu >24h chua backup
   python ktc_backup_github.py --du-an ... --trang-thai                             # xem lan backup cuoi

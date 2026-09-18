@@ -23,10 +23,10 @@ NGOAI = os.path.dirname(DU_AN)
 
 # He dang dung -> (thu muc, goi .skill)
 HE = {
-    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.9.skill"),
-    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.4.skill"),
-    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.3.skill"),
-    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.2.skill"),
+    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.10.skill"),
+    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.5.skill"),
+    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.4.skill"),
+    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.3.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
 }
 # He da thay the — bo qua, khong bat loi
@@ -489,6 +489,80 @@ def c11_ban_goc_trong_zip():
             print(f"  ✓ {ten:18s} mọi tệp đều có bản nguồn ngoài zip")
 
 
+# --------------------------------------------------------------- C12
+DANH_MUC_TRO = os.path.join("10-Dau-Vao", "02-Cap-Truong", "00-Danh-Muc-Tro-KTC-Database.md")
+
+
+def ngoai_le_trung(du_an):
+    """Tep trong 10-Dau-Vao/02-Cap-Truong DUOC PHEP trung KTC-Database (DL-20260918-005)."""
+    p = os.path.join(du_an, DANH_MUC_TRO)
+    if not os.path.exists(p):
+        return set()
+    s = doc(p)
+    if "## Ngoại lệ" not in s:
+        return set()
+    doan = s.split("## Ngoại lệ", 1)[1].split("\n## ", 1)[0]
+    return {os.path.normpath(os.path.join(du_an, "10-Dau-Vao", "02-Cap-Truong", m))
+            for m in re.findall(r"^\| `([^`]+)` \|", doan, re.M)}
+
+
+def c12_trung_kho(du_an=DU_AN, kho=None):
+    """Da mac 18/9/2026: 2 tep 10-Dau-Vao trung byte voi KTC-Database ma khong ai biet."""
+    tieu_de("C12. Đầu vào trùng KTC-Database (Nguyên tắc 4.4 — trỏ thay vì chép)")
+    kho = kho or os.path.join(os.environ.get("KTC_DATABASE_DIR") or os.path.dirname(du_an), "KTC-Database") \
+        if not kho else kho
+    if not os.path.isdir(kho):
+        canh_bao.append("C12: không tìm thấy KTC-Database — bỏ qua kiểm trùng")
+        print("  ⚠ không tìm thấy KTC-Database — bỏ qua"); return
+    bam = {}
+    for r, ds, fs in os.walk(kho):
+        for f in fs:
+            if f != "desktop.ini" and not f.endswith(".md"):
+                bam.setdefault(md5(os.path.join(r, f)), os.path.relpath(os.path.join(r, f), kho))
+    cho_phep = ngoai_le_trung(du_an)
+    vao = os.path.join(du_an, "10-Dau-Vao")
+    n = trung_ok = 0
+    for r, ds, fs in os.walk(vao):
+        for f in fs:
+            if f == "desktop.ini" or f.endswith(".md"):
+                continue
+            p = os.path.join(r, f); n += 1
+            k = bam.get(md5(p))
+            if not k:
+                continue
+            if os.path.normpath(p) in cho_phep:
+                trung_ok += 1; continue
+            loi.append(f"C12 {os.path.relpath(p, du_an)} trùng KTC-Database/{k} — trỏ thay vì chép, "
+                       f"hoặc ghi vào ngoại lệ {DANH_MUC_TRO} nếu người dùng duyệt giữ")
+    print(f"  {'✗' if any(x.startswith('C12') for x in loi) else '✓'} {n} tệp đầu vào · "
+          f"{trung_ok} trùng thuộc ngoại lệ đã duyệt")
+
+
+# --------------------------------------------------------------- C13
+O_DIA = re.compile(r"(?<![A-Za-z])[A-Z]:[\\/]+\.CLAUDE code", re.I)
+
+
+def c13_o_dia_tuyet_doi(du_an=DU_AN):
+    """Du an se chi con tren Google Drive: khong script/skill/quy tac nao duoc ghi cung o dia."""
+    tieu_de("C13. Không ghi cứng đường dẫn ổ đĩa (Nguyên tắc 4.2)")
+    pham_vi = ["CLAUDE.md", "00-README.md", ".claude", "20-Chuan-Chung", "22-KTC-Dieu-Phoi",
+               "23-KTC-Ke-Hoach", "24-KTC-Theo-doi-CV", "25-KTC-Bao-Cao", "26-KTC-Soan-Thao-VB", "29-Cong-Cu"]
+    sai = []
+    for g in pham_vi:
+        p = os.path.join(du_an, g)
+        ds_tep = [p] if os.path.isfile(p) else [
+            os.path.join(r, f) for r, ds, fs in os.walk(p)
+            if not any(b in r for b in ("_trung_gian", "__pycache__")) for f in fs
+            if f.endswith((".md", ".py", ".json"))]
+        for t in ds_tep:
+            for i, dong in enumerate(doc(t).splitlines(), 1):
+                if O_DIA.search(dong):
+                    sai.append(f"{os.path.relpath(t, du_an)}:{i}")
+    for x in sai:
+        loi.append(f"C13 {x}: đường dẫn ổ đĩa tuyệt đối — dùng 29-Cong-Cu/duong_dan.py hoặc ../KTC-Database")
+    print(f"  {'✗' if sai else '✓'} {len(sai)} chỗ ghi cứng ổ đĩa")
+
+
 def main():
     print("=" * 76)
     print("KIỂM TRA TOÀN HỆ hệ thống KTC — Tầng 1 (tĩnh, tất định)")
@@ -497,7 +571,7 @@ def main():
     for f in (c1_goi, c2_lien_ket, c3_duong_dan_du_an, c4_nguon_roi_vs_goi,
               c5_tep_dung_chung, c6_ten_he_da_bo, c7_cum_cam,
               c8_sao_chep_cheo_he, c9_cong_cu, c11_ban_goc_trong_zip,
-              c10_regression):
+              c12_trung_kho, c13_o_dia_tuyet_doi, c10_regression):
         try:
             f()
         except Exception as e:

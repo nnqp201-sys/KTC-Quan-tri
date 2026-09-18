@@ -1,5 +1,13 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.5.0 — 2026-09-18
+
+- **Nguyên tắc 4** (`DL-20260918-005`) nhân xuống 5 skill: quan-tri 1.4 · ke-hoach 3.5 · theo-doi-cv 1.3 · bao-cao 3.10 ·
+  soan-thao-vb 1.4. Mỗi loại đầu vào một nơi lưu; tìm KTC-Database qua `KTC_DATABASE_DIR` → thư mục ngang cấp →
+  Google Drive → hỏi (không ghi cứng ổ đĩa — dự án sẽ chỉ còn trên Google Drive); quy tắc làm việc trên Drive.
+- `ke-hoach`: `10-Dau-Vao/02-Cap-Truong/<nhóm kỳ>/<kỳ>/` (01-Nam/02-Quy/03-Thang/04-Chuyen-De); văn bản cấp trên
+  đọc tại `KTC-Database/01-Legal-Database/` (bỏ nhánh `04-Van-Ban-Cap-Tren`).
+
 ## 0.4.1 — 2026-09-18
 
 - `quan-tri` 1.3: sửa chỉ mục KTC-Database — `12-Output` của kho bị đổi nhầm thành `30-Ket-Qua` trong đợt

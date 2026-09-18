@@ -3,7 +3,9 @@ name: bao-cao
 description: "Thu thap, tong hop, xay dung bao cao cong tac thang/quy/6-thang/nam cua Truong Cao dang Kon Tum tu bao cao Excel Phu luc TB736 (Ia/Ib/IIb/IIc) cua cac Phong/Khoa/Trung tam, theo cau truc 6 Truc ket qua trong tam (TB 817/TB-CDKT) va he thong KPI 3 chieu (so luong/chat luong/tien do). Quan ly checklist don vi (Skill 35), kiem tra bao cao don vi + cong thuc KPI (Skill 32), tong hop cap Truong theo chuan phong cach cao cap + tinh % KPI theo Truc (Skill 33 + Skill-Tu-hoc), doi chieu tien do voi Ke hoach cung ky (Skill 34 — co nhanh fallback A/B/C khi thieu KH). Tu dong dien mau bao cao Word TB736 cap Truong tu du lieu Excel that (fill_bc736.py + read_bc736_excel.py). Day la He KTC Report Intelligence System (KTC-RIS) v3.4. KHONG dung de soan van ban hanh chinh thong thuong hoac ra soat - dung ktc-soan-thao-vb hoac ktc-ra-soat-897 cho viec do."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.9
+# KTC-Bao-Cao / KTC-RIS v3.10
+
+> **v3.10** (18/9/2026) — Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005).
 
 > **v3.9** (18/9/2026) — Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team.
 

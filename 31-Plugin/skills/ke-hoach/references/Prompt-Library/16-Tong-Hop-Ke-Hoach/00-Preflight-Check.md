@@ -13,7 +13,7 @@ Xác nhận đủ điều kiện để chạy Skill 35. Nếu FAIL → dừng to
 - Xác nhận kết nối Google Drive (kho ktc-database 01-04): [có/chưa]
 
 ## Lưu ý quan trọng về kỳ Chuyên đề
-Kỳ chuyên đề (`<kỳ>` dạng `YYYY-CD-<tên-ngắn>`) CHỈ nhận: `01-Dau-Moi-Nop/<kỳ>/DT-CDCS/`, `01-Dau-Moi-Nop/<kỳ>/DT-DTN/`, `02-Cap-Truong/<kỳ>/`, `04-Van-Ban-Cap-Tren/<năm>/`.
+Kỳ chuyên đề (`<kỳ>` dạng `YYYY-CD-<tên-ngắn>`) CHỈ nhận: `01-Dau-Moi-Nop/<kỳ>/DT-CDCS/`, `01-Dau-Moi-Nop/<kỳ>/DT-DTN/`, `02-Cap-Truong/<nhóm kỳ>/<kỳ>/`, `KTC-Database/01-Legal-Database/`.
 KHÔNG yêu cầu 5 Phòng và 6 Khoa nộp đề xuất — không FAIL vì lý do này.
 `KH-Truong/` là thư mục **BẮT BUỘC** có file với kỳ chuyên đề.
 

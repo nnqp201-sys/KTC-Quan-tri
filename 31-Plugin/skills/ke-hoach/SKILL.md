@@ -15,7 +15,7 @@ description: "Thu thap, tong hop, xay dung ke hoach cong tac nam/quy/thang cua T
 > - Dựng `.xlsx` bằng cách phát triển từ bản đã ban hành; **gỡ vùng gộp ô trước khi xóa hàng**.
 > - **Không tự sửa lỗi dữ liệu của đơn vị** — ghi vào cột Ghi chú.
 
-**Phiên bản: 3.4 — 18/9/2026** — Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team
+**Phiên bản: 3.5 — 18/9/2026** — Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005); `02-Cap-Truong/<nhóm kỳ>/`, văn bản cấp trên đọc tại KTC-Database/01. Trước đó 3.4: Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team
 
 ## Vai trò trong kiến trúc tổng thể
 Hệ chuyên biệt thứ 3 trong hệ thống KTC, **dùng chung** kho dữ liệu do `ktc-database` quản lý. Đối xứng ngược với `ktc-bao-cao` (RIS): PIS nhìn về tương lai (sẽ làm gì), RIS nhìn về quá khứ (đã làm được gì) — cả 2 dùng chung khung 6 Trục để Kế hoạch và Báo cáo luôn đối chiếu được với nhau.
@@ -65,9 +65,12 @@ Cả 4 dùng `30-Skill-Phan-Loai-6-Truc.md` (6 Trục, 38 nội hàm, TB 817).
 | Nhánh | Chứa gì | Luồng |
 |---|---|---|
 | `01-Dau-Moi-Nop/<kỳ>/<mã>/` | Hồ sơ 13 đầu mối nộp theo kỳ | **A** |
-| `02-Cap-Truong/<kỳ>/` | Văn bản cấp Trường đã ban hành — CTCT năm, KH quý, KH tháng, BC | **B** · nguồn 1 |
-| `04-Van-Ban-Cap-Tren/<năm>/` | Văn bản chỉ đạo của UBND tỉnh, Tỉnh ủy, Bộ… | **B/C** · nguồn 2 |
+| `02-Cap-Truong/<nhóm kỳ>/<kỳ>/` | Văn bản cấp Trường đã ban hành — CTCT năm, KH quý, KH tháng, BC | **B** · nguồn 1 |
+| `KTC-Database/01-Legal-Database/` (nạp qua `KTC-Database/11-Input/`) | Văn bản chỉ đạo của UBND tỉnh, Tỉnh ủy, Bộ… — **không** lưu trong `10-Dau-Vao` | **B/C** · nguồn 2 |
 | `03-Ket-Luan-Giao-Ban/<năm>/` | Thông báo kết luận giao ban tuần của Lãnh đạo Trường | nguồn 3 |
+
+> `<nhóm kỳ>` của `02-Cap-Truong/`: `01-Nam/` (kỳ `YYYY`) · `02-Quy/` (`YYYY-Qn`) · `03-Thang/` (`YYYY-MM`) · `04-Chuyen-De/` (`YYYY-CD-<tên-ngắn>`). Văn bản cấp trên **không** lưu ở `10-Dau-Vao` — đọc tại `KTC-Database/01-Legal-Database/` (DL-20260918-005).
+
 
 **Tên kỳ:** năm `YYYY` · quý `YYYY-Qn` · tháng `YYYY-MM` · chuyên đề `YYYY-CD-<tên-ngắn>`.
 

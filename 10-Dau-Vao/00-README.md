@@ -1,5 +1,9 @@
 # 10-Dau-Vao — Kho dữ liệu đầu vào dùng chung của KTC-Quan-tri
 
+> **18/9/2026 (`DL-20260918-005`):** `02-Cap-Truong/` chia `01-Nam/02-Quy/03-Thang/04-Chuyen-De`; bỏ
+> `04-Van-Ban-Cap-Tren/` (văn bản cấp trên lưu ở `KTC-Database/01-Legal-Database/`). Nơi lưu từng loại, cách tìm
+> KTC-Database, quy tắc Google Drive: **Nguyên tắc 4** tại `20-Chuan-Chung/00-Nguyen-Tac-Chung.md`.
+
 **Lập ngày:** 14/9/2026 · **Thay thế:** `23-KTC-Ke-Hoach/Nhap_Ke_Hoach/input-KH_*`
 
 ## Vì sao gộp về một chỗ
@@ -31,11 +35,10 @@ KTC-Bao-Cao. Cách này đúng khi dự án chỉ có hai hệ, nhưng nay đã 
 ├── 00-README.md                 ← tệp này
 ├── 01-Dau-Moi-Nop/              Hồ sơ do 13 đầu mối nộp, xếp theo kỳ
 │   └── <kỳ>/<mã đầu mối>/       ví dụ: 2026-09/P-THHC/
-├── 02-Cap-Truong/               Văn bản cấp Trường đã ban hành
-│   └── <kỳ>/                    ví dụ: 2026/ · 2026-Q3/ · 2026-09/
+├── 02-Cap-Truong/               Văn bản cấp Trường đã ban hành — bản làm việc theo kỳ
+│   ├── 00-Danh-Muc-Tro-KTC-Database.md   đối chiếu với KTC-Database, ngoại lệ đã duyệt
+│   └── 01-Nam/<YYYY>/ · 02-Quy/<YYYY-Qn>/ · 03-Thang/<YYYY-MM>/ · 04-Chuyen-De/<YYYY-CD-ten>/
 ├── 03-Ket-Luan-Giao-Ban/        Thông báo kết luận giao ban tuần của Lãnh đạo Trường
-│   └── <năm>/
-├── 04-Van-Ban-Cap-Tren/         Văn bản chỉ đạo của cấp trên nhận trong kỳ
 │   └── <năm>/
 └── 09-Chua-Phan-Loai/           Chỗ thả tạm — dọn sau mỗi kỳ, không để tồn
 ```
@@ -63,7 +66,7 @@ Ban Truyền thông **không** là đầu mối riêng — hồ sơ của Ban đ
 | `01-Dau-Moi-Nop/` | Đầu mối nộp theo kỳ | Kế hoạch (đề xuất), Báo cáo (kết quả), Theo dõi (tiến độ, minh chứng) |
 | `02-Cap-Truong/` | Phòng TH-HC&QT sau khi văn bản được ban hành | Kế hoạch (nguồn 1: trích kế hoạch quý), Báo cáo (đối chiếu), Theo dõi (baseline) |
 | `03-Ket-Luan-Giao-Ban/` | Phòng TH-HC&QT, hằng tuần | Kế hoạch (**nguồn 3**), Báo cáo (căn cứ nhiệm vụ phát sinh) |
-| `04-Van-Ban-Cap-Tren/` | Người tiếp nhận văn bản đến | Kế hoạch (**nguồn 2**), Soạn thảo (căn cứ) |
+| ~~`04-Van-Ban-Cap-Tren/`~~ → `KTC-Database/01-Legal-Database/` | Nạp qua `KTC-Database/11-Input/` (18/9/2026, `DL-20260918-005`) | Kế hoạch (**nguồn 2**), Soạn thảo (căn cứ) |
 
 > Hai nhánh `03` và `04` là **nguồn 2 và 3 của kế hoạch tháng** — xem
 > `23-KTC-Ke-Hoach/references/Skill-Library/36-Skill-Tong-Hop-Ke-Hoach-Truong.md`, bảng "Bốn nguồn".
@@ -80,8 +83,8 @@ Một tệp đi từ đây sang `KTC-Database` khi đã ban hành và được n
 
 | Nguồn cũ | Trạng thái |
 |---|---|
-| `23-KTC-Ke-Hoach/Nhap_Ke_Hoach/input-KH_Nam/KH Truong/` (2 tệp) | ✅ đã chuyển sang `02-Cap-Truong/2026/` |
-| `23-KTC-Ke-Hoach/Nhap_Ke_Hoach/input-KH_Quy/KH-Truong/` (1 tệp) | ✅ đã chuyển sang `02-Cap-Truong/2026-Q3/` |
+| `23-KTC-Ke-Hoach/Nhap_Ke_Hoach/input-KH_Nam/KH Truong/` (2 tệp) | ✅ đã chuyển sang `02-Cap-Truong/01-Nam/2026/` |
+| `23-KTC-Ke-Hoach/Nhap_Ke_Hoach/input-KH_Quy/KH-Truong/` (1 tệp) | ✅ đã chuyển sang `02-Cap-Truong/02-Quy/2026-Q3/` |
 | `25-KTC-Bao-Cao/Nhap_Bao_Cao/input-BC-Thang/` (40 tệp thật) | ✅ **đã chuyển** 14/9/2026 — bảng ánh xạ đầy đủ tại `30-Ket-Qua/2026-09-14/Anh-xa-chuyen-Nhap_Bao_Cao.md` |
 | 60 thư mục rỗng còn lại của hai nhánh cũ | ⏸ chờ người dùng xóa thủ công — `30-Ket-Qua/2026-09-14/Danh-muc-can-don-toan-he.md` |
 
