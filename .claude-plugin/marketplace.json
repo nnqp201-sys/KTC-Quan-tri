@@ -1,0 +1,11 @@
+{
+  "name": "ktc-github",
+  "owner": { "name": "nnqp201-sys" },
+  "plugins": [
+    {
+      "name": "ktc-quan-tri",
+      "source": "./plugin",
+      "description": "Quản trị nhiệm vụ hợp nhất Trường CĐ Kon Tum: 5 skill + agent tự cải tiến + nhật ký + backup"
+    }
+  ]
+}
