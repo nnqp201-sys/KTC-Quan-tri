@@ -13,8 +13,8 @@ Các mục đã đóng ghi trạng thái "Resolved"/"ĐÃ ĐÓNG" ngay trong m�
 
 ## KI-001 — Phụ lục Ia/Ib chưa có cột `Task_ID`
 
-**Status:** Open — đã có đề xuất kỹ thuật + Phiếu xin ý kiến `.docx` 18/9/2026, chờ người có thẩm quyền xác nhận trước khi áp
-dụng · **Priority:** Cao — chặn toàn bộ khả năng đối chiếu tự động
+**Status:** Đã quyết 18/9/2026 — Lãnh đạo Trường thống nhất (`DL-20260918-003`); `read_bc736_excel.py` v3.3 đã đọc
+được cột. **Còn chờ:** văn bản điều chỉnh mẫu + kỳ áp dụng (phòng TH-HC&QT), dữ liệu thật đầu tiên có cột · **Priority:** Cao — chặn toàn bộ khả năng đối chiếu tự động
 
 Nguồn dữ liệu kế hoạch (Phụ lục Ia/Ib của TB736) không có cột mã nhiệm vụ, nên kế hoạch và báo cáo chỉ đối
 chiếu được **gần đúng** theo Trục + so khớp tên nhiệm vụ.

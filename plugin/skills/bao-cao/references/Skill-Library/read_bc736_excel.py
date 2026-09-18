@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 read_bc736_excel.py — Đọc Phụ lục Excel TB736 (Ia/Ib/IIb/IIc).
-Phiên bản: v3.2 (19/08/2026) — GHÉP v2.5.1 (đối chiếu độc lập, sửa BUG-01..09,
+Phiên bản: v3.3 (18/09/2026) — thêm đọc cột Task_ID (KI-001). Trước đó: v3.2 (19/08/2026) — GHÉP v2.5.1 (đối chiếu độc lập, sửa BUG-01..09,
 xem PATCH-NOTES-v2.5.1.md) + logic tách Mục II của v3.1 (xác nhận từ file thật
 18/08/2026 — nhiệm vụ "chưa hoàn thành, chuyển sang tháng sau" ở Mục II KHÔNG
 được gán vào Trục cuối cùng của Mục I).
@@ -52,7 +52,11 @@ def _norm(s):
 
 
 def _is_sum_row(col0, col1):
-    """[VÁ BUG-03] Nhận diện dòng Tổng/Cộng để KHÔNG tính là nhiệm vụ."""
+    """[VÁ BUG-03] Nhận diện dòng Tổng/Cộng để KHÔNG tính là nhiệm vụ.
+    [v3.3] Dòng có số thứ tự nhiệm vụ (1.1, 2.3…) KHÔNG BAO GIỜ là dòng cộng — trước đây nhiệm vụ
+    "Tổng hợp…", "Tổng kết…" bị bỏ mất (2 nhiệm vụ thật của DT-CDCS kỳ 9/2026)."""
+    if re.match(r"^\d+(\.\d+)+\.?$", str(col0).strip()):
+        return False
     t = _norm(col1) or _norm(col0)
     return t.startswith("tổng") or t.startswith("cộng") or t.startswith("tổng cộng")
 
@@ -100,6 +104,24 @@ def _detect_kind(rows, header_idx):
     return None, "KHÔNG nhận diện được loại Phụ lục (số cột=%d). Kiểm tra lại file có đúng mẫu TB736 không." % ncol
 
 
+MAU_TASK_ID = re.compile(r"^KTC-\d{4}-(Q[1-4]|T(0[1-9]|1[0-2])|NAM|CD)-\d{5}$")
+
+
+def _doc_task_id(row, col, task, canh_bao, da_gap):
+    """[v3.3] Doc Task_ID neu co cot. Chi CANH BAO khi sai dinh dang/trung — khong tu sua, khong tu cap ma."""
+    if col is None or len(row) <= col or row[col] is None or not str(row[col]).strip():
+        return None
+    v = str(row[col]).strip().upper()
+    ten = str(task["noi_dung"])[:45]
+    if not MAU_TASK_ID.match(v):
+        canh_bao.append(f"[TASK_ID SAI ĐỊNH DẠNG] '{ten}': {v!r} — đúng dạng KTC-2026-Q3-00125 "
+                        f"(01-Chuan-Chung/11-Quy-Tac-Task-ID.md).")
+    if v in da_gap:
+        canh_bao.append(f"[TASK_ID TRÙNG] {v} dùng cho cả '{da_gap[v]}' và '{ten}'.")
+    da_gap.setdefault(v, ten)
+    return v
+
+
 def read_appendix(path, sheet_name=None):
     """
     Đọc 1 sheet Phụ lục TB736.
@@ -126,6 +148,15 @@ def read_appendix(path, sheet_name=None):
 
     kind, kind_note = _detect_kind(rows, header_idx)
     canh_bao = []
+    # [v3.3 — KI-001, Lãnh đạo thống nhất 18/9/2026] Cột Task_ID thêm vào CUỐI bảng (Ia/Ib: L, IIb/IIc: R).
+    # Dò theo TÊN tiêu đề (dòng tiêu đề + dòng kế tiếp vì IIb/IIc gộp 2 dòng), không theo chỉ số cố định.
+    # File kỳ cũ không có cột -> task_id = None -> giữ đường đối chiếu gần đúng như trước.
+    col_task_id = None
+    for hr in rows[header_idx:header_idx + 2]:
+        for j, v in enumerate(hr or ()):
+            if v is not None and _norm(v).replace("_", "").replace(" ", "") in ("taskid", "mataskid"):
+                col_task_id = j
+    task_ids_da_gap = {}
     if kind_note:
         canh_bao.append("[NHẬN DIỆN] " + kind_note)
     if kind is None:
@@ -191,6 +222,7 @@ def read_appendix(path, sheet_name=None):
                 "san_pham": row[4] if len(row) > 4 else None,
                 "so_luong": row[5] if len(row) > 5 else None,
                 "do_kho": row[6] if len(row) > 6 else None}
+        task["task_id"] = _doc_task_id(row, col_task_id, task, canh_bao, task_ids_da_gap)
 
         # [GHÉP v3.1] Nhiệm vụ Mục II -> thu riêng, KHÔNG ép vào Trục nào
         if in_muc_ii:

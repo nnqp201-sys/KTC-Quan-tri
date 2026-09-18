@@ -23,7 +23,7 @@ NGOAI = os.path.dirname(DU_AN)
 
 # He dang dung -> (thu muc, goi .skill)
 HE = {
-    "ktc-bao-cao":      ("KTC-Bao-Cao", "KTC-Bao-Cao/ktc-bao-cao-v3.7.skill"),
+    "ktc-bao-cao":      ("KTC-Bao-Cao", "KTC-Bao-Cao/ktc-bao-cao-v3.8.skill"),
     "ktc-ke-hoach":     ("KTC-Ke-Hoach", "KTC-Ke-Hoach/ktc-ke-hoach-v3.3.skill"),
     "ktc-soan-thao-vb": ("KTC-Soan-Thao-VB", "KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.2.skill"),
     "ktc-theo-doi-cv":  ("KTC-Theo-doi-CV", "KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.1.skill"),

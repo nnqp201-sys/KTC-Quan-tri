@@ -50,12 +50,15 @@ dữ liệu**, không đưa vào mã.
 
 ## Lỗ hổng đang tồn tại — chưa xử lý được
 
-Phụ lục Ia/Ib của TB736 (nguồn dữ liệu kế hoạch mà `KTC-Bao-Cao` đang đọc) **không có cột mã nhiệm vụ**.
-Vì vậy hiện chỉ đối chiếu được **gần đúng** giữa kế hoạch và báo cáo (theo Trục + so khớp tên nhiệm vụ),
-chưa đối chiếu 1-1 chính xác.
+**Đã quyết (18/9/2026):** Lãnh đạo Trường thống nhất đề xuất bổ sung cột `Task_ID` vào **cuối** bảng Phụ
+lục Ia/Ib (cột L) và IIb/IIc (cột R) — `DL-20260918-003`. Trước đó mẫu không có cột mã nên kế hoạch ↔ báo cáo
+chỉ đối chiếu **gần đúng** (Trục + so khớp tên; kỳ tháng 8/2026: 7/19 nhiệm vụ không tìm thấy).
 
-Việc cần làm, theo đúng thứ tự: `KTC-Ke-Hoach` bổ sung cột `Task_ID` vào Phụ lục Ia/Ib → `KTC-Bao-Cao`
-sửa `read_bc736_excel.py` để đọc và dùng cột này làm khóa nối. Đây là thay đổi nhỏ nhưng mở khóa toàn bộ
-khả năng đối chiếu tự động của ba hệ.
+Trạng thái áp dụng:
+- ✅ `read_bc736_excel.py` v3.3 đọc cột `Task_ID` theo **tên tiêu đề**, cảnh báo sai định dạng/trùng mã; tệp
+  chưa có cột → `task_id = None`, giữ nguyên đường đối chiếu gần đúng (không hồi tố).
+- ⏳ Văn bản điều chỉnh mẫu TB736 và thời điểm áp dụng — phòng TH-HC&QT tham mưu, chưa ban hành.
+- ⏳ `KTC-Ke-Hoach` cấp mã từ kỳ kế hoạch áp dụng; đổi hành vi đối chiếu mặc định sang khóa `Task_ID`
+  sau khi có bộ dữ liệu thật đầu tiên có cột này (ca hồi quy).
 
 Chi tiết kiểm chứng: `04-Tai-Lieu-Thiet-Ke/GHI-CHU-CAU-NOI-3-HE.md`.

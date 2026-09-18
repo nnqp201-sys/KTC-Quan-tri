@@ -1,5 +1,10 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.3.0 — 2026-09-18
+
+- `bao-cao` nâng lên **v3.8** (gói `ktc-bao-cao-v3.8.skill`): đọc cột `Task_ID` (KI-001, Lãnh đạo thống nhất,
+  `DL-20260918-003`); sửa lỗi nhiệm vụ "Tổng hợp/Tổng kết…" bị bỏ mất. `quan-tri`: cập nhật quy tắc Task_ID.
+
 ## 0.2.2 — 2026-09-18
 
 - Sửa lỗi nhật ký: khi hook báo thư mục làm việc nằm ngoài dự án, script vẫn lùi về thư mục đang chạy và

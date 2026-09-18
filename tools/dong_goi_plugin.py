@@ -28,13 +28,13 @@ PLUGIN_DIR = os.path.join(DU_AN, "plugin")
 # (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
 GOI_NGUON = [
     (os.path.join(DU_AN, "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
-    (os.path.join(DU_AN, "KTC-Bao-Cao", "ktc-bao-cao-v3.7.skill"), "ktc-bao-cao", "bao-cao"),
+    (os.path.join(DU_AN, "KTC-Bao-Cao", "ktc-bao-cao-v3.8.skill"), "ktc-bao-cao", "bao-cao"),
     (os.path.join(DU_AN, "KTC-Ke-Hoach", "ktc-ke-hoach-v3.3.skill"), "ktc-ke-hoach", "ke-hoach"),
     (os.path.join(DU_AN, "KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.2.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.1.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
 ]
 
-PLUGIN_VERSION = "0.2.2"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.3.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc plugin/ la viet
@@ -123,7 +123,7 @@ def build_manifest():
                          "cùng ngày để vá 3 tham chiếu gãy)",
             "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
                                        "bắt buộc chạy `claude plugin validate ./plugin --strict` trước khi bật.",
-            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.7.skill", "ktc-ke-hoach-v3.3.skill",
+            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.8.skill", "ktc-ke-hoach-v3.3.skill",
                               "ktc-soan-thao-vb-v1.2.skill", "ktc-theo-doi-cv-v1.1.skill"],
         },
     }

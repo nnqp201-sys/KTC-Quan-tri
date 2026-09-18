@@ -3,7 +3,12 @@ name: bao-cao
 description: "Thu thap, tong hop, xay dung bao cao cong tac thang/quy/6-thang/nam cua Truong Cao dang Kon Tum tu bao cao Excel Phu luc TB736 (Ia/Ib/IIb/IIc) cua cac Phong/Khoa/Trung tam, theo cau truc 6 Truc ket qua trong tam (TB 817/TB-CDKT) va he thong KPI 3 chieu (so luong/chat luong/tien do). Quan ly checklist don vi (Skill 35), kiem tra bao cao don vi + cong thuc KPI (Skill 32), tong hop cap Truong theo chuan phong cach cao cap + tinh % KPI theo Truc (Skill 33 + Skill-Tu-hoc), doi chieu tien do voi Ke hoach cung ky (Skill 34 — co nhanh fallback A/B/C khi thieu KH). Tu dong dien mau bao cao Word TB736 cap Truong tu du lieu Excel that (fill_bc736.py + read_bc736_excel.py). Day la He KTC Report Intelligence System (KTC-RIS) v3.4. KHONG dung de soan van ban hanh chinh thong thuong hoac ra soat - dung ktc-soan-thao-vb hoac ktc-ra-soat-897 cho viec do."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.7
+# KTC-Bao-Cao / KTC-RIS v3.8
+
+> **v3.8** (18/9/2026) — `read_bc736_excel.py` v3.3: đọc cột `Task_ID` ở cuối bảng Phụ lục (KI-001, Lãnh đạo
+> thống nhất 18/9/2026, `DL-20260918-003`) — mỗi nhiệm vụ có trường `task_id` (None nếu tệp chưa có cột, giữ
+> đối chiếu gần đúng); cảnh báo `[TASK_ID SAI ĐỊNH DẠNG]` / `[TASK_ID TRÙNG]`, không tự sửa mã. Sửa lỗi nhiệm
+> vụ có số TT bắt đầu bằng "Tổng hợp/Tổng kết…" bị coi là dòng cộng và bỏ mất.
 ## Trường Cao đẳng Kon Tum | Cập nhật: 14/9/2026
 > **v3.5** = hợp nhất nhánh v3.4 (nghiệp vụ) + nhánh v2.5.1-memory (lớp Bộ nhớ),
 > kèm sửa quy trình 14/9/2026 — xem `references/Skill-Library/PATCH-NOTES-v3.5.md`.
