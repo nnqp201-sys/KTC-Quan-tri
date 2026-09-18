@@ -1,0 +1,254 @@
+# -*- coding: utf-8 -*-
+"""Dong goi KTC-Quan-tri thanh MOT plugin Claude Code/Cowork (5 skill con chung 1 plugin).
+
+Nguon: tai dung nguyen ven noi dung 5 goi .skill DA XAC MINH trong phien 18/9/2026
+(DL-20260918-001) — khong doc lai tu 01-Chuan-Chung/references roi/ de tranh nguy co
+lech ban giua hai duong dong goi song song. Chi doi:
+  1. Ten thu muc + frontmatter `name:` — bo tien to "ktc-" (goi da la namespace).
+  2. 3 tham chieu co that nhung CHUA duoc dong goi trong ktc-soan-thao-vb (phat hien
+     18/9/2026 khi doi chieu): 14-Nguyen-Tac-Soan-Thao-Bat-Bien.md,
+     15-Skill-Track-Changes.md, tools/ktc_trackchanges.py.
+
+Chay: python tools/dong_goi_plugin.py
+"""
+import io
+import json
+import os
+import re
+import shutil
+import sys
+import zipfile
+
+DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PLUGIN_DIR = os.path.join(DU_AN, "plugin")
+
+# (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
+GOI_NGUON = [
+    (os.path.join(DU_AN, "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
+    (os.path.join(DU_AN, "KTC-Bao-Cao", "ktc-bao-cao-v3.7.skill"), "ktc-bao-cao", "bao-cao"),
+    (os.path.join(DU_AN, "KTC-Ke-Hoach", "ktc-ke-hoach-v3.3.skill"), "ktc-ke-hoach", "ke-hoach"),
+    (os.path.join(DU_AN, "KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.1.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
+    (os.path.join(DU_AN, "KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.1.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
+]
+
+PLUGIN_VERSION = "0.1.0"
+
+
+def don_sach(p: str):
+    if os.path.exists(p):
+        shutil.rmtree(p)
+    os.makedirs(p)
+
+
+def giai_nen_skill(goi: str, ten_goc: str, dich: str):
+    """Giai nen 1 goi .skill, dua noi dung ben trong thu muc goc vao `dich`."""
+    with zipfile.ZipFile(goi) as z:
+        for member in z.namelist():
+            if not member.startswith(ten_goc + "/"):
+                continue
+            rel = member[len(ten_goc) + 1:]
+            if not rel:
+                continue
+            out = os.path.join(dich, rel)
+            if member.endswith("/"):
+                os.makedirs(out, exist_ok=True)
+                continue
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            with z.open(member) as src, open(out, "wb") as dst:
+                dst.write(src.read())
+
+
+def doi_ten_frontmatter(skill_md: str, ten_cu: str, ten_moi: str):
+    s = io.open(skill_md, encoding="utf-8").read()
+    s2 = re.sub(rf"^name:\s*{re.escape(ten_cu)}\s*$", f"name: {ten_moi}",
+                s, count=1, flags=re.M)
+    if s2 == s:
+        raise SystemExit(f"KHONG doi duoc name: trong {skill_md} (tim '{ten_cu}')")
+    io.open(skill_md, "w", encoding="utf-8").write(s2)
+
+
+def build_skills():
+    print("── Giai nen 5 goi .skill da xac minh vao plugin/skills/ ──")
+    for goi, ten_goc, ten_moi in GOI_NGUON:
+        if not os.path.exists(goi):
+            raise SystemExit(f"KHONG tim thay goi nguon: {goi}")
+        dich = os.path.join(PLUGIN_DIR, "skills", ten_moi)
+        os.makedirs(dich, exist_ok=True)
+        giai_nen_skill(goi, ten_goc, dich)
+        doi_ten_frontmatter(os.path.join(dich, "SKILL.md"), ten_goc, ten_moi)
+        n = sum(len(fs) for _, _, fs in os.walk(dich))
+        print(f"  ✓ {ten_moi:14s} <- {os.path.relpath(goi, DU_AN)}  ({n} tep)")
+
+
+def vas_lo_hong_soan_thao_vb():
+    """3 tham chieu co that trong SKILL.md nhung chua duoc dong goi (phat hien 18/9/2026)."""
+    print("── Vá 3 lỗ hổng tham chiếu của ktc-soan-thao-vb ──")
+    dich = os.path.join(PLUGIN_DIR, "skills", "soan-thao-vb")
+
+    # 1) hai tep .md tu 01-Chuan-Chung/
+    for ten in ("14-Nguyen-Tac-Soan-Thao-Bat-Bien.md", "15-Skill-Track-Changes.md"):
+        src = os.path.join(DU_AN, "01-Chuan-Chung", ten)
+        dst = os.path.join(dich, "references", ten)
+        shutil.copyfile(src, dst)
+        print(f"  ✓ them {ten} vao skills/soan-thao-vb/references/")
+
+    # 2) cong cu Track Changes -> scripts/ dung chung cap plugin
+    scripts_dir = os.path.join(PLUGIN_DIR, "scripts")
+    os.makedirs(scripts_dir, exist_ok=True)
+    shutil.copyfile(os.path.join(DU_AN, "tools", "ktc_trackchanges.py"),
+                     os.path.join(scripts_dir, "ktc_trackchanges.py"))
+    print("  ✓ them tools/ktc_trackchanges.py -> plugin/scripts/ktc_trackchanges.py")
+
+    # 3) sua duong dan trong SKILL.md cho khop vi tri moi
+    skill_md = os.path.join(dich, "SKILL.md")
+    s = io.open(skill_md, encoding="utf-8").read()
+    thay = {
+        "`KTC-Quan-tri/01-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`":
+            "`${CLAUDE_PLUGIN_ROOT}/skills/soan-thao-vb/references/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`",
+        "`01-Chuan-Chung/15-Skill-Track-Changes.md`":
+            "`${CLAUDE_PLUGIN_ROOT}/skills/soan-thao-vb/references/15-Skill-Track-Changes.md`",
+        "`KTC-Quan-tri/tools/ktc_trackchanges.py`":
+            "`${CLAUDE_PLUGIN_ROOT}/scripts/ktc_trackchanges.py`",
+    }
+    n = 0
+    for cu, moi in thay.items():
+        if cu not in s:
+            raise SystemExit(f"KHONG tim thay chuoi can thay trong SKILL.md: {cu!r}")
+        s = s.replace(cu, moi)
+        n += 1
+    io.open(skill_md, "w", encoding="utf-8").write(s)
+    print(f"  ✓ sua {n} duong dan trong skills/soan-thao-vb/SKILL.md -> \\${{CLAUDE_PLUGIN_ROOT}}/...")
+
+
+def ghi_json(path: str, obj: dict):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    io.open(path, "w", encoding="utf-8").write(
+        json.dumps(obj, ensure_ascii=False, indent=2) + "\n")
+
+
+def build_manifest():
+    print("── Ghi .claude-plugin/plugin.json ──")
+    manifest = {
+        "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+        "name": "ktc-quan-tri",
+        "displayName": "KTC Quản trị",
+        "version": PLUGIN_VERSION,
+        "description": (
+            "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: "
+            "Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin "
+            "cho Claude Cowork và Claude Code. Gồm 5 skill: quan-tri (điều phối), "
+            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv."
+        ),
+        "author": {
+            "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
+        },
+        "keywords": ["ktc", "vietnam", "quan-tri", "ke-hoach", "bao-cao", "soan-thao-van-ban"],
+        "defaultEnabled": False,
+        "metadata": {
+            "builtFrom": "5 gói .skill đã xác minh 18/9/2026 (DL-20260918-001)",
+            "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
+                                       "bắt buộc chạy `claude plugin validate ./plugin --strict` trước khi bật.",
+            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.7.skill", "ktc-ke-hoach-v3.3.skill",
+                              "ktc-soan-thao-vb-v1.1.skill", "ktc-theo-doi-cv-v1.1.skill"],
+        },
+    }
+    ghi_json(os.path.join(PLUGIN_DIR, ".claude-plugin", "plugin.json"), manifest)
+    print("  ✓ plugin.json")
+
+
+def build_hooks():
+    print("── Ghi hooks/hooks.json (chỉ SessionStart doctor — không lặp guard 897) ──")
+    hooks = {
+        "hooks": {
+            "SessionStart": [
+                {
+                    "hooks": [
+                        {
+                            "type": "command",
+                            "command": 'python "${CLAUDE_PLUGIN_ROOT}/scripts/ktc_quan_tri_doctor.py"',
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+    ghi_json(os.path.join(PLUGIN_DIR, "hooks", "hooks.json"), hooks)
+    print("  ✓ hooks.json")
+
+
+DOCTOR_SCRIPT = r'''# -*- coding: utf-8 -*-
+"""SessionStart doctor cho plugin ktc-quan-tri — in banner phien ban 5 skill dang bat.
+
+Doc truc tiep tu SKILL.md tu khai (khong suy dien tu ten thu muc/ten file), dung
+bai hoc da ghi 18/9/2026: "Khong suy dien phien ban tu ten tep."
+"""
+import io
+import os
+import re
+
+GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SKILLS_DIR = os.path.join(GOC, "skills")
+
+# Uu tien 1: dong ghi tuong minh "Phien ban: X.Y" (ke-hoach, soan-thao-vb, theo-doi-cv).
+# Uu tien 2: dong tieu de ket thuc bang "vX.Y" (bao-cao dang "# ... KTC-RIS v3.7").
+MAU_TUONG_MINH = re.compile(r"Phi[eê]n b[aả]n:?\s*v?([0-9]+\.[0-9]+(?:\.[0-9]+)?)", re.IGNORECASE)
+MAU_TIEU_DE_CUOI_DONG = re.compile(r"^#.*\bv([0-9]+\.[0-9]+(?:\.[0-9]+)?)\s*$", re.MULTILINE)
+
+
+def doc_phien_ban(skill_md: str) -> str:
+    try:
+        s = io.open(skill_md, encoding="utf-8").read()
+    except OSError:
+        return "?"
+    m = MAU_TUONG_MINH.search(s)
+    if m:
+        return m.group(1)
+    m = MAU_TIEU_DE_CUOI_DONG.search(s)
+    if m:
+        return m.group(1)
+    return "(không tự khai)"
+
+
+def main():
+    print("=" * 60)
+    print("KTC-Quan-tri Plugin — SessionStart doctor")
+    print("=" * 60)
+    if not os.path.isdir(SKILLS_DIR):
+        print("  ✗ Không thấy thư mục skills/ — plugin có thể chưa build đúng.")
+        return
+    for ten in sorted(os.listdir(SKILLS_DIR)):
+        skill_md = os.path.join(SKILLS_DIR, ten, "SKILL.md")
+        if not os.path.exists(skill_md):
+            print(f"  ✗ {ten:14s} thiếu SKILL.md")
+            continue
+        pb = doc_phien_ban(skill_md)
+        print(f"  ✓ {ten:14s} phiên bản tự khai: {pb}")
+    print("-" * 60)
+    print("Lưu ý: guard chặn ghi KTC-Database dùng chung với plugin ktc-ra-soat-897")
+    print("nếu đã cài; nếu chưa cài plugin đó, KTC-Database vẫn chỉ nên đọc theo quy")
+    print("ước dự án (xem CLAUDE.md), plugin này không tự chặn ghi.")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()
+'''
+
+
+def build_doctor_script():
+    print("── Ghi scripts/ktc_quan_tri_doctor.py ──")
+    path = os.path.join(PLUGIN_DIR, "scripts", "ktc_quan_tri_doctor.py")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    io.open(path, "w", encoding="utf-8").write(DOCTOR_SCRIPT)
+    print("  ✓ ktc_quan_tri_doctor.py")
+
+
+if __name__ == "__main__":
+    don_sach(PLUGIN_DIR)
+    build_skills()
+    vas_lo_hong_soan_thao_vb()
+    build_manifest()
+    build_hooks()
+    build_doctor_script()
+    print()
+    print(f"Đã dựng plugin tại: {PLUGIN_DIR}")
