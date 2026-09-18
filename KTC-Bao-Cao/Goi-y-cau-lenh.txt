@@ -1,0 +1,68 @@
+========================================
+  KTC-RIS v2.0 — GỢI Ý CÂU LỆNH KHỞI ĐỘNG
+  Cập nhật: 12/08/2026
+========================================
+
+Sau khi kết nối Google Drive và thư mục KTC-Bao-Cao, chọn tác vụ:
+
+──────────────────────────────────────────
+ NHÓM 1 — KHỞI ĐẦU KỲ BÁO CÁO (Bước 0)
+──────────────────────────────────────────
+[0A] Tạo Checklist mới đầu kỳ
+     → "Tạo Checklist báo cáo [Tháng X / Quý X / 6 tháng / Năm]
+        Đơn vị: [liệt kê]  |  Hạn chót: [DD/MM/YYYY]"
+
+[0B] Cập nhật trạng thái Checklist
+     → "Cập nhật Checklist: [Đơn vị X] đã nộp / có vấn đề: [mô tả]"
+
+[0C] Xem tình trạng nộp báo cáo tức thời
+     → "Báo cáo tình trạng Checklist kỳ [...]"
+
+──────────────────────────────────────────
+ NHÓM 2 — XỬ LÝ BÁO CÁO ĐƠN VỊ (Bước 2)
+──────────────────────────────────────────
+[A]  Kiểm tra báo cáo đơn vị mới nộp — Skill 32
+     → "Kiểm tra báo cáo [Đơn vị X] kỳ [...]
+        [Đính kèm file hoặc dán nội dung]"
+
+──────────────────────────────────────────
+ NHÓM 3 — TỔNG HỢP CẤP TRƯỜNG (Bước 3)
+──────────────────────────────────────────
+[B]  Tổng hợp báo cáo cấp Trường — Skill 33
+     → "Tổng hợp báo cáo cấp Trường kỳ [...]
+        [Đính kèm kết quả Skill 32 của các đơn vị + Checklist]"
+
+──────────────────────────────────────────
+ NHÓM 4 — ĐỐI CHIẾU TIẾN ĐỘ (Bước 4)
+──────────────────────────────────────────
+[C]  Đối chiếu tiến độ với Kế hoạch cùng kỳ — Skill 34
+     → "Đối chiếu tiến độ kỳ [...]
+        [Đính kèm Báo cáo tổng hợp + Kế hoạch cùng kỳ (nếu có)]"
+
+     Nếu chưa có Kế hoạch cùng kỳ: Skill 34 sẽ hỏi
+     → [A] Cung cấp file KH  /  [B] Xuất báo cáo thô  /  [C] Dừng chờ PIS
+
+──────────────────────────────────────────
+ NHÓM 5 — KẾT THÚC KỲ (Bước 6-7)
+──────────────────────────────────────────
+[D]  Xuất .docx và chốt Checklist kết thúc kỳ
+     → "Xuất báo cáo .docx kỳ [...] và lập Checklist kết thúc kỳ"
+
+──────────────────────────────────────────
+ NHÓM 6 — KIỂM TRA KỸ THUẬT
+──────────────────────────────────────────
+[E]  Kiểm tra kết nối kho dữ liệu 01-04
+     → "Kiểm tra kết nối kho 01-04 (ktc-database)"
+
+[F]  Xem toàn bộ cấu trúc thư mục KTC-Bao-Cao
+     → "List cấu trúc thư mục KTC-Bao-Cao trên Drive"
+
+========================================
+ LƯU Ý VẬN HÀNH
+========================================
+- Luôn chạy Bước 0 (tạo Checklist) TRƯỚC khi mở cổng tiếp nhận báo cáo.
+- Skill 32 phải chạy TRƯỚC Skill 33.
+- Skill 34 cần Kế hoạch cùng kỳ từ hệ ktc-ke-hoach (PIS).
+- Sau Bước 6: xóa thủ công file gốc trong 11-Input và 13-Unit-Reports
+  (AI không thể xóa — xem danh sách do Skill 35 Tác vụ D liệt kê).
+========================================
