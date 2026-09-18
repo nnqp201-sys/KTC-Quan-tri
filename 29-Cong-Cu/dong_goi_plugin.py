@@ -34,7 +34,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.2.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
 ]
 
-PLUGIN_VERSION = "0.4.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.4.1"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet

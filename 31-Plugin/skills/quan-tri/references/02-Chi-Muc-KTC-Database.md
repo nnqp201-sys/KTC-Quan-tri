@@ -16,7 +16,7 @@ di chuyển, không xóa tệp đã có.
 | `03-Templates(1)` | 17 tệp | Bộ biểu mẫu trống thật: 16 tệp `.dotx`/`.xltx` + `00-Template-Registry-KTC-DIS.docx` | Cần mẫu trống đúng thể thức |
 | `04-Good-Documents` | 109 tệp | Văn bản đã ban hành đạt chất lượng, 14 loại | Học văn phong, bố cục, cách lập luận |
 | `05-De-an-De-tai` | 54 tệp | Hồ sơ đề án đang triển khai theo từng vòng góp ý | Theo dõi đề án |
-| `11-Input` / `30-Ket-Qua` | | Tệp chờ xử lý / kết quả đã xuất theo ngày | Nạp liệu, lấy lại kết quả |
+| `11-Input` / `12-Output` (của KTC-Database) | | Tệp chờ nạp vào kho / báo cáo vận hành kho theo ngày — **không** phải `30-Ket-Qua` của KTC-Quan-tri | Nạp liệu, lấy lại kết quả |
 | `references` | 10 tệp | Quy tắc của skill `ktc-database`: nguyên tắc chung, metadata schema, quy trình nạp liệu | Trước khi nạp hoặc gắn metadata |
 
 ## Văn bản gốc chống lưng cho hệ này

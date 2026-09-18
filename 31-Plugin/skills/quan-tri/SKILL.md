@@ -4,7 +4,7 @@ description: "Quản trị nhiệm vụ hợp nhất của Trường Cao đẳng
 ---
 
 # KTC-Quan-tri — Hệ quản trị nhiệm vụ hợp nhất
-**Phiên bản: 1.2 — 18/9/2026** (Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team)
+**Phiên bản: 1.3 — 18/9/2026** (sửa chỉ mục: `12-Output` của KTC-Database bị đổi nhầm ở 1.2; Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team)
 
 ## Vai trò trong kiến trúc hệ thống KTC
 

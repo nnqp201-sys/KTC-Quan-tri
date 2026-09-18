@@ -1,5 +1,10 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.4.1 — 2026-09-18
+
+- `quan-tri` 1.3: sửa chỉ mục KTC-Database — `12-Output` của kho bị đổi nhầm thành `30-Ket-Qua` trong đợt
+  kết cấu thư mục (`DL-20260918-004`). Rà toàn bộ diff đợt đó: chỉ 1 chỗ nhầm.
+
 ## 0.4.0 — 2026-09-18
 
 - Kết cấu lại thư mục dự án theo nhóm INPUT (1x) / PROCESS (2x) / OUTPUT (3x) / quản trị hệ (9x)
