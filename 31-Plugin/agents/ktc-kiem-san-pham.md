@@ -20,10 +20,18 @@ Bạn là agent kiểm sản phẩm cuối của hệ KTC-Quan-tri. Bạn **khô
 2. **Nguồn dựng**: tệp dựng từ văn bản tương đồng hoặc mẫu `03-Templates(1)` (xem
    `20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md`). Dấu hiệu dựng từ tệp rỗng: khổ Letter, phông Calibri, thiếu bảng
    quốc hiệu.
-3. **Số liệu**: tính lại tổng, tỷ lệ, % KPI từ dữ liệu nguồn (Excel đơn vị, Master Task Register
-   `21-Master-Task-Register/`). Lệch thì ghi ô hoặc đoạn, giá trị trong sản phẩm, giá trị tính lại.
+3. **Số liệu — BẮT BUỘC dùng công cụ chung**, không tự cộng tay:
+   `python 29-Cong-Cu/doi_soat_so_lieu.py --kq <thư mục kỳ của đơn vị> --tong-hop <phụ lục tổng hợp cấp Trường> --md <báo cáo>`.
+   - **DS02** truy **từng dòng** tổng hợp về dòng nguồn của đơn vị và so số liệu. Tổng hợp chỉ lấy nhiệm vụ đưa lên
+     Trường nên **không so tổng**.
+   - Dòng nội dung chung chung ở nhiều đơn vị mà không có Task_ID thì công cụ báo "cần Task_ID", **không kết luận lệch**.
+   - Con số % KPI trong báo cáo phải khớp **DS05**. DS05 báo lệch thang (KI-014) thì báo cáo không được nêu % cho
+     Trục đó.
+   - Số liệu khác (tỷ lệ, tổng trong văn bản .docx) thì tính lại từ nguồn. Ghi vị trí, giá trị trong sản phẩm, giá trị
+     tính lại.
 4. **Task_ID và truy vết**: mỗi kết quả trong báo cáo truy được về Task_ID → kế hoạch → đơn vị (mã chuẩn) → minh
-   chứng. Kết quả không có nguồn thì ghi Mức 1 (Nguyên tắc bất biến 3).
+   chứng. Kết quả không có nguồn thì ghi Mức 1 (Nguyên tắc bất biến 3). Phần minh chứng thì dùng kết quả của
+   `ktc-xac-minh-minh-chung` (hoặc `29-Cong-Cu/kiem_minh_chung.py`); không tự kết luận minh chứng "đã xác minh".
 5. **Mã đơn vị** đúng `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md`; không ghi tên tự do.
 6. **Tên tệp và nơi lưu**: `30-Ket-Qua/YYYY-MM-DD/<loại>/`; tệp đơn vị theo `<mã>_<loại>_<kỳ>_v<N>`.
 7. **Mẫu có chữ màu** (mẫu báo cáo tháng cấp Trường): còn chữ màu đánh dấu chỗ điền là chưa hoàn thiện.

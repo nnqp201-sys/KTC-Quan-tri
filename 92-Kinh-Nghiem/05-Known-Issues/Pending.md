@@ -2,7 +2,7 @@
 
 Lỗi và khoảng trống **đã biết nhưng chưa xử lý**. Ghi lại để không quên và không tốn công phát hiện lại.
 
-**Cập nhật:** 18/9/2026
+**Cập nhật:** 19/9/2026
 
 ---
 
@@ -66,6 +66,20 @@ Cột "Đơn vị chủ trì" trong dữ liệu thật chứa cả bộ phận n
 `Các lớp sinh viên` (2×)… — tổng 60 dòng ở 4 đơn vị không ánh xạ được.
 
 **Cần:** cấp mã thứ hai (bộ môn · tổ · ban · chức danh), mỗi giá trị trỏ về đúng một mã đơn vị cấp một.
+
+---
+
+## KI-015 — Hai đầu mối đoàn thể chưa có mã chuẩn
+
+**Status:** Mở · **Phát hiện:** 19/9/2026, bởi `29-Cong-Cu/doi_soat_so_lieu.py` (DS06) trên `10-Dau-Vao/01-Dau-Moi-Nop/2026-09/`
+
+`20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` ghi 13 đầu mối nộp báo cáo: 11 đơn vị cấp một, Công đoàn cơ sở, và Đoàn Thanh
+niên – Hội Sinh viên. Bảng chỉ có mã cho 11 đơn vị cấp một. Thư mục nộp thực tế đang dùng `DT-CDCS` và `DT-DTN`, là
+mã tự đặt, chưa được chốt.
+
+**Cần người phụ trách hệ quyết:** chấp nhận hai mã này hay đặt mã khác. Sau đó bổ sung vào bảng mã và Master Task Register
+(`02-Danh-muc-tra-cuu`). Trong lúc chờ, công cụ đối soát báo Mức 3 nhưng vẫn xử lý dữ liệu. Văn bản Đảng và đoàn
+thể theo hệ quy chiếu B/D, không áp NĐ 30.
 
 ---
 

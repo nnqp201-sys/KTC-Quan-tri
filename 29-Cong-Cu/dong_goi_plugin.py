@@ -35,7 +35,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "0.8.1"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.9.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -44,7 +44,8 @@ PLUGIN_VERSION = "0.8.1"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu ba
 THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts", "agents"]
 # Nguon viet tay cua script/agent them vao plugin (khong sua trong 31-Plugin/)
 PLUGIN_SRC = os.path.join(DU_AN, "29-Cong-Cu", "plugin_src")
-CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py"]
+CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
+                     "doi_soat_so_lieu.py", "kiem_minh_chung.py"]
 # Gioi han cua Claude khi tai plugin/skill (loi that 19/9/2026: mo ta plugin 554 ky tu bi tu choi)
 GIOI_HAN_MO_TA_PLUGIN = 500
 GIOI_HAN_MO_TA_SKILL = 1024
@@ -115,8 +116,8 @@ def build_manifest():
         "description": (
             "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → "
             "Soạn thảo văn bản. 6 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc); "
-            "6 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
-            "viện dẫn); hook tự ghi nhật ký, đo thể thức, backup GitHub."
+            "7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
+            "viện dẫn, xác minh minh chứng); hook tự ghi nhật ký, đo thể thức, backup GitHub."
         ),
         "author": {
             "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"

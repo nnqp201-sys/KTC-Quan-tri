@@ -29,10 +29,18 @@ giao). Bạn chỉ **phát hiện và mô tả lỗi**, không sửa số liệu
 2. **Đúng mẫu**: đủ sheet, cột và tiêu đề của Phụ lục TB 736; không xóa hoặc chèn cột làm lệch mẫu (Mức 2).
 3. **Task_ID**: có cột; mỗi nhiệm vụ trong kế hoạch có Task_ID hợp lệ dạng `KTC-YYYY-Qn-NNNNN`; không trùng; không
    nhầm với mã chuẩn `A01`–`S04` (Mức 1 nếu nhầm).
-4. **Đối chiếu kế hoạch**: nếu có kế hoạch cùng kỳ hoặc Master Task Register (`21-Master-Task-Register/`), so số
-   nhiệm vụ và Task_ID; nêu nhiệm vụ thiếu hoặc lạ (Mức 2).
+4. **Đối chiếu kế hoạch và số liệu — BẮT BUỘC dùng công cụ chung**, không tự cộng tay:
+   `python 29-Cong-Cu/doi_soat_so_lieu.py --kq <thư mục kỳ hoặc thư mục đơn vị> [--kh <KH cùng kỳ>] --md <báo cáo>`.
+   Ngoài dự án thì tìm `**/doi_soat_so_lieu.py` trong plugin. Công cụ trả các mã:
+   - DS03: KH ↔ KQ **cùng kỳ**;
+   - DS04: Task_ID trùng;
+   - DS05: % KPI theo Trục;
+   - DS06: mã đơn vị, thiếu tệp Excel.
+   Dùng đúng số công cụ trả ra, để `ktc-kiem-san-pham` cho cùng kết quả. DS05 báo "lệch thang (KI-014)" thì **không
+   quy đổi**, ghi nguyên văn cảnh báo. Có Master Task Register (`21-Master-Task-Register/`) thì so thêm Task_ID (Mức 2).
 5. **Phân Trục** đúng 6 Trục; nội hàm luôn kèm Trục (Mức 2).
-6. **KPI**: công thức còn nguyên, không bị gõ đè bằng số; % tiến độ trong khoảng 0–100; ô bắt buộc không trống (Mức 2).
+6. **KPI trong tệp**: cảnh báo DS01 (chuyển tiếp từ `read_bc736_excel`): công thức bị gõ đè, % ngoài 0–100, ô bắt
+   buộc trống (Mức 2).
 7. **Thể thức tệp**: `python 29-Cong-Cu/kiem_the_thuc.py <tệp>` (TX01–TX04).
 
 ## Kết quả

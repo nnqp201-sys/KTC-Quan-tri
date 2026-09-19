@@ -423,7 +423,8 @@ def c9_cong_cu():
     sys.path.insert(0, os.path.join(DU_AN, "29-Cong-Cu"))
     for mod, ham in [("ktc_trackchanges", "kiem_tra"), ("vanphong", "cap_truong"),
                      ("noi_ham", "trich"), ("dong_goi_skill", "kiem_frontmatter"),
-                     ("kiem_vien_dan", "kiem_tra"), ("kiem_the_thuc", "kiem_tep"), ("tra_hieu_luc", "quet")]:
+                     ("kiem_vien_dan", "kiem_tra"), ("kiem_the_thuc", "kiem_tep"), ("tra_hieu_luc", "quet"),
+                     ("doi_soat_so_lieu", "doi_soat"), ("kiem_minh_chung", "kiem")]:
         try:
             m = __import__(mod)
             assert hasattr(m, ham), f"thiếu hàm {ham}()"

@@ -1,5 +1,11 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.9.0 — 2026-09-19
+
+- Agent mới **`ktc-xac-minh-minh-chung`** (tổng 7) + công cụ `scripts/kiem_minh_chung.py` (MC01–MC07) — `DL-20260919-006`.
+- Công cụ dùng chung **`scripts/doi_soat_so_lieu.py`** (DS01–DS06) — `ktc-kiem-ho-so-don-vi` và `ktc-kiem-san-pham` bắt buộc
+  gọi, không tự cộng. Không tách agent đối soát riêng (tránh 3 agent cho 3 kết luận về cùng một con số).
+
 ## 0.8.1 — 2026-09-19
 
 - Sửa lỗi Cowork từ chối tải lên: mô tả `plugin.json` 554 → 336 ký tự (giới hạn 500). Bản dựng tự chặn mô tả plugin > 500
