@@ -1,5 +1,11 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.5.2 — 2026-09-19
+
+- Nguyên tắc 3 (`DL-20260919-001`): đơn vị gửi dữ liệu thô vào khung chat, skill xuất sản phẩm trong phiên/project,
+  người dùng tải về gửi P-THHC. Tên tệp trả về chuẩn `<mã đơn vị>_<loại>_<kỳ>_v<N>` + phiếu tự kiểm (còn lỗi →
+  "chưa nên gửi"). 5 skill: quan-tri 1.6 · ke-hoach 3.7 · theo-doi-cv 1.5 · bao-cao 3.12 · soan-thao-vb 1.6.
+
 ## 0.5.1 — 2026-09-18
 
 - Đính chính `DL-20260918-005`: chỉ bản chép KTC-Database trên máy bị xóa (đã cũ: thiếu 163/1.171 tệp). Skill/script

@@ -68,8 +68,27 @@ mẫu → cảnh báo cho đơn vị tự sửa, không tự sửa số liệu. 
 
 **Kết quả:**
 - Trong dự án KTC-Quan-tri: lưu `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/` như Nguyên tắc 2.
-- Tài khoản thành viên (không có dự án): trả tệp `.docx`/`.xlsx` để người dùng **tải về** (thư mục output của
-  phiên); nhắc người dùng gửi tệp về đầu mối tổng hợp của Trường theo quy định — skill không tự nộp thay.
+- Tài khoản thành viên (không có dự án): trả tệp `.docx`/`.xlsx` ngay trong phiên/project để người dùng **tải
+  về**, rồi **tự gửi về phòng TH-HC&QT (`P-THHC`)** để tổng hợp. Không có hộp nhận tự động — skill không tự nộp
+  thay, không ghi vào `10-Dau-Vao` (người dùng quyết 19/9/2026, `DL-20260919-001`).
+
+**Tên tệp trả về (bắt buộc với tài khoản thành viên)** — để P-THHC nhận là biết ngay đơn vị, loại, kỳ:
+
+`<mã đơn vị>_<loại>_<kỳ>_v<N>.<đuôi>` — ví dụ `K-KTCN_BC-thang_2026-09_v1.xlsx`, `P-TCCB_KH-thang_2026-10_v2.xlsx`
+
+| Phần | Giá trị |
+|---|---|
+| `<mã đơn vị>` | Mã chuẩn theo `13-Bang-Ma-Don-Vi.md` (`P-THHC`, `K-KTCN`, `DT-DTN`…). Không đoán được → hỏi người dùng |
+| `<loại>` | `KH-nam` · `KH-quy` · `KH-thang` · `BC-thang` · `BC-quy` · `BC-6thang` · `BC-nam` · `DX` (đề xuất) |
+| `<kỳ>` | `YYYY` · `YYYY-Qn` · `YYYY-MM` · `YYYY-CD-<tên-ngắn>` |
+| `v<N>` | Lần nộp thứ N — nộp lại tăng số, không ghi đè |
+
+**Phiếu tự kiểm kèm tệp** — cuối câu trả lời (và sheet/đoạn đầu tệp nếu mẫu cho phép) ghi: đúng mẫu TB736
+(Ia/Ib/IIb/IIc) hay chưa · số nhiệm vụ theo từng Trục · lỗi công thức KPI · ô bắt buộc còn trống · cảnh báo chưa
+sửa. **Còn lỗi thì nói rõ "chưa nên gửi"** — không tự sửa số liệu của đơn vị (Nguyên tắc bất biến 6).
+
+Khi P-THHC nhận tệp: lưu vào `10-Dau-Vao/01-Dau-Moi-Nop/<kỳ>/<mã đơn vị>/` giữ nguyên tên — tên chuẩn giúp xếp
+đúng chỗ không cần mở tệp.
 
 ## Nguyên tắc 4 — Nơi lưu đầu vào, cách tìm KTC-Database, làm việc trên Google Drive (18/9/2026)
 

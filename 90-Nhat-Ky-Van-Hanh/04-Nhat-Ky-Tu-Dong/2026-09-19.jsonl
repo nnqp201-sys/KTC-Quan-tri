@@ -1,0 +1,9 @@
+{"t": "2026-09-19T04:41:14", "phien": "01bd8f2e", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T06:37:43", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; python - <<'EOF' import zipfile,os,json v=json.load(open('31-Plugin/.claude-plugin/plugin.json',encoding='utf-8'))['version'] for ext in ('zip','plugin'): out=f'30-K…"}
+{"t": "2026-09-19T06:48:13", "phien": "b114489e", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T09:40:51", "phien": "a2cdc948", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T11:08:46", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; grep -n \"^\\*\\*Kết quả:\\*\\*\" -A6 20-Chuan-Chung/00-Nguyen-Tac-Chung.md; grep -n -m1 \"Phiên bản\" 22-KTC-Dieu-Phoi/SKILL.md 23-KTC-Ke-Hoach/SKILL.md 24-KTC-Theo-doi-CV/…"}
+{"t": "2026-09-19T11:09:07", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; python - <<'EOF' p='20-Chuan-Chung/00-Nguyen-Tac-Chung.md'; s=open(p,encoding='utf-8',newline='').read() old=\"\"\"- Tài khoản thành viên (không có dự án): trả tệp `.do…"}
+{"t": "2026-09-19T11:09:22", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Edit", "doi_tuong": "D:\\.CLAUDE code\\KTC-Quan-tri\\20-Chuan-Chung\\00-Nguyen-Tac-Chung.md"}
+{"t": "2026-09-19T11:09:33", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Write", "doi_tuong": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude\\d---CLAUDE-code-KTC-Quan-tri\\b114489e-2052-42e6-becc-08586a0b1f67\\scratchpad\\repack4.py"}
+{"t": "2026-09-19T11:09:43", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; SP=\"C:/Users/nnqp2/AppData/Local/Temp/claude/d---CLAUDE-code-KTC-Quan-tri/b114489e-2052-42e6-becc-08586a0b1f67/scratchpad\"; D=\"$SP/pk7-$RANDOM\"; mkdir -p \"$D\"; pytho…"}

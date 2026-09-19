@@ -28,13 +28,13 @@ PLUGIN_DIR = os.path.join(DU_AN, "31-Plugin")
 # (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
 GOI_NGUON = [
     (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
-    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.11.skill"), "ktc-bao-cao", "bao-cao"),
-    (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.6.skill"), "ktc-ke-hoach", "ke-hoach"),
-    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.5.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
-    (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.4.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
+    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.12.skill"), "ktc-bao-cao", "bao-cao"),
+    (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.7.skill"), "ktc-ke-hoach", "ke-hoach"),
+    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.6.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
+    (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.5.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
 ]
 
-PLUGIN_VERSION = "0.5.1"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.5.2"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -123,8 +123,8 @@ def build_manifest():
                          "cùng ngày để vá 3 tham chiếu gãy)",
             "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
                                        "bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
-            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.11.skill", "ktc-ke-hoach-v3.6.skill",
-                              "ktc-soan-thao-vb-v1.5.skill", "ktc-theo-doi-cv-v1.4.skill"],
+            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.12.skill", "ktc-ke-hoach-v3.7.skill",
+                              "ktc-soan-thao-vb-v1.6.skill", "ktc-theo-doi-cv-v1.5.skill"],
         },
     }
     ghi_json(os.path.join(PLUGIN_DIR, ".claude-plugin", "plugin.json"), manifest)

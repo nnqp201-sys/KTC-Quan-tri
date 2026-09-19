@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ktc-quan-tri",
   "displayName": "KTC Quản trị",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin cho Claude Cowork và Claude Code. Gồm 5 skill: quan-tri (điều phối), bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv; agent ktc-tu-cai-tien; hook tự ghi nhật ký và nạp lại vào context; tự backup GitHub hằng ngày.",
   "author": {
     "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
@@ -21,10 +21,10 @@
     "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
     "parallelWith": [
       "ktc-quan-tri.skill",
-      "ktc-bao-cao-v3.11.skill",
-      "ktc-ke-hoach-v3.6.skill",
-      "ktc-soan-thao-vb-v1.5.skill",
-      "ktc-theo-doi-cv-v1.4.skill"
+      "ktc-bao-cao-v3.12.skill",
+      "ktc-ke-hoach-v3.7.skill",
+      "ktc-soan-thao-vb-v1.6.skill",
+      "ktc-theo-doi-cv-v1.5.skill"
     ]
   }
 }

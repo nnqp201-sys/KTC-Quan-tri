@@ -5,7 +5,9 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.5 — 18/9/2026
+## Phiên bản: v1.6 — 19/9/2026
+
+> v1.6: Đơn vị nộp qua khung chat: tên tệp trả về chuẩn + phiếu tự kiểm, tải về gửi P-THHC (DL-20260919-001).
 
 > v1.5: KTC-Database đọc bản gốc trên Google Drive (ổ Drive), bản chép cục bộ có thể cũ — đính chính DL-20260918-005.
 

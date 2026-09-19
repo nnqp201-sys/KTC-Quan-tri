@@ -116,3 +116,9 @@
 {"t": "2026-09-18T21:51:48", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; python - <<'EOF' import re p='20-Chuan-Chung/00-Nguyen-Tac-Chung.md'; s=open(p,encoding='utf-8',newline='').read() a=s.index(\"KTC-Quan-tri và KTC-Database là **hai t…"}
 {"t": "2026-09-18T21:52:05", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Write", "doi_tuong": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude\\d---CLAUDE-code-KTC-Quan-tri\\b114489e-2052-42e6-becc-08586a0b1f67\\scratchpad\\repack3.py"}
 {"t": "2026-09-18T21:52:35", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; SP=\"C:/Users/nnqp2/AppData/Local/Temp/claude/d---CLAUDE-code-KTC-Quan-tri/b114489e-2052-42e6-becc-08586a0b1f67/scratchpad\"; D=\"$SP/pk6-$RANDOM\"; mkdir -p \"$D\"; pytho…"}
+{"t": "2026-09-18T21:52:48", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; C=~/.claude/plugins/cache/ktc-local/ktc-quan-tri/0.5.1; mkdir -p $C; cp -rf 31-Plugin/. $C/; cp -rf 31-Plugin/. ~/.claude/ktc-marketplace/ktc-quan-tri/; python - <<'…"}
+{"t": "2026-09-18T21:52:51", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; git log --oneline -1; git status -sb|head -1"}
+{"t": "2026-09-18T21:58:42", "phien": "b114489e", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-18T22:09:49", "phien": "b1ef7fe4", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-18T22:10:29", "phien": "b114489e", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-18T22:11:28", "phien": "41b03377", "loai": "ket-phien", "ly_do": "other"}
