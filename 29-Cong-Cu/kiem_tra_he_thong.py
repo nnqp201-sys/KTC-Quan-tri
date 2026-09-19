@@ -25,7 +25,7 @@ NGOAI = os.path.dirname(DU_AN)
 HE = {
     "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.13.skill"),
     "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.8.skill"),
-    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.7.skill"),
+    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.8.skill"),
     "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.6.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
 }

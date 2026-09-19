@@ -1,5 +1,9 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.5.4 — 2026-09-19
+
+- soan-thao-vb 1.8: bỏ bản sao `Mau-Prompt-Chinh-Thuc-Ra-Soat-897.docx` (không giữ bản sao quy tắc 897). Dọn hệ: gói/plugin cũ và kết quả chạy thử tháng 7–8 vào `99-Luu-Tru`.
+
 ## 0.5.3 — 2026-09-19
 
 - Quy tắc viện dẫn văn bản (`DL-20260919-002`): `17-Quy-Tac-Vien-Dan.md` (NĐ 30 · Pháp lệnh hợp nhất Điều 4 · quy ước

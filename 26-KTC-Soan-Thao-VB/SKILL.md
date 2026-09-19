@@ -5,7 +5,9 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.7 — 19/9/2026
+## Phiên bản: v1.8 — 19/9/2026
+
+> v1.8: bỏ bản sao `Mau-Prompt-Chinh-Thuc-Ra-Soat-897.docx` (không giữ bản sao bộ quy tắc 897 — trỏ tới bản gốc).
 
 > v1.7: Quy tắc viện dẫn văn bản: NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường; VBHC không ghi số hiệu Luật (DL-20260919-002).
 
