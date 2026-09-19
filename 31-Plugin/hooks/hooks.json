@@ -26,6 +26,11 @@
           {
             "type": "command",
             "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/ktc_nhat_ky.py\" ghi"
+          },
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/ktc_the_thuc_hook.py\"",
+            "timeout": 60
           }
         ]
       }

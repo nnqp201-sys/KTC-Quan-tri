@@ -1,5 +1,13 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.6.0 — 2026-09-19
+
+- **Skill mới `the-thuc`** + Nguyên tắc 6 (`DL-20260919-003`): mọi sản phẩm .docx/.xlsx đạt chuẩn thể thức theo
+  `03-Templates(1)`/`04-Good-Documents` (A4, lề 2-2-3-2 cm, Times New Roman 14, phần đầu UBND TỈNH QUẢNG NGÃI –
+  TRƯỜNG CAO ĐẲNG KON TUM); chồng lên skill `docx`/`xlsx`. Công cụ `kiem_the_thuc.py` (đo + `--tao` từ mẫu).
+- **Hook mới** `ktc_the_thuc_hook.py` (PostToolUse): tự đo .docx/.xlsx vừa sinh trong dự án KTC, còn Mức 1–2 → báo để sửa.
+- 6 skill: quan-tri 1.8 · ke-hoach 3.9 · theo-doi-cv 1.7 · bao-cao 3.14 · soan-thao-vb 1.9 · the-thuc 1.0.
+
 ## 0.5.4 — 2026-09-19
 
 - soan-thao-vb 1.8: bỏ bản sao `Mau-Prompt-Chinh-Thuc-Ra-Soat-897.docx` (không giữ bản sao quy tắc 897). Dọn hệ: gói/plugin cũ và kết quả chạy thử tháng 7–8 vào `99-Luu-Tru`.

@@ -141,6 +141,17 @@ hay sai nhất:
 Trong Code, chạy `kiem_vien_dan.py` (tại `29-Cong-Cu/` hoặc bản sao trong `Skill-Library/` của gói soạn thảo)
 trước khi giao sản phẩm. Trên Chat/Cowork, tự dò theo bảng mục 6 của `17-Quy-Tac-Vien-Dan.md`.
 
+## Nguyên tắc 6 — Thể thức sản phẩm .docx/.xlsx (19/9/2026, DL-20260919-003)
+
+Mọi tệp `.docx`/`.xlsx` xuất ra phải đạt `18-Chuan-The-Thuc-San-Pham.md`, nằm cùng thư mục với tệp này. Luôn
+dùng kèm skill **`the-thuc`** khi tạo tệp bằng skill `docx`/`xlsx`.
+- Dựng từ **văn bản tương đồng** trong `04-Good-Documents/`, hoặc từ **mẫu** `.dotx`/`.xltx` trong `03-Templates(1)/`.
+  **Không** dựng từ tệp rỗng: `docx.Document()` mặc định khổ Letter.
+- Số đo bắt buộc: A4 · lề 2-2-3-2 cm · Times New Roman · nội dung cỡ 14 · phần đầu `UBND TỈNH QUẢNG NGÃI` –
+  `TRƯỜNG CAO ĐẲNG KON TUM`. Tệp .xlsx: A4, Times New Roman, bảng rộng in ngang.
+- **Đo trước khi giao** bằng `kiem_the_thuc.py`. Còn Mức 1–2 thì không giao. Không đo được thì ghi
+  `FORMAT_BINARY_UNVERIFIED`.
+
 ## Giới hạn kỹ thuật thật của bước "nạp vào 11-Input" — ĐỌC KỸ TRƯỚC KHI ÁP DỤNG
 
 **[Cập nhật 08/9/2026 — đã kiểm chứng bằng lệnh gọi thật, thay thế mô tả cũ]**

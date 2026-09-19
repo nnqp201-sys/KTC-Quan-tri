@@ -28,13 +28,14 @@ PLUGIN_DIR = os.path.join(DU_AN, "31-Plugin")
 # (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
 GOI_NGUON = [
     (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
-    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.13.skill"), "ktc-bao-cao", "bao-cao"),
-    (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.8.skill"), "ktc-ke-hoach", "ke-hoach"),
-    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.8.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
-    (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.6.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
+    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.14.skill"), "ktc-bao-cao", "bao-cao"),
+    (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.9.skill"), "ktc-ke-hoach", "ke-hoach"),
+    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.9.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
+    (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.7.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
+    (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "0.5.4"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.6.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -109,8 +110,8 @@ def build_manifest():
         "description": (
             "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: "
             "Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin "
-            "cho Claude Cowork và Claude Code. Gồm 5 skill: quan-tri (điều phối), "
-            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv; agent ktc-tu-cai-tien; hook tự ghi nhật ký "
+            "cho Claude Cowork và Claude Code. Gồm 6 skill: quan-tri (điều phối), "
+            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; agent ktc-tu-cai-tien; hook tự ghi nhật ký "
             "và nạp lại vào context; tự backup GitHub hằng ngày."
         ),
         "author": {
@@ -123,8 +124,9 @@ def build_manifest():
                          "cùng ngày để vá 3 tham chiếu gãy)",
             "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
                                        "bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
-            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.13.skill", "ktc-ke-hoach-v3.8.skill",
-                              "ktc-soan-thao-vb-v1.8.skill", "ktc-theo-doi-cv-v1.6.skill"],
+            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
+                              "ktc-soan-thao-vb-v1.9.skill", "ktc-theo-doi-cv-v1.7.skill",
+                              "ktc-the-thuc-v1.0.skill"],
         },
     }
     ghi_json(os.path.join(PLUGIN_DIR, ".claude-plugin", "plugin.json"), manifest)
@@ -148,7 +150,9 @@ def build_hooks():
             ]}],
             # Khong ghi Read/Grep/Glob de log khong bi ngap; chi thao tac co tac dung.
             "PostToolUse": [{"matcher": "Write|Edit|Bash|PowerShell|Skill|Agent",
-                             "hooks": [lenh("ktc_nhat_ky.py", "ghi")]}],
+                             "hooks": [lenh("ktc_nhat_ky.py", "ghi"),
+                                       # DL-20260919-003: tu do the thuc .docx/.xlsx vua sinh
+                                       {**lenh("ktc_the_thuc_hook.py"), "timeout": 60}]}],
             "SessionEnd": [{"hooks": [lenh("ktc_nhat_ky.py", "ket-phien")]}],
         }
     }

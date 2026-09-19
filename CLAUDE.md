@@ -44,6 +44,7 @@ KTC-Quan-tri/
 ├── 24-KTC-Theo-doi-CV/       Control tower — vòng đời nhiệm vụ, tiến độ, cảnh báo, minh chứng
 ├── 25-KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
 ├── 26-KTC-Soan-Thao-VB/      Hệ soạn thảo văn bản hành chính (7 loại VB + 6 lĩnh vực nghiệp vụ)
+├── 27-KTC-The-Thuc/         Skill `the-thuc` — chuẩn thể thức MỌI sản phẩm .docx/.xlsx, chồng lên skill docx/xlsx
 ├── 29-Cong-Cu/               Script Python · `plugin_src/` (nguồn hook/agent) · `_trung_gian/` (xóa được)
 │
 │   ── OUTPUT (3x) ─────────────────────────────────────────────
@@ -80,6 +81,7 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 | Quy đổi KPI và xếp loại chất lượng | `22-KTC-Dieu-Phoi/references/30-KPI-Va-Xep-Loai.md` |
 | Mã đơn vị | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
 | Căn cứ, viện dẫn văn bản (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) — **VBHC: Luật không ghi số hiệu** | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` · tự kiểm `29-Cong-Cu/kiem_vien_dan.py` |
+| **Thể thức sản phẩm .docx/.xlsx** — dựng từ `04-Good-Documents`/`03-Templates(1)`, A4, lề 2-2-3-2, TNR 14; đo trước khi giao | `20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md` · skill `the-thuc` · `29-Cong-Cu/kiem_the_thuc.py` |
 
 Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trục, không dùng số nội hàm đứng một mình.
 
@@ -159,7 +161,7 @@ Ba ràng buộc **luôn có hiệu lực**, không đợi đọc chỉ mục:
 - **Tuyệt đối không trích dẫn file mẫu/checklist nội bộ làm "Căn cứ" pháp lý** — theo quy tắc của
   KTC-Ra-Soat-897, đây luôn là lỗi Mức 1.
 - **Trích dẫn cụ thể** số hiệu, ngày ban hành, tên mẫu — không chỉ nêu tên tệp.
-- **Kết quả hoàn chỉnh xuất `.docx`** vào `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/`.
+- **Kết quả hoàn chỉnh xuất `.docx`** vào `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/`, **đạt chuẩn thể thức** (`kiem_the_thuc.py`, 0 lỗi Mức 1–2).
 
 ## Quy ước khi làm việc trong thư mục này
 

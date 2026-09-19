@@ -5,7 +5,9 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.8 — 19/9/2026
+## Phiên bản: v1.9 — 19/9/2026
+
+> v1.9: Nguyên tắc 6 — chuẩn thể thức sản phẩm .docx/.xlsx theo 03-Templates(1)/04-Good-Documents, dùng kèm skill the-thuc (DL-20260919-003).
 
 > v1.8: bỏ bản sao `Mau-Prompt-Chinh-Thuc-Ra-Soat-897.docx` (không giữ bản sao bộ quy tắc 897 — trỏ tới bản gốc).
 
