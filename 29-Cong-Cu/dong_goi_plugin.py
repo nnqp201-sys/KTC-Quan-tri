@@ -35,7 +35,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "0.8.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.8.1"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -45,6 +45,9 @@ THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts", "agents"
 # Nguon viet tay cua script/agent them vao plugin (khong sua trong 31-Plugin/)
 PLUGIN_SRC = os.path.join(DU_AN, "29-Cong-Cu", "plugin_src")
 CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py"]
+# Gioi han cua Claude khi tai plugin/skill (loi that 19/9/2026: mo ta plugin 554 ky tu bi tu choi)
+GIOI_HAN_MO_TA_PLUGIN = 500
+GIOI_HAN_MO_TA_SKILL = 1024
 
 
 def don_sach(p: str):
@@ -108,12 +111,12 @@ def build_manifest():
         "name": "ktc-quan-tri",
         "displayName": "KTC Quản trị",
         "version": PLUGIN_VERSION,
+        # Cowork tu choi mo ta > 500 ky tu (loi upload 0.8.0, 19/9/2026) — build_manifest() tu chan.
         "description": (
-            "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: "
-            "Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin "
-            "cho Claude Cowork và Claude Code. Gồm 6 skill: quan-tri (điều phối), "
-            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; 6 agent (ktc-tu-hoc, ktc-tu-cai-tien, ktc-kiem-ho-so-don-vi, ktc-tra-cuu-can-cu, ktc-kiem-san-pham, ktc-hieu-luc-vien-dan); hook tự ghi nhật ký (cả lời người dùng) "
-            "và nạp lại vào context cùng kho tri thức tự học; tự backup GitHub hằng ngày."
+            "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → "
+            "Soạn thảo văn bản. 6 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc); "
+            "6 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
+            "viện dẫn); hook tự ghi nhật ký, đo thể thức, backup GitHub."
         ),
         "author": {
             "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
@@ -130,6 +133,8 @@ def build_manifest():
                               "ktc-the-thuc-v1.0.skill"],
         },
     }
+    if len(manifest["description"]) > GIOI_HAN_MO_TA_PLUGIN:
+        raise SystemExit(f"Mo ta plugin {len(manifest['description'])} ky tu > {GIOI_HAN_MO_TA_PLUGIN} — Cowork se tu choi")
     ghi_json(os.path.join(PLUGIN_DIR, ".claude-plugin", "plugin.json"), manifest)
     print("  ✓ plugin.json")
 
@@ -248,6 +253,24 @@ def build_doctor_script():
     print("  ✓ ktc_quan_tri_doctor.py")
 
 
+def kiem_mo_ta():
+    """Chan truoc khi dong goi: mo ta skill/agent vuot gioi han thi Claude tu choi khi tai len."""
+    print("── Kiểm độ dài mô tả (plugin ≤ 500, skill/agent ≤ 1024 ký tự) ──")
+    sai = []
+    for loai, mau in (("skill", os.path.join(PLUGIN_DIR, "skills", "*", "SKILL.md")),
+                      ("agent", os.path.join(PLUGIN_DIR, "agents", "*.md"))):
+        import glob
+        for p in sorted(glob.glob(mau)):
+            s = io.open(p, encoding="utf-8").read()
+            m = re.search(r"^description:\s*(.*)$", s, re.M)
+            d = m.group(1).strip().strip('"') if m else ""
+            if not d or len(d) > GIOI_HAN_MO_TA_SKILL:
+                sai.append(f"{loai} {os.path.relpath(p, PLUGIN_DIR)}: {len(d)} ký tự")
+    if sai:
+        raise SystemExit("Mô tả không hợp lệ:\n  " + "\n  ".join(sai))
+    print("  ✓ mọi mô tả trong giới hạn")
+
+
 if __name__ == "__main__":
     don_sach(PLUGIN_DIR)
     build_skills()
@@ -255,5 +278,6 @@ if __name__ == "__main__":
     build_hooks()
     build_doctor_script()
     chep_nguon_viet_tay()
+    kiem_mo_ta()
     print()
     print(f"Đã dựng 31-Plugin tại: {PLUGIN_DIR}")

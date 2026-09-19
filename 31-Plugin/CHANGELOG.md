@@ -1,5 +1,10 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.8.1 — 2026-09-19
+
+- Sửa lỗi Cowork từ chối tải lên: mô tả `plugin.json` 554 → 336 ký tự (giới hạn 500). Bản dựng tự chặn mô tả plugin > 500
+  và mô tả skill/agent > 1024 ký tự.
+
 ## 0.8.0 — 2026-09-19
 
 - **Vòng tự học** (`DL-20260919-005`): hook `UserPromptSubmit` ghi lời người dùng + tín hiệu học; agent mới **`ktc-tu-hoc`**
