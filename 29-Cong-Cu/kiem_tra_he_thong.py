@@ -23,10 +23,10 @@ NGOAI = os.path.dirname(DU_AN)
 
 # He dang dung -> (thu muc, goi .skill)
 HE = {
-    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.12.skill"),
-    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.7.skill"),
-    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.6.skill"),
-    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.5.skill"),
+    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.13.skill"),
+    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.8.skill"),
+    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.7.skill"),
+    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.6.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
 }
 # He da thay the — bo qua, khong bat loi
@@ -37,7 +37,7 @@ BO_QUA = ("KTC-DIS-Tong-Hop-VB", "99-Luu-Tru", "__pycache__", ".git")
 
 CHUNG = ["00-Nguyen-Tac-Chung.md", "00-Metadata-Schema.md",
          "04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md", "30-Skill-Phan-Loai-6-Truc.md",
-         "Skill-Vien-Dan-Van-Ban-Hop-Nhat.md",
+         "Skill-Vien-Dan-Van-Ban-Hop-Nhat.md", "17-Quy-Tac-Vien-Dan.md",
          # Ban sao chi co o goi cap du an — van la tep dung chung, van phai khop
          "10-Tu-Dien-Truong-Du-Lieu.md", "11-Quy-Tac-Task-ID.md",
          "12-Vong-Doi-Trang-Thai.md", "13-Bang-Ma-Don-Vi.md"]
@@ -53,6 +53,7 @@ DOI_TEN = {
         "10-Tu-Dien-Truong-Du-Lieu.md": "references/20-Tu-Dien-Truong-Du-Lieu.md",
         "11-Quy-Tac-Task-ID.md":        "references/21-Quy-Tac-Task-ID.md",
         "12-Vong-Doi-Trang-Thai.md":    "references/22-Vong-Doi-Va-Canh-Bao.md",
+        "17-Quy-Tac-Vien-Dan.md":       "references/17-Quy-Tac-Vien-Dan.md",
     },
 }
 
@@ -414,7 +415,8 @@ def c9_cong_cu():
     tieu_de("C9. Công cụ Python — import và tự kiểm")
     sys.path.insert(0, os.path.join(DU_AN, "29-Cong-Cu"))
     for mod, ham in [("ktc_trackchanges", "kiem_tra"), ("vanphong", "cap_truong"),
-                     ("noi_ham", "trich"), ("dong_goi_skill", "kiem_frontmatter")]:
+                     ("noi_ham", "trich"), ("dong_goi_skill", "kiem_frontmatter"),
+                     ("kiem_vien_dan", "kiem_tra")]:
         try:
             m = __import__(mod)
             assert hasattr(m, ham), f"thiếu hàm {ham}()"

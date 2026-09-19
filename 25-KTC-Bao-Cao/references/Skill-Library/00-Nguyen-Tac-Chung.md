@@ -128,6 +128,19 @@ Khi P-THHC nhận tệp: lưu vào `10-Dau-Vao/01-Dau-Moi-Nop/<kỳ>/<mã đơn 
 **4.4. Kiểm trùng trước khi đưa tệp vào `10-Dau-Vao`** — so mã băm với KTC-Database; trùng thì trỏ thay vì chép
 (trừ ngoại lệ 4.1). Công cụ: phép kiểm C12 của `29-Cong-Cu/kiem_tra_he_thong.py`.
 
+## Nguyên tắc 5 — Viện dẫn văn bản (19/9/2026, DL-20260919-002)
+
+Mọi sản phẩm có phần căn cứ hoặc viện dẫn văn bản phải theo `17-Quy-Tac-Vien-Dan.md`, nằm cùng thư mục
+với tệp này. Tệp đó gồm ba lớp: NĐ 30/2020, Pháp lệnh hợp nhất (Điều 4) và quy ước Trường theo 897. Ba điểm
+hay sai nhất:
+- **Văn bản hành chính: Luật, Pháp lệnh không ghi số hiệu**, kể cả khi đã có VBHN. Chỉ ghi tên và ngày ban
+  hành. Số điều, khoản lấy theo VBHN.
+- Nghị định, thông tư đã có VBHN: văn bản gốc trước, rồi `(hợp nhất tại Văn bản hợp nhất số …)`.
+- Quyết định của Hiệu trưởng: căn cứ đầu tiên là QĐ 1976/QĐ-CĐKT. Văn bản Trường đã bị thay thế thì không dẫn.
+
+Trong Code, chạy `kiem_vien_dan.py` (tại `29-Cong-Cu/` hoặc bản sao trong `Skill-Library/` của gói soạn thảo)
+trước khi giao sản phẩm. Trên Chat/Cowork, tự dò theo bảng mục 6 của `17-Quy-Tac-Vien-Dan.md`.
+
 ## Giới hạn kỹ thuật thật của bước "nạp vào 11-Input" — ĐỌC KỸ TRƯỚC KHI ÁP DỤNG
 
 **[Cập nhật 08/9/2026 — đã kiểm chứng bằng lệnh gọi thật, thay thế mô tả cũ]**

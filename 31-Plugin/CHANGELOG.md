@@ -1,5 +1,12 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.5.3 — 2026-09-19
+
+- Quy tắc viện dẫn văn bản (`DL-20260919-002`): `17-Quy-Tac-Vien-Dan.md` (NĐ 30 · Pháp lệnh hợp nhất Điều 4 · quy ước
+  Trường qua 897) + Nguyên tắc 5. Văn bản hành chính: Luật/Pháp lệnh **không ghi số hiệu**, kể cả khi có VBHN. Công cụ
+  tự kiểm `kiem_vien_dan.py` (VD01–VD12). 5 skill: quan-tri 1.7 · ke-hoach 3.8 · theo-doi-cv 1.6 · bao-cao 3.13 ·
+  soan-thao-vb 1.7.
+
 ## 0.5.2 — 2026-09-19
 
 - Nguyên tắc 3 (`DL-20260919-001`): đơn vị gửi dữ liệu thô vào khung chat, skill xuất sản phẩm trong phiên/project,

@@ -5,7 +5,9 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.6 — 19/9/2026
+## Phiên bản: v1.7 — 19/9/2026
+
+> v1.7: Quy tắc viện dẫn văn bản: NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường; VBHC không ghi số hiệu Luật (DL-20260919-002).
 
 > v1.6: Đơn vị nộp qua khung chat: tên tệp trả về chuẩn + phiếu tự kiểm, tải về gửi P-THHC (DL-20260919-001).
 
@@ -119,6 +121,7 @@ Chuyển sang `ktc-ra-soat-897`, skill văn bản Đảng.
 | Trích xuất thông tin có cấu trúc | `Prompt-Library/04-Trich-Xuat.md` |
 | Gắn metadata | `Skill-Library/00-Metadata-Schema.md` · `Prompt-Library/07-Metadata.md` |
 | Phân loại nhiệm vụ vào 6 Trục | `Skill-Library/30-Skill-Phan-Loai-6-Truc.md` |
+| Căn cứ, viện dẫn (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) | `Skill-Library/17-Quy-Tac-Vien-Dan.md` · tự kiểm `Skill-Library/kiem_vien_dan.py` |
 | Viện dẫn văn bản hợp nhất | `Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` |
 | Đề xuất quy trình trình ký | `Skill-Library/16-Skill-De-Xuat-Quy-Trinh-Trinh-Ky.md` |
 
