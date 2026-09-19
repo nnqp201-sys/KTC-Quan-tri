@@ -66,3 +66,11 @@
 {"t": "2026-09-19T12:14:05", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; python - <<'EOF' p='90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md'; s=open(p,encoding='utf-8',newline='').read() nl='\\r\\n' if '\\r\\n' in s else '\\n' import re lines=s.split(nl)…"}
 {"t": "2026-09-19T12:14:10", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Edit", "doi_tuong": "D:\\.CLAUDE code\\KTC-Quan-tri\\CLAUDE.md"}
 {"t": "2026-09-19T12:14:32", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; set -e # zip Cowork python - <<'EOF' import zipfile,os src='31-Plugin'; out='30-Ket-Qua/2026-09-19/Plugin/ktc-quan-tri-0.5.3.zip' with zipfile.ZipFile(out,'w',zipfil…"}
+{"t": "2026-09-19T12:14:44", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; git add -A; git status --short | grep -v \"^M 9[02]-\\|jsonl\" | head -40; git commit -q -F - <<'EOF' feat: quy tắc viện dẫn văn bản — NĐ 30 · Pháp lệnh hợp nhất · quy …"}
+{"t": "2026-09-19T12:14:47", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; git log --oneline -1; git status -sb | head -2; git log origin/main --oneline -1"}
+{"t": "2026-09-19T12:49:04", "phien": "b114489e", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T12:50:46", "phien": "752b76ff", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T12:50:50", "phien": "b114489e", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T12:51:53", "phien": "04c92bc2", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-19T14:07:57", "phien": "b114489e", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\"; du -sh --exclude=.git * .claude .claude-plugin 2>/dev/null | sort -h | tail -25; echo \"== thu muc rong\"; find . -path ./.git -prune -o -type d -empty -print; echo \"=…"}
+{"t": "2026-09-19T14:08:46", "phien": "b114489e", "loai": "ket-phien", "ly_do": "other"}
