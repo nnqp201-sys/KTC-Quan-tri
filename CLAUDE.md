@@ -80,7 +80,7 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 | 17 lĩnh vực, mã `A01`–`S04`, danh mục sản phẩm | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
 | Quy đổi KPI và xếp loại chất lượng | `22-KTC-Dieu-Phoi/references/30-KPI-Va-Xep-Loai.md` |
 | Mã đơn vị | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
-| Căn cứ, viện dẫn văn bản (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) — **VBHC: Luật không ghi số hiệu** | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` · tự kiểm `29-Cong-Cu/kiem_vien_dan.py` |
+| Căn cứ, viện dẫn văn bản (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) — **VBHC: Luật không ghi số hiệu** | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` · tự kiểm `29-Cong-Cu/kiem_vien_dan.py` · quét hiệu lực `29-Cong-Cu/tra_hieu_luc.py` (agent `ktc-hieu-luc-vien-dan`) |
 | **Thể thức sản phẩm .docx/.xlsx** — dựng từ `04-Good-Documents`/`03-Templates(1)`, A4, lề 2-2-3-2, TNR 14; đo trước khi giao | `20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md` · skill `the-thuc` · `29-Cong-Cu/kiem_the_thuc.py` |
 
 Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trục, không dùng số nội hàm đứng một mình.

@@ -1,5 +1,12 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.7.0 — 2026-09-19
+
+- **4 agent mới** (tổng 5, `DL-20260919-004`): `ktc-kiem-ho-so-don-vi`, `ktc-tra-cuu-can-cu`, `ktc-kiem-san-pham`,
+  `ktc-hieu-luc-vien-dan`. Chỉ đọc, chỉ ghi báo cáo vào `30-Ket-Qua/<ngày>/…`; không lặp reviewer của 897.
+- **Quét hiệu lực pháp lý + viện dẫn**: `scripts/tra_hieu_luc.py` (kèm `kiem_vien_dan.py`, `duong_dan.py`) — trích văn bản
+  viện dẫn, đối chiếu kho 01–02 và chuỗi văn bản đã thay thế; không tự kết luận hết hiệu lực khi thiếu nguồn.
+
 ## 0.6.0 — 2026-09-19
 
 - **Skill mới `the-thuc`** + Nguyên tắc 6 (`DL-20260919-003`): mọi sản phẩm .docx/.xlsx đạt chuẩn thể thức theo

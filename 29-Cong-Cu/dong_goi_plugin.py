@@ -35,7 +35,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "0.6.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.7.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -44,6 +44,7 @@ PLUGIN_VERSION = "0.6.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu ba
 THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts", "agents"]
 # Nguon viet tay cua script/agent them vao plugin (khong sua trong 31-Plugin/)
 PLUGIN_SRC = os.path.join(DU_AN, "29-Cong-Cu", "plugin_src")
+CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py"]
 
 
 def don_sach(p: str):
@@ -111,7 +112,7 @@ def build_manifest():
             "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: "
             "Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin "
             "cho Claude Cowork và Claude Code. Gồm 6 skill: quan-tri (điều phối), "
-            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; agent ktc-tu-cai-tien; hook tự ghi nhật ký "
+            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; 5 agent (ktc-tu-cai-tien, ktc-kiem-ho-so-don-vi, ktc-tra-cuu-can-cu, ktc-kiem-san-pham, ktc-hieu-luc-vien-dan); hook tự ghi nhật ký "
             "và nạp lại vào context; tự backup GitHub hằng ngày."
         ),
         "author": {
@@ -172,6 +173,10 @@ def chep_nguon_viet_tay():
             if f.endswith((".py", ".md")):
                 shutil.copyfile(os.path.join(src, f), os.path.join(dst, f))
                 print(f"  ✓ {thu_muc}/{f}")
+    # Cong cu dung cho agent khi chay NGOAI du an (DL-20260919-004) — ban goc o 29-Cong-Cu/, khong sua ban trong plugin
+    for f in CONG_CU_CHO_AGENT:
+        shutil.copyfile(os.path.join(DU_AN, "29-Cong-Cu", f), os.path.join(PLUGIN_DIR, "scripts", f))
+        print(f"  ✓ scripts/{f} (từ 29-Cong-Cu)")
 
 
 DOCTOR_SCRIPT = r'''# -*- coding: utf-8 -*-
