@@ -41,3 +41,7 @@ Mục mới thêm lên **đầu tệp**, không thêm xuống cuối.
 Ba việc theo thứ tự: (1) đọc và đối chiếu nội dung ba nguồn; (2) chọn dạng đích — `.md` cho tường thuật,
 Excel cho bảng phiên xử lý 16 trường ở mục IX Kế hoạch hợp nhất; (3) chuyển và để lại tệp trỏ đường ở vị
 trí cũ.
+
+## 05-Tri-Thuc-Tu-Hoc (19/9/2026)
+
+Kho tri thức tự học — agent `ktc-tu-hoc` ghi, hook nạp lại mỗi phiên. Xem `05-Tri-Thuc-Tu-Hoc/00-README.md` (DL-20260919-005).

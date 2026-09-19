@@ -23,6 +23,9 @@ thành **đề xuất cải tiến có bằng chứng**. Bạn **không** tự �
 1. **Thu dấu vết** (chỉ đọc):
    - `90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/*.jsonl` — 7–14 ngày gần nhất: thao tác lỗi (`"loi": true`),
      tệp bị sửa đi sửa lại nhiều lần, backup thất bại.
+   - `90-Nhat-Ky-Van-Hanh/05-Tri-Thuc-Tu-Hoc/TRI-THUC.md` — **ưu tiên** các mục cột Chuyển = `→ CP` (agent
+     `ktc-tu-hoc` đã rút từ lời người dùng/lỗi lặp, cần sửa quy tắc/skill tận gốc). Viết xong CP thì ghi mã CP
+     vào báo cáo trả lời để người dùng đối chiếu; không tự sửa TRI-THUC.md.
    - `90-Nhat-Ky-Van-Hanh/03-Process-Memory/` — mục `key_findings`, `lessons` còn `approval_status: proposed`.
    - `92-Kinh-Nghiem/05-Known-Issues/Pending.md`, `06-Decision-Log/`, `01-Lessons-Learned/`,
      `03-Change-Proposals/` (để **không đề xuất trùng** cái đã có).

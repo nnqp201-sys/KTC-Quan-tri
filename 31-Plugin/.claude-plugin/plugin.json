@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ktc-quan-tri",
   "displayName": "KTC Quản trị",
-  "version": "0.7.0",
-  "description": "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin cho Claude Cowork và Claude Code. Gồm 6 skill: quan-tri (điều phối), bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; 5 agent (ktc-tu-cai-tien, ktc-kiem-ho-so-don-vi, ktc-tra-cuu-can-cu, ktc-kiem-san-pham, ktc-hieu-luc-vien-dan); hook tự ghi nhật ký và nạp lại vào context; tự backup GitHub hằng ngày.",
+  "version": "0.8.0",
+  "description": "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin cho Claude Cowork và Claude Code. Gồm 6 skill: quan-tri (điều phối), bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; 6 agent (ktc-tu-hoc, ktc-tu-cai-tien, ktc-kiem-ho-so-don-vi, ktc-tra-cuu-can-cu, ktc-kiem-san-pham, ktc-hieu-luc-vien-dan); hook tự ghi nhật ký (cả lời người dùng) và nạp lại vào context cùng kho tri thức tự học; tự backup GitHub hằng ngày.",
   "author": {
     "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
   },

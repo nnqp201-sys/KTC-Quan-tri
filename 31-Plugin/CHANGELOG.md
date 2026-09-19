@@ -1,5 +1,11 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.8.0 — 2026-09-19
+
+- **Vòng tự học** (`DL-20260919-005`): hook `UserPromptSubmit` ghi lời người dùng + tín hiệu học; agent mới **`ktc-tu-hoc`**
+  rút tri thức vào `90-Nhat-Ky-Van-Hanh/05-Tri-Thuc-Tu-Hoc/TRI-THUC.md`; hook SessionStart nạp tri thức + nhắc tín hiệu chưa
+  học; hook thể thức ghi cảnh báo làm bằng chứng. `ktc-tu-cai-tien` đọc mục `→ CP`. Tổng 6 agent.
+
 ## 0.7.0 — 2026-09-19
 
 - **4 agent mới** (tổng 5, `DL-20260919-004`): `ktc-kiem-ho-so-don-vi`, `ktc-tra-cuu-can-cu`, `ktc-kiem-san-pham`,

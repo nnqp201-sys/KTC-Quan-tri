@@ -35,7 +35,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "0.7.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "0.8.0"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -112,8 +112,8 @@ def build_manifest():
             "Chu trình quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: "
             "Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản, dùng chung một plugin "
             "cho Claude Cowork và Claude Code. Gồm 6 skill: quan-tri (điều phối), "
-            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; 5 agent (ktc-tu-cai-tien, ktc-kiem-ho-so-don-vi, ktc-tra-cuu-can-cu, ktc-kiem-san-pham, ktc-hieu-luc-vien-dan); hook tự ghi nhật ký "
-            "và nạp lại vào context; tự backup GitHub hằng ngày."
+            "bao-cao, ke-hoach, soan-thao-vb, theo-doi-cv, the-thuc (chuẩn thể thức .docx/.xlsx); hook tự đo thể thức; 6 agent (ktc-tu-hoc, ktc-tu-cai-tien, ktc-kiem-ho-so-don-vi, ktc-tra-cuu-can-cu, ktc-kiem-san-pham, ktc-hieu-luc-vien-dan); hook tự ghi nhật ký (cả lời người dùng) "
+            "và nạp lại vào context cùng kho tri thức tự học; tự backup GitHub hằng ngày."
         ),
         "author": {
             "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
@@ -154,6 +154,8 @@ def build_hooks():
                              "hooks": [lenh("ktc_nhat_ky.py", "ghi"),
                                        # DL-20260919-003: tu do the thuc .docx/.xlsx vua sinh
                                        {**lenh("ktc_the_thuc_hook.py"), "timeout": 60}]}],
+            # DL-20260919-005: ghi loi nguoi dung + tin hieu hoc cho agent ktc-tu-hoc
+            "UserPromptSubmit": [{"hooks": [lenh("ktc_nhat_ky.py", "yeu-cau")]}],
             "SessionEnd": [{"hooks": [lenh("ktc_nhat_ky.py", "ket-phien")]}],
         }
     }

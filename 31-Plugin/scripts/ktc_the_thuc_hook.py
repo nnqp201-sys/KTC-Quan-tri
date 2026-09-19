@@ -93,6 +93,18 @@ def main():
         pass
     if not bao:
         return 0
+    # Ghi bang chung cho agent ktc-tu-hoc (loi the thuc lap lai -> bai hoc) — DL-20260919-005
+    try:
+        import datetime as dt
+        thu = os.path.join(goc, "90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
+        with open(os.path.join(thu, dt.date.today().isoformat() + ".jsonl"), "a", encoding="utf-8") as f:
+            for p, nang in bao:
+                f.write(json.dumps({"t": dt.datetime.now().isoformat(timespec="seconds"),
+                                    "phien": (vao.get("session_id") or "")[:8], "loai": "canh-bao-the-thuc",
+                                    "tep": os.path.relpath(p, goc), "ma": sorted({x[1] for x in nang})},
+                                   ensure_ascii=False) + "\n")
+    except Exception:
+        pass
     dong = ["KTC the-thuc: tệp vừa sinh CHƯA đạt chuẩn thể thức (20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md)."
             " Sửa rồi đo lại bằng kiem_the_thuc.py trước khi giao:"]
     for p, nang in bao:
