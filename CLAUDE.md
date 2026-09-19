@@ -88,7 +88,7 @@ Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trụ
 **Hai thang điểm — không trộn.** Cùng khái niệm quy đổi khối lượng công việc đang có hai thang
 (`KI-014`, chưa có văn bản phân định). Thang đang xuất hiện trên dữ liệu vận hành (cột điểm/hệ số Phụ lục
 TB736) nằm trong `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md`. Thang 5 nhóm 50/120/250/350/450 trong
-danh mục sản phẩm là **bảng gợi ý, dự thảo lần 4**, không phải danh sách giá trị hợp lệ — xem
+danh mục sản phẩm là **bảng gợi ý** (dự thảo lần 4; đã gửi đơn vị rà soát theo TB 1052/TB-CĐKT ngày 15/9/2026, **chưa ban hành**), không phải danh sách giá trị hợp lệ — xem
 `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`. Không dùng thang 5 nhóm để kiểm dữ liệu vận hành.
 Không tự đặt quy tắc chuyển đổi giữa hai thang.
 

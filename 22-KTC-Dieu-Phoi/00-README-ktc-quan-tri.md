@@ -49,7 +49,7 @@ Project có kết nối Google Drive tới:
    Mọi kết quả đối chiếu hiện là *gần đúng* và phải được trình bày đúng như vậy.
 2. **Danh mục 122 nhiệm vụ chuẩn mới phủ 5/11 đơn vị** — sáu Khoa chưa có dữ liệu, dự kiến bổ sung sau.
 3. **Bộ 46 trường và quy tắc Task_ID còn là dự thảo**, chưa đơn vị nào dùng thử.
-4. **Bảng điểm/hệ số quy đổi 371 sản phẩm mới ở mức dự thảo lần 4**, chưa ban hành.
+4. **Bảng hệ số quy đổi 371 sản phẩm đã gửi đơn vị rà soát theo TB 1052/TB-CĐKT (15/9/2026), chưa ban hành**; vẫn lẫn hai thang (KI-014).
 
 ## Quan hệ với hệ khác trong hệ thống KTC
 

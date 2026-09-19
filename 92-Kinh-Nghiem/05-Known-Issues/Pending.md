@@ -352,6 +352,16 @@ Master Task Register và các skill liên quan.
 
 ---
 
+**Cập nhật 19/9/2026 — TB 1052/TB-CĐKT (15/9/2026):**
+- Danh mục sản phẩm đã được **gửi chính thức** cho đơn vị rà soát; hạn góp ý **20/9/2026**, sau đó trình ban hành.
+- Đối chiếu từng dòng: phụ lục trùng hoàn toàn dự thảo lần 4 nhưng **bỏ cột Điểm**, chỉ giữ Hệ số.
+- 204/371 dòng có hệ số khác giá trị chuẩn của Nhóm, và dòng 29.22 hệ số 50.
+- **Cửa sổ để phân định hai thang là trước khi ban hành.** Góp ý đã soạn sẵn:
+  `30-Ket-Qua/2026-09-19/De-xuat/Gop-y-Danh-muc-SP-TB-1052.md`.
+- AI vẫn không tự đặt quy tắc chuyển đổi.
+
+---
+
 ## KI-009 — Chưa có công cụ dựng Track Changes dùng lại được
 
 **Status:** ĐÃ ĐÓNG 13/9/2026 — `29-Cong-Cu/ktc_trackchanges.py` + `20-Chuan-Chung/15-Skill-Track-Changes.md`

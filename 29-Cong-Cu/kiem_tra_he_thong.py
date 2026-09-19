@@ -555,9 +555,11 @@ def c12_trung_kho(du_an=DU_AN, kho=None):
         return None
 
     cho_phep = ngoai_le_trung(du_an)
-    vao = os.path.join(du_an, "10-Dau-Vao")
     n = trung_ok = 0
-    for r, ds, fs in os.walk(vao):
+    # 19/9/2026: nguoi dung nap TB 1052 + phu luc vao 11-Du-lieu-Cong-Viec, trung byte voi kho 02 — C12 cu
+    # chi quet 10-Dau-Vao nen bo sot. Quet ca hai kho dau vao cua du an.
+    for r, ds, fs in (x for vao in ("10-Dau-Vao", "11-Du-lieu-Cong-Viec")
+                      for x in os.walk(os.path.join(du_an, vao))):
         for f in fs:
             if f == "desktop.ini" or f.endswith(".md"):
                 continue

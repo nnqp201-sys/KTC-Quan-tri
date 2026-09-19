@@ -1,5 +1,10 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 0.9.1 — 2026-09-19
+
+- Cập nhật TB 1052/TB-CĐKT (`DL-20260919-007`): danh mục 371 sản phẩm đã gửi đơn vị rà soát (hạn 20/9), chưa ban hành;
+  quy đổi STT 38 lĩnh vực → Trục/nội hàm. skill quan-tri 1.9.
+
 ## 0.9.0 — 2026-09-19
 
 - Agent mới **`ktc-xac-minh-minh-chung`** (tổng 7) + công cụ `scripts/kiem_minh_chung.py` (MC01–MC07) — `DL-20260919-006`.

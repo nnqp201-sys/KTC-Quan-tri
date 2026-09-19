@@ -37,7 +37,25 @@ liệu sai mà về sau không ai phát hiện được.
 
 Mỗi sản phẩm gắn: loại văn bản (29 loại) · Nhóm 1–5 · Điểm · Hệ số · Trục · Nội hàm.
 
-**Trạng thái: dự thảo lần 4** — điểm và hệ số chưa phải bản ban hành. Khi trích dẫn phải ghi rõ là dự thảo.
+**Trạng thái (cập nhật 19/9/2026): đã gửi chính thức cho các đơn vị rà soát, CHƯA ban hành.** Thông báo
+**1052/TB-CĐKT ngày 15/9/2026** (kết luận của Bí thư Đảng ủy – Hiệu trưởng tại Tọa đàm KPI ngày 10/9/2026) kèm
+phụ lục *"Danh mục sản phẩm/công việc đã được nhà trường tổng hợp và chuẩn hóa, quy đổi điểm, hệ số"*:
+- các đơn vị rà soát, bổ sung, điều chỉnh và gửi Phòng TCCB-CTHSSV qua Office **trước 20/9/2026**;
+- sau đó Phòng TCCB-CTHSSV tham mưu Hiệu trưởng **ban hành**.
+Bản gốc: `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/TB-1052-TB-CDKT_Ket-luan-Toa-dam-danh-gia-vien-chuc-theo-KPI.docx` và `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/TB-1052-TB-CDKT_Phu-luc-Danh-muc-San-pham-Cong-viec-quy-doi.xlsx`.
+
+**Đã đối chiếu byte và từng dòng, ngày 19/9/2026:**
+- Phụ lục kèm TB 1052 **trùng hoàn toàn** dự thảo lần 4 dưới đây: đủ 371/371 sản phẩm, cùng tên, cùng Nhóm, cùng Hệ số.
+- Chỉ khác ba điểm: **bỏ cột Điểm**, bỏ cột Trục/Nội hàm, và đánh lại STT theo **38 lĩnh vực** (`1.1`–`38.8`).
+- 38 lĩnh vực trùng tên và trùng số sản phẩm với 38 nội hàm tại `10-Sau-Truc-38-Noi-Ham.md`. STT lĩnh vực đánh liên
+  tục 1–38; quy đổi sang Trục theo bảng ở tệp đó. Không dùng số lĩnh vực đứng một mình thay cho số nội hàm.
+- Hệ số trong phụ lục thuộc tập {0,3 · 0,5 · 1 · 1,2 · 1,5 · 2 · 2,5 · 3,5 · 4,5}. **204/371 dòng** có hệ số khác giá
+  trị chuẩn của Nhóm theo bảng 5 nhóm dưới đây: KI-014 **vẫn còn nguyên** trong bản gửi chính thức.
+- Dòng bất thường cần góp ý trước 20/9: `29.22` hệ số **50** (Nhóm 1); `2.7` Nhóm 2 hệ số 2,5 (trùng Nhóm 3);
+  `21.1` Nhóm 2 hệ số 1; `10.10`, `38.3` hệ số 0,3 (dưới Nhóm 1). Chi tiết:
+  `30-Ket-Qua/2026-09-19/De-xuat/Gop-y-Danh-muc-SP-TB-1052.md`.
+
+Khi trích dẫn, ghi *"Danh mục sản phẩm/công việc kèm Thông báo 1052/TB-CĐKT (chưa ban hành chính thức)"*.
 
 ### Thang quy đổi 5 nhóm — là bảng GỢI Ý, không phải danh sách giá trị hợp lệ
 

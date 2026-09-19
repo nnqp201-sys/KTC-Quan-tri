@@ -22,6 +22,7 @@ Toàn bộ dữ liệu ở đây là **dẫn xuất**. Khi cần căn cứ, trí
 |---|---|
 | Thông báo 817/TB-CĐKT | Nguồn gốc 6 Trục và 38 Nội hàm, cụ thể hóa HD 02-HD/BTCTW ngày 22/5/2026 |
 | Quyết định **1923/QĐ-CĐKT ngày 30/8/2026** (Hiệu trưởng Lê Trí Khải) | Ban hành Quy chế đánh giá, xếp loại chất lượng gắn KPI — căn cứ pháp lý của toàn bộ khung đánh giá |
+| Thông báo **1052/TB-CĐKT ngày 15/9/2026** + phụ lục Danh mục sản phẩm/công việc quy đổi | Kết luận Tọa đàm KPI; đơn vị rà soát danh mục trước 20/9, ký cam kết KPI trước 21/9; chưa ban hành danh mục |
 | Phụ lục I, II, III kèm QĐ 1923 | Mẫu kế hoạch công tác quý đơn vị · mẫu kế hoạch/danh mục công việc cá nhân · mẫu phiếu đánh giá xếp loại |
 
 Phụ lục I có đúng hai cột `Điểm chấm công việc` và `Hệ số quy đổi` — tức thang 5 nhóm dưới đây được áp
@@ -47,8 +48,9 @@ sheet `02-Danh-muc-tra-cuu`.
    QLĐT&BĐCL (366), Phòng Tổ chức (126), TC-KT (77). **Sáu Khoa hoàn toàn vắng mặt** — lĩnh vực
    `S. Nhiệm vụ chuyên môn nhà giáo` chỉ có 4 nhiệm vụ, sinh ra từ viên chức Phòng có tham gia giảng dạy.
    Do đó **không được coi 122 nhiệm vụ chuẩn là danh mục đầy đủ**.
-2. **Danh mục 371 sản phẩm mới ở mức dự thảo lần 4** — điểm và hệ số quy đổi chưa phải bản ban hành. Khi
-   trích dẫn phải ghi rõ là dự thảo.
+2. **Danh mục 371 sản phẩm: đã gửi đơn vị rà soát theo TB 1052/TB-CĐKT (15/9/2026), chưa ban hành.** Phụ lục
+   kèm TB trùng từng dòng với tệp dự thảo lần 4 ở đây (bỏ cột Điểm, STT theo 38 lĩnh vực). Bản gốc nằm trong
+   KTC-Database kho 02, **không chép về đây** (C12). Chi tiết: `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`.
 3. **Bảng tổng hợp tự mâu thuẫn ở Trục 1**: sheet `Tong hop theo Truc` ghi 102 sản phẩm, nhưng chính dòng
    đó cộng theo nhóm ra 103 (54+37+7+4+1), và đếm trực tiếp trên sheet dữ liệu cũng ra 103. Lệch 1 sản phẩm,
    chưa rõ nguyên nhân.

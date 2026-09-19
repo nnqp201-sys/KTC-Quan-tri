@@ -11,6 +11,11 @@ kèm Trục: `Trục 1 / Nội hàm 3. Đào tạo`.
 ## Trục 1 — Thực hiện mục tiêu phát triển kinh tế - xã hội và nhiệm vụ chính trị được giao
 *(103 sản phẩm)*
 
+> **Quy đổi STT lĩnh vực của Danh mục kèm TB 1052/TB-CĐKT** (đánh liên tục 1–38, đã đối chiếu tên và số
+> sản phẩm khớp 38/38 ngày 19/9/2026): lĩnh vực 1–8 = Trục 1 nội hàm 1–8 · 9–14 = Trục 2 nội hàm 1–6 ·
+> 15–20 = Trục 3 nội hàm 1–6 · 21–27 = Trục 4 nội hàm 1–7 · 28–34 = Trục 5 nội hàm 1–7 · 35–38 = Trục 6
+> nội hàm 1–4. Ví dụ sản phẩm `29.22` = Trục 5, nội hàm 2. Luôn ghi kèm Trục.
+
 | # | Nội hàm | Số SP |
 |---|---|---|
 | 1 | Chiến lược, quy hoạch và kế hoạch phát triển | 10 |
