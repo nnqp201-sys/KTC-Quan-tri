@@ -129,8 +129,14 @@ xác nhận độc lập bằng `29-Cong-Cu/tra_hieu_luc.py` trên kho KTC-Datab
 **Đã xử lý 20/9/2026:** khôi phục bố cục hosted-safe cho cây nguồn; vá guard xóa đệ quy đã chết từ 28/8/2026;
 thêm `tools/kiem_dong_bo_addon.py` phát hiện lệch ba bản.
 
-**Còn chờ người quyết** (3 câu hỏi): mẫu báo cáo rà soát chốt 8 phần hay bản Drive · checklist lấy theo bản
-v2.24 khóa SHA-256 · có phát hành `ktc-eval` cho đơn vị không. Chi tiết và bằng chứng:
+**ĐÃ QUYẾT 20/9/2026** — người phụ trách hệ chốt: (1) mẫu báo cáo rà soát là **8 phần**; (2) checklist lấy
+theo bản **v2.24 đã khóa SHA-256**; (3) lấy **nhánh v2.24** làm gốc. Đã hợp nhất thành **alpha.7**: nghiệp vụ
+theo v2.24 (gồm QĐ 1976), kỹ thuật theo alpha.3–6 (mẫu 8 phần, `core/evaluation/`, `ktc-eval`, dựng lặp lại
+được). Bản đang chạy nay có 8 tệp nhắc QĐ 1976 (trước: 0). `UNIVERSAL_VALIDATION=PASS`.
+
+**Còn lại:** chưa chốt `ktc-eval` và `core/evaluation/` có phát hành cho đơn vị hay chỉ dùng nội bộ — hiện
+đang **giữ trong gói**. Kho nguồn 897 đã có commit đầu `c8501d2` nhưng **chưa đẩy được lên GitHub**: kho
+`nnqp201-sys/KTC-Ra-Soat-897-Universal-Plugin` chưa tồn tại và máy không có `gh`. Chi tiết:
 `KTC-Ra-Soat-897-Universal-Plugin/governance/PHAN-NHANH-ALPHA.md`.
 
 ---
