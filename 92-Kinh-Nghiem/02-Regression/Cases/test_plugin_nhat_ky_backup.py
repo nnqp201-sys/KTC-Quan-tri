@@ -92,6 +92,37 @@ with tempfile.TemporaryDirectory() as t:
     kiem("stdin=subprocess.DEVNULL" in nguon_bk,
          "git() truyền stdin=DEVNULL (bắt buộc cho pythonw/Task Scheduler)")
 
+    # --- Ca nguoc: chay tren kho KHONG PHAI KTC-Quan-tri thi khong duoc de lai thu muc la ---
+    # repo trong bo thu nay khong co 90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong (chi co thu muc cha),
+    # nen nhat ky phai roi vao .git/, va tuyet doi khong sinh 04-Nhat-Ky-Tu-Dong/.
+    kiem(not os.path.isdir(os.path.join(repo, "90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")),
+         "ca ngược: không tạo thư mục 04-Nhat-Ky-Tu-Dong trong kho khác")
+    kiem(os.path.isfile(os.path.join(repo, ".git", "ktc-backup-log.jsonl")),
+         "kho khác: nhật ký backup rơi vào .git/ (không bị theo dõi)")
+
+    # --- Chot bao ve theo che do goi ---
+    # Hook SessionStart chay trong BAT KY du an nao nguoi dung mo. Neu khong chi dinh ro
+    # --du-an thi chi duoc backup du an mang hinh dang KTC-Quan-tri; khong duoc tu y day
+    # kho cua nguoi khac len remote cua ho. Con khi Task Scheduler chi dinh ro --du-an thi
+    # day la y dinh tuong minh cua nguoi van hanh -> chi can la kho git.
+    r3 = subprocess.run([sys.executable, BK, "--neu-can"], cwd=repo, capture_output=True,
+                        text=True, timeout=120, stdin=subprocess.DEVNULL)
+    kiem(r3.returncode == 0 and r3.stdout.strip() == "",
+         "ca ngược: không chỉ định --du-an, kho thiếu 90-Nhat-Ky-Van-Hanh -> im lặng, không đẩy")
+    repo2 = os.path.join(t, "repo2"); remote2 = os.path.join(t, "remote2.git")
+    git("init", "-q", repo2); git("init", "-q", "--bare", remote2)
+    git("-C", repo2, "config", "user.email", "t@t"); git("-C", repo2, "config", "user.name", "t")
+    git("-C", repo2, "remote", "add", "origin", remote2)
+    open(os.path.join(repo2, "c.md"), "w").write("c")
+    r4 = subprocess.run([sys.executable, BK, "--du-an", repo2], capture_output=True,
+                        text=True, timeout=180, stdin=subprocess.DEVNULL)
+    kiem(r4.returncode == 0 and "Backup xong" in r4.stdout,
+         "chỉ định rõ --du-an: backup được kho không phải KTC-Quan-tri")
+    r5 = subprocess.run([sys.executable, BK, "--du-an", os.path.join(t, "khong-phai-git")],
+                        capture_output=True, text=True, timeout=60, stdin=subprocess.DEVNULL)
+    kiem(r5.returncode == 1 and "Không phải kho git" in r5.stdout,
+         "ca ngược: chỉ định thư mục không phải kho git -> báo lỗi, thoát 1")
+
     # Ca (b) la kiem DONG: script phai chay tron ven duoi pythonw, khong vang loi nao.
     pythonw = os.path.join(os.path.dirname(sys.executable), "pythonw.exe")
     if os.path.isfile(pythonw):

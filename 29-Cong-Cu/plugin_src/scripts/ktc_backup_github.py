@@ -61,12 +61,28 @@ def ghi_trang_thai(du_an, **kw):
         json.dumps(s, ensure_ascii=False, indent=2))
 
 
+def tep_nhat_ky(du_an):
+    """Noi ghi nhat ky backup — TUY DU AN, khong tao thu muc la trong du an khac.
+
+    Script nay dung chung cho nhieu kho (KTC-Quan-tri, KTC-Ra-Soat-897-Universal-Plugin...).
+    Truoc day no makedirs("90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong") vo dieu kien, nen chay
+    tren kho khac se de lai mot thu muc mang hinh dang cua KTC-Quan-tri — va chinh lan backup
+    do se commit thu muc rac ay len GitHub.
+    """
+    ktc = os.path.join(du_an, "90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
+    if os.path.isdir(ktc):
+        return os.path.join(ktc, dt.date.today().isoformat() + ".jsonl")
+    k897 = os.path.join(du_an, ".ktc897", "nhat-ky")
+    if os.path.isdir(os.path.dirname(k897)):
+        os.makedirs(k897, exist_ok=True)
+        return os.path.join(k897, dt.date.today().isoformat() + ".jsonl")
+    # Mac dinh: trong .git/ — luon ton tai voi repo git, khong bao gio bi theo doi
+    return os.path.join(du_an, ".git", "ktc-backup-log.jsonl")
+
+
 def ghi_nhat_ky(du_an, ket_qua, chi_tiet=""):
-    thu_muc = os.path.join(du_an, "90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
     try:
-        os.makedirs(thu_muc, exist_ok=True)
-        with io.open(os.path.join(thu_muc, dt.date.today().isoformat() + ".jsonl"), "a",
-                     encoding="utf-8") as f:
+        with io.open(tep_nhat_ky(du_an), "a", encoding="utf-8") as f:
             f.write(json.dumps({"t": dt.datetime.now().isoformat(timespec="seconds"),
                                 "loai": "backup", "ket_qua": ket_qua,
                                 "chi_tiet": chi_tiet[:300]}, ensure_ascii=False) + "\n")
@@ -135,15 +151,25 @@ def main():
     except Exception:
         pass
     ap = argparse.ArgumentParser()
-    ap.add_argument("--du-an", default=os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd())
+    ap.add_argument("--du-an", default=None)
     ap.add_argument("--neu-can", action="store_true")
     ap.add_argument("--trang-thai", action="store_true")
     a = ap.parse_args()
-    du_an = os.path.abspath(a.du_an)
+    # Nguoi goi co CHI DINH RO kho hay khong — quyet dinh muc do chat cua chot bao ve duoi.
+    chi_dinh_ro = a.du_an is not None
+    du_an = os.path.abspath(a.du_an or os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd())
 
-    if not os.path.isdir(os.path.join(du_an, "90-Nhat-Ky-Van-Hanh")) or \
-       not os.path.isdir(os.path.join(du_an, ".git")):
-        return 0              # khong phai du an KTC-Quan-tri -> im lang
+    if not os.path.isdir(os.path.join(du_an, ".git")):
+        if chi_dinh_ro:
+            print(f"Không phải kho git: {du_an}")
+            return 1
+        return 0
+    # Khi KHONG chi dinh ro (hook SessionStart chay trong bat ky du an nao nguoi dung mo),
+    # chi backup du an mang hinh dang KTC-Quan-tri: khong duoc tu y day kho cua nguoi khac
+    # len remote cua ho. Khi da chi dinh ro --du-an (Task Scheduler) thi day la y dinh tuong
+    # minh cua nguoi van hanh -> chi can la kho git.
+    if not chi_dinh_ro and not os.path.isdir(os.path.join(du_an, "90-Nhat-Ky-Van-Hanh")):
+        return 0
 
     if a.trang_thai:
         s = doc_trang_thai(du_an)
