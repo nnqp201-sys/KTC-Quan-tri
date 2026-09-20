@@ -134,7 +134,8 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 | Thuật ngữ | **Bỏ `KTC-DIS`**, dùng "hệ thống KTC". Tên hiện vật giữ nguyên — `DL-20260914-002b` |
 | Nguồn kế hoạch tháng | **4 nguồn**: KH quý · văn bản cấp trên trong kỳ · **kết luận giao ban tuần** · điều hành phát sinh. Đo được: KH quý chỉ phủ 30% — `PM-20260914-Chay-thu-KH-thang-9` |
 | Gói `ktc-quan-tri` | **`ktc-quan-tri.skill`** (14/9/2026) — nguồn rời nay ở `references/` tại gốc dự án, 15 tệp |
-| Bộ kiểm tra Tầng 1 | **11 phép kiểm**, 4 ca hồi quy. C5 soi cả bản trong `.skill` — `DL-20260914-002` |
+| Bộ kiểm tra Tầng 1 | **C14** (20/9/2026): mọi script agent viện dẫn phải được đóng vào plugin — `kiem_the_thuc.py` thiếu từ 19/9 làm phép kiểm thể thức của `ktc-kiem-san-pham` hỏng **lặng lẽ** khi chạy ngoài dự án; agent nội bộ (`ktc-tu-hoc`, `ktc-tu-cai-tien`) được miễn. Thử ngược: `test_c14_cong_cu_agent.py` |
+| Bộ kiểm tra Tầng 1 (cũ) | **11 phép kiểm**, 4 ca hồi quy. C5 soi cả bản trong `.skill` — `DL-20260914-002` |
 | Gói `ktc-bao-cao` | **`ktc-bao-cao-v3.14.skill`** (19/9/2026) — thể thức sản phẩm (`DL-20260919-003`), quy tắc viện dẫn (`DL-20260919-002`), đơn vị nộp qua khung chat (`DL-20260919-001`), Task_ID (`DL-20260918-003`). Gói cũ giữ để hoàn tác, **không dùng** |
 | Gói `ktc-ke-hoach` | **`ktc-ke-hoach-v3.3.skill`** (15/9/2026) — cùng đợt hoàn tất 18/9/2026 (`DL-20260918-001`). Gói cũ (`v3.2` trở về trước) giữ lại để hoàn tác, **không dùng** |
 | Cấu trúc thư mục | Nhóm theo số (`DL-20260918-004`): 1x INPUT · 2x PROCESS · 3x OUTPUT · 9x quản trị. Gói: quan-tri 1.8, ke-hoach 3.9, theo-doi-cv 1.7, soan-thao-vb 1.9, the-thuc 1.0 |

@@ -28,8 +28,10 @@ KHOA_TINH_TRANG = re.compile(r"(tình trạng|trạng thái hiệu lực|trạng
                              r"[^:\n]{0,25}:\s*(.+)", re.I)
 
 # Ma loai van ban -> tu viet tat trong so hieu
-LOAI = r"(Luật|Bộ luật|Pháp lệnh|Nghị quyết|Nghị định|Thông tư liên tịch|Thông tư|Quyết định|Chỉ thị|Thông báo|Kế hoạch|Công văn|Hướng dẫn|Quy định|Văn bản hợp nhất)"
-SO = r"(\d{1,5}[a-z]?(?:/\d{4})?/[A-ZĐa-zđ0-9\-]+(?:/[A-ZĐa-zđ0-9\-]+)?)"
+LOAI = r"(Luật|Bộ luật|Pháp lệnh|Nghị quyết|Nghị định|Thông tư liên tịch|Thông tư|Quyết định|Chỉ thị|Thông báo|Kế hoạch|Công văn|Hướng dẫn|Quy định|Kết luận|Văn bản hợp nhất)"
+# So hieu hanh chinh "30/2020/NĐ-CP", "1976/QĐ-CĐKT" va so hieu van ban Dang "366-QĐ/TW", "43-HD/BTCTW",
+# "198-KL/TW" (dau gach ngang sau so — HD 05-HD/VPTW; bo sot khi quet mau cam ket TB 1052, 19/9/2026)
+SO = r"(\d{1,5}[a-z]?(?:/\d{4})?/[A-ZĐa-zđ0-9\-]+(?:/[A-ZĐa-zđ0-9\-]+)?|\d{1,5}-[A-ZĐ]{1,5}/[A-ZĐ]{2,8})"
 RE_SO = re.compile(LOAI + r"\s+(?:số\s+)?" + SO)
 # Viet tat hay gap trong van ban noi bo: "QĐ 988/QĐ-CĐKT", "NĐ 30/2020/NĐ-CP", "TB 597/TB-CĐKT"
 VIET_TAT = {"QĐ": "Quyết định", "NĐ": "Nghị định", "TT": "Thông tư", "TB": "Thông báo", "NQ": "Nghị quyết",
@@ -44,7 +46,7 @@ TU_LOAI = {
     "Quyết định": ("QD", "QUYET-DINH"), "Nghị quyết": ("NQ", "NGHI-QUYET"), "Luật": ("LUAT", "QH"),
     "Bộ luật": ("LUAT",), "Pháp lệnh": ("PL", "PHAP-LENH", "UBTVQH"), "Thông báo": ("TB", "THONG-BAO"),
     "Kế hoạch": ("KH", "KE-HOACH"), "Công văn": ("CV", "CONG-VAN"), "Chỉ thị": ("CT", "CHI-THI"),
-    "Hướng dẫn": ("HD", "HUONG-DAN"), "Quy định": ("QD", "QUY-DINH"), "Văn bản hợp nhất": ("VBHN",),
+    "Hướng dẫn": ("HD", "HUONG-DAN"), "Quy định": ("QD", "QUY-DINH"), "Kết luận": ("KL", "KET-LUAN"), "Văn bản hợp nhất": ("VBHN",),
 }
 
 

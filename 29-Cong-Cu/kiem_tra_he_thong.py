@@ -600,6 +600,46 @@ def c13_o_dia_tuyet_doi(du_an=DU_AN):
     print(f"  {'✗' if sai else '✓'} {len(sai)} chỗ ghi cứng ổ đĩa")
 
 
+def c14_cong_cu_agent_duoc_dong_goi(du_an=DU_AN):
+    """Agent chay NGOAI thu muc du an chi co script nao da duoc dong vao plugin.
+
+    Loi that 19/9-20/9/2026: ktc-kiem-san-pham va ktc-kiem-ho-so-don-vi goi kiem_the_thuc.py
+    nhung CONG_CU_CHO_AGENT khong co no -> phep kiem the thuc (Muc 1-2 = KHONG DAT) hong
+    LANG LE khi agent chay ngoai du an: khong bao loi, chi la khong tim thay script.
+
+    "Da dong goi" = co trong CONG_CU_CHO_AGENT, hoac plugin_src/scripts/, hoac nam san
+    trong cay 31-Plugin/ (vi du read_bc736_excel.py di theo references cua skill bao-cao).
+    """
+    tieu_de("C14. Script agent viện dẫn đều được đóng vào plugin")
+    # Agent chi chay duoc TRONG du an (ghi vao thu muc quan tri he) thi khong can dong goi.
+    NOI_BO = {"ktc-tu-cai-tien.md": "chỉ chạy trong dự án — ghi 92-Kinh-Nghiem/03-Change-Proposals/",
+              "ktc-tu-hoc.md": "chỉ chạy trong dự án — ghi 90-Nhat-Ky-Van-Hanh/05-Tri-Thuc-Tu-Hoc/"}
+    src = os.path.join(du_an, "29-Cong-Cu", "plugin_src", "agents")
+    dg = doc(os.path.join(du_an, "29-Cong-Cu", "dong_goi_plugin.py"))
+    m = re.search(r"CONG_CU_CHO_AGENT\s*=\s*\[(.*?)\]", dg, re.S)
+    co = set(re.findall(r'"([a-z_0-9]+\.py)"', m.group(1))) if m else set()
+    thu_cong = os.path.join(du_an, "29-Cong-Cu", "plugin_src", "scripts")
+    if os.path.isdir(thu_cong):
+        co |= {f for f in os.listdir(thu_cong) if f.endswith(".py")}
+    for r, ds, fs in os.walk(os.path.join(du_an, "31-Plugin")):
+        if "__pycache__" in r:
+            continue
+        co |= {f for f in fs if f.endswith(".py")}
+    thieu = []
+    if os.path.isdir(src):
+        for f in sorted(os.listdir(src)):
+            if not f.endswith(".md") or f in NOI_BO:
+                continue
+            for sc in sorted(set(re.findall(r"([a-z_0-9]+\.py)", doc(os.path.join(src, f))))):
+                if sc not in co:
+                    thieu.append(f"{f} gọi {sc}")
+    for x in thieu:
+        loi.append(f"C14 {x}: script không được đóng vào plugin — agent chạy ngoài dự án sẽ "
+                   f"không tìm thấy, phép kiểm hỏng lặng lẽ. Thêm vào CONG_CU_CHO_AGENT.")
+    print(f"  {'✗' if thieu else '✓'} {len(thieu)} script agent viện dẫn nhưng chưa đóng gói"
+          f" ({len(NOI_BO)} agent nội bộ được miễn)")
+
+
 def main():
     print("=" * 76)
     print("KIỂM TRA TOÀN HỆ hệ thống KTC — Tầng 1 (tĩnh, tất định)")
@@ -608,7 +648,8 @@ def main():
     for f in (c1_goi, c2_lien_ket, c3_duong_dan_du_an, c4_nguon_roi_vs_goi,
               c5_tep_dung_chung, c6_ten_he_da_bo, c7_cum_cam,
               c8_sao_chep_cheo_he, c9_cong_cu, c11_ban_goc_trong_zip,
-              c12_trung_kho, c13_o_dia_tuyet_doi, c10_regression):
+              c12_trung_kho, c13_o_dia_tuyet_doi,
+              c14_cong_cu_agent_duoc_dong_goi, c10_regression):
         try:
             f()
         except Exception as e:

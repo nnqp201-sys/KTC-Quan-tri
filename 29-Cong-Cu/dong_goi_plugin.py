@@ -45,7 +45,10 @@ THU_MUC_SINH_TU_DONG = ["skills", ".claude-plugin", "hooks", "scripts", "agents"
 # Nguon viet tay cua script/agent them vao plugin (khong sua trong 31-Plugin/)
 PLUGIN_SRC = os.path.join(DU_AN, "29-Cong-Cu", "plugin_src")
 CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
-                     "doi_soat_so_lieu.py", "kiem_minh_chung.py"]
+                     "doi_soat_so_lieu.py", "kiem_minh_chung.py",
+                     # kiem_the_thuc.py: phep kiem SO 1 cua ktc-kiem-san-pham va ktc-kiem-ho-so-don-vi;
+                     # thieu tu 19/9/2026 -> hai agent do hong lang le khi chay NGOAI thu muc du an
+                     "kiem_the_thuc.py"]
 # Gioi han cua Claude khi tai plugin/skill (loi that 19/9/2026: mo ta plugin 554 ky tu bi tu choi)
 GIOI_HAN_MO_TA_PLUGIN = 500
 GIOI_HAN_MO_TA_SKILL = 1024

@@ -116,6 +116,25 @@ theo dõi nào, chưa rõ đã ký/gửi; (4) chỉ tiêu đào tạo 12.365 (v�
 
 ---
 
+## KI-019 — Plugin `ktc-ra-soat-897` đang chạy dẫn quy chế đã hết hiệu lực (QĐ 988)
+
+**Status:** Mở · **Phát hiện:** 20/9/2026 · **Priority:** Cao — 897 là chốt chặn bắt buộc trước trình ký (Nguyên tắc 9)
+
+Plugin 897 có **hai nhánh alpha song song**, cả hai cùng mang nhãn `0.1.0-alpha.2` cho hai nội dung khác nhau:
+nhánh nguồn trên Drive (15/9/2026, có nghiệp vụ v2.24 + sửa QĐ 988 → **QĐ 1976/QĐ-CĐKT** ở 9 tệp) và nhánh
+đang cài/đang chạy (2/9/2026, có mẫu báo cáo 8 phần + evaluation + `ktc-eval`, nhưng **0 tệp** nhắc QĐ 1976).
+Không bản nào là tập cha của bản kia. Bản đang chạy vì vậy đối chiếu quy chế đã hết hiệu lực từ 14/9/2026 —
+xác nhận độc lập bằng `29-Cong-Cu/tra_hieu_luc.py` trên kho KTC-Database.
+
+**Đã xử lý 20/9/2026:** khôi phục bố cục hosted-safe cho cây nguồn; vá guard xóa đệ quy đã chết từ 28/8/2026;
+thêm `tools/kiem_dong_bo_addon.py` phát hiện lệch ba bản.
+
+**Còn chờ người quyết** (3 câu hỏi): mẫu báo cáo rà soát chốt 8 phần hay bản Drive · checklist lấy theo bản
+v2.24 khóa SHA-256 · có phát hành `ktc-eval` cho đơn vị không. Chi tiết và bằng chứng:
+`KTC-Ra-Soat-897-Universal-Plugin/governance/PHAN-NHANH-ALPHA.md`.
+
+---
+
 ## KI-004 — Ban Truyền thông chưa có mã đơn vị
 
 **Status:** Resolved 13/9/2026 · **Xem:** `00. Mau bao cao thang (cap Truong).docx`, mục "Công tác Truyền
