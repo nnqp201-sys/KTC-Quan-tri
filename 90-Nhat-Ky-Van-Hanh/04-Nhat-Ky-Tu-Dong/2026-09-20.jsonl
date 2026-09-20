@@ -174,3 +174,4 @@
 {"t": "2026-09-20T13:59:39", "phien": "fcddd5d0", "loai": "ket-phien", "ly_do": "other"}
 {"t": "2026-09-20T14:14:56", "phien": "e0b80525", "loai": "ket-phien", "ly_do": "other"}
 {"t": "2026-09-20T22:17:22", "loai": "backup", "ket_qua": "thanh-cong", "chi_tiet": "0 tệp mới"}
+{"t": "2026-09-20T22:17:54", "loai": "backup", "ket_qua": "loi-push", "chi_tiet": "error: failed to push some refs to 'https://github.com/nnqp201-sys/KTC-Quan-tri.git'\n"}
