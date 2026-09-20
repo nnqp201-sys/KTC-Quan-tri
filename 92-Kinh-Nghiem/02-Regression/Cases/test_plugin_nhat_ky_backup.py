@@ -81,6 +81,31 @@ with tempfile.TemporaryDirectory() as t:
          "ca ngược: tệp tên giống bí mật -> dừng, không push")
     kiem(os.path.exists(os.path.join(repo, "my-credentials.json")), "không xóa tệp của người dùng khi dừng")
 
+    # --- pythonw: Task Scheduler chay bang pythonw.exe, KHONG co std handle hop le ---
+    # Loi that 18-20/9/2026: tien trinh con thua ke stdin hong -> Git Credential Manager khong
+    # trao doi duoc thong tin dang nhap -> `git push` that bai va KHONG in ra loi nao. Backup
+    # 21:00 hong LANG LE hai ngay, trong khi chay tay luc nao cung duoc.
+    #
+    # Ca (a) la kiem TINH: remote cuc bo trong bo thu nay khong dung credential helper nen
+    # khong tai hien duoc loi that. Doc thang nguon de it nhat chan viec go co stdin ra.
+    nguon_bk = open(BK, encoding="utf-8").read()
+    kiem("stdin=subprocess.DEVNULL" in nguon_bk,
+         "git() truyền stdin=DEVNULL (bắt buộc cho pythonw/Task Scheduler)")
+
+    # Ca (b) la kiem DONG: script phai chay tron ven duoi pythonw, khong vang loi nao.
+    pythonw = os.path.join(os.path.dirname(sys.executable), "pythonw.exe")
+    if os.path.isfile(pythonw):
+        open(os.path.join(repo, "b.md"), "w").write("b")
+        os.remove(os.path.join(repo, "my-credentials.json"))
+        r2 = subprocess.run([pythonw, BK, "--du-an", repo], capture_output=True,
+                            text=True, timeout=180, stdin=subprocess.DEVNULL)
+        so_commit2 = subprocess.run(["git", "-C", remote, "rev-list", "--count", "HEAD"],
+                                    capture_output=True, text=True).stdout.strip()
+        kiem(r2.returncode == 0 and so_commit2 == "2",
+             f"chạy dưới pythonw.exe: push thành công (mã {r2.returncode}, {so_commit2} commit)")
+    else:
+        print("  -- bỏ qua ca pythonw: không tìm thấy pythonw.exe")
+
 kiem(anh_log_that() == truoc, "ca ngược: kiểm thử không ghi gì vào nhật ký THẬT của dự án")
 print("KET LUAN:", "CO LOI " + str(loi) if loi else "SACH")
 sys.exit(1 if loi else 0)

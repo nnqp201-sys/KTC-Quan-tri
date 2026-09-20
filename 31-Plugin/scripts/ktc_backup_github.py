@@ -33,8 +33,13 @@ GIO_TOI_THIEU = 24
 
 def git(du_an, *args, timeout=120):
     env = dict(os.environ, GIT_TERMINAL_PROMPT="0")
+    # stdin=DEVNULL la BAT BUOC: Task Scheduler chay bang pythonw.exe, ma pythonw KHONG co
+    # std handle hop le. Tien trinh con thua ke stdin hong -> Git Credential Manager khong trao
+    # doi duoc thong tin dang nhap, `git push` that bai va KHONG in ra loi nao (chi_tiet rong).
+    # Loi that 18-20/9/2026: backup tu dong 21:00 that bai lang le 2 ngay, chay tay thi luon duoc.
     r = subprocess.run(["git", "-C", du_an, *args], capture_output=True, text=True,
-                       encoding="utf-8", errors="replace", timeout=timeout, env=env)
+                       encoding="utf-8", errors="replace", timeout=timeout, env=env,
+                       stdin=subprocess.DEVNULL)
     return r.returncode, (r.stdout or "") + (r.stderr or "")
 
 
