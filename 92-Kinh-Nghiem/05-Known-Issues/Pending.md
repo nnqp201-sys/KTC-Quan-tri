@@ -2,7 +2,7 @@
 
 Lỗi và khoảng trống **đã biết nhưng chưa xử lý**. Ghi lại để không quên và không tốn công phát hiện lại.
 
-**Cập nhật:** 19/9/2026
+**Cập nhật:** 20/9/2026
 
 ---
 
@@ -80,6 +80,39 @@ mã tự đặt, chưa được chốt.
 **Cần người phụ trách hệ quyết:** chấp nhận hai mã này hay đặt mã khác. Sau đó bổ sung vào bảng mã và Master Task Register
 (`02-Danh-muc-tra-cuu`). Trong lúc chờ, công cụ đối soát báo Mức 3 nhưng vẫn xử lý dữ liệu. Văn bản Đảng và đoàn
 thể theo hệ quy chiếu B/D, không áp NĐ 30.
+
+---
+
+## KI-016 — Hồ sơ Đề án Trung tâm Đăng kiểm đã trình UBND tỉnh: chờ thẩm định, còn 7 điểm lệch chưa sửa
+
+**Status:** Mở · **Cập nhật:** 20/9/2026 · **Priority:** Trung bình — chỉ xử lý khi UBND/Sở yêu cầu chỉnh hồ sơ
+
+Hồ sơ ký 25/8/2026 (Tờ trình 22/TTr-CĐKT, Đề án 08/ĐA-CĐKT, BC 382 và 384) đã trình UBND tỉnh. Tri thức, số liệu chốt và danh sách 7 điểm
+lệch (Quốc hiệu "CỘNG HOÀ", cụm "góp vốn bằng tài sản được cho phép" còn trong Tờ trình/Quyết định, Bảng 12 còn dòng QSDĐ 7.820…):
+`90-Nhat-Ky-Van-Hanh/07-Tri-Thuc-Chuyen-De/De-an-Trung-tam-Dang-kiem-XCG.md`. Hồ sơ đã ký — không tự sửa; **ngày gửi thực tế** cần người dùng cung cấp.
+
+---
+
+## KI-017 — Hồ sơ CTMTQG hiện đại hóa GD&ĐT: số liệu đầu vào lệch, QĐ 1951 sai đơn vị, metadata kho sai
+
+**Status:** Mở · **Cập nhật:** 20/9/2026 · **Priority:** Cao với điểm 1 (số liệu đã chốt 30/6/2026, ảnh hưởng hệ số Hqm theo QĐ 36)
+
+Tri thức và 14 điểm lệch: `90-Nhat-Ky-Van-Hanh/07-Tri-Thuc-Chuyen-De/CTMTQG-Hien-dai-hoa-GDDT-2026-2030.md` (mục 8). Nổi bật: (1) quy mô đào tạo cao đẳng
+2.666 ≠ 3.296 ≠ 3.147; (2) QĐ 1951 ghi tổng mức "192.857.143 **triệu** đồng" (đúng: nghìn); (3) metadata kho ghi CV 5903 "chưa rõ số/ngày" và BC 48 "ngày không
+xác định" — kho chỉ đọc, cần người có thẩm quyền sửa trên Drive. Hồ sơ đã gửi — không tự sửa; **người dùng quyết** có chỉnh hay không. Ranh giới hạng mục giữa
+CTMTQG hiện đại hóa và CTMTQG NTM-GNBV chưa có văn bản phân định.
+
+---
+
+## KI-018 — CTMTQG NTM–GNBV–DTTS: vốn giao 2026 thấp xa nhu cầu, 5 điểm lệch số liệu
+
+**Status:** Mở · **Cập nhật:** 20/9/2026 · **Priority:** Cao — ảnh hưởng mọi báo cáo về dự án
+
+Chi tiết và nguồn ở `90-Nhat-Ky-Van-Hanh/07-Tri-Thuc-Chuyen-De/CTMTQG-NTM-GNBV-DTTS-2026-2030.md` (mục 6):
+(1) NQ 56 giao Trường 260 triệu vs dự toán CBĐT 6.249,856 triệu (QĐ 1899) — cần người có thẩm quyền quyết cách xử lý;
+(2) ngày họp GM 930 lệch giữa CV 10965 (9/9) và gói cũ (11/9); (3) BC 326 lần 2 vẫn số 326, tệp "TRACK-CHANGES" không có thay đổi
+theo dõi nào, chưa rõ đã ký/gửi; (4) chỉ tiêu đào tạo 12.365 (văn bản) / 12.635 (bảng) / 12.625 (cộng thành phần);
+(5) 75.000 triệu đối ứng NS tỉnh chỉ có trong CV 10965. Còn: TB 916, GM 930, CV 7524, QĐ 417 chưa có trong kho.
 
 ---
 

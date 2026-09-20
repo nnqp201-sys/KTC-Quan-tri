@@ -6,3 +6,6 @@ __pycache__/
 
 # Tệp do ứng dụng Claude (Desktop/Cowork) xuất ra — bản nháp cá nhân, không đưa lên GitHub
 Claude outputs/
+
+# Fixture .docx do test_trackchanges.py sinh lai moi lan chay — khong theo doi (CLAUDE.md: dau ra trung gian)
+92-Kinh-Nghiem/02-Regression/Fixtures/

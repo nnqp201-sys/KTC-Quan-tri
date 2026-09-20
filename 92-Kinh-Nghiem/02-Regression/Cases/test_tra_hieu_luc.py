@@ -5,6 +5,8 @@ Ca thu nguoc lay tu loi that 19/9/2026:
 - "Nghi dinh 85/2025" tung khop nham tep "275-2025 sua doi ND 85"
 - "Thong tu 36/2026/TT-BXD" tung khop nham "Quyet dinh 36/2026/QD-TTg" (vi "TT" nam trong "TTG")
 - QD 1951 (07/9/2026) dan Luat Xay dung ma metadata kho ghi het hieu luc tu 01/7/2026
+- So hieu van ban Dang dang "198-KL/TW", "366-QD/TW", "05-HD/VPTW" bi bo sot hoan toan (khong trich duoc
+  dong nao) vi RE_SO chi nhan dang gach cheo; loai "Ket luan" cung chua co trong LOAI/TU_LOAI (20/9/2026)
 """
 import os
 import sys
@@ -36,6 +38,8 @@ tep = {
     "01-Legal-Database/01-01/LUAT-12-2026-QH16_Pho-bien-giao-duc-phap-luat_2026_v1.docx": None,
     "01-Legal-Database/01-01/12. Luat Giao duc -72-VBHN-VPQH.docx": None,
     "01-Legal-Database/01-01/09. Luat Giao duc nghe nghiep 2025.docx": None,
+    "01-Legal-Database/01-02/Ket luan 198-KL-TW Bo Chinh tri.docx": None,
+    "02-KTC-Regulations/Ke hoach 198-KH-CDKT.docx": None,
 }
 for rel, meta in tep.items():
     p = os.path.join(KHO, rel)
@@ -53,6 +57,10 @@ du_thao = [
     "Căn cứ Thông tư số 36/2026/TT-BXD của Bộ Xây dựng;",
     "Căn cứ NĐ 30/2020/NĐ-CP về công tác văn thư;",
     "Căn cứ Thông báo số 916/TB-UBND ngày 01/9/2026.",
+    "Căn cứ Kết luận số 198-KL/TW ngày 05/8/2026 của Bộ Chính trị;",
+    "Căn cứ Quyết định số 366-QĐ/TW của Ban Chấp hành Trung ương;",
+    "Thực hiện Hướng dẫn số 05-HD/VPTW của Văn phòng Trung ương Đảng;",
+    "Kế hoạch phát triển giai đoạn 2021-2025 và Nghị quyết Đại hội XIV.",
 ]
 vbs = t.trich(du_thao)
 kq = {(v["loai"], v["so"] or v["ten"]): t.phan_loai(v, kho, {}) for v in vbs}
@@ -62,7 +70,7 @@ def lay(loai, khoa):
     return kq.get((loai, khoa), ("(không trích được)", [], ""))
 
 
-kiem(len(vbs) == 6, f"trích đủ 6 văn bản, kể cả viết tắt “NĐ 30/2020/NĐ-CP” (được {len(vbs)})")
+kiem(len(vbs) == 9, f"trích đủ 9 văn bản, kể cả viết tắt “NĐ 30/2020/NĐ-CP” và 3 số hiệu Đảng (được {len(vbs)})")
 kiem(lay("Quyết định", "988/QĐ-CĐKT")[0] == "THAY_THE", "QĐ 988 → THAY_THE (chuỗi đã biết)")
 kiem(lay("Luật", "Xây dựng")[0] == "KHO_GHI_HET_HIEU_LUC", "Luật Xây dựng → KHO_GHI_HET_HIEU_LUC từ metadata")
 p85 = lay("Nghị định", "85/2025/NĐ-CP")
@@ -77,6 +85,16 @@ kiem([os.path.basename(x) for x in gd] == ["12. Luat Giao duc -72-VBHN-VPQH.docx
      f"“Luật Giáo dục” chỉ khớp đúng luật, không khớp “Phổ biến, giáo dục pháp luật” hay “Giáo dục nghề nghiệp” (được {[os.path.basename(x) for x in gd]})")
 gdnn = kho.tim({"loai": "Luật", "so": None, "ten": "Giáo dục nghề nghiệp"})
 kiem(len(gdnn) == 1 and "nghe nghiep" in gdnn[0], "“Luật Giáo dục nghề nghiệp” khớp đúng tệp")
+# --- So hieu van ban Dang (dang "198-KL/TW") va loai "Ket luan" — 20/9/2026 ---
+kiem(("Kết luận", "198-KL/TW") in kq, "trích được “Kết luận số 198-KL/TW” (loại Kết luận + số hiệu Đảng)")
+kiem(("Quyết định", "366-QĐ/TW") in kq, "trích được “Quyết định số 366-QĐ/TW”")
+kiem(("Hướng dẫn", "05-HD/VPTW") in kq, "trích được “Hướng dẫn số 05-HD/VPTW”")
+kl = lay("Kết luận", "198-KL/TW")
+kiem(kl[0] == "CO_TRONG_KHO" and all("Ket luan" in os.path.basename(x) for x in kl[1]),
+     f"KL 198-KL/TW khớp đúng tệp Kết luận, KHÔNG khớp “Kế hoạch 198-KH-CĐKT” (được {[os.path.basename(x) for x in kl[1]]})")
+kiem(not any(v["so"] and "2021-2025" in v["so"] for v in vbs),
+     "“giai đoạn 2021-2025” không bị nhận nhầm là số hiệu")
+
 kiem(t.phan_loai({"loai": "Nghị định", "so": "85/2025/NĐ-CP", "ten": None}, None, {})[0] == "KHONG_CO_TRONG_KHO",
      "không đọc được kho → mọi văn bản là CẦN XÁC MINH, không kết luận")
 
