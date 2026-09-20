@@ -116,9 +116,9 @@ theo dõi nào, chưa rõ đã ký/gửi; (4) chỉ tiêu đào tạo 12.365 (v�
 
 ---
 
-## KI-019 — Plugin `ktc-ra-soat-897` đang chạy dẫn quy chế đã hết hiệu lực (QĐ 988)
+## KI-019 [ĐÃ ĐÓNG 20/9/2026] — Plugin `ktc-ra-soat-897` đang chạy dẫn quy chế đã hết hiệu lực (QĐ 988)
 
-**Status:** Mở · **Phát hiện:** 20/9/2026 · **Priority:** Cao — 897 là chốt chặn bắt buộc trước trình ký (Nguyên tắc 9)
+**Status:** Đã đóng · **Phát hiện:** 20/9/2026 · **Priority:** Cao — 897 là chốt chặn bắt buộc trước trình ký (Nguyên tắc 9)
 
 Plugin 897 có **hai nhánh alpha song song**, cả hai cùng mang nhãn `0.1.0-alpha.2` cho hai nội dung khác nhau:
 nhánh nguồn trên Drive (15/9/2026, có nghiệp vụ v2.24 + sửa QĐ 988 → **QĐ 1976/QĐ-CĐKT** ở 9 tệp) và nhánh
@@ -134,10 +134,11 @@ theo bản **v2.24 đã khóa SHA-256**; (3) lấy **nhánh v2.24** làm gốc. 
 theo v2.24 (gồm QĐ 1976), kỹ thuật theo alpha.3–6 (mẫu 8 phần, `core/evaluation/`, `ktc-eval`, dựng lặp lại
 được). Bản đang chạy nay có 8 tệp nhắc QĐ 1976 (trước: 0). `UNIVERSAL_VALIDATION=PASS`.
 
-**Còn lại:** chưa chốt `ktc-eval` và `core/evaluation/` có phát hành cho đơn vị hay chỉ dùng nội bộ — hiện
-đang **giữ trong gói**. Kho nguồn 897 đã có commit đầu `c8501d2` nhưng **chưa đẩy được lên GitHub**: kho
-`nnqp201-sys/KTC-Ra-Soat-897-Universal-Plugin` chưa tồn tại và máy không có `gh`. Chi tiết:
-`KTC-Ra-Soat-897-Universal-Plugin/governance/PHAN-NHANH-ALPHA.md`.
+`ktc-eval` và `core/evaluation/` đã chốt là **phát hành cho đơn vị**, validator đưa vào danh sách bắt buộc.
+Kho nguồn 897 đã lên GitHub: `nnqp201-sys/KTC-Ra-Soat-897-Universal-Plugin` (`c8501d2`, `29616dc`).
+Hồ sơ hợp nhất: `KTC-Ra-Soat-897-Universal-Plugin/governance/PHAN-NHANH-ALPHA.md`.
+
+**ĐÃ ĐÓNG 20/9/2026.**
 
 ---
 
