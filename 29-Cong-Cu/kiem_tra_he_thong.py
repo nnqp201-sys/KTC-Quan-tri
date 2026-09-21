@@ -190,6 +190,26 @@ def c2_lien_ket():
 
 
 # --------------------------------------------------------------- C3
+def _co_o_he_ngoai(duong_dan_tuong_doi):
+    """Duong dan tro sang MOT HE KTC KHAC thi giai qua duong_dan.he_ngoai, khong doan o dia.
+
+    Cac he KTC khong nam cung o dia: KTC-Quan-tri o D:, kho 897 tren Google Drive. Truoc day
+    C3 chi thu thu muc ngang cap, nen moi tham chieu HOP LE sang he khac deu bi bao 'khong tim
+    thay'. Canh bao dung ve ky thuat nhung sai ve y nghia — va canh bao sai lam nguoi ta quen
+    nhin bang canh bao.
+    """
+    phan = duong_dan_tuong_doi.replace(chr(92), '/').split('/')
+    if len(phan) < 2 or not phan[0].startswith('KTC-'):
+        return False
+    try:
+        sys.path.insert(0, os.path.join(DU_AN, '29-Cong-Cu'))
+        import duong_dan as _dd
+        goc = _dd.he_ngoai(phan[0])
+    except Exception:
+        return False
+    return bool(goc) and os.path.exists(os.path.join(goc, *phan[1:]))
+
+
 def c3_duong_dan_du_an():
     tieu_de("C3. Đường dẫn nêu trong tài liệu cấp dự án có thật không")
     for f in ["CLAUDE.md", "00-README.md", "22-KTC-Dieu-Phoi/SKILL.md",
@@ -203,9 +223,11 @@ def c3_duong_dan_du_an():
         for m in re.findall(r"`([0-9A-Za-zĐ][A-Za-z0-9ĐÀ-ỹ_./()&-]*\.(?:md|py|xlsx|docx|skill))`", s):
             if "/" not in m:
                 continue
-            if not os.path.exists(os.path.join(DU_AN, m)) and \
-               not os.path.exists(os.path.join(DU_AN, os.path.dirname(f), m)) and \
-               not os.path.exists(os.path.join(NGOAI, m)):
+            co = (os.path.exists(os.path.join(DU_AN, m))
+                  or os.path.exists(os.path.join(DU_AN, os.path.dirname(f), m))
+                  or os.path.exists(os.path.join(NGOAI, m))
+                  or _co_o_he_ngoai(m))
+            if not co:
                 thieu.append(m)
         if thieu:
             canh_bao.extend(f"C3 {f}: không tìm thấy `{x}`" for x in sorted(set(thieu)))

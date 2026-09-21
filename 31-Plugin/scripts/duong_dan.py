@@ -17,14 +17,14 @@ DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEN = "KTC-Database"
 
 
-def _tren_drive():
+def _tren_drive(ten=TEN):
     for o in string.ascii_uppercase:
         goc = f"{o}:\\"
         if not os.path.isdir(goc):
             continue
         for mau in ("My Drive", "Drive của tôi", os.path.join("Shared drives", "*"),
                     os.path.join("Bộ nhớ dùng chung", "*")):
-            for p in glob.glob(os.path.join(goc, mau, TEN)):
+            for p in glob.glob(os.path.join(goc, mau, ten)):
                 if os.path.isdir(p):
                     yield p
 
@@ -44,3 +44,21 @@ def ktc_database(canh_bao_ban_cu: bool = True) -> str:
     raise FileNotFoundError(
         "Không tìm thấy KTC-Database. Đặt biến môi trường KTC_DATABASE_DIR trỏ tới thư mục "
         "KTC-Database trên Google Drive (ví dụ <ổ Drive>\\My Drive\\KTC-Database).")
+
+
+def he_ngoai(ten):
+    """Tim mot he KTC khac (vi du KTC-Ra-Soat-897-Universal-Plugin) — tra ve duong dan hoac None.
+
+    Thu tu: bien moi truong KTC_<TEN> -> thu muc ngang cap voi du an -> moi o Google Drive.
+    Cac he KTC khong nam cung mot o dia: KTC-Quan-tri o D:, kho 897 o Google Drive (I:).
+    Vi vay khong duoc gia dinh "ngang cap" nhu truoc (Nguyen tac 4.2: khong ghi cung o dia).
+    """
+    mt = os.environ.get("KTC_" + ten.upper().replace("-", "_"))
+    if mt and os.path.isdir(mt):
+        return mt
+    ngang = os.path.join(os.path.dirname(DU_AN), ten)
+    if os.path.isdir(ngang):
+        return ngang
+    for p in _tren_drive(ten):
+        return p
+    return None
