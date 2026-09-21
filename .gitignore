@@ -12,3 +12,7 @@ Claude outputs/
 
 # Tep khoa tam cua Word/Excel — sinh ra khi dang mo tep, khong phai noi dung
 ~$*
+
+# Nhật ký phiên làm việc cục bộ — ghi lại nguyên văn lời người dùng và
+# đường dẫn nội bộ; không đưa lên kho chung.
+.ktc897/
