@@ -123,3 +123,6 @@
 {"t": "2026-09-21T15:35:52", "phien": "06c47392", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "SP=\"C:/Users/nnqp2/AppData/Local/Temp/claude/D---CLAUDE-code-KTC-Quan-tri/06c47392-fbaf-4e0e-b64b-fed4d0b6a1bf/scratchpad\"; cd \"$SP\" && python - <<'EOF' 2>/dev/null import json d=json.load(open(\"kh_lo…"}
 {"t": "2026-09-21T15:35:57", "phien": "06c47392", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri/30-Ket-Qua/2026-09-21/Bao-cao-thang-9\" && sed -i 's/do \\*\\*lãnh đạo cấp Trường\\*\\* chỉ đạo (22 dòng)/do **lãnh đạo cấp Trường** chỉ đạo (23 dòng)/' 00-Ghi-chu-doi-soat…"}
 {"t": "2026-09-21T15:36:17", "phien": "06c47392", "loai": "thao-tac", "cong_cu": "Bash", "doi_tuong": "cd \"D:/.CLAUDE code/KTC-Quan-tri\" && cat >> \"30-Ket-Qua/2026-09-21/Bao-cao-thang-9/00-Ghi-chu-doi-soat-thang-9-va-KH-thang-10.md\" <<'EOF' 7. Ba ý trong docx mục I suy từ báo cáo của khoa vì Phòng QLĐT…"}
+{"t": "2026-09-21T16:13:35", "phien": "06c47392", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-21T16:20:44", "phien": "fcddd5d0", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-21T16:20:58", "phien": "4832e7c6", "loai": "ket-phien", "ly_do": "other"}
