@@ -205,7 +205,12 @@ def quet(duong_dan_list, goc_kho=None):
     ket_qua = []
     for p in tep:
         doan = kvd.doc_tep(p)
-        vd = kvd.kiem_tra(doan) if p.endswith(".docx") else []
+        # kiem_vien_dan chay cho MOI dinh dang: doc_tep() tra ve danh sach doan van nhu nhau
+        # cho .docx lan .md/.txt. Truoc day chi chay voi .docx nen quet mot tep .md bo QUA TOAN BO
+        # phan kiem vien dan — khong bao gi, va ma thoat cung sai vi Muc 1 khong duoc dem.
+        # Phat hien khi van hanh thu 21/9/2026: cung mot du thao, quet .md ra 0 goi y con chay
+        # kiem_vien_dan truc tiep ra 4 (2 Muc 1). Quet dinh ky quy tac/skill deu la .md.
+        vd = kvd.kiem_tra(doan)
         dong = [(vb, *phan_loai(vb, kho, vbhn)) for vb in trich(doan)]
         ket_qua.append((p, dong, vd))
     return ket_qua, goc_kho

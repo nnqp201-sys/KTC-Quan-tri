@@ -98,5 +98,19 @@ kiem(not any(v["so"] and "2021-2025" in v["so"] for v in vbs),
 kiem(t.phan_loai({"loai": "Nghị định", "so": "85/2025/NĐ-CP", "ten": None}, None, {})[0] == "KHONG_CO_TRONG_KHO",
      "không đọc được kho → mọi văn bản là CẦN XÁC MINH, không kết luận")
 
+# --- Ca nguoc: kiem vien dan phai chay cho MOI dinh dang, khong rieng .docx (21/9/2026) ---
+# Truoc day tra_hieu_luc chi goi kvd.kiem_tra khi tep la .docx, nen quet mot tep .md bo QUA
+# toan bo phan kiem vien dan — khong bao gi, va ma thoat cung sai vi Muc 1 khong duoc dem.
+# Quet dinh ky quy tac/skill deu la .md, nen day la duong hong chinh.
+_md = os.path.join(KHO, 'du-thao-thu.md')
+open(_md, 'w', encoding='utf-8').write(
+    'Căn cứ Luật Giáo dục nghề nghiệp số 74/2014/QH13 ngày 27 tháng 11 năm 2014;' + chr(10) +
+    'Căn cứ Quyết định số 988/QĐ-CĐKT ngày 12/5/2026 của Hiệu trưởng;' + chr(10))
+_vd = t.kvd.kiem_tra(t.kvd.doc_tep(_md))
+kiem(len(_vd) > 0, f'tệp .md vẫn được kiểm viện dẫn (được {len(_vd)} gợi ý, phải > 0)')
+_nguon = open(os.path.join(GOC, '29-Cong-Cu', 'tra_hieu_luc.py'), encoding='utf-8').read()
+kiem('if p.endswith(".docx") else []' not in _nguon,
+     'ca ngược: không còn giới hạn kiểm viện dẫn theo đuôi .docx')
+
 print(f"\n{'ĐẠT' if not sai else 'KHÔNG ĐẠT'}: {len(sai)} ca sai")
 sys.exit(1 if sai else 0)
