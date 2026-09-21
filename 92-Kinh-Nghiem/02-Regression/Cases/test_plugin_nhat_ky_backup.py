@@ -5,6 +5,7 @@ Moi ca deu co ca THU NGUOC (biet chac sai) — bai hoc LL-20260914-001: phep kie
 ngay lan dau thi phai nghi chinh phep kiem. Chay trong thu muc tam, khong dung repo that.
 """
 import json
+import io
 import os
 import subprocess
 import sys
@@ -20,9 +21,32 @@ THAT = os.path.join(GOC, "90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
 
 
 def anh_log_that():
+    """Anh chup nhat ky THAT — chi dem dong do CHINH BO THU nay co the sinh ra.
+
+    KHONG so kich thuoc tep: hook PostToolUse cua phien lam viec dang chay cung ghi vao
+    day khi lenh chay trong thu muc du an, nen so byte doi lien tuc vi ly do khong lien
+    quan den bo thu. So byte tung lam ca kiem nay TRUOT ngau nhien — that bai gia, va la
+    loai that bai te nhat vi no day nguoi ta di sua thu khong hong.
+
+    Rui ro thuc su can chan: script backup hoac script nhat ky ghi NHAM vao du an that.
+    Ca hai deu ghi dong co loai 'backup' hoac 'yeu-cau'/'thao-tac' — dem rieng loai
+    'backup' la du, vi bo thu chi chay script backup.
+    """
     if not os.path.isdir(THAT):
         return {}
-    return {f: os.path.getsize(os.path.join(THAT, f)) for f in os.listdir(THAT)}
+    dem = {}
+    for f in os.listdir(THAT):
+        if not f.endswith('.jsonl'):
+            continue
+        n = 0
+        for dong in io.open(os.path.join(THAT, f), encoding='utf-8', errors='replace'):
+            try:
+                if json.loads(dong).get('loai') == 'backup':
+                    n += 1
+            except Exception:
+                pass
+        dem[f] = n
+    return dem
 
 
 def chay(args, stdin=""):

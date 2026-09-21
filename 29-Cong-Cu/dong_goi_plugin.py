@@ -20,6 +20,8 @@ import os
 import re
 import shutil
 import sys
+import datetime as dt
+import hashlib
 import zipfile
 
 DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,7 +37,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "0.9.1"  # 0.2.0: them agent tu cai tien, tu ghi nhat ky, tu backup GitHub
+PLUGIN_VERSION = "1.0.0"  # 1.0.0 (21/9/2026): ban phat hanh chinh thuc, het giai doan 0.x
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -275,6 +277,44 @@ def kiem_mo_ta():
     print("  ✓ mọi mô tả trong giới hạn")
 
 
+def dong_goi_zip():
+    """Dong goi 31-Plugin thanh .zip LAP LAI DUOC de tai len Cowork / Claude Chat.
+
+    Lap lai duoc = cung nguon thi cung sha256. Dat moc thoi gian co dinh trong ZipInfo va
+    duyet tep theo thu tu da sap xep; neu khong, moi lan dong goi ra mot sha khac va khong
+    ai kiem chung duoc goi dang chay co dung tu nguon nay hay khong.
+
+    Loai tru: desktop.ini (tep cua Google Drive), __pycache__, .pyc, va MOI archive long
+    (.zip/.skill) — goi long trong goi chi lam phinh ban tai ve, khong co tac dung luc chay.
+    """
+    BO_TEN = {"desktop.ini", ".DS_Store"}
+    BO_DUOI = {".pyc", ".pyo", ".zip", ".skill"}
+    ra = os.path.join(DU_AN, "30-Ket-Qua", dt.date.today().isoformat(), "Plugin")
+    os.makedirs(ra, exist_ok=True)
+    dich = os.path.join(ra, "ktc-quan-tri-" + PLUGIN_VERSION + ".zip")
+    tep = []
+    for r, ds, fs in os.walk(PLUGIN_DIR):
+        ds[:] = sorted(x for x in ds if x != "__pycache__")
+        for f in sorted(fs):
+            if f in BO_TEN or os.path.splitext(f)[1].lower() in BO_DUOI:
+                continue
+            q = os.path.join(r, f)
+            tep.append((q, os.path.relpath(q, PLUGIN_DIR).replace(os.sep, "/")))
+    tep.sort(key=lambda x: x[1])
+    with zipfile.ZipFile(dich, "w") as z:
+        for q, rel in tep:
+            zi = zipfile.ZipInfo(rel, date_time=(2026, 1, 1, 0, 0, 0))
+            zi.compress_type = zipfile.ZIP_DEFLATED
+            zi.create_system = 3
+            zi.external_attr = 0o100644 << 16
+            z.writestr(zi, io.open(q, "rb").read())
+    sha = hashlib.sha256(io.open(dich, "rb").read()).hexdigest()
+    io.open(dich + ".sha256", "w", encoding="utf-8").write(sha + "  " + os.path.basename(dich) + '\n')
+    print("  ✓ " + os.path.relpath(dich, DU_AN) + "  (%d tệp, %d bytes)" % (len(tep), os.path.getsize(dich)))
+    print("    sha256 " + sha)
+    return dich
+
+
 if __name__ == "__main__":
     don_sach(PLUGIN_DIR)
     build_skills()
@@ -283,5 +323,7 @@ if __name__ == "__main__":
     build_doctor_script()
     chep_nguon_viet_tay()
     kiem_mo_ta()
+    print("── Đóng gói .zip (lặp lại được) ──")
+    dong_goi_zip()
     print()
     print(f"Đã dựng 31-Plugin tại: {PLUGIN_DIR}")
