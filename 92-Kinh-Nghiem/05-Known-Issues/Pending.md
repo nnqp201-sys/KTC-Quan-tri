@@ -142,6 +142,34 @@ Hồ sơ hợp nhất: `KTC-Ra-Soat-897-Universal-Plugin/governance/PHAN-NHANH-A
 
 ---
 
+## KI-020 — Kho skill trên tài khoản claude.ai giữ bản CŨ của chính các hệ KTC
+
+**Status:** Đã xử lý phía máy 21/9/2026, **còn chờ dọn trên claude.ai** · **Priority:** Cao — ảnh hưởng chốt chặn trước trình ký
+
+Chạy `/doctor` ngày 21/9/2026 phát hiện tài khoản claude.ai (`My Uploads`) đang đồng bộ xuống máy **bản cũ**
+của chính hai hệ, và chúng được nạp **song song** với plugin hiện hành:
+
+| Bản đồng bộ từ claude.ai | Phiên bản | Bản hiện hành |
+|---|---|---|
+| `ktc-ra-soat-897` | **0.1.0-alpha.2** | alpha.7 |
+| `ktc-quan-tri` | **0.5.3** | 0.9.1 |
+| 7 skill `anthropic-skills:ktc-*` | bản cũ | thuộc plugin `ktc-quan-tri` |
+
+`alpha.2` chính là nhánh **trước hợp nhất**, còn dẫn **QĐ 988 đã hết hiệu lực** (xem `KI-019`). Bộ đếm
+`skillUsage` trong `~/.claude.json` cho thấy đã có phiên gọi đúng bản cũ
+(`anthropic-skills:ktc-ra-soat-897-universal-0-1-0-alpha-5`, 1 lượt). Đây là rủi ro **pháp lý**, không phải
+chuyện gọn nhẹ context: 897 là chốt chặn bắt buộc trước trình ký (Nguyên tắc 9).
+
+**Đã xử lý trên máy 21/9/2026**: tắt 7 skill cũ bằng `skillOverrides` và tắt 3 plugin chưa dùng lần nào
+(`data`, `productivity`, `cowork-plugin-management`, cả hai bản `@inline` và `@synced`) trong
+`~/.claude/settings.json`; chuyển 3 thư mục sao lưu plugin ra khỏi thư mục marketplace.
+
+**Còn chờ người dùng**: xóa hoặc thay bản cũ **trên chính tài khoản claude.ai** — `skillOverrides` chỉ
+chặn ở máy này. Máy khác, hoặc bản Chat/Cowork dùng cùng tài khoản, **vẫn nạp bản alpha.2**. Muốn dứt điểm
+phải tải bản alpha.7 lên thay, hoặc gỡ mục cũ khỏi `My Uploads`.
+
+---
+
 ## KI-004 — Ban Truyền thông chưa có mã đơn vị
 
 **Status:** Resolved 13/9/2026 · **Xem:** `00. Mau bao cao thang (cap Truong).docx`, mục "Công tác Truyền
