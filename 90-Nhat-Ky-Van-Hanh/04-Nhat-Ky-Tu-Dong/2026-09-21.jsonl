@@ -126,3 +126,4 @@
 {"t": "2026-09-21T16:13:35", "phien": "06c47392", "loai": "ket-phien", "ly_do": "other"}
 {"t": "2026-09-21T16:20:44", "phien": "fcddd5d0", "loai": "ket-phien", "ly_do": "other"}
 {"t": "2026-09-21T16:20:58", "phien": "4832e7c6", "loai": "ket-phien", "ly_do": "other"}
+{"t": "2026-09-21T21:00:09", "loai": "backup", "ket_qua": "loi-push", "chi_tiet": "To https://github.com/nnqp201-sys/KTC-Quan-tri.git\n ! [rejected]        HEAD -> main (fetch first)\nerror: failed to push some refs to 'https://github.com/nnqp201-sys/KTC-Quan-tri.git'\nhint: Updates were rejected because the remote contains work that you do not\nhint: have locally. This is usually cau"}
