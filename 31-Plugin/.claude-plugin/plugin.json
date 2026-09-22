@@ -15,7 +15,7 @@
     "bao-cao",
     "soan-thao-van-ban"
   ],
-  "defaultEnabled": false,
+  "defaultEnabled": true,
   "metadata": {
     "builtFrom": "5 gói .skill đã xác minh 18/9/2026 (DL-20260918-001; soan-thao-vb nâng lên v1.2 cùng ngày để vá 3 tham chiếu gãy)",
     "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
