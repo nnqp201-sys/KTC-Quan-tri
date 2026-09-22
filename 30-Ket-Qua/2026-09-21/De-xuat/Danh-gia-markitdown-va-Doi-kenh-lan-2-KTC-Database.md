@@ -25,12 +25,15 @@ Mã `18ZNI-vS4HO4T0ZOmOYChu62GQB8cRJEE` **trùng khớp** mã thư mục gốc m
 Desktop đã đồng bộ thư mục dùng chung này về máy; nó không hiện trong `My Drive` mà nằm ở nhánh
 `.shortcut-targets-by-id`, nên dễ tưởng là không có.
 
-Đếm tại chỗ: **826 `.docx` · 212 `.md` · 54 `.xlsx` · 53 `.pdf` · 36 `.doc` · 15 `.dotx`** — khớp số liệu
-Bước 0.
+Đếm tại chỗ: **830 `.docx` · 233 `.md` · 54 `.xlsx` · 53 `.pdf` · 33 `.doc` · 15 `.dotx`**.
+
+> **Sửa số liệu 22/9/2026.** Bản đầu của tài liệu này ghi 826 `.docx` / 212 `.md` / 36 `.doc`. Sai, do lần
+> đếm đầu chạy khi Google Drive chưa liệt kê xong thư mục. Đếm lại bằng cùng một bộ luật loại trừ trên cả
+> hai ổ cho kết quả khớp nhau. Con số đúng là ở trên; ước tính thời gian bên dưới không đổi đáng kể.
 
 **Tốc độ đo thật, mẫu ngẫu nhiên 40 tệp:**
 
-| Cách đọc | Mỗi tệp | Toàn bộ 826 `.docx` |
+| Cách đọc | Mỗi tệp | Toàn bộ 830 `.docx` |
 |---|---|---|
 | Qua Drive API (phiên kia đo) | 27,5 giây | **~7,3 giờ** |
 | Đọc thẳng XML tại chỗ | **0,78 giây** | **~11 phút** |
@@ -59,7 +62,7 @@ mới lấy được. Vậy:
 - **Nhãn `nguon_chu` chỉ còn hai giá trị**: `docx-truc-tiep` và `OCR`. Bỏ `docs-convert`.
 - Ngưỡng 200 ký tự và điều kiện kích thước 30 KB không còn cần thiết.
 
-**Thêm một số liệu ngoài dự đoán:** quét cả 826 tệp tìm tệp có trên 20 dấu vết Track Changes — **không có
+**Thêm một số liệu ngoài dự đoán:** quét cả 826 tệp đọc được tìm tệp có trên 20 dấu vết Track Changes — **không có
 tệp nào**. Bản dự thảo QĐ-1710 mà phiên kia thử nghiệm **không nằm trong kho này**. Vấn đề Track Changes
 với KTC-Database là **giả định, không phải sự thật đã đo**. Dù vậy vẫn nên dùng markitdown, vì nó xử lý
 đúng mà không tốn gì thêm.
@@ -90,13 +93,12 @@ Trong 11 tệp đó có ít nhất **3 cặp trùng nội dung khác tên** (`QD
 LOI UnsupportedFormatException: No converter attempted a conversion
 ```
 
-Định dạng `.doc` cũ (Word 97-2003) **không được hỗ trợ**. Kho có **36 tệp** loại này, gồm cả văn bản đáng
+Định dạng `.doc` cũ (Word 97-2003) **không được hỗ trợ**. Kho có **33 tệp** loại này, gồm cả văn bản đáng
 kể như *Kế hoạch hợp tác doanh nghiệp giai đoạn 2025-2030*.
 
-Cách xử lý, theo thứ tự ưu tiên: mở bằng Word rồi lưu lại thành `.docx` (36 tệp, làm tay được, nhưng **là
-thao tác ghi — phải do chủ kho quyết**); hoặc dùng LibreOffice chuyển hàng loạt sang bản `.docx` **đặt ở
-thư mục khác**, không đụng bản gốc. Chưa xử lý thì **ghi cả 36 tệp vào `CAN-XAC-MINH.md`**, đừng để rơi im
-lặng.
+Cách xử lý, theo thứ tự ưu tiên: dùng LibreOffice chuyển hàng loạt sang `.docx` **đặt ở thư mục khác**,
+không đụng bản gốc; hoặc mở bằng Word rồi lưu lại — 33 tệp, làm tay được, nhưng **là thao tác ghi đè lên
+vùng bản gốc**. Chưa xử lý thì **ghi cả 33 tệp vào `CAN-XAC-MINH.md`**, đừng để rơi im lặng.
 
 ### 2.4 `.xlsx`: chạy được, chất lượng thấp
 
@@ -147,16 +149,41 @@ pip install "markitdown[docx,pdf,xlsx]"
 | Track Changes | phải chuyển đổi qua Google Docs | **đọc thẳng** |
 | Rủi ro dở dang | cao — phải ghi tiến độ, hẹn giờ | **thấp** |
 
-**Một việc phải làm rõ trước:** tài khoản này **chỉ đọc** với KTC-Database. Vậy chỉ mục dựng ra đặt ở đâu?
-Hai cách, cần chủ kho chọn:
+### Chuyện thẩm quyền đã rõ — nhưng còn một khóa kỹ thuật
 
-- **(a)** Dựng tại chỗ rồi giao thư mục `06-Chi-Muc/` cho chủ kho tự đặt vào. Sạch về thẩm quyền, nhưng
-  mỗi lần cập nhật lại phải chuyển tay.
-- **(b)** Chủ kho chạy đúng kịch bản đó trên máy của họ — kho cũng đồng bộ về máy họ như vậy. Dựng xong là
-  nằm đúng chỗ, tự cập nhật được về sau.
+Kho do chính người dùng quản lý; `truong.cdkontum` và `phongthhcqt` dùng chung một Drive. Vậy **không cần
+chuyển việc sang tài khoản khác** — chạy ngay tại đây, chủ kho tự quyết.
 
-Em nghiêng về **(b)**, vì chỉ mục cần dựng lại định kỳ, mà cách (a) sẽ thành việc chuyển tay hàng tháng —
-kiểu việc chắc chắn bị bỏ quên, và **chỉ mục lệch nguy hiểm hơn chỉ mục thiếu**.
+**Nhưng `guard_destructive.py` của plugin đang chặn cứng:**
+
+```python
+if "/KTC-Database/" in path or path.endswith("/KTC-Database"):
+    deny("KTC-Database is read-only for the review plugin.")
+```
+
+Chặn **mọi** đường dẫn có `KTC-Database`, không phân biệt vùng. Ghi `06-Chi-Muc/` cũng bị chặn.
+
+Đề nghị sửa cho đúng ý định ban đầu thay vì tắt guard: **giữ chặn `01`–`05` và `11-Input`, mở riêng
+`06-Chi-Muc/`**. Điều cần bảo vệ là **bản gốc**, không phải cái tên thư mục. Kèm theo, `CLAUDE.md` phải ghi
+lại cho khớp — quy tắc và guard nói khác nhau thì sớm muộn một trong hai bị bỏ qua.
+
+Đây là **nới một luật an toàn**, nên phải do người dùng quyết rõ ràng, không tự làm.
+
+### Hai bản kho trên máy — dùng bản nào
+
+Máy này đang gắn **hai ổ Drive**, và cả hai đều có KTC-Database:
+
+| | Đường dẫn | Là gì |
+|---|---|---|
+| `H:` | `H:\My Drive\KTC-Database` | Drive của tài khoản **sở hữu** kho |
+| `I:` | `I:\.shortcut-targets-by-id\18ZNI-…\KTC-Database` | Cùng thư mục đó, nhìn từ tài khoản được chia sẻ |
+
+Đối chiếu từng đường dẫn: **1.250/1.251 tệp trùng khớp**, lệch đúng 3 tệp — tức **cùng một thư mục**, chỉ
+lệch nhịp đồng bộ. Không phải hai kho khác nhau.
+
+**Dùng `H:`.** Đó là bản của tài khoản sở hữu, và `duong_dan.py` của hệ vốn đã tự tìm ra đúng đường đó.
+Nhưng vì lệch nhịp là có thật, **kịch bản phải ghi rõ nó đọc từ ổ nào** vào `00-README.md` — hai người chạy
+trên hai ổ rồi so kết quả mà không biết điều này thì sẽ tưởng chỉ mục sai.
 
 **Kịch bản Apps Script v2.0 không bỏ đi.** Nó vẫn là đường duy nhất nếu về sau ai đó cần dựng chỉ mục mà
 không có máy đồng bộ Drive. Giữ lại, ghi rõ là phương án dự phòng.
