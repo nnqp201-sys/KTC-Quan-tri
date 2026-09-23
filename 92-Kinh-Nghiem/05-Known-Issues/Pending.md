@@ -4,6 +4,9 @@ Lỗi và khoảng trống **đã biết nhưng chưa xử lý**. Ghi lại đ�
 
 **Cập nhật:** 20/9/2026
 
+**Mốc hạn** của các việc đang mở ghi riêng tại `Moc-Han.md` (bảng, một dòng một mốc) — tự cảnh báo đầu mỗi phiên
+qua `29-Cong-Cu/kiem_moc_han.py`. Có hạn mới thì thêm dòng vào đó, không chỉ ghi trong văn xuôi dưới đây.
+
 ---
 
 ## Đã giải quyết

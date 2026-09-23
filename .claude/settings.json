@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/29-Cong-Cu/kiem_moc_han.py\" --gon",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
