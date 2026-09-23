@@ -31,7 +31,18 @@ with tempfile.TemporaryDirectory() as t:
     else:
         open(os.path.join(t, "bc736_cu.py"), "wb").write(cu_src); sys.path.insert(0, t)
         import bc736_cu as cu
-    tep = sorted(glob.glob(os.path.join(GOC, "10-Dau-Vao", "01-Dau-Moi-Nop", "2026-09", "*", "*.xlsx")))
+    # Ho so that GHIM tu git (commit fa096af — ngay truoc 54a2476 sap xep lai 10-Dau-Vao/01-Dau-Moi-Nop/2026-09
+    # thanh "1. BAO CAO PL IIB"/"2. Phu luc Ib", doi ten tep va xoa bot don vi). Doc thu muc dang song thi ca thu
+    # vo moi lan dau vao thay doi; "them == 2" chi dung tren dung bo 26 tep nay.
+    GHIM, THU = "fa096af", "10-Dau-Vao/01-Dau-Moi-Nop/2026-09"
+    ds = subprocess.run(["git", "-C", GOC, "-c", "core.quotepath=off", "ls-tree", "-r", "--name-only", GHIM, "--", THU],
+                        capture_output=True, text=True, encoding="utf-8").stdout.split("\n")
+    for n in ds:
+        if n.endswith(".xlsx") and n.count("/") == THU.count("/") + 2:
+            dich = os.path.join(t, "ho_so", *n.split("/")[-2:])
+            os.makedirs(os.path.dirname(dich), exist_ok=True)
+            open(dich, "wb").write(subprocess.run(["git", "-C", GOC, "show", f"{GHIM}:{n}"], capture_output=True).stdout)
+    tep = sorted(glob.glob(os.path.join(t, "ho_so", "*", "*.xlsx")))
     kiem(len(tep) >= 4, f"có hồ sơ thật để thử ({len(tep)} tệp)")
     if cu:
         # Chi duoc khac o cho: v3.3 lay LAI nhiem vu "Tong hop/Tong ket…" co so TT ma v3.2 bo mat
