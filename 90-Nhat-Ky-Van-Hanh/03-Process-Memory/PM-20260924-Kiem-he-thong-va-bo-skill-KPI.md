@@ -9,7 +9,7 @@ project_name: KTC-Quan-tri
 
 # Phiên 23–24/9/2026 — sửa công cụ sau đợt đổi bố cục đầu vào, xây skill KPI giai đoạn 1
 
-**Kết quả:** 9 commit (`2c44bca` … `2a9d5c4`); plugin 1.0.0 → **1.1.1**; skill mới `ktc-kpi-lap-ke-hoach` v1.0
+**Kết quả:** 10 commit (`2c44bca` … `f6311c5`); plugin 1.0.0 → **1.1.1**; skill mới `ktc-kpi-lap-ke-hoach` v1.0
 (`DL-20260924-001`); sổ mốc hạn + hook đầu phiên; CP bảo mật nhật ký chờ duyệt (`CP-20260924-001`).
 
 ## Bài học — dùng lại cho lần sau
