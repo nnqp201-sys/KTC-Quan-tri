@@ -31,6 +31,7 @@ HE = {
     "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.7.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
     "ktc-the-thuc":     ("27-KTC-The-Thuc", "27-KTC-The-Thuc/ktc-the-thuc-v1.0.skill"),
+    "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "28-KTC-KPI/ktc-kpi-lap-ke-hoach-v1.0.skill"),
 }
 # He da thay the — bo qua, khong bat loi
 # KTC-DIS-Tong-Hop-VB da chuyen vao 99-Luu-Tru/He-da-thay-the/ ngay 14/9/2026,
@@ -41,7 +42,7 @@ BO_QUA = ("KTC-DIS-Tong-Hop-VB", "99-Luu-Tru", "__pycache__", ".git")
 CHUNG = ["00-Nguyen-Tac-Chung.md", "00-Metadata-Schema.md",
          "04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md", "30-Skill-Phan-Loai-6-Truc.md",
          "Skill-Vien-Dan-Van-Ban-Hop-Nhat.md", "17-Quy-Tac-Vien-Dan.md",
-         "18-Chuan-The-Thuc-San-Pham.md",
+         "18-Chuan-The-Thuc-San-Pham.md", "19-Quy-Tac-KPI.md",
          # Ban sao chi co o goi cap du an — van la tep dung chung, van phai khop
          "10-Tu-Dien-Truong-Du-Lieu.md", "11-Quy-Tac-Task-ID.md",
          "12-Vong-Doi-Trang-Thai.md", "13-Bang-Ma-Don-Vi.md"]
@@ -59,6 +60,8 @@ DOI_TEN = {
         "12-Vong-Doi-Trang-Thai.md":    "references/22-Vong-Doi-Va-Canh-Bao.md",
         "17-Quy-Tac-Vien-Dan.md":       "references/17-Quy-Tac-Vien-Dan.md",
         "18-Chuan-The-Thuc-San-Pham.md": "references/18-Chuan-The-Thuc-San-Pham.md",
+        # 24/9/2026: 30-KPI-Va-Xep-Loai.md thanh BAN SAO cua quy tac KPI goc (lenh sua bo skill KPI)
+        "19-Quy-Tac-KPI.md":            "references/30-KPI-Va-Xep-Loai.md",
     },
     # Skill the-thuc chi mang chuan the thuc (khong mang bo quy tac chung khac)
     "ktc-the-thuc": {

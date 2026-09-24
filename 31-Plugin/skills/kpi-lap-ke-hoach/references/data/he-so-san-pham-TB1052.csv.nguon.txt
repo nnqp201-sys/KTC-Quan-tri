@@ -1,0 +1,5 @@
+nguon: KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/TB-1052-TB-CDKT_Phu-luc-Danh-muc-San-pham-Cong-viec-quy-doi.xlsx
+sha256: e4135c1134433f2353929c34467ce39ce4bfae18468754c13879745186956e09
+so_dong: 371
+so_dong_lech_nhom: 204
+trang_thai: DU THAO — TB 1052/TB-CDKT muc 3.1 gui don vi gop y, chua ban hanh (KI-014)

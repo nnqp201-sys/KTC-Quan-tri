@@ -35,9 +35,10 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.10.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.7.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
+    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.0.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
 ]
 
-PLUGIN_VERSION = "1.0.1"  # 1.0.1 (24/9/2026): doi_soat nhan don vi tu dau tep; soan-thao-vb v1.10. 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.1.0"  # 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -50,7 +51,9 @@ CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
                      "doi_soat_so_lieu.py", "kiem_minh_chung.py",
                      # kiem_the_thuc.py: phep kiem SO 1 cua ktc-kiem-san-pham va ktc-kiem-ho-so-don-vi;
                      # thieu tu 19/9/2026 -> hai agent do hong lang le khi chay NGOAI thu muc du an
-                     "kiem_the_thuc.py"]
+                     "kiem_the_thuc.py",
+                     # 24/9/2026: bo cong cu KPI ca nhan (skill kpi-lap-ke-hoach mang ban sao rieng trong goi)
+                     "kpi_calc.py", "kpi_mau.py", "validate_plan.py"]
 # Gioi han cua Claude khi tai plugin/skill (loi that 19/9/2026: mo ta plugin 554 ky tu bi tu choi)
 GIOI_HAN_MO_TA_PLUGIN = 500
 GIOI_HAN_MO_TA_SKILL = 1024
@@ -120,7 +123,8 @@ def build_manifest():
         # Cowork tu choi mo ta > 500 ky tu (loi upload 0.8.0, 19/9/2026) — build_manifest() tu chan.
         "description": (
             "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → "
-            "Soạn thảo văn bản. 6 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc); "
+            "Soạn thảo văn bản. 7 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, "
+            "kpi-lap-ke-hoach); "
             "7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
             "viện dẫn, xác minh minh chứng); hook tự ghi nhật ký, đo thể thức, backup GitHub."
         ),
@@ -136,7 +140,7 @@ def build_manifest():
                                        "bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
                               "ktc-soan-thao-vb-v1.10.skill", "ktc-theo-doi-cv-v1.7.skill",
-                              "ktc-the-thuc-v1.0.skill"],
+                              "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.0.skill"],
         },
     }
     if len(manifest["description"]) > GIOI_HAN_MO_TA_PLUGIN:

@@ -442,6 +442,14 @@ Master Task Register và các skill liên quan.
 
 ---
 
+**Cập nhật 24/9/2026 — thang 4 mức có trong văn bản đã ban hành** (`DL-20260924-001`):
+- Phụ lục II của **QĐ 1923/QĐ-CĐKT** (30/8/2026, mẫu kế hoạch cá nhân) ghi hệ số theo 4 mức độ 1,0/1,2/1,5/2,0;
+  Phụ lục I có cột Điểm chấm 100/120/150/200 và Hệ số quy đổi. Thang 4 mức vì vậy **có căn cứ văn bản** cho kế hoạch
+  KPI, không chỉ là tập quán dữ liệu TB 736. Thang 5 nhóm (TB 1052) vẫn là dự thảo.
+- Quy ước A × B (Phòng TH-HC&QT ghi nhận 24/9/2026) nhân hai thang — **chưa có văn bản**. Skill `ktc-kpi-lap-ke-hoach`
+  không đặt mặc định, bắt người lập chọn phương án (Câu hỏi mở số 1, `28-KTC-KPI/references/Cau-Hoi-Mo.md`).
+- Vẫn cần người có thẩm quyền chọn hướng (a)/(b)/(c) ở trên. AI không tự chọn.
+
 **Cập nhật 19/9/2026 — TB 1052/TB-CĐKT (15/9/2026):**
 - Danh mục sản phẩm đã được **gửi chính thức** cho đơn vị rà soát; hạn góp ý **20/9/2026**, sau đó trình ban hành.
 - Đối chiếu từng dòng: phụ lục trùng hoàn toàn dự thảo lần 4 nhưng **bỏ cột Điểm**, chỉ giữ Hệ số.

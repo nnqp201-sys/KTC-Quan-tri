@@ -1,5 +1,14 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.1.0 — 2026-09-24
+
+- **Skill mới `kpi-lap-ke-hoach`** (v1.0, `DL-20260924-001`): lập kế hoạch và danh mục KPI cá nhân theo quý theo
+  QĐ 1923/QĐ-CĐKT, 6 mẫu Kế hoạch + KPI (03-Templates/03-12). Hệ số quy đổi **không có mặc định** — bắt chọn phương
+  án (mức độ: có văn bản · A theo TB 1052: dự thảo · A×B: chưa có văn bản · nhập tay). Giai đoạn 1: chỉ lập kế hoạch.
+- Công cụ dùng chung `scripts/kpi_calc.py`, `kpi_mau.py`, `validate_plan.py` (KH01–KH15, mỗi lỗi dẫn Điều).
+- skill quan-tri **1.10**: `references/30-KPI-Va-Xep-Loai.md` thành bản sao của quy tắc gốc
+  `20-Chuan-Chung/19-Quy-Tac-KPI.md`; lập KPI cá nhân chuyển sang skill mới.
+
 ## 1.0.1 — 2026-09-24
 
 - **`scripts/doi_soat_so_lieu.py`**: nhận mã đơn vị, loại KH/KQ và kỳ từ phần đầu tệp khi tên tệp/thư mục không theo quy

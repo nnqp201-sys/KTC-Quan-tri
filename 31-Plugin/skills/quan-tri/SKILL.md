@@ -4,7 +4,7 @@ description: "Quản trị nhiệm vụ hợp nhất của Trường Cao đẳng
 ---
 
 # KTC-Quan-tri — Hệ quản trị nhiệm vụ hợp nhất
-**Phiên bản: 1.9 — 19/9/2026** (Cập nhật TB 1052/TB-CĐKT (15/9/2026): danh mục 371 sản phẩm gửi đơn vị rà soát, trùng dự thảo lần 4, STT theo 38 lĩnh vực (DL-20260919-007); trước đó 1.8: Nguyên tắc 6 — chuẩn thể thức sản phẩm .docx/.xlsx theo 03-Templates(1)/04-Good-Documents, dùng kèm skill the-thuc (DL-20260919-003); trước đó 1.7: Quy tắc viện dẫn văn bản: NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường; VBHC không ghi số hiệu Luật (DL-20260919-002); trước đó 1.6: Đơn vị nộp qua khung chat: tên tệp trả về chuẩn + phiếu tự kiểm, tải về gửi P-THHC (DL-20260919-001); trước đó 1.5: KTC-Database đọc bản gốc trên Google Drive (ổ Drive), bản chép cục bộ có thể cũ — đính chính DL-20260918-005; trước đó 1.4: Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005); trước đó 1.3: sửa chỉ mục: `12-Output` của KTC-Database bị đổi nhầm ở 1.2; Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team)
+**Phiên bản: 1.10 — 24/9/2026** (`30-KPI-Va-Xep-Loai.md` thành bản sao của quy tắc KPI gốc `20-Chuan-Chung/19-Quy-Tac-KPI.md`, có dẫn Điều QĐ 1923; lập KPI cá nhân chuyển sang skill `ktc-kpi-lap-ke-hoach`; trước đó 1.9: Cập nhật TB 1052/TB-CĐKT (15/9/2026): danh mục 371 sản phẩm gửi đơn vị rà soát, trùng dự thảo lần 4, STT theo 38 lĩnh vực (DL-20260919-007); trước đó 1.8: Nguyên tắc 6 — chuẩn thể thức sản phẩm .docx/.xlsx theo 03-Templates(1)/04-Good-Documents, dùng kèm skill the-thuc (DL-20260919-003); trước đó 1.7: Quy tắc viện dẫn văn bản: NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường; VBHC không ghi số hiệu Luật (DL-20260919-002); trước đó 1.6: Đơn vị nộp qua khung chat: tên tệp trả về chuẩn + phiếu tự kiểm, tải về gửi P-THHC (DL-20260919-001); trước đó 1.5: KTC-Database đọc bản gốc trên Google Drive (ổ Drive), bản chép cục bộ có thể cũ — đính chính DL-20260918-005; trước đó 1.4: Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005); trước đó 1.3: sửa chỉ mục: `12-Output` của KTC-Database bị đổi nhầm ở 1.2; Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team)
 
 ## Vai trò trong kiến trúc hệ thống KTC
 
@@ -60,7 +60,7 @@ Trước mọi tác vụ, xác định đủ ba điều và **nói rõ ra** trư
 | **(b) Theo dõi & cảnh báo** | Rà tiến độ, tìm nhiệm vụ quá hạn/rủi ro/thiếu minh chứng | `references/22-Vong-Doi-Va-Canh-Bao.md` |
 | **(c) Đối chiếu 3 hệ** | So kế hoạch với thực hiện; tìm việc hoàn thành/chưa/phát sinh/điều chỉnh | `references/23-Doi-Chieu-Ba-He.md` |
 | **(d) Chốt kỳ & dựng báo cáo** | Khóa dữ liệu kỳ, dựng báo cáo 5 phần, kiểm tra trước khi trình | `references/24-Chot-Ky-Va-Bao-Cao.md` |
-| **(e) Quy đổi KPI & xếp loại** | Tính điểm quy đổi, xếp loại chất lượng tập thể/cá nhân | `references/30-KPI-Va-Xep-Loai.md` |
+| **(e) Quy đổi KPI & xếp loại** | Tính điểm quy đổi, xếp loại chất lượng tập thể/cá nhân | `references/30-KPI-Va-Xep-Loai.md` — **lập kế hoạch, danh mục KPI cá nhân theo quý: dùng skill `ktc-kpi-lap-ke-hoach`** |
 
 Với **mọi** tác vụ, khi chạm tới tên đơn vị: bắt buộc tra `references/12-Bang-Ma-Don-Vi.md`.
 Khi chạm tới trường dữ liệu: tra `references/20-Tu-Dien-Truong-Du-Lieu.md`.

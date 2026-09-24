@@ -33,7 +33,7 @@ tra ngược.
 
 | Tệp | Nội dung | Đọc khi |
 |---|---|---|
-| `30-KPI-Va-Xep-Loai.md` | Thang 100 điểm (30+70) · 4 mức xếp loại · thẩm quyền · thời điểm | Quy đổi KPI, xếp loại |
+| `30-KPI-Va-Xep-Loai.md` | **Bản sao** của `20-Chuan-Chung/19-Quy-Tac-KPI.md` — quy tắc KPI QĐ 1923 có dẫn Điều: lập kế hoạch, hệ số, thang 100 (30+70), xếp loại, thẩm quyền, thời điểm | Quy đổi KPI, xếp loại |
 
 ## Nhóm 4 — Vận hành
 

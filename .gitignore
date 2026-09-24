@@ -16,3 +16,7 @@ Claude outputs/
 # Nhật ký phiên làm việc cục bộ — ghi lại nguyên văn lời người dùng và
 # đường dẫn nội bộ; không đưa lên kho chung.
 .ktc897/
+
+# KPI ca nhan (ke hoach, diem, nhan xet) — QD 1923 D23.2: chi nguoi co tham quyen va nguoi duoc danh gia duoc xem.
+# Khong dua len git, khong de ktc_backup_github.py day len GitHub.
+30-Ket-Qua/*/KPI-ca-nhan/
