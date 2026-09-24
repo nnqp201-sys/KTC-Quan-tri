@@ -103,5 +103,39 @@ kiem("DT-CDCS" in m06 and "chưa có trong" in m06, "DS06: mã đoàn thể DT-C
 kiem("P-TCKT" in m06 and "thiếu Phụ lục Excel" in m06, "DS06: đơn vị chỉ nộp .docx bị báo thiếu Excel")
 kiem("K-KTCN BC-KQ-thang-8-2026.docx" not in m06, "DS06: .docx thuyết minh nộp kèm .xlsx KHÔNG bị báo")
 
+# Bo cuc 21/9/2026 (commit 54a2476): '1. BAO CAO PL IIB/KHCB.xlsx' — ten tep khong theo quy uoc.
+# Loi that: thu muc bi coi la MOT don vi (gop 10 don vi), 'KHCB.xlsx' (bao cao) bi xep la ke hoach.
+from openpyxl import Workbook  # noqa: E402
+
+
+def tao_that(thu, ten, dong):
+    os.makedirs(os.path.join(T, thu), exist_ok=True)
+    p = os.path.join(T, thu, ten)
+    wb = Workbook()
+    for i, x in enumerate(dong, 1):
+        wb.active.cell(i, 1, x)
+    wb.save(p)
+    return p
+
+
+PL = "Phụ lục IIb\nMẪU BÁO CÁO KẾT QUẢ THỰC HIỆN CÔNG TÁC THÁNG CỦA TRƯỜNG CAO ĐẲNG KON TUM"
+a = tao_that("1. BAO CAO PL IIB", "KHCB.xlsx", [PL, "TRƯỜNG CAO ĐẲNG KON TUM", "KHOA CÁC KHOA HỌC CƠ BẢN",
+                                               "BÁO CÁO kết quả thực hiện công tác tháng 9  năm 2026", "TT"])
+b = tao_that("2. Phu luc Ib", "TCCB.xlsx", ["TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: PHÒNG TCCB&CTHSSV",
+                                           "CTHSSVKẾ HOẠCH  công tác tháng  10 năm 2026", "TT"])
+c = tao_that("1. BAO CAO PL IIB", "BAN TT.xlsx", [PL, "TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: BAN TRUYỀN THÔNG",
+                                                 "BÁO CÁO kết quả thực hiện công tác tháng 9 năm 2026"])
+d = tao_that("2. Phu luc Ib", "X.xlsx", ["TRƯỜNG CAO ĐẲNG KON TUM", "PHÒNG TỔ CHỨC CÁN BỘ",
+                                        "KẾ HOẠCH công tác quý IV năm 2026"])
+kiem(ds.ma_don_vi(a) == "K-KHCB", f"Bố cục mới: đơn vị lấy từ phần đầu tệp, không lấy tên thư mục ({ds.ma_don_vi(a)})")
+kiem(ds.loai_tep(a) == "KQ", f"Bố cục mới: 'KHCB.xlsx' là báo cáo, KHÔNG xếp là kế hoạch ({ds.loai_tep(a)})")
+kiem(ds.ky_tep(a) == ("thang", 9, 2026), f"Bố cục mới: kỳ lấy từ tiêu đề trong tệp ({ds.ky_tep(a)})")
+kiem((ds.ma_don_vi(b), ds.loai_tep(b), ds.ky_tep(b)) == ("P-TCCB", "KH", ("thang", 10, 2026)),
+     "Bố cục mới: 'ĐƠN VỊ: PHÒNG TCCB&CTHSSV' + tiêu đề dính chữ -> P-TCCB, KH tháng 10")
+kiem(ds.ma_don_vi(c).startswith("?") and "BAO CAO" not in ds.ma_don_vi(c),
+     f"Bố cục mới: đơn vị chưa có mã tách riêng, không gộp theo thư mục ({ds.ma_don_vi(c)})")
+kiem(ds.ma_don_vi(d).startswith("?"), f"Gần giống 'Phòng Tổ chức' KHÔNG được ghép (chỉ khớp chính xác) ({ds.ma_don_vi(d)})")
+kiem(ds.ky_tep(d) == ("quy", 4, 2026), f"Kỳ quý số La Mã ({ds.ky_tep(d)})")
+
 print(f"\n{'ĐẠT' if not sai else 'KHÔNG ĐẠT'}: {len(sai)} ca sai")
 sys.exit(1 if sai else 0)

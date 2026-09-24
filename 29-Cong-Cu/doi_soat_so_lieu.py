@@ -53,32 +53,123 @@ def ma_chuan():
     return set()
 
 
+def _khong_dau(s):
+    t = unicodedata.normalize("NFD", str(s or "").lower())
+    return "".join(c for c in t if unicodedata.category(c) != "Mn").replace("đ", "d")
+
+
+def _khoa(s):
+    """Khoa so khop ten don vi: bo dau, bo moi ky tu khong phai chu/so. 'PHÒNG TH-HC&QT' -> 'phongthhcqt'."""
+    return re.sub(r"[^a-z0-9]", "", _khong_dau(s))
+
+
+_BIEN_THE = None
+
+
+def bien_the_ma():
+    """{khoa chuan hoa -> ma} tu MOI cot cua 13-Bang-Ma-Don-Vi.md (ten chinh thuc + bien the) va duoi ma.
+    Chi khop CHINH XAC sau chuan hoa — khong dung do giong (KI-001: nguong < 100% cho khop gia)."""
+    global _BIEN_THE
+    if _BIEN_THE is None:
+        _BIEN_THE = {}
+        p = os.path.join(DU_AN, "20-Chuan-Chung", "13-Bang-Ma-Don-Vi.md")
+        ung = [p] + glob.glob(os.path.join(DU_AN, "skills", "*", "references", "**", "*Bang-Ma-Don-Vi.md"),
+                              recursive=True)
+        for q in ung:
+            if not os.path.isfile(q):
+                continue
+            for dong in open(q, encoding="utf-8"):
+                m = re.match(r"^\|\s*`([A-Z]+-[A-Z]+)`\s*\|(.*)", dong)
+                if not m:
+                    continue
+                ma = m.group(1)
+                _BIEN_THE.setdefault(_khoa(ma.split("-", 1)[1]), ma)
+                for o in m.group(2).split("|"):
+                    o = o.replace("⚠️", "").replace("`", "").strip()
+                    if o and not o.startswith("*"):
+                        _BIEN_THE.setdefault(_khoa(o), ma)
+            break
+    return _BIEN_THE
+
+
+_DAU = {}
+
+
+def dau_tep(p):
+    """Doc phan dau Phu luc: dong ngay sau 'TRUONG CAO DANG KON TUM' la don vi, dong tiep theo co
+    'KE HOACH'/'BAO CAO' la tieu de (loai + ky). Dung khi ten tep/thu muc khong theo quy uoc
+    (21/9/2026: 10-Dau-Vao doi sang '1. BAO CAO PL IIB/KHCB.xlsx' — gop 10 don vi thanh 1, tron KH vao KQ)."""
+    if p in _DAU:
+        return _DAU[p]
+    kq = {"don_vi": None, "loai": None, "ky": None}
+    if p.lower().endswith(".xlsx"):
+        try:
+            from openpyxl import load_workbook
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                wb = load_workbook(p, read_only=True, data_only=True)
+                o = [str(r[0] or "").strip() for r in
+                     wb.active.iter_rows(min_row=1, max_row=12, max_col=1, values_only=True)]
+                wb.close()
+            # o CHI chua ten Truong — dong "Phu luc IIb … CUA TRUONG CAO DANG KON TUM" cung chua cum nay
+            i = next(k for k, x in enumerate(o) if _khoa(x) == "truongcaodangkontum")
+            dv = re.sub(r"^\s*đơn vị\s*:?\s*", "", o[i + 1], flags=re.I).strip(" .…")
+            kq["don_vi"] = dv or None
+            for x in o[i + 1:]:
+                t = " ".join(_khong_dau(x).split())
+                if "ke hoach" in t or "bao cao" in t:
+                    kq["loai"] = "KH" if "ke hoach" in t else "KQ"
+                    m = re.search(r"(thang|quy)\s*(\d{1,2}|iv|iii|ii|i)\b.*?nam\s*(\d{4})", t) or \
+                        re.search(r"(nam)\s*()(\d{4})", t)
+                    if m:
+                        so = {"i": 1, "ii": 2, "iii": 3, "iv": 4}.get(m.group(2), m.group(2) or 0)
+                        kq["ky"] = (m.group(1), int(so), int(m.group(3)))
+                    break
+        except (StopIteration, IndexError, OSError, ValueError, KeyError):
+            pass
+    _DAU[p] = kq
+    return kq
+
+
 def ma_don_vi(p):
+    """Ma don vi: thu muc/tep theo quy uoc -> ten don vi trong phan dau tep -> ten tep (khop chinh xac).
+    Khong khop -> '?<ten>' de tach rieng, KHONG gop voi don vi khac; DS06 bao ra."""
     thu = os.path.basename(os.path.dirname(p))
     if re.fullmatch(r"[A-Z]{1,3}-[A-Z]+", thu):
         return thu
     m = re.match(r"([A-Z]{1,3}-[A-Z]+)_", os.path.basename(p))
-    return m.group(1) if m else thu
+    if m:
+        return m.group(1)
+    bt = bien_the_ma()
+    ten = dau_tep(p)["don_vi"]
+    than = os.path.splitext(os.path.basename(p))[0]
+    for ung in (ten, than, *than.split()[::-1]):
+        # ten tep hay bo chu "Khoa"/"Phong" ('SƯ PHẠM.docx' <-> bien the 'Khoa-Su-Pham') — van khop chinh xac
+        for k in (_khoa(ung), "khoa" + _khoa(ung), "phong" + _khoa(ung)) if ung else ():
+            if k in bt:
+                return bt[k]
+    return "?" + (ten or than)
 
 
 def ky_tep(p):
-    """Ky cua tep theo ten: 'thang-8-2026' -> ('thang', 8, 2026); khong doan duoc -> None.
+    """Ky cua tep theo ten: 'thang-8-2026' -> ('thang', 8, 2026); khong co trong ten thi lay tieu de trong tep.
     Thu muc nop moi ky chua KQ thang N va KH thang N+1 — KHONG duoc so cheo hai ky (loi thu that 19/9/2026)."""
-    t = unicodedata.normalize("NFD", os.path.basename(p).lower())
-    t = "".join(c for c in t if unicodedata.category(c) != "Mn").replace("đ", "d")
+    t = _khong_dau(os.path.basename(p))
     m = re.search(r"(thang|quy|nam)[-_ ]?(\d{1,2})?[-_ .]*(\d{4})", t)
     if not m:
-        return None
+        return dau_tep(p)["ky"]
     return (m.group(1), int(m.group(2)) if m.group(2) else 0, int(m.group(3)))
 
 
 def loai_tep(p):
+    """Ten theo quy uoc 'KH-…'/'BC-…' truoc; khong thi lay tieu de trong tep.
+    Phai co dau phan cach: 'KHCB.xlsx' (bao cao Khoa KHCB) tung bi xep nham la ke hoach."""
     t = os.path.basename(p).upper()
-    if re.match(r"(BC|KQ|PL)", t):
+    if re.match(r"(BC|KQ|PL)[-_ ]", t):
         return "KQ"
-    if t.startswith("KH"):
+    if re.match(r"KH[-_ ]", t):
         return "KH"
-    return None
+    return dau_tep(p)["loai"]
 
 
 def gom_tep(ds):
@@ -138,6 +229,13 @@ def doi_soat(kq_files, kh_files=(), tong_hop=None):
             if lt and not theo_dv.get(ma, {}).get(lt):
                 out["ds06"].append((ma, ten, f"chỉ có tệp {os.path.splitext(ten)[1]}, thiếu Phụ lục Excel TB 736 "
                                              f"({'kết quả' if lt == 'KQ' else 'kế hoạch'}) — không đối soát được"))
+            elif not lt and ma not in theo_dv:
+                # Ten tep khong cho biet KH/KQ (bo cuc 21/9/2026) — van phai bao don vi khong co Excel nao.
+                # Ma '?…' = khong xac dinh duoc don vi: co the Excel cua don vi nam duoi ten khac -> khong khang dinh.
+                out["ds06"].append((ma, ten, "không xác định được đơn vị từ tên tệp — kiểm tay đơn vị này đã có "
+                                             "Phụ lục Excel chưa" if ma.startswith("?") else
+                                             f"chỉ có tệp {os.path.splitext(ten)[1]}, đơn vị không nộp "
+                                             "Phụ lục Excel TB 736 nào — không đối soát được"))
     for ma in sorted(set(theo_dv) | set(khac)):
         if chuan and ma not in chuan:
             out["ds06"].append((ma, "", "mã đơn vị chưa có trong 20-Chuan-Chung/13-Bang-Ma-Don-Vi.md"))
