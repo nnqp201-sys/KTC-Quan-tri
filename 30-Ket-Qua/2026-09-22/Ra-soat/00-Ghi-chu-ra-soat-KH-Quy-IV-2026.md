@@ -4,6 +4,12 @@
 **Ngày rà soát:** 22/9/2026 · **Phạm vi:** đối chiếu KTC-Database 01-02 (căn cứ), mẫu Phụ lục Ia/TB736, `kiem_the_thuc.py`
 **Không sửa trực tiếp tệp gốc** — chỉ ghi chú theo yêu cầu.
 
+> ⚠️ **ĐÍNH CHÍNH 23/9/2026 — mục Mức 1 số 1 dưới đây là SAI, đã rút lại.** Quy chế làm việc là **QĐ 1299/QĐ-CĐKT
+> ngày 27/5/2026** (Checklist 08 mục 8 của 897; `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md`; 9 văn bản đã ban hành trong
+> kho đều dẫn 1299). Hai bản Word của chính Quyết định trong kho ghi "1229" là bản lỗi. Số 1229 thuộc QĐ ngày
+> 22/9/2023 (Quy chế đào tạo) và QĐ ngày 10/9/2024 (Quản lý sáng kiến). Giữ nguyên "1299". Xem báo cáo rà soát 897
+> `30-Ket-Qua/2026-09-23/Ra-soat/BC-Ra-soat-897_KH-Quy-IV-2026-V2_va_KH-thang-10-2026-v1_20260923.docx`.
+
 Phân mức theo quy ước KTC-Ra-Soat-897 (1 bắt buộc sửa → 4 góp ý).
 
 ---
