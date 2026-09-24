@@ -160,7 +160,7 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 | SKILL.md | v1.1 — bộ định tuyến 5 tác vụ |
 | Lớp chuẩn chung | `20-Chuan-Chung/` — 9 tệp, 4 tệp riêng còn ở trạng thái dự thảo |
 | Master Task Register | `Master-Task-Register_20260913_v0.1.xlsx` — 46 trường, sổ trống |
-| Bảng mã đơn vị | 11 mã cấp một; **chưa có cấp hai**, chưa có mã cho Ban Truyền thông |
+| Bảng mã đơn vị | 11 mã cấp một; cấp hai chưa có bảng đầy đủ. **Ban Truyền thông = cấp hai thuộc `P-THHC`** (chốt 14/9/2026); biến thể tên tệp máy đọc ở mục "Ánh xạ bổ sung" của `13-Bang-Ma-Don-Vi.md` |
 
 Nguồn rời và nội dung trong gói phát hành phải khớp nhau. Không suy diễn phiên bản từ tên tệp hoặc dòng
 tự mô tả.
