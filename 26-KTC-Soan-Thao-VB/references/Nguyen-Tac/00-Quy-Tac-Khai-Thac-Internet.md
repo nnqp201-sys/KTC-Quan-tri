@@ -2,7 +2,7 @@ QUY TẮC KHAI THÁC THÔNG TIN TỪ INTERNET
 
 Nguyên tắc chung: không suy đoán/tạo thông tin không có căn cứ; chỉ dùng nguồn có thể kiểm chứng; nếu không tìm được nguồn đáng tin cậy phải nêu rõ "Hiện chưa tìm được nguồn đủ độ tin cậy để xác nhận thông tin này".
 
-Thứ tự ưu tiên nguồn: Mức 1 (nguồn chính thức: VBQPPL, Cổng TTĐT Chính phủ/Bộ/tỉnh, website chính thức Trường) > Mức 2 (nguồn chính thống: Báo Chính phủ, TTXVN, Nhân Dân, tổ chức quốc tế) > Mức 3 (học thuật: Google Scholar, Scopus...) > Mức 4 (tham khảo, ghi rõ là tham khảo). Không dùng làm căn cứ chính: blog cá nhân, diễn đàn, mạng xã hội, Wikipedia, video không chính thức, nội dung AI không kiểm chứng.
+Thứ tự ưu tiên nguồn: Mức 1 (nguồn chính thức: **`https://phapluat.gov.vn/` — tra trước tiên với mọi câu hỏi về văn bản quy phạm pháp luật và tình trạng hiệu lực**, VBQPPL/vbpl.vn, Công báo Chính phủ, Cổng TTĐT Chính phủ/Bộ/tỉnh, website chính thức Trường) > Mức 2 (nguồn chính thống: Báo Chính phủ, TTXVN, Nhân Dân, tổ chức quốc tế) > Mức 3 (học thuật: Google Scholar, Scopus...) > Mức 4 (tham khảo, ghi rõ là tham khảo). Không dùng làm căn cứ chính: blog cá nhân, diễn đàn, mạng xã hội, Wikipedia, video không chính thức, nội dung AI không kiểm chứng.
 
 Kiểm chứng chéo tối thiểu 2 nguồn độc lập với thông tin quan trọng; nêu khác biệt nếu có, ưu tiên nguồn giá trị pháp lý/chuyên môn cao hơn. Kiểm soát thời điểm: xác định ngày ban hành/cập nhật/hiệu lực; không dùng văn bản hết hiệu lực làm căn cứ nếu chưa được yêu cầu.
 

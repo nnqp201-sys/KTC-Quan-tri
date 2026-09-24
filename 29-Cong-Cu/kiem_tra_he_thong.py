@@ -11,8 +11,10 @@ Ma thoat: 0 = khong loi | 1 = co loi | (canh bao khong lam that bai)
 """
 from __future__ import annotations
 
+import difflib
 import hashlib
 import io
+import itertools
 import os
 import re
 import sys
@@ -395,17 +397,38 @@ def c7_cum_cam():
 
 
 # --------------------------------------------------------------- C8
+NGUONG_SAO = 0.5
+# Ban sao CO Y khac nhau — ghi ly do; bo khoi danh sach nay khi het ly do.
+BIEN_THE = {
+    "00b-Trigger-Vien-Dan-Van-Ban-Hop-Nhat.md":
+        "ktc-bao-cao thêm 1 đoạn lưu ý riêng (trùng số 33); bản 897/KTC-Database còn tên hệ cũ "
+        "KTC-DIS — hệ ngoài, sửa tại hệ đó",
+}
+
+
+def _giong(a, b):
+    """Ti le giong theo dong (bo CR) giua hai tep van ban."""
+    doc = lambda p: open(p, encoding="utf-8", errors="ignore").read().replace("\r", "").splitlines()
+    return difflib.SequenceMatcher(None, doc(a), doc(b), autojunk=False).ratio()
+
+
 def c8_sao_chep_cheo_he():
     """Đã mắc: Tong-Hop-VB chép checklist 897, sau 1 tháng lệch 28/28 tệp."""
     tieu_de("C8. Sao chép chéo hệ — tệp trùng tên khác nội dung")
     kho = {}
-    ngoai = {"ktc-ra-soat-897": os.path.join(NGOAI, "KTC-Ra-Soat-897-v2-Cai-tien", "references"),
-             "ktc-database": os.path.join(NGOAI, "KTC-Database", "references")}
+    ngoai = {"ktc-ra-soat-897": os.path.join(NGOAI, "KTC-Ra-Soat-897-v2-Cai-tien", "references")}
+    # KTC-Database: ban GOC tren Drive (ban chep ngang cap da cu — CLAUDE.md), tim qua duong_dan
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import duong_dan as _dd
+        ngoai["ktc-database"] = os.path.join(_dd.ktc_database(canh_bao_ban_cu=False), "references")
+    except (ImportError, FileNotFoundError):
+        pass
     for ten, (thu_muc, _) in HE.items():
         kho[ten] = os.path.join(DU_AN, thu_muc, "references")
     kho.update({k: v for k, v in ngoai.items() if os.path.isdir(v)})
 
-    idx = {}
+    idx, trung_ten, da_biet = {}, [], []
     for he, d in kho.items():
         if not os.path.isdir(d):
             continue
@@ -427,8 +450,23 @@ def c8_sao_chep_cheo_he():
             continue
         hs = {md5(p) for p in dai_dien.values()}
         if len(hs) > 1:
+            # 24/9/2026: 12/14 canh bao C8 la TRUNG TEN ngau nhien (vd Prompt-Library/01-Soan-Thao/
+            # 01-Quyet-Dinh.md vs 02-Ra-Soat/01-Quyet-Dinh.md, giong 26%). Chi coi la ban sao
+            # da lech khi noi dung giong >= NGUONG_SAO theo dong; duoi nguong chi dem.
+            giong = max(_giong(a, b) for a, b in
+                        itertools.combinations(dai_dien.values(), 2) if md5(a) != md5(b))
+            if giong < NGUONG_SAO:
+                trung_ten.append(f)
+                continue
+            if f in BIEN_THE:
+                da_biet.append((f, BIEN_THE[f]))
+                continue
             lech.append((f, list(dai_dien),
                          {he: os.path.getsize(p) for he, p in dai_dien.items()}))
+    if trung_ten:
+        print(f"  · {len(trung_ten)} tệp chỉ trùng tên (giống < {NGUONG_SAO:.0%}) — không phải bản sao, bỏ qua")
+    for f, ly_do in da_biet:
+        print(f"  · biến thể đã biết: {f} — {ly_do}")
     if lech:
         print(f"  ⚠ {len(lech)} tệp trùng tên nhưng KHÁC nội dung giữa các hệ:")
         for f, hes, sz in lech[:12]:

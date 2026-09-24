@@ -90,6 +90,29 @@ for ten, noi_dung, phai_loi in CA:
     kiem(f"{'bắt' if phai_loi else 'bỏ qua'}: {ten}", co_loi == phai_loi,
          f"→ {kiem_frontmatter(p)[:1] if co_loi else 'hợp lệ'}")
 
+# ---------------------------------------------------- C8: bản sao lệch vs trùng tên
+# 24/9/2026: C8 chỉ báo khi giống >= NGUONG_SAO. Ca thật: 00-Quy-Tac-Khai-Thac-Internet.md
+# của soạn thảo thiếu 1 dòng cập nhật so với 897 — ngưỡng quá cao sẽ bỏ lọt đúng loại lỗi này.
+print(f"\nC8 — bản sao lệch 1 dòng (PHẢI bắt, giống >= {K.NGUONG_SAO:.0%}):")
+goc = [f"Dòng quy tắc số {i}: nội dung riêng của dòng {i}." for i in range(12)]
+sao = goc[:5] + ["Dòng quy tắc số 5: ĐÃ SỬA tại bản gốc, bản sao chưa theo."] + goc[6:]
+khac = [f"Tiêu chí nạp kho mục {i}, không liên quan." for i in range(12)]
+
+
+def ghi(ten, dong, nl="\n"):
+    p = os.path.join(TMP, ten)
+    io.open(p, "w", encoding="utf-8", newline="").write(nl.join(dong) + nl)
+    return p
+
+
+g = K._giong(ghi("goc.md", goc), ghi("sao.md", sao))
+kiem("bắt: bản sao lệch 1/12 dòng", g >= K.NGUONG_SAO, f"→ giống {g:.2f}")
+g = K._giong(ghi("goc.md", goc), ghi("crlf.md", goc, "\r\n"))
+kiem("bắt: chỉ khác CRLF/LF vẫn là cùng tệp", g == 1.0, f"→ giống {g:.2f}")
+print("\nC8 — chỉ trùng tên, nội dung khác (PHẢI bỏ qua):")
+g = K._giong(ghi("goc.md", goc), ghi("khac.md", khac))
+kiem("bỏ qua: tệp trùng tên khác chủ đề", g < K.NGUONG_SAO, f"→ giống {g:.2f}")
+
 # ---------------------------------------------------- tổng kết
 print("\n" + "=" * 74)
 if that_bai:
