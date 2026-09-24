@@ -15,6 +15,7 @@ import datetime as dt
 import io
 import json
 import os
+import re
 import sys
 
 THU_MUC_LOG = os.path.join("90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
@@ -114,6 +115,11 @@ def che_do_ghi(data: dict, loai: str):
         s = " ".join(str(data.get("prompt") or "").split())
         # Lenh noi bo cua Claude Code (/compact, <command-...>) khong phai loi nguoi dung
         if not s or s.startswith("<") or s.startswith("/"):
+            return
+        # "#riêng ..." — nguoi dung tu danh dau noi dung rieng tu: chi ghi moc thoi gian (CP-20260924-001, C)
+        if re.match(r"#ri[eê]ng\b", s, re.I):
+            dong["noi_dung"] = "[#riêng — không ghi]"
+            ghi_dong(du_an, dong)
             return
         dong["noi_dung"] = s[:DAI_YEU_CAU] + ("…" if len(s) > DAI_YEU_CAU else "")
         th = tin_hieu(s)

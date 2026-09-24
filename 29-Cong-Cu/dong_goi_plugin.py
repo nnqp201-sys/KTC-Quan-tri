@@ -38,7 +38,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.0.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
 ]
 
-PLUGIN_VERSION = "1.1.1"  # 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.1.2"  # 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet

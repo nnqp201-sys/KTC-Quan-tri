@@ -84,6 +84,16 @@ with tempfile.TemporaryDirectory() as t:
     kiem(r.returncode == 0, "ca ngược: stdin hỏng vẫn thoát 0")
     r = chay([NK, "nap"], json.dumps({"cwd": du_an}))
     kiem("x.md" in r.stdout, "nạp context liệt kê tệp đã sửa")
+    # CP-20260924-001 (C): "#riêng" -> khong ghi noi dung; loi nhan thuong van ghi
+    chay([NK, "yeu-cau"], json.dumps({"session_id": "s1", "cwd": du_an,
+                                      "prompt": "#riêng Diem KPI cua ong X la 87, xep loai sai"}))
+    chay([NK, "yeu-cau"], json.dumps({"session_id": "s1", "cwd": du_an, "prompt": "#rieng DIEM-RIENG-2"}))
+    chay([NK, "yeu-cau"], json.dumps({"session_id": "s1", "cwd": du_an,
+                                      "prompt": "lap ke hoach thang 10 #riêng o giua"}))
+    noi = "".join(open(os.path.join(log_dir, f), encoding="utf-8").read() for f in os.listdir(log_dir))
+    kiem("87" not in noi and "DIEM-RIENG-2" not in noi, "#riêng/#rieng: không ghi nội dung lời nhắn")
+    kiem(noi.count("[#riêng — không ghi]") == 2, "#riêng: vẫn ghi mốc thời gian, không tín hiệu học")
+    kiem("lap ke hoach thang 10" in noi, "ca ngược: #riêng ở giữa câu thì vẫn ghi bình thường")
 
     print("== ktc_backup_github.py ==")
     repo = os.path.join(t, "repo"); remote = os.path.join(t, "remote.git")
@@ -162,5 +172,13 @@ with tempfile.TemporaryDirectory() as t:
         print("  -- bỏ qua ca pythonw: không tìm thấy pythonw.exe")
 
 kiem(anh_log_that() == truoc, "ca ngược: kiểm thử không ghi gì vào nhật ký THẬT của dự án")
+# CP-20260924-001 (A): nhat ky that cua du an khong duoc git theo doi (loi nguoi dung -> GitHub)
+r = subprocess.run(["git", "-C", GOC, "check-ignore", "-q",
+                    "90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/2026-01-01.jsonl"])
+kiem(r.returncode == 0, "nhật ký tự động nằm trong .gitignore")
+r = subprocess.run(["git", "-C", GOC, "ls-files", "90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong"],
+                   capture_output=True, text=True)
+kiem(not r.stdout.strip(), "không còn tệp nhật ký tự động nào được git theo dõi")
+
 print("KET LUAN:", "CO LOI " + str(loi) if loi else "SACH")
 sys.exit(1 if loi else 0)

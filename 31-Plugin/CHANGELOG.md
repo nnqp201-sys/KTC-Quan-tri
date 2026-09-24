@@ -1,5 +1,11 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.1.2 — 2026-09-24
+
+- Bảo mật nhật ký (`CP-20260924-001`, phương án A + C): lời nhắn bắt đầu bằng **`#riêng`** (hoặc `#rieng`) thì hook
+  `ktc_nhat_ky.py` chỉ ghi mốc thời gian, không ghi nội dung, không đánh dấu tín hiệu học. Nhật ký tự động của dự án
+  (`90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/`) ra khỏi git — backup tối không còn đẩy lời người dùng lên GitHub.
+
 ## 1.1.1 — 2026-09-24
 
 - `scripts/doi_soat_so_lieu.py` đọc mục **ánh xạ bổ sung máy đọc** của bảng mã đơn vị: Ban Truyền thông → `P-THHC`

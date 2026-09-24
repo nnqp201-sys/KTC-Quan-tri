@@ -1,6 +1,6 @@
 # CP-20260924-001 — Bảo mật nhật ký tự động và dữ liệu KPI cá nhân
 
-**Ngày:** 24/9/2026 · **Trạng thái:** CHỜ DUYỆT — chưa sửa hook, chưa đổi `.gitignore` cho nhật ký
+**Ngày:** 24/9/2026 · **Trạng thái:** ĐÃ DUYỆT A + C (24/9/2026, người phụ trách hệ trả lời "ok" với khuyến nghị) — ĐÃ ÁP; B để giai đoạn 2
 **Nguồn:** lệnh sửa bộ skill KPI mục 6.2; `DL-20260924-001`
 **Căn cứ:** QĐ 1923/QĐ-CĐKT Đ23.2 — điểm chi tiết, nhận xét, biên bản, minh chứng chỉ cung cấp cho người có thẩm
 quyền, người được đánh giá và người liên quan theo chức năng; Bản cam kết KPI Điều 8.1.
@@ -43,3 +43,13 @@ khung chat nhiều.
 ## 4. Người quyết
 
 Người phụ trách hệ (Phòng TH-HC&QT). Việc xóa lịch sử nhật ký cũ trên GitHub, nếu cần, là quyết định riêng.
+
+## 5. Kết quả áp dụng (24/9/2026)
+
+- **A:** `.gitignore` thêm `90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/`; `git rm --cached` 7 tệp `.jsonl` (18–24/9) — tệp vẫn
+  còn trên máy, hook nạp đầu phiên và `ktc-tu-hoc` đọc bình thường. **Lịch sử cũ vẫn còn trên GitHub** — xóa phải viết
+  lại lịch sử, chưa làm (cần quyết định riêng).
+- **C:** `ktc_nhat_ky.py` — lời nhắn bắt đầu `#riêng`/`#rieng` chỉ ghi `"[#riêng — không ghi]"` kèm mốc thời gian.
+- Ca thử (`test_plugin_nhat_ky_backup.py`): 3 ca `#riêng` (kể cả ca ngược `#riêng` giữa câu vẫn ghi) + 2 ca gitignore/ls-files
+  trên kho thật; thử ngược bằng cách gỡ dòng `.gitignore` → ca báo X.
+- Plugin **1.1.2**. Chưa làm: B (giai đoạn 2); xác minh repo Private.
