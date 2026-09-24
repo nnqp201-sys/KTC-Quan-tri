@@ -12,5 +12,5 @@ Quy ước:
 | Mã | Việc | Đơn vị | Hạn | Trạng thái | Nguồn | Ghi chú |
 |---|---|---|---|---|---|---|
 | MH-001 | Rà soát, góp ý Danh mục sản phẩm/công việc; gửi P-TCCB qua Office | P-THHC | 20/09/2026 | Chưa rõ | TB 1052/TB-CĐKT (15/9/2026), mục 3.1 | Bản góp ý đã soạn: `30-Ket-Qua/2026-09-19/De-xuat/Gop-y-Danh-muc-SP-TB-1052.md` — chưa xác nhận đã gửi |
-| MH-002 | Triển khai viên chức ký cam kết thực hiện nhiệm vụ theo KPI; gửi P-TCCB qua Office | P-THHC | 21/09/2026 | Chưa rõ | TB 1052/TB-CĐKT (15/9/2026), mục 3.1 | Thiếu mẫu Bản cam kết "kèm theo" (`DL-20260919-007`) |
+| MH-002 | Triển khai viên chức ký cam kết thực hiện nhiệm vụ theo KPI; gửi P-TCCB qua Office | P-THHC | 21/09/2026 | Chưa rõ | TB 1052/TB-CĐKT (15/9/2026), mục 3.1 | Mẫu Bản cam kết đã có trong kho từ 23/9/2026: `02-KTC-Regulations/02-01-…/TB-1052-TB-CDKT_Mau-Ban-cam-ket-thuc-hien-nhiem-vu-KPI.docx` (trước đó thiếu — `DL-20260919-007`) |
 | MH-003 | Rà soát, trình ký các Bản cam kết KPI toàn Trường | P-TCCB | 25/09/2026 | Mở | TB 1052/TB-CĐKT (15/9/2026), mục 3.2 | Việc của đơn vị khác — theo dõi vì phụ thuộc MH-002 |
