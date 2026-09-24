@@ -123,7 +123,7 @@ a = tao_that("1. BAO CAO PL IIB", "KHCB.xlsx", [PL, "TRƯỜNG CAO ĐẲNG KON T
                                                "BÁO CÁO kết quả thực hiện công tác tháng 9  năm 2026", "TT"])
 b = tao_that("2. Phu luc Ib", "TCCB.xlsx", ["TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: PHÒNG TCCB&CTHSSV",
                                            "CTHSSVKẾ HOẠCH  công tác tháng  10 năm 2026", "TT"])
-c = tao_that("1. BAO CAO PL IIB", "BAN TT.xlsx", [PL, "TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: BAN TRUYỀN THÔNG",
+c = tao_that("1. BAO CAO PL IIB", "TO HL.xlsx", [PL, "TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: TỔ HỌC LIỆU",
                                                  "BÁO CÁO kết quả thực hiện công tác tháng 9 năm 2026"])
 d = tao_that("2. Phu luc Ib", "X.xlsx", ["TRƯỜNG CAO ĐẲNG KON TUM", "PHÒNG TỔ CHỨC CÁN BỘ",
                                         "KẾ HOẠCH công tác quý IV năm 2026"])
@@ -136,6 +136,14 @@ kiem(ds.ma_don_vi(c).startswith("?") and "BAO CAO" not in ds.ma_don_vi(c),
      f"Bố cục mới: đơn vị chưa có mã tách riêng, không gộp theo thư mục ({ds.ma_don_vi(c)})")
 kiem(ds.ma_don_vi(d).startswith("?"), f"Gần giống 'Phòng Tổ chức' KHÔNG được ghép (chỉ khớp chính xác) ({ds.ma_don_vi(d)})")
 kiem(ds.ky_tep(d) == ("quy", 4, 2026), f"Kỳ quý số La Mã ({ds.ky_tep(d)})")
+
+# Anh xa bo sung (13-Bang-Ma-Don-Vi.md, muc "may doc"): quyet dinh 14/9/2026 Ban Truyen thong -> P-THHC (cap hai)
+e = tao_that("1. BAO CAO PL IIB", "BAN TT.xlsx", [PL, "TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: BAN TRUYỀN THÔNG",
+                                                 "BÁO CÁO kết quả thực hiện công tác tháng 9 năm 2026"])
+kiem(ds.ma_don_vi(e) == "P-THHC", f"Ánh xạ bổ sung: 'BAN TRUYỀN THÔNG' → P-THHC (chốt 14/9/2026) ({ds.ma_don_vi(e)})")
+g_ = tao_that("2. Phu luc Ib", "BAN TH.xlsx", ["TRƯỜNG CAO ĐẲNG KON TUM", "ĐƠN VỊ: BAN TRUYỀN HÌNH",
+                                             "KẾ HOẠCH công tác tháng 10 năm 2026"])
+kiem(ds.ma_don_vi(g_).startswith("?"), f"NGƯỢC: 'BAN TRUYỀN HÌNH' gần giống KHÔNG được ghép ({ds.ma_don_vi(g_)})")
 
 print(f"\n{'ĐẠT' if not sai else 'KHÔNG ĐẠT'}: {len(sai)} ca sai")
 sys.exit(1 if sai else 0)

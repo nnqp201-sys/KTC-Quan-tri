@@ -1,5 +1,12 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.1.1 — 2026-09-24
+
+- `scripts/doi_soat_so_lieu.py` đọc mục **ánh xạ bổ sung máy đọc** của bảng mã đơn vị: Ban Truyền thông → `P-THHC`
+  (quyết định 14/9/2026, cấp hai), biến thể tên tệp có bằng chứng (`P.THHCQT`, `P QLKHCN`, `SP`, `Ban TT`). Kỳ 2026-09 hết
+  đơn vị `?…`; DS06 chỉ còn K-KTNL chưa nộp Phụ lục Excel. Vẫn chỉ khớp chính xác.
+- skill quan-tri **1.11**: bản sao `12-Bang-Ma-Don-Vi.md` đồng bộ bản gốc.
+
 ## 1.1.0 — 2026-09-24
 
 - **Skill mới `kpi-lap-ke-hoach`** (v1.0, `DL-20260924-001`): lập kế hoạch và danh mục KPI cá nhân theo quý theo

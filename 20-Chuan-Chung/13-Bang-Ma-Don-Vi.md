@@ -54,6 +54,20 @@ cần mã, dùng mã cấp hai trỏ về `P-THHC` (xem mục cấp thứ hai �
 Kiểm chứng trên tệp thật: toàn bộ nhiệm vụ trong `BAN TT.xlsx` đều ghi `Đơn vị chủ trì = Ban Truyền thông`
 và chỉ thuộc mảng truyền thông — không phải báo cáo đầy đủ của Phòng TH-HC&QT.
 
+## Ánh xạ bổ sung — máy đọc (`29-Cong-Cu/doi_soat_so_lieu.py`)
+
+Chỉ ghi **biến thể đã có bằng chứng trên tệp thật** hoặc **quyết định đã chốt**. Công cụ khớp **chính xác** sau khi bỏ
+dấu và ký tự đặc biệt (KI-001: không khớp gần đúng). Biến thể chưa có ở đây thì công cụ để riêng `?<tên>` và báo DS06
+— không tự gán. Thêm dòng mới phải ghi bằng chứng.
+
+| Biến thể | Mã | Cấp | Bằng chứng / quyết định |
+|---|---|---|---|
+| `Ban Truyền thông` | `P-THHC` | hai | Quyết định 14/9/2026 (mục "Ban Truyền thông" ở trên) — tổng hợp vào Phòng TH-HC&QT |
+| `Ban TT` | `P-THHC` | hai | Tên tệp `BAN TT.xlsx`/`.docx` kỳ 2026-09; đầu tệp ghi "ĐƠN VỊ: BAN TRUYỀN THÔNG" |
+| `P.THHCQT` | `P-THHC` | một | Tên tệp `1. BAO CAO PL IIB/P.THHCQT.xlsx` kỳ 2026-09; đầu tệp "PHÒNG TH-HC&QT" |
+| `P QLKHCN` | `P-QLKH` | một | Tên tệp `2. BAO CAO IIA/P QLKHCN.docx` kỳ 2026-09; bảng đầu văn bản "PHÒNG QLKHCN&HTPT" |
+| `SP` | `K-SUPH` | một | Tên tệp `2. Phu luc Ib/SP.xlsx` kỳ 2026-09; đầu tệp "KHOA SƯ PHẠM" |
+
 ## Hai lỗi cần sửa (đánh dấu ⚠️ ở trên)
 
 1. **`Phong-TCCB-CTHHSV` sai chính tả** — thừa một chữ `H`. Đúng phải là `CTHSSV` (Công tác học sinh,

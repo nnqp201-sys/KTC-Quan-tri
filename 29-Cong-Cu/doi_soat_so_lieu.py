@@ -79,6 +79,12 @@ def bien_the_ma():
             if not os.path.isfile(q):
                 continue
             for dong in open(q, encoding="utf-8"):
+                # Muc "Anh xa bo sung — may doc": | `bien the` | `MA` | cap | bang chung |  (quyet dinh da chot,
+                # bien the co bang chung tren tep that — vd Ban Truyen thong -> P-THHC, chot 14/9/2026)
+                bs = re.match(r"^\|\s*`([^`]+)`\s*\|\s*`([A-Z]+-[A-Z]+)`\s*\|", dong)
+                if bs and not re.fullmatch(r"[A-Z]+-[A-Z]+", bs.group(1)):
+                    _BIEN_THE.setdefault(_khoa(bs.group(1)), bs.group(2))
+                    continue
                 m = re.match(r"^\|\s*`([A-Z]+-[A-Z]+)`\s*\|(.*)", dong)
                 if not m:
                     continue
