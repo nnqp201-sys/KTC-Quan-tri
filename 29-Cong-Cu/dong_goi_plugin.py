@@ -32,12 +32,12 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
     (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.14.skill"), "ktc-bao-cao", "bao-cao"),
     (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.9.skill"), "ktc-ke-hoach", "ke-hoach"),
-    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.9.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
+    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.10.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.7.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
 ]
 
-PLUGIN_VERSION = "1.0.0"  # 1.0.0 (21/9/2026): ban phat hanh chinh thuc, het giai doan 0.x
+PLUGIN_VERSION = "1.0.1"  # 1.0.1 (24/9/2026): doi_soat nhan don vi tu dau tep; soan-thao-vb v1.10. 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -135,7 +135,7 @@ def build_manifest():
             "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
                                        "bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
-                              "ktc-soan-thao-vb-v1.9.skill", "ktc-theo-doi-cv-v1.7.skill",
+                              "ktc-soan-thao-vb-v1.10.skill", "ktc-theo-doi-cv-v1.7.skill",
                               "ktc-the-thuc-v1.0.skill"],
         },
     }

@@ -1,5 +1,13 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.0.1 — 2026-09-24
+
+- **`scripts/doi_soat_so_lieu.py`**: nhận mã đơn vị, loại KH/KQ và kỳ từ phần đầu tệp khi tên tệp/thư mục không theo quy
+  ước (bố cục `10-Dau-Vao` ngày 21/9: `1. BAO CAO PL IIB/KHCB.xlsx`). Bản 1.0.0 gộp 10 đơn vị thành một và xếp
+  `KHCB.xlsx` là kế hoạch mà vẫn thoát mã 0. Khớp mã chỉ chính xác theo bảng biến thể `13-Bang-Ma-Don-Vi.md`; không khớp
+  thì tách riêng `?<tên>` và DS06 báo. Ảnh hưởng agent `ktc-kiem-ho-so-don-vi`, `ktc-kiem-san-pham`.
+- skill soan-thao-vb **1.10**: đồng bộ quy tắc khai thác Internet với bản gốc 897 (tra `phapluat.gov.vn` trước tiên).
+
 ## 0.9.1 — 2026-09-19
 
 - Cập nhật TB 1052/TB-CĐKT (`DL-20260919-007`): danh mục 371 sản phẩm đã gửi đơn vị rà soát (hạn 20/9), chưa ban hành;
