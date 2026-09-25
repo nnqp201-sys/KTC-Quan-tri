@@ -1,5 +1,18 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.2.0 — 2026-09-25
+
+- **Skill mới `kpi-tu-danh-gia`** (v1.0, `DL-20260925-001`): tự đánh giá, đề xuất xếp loại cá nhân theo quý (QĐ 1923).
+  Từ kế hoạch KPI đã duyệt sinh **bảng hỏi Excel** (điểm tiêu chí chung, số thực tế 3 chiều, điều kiện, trường hợp đặc
+  thù), rồi tính A 30 + B 70 **chặn trần 100% từng chỉ tiêu** [Đ11.6], đối chiếu ngưỡng 90/70/50 và điều kiện Đ19; xuất
+  Bản tự đánh giá (`TDG-KPI-...xlsx`). Không quyết định mức xếp loại; không tính trần tỷ lệ HTXS (giai đoạn 3).
+- `scripts/kpi_danh_gia.py` (mới); `kpi_mau.cau_truc_danh_gia()` dò động sheet Đánh giá cả 6 mẫu.
+- skill `kpi-lap-ke-hoach` **1.1**: xóa số thực tế ví dụ của mẫu ở sheet KPI (L=4, N=100, P=100 — bản 1.0 để sót), tự
+  xuống dòng, ẩn dòng trống; KH16; nhận đúng nhóm Trưởng/Phó đơn vị từ tiêu đề mẫu (bản 1.0 không nhận → KH10 bỏ sót).
+- skill `quan-tri` **1.12**: đồng bộ quy tắc KPI gốc (Đ10.5 theo nhóm, Đ21.4/Đ21.6).
+- Manifest qua `claude plugin validate --strict` (lần đầu chạy được).
+
+
 ## 1.1.2 — 2026-09-24
 
 - Bảo mật nhật ký (`CP-20260924-001`, phương án A + C): lời nhắn bắt đầu bằng **`#riêng`** (hoặc `#rieng`) thì hook

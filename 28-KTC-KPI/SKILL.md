@@ -1,13 +1,15 @@
 ---
 name: ktc-kpi-lap-ke-hoach
-description: "Lập kế hoạch công tác quý và danh mục sản phẩm/chỉ tiêu KPI CÁ NHÂN của viên chức, người lao động Trường Cao đẳng Kon Tum theo QĐ 1923/QĐ-CĐKT (Quy chế đánh giá gắn KPI), TB 1052/TB-CĐKT và mẫu Kế hoạch + KPI quý theo 6 nhóm vị trí (Trưởng/Phó phòng, khoa; Trưởng/Phó bộ môn, Phòng Khám; nhà giáo; giáo vụ khoa; viên chức hành chính; nhân viên hỗ trợ, phục vụ). Xác định Trục kết quả, mức độ, hệ số quy đổi, số lượng quy đổi, xuất tệp Excel đúng mẫu và bảng cảnh báo (thiếu sản phẩm, thời hạn, minh chứng; Trục chính dưới 40%; quản lý thiếu Trục 4; kết quả tập thể bị quy thành KPI cá nhân; dòng ví dụ chưa xóa). Dùng khi người dùng nói 'lập KPI quý', 'danh mục sản phẩm cá nhân', 'kế hoạch KPI', 'Phụ lục kèm Bản cam kết KPI', 'sửa kế hoạch KPI đã duyệt'. KHÔNG dùng để chấm điểm, tự đánh giá, xếp loại; KHÔNG dùng cho KPI đơn vị theo Trục trong báo cáo tháng/quý Phụ lục TB 736 (dùng bao-cao, theo-doi-cv); KHÔNG soạn kế hoạch công tác cấp Trường (dùng ke-hoach)."
+description: "Lập kế hoạch công tác quý và danh mục sản phẩm/chỉ tiêu KPI CÁ NHÂN của viên chức, người lao động Trường Cao đẳng Kon Tum theo QĐ 1923/QĐ-CĐKT (Quy chế đánh giá gắn KPI), TB 1052/TB-CĐKT và mẫu Kế hoạch + KPI quý theo 6 nhóm vị trí (Trưởng/Phó phòng, khoa; Trưởng/Phó bộ môn, Phòng Khám; nhà giáo; giáo vụ khoa; viên chức hành chính; nhân viên hỗ trợ, phục vụ). Xác định Trục kết quả, mức độ, hệ số quy đổi, số lượng quy đổi, xuất tệp Excel đúng mẫu và bảng cảnh báo (thiếu sản phẩm, thời hạn, minh chứng; Trục chính dưới 40%; quản lý thiếu Trục 4; kết quả tập thể bị quy thành KPI cá nhân; dòng ví dụ chưa xóa). Dùng khi người dùng nói 'lập KPI quý', 'danh mục sản phẩm cá nhân', 'kế hoạch KPI', 'Phụ lục kèm Bản cam kết KPI', 'sửa kế hoạch KPI đã duyệt'. KHÔNG dùng để chấm điểm, tự đánh giá, xếp loại (dùng kpi-tu-danh-gia); KHÔNG dùng cho KPI đơn vị theo Trục trong báo cáo tháng/quý Phụ lục TB 736 (dùng bao-cao, theo-doi-cv); KHÔNG soạn kế hoạch công tác cấp Trường (dùng ke-hoach)."
 ---
 
 # KTC-KPI — Lập kế hoạch và KPI cá nhân theo quý
 
-## Phiên bản: v1.0 — 24/9/2026
+## Phiên bản: v1.1 — 25/9/2026
 
-> v1.0: giai đoạn 1 theo lệnh sửa 24/9/2026 — chỉ lập kế hoạch. Tự đánh giá, tổng hợp xếp loại để giai đoạn 2–3.
+> v1.1 (25/9/2026): xóa số thực tế ví dụ của mẫu ở sheet KPI, tự xuống dòng, ẩn dòng trống (Known-Issues #10–#12);
+> KH16; nhận đúng nhóm Trưởng/Phó đơn vị từ tiêu đề mẫu. Tự đánh giá: skill `kpi-tu-danh-gia` (giai đoạn 2).
+> v1.0: giai đoạn 1 theo lệnh sửa 24/9/2026 — chỉ lập kế hoạch.
 
 ## 1. Mục đích
 
@@ -19,7 +21,7 @@ Skill **không** phê duyệt, không chấm điểm, không xếp loại thay n
 
 | Làm | Không làm (chuyển đi đâu) |
 |---|---|
-| Kế hoạch + KPI quý cá nhân, 6 nhóm vị trí | Chấm điểm, tự đánh giá, xếp loại → giai đoạn 2 (chưa có skill; báo người dùng) |
+| Kế hoạch + KPI quý cá nhân, 6 nhóm vị trí | Chấm điểm, tự đánh giá, đề xuất xếp loại cá nhân → `kpi-tu-danh-gia`; tổng hợp xếp loại đơn vị → giai đoạn 3 (chưa có skill) |
 | Điều chỉnh kế hoạch KPI đã duyệt (lập bản đề nghị điều chỉnh) | KPI đơn vị theo Trục trong báo cáo Phụ lục TB 736 → `bao-cao`, `theo-doi-cv` |
 | Tra hệ số, tính số lượng quy đổi bằng script | Kế hoạch công tác cấp Trường → `ke-hoach`; văn bản hành chính → `soan-thao-vb` |
 
@@ -73,7 +75,7 @@ Cần có (thiếu thì hỏi, **không tự điền**):
    (`scripts/validate_plan.py`). Mã thoát 2 = thiếu dữ liệu → hỏi người dùng; 1 = đã xuất nhưng còn LỖI; 0 = sạch.
    **Không tự nhẩm hệ số, điểm, tỷ lệ.**
 5. **Sửa LỖI, trình bày CẢNH BÁO.** LỖI (KH01–KH06, KH08, KH10, KH12, KH15) phải sửa cùng người dùng rồi chạy lại.
-   CẢNH BÁO (KH07, KH09, KH11, KH13, KH14) trình bày để người dùng quyết.
+   CẢNH BÁO (KH07, KH09, KH11, KH13, KH14, KH16) trình bày để người dùng quyết.
 6. **Thể thức:** có `kiem_the_thuc.py` (skill `the-thuc`/plugin) thì đo tệp ra; còn Mức 1–2 thì sửa.
 7. **Điều chỉnh kế hoạch đã duyệt** [QĐ 1923, Đ13.3–13.4]: không sửa đè tệp đã duyệt. Lập bản mới, ghi rõ chỉ tiêu cũ →
    mới, lý do, căn cứ (nhiệm vụ đột xuất, đổi vị trí…), phạm vi, và "không hồi tố bất lợi". Trình Trưởng đơn vị duyệt lại.
@@ -113,5 +115,5 @@ bảng tóm tắt, cảnh báo.
 **Làm:** không trả lời một con số ngay. Nêu 4 phương án và trạng thái căn cứ; người dùng chọn xong mới chạy
 `python scripts/kpi_calc.py he-so --phuong-an <pa> --muc-do "<mức>" [--san-pham "<STT hoặc tên>"]`.
 
-**Người dùng:** "Chấm điểm KPI quý III của tôi." → Ngoài phạm vi: nói rõ skill chỉ lập kế hoạch; chấm điểm, tự đánh giá
-chưa có skill (giai đoạn 2), thang điểm tham khảo tại `19-Quy-Tac-KPI.md` mục D.
+**Người dùng:** "Chấm điểm KPI quý III của tôi." → Ngoài phạm vi: chuyển skill `kpi-tu-danh-gia` (dùng chính tệp kế
+hoạch đã duyệt làm đầu vào).

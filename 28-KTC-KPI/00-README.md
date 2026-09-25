@@ -1,7 +1,11 @@
-# 28-KTC-KPI — Hệ KPI cá nhân (skill `ktc-kpi-lap-ke-hoach`)
+# 28-KTC-KPI — Hệ KPI cá nhân (skill `ktc-kpi-lap-ke-hoach` + `ktc-kpi-tu-danh-gia`)
 
 Lập kế hoạch công tác quý và danh mục sản phẩm/chỉ tiêu KPI cá nhân theo QĐ 1923/QĐ-CĐKT. Giai đoạn 1 theo
 `30-Ket-Qua/2026-09-24/De-xuat/LENH-SUA-Xay-bo-skill-KPI-giai-doan-1.md`.
+
+**Giai đoạn 2 (25/9/2026, `DL-20260925-001`):** skill thứ hai `ktc-kpi-tu-danh-gia` — nguồn tại `Tu-Danh-Gia/` (chỉ
+`SKILL.md` viết tay; `references/`, `scripts/`, `assets/` là BẢN SAO do `dong_goi_kpi.py` đồng bộ từ thư mục này, từ
+`20-Chuan-Chung/` và `29-Cong-Cu/kpi_danh_gia.py` — không sửa tay). Gói `ktc-kpi-lap-ke-hoach` loại thư mục `Tu-Danh-Gia/`.
 
 ## Nguồn và bản sao — sửa ở NGUỒN, không sửa bản sao
 
@@ -21,8 +25,9 @@ Viết tay trong hệ: `SKILL.md`, `references/Cau-Hoi-Mo.md`, `Known-Issues-Bie
 python 29-Cong-Cu/dong_goi_kpi.py --dong-bo            # đồng bộ, kiểm hash, trích lại Danh mục
 python 92-Kinh-Nghiem/02-Regression/Cases/test_kpi_calc.py
 python 92-Kinh-Nghiem/02-Regression/Cases/test_validate_plan.py
+python 92-Kinh-Nghiem/02-Regression/Cases/test_kpi_danh_gia.py   # cả 6 mẫu; so tổng điểm với Excel nếu máy có Excel
 python 29-Cong-Cu/kiem_tra_he_thong.py
-python 29-Cong-Cu/dong_goi_kpi.py --dong-goi           # đóng gói ktc-kpi-lap-ke-hoach-v<phiên bản>.skill
+python 29-Cong-Cu/dong_goi_kpi.py --dong-goi           # đóng gói CẢ HAI skill (--skill <tên> để chọn một)
 ```
 
 Thêm quý mới: tạo `references/quy/<YYYY>-Q<n>.yaml` theo văn bản hướng dẫn của quý (không có văn bản thì mốc chuẩn

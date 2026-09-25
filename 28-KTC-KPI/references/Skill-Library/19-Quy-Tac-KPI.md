@@ -87,6 +87,8 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
   theo vị trí [QĐ 1923, Đ10.4].
 - Mức chấm tiêu chí chung: Mức 1 từ 90–100% · Mức 2 từ 70 đến dưới 90% · Mức 3 từ 50 đến dưới 70% · Mức 4 dưới 50% (kể
   cả 0) điểm tối đa của nhóm [QĐ 1923, Đ10.5].
+  Mức xét theo **tổng nhóm**; mẫu Đánh giá chấm từng tiêu chí con rồi cộng — Câu hỏi mở số 10. Hướng dẫn hằng quý/năm
+  của Hiệu trưởng chỉ được chi tiết hơn, không trái khung mức, không thay đổi bất lợi cho kỳ đã xong [QĐ 1923, Đ10.5, Đ10.6].
 - KPI của người không giữ chức vụ: số lượng, chất lượng, tiến độ; viên chức quản lý thêm kết quả đơn vị, khả năng tổ
   chức triển khai, năng lực tập hợp [QĐ 1923, Đ11.1, Đ11.2].
 - **Điểm chỉ tiêu = % hoàn thành × điểm tối đa của chỉ tiêu**; vượt 100% chỉ tính trần, phần vượt ghi nhận định tính,
@@ -122,7 +124,9 @@ sĩ số, tiêu chí chuyển đổi số cuối năm. Đủ điểm mà không 
 - Kết quả quý **không phải** quyết định xếp loại [QĐ 1923, Đ15, Đ19.3]; không lấy riêng kết quả quý làm căn cứ độc lập
   cho thôi việc, miễn nhiệm [QĐ 1923, Đ20.4].
 - Trường hợp đặc thù (đào tạo tập trung ≥ 02 tháng, nghỉ ốm/thai sản ≥ 02 tháng, mới bổ nhiệm < 01 tháng, đang kiểm tra
-  dấu hiệu vi phạm → xem xét sang quý sau; điều động; đi học) [QĐ 1923, Đ21; CV 694 mục II.6].
+  dấu hiệu vi phạm → chưa đánh giá quý này, xem xét sang quý sau [QĐ 1923, Đ21.6]; đào tạo, biệt phái, nghỉ ốm, thai
+  sản chiếm từ 1/2 thời gian của quý → cộng dồn sang quý sau, không tính dưới mức tối thiểu [QĐ 1923, Đ21.4]; điều động;
+  đi học [QĐ 1923, Đ21.5]) [CV 694 mục II.6].
 
 ## F. Thời điểm, trình tự, thẩm quyền
 

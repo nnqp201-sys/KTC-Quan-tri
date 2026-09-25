@@ -35,10 +35,12 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.10.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.7.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
-    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.0.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
+    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.1.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
+    (os.path.join(DU_AN, "28-KTC-KPI", "Tu-Danh-Gia", "ktc-kpi-tu-danh-gia-v1.0.skill"), "ktc-kpi-tu-danh-gia",
+     "kpi-tu-danh-gia"),
 ]
 
-PLUGIN_VERSION = "1.1.2"  # 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.2.0"  # 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -53,7 +55,9 @@ CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
                      # thieu tu 19/9/2026 -> hai agent do hong lang le khi chay NGOAI thu muc du an
                      "kiem_the_thuc.py",
                      # 24/9/2026: bo cong cu KPI ca nhan (skill kpi-lap-ke-hoach mang ban sao rieng trong goi)
-                     "kpi_calc.py", "kpi_mau.py", "validate_plan.py"]
+                     "kpi_calc.py", "kpi_mau.py", "validate_plan.py",
+                     # 25/9/2026: tu danh gia KPI ca nhan (skill kpi-tu-danh-gia)
+                     "kpi_danh_gia.py"]
 # Gioi han cua Claude khi tai plugin/skill (loi that 19/9/2026: mo ta plugin 554 ky tu bi tu choi)
 GIOI_HAN_MO_TA_PLUGIN = 500
 GIOI_HAN_MO_TA_SKILL = 1024
@@ -123,8 +127,8 @@ def build_manifest():
         # Cowork tu choi mo ta > 500 ky tu (loi upload 0.8.0, 19/9/2026) — build_manifest() tu chan.
         "description": (
             "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → "
-            "Soạn thảo văn bản. 7 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, "
-            "kpi-lap-ke-hoach); "
+            "Soạn thảo văn bản. 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, "
+            "kpi-lap-ke-hoach, kpi-tu-danh-gia); "
             "7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
             "viện dẫn, xác minh minh chứng); hook tự ghi nhật ký, đo thể thức, backup GitHub."
         ),
@@ -136,11 +140,12 @@ def build_manifest():
         "metadata": {
             "builtFrom": "5 gói .skill đã xác minh 18/9/2026 (DL-20260918-001; soan-thao-vb nâng lên v1.2 "
                          "cùng ngày để vá 3 tham chiếu gãy)",
-            "claudeStrictValidation": "CHƯA CHẠY — môi trường build không có `claude` CLI trên PATH; "
-                                       "bắt buộc chạy `claude plugin validate ./31-Plugin --strict` trước khi bật.",
+            "claudeStrictValidation": "ĐẠT 25/9/2026 (bản 1.2.0) — `claude plugin validate ./31-Plugin --strict` "
+                                       "bằng claude.exe đi kèm extension VS Code; chạy lại mỗi lần dựng.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
                               "ktc-soan-thao-vb-v1.10.skill", "ktc-theo-doi-cv-v1.7.skill",
-                              "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.0.skill"],
+                              "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.1.skill",
+                              "ktc-kpi-tu-danh-gia-v1.0.skill"],
         },
     }
     if len(manifest["description"]) > GIOI_HAN_MO_TA_PLUGIN:

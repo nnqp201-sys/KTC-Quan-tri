@@ -7,8 +7,8 @@
     {
       "name": "ktc-quan-tri",
       "source": "./31-Plugin",
-      "description": "Quản trị nhiệm vụ hợp nhất Trường CĐ Kon Tum: 7 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, kpi-lap-ke-hoach) + 7 agent + hook nhật ký, thể thức, backup",
-      "version": "1.1.2"
+      "description": "Quản trị nhiệm vụ hợp nhất Trường CĐ Kon Tum: 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, kpi-lap-ke-hoach, kpi-tu-danh-gia) + 7 agent + hook nhật ký, thể thức, backup",
+      "version": "1.2.0"
     }
   ]
 }

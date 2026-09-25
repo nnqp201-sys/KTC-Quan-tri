@@ -19,6 +19,7 @@ KHONG sua tep. KHONG ket luan thay Truong don vi (phe duyet — QD 1923 D13.1).
   KH13 CANH_BAO  O so Quyet dinh trong tieu de sheet KPI con trong       Known-Issues-Bieu-Mau #5
   KH14 CANH_BAO  Dau viec trung lap noi dung                              QD 1923 D11.4a
   KH15 LOI       Chua dien ho ten / don vi                                mau Ke hoach
+  KH16 CANH_BAO  Sheet KPI con so thuc te VI DU cua mau (L=4,N=100,P=100) Known-Issues-Bieu-Mau #12
 
 Chay:  python 29-Cong-Cu/validate_plan.py <ke_hoach.xlsx> [--nhom hanh-chinh] [--phuong-an muc-do] [--json]
 Ma thoat: 1 neu co LOI, 0 neu chi canh bao hoac sach.
@@ -114,6 +115,16 @@ def kiem(p, nhom=None, phuong_an=None):
         if not sl and ct["diem_truc"].get(n):
             them("KH11", "CANH_BAO", f"Ke Hoach (Trục {n})", f"Trục {n} có {ct['diem_truc'][n]:g} điểm tối đa "
                  "nhưng không có đầu việc — Trục này sẽ tính 0 điểm", "mẫu Đánh giá (Điểm KPI = 0 khi trống)")
+    # KH16: mau Quy III de san SO THUC TE vi du o dong viec dau sheet KPI (L=4, N=100, P=100). Con sot thi % Truc
+    # sai khi mo bang Excel. Chi bat khi TRUNG DUNG so vi du cua mau o cung o — ke hoach Quy III lap cung luc voi
+    # danh gia (CV 694) nen co so thuc te that la binh thuong, khong bat.
+    vd_kpi = km.thuc_te_vi_du(nhom) if nhom else {}
+    for o_, v in vd_kpi.items():
+        hang = {k: val for k, val in v.items()}
+        if all(kp[k].value == val for k, val in hang.items()):
+            them("KH16", "CANH_BAO", f"KPI!{o_}", "Số thực tế trùng đúng số ví dụ của mẫu (" +
+                 ", ".join(f"{k}={val}" for k, val in hang.items()) + ") — xác nhận là số thật, nếu không thì xóa",
+                 "Known-Issues-Bieu-Mau #12")
     if re.search(r"Quyết định số:\s*/", str(kp["A1"].value or "")):
         them("KH13", "CANH_BAO", "KPI!A1", "Ô số Quyết định trong tiêu đề còn trống", "Known-Issues-Bieu-Mau #5")
     return {"tep": os.path.basename(p), "nhom": nhom, "phuong_an": phuong_an,

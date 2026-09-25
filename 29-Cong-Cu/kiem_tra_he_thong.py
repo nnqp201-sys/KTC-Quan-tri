@@ -31,7 +31,8 @@ HE = {
     "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.7.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
     "ktc-the-thuc":     ("27-KTC-The-Thuc", "27-KTC-The-Thuc/ktc-the-thuc-v1.0.skill"),
-    "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "28-KTC-KPI/ktc-kpi-lap-ke-hoach-v1.0.skill"),
+    "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "28-KTC-KPI/ktc-kpi-lap-ke-hoach-v1.1.skill"),
+    "ktc-kpi-tu-danh-gia": ("28-KTC-KPI/Tu-Danh-Gia", "28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.0.skill"),
 }
 # He da thay the — bo qua, khong bat loi
 # KTC-DIS-Tong-Hop-VB da chuyen vao 99-Luu-Tru/He-da-thay-the/ ngay 14/9/2026,
