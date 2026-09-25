@@ -20,6 +20,9 @@ KHONG sua tep. KHONG ket luan thay Truong don vi (phe duyet — QD 1923 D13.1).
   KH14 CANH_BAO  Dau viec trung lap noi dung                              QD 1923 D11.4a
   KH15 LOI       Chua dien ho ten / don vi                                mau Ke hoach
   KH16 CANH_BAO  Sheet KPI con so thuc te VI DU cua mau (L=4,N=100,P=100) Known-Issues-Bieu-Mau #12
+  KH17 CANH_BAO  Sheet KPI thieu nguoi phoi hop (cot co trong mau)          lenh sua 25/9/2026
+  KH18 LOI       Sheet KPI o san pham (F) trong / khong tro dong co viec    lenh sua 25/9/2026
+  KH19 CANH_BAO  Dong can cao > 409 pt — Excel khong hien het            gioi han Excel
 
 Chay:  python 29-Cong-Cu/validate_plan.py <ke_hoach.xlsx> [--nhom hanh-chinh] [--phuong-an muc-do] [--json]
 Ma thoat: 1 neu co LOI, 0 neu chi canh bao hoac sach.
@@ -125,6 +128,32 @@ def kiem(p, nhom=None, phuong_an=None):
             them("KH16", "CANH_BAO", f"KPI!{o_}", "Số thực tế trùng đúng số ví dụ của mẫu (" +
                  ", ".join(f"{k}={val}" for k, val in hang.items()) + ") — xác nhận là số thật, nếu không thì xóa",
                  "Known-Issues-Bieu-Mau #12")
+    # KH17–KH19 (lenh sua 25/9/2026): sheet KPI cot C–F va chieu cao dong. Cot do theo TIEU DE cua mau.
+    kc_ = ct.get("kpi_cot", {})
+    rong = {"Ke Hoach": km.do_rong_cot(ws), "KPI": km.do_rong_cot(kp)}
+    gop = {"Ke Hoach": km._vung_gop(ws), "KPI": km._vung_gop(kp)}
+    for n, (d, c) in ct["truc"].items():
+        for r in range(d, c + 1):
+            nd = str(ws[f"B{r}"].value or "").strip()
+            if not nd:
+                continue
+            rk = ct["kpi_dong"][r]
+            if "phoi_hop" in kc_ and kp[f"{kc_['phoi_hop']}{rk}"].value in (None, ""):
+                them("KH17", "CANH_BAO", f"KPI!dòng {rk} (Trục {n})", f"'{nd[:50]}': thiếu người phối hợp — cần người "
+                     "dùng bổ sung (không tự điền)", "mẫu KPI cột 'Người phối hợp'")
+            if "san_pham" in kc_:
+                f = kp[f"{kc_['san_pham']}{rk}"].value
+                m = re.fullmatch(r"='?Ke Hoach'?!\$?E\$?(\d+)", str(f or "").strip())
+                if f in (None, "") or (str(f).startswith("=") and not m) or \
+                        (m and str(ws[f"B{int(m.group(1))}"].value or "").strip() in ("",)):
+                    them("KH18", "LOI", f"KPI!{kc_['san_pham']}{rk} (Trục {n})", f"Ô sản phẩm dự kiến '{f}' trống hoặc "
+                         "không trỏ đúng dòng có việc của sheet Ke Hoach (phải là ='Ke Hoach'!E<dòng>)", "mẫu KPI cột F")
+            for ten, sh, rr in (("Ke Hoach", ws, r), ("KPI", kp, rk)):
+                can, dong = km.uoc_chieu_cao(wb, sh, rr, rong[ten], gop[ten])
+                if can > km.CAO_TOI_DA:
+                    them("KH19", "CANH_BAO", f"{ten}!dòng {rr} (Trục {n})", f"'{nd[:40]}': cần ~{dong} dòng chữ "
+                         f"({can:.0f} pt) > {km.CAO_TOI_DA} pt — Excel không hiện hết; rút gọn hoặc nới rộng cột",
+                         "giới hạn chiều cao dòng Excel")
     if re.search(r"Quyết định số:\s*/", str(kp["A1"].value or "")):
         them("KH13", "CANH_BAO", "KPI!A1", "Ô số Quyết định trong tiêu đề còn trống", "Known-Issues-Bieu-Mau #5")
     return {"tep": os.path.basename(p), "nhom": nhom, "phuong_an": phuong_an,

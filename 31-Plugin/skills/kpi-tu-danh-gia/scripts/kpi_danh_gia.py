@@ -572,6 +572,9 @@ def ghi_ket_qua(khd, tl, kq, ra, quy=None, nam=None):
                     f = copy(cell.font)
                     f.name = km.PHONG
                     cell.font = f
+    # Do lai chieu cao dong SAU khi ghi so thuc te: san pham thuc te (K — danh sach so ky hieu), minh chung (S) lam dong
+    # cao hon luc lap ke hoach (lenh sua 25/9/2026, L1). Vuot 409 pt -> canh bao KH19.
+    kq["canh_bao"] += km.chinh_chieu_cao(wb, ct)
     wb.save(ra)
     return ra
 
@@ -643,6 +646,9 @@ def main(argv):
             return 0
         kq = tinh(khd, doc_bang_hoi(a.bang_hoi))
         ghi_ket_qua(khd, doc_bang_hoi(a.bang_hoi), kq, a.ra, a.quy, a.nam)
+    except PermissionError:
+        print(f"✗ Không ghi được {a.ra}: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.")
+        return 2
     except (km.LoiCauTruc, Dung, kc.LoiKPI) as e:
         print(f"✗ {e}")
         return 2

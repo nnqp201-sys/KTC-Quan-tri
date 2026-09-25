@@ -5,8 +5,10 @@ description: "Tự đánh giá, chấm điểm và đề xuất mức xếp lo�
 
 # KTC-KPI — Tự đánh giá, đề xuất xếp loại cá nhân theo quý
 
-## Phiên bản: v1.0 — 25/9/2026
+## Phiên bản: v1.1 — 25/9/2026
 
+> v1.1 (25/9/2026, lệnh sửa trình bày): đo lại chiều cao dòng sheet KPI sau khi ghi số thực tế (sản phẩm
+> thực tế, minh chứng); tệp ra đang mở trong Excel → báo rõ, không lộ lỗi kỹ thuật. Không đổi số nào.
 > v1.0: giai đoạn 2 theo lệnh 25/9/2026. Lập kế hoạch KPI: skill `kpi-lap-ke-hoach`. Tổng hợp xếp loại cấp đơn vị,
 > trần tỷ lệ HTXS: giai đoạn 3 (chưa có skill).
 

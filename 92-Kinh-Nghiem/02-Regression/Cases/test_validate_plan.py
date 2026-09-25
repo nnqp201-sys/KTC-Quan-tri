@@ -59,8 +59,15 @@ h0 = hashlib.sha256(open(goc, "rb").read()).hexdigest()
 p = lap("hanh-chinh", SACH, "sach.xlsx")
 kiem(hashlib.sha256(open(goc, "rb").read()).hexdigest() == h0, "ghi_ke_hoach: mẫu trong assets/ giữ nguyên byte")
 wb = km.mo(p)
-kiem(sum(1 for r in wb["KPI"].iter_rows() for c in r if str(c.value or "").startswith("=")) == 990,
-     "ghi_ke_hoach: giữ đủ 990 công thức sheet KPI")
+# Moi cong thuc cua mau con nguyen o dung o; cong thuc them chi la cot F (san pham ='Ke Hoach'!E<dong>, lenh sua
+# 25/9/2026) — dung 1 o moi dau viec. (Truoc day dem cung "990" -> vo khi them cot F co chu dich.)
+ct_mau = {c.coordinate: c.value for r in km.mo(goc)["KPI"].iter_rows() for c in r if str(c.value or "").startswith("=")}
+ct_ra = {c.coordinate: c.value for r in wb["KPI"].iter_rows() for c in r if str(c.value or "").startswith("=")}
+them_moi = {k: v for k, v in ct_ra.items() if k not in ct_mau}
+kiem(len(ct_mau) == 990 and all(ct_ra.get(k) == v for k, v in ct_mau.items()),
+     "ghi_ke_hoach: giữ nguyên đủ 990 công thức của mẫu, đúng ô")
+kiem(len(them_moi) == len(SACH) and all(k.startswith("F") and "'Ke Hoach'!E" in v for k, v in them_moi.items()),
+     f"công thức thêm mới chỉ là cột F sản phẩm, {len(them_moi)} ô = {len(SACH)} đầu việc")
 try:
     km.ghi_ke_hoach("hanh-chinh", {"dau_viec": []}, os.path.join(km.thu_muc_mau(), "x.xlsx"))
     kiem(False, "NGƯỢC: ghi vào assets/ phải bị chặn")

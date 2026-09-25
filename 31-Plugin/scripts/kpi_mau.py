@@ -107,8 +107,16 @@ def cau_truc(wb):
     for c in kp[3]:
         if "minh chứng" in str(c.value or "").lower():
             cot_mc = c.column_letter
+    # Cot "Nhiem vu de ra ke hoach" cua sheet KPI (dong tieu de 4) — do theo TIEU DE, mau nao thieu cot thi bo qua
+    kpi_cot = {}
+    for c in kp[4]:
+        t = _kd(c.value)
+        for k, dau in (("chi_dao", "nguoi truc tiep chi dao"), ("phoi_hop", "nguoi phoi hop"),
+                       ("tham_muu", "don vi tham muu"), ("san_pham", "san pham du kien")):
+            if t.startswith(dau):
+                kpi_cot[k] = c.column_letter
     return {"truc": truc, "diem_truc": diem_truc, "nhom_a": nhom_a, "kpi_dong": kpi_dong, "cot_minh_chung": cot_mc,
-            "kpi_truc": {n: d for d, n in dau_truc}}
+            "kpi_truc": {n: d for d, n in dau_truc}, "kpi_cot": kpi_cot}
 
 
 class LoiCauTruc(ValueError):
@@ -237,26 +245,96 @@ def xoa_thuc_te(kp, r):
             kp[f"{col}{r}"].value = None
 
 
-def xuong_dong(sh, r, cot):
-    """Bat wrap_text cho cac o co noi dung va nang chieu cao dong theo so dong chu uoc tinh (co chu x 1,3 pt)."""
+CAO_TOI_DA = 409          # pt — gioi han chieu cao dong cua Excel
+RONG_GHI_CHU_KH = 25      # cot J (Ghi chu) sheet Ke Hoach: mau ~6,6 ky tu -> ghi chu dai lam dong cao bat thuong
+
+
+def do_rong_cot(ws):
+    """{chi so cot: do rong}. openpyxl GOP cot lien nhau cung do rong vao MOT khoa (min–max, vd 'C' = C..F) — tra khoa
+    don le se cho cot giua nhom la None (lenh sua 25/9/2026, L1). Cot khong khai bao -> do rong mac dinh cua sheet."""
+    kq = {"_mac_dinh": ws.sheet_format.defaultColWidth or 8.43}
+    for d in ws.column_dimensions.values():
+        if d.min and d.max and d.width:
+            for i in range(d.min, d.max + 1):
+                kq[i] = float(d.width)
+    return kq
+
+
+def gia_tri_hien_thi(wb, cell, sau=0):
+    """Van ban o se HIEN THI: cong thuc tro cheo sheet ='Ten sheet'!B14 -> gia tri o duoc tro (cot B sheet KPI la cong
+    thuc — ban cu bo qua nen dong KPI khong bao gio duoc nang cao). Cong thuc tinh toan khac -> None."""
+    v = cell.value
+    if v is None or not str(v).startswith("="):
+        return v
+    m = re.fullmatch(r"='?([^'!]+)'?!\$?([A-Z]+)\$?(\d+)", str(v).strip())
+    if m and sau < 3 and m.group(1) in wb.sheetnames:
+        return gia_tri_hien_thi(wb, wb[m.group(1)][f"{m.group(2)}{m.group(3)}"], sau + 1)
+    return None
+
+
+def _vung_gop(ws):
+    """{o dau vung gop 1 dong: [chi so cot]}; '_bi_gop': cac o bi che trong vung gop (bo qua khi do)."""
+    kq, bi = {}, set()
+    for g in ws.merged_cells.ranges:
+        if g.min_row == g.max_row:
+            kq[g.start_cell.coordinate] = list(range(g.min_col, g.max_col + 1))
+        for rr in range(g.min_row, g.max_row + 1):
+            for cc in range(g.min_col, g.max_col + 1):
+                if (rr, cc) != (g.min_row, g.min_col):
+                    bi.add(ws.cell(rr, cc).coordinate)
+    kq["_bi_gop"] = bi
+    return kq
+
+
+def uoc_chieu_cao(wb, ws, r, rong=None, gop=None):
+    """(chieu cao can pt, so dong chu) cua dong r — CUC DAI moi o co chu trong dong. So ky tu moi dong = do rong cot
+    (o gop: cong do rong cac cot); chu tieng Viet co dau xuong dong som -> so ky tu x 1,2; cao = dong x co x 1,3 + 6."""
     import math
-    from copy import copy
-    dong = 1
-    co = 12
-    for col in cot:
-        c = sh[f"{col}{r}"]
-        if c.value in (None, "") or str(c.value).startswith("="):
+    rong = rong or do_rong_cot(ws)
+    gop = gop if gop is not None else _vung_gop(ws)
+    can, dong_max = 0.0, 1
+    for c in ws[r]:
+        if c.coordinate in gop["_bi_gop"]:
             continue
-        al = copy(c.alignment)
-        al.wrap_text = True
-        c.alignment = al
-        co = max(co, float(c.font.sz or 12)) if c.font else co
-        rong = sh.column_dimensions[col].width or 10
-        ky_tu_dong = max(1.0, rong * 1.1 * 12 / co)      # ~ so ky tu vua mot dong cua cot
-        dong = max(dong, sum(math.ceil(max(1, len(p)) / ky_tu_dong) for p in str(c.value).split("\n")))
-    h = round(dong * co * 1.3 + 3, 1)
-    if (sh.row_dimensions[r].height or 0) < h:
-        sh.row_dimensions[r].height = h
+        v = gia_tri_hien_thi(wb, c)
+        if v in (None, "") or isinstance(v, (int, float)):
+            continue
+        w = sum(rong.get(i, rong["_mac_dinh"]) for i in gop.get(c.coordinate, [c.column]))
+        co = float(c.font.sz or 12) if c.font else 12.0
+        dong = sum(max(1, math.ceil(len(p) * 1.2 / max(1.0, w))) for p in str(v).split("\n"))
+        h = dong * co * 1.3 + 6
+        if h > can:
+            can, dong_max = h, dong
+    return can, dong_max
+
+
+def canh_chu(c):
+    from copy import copy
+    al = copy(c.alignment)
+    al.wrap_text = True
+    al.vertical = "top"
+    c.alignment = al
+
+
+def chinh_chieu_cao(wb, ct):
+    """Goi SAU KHI da ghi het du lieu (ke hoach, hoac so thuc te o buoc tu danh gia). Chi dong viec dang hien cua ca
+    'Ke Hoach' lan 'KPI'. Vuot 409 pt -> dat 409 va tra canh bao KH19 (khong cat im lang). Tra ve danh sach canh bao."""
+    cb = []
+    kh, kp = wb["Ke Hoach"], wb["KPI"]
+    rk_, rp_ = do_rong_cot(kh), do_rong_cot(kp)
+    gk, gp = _vung_gop(kh), _vung_gop(kp)
+    for n, (d, c) in ct["truc"].items():
+        for r in range(d, c + 1):
+            if kh[f"B{r}"].value in (None, "") or kh.row_dimensions[r].hidden:
+                continue
+            for sh, rr, rong, gop in ((kh, r, rk_, gk), (kp, ct["kpi_dong"][r], rp_, gp)):
+                can, dong = uoc_chieu_cao(wb, sh, rr, rong, gop)
+                if can > CAO_TOI_DA:
+                    cb.append(f"KH19 {sh.title}!dòng {rr} (Trục {n}): cần ~{dong} dòng chữ ({can:.0f} pt) > "
+                              f"{CAO_TOI_DA} pt — Excel không hiện hết; rút gọn nội dung hoặc nới rộng cột")
+                    can = CAO_TOI_DA
+                sh.row_dimensions[rr].height = round(max(can, 15.0), 1)
+    return cb
 
 
 def thuc_te_vi_du(nhom):
@@ -276,7 +354,9 @@ def thuc_te_vi_du(nhom):
 def ghi_ke_hoach(nhom, kh, ra, quy=None, nam=None):
     """Dien ke hoach vao BAN SAO mau. kh: {"ca_nhan":{ho_ten,ngay_sinh,chuc_vu_dang,chuc_vu_chinh_quyen,
     chuc_vu_doan_the,don_vi}, "dau_viec":[{truc,noi_dung,cap_trinh,muc_do,san_pham,so_luong,thoi_han,he_so,
-    minh_chung,ghi_chu}], "phuong_an":..., "trang_thai_he_so":...}  (he_so da tinh bang kpi_calc).
+    minh_chung,ghi_chu, nguoi_chi_dao?, nguoi_phoi_hop?, don_vi_tham_muu?}], "phuong_an":..., "trang_thai_he_so":...}
+    (he_so da tinh bang kpi_calc). Sheet KPI cot C–F: nguoi_chi_dao (mac dinh cap_trinh), nguoi_phoi_hop (khong mac
+    dinh — trong thi KH17), don_vi_tham_muu (mac dinh ca_nhan.don_vi), san_pham = cong thuc ='Ke Hoach'!E<dong>.
     Tra ve danh sach thong bao."""
     goc = tep_mau(nhom)
     if os.path.abspath(ra) == os.path.abspath(goc) or os.path.abspath(os.path.dirname(ra)) == thu_muc_mau():
@@ -346,6 +426,21 @@ def ghi_ke_hoach(nhom, kh, ra, quy=None, nam=None):
             else:
                 ghi_chu.append(f"Minh chứng: {mc}")
         ws[f"J{r}"].value = "; ".join(x for x in ghi_chu if x) or None
+        # Sheet KPI cot C–F "Nhiem vu de ra ke hoach" (lenh sua 25/9/2026, L2). Khong tu bia nguoi phoi hop:
+        # khong truyen thi de trong — validate_plan KH17 canh bao.
+        rk = ct["kpi_dong"][r]
+        kc_ = ct.get("kpi_cot", {})
+        for k, v in (("chi_dao", dv.get("nguoi_chi_dao") or dv.get("cap_trinh")),
+                     ("phoi_hop", dv.get("nguoi_phoi_hop")),
+                     ("tham_muu", dv.get("don_vi_tham_muu") or kh.get("ca_nhan", {}).get("don_vi")),
+                     ("san_pham", f"='Ke Hoach'!E{r}")):
+            if k in kc_:
+                kp[f"{kc_[k]}{rk}"].value = v or None
+        for col in ["B"] + [kc_[k] for k in ("chi_dao", "phoi_hop", "tham_muu", "san_pham") if k in kc_]:
+            canh_chu(kp[f"{col}{rk}"])
+        for col in "BCDEGJ":
+            if ws[f"{col}{r}"].value not in (None, ""):
+                canh_chu(ws[f"{col}{r}"])
     if pa and pa != "muc-do":
         tb.append(f"Hệ số theo phương án '{pa}': {kh.get('trang_thai_he_so', '')}")
     # 4b. Trinh bay (Known-Issues-Bieu-Mau #10, #11 — phien 24–25/9 phai va tay): xuong dong + chieu cao dong
@@ -357,11 +452,9 @@ def ghi_ke_hoach(nhom, kh, ra, quy=None, nam=None):
                 ws.row_dimensions[r].hidden = True
                 kp.row_dimensions[ct["kpi_dong"][r]].hidden = True
                 an += 1
-            else:
-                xuong_dong(ws, r, "BCDEGJ")
-                xuong_dong(kp, ct["kpi_dong"][r], "B")
     if an:
         tb.append(f"Đã ẩn {an} dòng trống trong khối đầu việc (không xóa — bỏ ẩn được khi cần thêm việc)")
+    ws.column_dimensions["J"].width = max(ws.column_dimensions["J"].width or 0, RONG_GHI_CHU_KH)
     # 5. The thuc: phong chu Times New Roman cho moi o co noi dung (mau goc con o Calibri)
     from copy import copy
     doi = 0
@@ -375,6 +468,7 @@ def ghi_ke_hoach(nhom, kh, ra, quy=None, nam=None):
                     doi += 1
     if doi:
         tb.append(f"Đã chuẩn hóa {doi} ô sang {PHONG} (mẫu gốc còn phông khác — Known-Issues-Bieu-Mau.md)")
+    tb += chinh_chieu_cao(wb, ct)
     wb.save(ra)
     return tb
 
@@ -412,19 +506,23 @@ def main(argv):
     kh = dict(kh, dau_viec=qd["dau_viec"], phuong_an=a.phuong_an, trang_thai_he_so=qd["trang_thai"])
     try:
         tb = ghi_ke_hoach(a.nhom, kh, a.ra, a.quy, a.nam)
+    except PermissionError:
+        print(f"✗ Không ghi được {a.ra}: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.")
+        return 2
     except (ValueError, FileNotFoundError) as e:
         print(f"✗ {e}")
         return 2
     print(f"✓ Đã xuất {a.ra}")
     print(f"  Phương án hệ số: {a.phuong_an} — {qd['trang_thai']}")
     for x in tb:
-        print(f"  · {x}")
+        print(f"  {'[CANH_BAO] ' if x.startswith('KH') else '· '}{x}")
     for d in qd["dau_viec"]:
         for c in d.get("canh_bao") or []:
             print(f"  ⚠ {d.get('noi_dung', '')[:50]}: {c}")
     kq = vp.kiem(a.ra, a.nhom, a.phuong_an)
     for x in sorted(kq["loi"], key=lambda x: (x["muc"] != "LOI", x["ma"])):
         print(f"  [{x['muc']:8s}] {x['ma']} {x['vi_tri']}: {x['noi_dung']}  [{x['can_cu']}]")
+    print("  · Số thực tế, KPI, điểm: chưa có — sinh sau khi chạy kpi_danh_gia.py danh-gia")
     return 1 if any(x["muc"] == "LOI" for x in kq["loi"]) else 0
 
 

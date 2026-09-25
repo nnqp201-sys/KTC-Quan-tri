@@ -35,12 +35,12 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.10.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.7.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.0.skill"), "ktc-the-thuc", "the-thuc"),
-    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.1.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
-    (os.path.join(DU_AN, "28-KTC-KPI", "Tu-Danh-Gia", "ktc-kpi-tu-danh-gia-v1.0.skill"), "ktc-kpi-tu-danh-gia",
+    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.2.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
+    (os.path.join(DU_AN, "28-KTC-KPI", "Tu-Danh-Gia", "ktc-kpi-tu-danh-gia-v1.1.skill"), "ktc-kpi-tu-danh-gia",
      "kpi-tu-danh-gia"),
 ]
 
-PLUGIN_VERSION = "1.2.0"  # 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.2.1"  # 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -140,12 +140,12 @@ def build_manifest():
         "metadata": {
             "builtFrom": f"{len(GOI_NGUON)} gói .skill hiện hành (GOI_NGUON trong 29-Cong-Cu/dong_goi_plugin.py, "
                          "danh sách ở parallelWith); lần dựng đầu 18/9/2026 từ 5 gói (DL-20260918-001)",
-            "claudeStrictValidation": "ĐẠT 25/9/2026 (bản 1.2.0) — `claude plugin validate ./31-Plugin --strict` "
+            "claudeStrictValidation": "ĐẠT 25/9/2026 (bản 1.2.0, 1.2.1) — `claude plugin validate ./31-Plugin --strict` "
                                        "bằng claude.exe đi kèm extension VS Code; chạy lại mỗi lần dựng.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
                               "ktc-soan-thao-vb-v1.10.skill", "ktc-theo-doi-cv-v1.7.skill",
-                              "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.1.skill",
-                              "ktc-kpi-tu-danh-gia-v1.0.skill"],
+                              "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.2.skill",
+                              "ktc-kpi-tu-danh-gia-v1.1.skill"],
         },
     }
     if len(manifest["description"]) > GIOI_HAN_MO_TA_PLUGIN:

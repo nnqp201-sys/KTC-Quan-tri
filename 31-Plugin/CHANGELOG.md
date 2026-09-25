@@ -1,5 +1,14 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.2.1 — 2026-09-25
+
+- Lệnh sửa trình bày sheet KPI (`DL-20260925-002`, Known-Issues #13, #14), **không đổi số nào** (ca thử ghim tổng điểm 6 nhóm):
+  - Hết che chữ: chiều cao dòng tính cả nội dung mà công thức `='Ke Hoach'!B…` trỏ tới, độ rộng cột đọc theo nhóm
+    (openpyxl gộp C–F, S–Y), lấy cực đại mọi cột, cả hai sheet; đo lại sau khi ghi số thực tế; > 409 pt → KH19.
+  - Cột C–F sheet KPI có người chỉ đạo, người phối hợp (không tự điền — KH17), đơn vị tham mưu, sản phẩm (công thức;
+    KH18). Tệp ra đang mở trong Excel → thông báo rõ.
+- skill `kpi-lap-ke-hoach` **1.2**, `kpi-tu-danh-gia` **1.1**.
+
 ## 1.2.0 — 2026-09-25
 
 - **Skill mới `kpi-tu-danh-gia`** (v1.0, `DL-20260925-001`): tự đánh giá, đề xuất xếp loại cá nhân theo quý (QĐ 1923).

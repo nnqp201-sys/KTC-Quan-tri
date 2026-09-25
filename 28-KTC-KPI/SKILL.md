@@ -5,8 +5,11 @@ description: "Lập kế hoạch công tác quý và danh mục sản phẩm/ch�
 
 # KTC-KPI — Lập kế hoạch và KPI cá nhân theo quý
 
-## Phiên bản: v1.1 — 25/9/2026
+## Phiên bản: v1.2 — 25/9/2026
 
+> v1.2 (25/9/2026, lệnh sửa trình bày): sheet KPI cột C–F có người chỉ đạo, phối hợp, đơn vị tham mưu,
+> sản phẩm (công thức); chiều cao dòng đo cả nội dung công thức trỏ tới, độ rộng cột theo nhóm; KH17–KH19
+> (Known-Issues #13, #14). Không đổi số nào.
 > v1.1 (25/9/2026): xóa số thực tế ví dụ của mẫu ở sheet KPI, tự xuống dòng, ẩn dòng trống (Known-Issues #10–#12);
 > KH16; nhận đúng nhóm Trưởng/Phó đơn vị từ tiêu đề mẫu. Tự đánh giá: skill `kpi-tu-danh-gia` (giai đoạn 2).
 > v1.0: giai đoạn 1 theo lệnh sửa 24/9/2026 — chỉ lập kế hoạch.
@@ -67,15 +70,17 @@ Cần có (thiếu thì hỏi, **không tự điền**):
    Với `A`/`AxB`: sản phẩm phải **khớp chính xác** một dòng trong `references/data/he-so-san-pham-TB1052.csv` (theo STT
    hoặc tên). Liệt kê ứng viên cho người dùng chọn: `python scripts/kpi_calc.py tim --tu-khoa "<từ khóa>"`; ghi STT đã
    chọn vào trường `ma_danh_muc` của đầu việc. Không khớp → **dừng hỏi**, không tự gán.
-4. **Ghi kế hoạch ra JSON** (cấu trúc tại docstring `scripts/kpi_mau.py` hàm `ghi_ke_hoach`), rồi chạy một lệnh:
+4. **Ghi kế hoạch ra JSON** (cấu trúc tại docstring `scripts/kpi_mau.py` hàm `ghi_ke_hoach`; mỗi đầu việc có thêm 3 trường
+   **tùy chọn** cho sheet KPI: `nguoi_chi_dao` — mặc định = `cap_trinh`; `nguoi_phoi_hop` — **không mặc định**, hỏi người
+   dùng, trống thì KH17; `don_vi_tham_muu` — mặc định = đơn vị công tác), rồi chạy một lệnh:
    ```
    python scripts/kpi_mau.py --nhom <nhóm> --json ke_hoach.json --phuong-an <pa> --quy IV --nam 2026 --ra <tệp ra.xlsx>
    ```
    Lệnh tính hệ số, số lượng quy đổi (`scripts/kpi_calc.py`), điền vào **bản sao** mẫu trong `assets/`, rồi kiểm
    (`scripts/validate_plan.py`). Mã thoát 2 = thiếu dữ liệu → hỏi người dùng; 1 = đã xuất nhưng còn LỖI; 0 = sạch.
    **Không tự nhẩm hệ số, điểm, tỷ lệ.**
-5. **Sửa LỖI, trình bày CẢNH BÁO.** LỖI (KH01–KH06, KH08, KH10, KH12, KH15) phải sửa cùng người dùng rồi chạy lại.
-   CẢNH BÁO (KH07, KH09, KH11, KH13, KH14, KH16) trình bày để người dùng quyết.
+5. **Sửa LỖI, trình bày CẢNH BÁO.** LỖI (KH01–KH06, KH08, KH10, KH12, KH15, KH18) phải sửa cùng người dùng rồi chạy lại.
+   CẢNH BÁO (KH07, KH09, KH11, KH13, KH14, KH16, KH17, KH19) trình bày để người dùng quyết.
 6. **Thể thức:** có `kiem_the_thuc.py` (skill `the-thuc`/plugin) thì đo tệp ra; còn Mức 1–2 thì sửa.
 7. **Điều chỉnh kế hoạch đã duyệt** [QĐ 1923, Đ13.3–13.4]: không sửa đè tệp đã duyệt. Lập bản mới, ghi rõ chỉ tiêu cũ →
    mới, lý do, căn cứ (nhiệm vụ đột xuất, đổi vị trí…), phạm vi, và "không hồi tố bất lợi". Trình Trưởng đơn vị duyệt lại.
