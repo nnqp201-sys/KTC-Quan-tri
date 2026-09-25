@@ -138,8 +138,8 @@ def build_manifest():
         "keywords": ["ktc", "vietnam", "quan-tri", "ke-hoach", "bao-cao", "soan-thao-van-ban"],
         "defaultEnabled": False,
         "metadata": {
-            "builtFrom": "5 gói .skill đã xác minh 18/9/2026 (DL-20260918-001; soan-thao-vb nâng lên v1.2 "
-                         "cùng ngày để vá 3 tham chiếu gãy)",
+            "builtFrom": f"{len(GOI_NGUON)} gói .skill hiện hành (GOI_NGUON trong 29-Cong-Cu/dong_goi_plugin.py, "
+                         "danh sách ở parallelWith); lần dựng đầu 18/9/2026 từ 5 gói (DL-20260918-001)",
             "claudeStrictValidation": "ĐẠT 25/9/2026 (bản 1.2.0) — `claude plugin validate ./31-Plugin --strict` "
                                        "bằng claude.exe đi kèm extension VS Code; chạy lại mỗi lần dựng.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",

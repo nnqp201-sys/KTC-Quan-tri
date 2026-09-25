@@ -23,7 +23,7 @@
 
 - `scripts/doi_soat_so_lieu.py` đọc mục **ánh xạ bổ sung máy đọc** của bảng mã đơn vị: Ban Truyền thông → `P-THHC`
   (quyết định 14/9/2026, cấp hai), biến thể tên tệp có bằng chứng (`P.THHCQT`, `P QLKHCN`, `SP`, `Ban TT`). Kỳ 2026-09 hết
-  đơn vị `?…`; DS06 chỉ còn K-KTNL chưa nộp Phụ lục Excel. Vẫn chỉ khớp chính xác.
+  đơn vị chưa nhận diện (công cụ ghi dạng `?<tên>`); DS06 chỉ còn K-KTNL chưa nộp Phụ lục Excel. Vẫn chỉ khớp chính xác.
 - skill quan-tri **1.11**: bản sao `12-Bang-Ma-Don-Vi.md` đồng bộ bản gốc.
 
 ## 1.1.0 — 2026-09-24
@@ -140,7 +140,8 @@
 
 ## 0.2.1 — 2026-09-18
 
-- Thư mục dữ liệu nền đổi tên `11-Du-lieu-Cong-Viec` → `11-Du-lieu-Cong-Viec` (yêu cầu người dùng). Cập nhật
+- Thư mục dữ liệu nền đổi tên `KTC-Du-lieu-Cong-Viec` → `Du-lieu-Cong-Viec` (yêu cầu người dùng; commit `b8297f7`; nay là
+  `11-Du-lieu-Cong-Viec` từ 0.4.0 — dòng này từng bị lần thay tên hàng loạt ở 0.4.0 ghi đè cả hai vế, sửa lại 25/9/2026). Cập nhật
   mọi tham chiếu còn hiệu lực (CLAUDE.md, README, 20-Chuan-Chung, references, agent); đóng gói lại
   `ktc-quan-tri.skill` từ nguồn rời. Hồ sơ lịch sử trong `30-Ket-Qua/` giữ nguyên tên cũ.
 - `Claude outputs/` (tệp ứng dụng Claude xuất ra) đưa vào `.gitignore` — không lên backup GitHub.
