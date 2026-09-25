@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SessionStart doctor cho plugin ktc-quan-tri — in banner phien ban 5 skill dang bat.
+"""SessionStart doctor cho plugin ktc-quan-tri — in phien ban plugin va phien ban tu khai cua moi skill dang bat.
 
 Doc truc tiep tu SKILL.md tu khai (khong suy dien tu ten thu muc/ten file), dung
 bai hoc da ghi 18/9/2026: "Khong suy dien phien ban tu ten tep."
@@ -33,7 +33,13 @@ def doc_phien_ban(skill_md: str) -> str:
 
 def main():
     print("=" * 60)
-    print("KTC-Quan-tri Plugin — SessionStart doctor")
+    pb_plugin = "?"
+    try:
+        import json
+        pb_plugin = json.load(io.open(os.path.join(GOC, ".claude-plugin", "plugin.json"), encoding="utf-8"))["version"]
+    except Exception:
+        pass
+    print(f"KTC-Quan-tri Plugin {pb_plugin} — SessionStart doctor")
     print("=" * 60)
     if not os.path.isdir(SKILLS_DIR):
         print("  ✗ Không thấy thư mục skills/ — plugin có thể chưa build đúng.")
