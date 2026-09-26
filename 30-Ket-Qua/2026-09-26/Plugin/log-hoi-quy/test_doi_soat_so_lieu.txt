@@ -1,0 +1,26 @@
+  OK nhận kỳ từ tên tệp (tháng/quý, có dấu)
+  OK DS03: nhiệm vụ KH tháng 8 chưa có kết quả tháng 8 bị bắt
+  OK DS03: kết quả không có trong KH bị bắt
+  OK DS03: KH tháng 9 KHÔNG bị so với KQ tháng 8 (khác kỳ)
+  OK DS02: dòng tổng hợp khớp nguồn không bị báo
+  OK DS02: một nguồn, lệch số liệu → báo lệch
+  OK DS02: dòng “…” → không truy vết được
+  OK DS02: dòng không có nguồn → Nguyên tắc bất biến 3
+  OK DS02: nội dung chung ở nhiều đơn vị — có nguồn cùng số thì khớp; không có thì đòi Task_ID, không kết luận lệch
+  OK DS04: Task_ID trùng giữa K-KTCN và K-SUPH bị bắt
+  OK DS05: KPI 120 / SL 1,2 → đánh dấu lệch thang, không in %
+  OK DS05: Trục đúng thang tính % bình thường
+  OK DS06: mã đoàn thể DT-CDCS chưa có trong bảng mã bị báo
+  OK DS06: đơn vị chỉ nộp .docx bị báo thiếu Excel
+  OK DS06: .docx thuyết minh nộp kèm .xlsx KHÔNG bị báo
+  OK Bố cục mới: đơn vị lấy từ phần đầu tệp, không lấy tên thư mục (K-KHCB)
+  OK Bố cục mới: 'KHCB.xlsx' là báo cáo, KHÔNG xếp là kế hoạch (KQ)
+  OK Bố cục mới: kỳ lấy từ tiêu đề trong tệp (('thang', 9, 2026))
+  OK Bố cục mới: 'ĐƠN VỊ: PHÒNG TCCB&CTHSSV' + tiêu đề dính chữ -> P-TCCB, KH tháng 10
+  OK Bố cục mới: đơn vị chưa có mã tách riêng, không gộp theo thư mục (?TỔ HỌC LIỆU)
+  OK Gần giống 'Phòng Tổ chức' KHÔNG được ghép (chỉ khớp chính xác) (?PHÒNG TỔ CHỨC CÁN BỘ)
+  OK Kỳ quý số La Mã (('quy', 4, 2026))
+  OK Ánh xạ bổ sung: 'BAN TRUYỀN THÔNG' → P-THHC (chốt 14/9/2026) (P-THHC)
+  OK NGƯỢC: 'BAN TRUYỀN HÌNH' gần giống KHÔNG được ghép (?BAN TRUYỀN HÌNH)
+
+ĐẠT: 0 ca sai

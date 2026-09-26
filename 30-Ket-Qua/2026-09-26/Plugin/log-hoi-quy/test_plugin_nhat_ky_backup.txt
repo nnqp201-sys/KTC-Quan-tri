@@ -1,0 +1,37 @@
+== ktc_nhat_ky.py ==
+  OK ghi được thao tác trong dự án
+  OK không ghi nội dung tệp vào log
+  OK ca ngược: ngoài dự án không tạo log
+  OK ca ngược: stdin hỏng vẫn thoát 0
+  OK nạp context liệt kê tệp đã sửa
+  OK #riêng/#rieng: không ghi nội dung lời nhắn
+  OK #riêng: vẫn ghi mốc thời gian, không tín hiệu học
+  OK 1.3.0: lời nhắn thường KHÔNG ghi nội dung (mặc định)
+  OK 1.3.0: lời nhắn thường vẫn ghi độ dài (thông tin mô tả)
+  OK 1.3.0: có tín hiệu học vẫn KHÔNG ghi nội dung, chỉ ghi nhãn tín hiệu
+  OK ca ngược: mở đầu #học -> ghi nội dung (bỏ nhãn #học)
+  OK chọn ghi (biến môi trường) + có tín hiệu học -> ghi nội dung
+  OK ca ngược: chọn ghi nhưng KHÔNG có tín hiệu học -> không ghi nội dung
+  OK nội dung được ghi đã che số điện thoại, số định danh, email
+  OK số hiệu văn bản "Quyết định số …" không bị tính là tín hiệu quyết định
+  OK lời dưới 5 từ ("ok chốt nhé") không gắn tín hiệu
+  OK 1.3.0: nhật ký cũ hơn 30 ngày bị xóa khi mở phiên
+  OK ca ngược: nhật ký hôm nay không bị xóa
+== ktc_backup_github.py ==
+  OK chưa có remote: bỏ qua, thoát 0
+  OK có remote: commit + push thành công
+  OK --neu-can trong 24h: không chạy lại
+  OK ca ngược: tệp tên giống bí mật -> dừng, không push
+  OK không xóa tệp của người dùng khi dừng
+  OK 1.3.0: tệp tên thường chứa số định danh -> dừng, không push
+  OK git() truyền stdin=DEVNULL (bắt buộc cho pythonw/Task Scheduler)
+  OK ca ngược: không tạo thư mục 04-Nhat-Ky-Tu-Dong trong kho khác
+  OK kho khác: nhật ký backup rơi vào .git/ (không bị theo dõi)
+  OK ca ngược: không chỉ định --du-an, kho thiếu 90-Nhat-Ky-Van-Hanh -> im lặng, không đẩy
+  OK chỉ định rõ --du-an: backup được kho không phải KTC-Quan-tri
+  OK ca ngược: chỉ định thư mục không phải kho git -> báo lỗi, thoát 1
+  OK chạy dưới pythonw.exe: push thành công (mã 0, 2 commit)
+  OK ca ngược: kiểm thử không ghi gì vào nhật ký THẬT của dự án
+  OK nhật ký tự động nằm trong .gitignore
+  OK không còn tệp nhật ký tự động nào được git theo dõi
+KET LUAN: SACH

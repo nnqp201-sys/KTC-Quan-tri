@@ -1,0 +1,14 @@
+  OK ghi 4 lời người dùng, bỏ lệnh nội bộ /compact và <command…> (được 4)
+  OK “từ nay… lưu ý” → tín hiệu quy-uoc
+  OK “sai… sửa lại” → tín hiệu sua-sai
+  OK lời thường không gắn tín hiệu (thử ngược)
+  OK 1.3.0: mặc định không ghi nội dung, kể cả khi có tín hiệu học (R2-02)
+  OK #học + lời dài: ghi nội dung, cắt ≤ 600 ký tự
+  OK ngoài dự án KTC: không ghi
+  OK nạp mục hiệu lực và chờ duyệt vào context
+  OK không nạp mục bị bác/đã thay (thử ngược)
+  OK đếm đúng 2 tín hiệu học chưa xử lý và nhắc gọi ktc-tu-hoc
+  OK sau lượt học (mốc mới) không còn nhắc
+  OK không ghi nhầm lời thử vào nhật ký THẬT
+
+ĐẠT: 0 ca sai

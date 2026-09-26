@@ -1,0 +1,22 @@
+# Tổng hợp bộ hồi quy — kết luận theo MÃ THOÁT (0 = đạt). Cột OK đếm dòng 'OK' in ra;
+# bộ in theo định dạng khác (OK=0) xem nhật ký riêng. Dòng ✗ trong ca thử ngược là lỗi cài cố ý.
+test_c11_ban_goc_trong_zip ma=0 OK=0
+test_c12_c13_kho_va_o_dia ma=0 OK=6
+test_c14_cong_cu_agent ma=0 OK=5
+test_c5_soi_trong_goi ma=0 OK=0
+test_doi_soat_so_lieu ma=0 OK=24
+test_he_ngoai ma=0 OK=6
+test_kiem_minh_chung ma=0 OK=15
+test_kiem_the_thuc ma=0 OK=17
+test_kiem_tra_he_thong ma=0 OK=0
+test_kiem_vien_dan ma=0 OK=24
+test_kpi_calc ma=0 OK=47
+test_kpi_danh_gia ma=0 OK=59
+test_kpi_trinh_bay ma=0 OK=27
+test_plugin_130 ma=0 OK=94
+test_plugin_nhat_ky_backup ma=0 OK=34
+test_task_id_bc736 ma=0 OK=7
+test_tra_hieu_luc ma=0 OK=17
+test_trackchanges ma=0 OK=0
+test_tu_hoc ma=0 OK=12
+test_validate_plan ma=0 OK=27

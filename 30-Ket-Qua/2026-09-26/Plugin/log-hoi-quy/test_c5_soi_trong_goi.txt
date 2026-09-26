@@ -1,0 +1,48 @@
+==========================================================================
+THỬ NGƯỢC C5 — có soi vào bên trong gói .skill không?
+==========================================================================
+
+Ca 1 — BẢN RỜI KHỚP nhưng TRONG GÓI là bản cũ (đúng điểm mù đã mắc):
+
+────────────────────────────────────────────────────────────────────────────
+C5. 5 tệp dùng chung — khớp bản gốc 20-Chuan-Chung (soi cả bản rời lẫn bản TRONG GÓI)
+────────────────────────────────────────────────────────────────────────────
+  ✗ 30-Skill-Phan-Loai-6-Truc.md                   he-thu: TRONG GÓI lệch (58b ≠ gốc 463b)
+  ✓ phải báo LỖI, không được báo sạch                          → 1 lỗi · 0 cảnh báo
+
+Ca 2 — trong gói khớp, bản rời lệch (còn kịp sửa trước khi đóng gói):
+
+────────────────────────────────────────────────────────────────────────────
+C5. 5 tệp dùng chung — khớp bản gốc 20-Chuan-Chung (soi cả bản rời lẫn bản TRONG GÓI)
+────────────────────────────────────────────────────────────────────────────
+  ⚠ 30-Skill-Phan-Loai-6-Truc.md                   he-thu: rời LỆCH
+  ✓ cảnh báo chứ KHÔNG phải lỗi                                → 0 lỗi · 1 cảnh báo
+
+Ca 3 — cả hai đều khớp bản gốc:
+
+────────────────────────────────────────────────────────────────────────────
+C5. 5 tệp dùng chung — khớp bản gốc 20-Chuan-Chung (soi cả bản rời lẫn bản TRONG GÓI)
+────────────────────────────────────────────────────────────────────────────
+  ✓ 30-Skill-Phan-Loai-6-Truc.md                   khớp ở mọi bản rời và 1 gói
+  ✓ phải sạch hoàn toàn                                        → 0 lỗi · 0 cảnh báo
+
+Ca 4 — gói không mang tệp dùng chung này (hợp lệ, không được bịa lỗi):
+
+────────────────────────────────────────────────────────────────────────────
+C5. 5 tệp dùng chung — khớp bản gốc 20-Chuan-Chung (soi cả bản rời lẫn bản TRONG GÓI)
+────────────────────────────────────────────────────────────────────────────
+  ✓ 30-Skill-Phan-Loai-6-Truc.md                   khớp ở mọi bản rời (không gói nào mang tệp này)
+  ✓ không lỗi, không cảnh báo                                  → 0 lỗi · 0 cảnh báo
+
+Ca 5 — bản rời không tồn tại VÀ trong gói là bản cũ:
+
+────────────────────────────────────────────────────────────────────────────
+C5. 5 tệp dùng chung — khớp bản gốc 20-Chuan-Chung (soi cả bản rời lẫn bản TRONG GÓI)
+────────────────────────────────────────────────────────────────────────────
+  ✗ 30-Skill-Phan-Loai-6-Truc.md                   he-thu: TRONG GÓI lệch (58b ≠ gốc 463b)
+  ⚠ 30-Skill-Phan-Loai-6-Truc.md                   he-thu: rời không có
+  ✓ vẫn phải báo LỖI ở bản trong gói                           → 1 lỗi · 1 cảnh báo
+
+==========================================================================
+ĐẠT — C5 soi đúng cả bản rời lẫn bản nằm trong gói
+==========================================================================

@@ -1,0 +1,151 @@
+============================================================================
+KIỂM TRA TOÀN HỆ hệ thống KTC — Tầng 1 (tĩnh, tất định)
+Dự án: D:\.CLAUDE code\KTC-Quan-tri
+============================================================================
+
+────────────────────────────────────────────────────────────────────────────
+C1. Gói .skill — cấu trúc và frontmatter
+────────────────────────────────────────────────────────────────────────────
+  ✓ ktc-bao-cao        46 tệp, hợp lệ
+  ✓ ktc-ke-hoach       23 tệp, hợp lệ
+  ✓ ktc-soan-thao-vb   95 tệp, hợp lệ
+  ✓ ktc-theo-doi-cv    12 tệp, hợp lệ
+  ✓ ktc-quan-tri       20 tệp, hợp lệ
+  ✓ ktc-the-thuc       4 tệp, hợp lệ
+  ✓ ktc-kpi-lap-ke-hoach 19 tệp, hợp lệ
+  ✓ ktc-kpi-tu-danh-gia 16 tệp, hợp lệ
+
+────────────────────────────────────────────────────────────────────────────
+C2. Liên kết trong gói — đường dẫn references/ có tồn tại không
+────────────────────────────────────────────────────────────────────────────
+  ✓ ktc-bao-cao        không có liên kết gãy
+  ✓ ktc-ke-hoach       không có liên kết gãy
+  ✓ ktc-soan-thao-vb   không có liên kết gãy
+  ✓ ktc-theo-doi-cv    không có liên kết gãy
+  ✓ ktc-quan-tri       không có liên kết gãy
+  ✓ ktc-the-thuc       không có liên kết gãy
+  ✓ ktc-kpi-lap-ke-hoach không có liên kết gãy
+  ✓ ktc-kpi-tu-danh-gia không có liên kết gãy
+
+────────────────────────────────────────────────────────────────────────────
+C3. Đường dẫn nêu trong tài liệu cấp dự án có thật không
+────────────────────────────────────────────────────────────────────────────
+  ✓ CLAUDE.md                                mọi đường dẫn đều tồn tại
+  ✓ 00-README.md                             mọi đường dẫn đều tồn tại
+  ✓ 22-KTC-Dieu-Phoi/SKILL.md                mọi đường dẫn đều tồn tại
+  ✓ 20-Chuan-Chung/00-README.md              mọi đường dẫn đều tồn tại
+  ✓ 90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md      mọi đường dẫn đều tồn tại
+
+────────────────────────────────────────────────────────────────────────────
+C4. Nguồn rời ↔ nội dung trong gói (gói CÓ THỂ mới hơn nguồn rời)
+────────────────────────────────────────────────────────────────────────────
+  ✓ ktc-bao-cao        đồng bộ hoàn toàn
+  ✓ ktc-ke-hoach       đồng bộ hoàn toàn
+  ✓ ktc-soan-thao-vb   đồng bộ hoàn toàn
+  ✓ ktc-theo-doi-cv    đồng bộ hoàn toàn
+  ✓ ktc-quan-tri       đồng bộ hoàn toàn
+  ✓ ktc-the-thuc       đồng bộ hoàn toàn
+  ✓ ktc-kpi-lap-ke-hoach đồng bộ hoàn toàn
+  ✓ ktc-kpi-tu-danh-gia đồng bộ hoàn toàn
+
+────────────────────────────────────────────────────────────────────────────
+C5. 5 tệp dùng chung — khớp bản gốc 20-Chuan-Chung (soi cả bản rời lẫn bản TRONG GÓI)
+────────────────────────────────────────────────────────────────────────────
+  ✓ 00-Nguyen-Tac-Chung.md                         khớp ở mọi bản rời và 5 gói
+  ✓ 00-Metadata-Schema.md                          khớp ở mọi bản rời và 3 gói
+  ✓ 04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md       khớp ở mọi bản rời và 3 gói
+  ✓ 30-Skill-Phan-Loai-6-Truc.md                   khớp ở mọi bản rời và 5 gói
+  ✓ Skill-Vien-Dan-Van-Ban-Hop-Nhat.md             khớp ở mọi bản rời và 3 gói
+  ✓ 17-Quy-Tac-Vien-Dan.md                         khớp ở mọi bản rời và 5 gói
+  ✓ 18-Chuan-The-Thuc-San-Pham.md                  khớp ở mọi bản rời và 6 gói
+  ✓ 19-Quy-Tac-KPI.md                              khớp ở mọi bản rời và 3 gói
+  ✓ 10-Tu-Dien-Truong-Du-Lieu.md                   khớp ở mọi bản rời và 1 gói
+  ✓ 11-Quy-Tac-Task-ID.md                          khớp ở mọi bản rời và 1 gói
+  ✓ 12-Vong-Doi-Trang-Thai.md                      khớp ở mọi bản rời và 1 gói
+  ✓ 13-Bang-Ma-Don-Vi.md                           khớp ở mọi bản rời và 1 gói
+
+────────────────────────────────────────────────────────────────────────────
+C6. Tên hệ đã bỏ còn sót (định tuyến gãy)
+────────────────────────────────────────────────────────────────────────────
+  ✓ không hệ nào còn trỏ tới tên đã bỏ
+
+────────────────────────────────────────────────────────────────────────────
+C7. Cụm từ hạ cấp chốt chặn bắt buộc
+────────────────────────────────────────────────────────────────────────────
+  ✓ không có chỗ nào hạ cấp 897 thành tùy chọn
+
+────────────────────────────────────────────────────────────────────────────
+C8. Sao chép chéo hệ — tệp trùng tên khác nội dung
+────────────────────────────────────────────────────────────────────────────
+  · 13 tệp chỉ trùng tên (giống < 50%) — không phải bản sao, bỏ qua
+  · biến thể đã biết: 00b-Trigger-Vien-Dan-Van-Ban-Hop-Nhat.md — ktc-bao-cao thêm 1 đoạn lưu ý riêng (trùng số 33); bản 897/KTC-Database còn tên hệ cũ KTC-DIS — hệ ngoài, sửa tại hệ đó
+  ✓ không có tệp trùng tên khác nội dung giữa các hệ
+
+────────────────────────────────────────────────────────────────────────────
+C9. Công cụ Python — import và tự kiểm
+────────────────────────────────────────────────────────────────────────────
+  ✓ ktc_trackchanges     import được, có kiem_tra()
+  ✓ vanphong             import được, có cap_truong()
+  ✓ noi_ham              import được, có trich()
+  ✓ dong_goi_skill       import được, có kiem_frontmatter()
+  ✓ kiem_vien_dan        import được, có kiem_tra()
+  ✓ kiem_the_thuc        import được, có kiem_tep()
+  ✓ tra_hieu_luc         import được, có quet()
+  ✓ doi_soat_so_lieu     import được, có doi_soat()
+  ✓ kiem_minh_chung      import được, có kiem()
+  ✓ vanphong: 3/3 ca thử đạt
+
+────────────────────────────────────────────────────────────────────────────
+C11. Không tệp nào chỉ tồn tại bên trong gói .skill
+────────────────────────────────────────────────────────────────────────────
+  ✓ ktc-bao-cao        mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-ke-hoach       mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-soan-thao-vb   mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-theo-doi-cv    mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-quan-tri       mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-the-thuc       mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-kpi-lap-ke-hoach mọi tệp đều có bản nguồn ngoài zip
+  ✓ ktc-kpi-tu-danh-gia mọi tệp đều có bản nguồn ngoài zip
+
+────────────────────────────────────────────────────────────────────────────
+C12. Đầu vào trùng KTC-Database (Nguyên tắc 4.4 — trỏ thay vì chép)
+────────────────────────────────────────────────────────────────────────────
+  ✓ 74 tệp đầu vào · 2 trùng thuộc ngoại lệ đã duyệt
+
+────────────────────────────────────────────────────────────────────────────
+C13. Không ghi cứng đường dẫn ổ đĩa (Nguyên tắc 4.2)
+────────────────────────────────────────────────────────────────────────────
+  ✓ 0 chỗ ghi cứng ổ đĩa
+
+────────────────────────────────────────────────────────────────────────────
+C14. Script agent viện dẫn đều được đóng vào plugin
+────────────────────────────────────────────────────────────────────────────
+  ✓ 0 script agent viện dẫn nhưng chưa đóng gói (2 agent nội bộ được miễn)
+
+────────────────────────────────────────────────────────────────────────────
+C10. Bộ hồi quy có chạy được không
+────────────────────────────────────────────────────────────────────────────
+  ✓ test_c11_ban_goc_trong_zip.py      chạy xong (mã 0)
+  ✓ test_c12_c13_kho_va_o_dia.py       chạy xong (mã 0)
+  ✓ test_c14_cong_cu_agent.py          chạy xong (mã 0)
+  ✓ test_c5_soi_trong_goi.py           chạy xong (mã 0)
+  ✓ test_doi_soat_so_lieu.py           chạy xong (mã 0)
+  ✓ test_he_ngoai.py                   chạy xong (mã 0)
+  ✓ test_kiem_minh_chung.py            chạy xong (mã 0)
+  ✓ test_kiem_the_thuc.py              chạy xong (mã 0)
+  ✓ test_kiem_tra_he_thong.py          chạy xong (mã 0)
+  ✓ test_kiem_vien_dan.py              chạy xong (mã 0)
+  ✓ test_kpi_calc.py                   chạy xong (mã 0)
+  ✓ test_kpi_danh_gia.py               chạy xong (mã 0)
+  ✓ test_kpi_trinh_bay.py              chạy xong (mã 0)
+  ✓ test_plugin_130.py                 chạy xong (mã 0)
+  ✓ test_plugin_nhat_ky_backup.py      chạy xong (mã 0)
+  ✓ test_task_id_bc736.py              chạy xong (mã 0)
+  ✓ test_tra_hieu_luc.py               chạy xong (mã 0)
+  ✓ test_trackchanges.py               chạy xong (mã 0)
+  ✓ test_tu_hoc.py                     chạy xong (mã 0)
+  ✓ test_validate_plan.py              chạy xong (mã 0)
+
+============================================================================
+KẾT LUẬN: 0 LỖI · 0 cảnh báo
+============================================================================

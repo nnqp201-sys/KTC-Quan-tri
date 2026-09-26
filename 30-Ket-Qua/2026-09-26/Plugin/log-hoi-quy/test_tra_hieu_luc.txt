@@ -1,0 +1,19 @@
+  OK trích đủ 9 văn bản, kể cả viết tắt “NĐ 30/2020/NĐ-CP” và 3 số hiệu Đảng (được 9)
+  OK QĐ 988 → THAY_THE (chuỗi đã biết)
+  OK Luật Xây dựng → KHO_GHI_HET_HIEU_LUC từ metadata
+  OK NĐ 85/2025 khớp đúng tệp, KHÔNG khớp “275-2025 sửa đổi NĐ 85”
+  OK TT 36/2026/TT-BXD không khớp nhầm QĐ 36/2026/QĐ-TTg
+  OK NĐ 30/2020 (tên tệp dạng 30_2020_ND-CP) có trong kho
+  OK TB 916 không có trong kho → CẦN XÁC MINH
+  OK “Luật Giáo dục” chỉ khớp đúng luật, không khớp “Phổ biến, giáo dục pháp luật” hay “Giáo dục nghề nghiệp” (được ['12. Luat Giao duc -72-VBHN-VPQH.docx'])
+  OK “Luật Giáo dục nghề nghiệp” khớp đúng tệp
+  OK trích được “Kết luận số 198-KL/TW” (loại Kết luận + số hiệu Đảng)
+  OK trích được “Quyết định số 366-QĐ/TW”
+  OK trích được “Hướng dẫn số 05-HD/VPTW”
+  OK KL 198-KL/TW khớp đúng tệp Kết luận, KHÔNG khớp “Kế hoạch 198-KH-CĐKT” (được ['Ket luan 198-KL-TW Bo Chinh tri.docx'])
+  OK “giai đoạn 2021-2025” không bị nhận nhầm là số hiệu
+  OK không đọc được kho → mọi văn bản là CẦN XÁC MINH, không kết luận
+  OK tệp .md vẫn được kiểm viện dẫn (được 3 gợi ý, phải > 0)
+  OK ca ngược: không còn giới hạn kiểm viện dẫn theo đuôi .docx
+
+ĐẠT: 0 ca sai

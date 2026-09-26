@@ -1,0 +1,59 @@
+Goc: 3 doan, 3 hang bang
+
+--- Nhat ky phien lam viec ---
+# Nhật ký sửa đổi — `D:\.CLAUDE code\KTC-Quan-tri\92-Kinh-Nghiem\02-Regression\Cases\..\Fixtures\goc.docx`
+
+**Tổng số thay đổi:** 5
+
+Bỏ: **1** · Bỏ hàng bảng: **1** · Bổ sung: **1** · Điều chỉnh: **2**
+
+| # | Loại | Vị trí | Nội dung cũ | Nội dung mới |
+|---|---|---|---|---|
+| 1 | Điều chỉnh | đoạn 2 | 2.000 hoc sinh | 2.150 hoc sinh |
+| 2 | Điều chỉnh | đoạn 2 | 80% | 86% |
+| 3 | Bỏ | đoạn 3 | da tham muu cho Lanh dao Truong  | — |
+| 4 | Bổ sung | sau đoạn 1 | — | 3.1. Cong tac tu van huong nghiep duoc trien khai som. |
+| 5 | Bỏ hàng bảng | bảng 1, hàng 2 | O10 \| O11 \| O12 | — |
+
+--- Validator ---
+DAT: True
+  thong ke: {'theo_author': {'Nội dung bổ sung (Claude)': 1, 'Nội dung điều chỉnh (Claude)': 4, 'Nội dung bỏ (Claude)': 5}, 'tong_danh_dau': 10}
+
+--- nhat_ky_sua_doi() doc lai tu file ---
+# Nhật ký sửa đổi — `D:\.CLAUDE code\KTC-Quan-tri\92-Kinh-Nghiem\02-Regression\Cases\..\Fixtures\sua.docx`
+
+**Tổng số thay đổi:** 5
+
+Bỏ: **1** · Bỏ hàng bảng: **1** · Bổ sung: **1** · Điều chỉnh: **2**
+
+| # | Loại | Vị trí | Nội dung cũ | Nội dung mới |
+|---|---|---|---|---|
+| 1 | Bổ sung | đoạn 2 | — | 3.1. Cong tac tu van huong nghiep duoc trien khai som. |
+| 2 | Điều chỉnh | đoạn 3 | 2.000 hoc sinh | 2.150 hoc sinh |
+| 3 | Điều chỉnh | đoạn 3 | 80% | 86% |
+| 4 | Bỏ | đoạn 4 | da tham muu cho Lanh dao Truong  | — |
+| 5 | Bỏ hàng bảng | bảng 1, hàng 2 | O10 \| O11 \| O12 | — |
+
+--- doi_chieu_goc ---
+{'doan_goc': 3, 'doan_sau_khi_tu_choi_het': 3, 'doan_khop': 3, 'ty_le_khoi_phuc': 1.0, 'danh_dau': 10, 'nghi_soan_lai_tu_dau': False}
+
+Reload OK — file hop le voi python-docx
+Chan ghi de goc: OK - Không được ghi đè file gốc — đổi tên đầu ra.
+
+--- Ca thu: soan lai tu dau ---
+{'doan_goc': 3, 'doan_sau_khi_tu_choi_het': 3, 'doan_khop': 1, 'ty_le_khoi_phuc': 0.333, 'danh_dau': 0, 'nghi_soan_lai_tu_dau': True}
+
+============================================================
+CA THU NGUOC — xoa nguyen doan / khoang doan / bang
+============================================================
+  ✓ xoa_tu_den bo dung 6 doan (Phan I -> truoc Phan II)  -> 6
+  ✓ xoa_doan bo dung 1 doan                              -> 1
+  ✓ xoa_bang bo dung 3 hang                              -> 3
+  ✓ validator OOXML dat (dat <w:del> dung cho trong pPr) []
+  ✓ sau khi chap nhan chi con 2 doan                     -> ['Phan II', 'Giu lai dong nay']
+  ✓ khong con doan RONG sot lai                          
+  ✓ sau khi tu choi tro ve du 9 doan                     -> 9
+  ✓ xoa_doan: moc sai bao ValueError                     
+  ✓ xoa_tu_den: moc sai bao ValueError                   
+
+DAT — 3 phuong thuc xoa hoat dong dung va bao loi dung cho

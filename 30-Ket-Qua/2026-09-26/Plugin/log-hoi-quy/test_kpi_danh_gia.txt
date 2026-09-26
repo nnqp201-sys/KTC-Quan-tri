@@ -1,0 +1,72 @@
+== 1. cau_truc_danh_gia — ca 6 mau ==
+  OK truong-pho-don-vi: 3 nhóm A = 30 (≥5/nhóm), 6 Trục = 70, khối II (4 điều kiện), III
+  OK truong-pho-don-vi: nhận đúng nhóm từ tiêu đề mẫu (không cần --nhom)
+  OK bo-mon: 3 nhóm A = 30 (≥5/nhóm), 6 Trục = 70, khối II (4 điều kiện), III
+  OK bo-mon: nhận đúng nhóm từ tiêu đề mẫu (không cần --nhom)
+  OK nha-giao: 3 nhóm A = 30 (≥5/nhóm), 6 Trục = 70, khối II (4 điều kiện), III
+  OK nha-giao: nhận đúng nhóm từ tiêu đề mẫu (không cần --nhom)
+  OK giao-vu: 3 nhóm A = 30 (≥5/nhóm), 6 Trục = 70, khối II (1 điều kiện), III
+  OK giao-vu: nhận đúng nhóm từ tiêu đề mẫu (không cần --nhom)
+  OK hanh-chinh: 3 nhóm A = 30 (≥5/nhóm), 6 Trục = 70, khối II (1 điều kiện), III
+  OK hanh-chinh: nhận đúng nhóm từ tiêu đề mẫu (không cần --nhom)
+  OK ho-tro: 3 nhóm A = 30 (≥5/nhóm), 6 Trục = 70, khối II (1 điều kiện), III
+  OK ho-tro: nhận đúng nhóm từ tiêu đề mẫu (không cần --nhom)
+  OK hai mẫu lệch dòng và lệch cột kết quả điều kiện — dò động, không ghi cứng
+== 2. Ca ngược cấu trúc: thiếu khối -> dừng, không đoán ==
+  OK xóa Trục (3) -> LoiCauTruc: Sheet 'Danh Gia': không dò được mục B (6 Trục có điểm tối đa) — dừng, báo người 
+  OK xóa III -> LoiCauTruc: Sheet 'Danh Gia': không dò được dòng III. Tự đề xuất mức xếp loại — dừng, báo ng
+== 3. Giai đoạn 1: xóa số thực tế ví dụ của mẫu (Known-Issues #12), ẩn dòng trống, KH16 ==
+  OK kế hoạch xuất ra không còn L9=4/N9=100 của mẫu
+  OK ca ngược: mẫu gốc vẫn có L9=4 (không sửa assets)
+  OK dòng trống trong khối Trục bị ẩn, dòng có việc không ẩn
+  OK ô nội dung đầu việc bật xuống dòng
+  OK KH16 không báo kế hoạch sạch
+  OK ca ngược: KH16 bắt số ví dụ trong mẫu gốc
+== 4. Trọn quy trình trên cả 6 nhóm (sinh bảng hỏi -> dừng khi trống -> điền -> đánh giá -> xuất) ==
+  OK truong-pho-don-vi: đủ điểm = 100,00, mức theo điểm HTXS, ghi mục A/III, KPI R chặn trần
+  OK truong-pho-don-vi: Excel tính lại tổng = 100, khớp Python 100
+  OK bo-mon: đủ điểm = 100,00, mức theo điểm HTXS, ghi mục A/III, KPI R chặn trần
+  OK nha-giao: đủ điểm = 100,00, mức theo điểm HTXS, ghi mục A/III, KPI R chặn trần
+  OK giao-vu: đủ điểm = 100,00, mức theo điểm HTXS, ghi mục A/III, KPI R chặn trần
+  OK hanh-chinh: đủ điểm = 100,00, mức theo điểm HTXS, ghi mục A/III, KPI R chặn trần
+  OK hanh-chinh: Excel tính lại tổng = 100, khớp Python 100
+  OK ho-tro: đủ điểm = 100,00, mức theo điểm HTXS, ghi mục A/III, KPI R chặn trần
+== 5. Ngưỡng điểm (không làm tròn có lợi) ==
+  OK 89.99 -> Hoàn thành tốt nhiệm vụ
+  OK 90 -> Hoàn thành xuất sắc nhiệm vụ
+  OK 69.99 -> Hoàn thành nhiệm vụ
+  OK 70 -> Hoàn thành tốt nhiệm vụ
+  OK 49.99 -> Không hoàn thành nhiệm vụ
+  OK 50 -> Hoàn thành nhiệm vụ
+  OK hiển thị cắt 89,996 -> 89,99 (không làm tròn lên 90)
+== 6. Vượt 100% bị chặn trần theo chỉ tiêu; công thức gốc của mẫu thì không ==
+  OK Trục 1: công thức mẫu 169,23% -> chặn 87,17% (việc vượt không bù cho việc thiếu)
+  OK cảnh báo nêu Đ11.6 và chênh lệch với mẫu
+  OK Excel tính lại % Trục 1 = 87.1795 = Python 87.1795 (công thức chặn trần)
+== 7. Điều kiện thiếu nguồn -> 'Thiếu dữ liệu', không tự cho Đạt ==
+  OK bảng kiểm 'Chưa có kết quả' -> điều kiện HTT: Thiếu dữ liệu
+  OK ca ngược: đủ dữ liệu, đều đạt -> điều kiện HTT: Đạt
+  OK giờ giảng 60%: không đạt điều kiện HTXS/HTT, đạt điều kiện HT (≥50%)
+  OK bảng kiểm Không đạt -> trường hợp Đ19.1d
+  OK không có việc vượt mức -> điều kiện HTXS (≥30% vượt mức) Không đạt
+  OK ca ngược: mọi việc vượt mức, đủ dữ liệu -> điều kiện HTXS Đạt
+== 8. Dừng, không tự chấm ==
+  OK đào tạo tập trung ≥ 2 tháng (Đ21.6a) -> dừng, không chấm
+  OK ≥1/2 quý (Đ21.4) -> dừng, không chấm
+  OK điểm tiêu chí vượt tối đa -> dừng
+  OK mức nhóm chọn không khớp tổng điểm nhóm -> dừng [Đ10.5]
+  OK ca ngược: mức nhóm chọn khớp -> chấm bình thường
+  OK nhiệm vụ trọng tâm: % không khớp mức Đ18 -> dừng
+== 9. Cảnh báo cấu trúc mẫu (nhóm A < 5 điểm) là lỗi mẫu, không phải lỗi người dùng ==
+  OK nhóm 3 = 4 điểm < 5 -> cảnh báo cấu trúc mẫu
+  OK ca ngược: mẫu đúng -> không cảnh báo
+== 10. Người đứng đầu không cao hơn tập thể; tự đề xuất cao hơn mức theo điểm ==
+  OK đứng đầu: HTXS theo điểm > tập thể HTT -> cảnh báo Đ14.4
+  OK ca ngược: cấp phó -> không áp
+  OK tự đề xuất HTXS khi điểm 87,00 -> cảnh báo
+== 11. Bảo mật: tệp tự đánh giá không vào git (QĐ 1923 Đ23.2) ==
+  OK 30-Ket-Qua/<ngày>/KPI-ca-nhan/TDG-*.xlsx nằm trong .gitignore
+  OK git add -A --dry-run không đưa tệp tự đánh giá vào git
+  OK ca ngược: thư mục kết quả khác vẫn được git theo dõi
+
+ĐẠT: 0 ca sai

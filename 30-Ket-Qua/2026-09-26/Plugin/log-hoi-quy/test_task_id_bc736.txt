@@ -1,0 +1,8 @@
+  OK có hồ sơ thật để thử (26 tệp)
+  OK tệp chưa có cột Task_ID: không mất gì so với v3.2 []
+  OK lấy lại đúng 2 nhiệm vụ 'Tổng hợp/Tổng kết…' v3.2 bỏ sót (thực tế: 2)
+  OK đọc được Task_ID ở cột cuối (dò theo tên tiêu đề)
+  OK ca ngược: mã trùng -> cảnh báo
+  OK ca ngược: mã sai định dạng -> cảnh báo
+  OK tệp gốc không có cột -> không cảnh báo Task_ID
+KET LUAN: SACH

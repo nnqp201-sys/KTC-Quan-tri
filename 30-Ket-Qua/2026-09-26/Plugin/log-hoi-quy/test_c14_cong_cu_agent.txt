@@ -1,0 +1,32 @@
+
+────────────────────────────────────────────────────────────────────────────
+C14. Script agent viện dẫn đều được đóng vào plugin
+────────────────────────────────────────────────────────────────────────────
+  ✗ 1 script agent viện dẫn nhưng chưa đóng gói (2 agent nội bộ được miễn)
+  OK  bat_thieu_script                                     agent gọi kiem_the_thuc.py chưa đóng gói -> phải báo 1 lỗi
+
+────────────────────────────────────────────────────────────────────────────
+C14. Script agent viện dẫn đều được đóng vào plugin
+────────────────────────────────────────────────────────────────────────────
+  ✓ 0 script agent viện dẫn nhưng chưa đóng gói (2 agent nội bộ được miễn)
+  OK  khong_bao_nham                                       script đã trong CONG_CU_CHO_AGENT -> không báo lỗi
+
+────────────────────────────────────────────────────────────────────────────
+C14. Script agent viện dẫn đều được đóng vào plugin
+────────────────────────────────────────────────────────────────────────────
+  ✓ 0 script agent viện dẫn nhưng chưa đóng gói (2 agent nội bộ được miễn)
+  OK  chap_nhan_trong_31_plugin                            script nằm sẵn trong 31-Plugin/ -> tính là đã đóng gói
+
+────────────────────────────────────────────────────────────────────────────
+C14. Script agent viện dẫn đều được đóng vào plugin
+────────────────────────────────────────────────────────────────────────────
+  ✓ 0 script agent viện dẫn nhưng chưa đóng gói (2 agent nội bộ được miễn)
+  OK  mien_agent_noi_bo                                    ktc-tu-cai-tien chỉ chạy trong dự án -> được miễn
+
+────────────────────────────────────────────────────────────────────────────
+C14. Script agent viện dẫn đều được đóng vào plugin
+────────────────────────────────────────────────────────────────────────────
+  ✓ 0 script agent viện dẫn nhưng chưa đóng gói (2 agent nội bộ được miễn)
+  OK  du_an_that_sach                                      dự án thật: 0 script agent thiếu
+
+ĐẠT: 0 ca sai
