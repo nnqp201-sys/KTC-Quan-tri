@@ -29,6 +29,8 @@ MAU_BI_MAT = re.compile(
     re.IGNORECASE,
 )
 GIO_TOI_THIEU = 24
+# CCCD: 12 chu so, bat dau bang 0 (ma tinh), khong dinh lien chu so khac
+MAU_SO_DINH_DANH = re.compile(r"(?<![0-9A-Za-z])0\d{11}(?![0-9A-Za-z])")
 
 
 def git(du_an, *args, timeout=120):
@@ -107,6 +109,25 @@ def backup(du_an):
     if nghi_van:
         git(du_an, "reset", "-q")     # chi bo stage, khong dung toi noi dung tep
         msg = f"DỪNG: {len(nghi_van)} tệp tên giống bí mật, cần người kiểm: {nghi_van[:5]}"
+        ghi_nhat_ky(du_an, "dung-an-toan", msg)
+        print(msg)
+        return 1
+
+    # 1b) quet NOI DUNG tep van ban da stage: so dinh danh ca nhan (CCCD 12 so bat dau 0) -> dung
+    #     (tiep thu tham dinh lan 1 C-01: quet ten tep khong du)
+    co_so_dinh_danh = []
+    for t in tep:
+        if os.path.splitext(t)[1].lower() not in (".md", ".txt", ".json", ".jsonl", ".csv", ".py", ".yaml", ".yml"):
+            continue
+        try:
+            with io.open(os.path.join(du_an, t), encoding="utf-8", errors="ignore") as h:
+                if MAU_SO_DINH_DANH.search(h.read()):
+                    co_so_dinh_danh.append(t)
+        except OSError:
+            pass
+    if co_so_dinh_danh:
+        git(du_an, "reset", "-q")
+        msg = f"DỪNG: {len(co_so_dinh_danh)} tệp có chuỗi giống số định danh cá nhân, cần người kiểm: {co_so_dinh_danh[:5]}"
         ghi_nhat_ky(du_an, "dung-an-toan", msg)
         print(msg)
         return 1

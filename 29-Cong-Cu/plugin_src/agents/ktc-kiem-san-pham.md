@@ -1,6 +1,6 @@
 ---
 name: ktc-kiem-san-pham
-description: Kiểm tra cuối, độc lập, mọi sản phẩm .docx/.xlsx của hệ KTC-Quan-tri (Trường Cao đẳng Kon Tum) trước khi giao người dùng hoặc gửi đi. Kiểm thể thức theo skill the-thuc, số liệu và Task_ID khớp Master Task Register và dữ liệu nguồn, tên tệp và nơi lưu, truy vết báo cáo về nhiệm vụ, kế hoạch, đơn vị, minh chứng. Dùng khi vừa dựng xong kế hoạch, báo cáo, phụ lục, bảng KPI, công văn, hoặc khi người dùng hỏi "kiểm tra lại trước khi gửi". Người soạn không tự chấm bài: agent này chạy như bên thứ hai. Không sửa tệp; không thay rà soát 897 trước trình ký.
+description: Kiểm tra cuối, độc lập, mọi sản phẩm .docx/.xlsx của hệ KTC-Quan-tri (Trường Cao đẳng Kon Tum) trước khi giao người dùng hoặc gửi đi. Kiểm thể thức theo skill the-thuc, số liệu và Task_ID khớp Master Task Register và dữ liệu nguồn, tên tệp và nơi lưu, truy vết báo cáo về nhiệm vụ, kế hoạch, đơn vị, minh chứng. Dùng khi vừa dựng xong kế hoạch, báo cáo, phụ lục, bảng KPI, công văn, hoặc khi người dùng hỏi "kiểm tra lại trước khi gửi". Người soạn không tự chấm bài — agent này chạy như bên thứ hai. Không sửa tệp; không thay rà soát 897 trước trình ký.
 model: inherit
 disallowedTools: Edit, NotebookEdit
 maxTurns: 30

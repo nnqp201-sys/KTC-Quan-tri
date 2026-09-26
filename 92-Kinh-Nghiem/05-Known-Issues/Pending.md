@@ -497,3 +497,24 @@ phiên Claude Chat đó, dữ liệu này chỉ người dùng có. Không có c
 **Cần làm:** lấy transcript hoặc ghi lại theo mẫu `90-Nhat-Ky-Van-Hanh/02-Mau-Process-Memory.md`, chú ý ghi
 rõ điểm skill **không chạy được trên Chat** do thiếu `python-docx`/`openpyxl` (đo lề/cỡ chữ thật, thao tác
 Track Changes mức OOXML) — đây là thông tin có giá trị cao nhất cần lấy từ đợt chạy đó.
+
+---
+
+## KI-019 — Thẩm định độc lập lần 1 plugin 1.2.1: 4 lỗi Mức 1 chờ bản 1.3.0; hồ sơ gửi đi có thể chứa dữ liệu cá nhân
+
+**Status:** Mở · **Phát hiện:** 26/9/2026 · **Priority:** Cao
+
+Báo cáo tiếp thu, giải trình (phát triển từ mẫu `04-06-01/BAO CAO TIEP THU GIAI TRINH KE HOACH THANG 8 OK.docx`):
+`30-Ket-Qua/2026-09-26/Soan-Thao/BC_Tiep-thu-giai-trinh-tham-dinh-lan-1-KTC-Quan-tri_20260926_v1.docx`; kèm dự thảo
+SKILL.md quan-tri 1.13 và TB v4 (Track Changes). **Chưa sửa nguồn** — chờ duyệt mẫu SKILL.md.
+
+- Mức 1 đã kiểm chứng trên mã: `ktc_backup_github.py --neu-can` trong SessionStart của plugin; `ktc_nhat_ky.py` ghi 600 ký tự
+  lời người dùng; 0/8 SKILL.md có ranh giới dữ liệu không tin cậy; không có PreToolUse guard (README tự ghi nhận).
+- **Hồ sơ vòng 1 — ĐÃ GIẢI TRÌNH 26/9/2026** (người dùng): thư mục dự án là thư mục làm việc cá nhân; sản phẩm chia sẻ chỉ
+  gồm plugin .zip, .skill phát hành và văn bản kèm theo (ChatGPT xác nhận zip 1.2.1 sạch) → không ảnh hưởng. Từ vòng 2 chỉ gửi
+  zip plugin phát hành + văn bản. Đã đưa vào BC tiếp thu v2 (nội dung 6.3) và BC quá trình xây dựng v2 (Mục 6), cả hai Track Changes.
+- Chờ Lãnh đạo quyết: phương án nhật ký (metadata mặc định, trích đoạn ≤200 ký tự khi có tín hiệu học, xóa sau 30 ngày),
+  đơn vị thí điểm, giữ sao lưu theo lịch.
+- Gemini (2 báo cáo) sai đối tượng — không dùng; vòng 2 gửi lại đúng hồ sơ.
+
+**Cập nhật 26/9/2026 (thẩm định lần 2):** 4 lỗi Mức 1 đã khắc phục **trên sản phẩm** — plugin 1.3.0 (`DL-20260926-001`, bằng chứng `30-Ket-Qua/2026-09-26/Plugin/BANG-CHUNG-KIEM-THU-1.3.0.md`). Phương án nhật ký đổi sang chọn ghi (`#học`/`KTC_NHAT_KY_NOI_DUNG=1`). Báo cáo tiếp thu lần 2, TB v5, HD v4, BC quá trình v3 (Track Changes) tại `30-Ket-Qua/2026-09-26/Soan-Thao/`. **Còn mở:** nghiệm thu Chat/Cowork (5–6 ca/nền tảng, trước 05/10); rà soát 897 hai vòng TB v5 + HD v4 (trước 03/10); kiểm kê + chuyển bản cũ sang "Not available" ở cấp tổ chức (Phòng QLKHCN&HTPT); thẩm định vòng 3 trên zip 1.3.0; mã `THANG_DIEM_CHUA_PHAN_DINH` vào đầu ra `kpi_calc.py`; HD thiếu số trang (TT11); commit git.

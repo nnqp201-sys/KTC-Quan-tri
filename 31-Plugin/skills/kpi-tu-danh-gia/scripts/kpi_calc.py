@@ -131,6 +131,10 @@ def he_so(phuong_an, muc_do=None, san_pham=None, nhap=None):
         hs = float(nhap)
     else:
         A, dong = tra_A(san_pham)
+        # Tham dinh lan 2 (Gemini, diem 4): canh bao CHU DONG — he so A lay tu thang cua du thao TB 1052
+        # (chua ban hanh, hai thang chua phan dinh KI-014); ma thong nhat voi khuon dau ra chung (20-Chuan-Chung/20).
+        cb.append("THANG_DIEM_CHUA_PHAN_DINH: hệ số A theo dự thảo Danh mục kèm TB 1052 (chưa ban hành, KI-014) — "
+                  "kết quả chỉ để tham khảo, giữ điểm gốc trên dữ liệu vận hành, không dùng làm số chính thức")
         if dong.get("lech_nhom"):
             cb.append(f"Hệ số A dòng {dong['stt']} lệch Nhóm: {dong['lech_nhom']} (KI-014)")
         if A > 10:

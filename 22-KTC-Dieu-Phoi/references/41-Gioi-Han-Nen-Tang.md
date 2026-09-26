@@ -5,9 +5,9 @@ trung thực ghi nhận giới hạn, thay vì kết luận sai.
 
 | Nền tảng | Công cụ có | Làm được gì | Giới hạn phải ghi nhận |
 |---|---|---|---|
-| **Claude Chat** | Chỉ Skills | Đọc nội dung text được đính kèm, phân loại, đối chiếu quy tắc, dự thảo | **Không đọc được byte nhị phân** của `.docx`/`.xlsx`. Mọi kiểm tra định lượng (lề, cỡ chữ) phải ghi `FORMAT_BINARY_UNVERIFIED` |
-| **Cowork** | Skills + Subagents + Connectors + công cụ tệp cục bộ (khi được cấp quyền) | Đọc tệp thật qua connector, chạy nhiều subagent song song | Phụ thuộc quyền connector được cấp trong phiên. Không có quyền thì lùi về mức như Chat |
-| **Claude Code** | Skills + Subagents + Hooks + script | **Nền tảng duy nhất** chạy được script đọc thuộc tính thật (`python-docx`, `openpyxl`), có hook tự kiểm tra môi trường và chặn thao tác phá hoại | Không có giao diện đồ họa; thao tác trên tệp đã đồng bộ về máy |
+| **Claude (trò chuyện)** | Skills; môi trường thực thi mã khi tính năng được bật; connector người dùng cho phép. **Không có hook, agent** | Đọc tệp đính kèm, phân loại, đối chiếu quy tắc, dự thảo; chạy script đi kèm skill trong môi trường thực thi mã nếu có | Không truy cập ổ đĩa máy người dùng. Chưa kiểm chứng đầy đủ việc chạy `kiem_the_thuc.py`, Track Changes trong môi trường này — không chạy được thì ghi `FORMAT_BINARY_UNVERIFIED`; không có thao tác chặn ghi của plugin |
+| **Cowork** | Skills + agent + hook + connector + tệp trong thư mục người dùng chọn | Đọc tệp thật, chạy agent kiểm tra, hook chặn ghi kho chuẩn (plugin 1.3.0) | Phụ thuộc quyền thư mục, connector được cấp; hook cần Python trên máy. Chưa có biên bản nghiệm thu |
+| **Claude Code** | Skills + agent + hook + script cục bộ | Nền tảng **đã kiểm thử đầy đủ**: đo thuộc tính thật (`python-docx`, `openpyxl`), Track Changes, hook chặn ghi | Không có giao diện đồ họa; thao tác trên tệp đã đồng bộ về máy |
 
 ## Quy tắc bắt buộc
 
@@ -19,7 +19,8 @@ trung thực ghi nhận giới hạn, thay vì kết luận sai.
 
 ## Ba tính chất của kho dữ liệu cần nhớ
 
-- Kho `KTC-Database` **chỉ đọc**. Trên Claude Code có hook chặn ghi. Phát hiện gì cần sửa kho thì viết đề
+- Kho `KTC-Database` **chỉ đọc**. Trên Cowork và Claude Code, plugin từ bản 1.3.0 có hook chặn ghi
+  (`ktc_guard.py`); trên Claude (trò chuyện) không có hook nên chỉ dựa vào quy tắc bất biến 5. Phát hiện gì cần sửa kho thì viết đề
   xuất ra thư mục output của dự án, không tự sửa.
 - Công cụ kết nối Google Drive **chỉ đọc và tạo tệp mới** — không sửa, đổi tên, di chuyển, xóa tệp đã có.
   Cần dọn thì liệt kê để người dùng tự làm; **không báo "đã hoàn tất"** khi tệp gốc thực tế vẫn còn.

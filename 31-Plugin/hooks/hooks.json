@@ -10,11 +10,18 @@
           {
             "type": "command",
             "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/ktc_nhat_ky.py\" nap"
-          },
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell",
+        "hooks": [
           {
             "type": "command",
-            "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/ktc_backup_github.py\" --neu-can",
-            "timeout": 120
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/scripts/ktc_guard.py\"",
+            "timeout": 30
           }
         ]
       }

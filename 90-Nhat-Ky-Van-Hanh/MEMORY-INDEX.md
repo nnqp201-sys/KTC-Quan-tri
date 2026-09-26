@@ -1,6 +1,6 @@
 # MEMORY-INDEX — KTC-Quan-tri
 
-**Cập nhật:** 20/9/2026
+**Cập nhật:** 26/9/2026
 **Phạm vi:** sự thật vận hành hiện hành; không lưu lịch sử chi tiết tại đây.
 **Mô hình kế thừa:** `KTC-Ra-Soat-897-v2-Cai-tien/09-Quan-Tri-He/10-Bo-Nho-He/MEMORY-INDEX.md`
 
@@ -76,9 +76,10 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
   13/9/2026). Hai gói chạy được trên nền Chat, không chỉ trên Code. **Chưa có nhật ký kết quả đợt chạy đó
   trong dự án** — muốn kết luận về chất lượng đầu ra trên Chat thì phải hỏi lại người dùng hoặc lấy
   transcript, không suy đoán.
-- **Khác biệt nền tảng phải tính đến khi thiết kế skill**: Chat/Cowork **không chạy được `python-docx`**,
-  nên mọi bước đo lề/cỡ chữ thật và mọi thao tác Track Changes ở mức OOXML **chỉ thực hiện được trên Claude
-  Code**. Skill chạy trên Chat phải nêu rõ giới hạn này thay vì mô tả định dạng bằng mắt.
+- **Khác biệt nền tảng phải tính đến khi thiết kế skill** (sửa 26/9/2026 theo tài liệu Anthropic, `DL-20260926-001`):
+  plugin dùng được trên Chat, Cowork, Code; **hook và agent chỉ chạy trên Cowork, Code**. Skill trên Chat chạy trong
+  môi trường thực thi mã (khi bật) nhưng không truy cập ổ đĩa — việc chạy `kiem_the_thuc.py`/Track Changes ở đó
+  **chưa kiểm chứng**. Mô tả theo năng lực; không chạy được thì ghi `FORMAT_BINARY_UNVERIFIED`, không suy đoán.
 - **Mỗi đơn vị nộp HAI loại tệp**: `.docx` = Phụ lục IIa (báo cáo **tường thuật**, đã chia sẵn 6 Trục —
   đây là nguồn văn phong) và `.xlsx` = Phụ lục IIb/Ib (bảng nhiệm vụ, nguồn số liệu). Đọc thiếu `.docx` thì
   phải tự ghép văn từ cột mô tả công việc và văn sẽ rời rạc.
@@ -144,7 +145,8 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 | Viện dẫn văn bản | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` (Nguyên tắc 5) — **VBHC: Luật/Pháp lệnh không ghi số hiệu, kể cả khi có VBHN** (chốt người dùng 19/9/2026, khớp 897 `02-Noi-Dung` dòng 4); nghị định/thông tư có VBHN: gốc + "(hợp nhất tại …)"; tự kiểm `29-Cong-Cu/kiem_vien_dan.py` VD01–VD12 — `DL-20260919-002` |
 | Thể thức sản phẩm | Mọi .docx/.xlsx đạt `20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md` (Nguyên tắc 6): nguồn văn bản tốt `04-Good-Documents` → mẫu `03-Templates(1)` (mở bằng `kiem_the_thuc.py --tao`) → cấm `Document()` rỗng; đo `kiem_the_thuc.py` trước khi giao; hook tự đo trong Code. Skill `the-thuc` chồng lên `docx`/`xlsx` của Anthropic (không sửa được skill đó: đồng bộ + giấy phép độc quyền) — `DL-20260919-003` |
 | Agent của plugin | **7**: `ktc-tu-hoc` · `ktc-tu-cai-tien` · `ktc-xac-minh-minh-chung` · `ktc-kiem-ho-so-don-vi` · `ktc-tra-cuu-can-cu` · `ktc-kiem-san-pham` · `ktc-hieu-luc-vien-dan` — chỉ đọc, chỉ ghi báo cáo; không lặp reviewer 897. Quét hiệu lực: `29-Cong-Cu/tra_hieu_luc.py` (THAY_THE · KHO_GHI_HET_HIEU_LUC · CO_TRONG_KHO · KHONG_CO_TRONG_KHO). Nguồn agent: `29-Cong-Cu/plugin_src/agents/`. Cowork chạy agent: chưa kiểm chứng — `DL-20260919-004`. **20/9/2026**: `tra_hieu_luc.py` nhận thêm số hiệu **văn bản Đảng** dạng `198-KL/TW`, `366-QĐ/TW`, `05-HD/VPTW` và loại **Kết luận** — trước đó bỏ sót *im lặng* (trích ra 0 văn bản, không báo lỗi); ca thử ngược ở `92-Kinh-Nghiem/02-Regression/Cases/test_tra_hieu_luc.py` |
-| Tự học | Hook `UserPromptSubmit` ghi lời người dùng (≤600 ký tự) + tín hiệu `sua-sai`/`quy-uoc`/`quyet-dinh` vào `04-Nhat-Ky-Tu-Dong/`; agent `ktc-tu-hoc` rút tri thức vào `05-Tri-Thuc-Tu-Hoc/TRI-THUC.md` (nạp lại mỗi phiên, đầu phiên nhắc "⟳ N tín hiệu chưa xử lý"); mục `→ CP` chuyển `ktc-tu-cai-tien` — `DL-20260919-005` |
+| Tự học | Hook `UserPromptSubmit` từ plugin **1.3.0** mặc định chỉ ghi độ dài + nhãn tín hiệu `sua-sai`/`quy-uoc`/`quyet-dinh`; **nội dung chỉ khi chọn**: mở đầu `#học` hoặc biến `KTC_NHAT_KY_NOI_DUNG=1`; `#riêng` không ghi; tệp > 30 ngày tự xóa. Agent `ktc-tu-hoc` rút tri thức vào `05-Tri-Thuc-Tu-Hoc/TRI-THUC.md` — `DL-20260919-005`, `DL-20260926-001` |
+| Plugin 1.3.0 | **26/9/2026** (`DL-20260926-001`, `KI-019`): không còn backup GitHub trong plugin (Task Scheduler chạy từ `29-Cong-Cu/plugin_src/scripts/`); guard `ktc_guard.py` PreToolUse chặn ghi KTC-Database/03-Templates/04-Good-Documents; chuẩn chung `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md` chèn vào 8 skill + 7 agent khi dựng (6 trạng thái DAT…KHONG_DAT); quan-tri 1.13. Bằng chứng `30-Ket-Qua/2026-09-26/Plugin/BANG-CHUNG-KIEM-THU-1.3.0.md` |
 | Đối soát số liệu · minh chứng | Công cụ dùng chung `29-Cong-Cu/doi_soat_so_lieu.py` (DS01–DS06: truy từng dòng tổng hợp về nguồn, KH↔KQ **cùng kỳ**, Task_ID trùng, % KPI — lệch thang KI-014 thì không in %) và `kiem_minh_chung.py` (MC01–MC07, không gán "Đã xác minh"). Hai agent kiểm tra bắt buộc gọi công cụ, không cộng tay — `DL-20260919-006` |
 | Danh mục SP (TB 1052) | TB 1052/TB-CĐKT (15/9/2026) gửi danh mục 371 SP cho đơn vị rà soát **trước 20/9**, cam kết KPI **trước 21/9**, ký xong **trước 25/9**; **chưa ban hành**. Phụ lục = dự thảo lần 4 (bỏ cột Điểm, STT theo 38 lĩnh vực = 38 nội hàm). KI-014 còn nguyên (204/371). Bản gốc ở KTC-Database kho 02 — không chép về dự án — `DL-20260919-007` |
 | KPI cá nhân (QĐ 1923) | **25/9/2026**: hai skill — **`ktc-kpi-lap-ke-hoach` v1.2** (lập kế hoạch) và **`ktc-kpi-tu-danh-gia` v1.1** (`28-KTC-KPI/Tu-Danh-Gia/`: bảng hỏi Excel → điểm A30+B70 chặn trần 100% từng chỉ tiêu, ngưỡng + điều kiện Đ19, chỉ ĐỀ XUẤT; không tính trần HTXS — giai đoạn 3) — `DL-20260925-001`; trình bày sheet KPI (hết che chữ, đủ cột C–F) `DL-20260925-002`; plugin 1.2.1. Giai đoạn 1 từ 24/9: hệ `28-KTC-KPI/`. Quy tắc gốc duy nhất `20-Chuan-Chung/19-Quy-Tac-KPI.md` (bản sao: `30-KPI-Va-Xep-Loai.md` của quan-tri 1.10). Hệ số **không có mặc định** (4 phương án: mức độ — có văn bản QĐ 1923 PL II · A — dự thảo TB 1052 · A×B — chưa có văn bản · nhập tay). Kế hoạch/điểm cá nhân lưu `30-Ket-Qua/<ngày>/KPI-ca-nhan/` (gitignore). Mẫu Quý III có số thực tế ví dụ ở sheet KPI (L=4/N=100/P=100) — bản 1.0 để sót, 1.1 đã xóa. `DL-20260924-001` |

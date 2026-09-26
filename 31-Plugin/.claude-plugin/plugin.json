@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "ktc-quan-tri",
   "displayName": "KTC Quản trị",
-  "version": "1.2.1",
-  "description": "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản. 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, kpi-lap-ke-hoach, kpi-tu-danh-gia); 7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực viện dẫn, xác minh minh chứng); hook tự ghi nhật ký, đo thể thức, backup GitHub.",
+  "version": "1.3.0",
+  "description": "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → Soạn thảo văn bản. 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, kpi-lap-ke-hoach, kpi-tu-danh-gia); 7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực viện dẫn, xác minh minh chứng); hook chặn ghi kho chuẩn, ghi nhật ký không lưu nội dung, đo thể thức.",
   "author": {
     "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
   },
@@ -18,7 +18,7 @@
   "defaultEnabled": false,
   "metadata": {
     "builtFrom": "8 gói .skill hiện hành (GOI_NGUON trong 29-Cong-Cu/dong_goi_plugin.py, danh sách ở parallelWith); lần dựng đầu 18/9/2026 từ 5 gói (DL-20260918-001)",
-    "claudeStrictValidation": "ĐẠT 25/9/2026 (bản 1.2.0, 1.2.1) — `claude plugin validate ./31-Plugin --strict` bằng claude.exe đi kèm extension VS Code; chạy lại mỗi lần dựng.",
+    "claudeStrictValidation": "ĐẠT 26/9/2026 (bản 1.3.0, claude.exe 2.1.283) — `claude plugin validate ./31-Plugin --strict`; bản 1.2.1 KHÔNG đạt với CLI 2.1.283 (YAML mô tả agent ktc-kiem-san-pham, đã sửa ở 1.3.0); chạy lại mỗi lần dựng.",
     "parallelWith": [
       "ktc-quan-tri.skill",
       "ktc-bao-cao-v3.14.skill",

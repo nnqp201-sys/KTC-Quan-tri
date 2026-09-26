@@ -1,5 +1,28 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.0 — 2026-09-26
+
+Tiếp thu thẩm định độc lập lần 1, lần 2 (`KI-019`). Mọi thay đổi có ca thử trong `test_plugin_130.py`,
+`test_plugin_nhat_ky_backup.py`, `test_tu_hoc.py`.
+
+- **Gỡ sao lưu GitHub khỏi plugin** (C-01, R2-01): bỏ khỏi `SessionStart`; `ktc_backup_github.py` không còn nằm trong
+  plugin (chỉ chạy theo lịch trên máy phát triển), thêm quét nội dung số định danh cá nhân trước khi commit.
+- **Guard chặn ghi độc lập** `scripts/ktc_guard.py` (C-04, R2-03): `PreToolUse` cho Write, Edit, MultiEdit,
+  NotebookEdit, Bash, PowerShell; fail-closed; doctor tự thử và báo trạng thái.
+- **Nhật ký riêng tư mặc định** (C-02, R2-02): lời người dùng chỉ ghi độ dài + nhãn tín hiệu; nội dung chỉ khi chọn:
+  `#học` (lời đó) hoặc chủ máy đặt `KTC_NHAT_KY_NOI_DUNG=1` (chỉ lời **có tín hiệu học**); nội dung luôn **che** số định
+  danh, số điện thoại, email; xóa tệp cũ hơn 30 ngày. Bộ gắn tín hiệu bỏ lời < 5 từ, bỏ "OK" trần, bỏ số hiệu văn bản
+  ("Quyết định số …") — TT-20260924-08.
+- `kpi_calc.py`: phương án hệ số A, A×B (dự thảo TB 1052) trả mã `THANG_DIEM_CHUA_PHAN_DINH` (KI-014).
+- **Chuẩn chung** `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md` chèn vào 8 skill + 7 agent (C-03, M-02,
+  R2-08): quy tắc bất biến cấp skill, ranh giới dữ liệu, kiểm soát dữ liệu ra ngoài, 6 trạng thái, mã cảnh báo, tự
+  kiểm, ví dụ.
+- skill `quan-tri` **1.13**: thứ tự ưu tiên chứng cứ; "cứ làm" khi thiếu nguồn chỉ ra bản nháp `CAN_XAC_MINH`; ví dụ
+  riêng; giới hạn nền tảng theo năng lực; lịch sử phiên bản chuyển `CHANGELOG.md`.
+- Sửa YAML mô tả agent `ktc-kiem-san-pham` (lỗi có từ 19/9: agent mất toàn bộ frontmatter lúc chạy); bước dựng tự
+  chặn mô tả không ngoặc có `: `.
+- Doctor báo phụ thuộc ngoài gói: Python, KTC-Database, thư viện docx/openpyxl (M-01, M-06).
+
 ## 1.2.1 — 2026-09-25
 
 - Lệnh sửa trình bày sheet KPI (`DL-20260925-002`, Known-Issues #13, #14), **không đổi số nào** (ca thử ghim tổng điểm 6 nhóm):

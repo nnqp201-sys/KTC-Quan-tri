@@ -24,6 +24,7 @@ def kiem(dk, ten):
 
 def chay(che_do, data):
     e = dict(os.environ)
+    e.pop("KTC_NHAT_KY_NOI_DUNG", None)  # ca mac dinh 1.3.0: khong chon ghi noi dung
     e.pop("CLAUDE_PROJECT_DIR", None)
     return subprocess.run([sys.executable, NK, che_do], input=json.dumps(data, ensure_ascii=False),
                           capture_output=True, text=True, encoding="utf-8", env=e, cwd=GOC)
@@ -49,13 +50,15 @@ chay("yeu-cau", {"cwd": DA, "prompt": "Báo cáo này sai số liệu Trục 3, 
 chay("yeu-cau", {"cwd": DA, "prompt": "Mở tệp kế hoạch tháng 9"})
 chay("yeu-cau", {"cwd": DA, "prompt": "/compact"})
 chay("yeu-cau", {"cwd": DA, "prompt": "<command-name>/compact</command-name>"})
-chay("yeu-cau", {"cwd": DA, "prompt": "x" * 2000})
+chay("yeu-cau", {"cwd": DA, "prompt": "#học " + "x" * 2000})
 d = dong_log()
 kiem(len(d) == 4, f"ghi 4 lời người dùng, bỏ lệnh nội bộ /compact và <command…> (được {len(d)})")
 kiem("quy-uoc" in d[0].get("tin_hieu", []), "“từ nay… lưu ý” → tín hiệu quy-uoc")
 kiem("sua-sai" in d[1].get("tin_hieu", []), "“sai… sửa lại” → tín hiệu sua-sai")
 kiem("tin_hieu" not in d[2], "lời thường không gắn tín hiệu (thử ngược)")
-kiem(len(d[3]["noi_dung"]) <= 601, "lời dài bị cắt ≤ 600 ký tự")
+kiem("noi_dung" not in d[0] and "noi_dung" not in d[1],
+     "1.3.0: mặc định không ghi nội dung, kể cả khi có tín hiệu học (R2-02)")
+kiem(len(d[3]["noi_dung"]) <= 601, "#học + lời dài: ghi nội dung, cắt ≤ 600 ký tự")
 
 ngoai = tempfile.mkdtemp(prefix="ktc_ngoai_")
 chay("yeu-cau", {"cwd": ngoai, "prompt": "từ nay luôn làm vậy"})

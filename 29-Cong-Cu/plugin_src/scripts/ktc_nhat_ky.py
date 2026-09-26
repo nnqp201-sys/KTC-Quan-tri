@@ -3,7 +3,8 @@
 
 Goi tu hooks.json voi 1 trong 4 che do:
   ghi       PostToolUse      — ghi 1 dong JSONL: thoi gian, phien, cong cu, doi tuong (KHONG ghi noi dung tep)
-  yeu-cau   UserPromptSubmit — ghi loi nguoi dung (cat 600 ky tu) + tin hieu hoc (DL-20260919-005)
+  yeu-cau   UserPromptSubmit — MAC DINH chi ghi do dai + nhan tin hieu hoc; noi dung (cat 600 ky tu) chi khi
+                               nguoi dung chon: mo dau "#học" hoac bien KTC_NHAT_KY_NOI_DUNG=1 (1.3.0, R2-02)
   ket-phien SessionEnd       — ghi dong danh dau ket thuc phien
   nap       SessionStart     — in tom tat 2 ngay + tri thuc tu hoc + so tin hieu chua hoc -> context
 
@@ -73,15 +74,54 @@ def doi_tuong(tool: str, inp: dict) -> str:
 TIN_HIEU = {
     "sua-sai": r"\b(sai|nhầm|chưa đúng|không đúng|không phải|sửa lại|làm lại|lỗi|thiếu)\b",
     "quy-uoc": r"(từ nay|từ giờ|sau này|luôn luôn|\bluôn\b|đừng|không được|phải|quy ước|lưu ý|nhớ|ghi nhớ|mặc định)",
-    "quyet-dinh": r"(đồng ý|thống nhất|chốt|quyết định|phê duyệt|lãnh đạo.{0,20}(đã|thống nhất)|giữ phương án|\bOK\b)",
+    "quyet-dinh": r"(đồng ý|thống nhất|chốt|quyết định|phê duyệt|lãnh đạo.{0,20}(đã|thống nhất)|giữ phương án)",
 }
+# 1.3.0 (TT-20260924-08): bo gan bao gia nhieu — bo loi < 5 tu ("ok", "em cu lam luon"), bo "OK" tran,
+# bo so hieu van ban ("Quyet dinh so 1899/QD-CDKT", "QD 1923") truoc khi do tin hieu quyet-dinh.
+SO_TU_TOI_THIEU = 5
+MAU_SO_HIEU_VB = r"(quyết định|thông báo|kế hoạch|công văn|tờ trình|báo cáo|QĐ|TB|KH|CV|BC)\s*(số\s*)?\d+[\w/\-]*"
+# Che du lieu ca nhan truoc khi ghi noi dung (khi nguoi dung da chon ghi)
+CHE = [
+    (r"(?<![0-9A-Za-z])0\d{11}(?![0-9A-Za-z])", "[SỐ ĐỊNH DANH]"),
+    (r"(?<![0-9A-Za-z])(\+84|0)\d{9}(?![0-9A-Za-z])", "[SỐ ĐIỆN THOẠI]"),
+    (r"[\w.+-]+@[\w-]+\.[\w.-]+", "[EMAIL]"),
+]
+
+
+def che_du_lieu(s: str) -> str:
+    for mau, thay in CHE:
+        s = re.sub(mau, thay, s)
+    return s
 TEP_TRI_THUC = os.path.join("90-Nhat-Ky-Van-Hanh", "05-Tri-Thuc-Tu-Hoc")
 DAI_YEU_CAU = 600
 SO_TRI_THUC_NAP = 25
+NGAY_LUU_GIU = 30          # 1.3.0: tep nhat ky cu hon 30 ngay bi xoa khi mo phien (che do nap)
+
+
+def don_nhat_ky_cu(du_an: str, ngay: int = NGAY_LUU_GIU) -> int:
+    """Xoa tep YYYY-MM-DD.jsonl cu hon `ngay` ngay. Tra ve so tep da xoa."""
+    thu_muc = os.path.join(du_an, THU_MUC_LOG)
+    if not os.path.isdir(thu_muc):
+        return 0
+    moc = dt.date.today() - dt.timedelta(days=ngay)
+    xoa = 0
+    for f in os.listdir(thu_muc):
+        m = re.fullmatch(r"(\d{4}-\d{2}-\d{2})\.jsonl", f)
+        if not m:
+            continue
+        try:
+            if dt.date.fromisoformat(m.group(1)) < moc:
+                os.remove(os.path.join(thu_muc, f))
+                xoa += 1
+        except (ValueError, OSError):
+            pass
+    return xoa
 
 
 def tin_hieu(s: str):
-    import re
+    if len(s.split()) < SO_TU_TOI_THIEU:
+        return []
+    s = re.sub(MAU_SO_HIEU_VB, " ", s, flags=re.I)
     return [k for k, m in TIN_HIEU.items() if re.search(m, s, re.I)]
 
 
@@ -121,10 +161,22 @@ def che_do_ghi(data: dict, loai: str):
             dong["noi_dung"] = "[#riêng — không ghi]"
             ghi_dong(du_an, dong)
             return
-        dong["noi_dung"] = s[:DAI_YEU_CAU] + ("…" if len(s) > DAI_YEU_CAU else "")
+        # 1.3.0 (tham dinh lan 2, R2-02): MAC DINH chi ghi thong tin mo ta — do dai + nhan tin hieu.
+        # Noi dung chi ghi khi nguoi dung CHU DONG chon, va luon che du lieu ca nhan truoc khi ghi:
+        #   - loi nhan mo dau "#học": ghi loi nhan do (du co tin hieu hay khong);
+        #   - chu may tu dat KTC_NHAT_KY_NOI_DUNG=1 (vd .claude/settings.local.json cua du an): chi ghi loi
+        #     CO tin hieu hoc — dung nguon ma agent ktc-tu-hoc can, bo qua moi loi nhan con lai.
+        dong["do_dai"] = len(s)
+        chon_hoc = re.match(r"#h[oọ]c\b", s, re.I)
+        if chon_hoc:
+            s = s[chon_hoc.end():].strip()
         th = tin_hieu(s)
         if th:
             dong["tin_hieu"] = th
+        if chon_hoc or (th and os.environ.get("KTC_NHAT_KY_NOI_DUNG") == "1"):
+            dong["chon_ghi"] = "#học" if chon_hoc else "KTC_NHAT_KY_NOI_DUNG"
+            s = che_du_lieu(s)
+            dong["noi_dung"] = s[:DAI_YEU_CAU] + ("…" if len(s) > DAI_YEU_CAU else "")
     else:
         dong["ly_do"] = data.get("reason", "")
     ghi_dong(du_an, dong)
@@ -184,6 +236,7 @@ def che_do_nap(data: dict):
     du_an = tim_du_an(data)
     if not du_an:
         return
+    don_nhat_ky_cu(du_an)
     dong = doc_log(du_an)
     thao_tac = [d for d in dong if d.get("loai") == "thao-tac"]
     sua = sorted({d["doi_tuong"] for d in thao_tac

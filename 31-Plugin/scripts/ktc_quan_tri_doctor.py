@@ -52,10 +52,53 @@ def main():
         pb = doc_phien_ban(skill_md)
         print(f"  ✓ {ten:14s} phiên bản tự khai: {pb}")
     print("-" * 60)
-    print("Lưu ý: guard chặn ghi KTC-Database dùng chung với plugin ktc-ra-soat-897")
-    print("nếu đã cài; nếu chưa cài plugin đó, KTC-Database vẫn chỉ nên đọc theo quy")
-    print("ước dự án (xem CLAUDE.md), plugin này không tự chặn ghi.")
+    kiem_guard()
+    kiem_phu_thuoc()
     print("=" * 60)
+
+
+def kiem_guard():
+    """Tu thu guard: mot lenh ghi gia vao KTC-Database PHAI bi chan (ma 2), ghi vao 30-Ket-Qua PHAI qua (ma 0)."""
+    import json
+    import subprocess
+    import sys
+    g = os.path.join(GOC, "scripts", "ktc_guard.py")
+    if not os.path.isfile(g):
+        print("  ✗ guard: THIẾU scripts/ktc_guard.py — KHÔNG có bảo vệ ghi kho chuẩn")
+        return
+    def chay(p):
+        vao = json.dumps({"tool_name": "Write", "tool_input": {"file_path": p}})
+        try:
+            return subprocess.run([sys.executable, g], input=vao, text=True, capture_output=True,
+                                  timeout=20).returncode
+        except Exception:
+            return -1
+    chan = chay("X:/My Drive/KTC-Database/thu.txt")
+    qua = chay("X:/du-an/30-Ket-Qua/thu.txt")
+    if chan == 2 and qua == 0:
+        print("  ✓ guard: HOẠT ĐỘNG (chặn ghi KTC-Database, 03-Templates, 04-Good-Documents)")
+    else:
+        print(f"  ✗ guard: CHƯA HOẠT ĐỘNG (tự thử: chặn={chan}, cho qua={qua}) — không coi là có bảo vệ ghi")
+
+
+def kiem_phu_thuoc():
+    """Bao phu thuoc NGOAI goi (tham dinh lan 1 M-01): co/khong, khong tu ket luan dat."""
+    import sys
+    print(f"  · Python {sys.version.split()[0]} ({sys.executable})")
+    try:
+        sys.path.insert(0, os.path.join(GOC, "scripts"))
+        from duong_dan import ktc_database
+        print(f"  ✓ KTC-Database: {ktc_database(canh_bao_ban_cu=False)}")
+    except FileNotFoundError:
+        print("  ✗ KTC-Database: không tìm thấy — skill trả CAN_BO_SUNG khi cần kho")
+    except Exception as e:
+        print(f"  ✗ KTC-Database: không kiểm được ({e.__class__.__name__})")
+    for mod in ("docx", "openpyxl"):
+        try:
+            __import__(mod)
+            print(f"  ✓ thư viện {mod}")
+        except Exception:
+            print(f"  ✗ thư viện {mod} — phép đo thể thức/Excel sẽ ghi vào 'Kiểm tra chưa chạy'")
 
 
 if __name__ == "__main__":

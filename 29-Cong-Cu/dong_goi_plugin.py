@@ -40,7 +40,7 @@ GOI_NGUON = [
      "kpi-tu-danh-gia"),
 ]
 
-PLUGIN_VERSION = "1.2.1"  # 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.3.0"  # 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -58,6 +58,10 @@ CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
                      "kpi_calc.py", "kpi_mau.py", "validate_plan.py",
                      # 25/9/2026: tu danh gia KPI ca nhan (skill kpi-tu-danh-gia)
                      "kpi_danh_gia.py"]
+# Script chi chay tren may phat trien (Task Scheduler), KHONG dong vao plugin phan phoi (1.3.0, C-01/R2-01)
+CHI_DUNG_NOI_BO = {"ktc_backup_github.py"}
+# Chuan chung chen vao moi SKILL.md va agent khi dung (20-Chuan-Chung/20-..., 1.3.0)
+CHUAN_CHUNG = os.path.join(DU_AN, "20-Chuan-Chung", "20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md")
 # Gioi han cua Claude khi tai plugin/skill (loi that 19/9/2026: mo ta plugin 554 ky tu bi tu choi)
 GIOI_HAN_MO_TA_PLUGIN = 500
 GIOI_HAN_MO_TA_SKILL = 1024
@@ -99,7 +103,7 @@ def doi_ten_frontmatter(skill_md: str, ten_cu: str, ten_moi: str):
 
 
 def build_skills():
-    print("── Giai nen 5 goi .skill da xac minh vao 31-Plugin/skills/ ──")
+    print(f"── Giai nen {len(GOI_NGUON)} goi .skill da xac minh vao 31-Plugin/skills/ ──")
     for goi, ten_goc, ten_moi in GOI_NGUON:
         if not os.path.exists(goi):
             raise SystemExit(f"KHONG tim thay goi nguon: {goi}")
@@ -130,7 +134,7 @@ def build_manifest():
             "Soạn thảo văn bản. 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, "
             "kpi-lap-ke-hoach, kpi-tu-danh-gia); "
             "7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
-            "viện dẫn, xác minh minh chứng); hook tự ghi nhật ký, đo thể thức, backup GitHub."
+            "viện dẫn, xác minh minh chứng); hook chặn ghi kho chuẩn, ghi nhật ký không lưu nội dung, đo thể thức."
         ),
         "author": {
             "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
@@ -140,8 +144,9 @@ def build_manifest():
         "metadata": {
             "builtFrom": f"{len(GOI_NGUON)} gói .skill hiện hành (GOI_NGUON trong 29-Cong-Cu/dong_goi_plugin.py, "
                          "danh sách ở parallelWith); lần dựng đầu 18/9/2026 từ 5 gói (DL-20260918-001)",
-            "claudeStrictValidation": "ĐẠT 25/9/2026 (bản 1.2.0, 1.2.1) — `claude plugin validate ./31-Plugin --strict` "
-                                       "bằng claude.exe đi kèm extension VS Code; chạy lại mỗi lần dựng.",
+            "claudeStrictValidation": "ĐẠT 26/9/2026 (bản 1.3.0, claude.exe 2.1.283) — `claude plugin validate "
+                                       "./31-Plugin --strict`; bản 1.2.1 KHÔNG đạt với CLI 2.1.283 (YAML mô tả agent "
+                                       "ktc-kiem-san-pham, đã sửa ở 1.3.0); chạy lại mỗi lần dựng.",
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
                               "ktc-soan-thao-vb-v1.10.skill", "ktc-theo-doi-cv-v1.7.skill",
                               "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.2.skill",
@@ -161,14 +166,18 @@ def lenh(script: str, *args: str) -> dict:
 
 
 def build_hooks():
-    print("── Ghi hooks/hooks.json (doctor + nhật ký + backup bù; không lặp guard 897) ──")
+    print("── Ghi hooks/hooks.json (doctor + nhật ký + guard chặn ghi kho chuẩn) ──")
     hooks = {
         "hooks": {
+            # 1.3.0: KHONG con backup GitHub trong plugin (tham dinh lan 1 C-01, lan 2 R2-01) — backup la
+            # tac vu theo lich cua quan tri vien tren may phat trien, chay tu 29-Cong-Cu/plugin_src/scripts/.
             "SessionStart": [{"hooks": [
                 lenh("ktc_quan_tri_doctor.py"),
                 lenh("ktc_nhat_ky.py", "nap"),
-                {**lenh("ktc_backup_github.py", "--neu-can"), "timeout": 120},
             ]}],
+            # 1.3.0: guard doc lap chan ghi/xoa KTC-Database, 03-Templates, 04-Good-Documents (C-04, R2-03)
+            "PreToolUse": [{"matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell",
+                            "hooks": [{**lenh("ktc_guard.py"), "timeout": 30}]}],
             # Khong ghi Read/Grep/Glob de log khong bi ngap; chi thao tac co tac dung.
             "PostToolUse": [{"matcher": "Write|Edit|Bash|PowerShell|Skill|Agent",
                              "hooks": [lenh("ktc_nhat_ky.py", "ghi"),
@@ -192,6 +201,9 @@ def chep_nguon_viet_tay():
         dst = os.path.join(PLUGIN_DIR, thu_muc)
         os.makedirs(dst, exist_ok=True)
         for f in sorted(os.listdir(src)):
+            if f in CHI_DUNG_NOI_BO:
+                print(f"  - {thu_muc}/{f} (chỉ dùng nội bộ, không đóng vào plugin)")
+                continue
             if f.endswith((".py", ".md")):
                 shutil.copyfile(os.path.join(src, f), os.path.join(dst, f))
                 print(f"  ✓ {thu_muc}/{f}")
@@ -255,10 +267,53 @@ def main():
         pb = doc_phien_ban(skill_md)
         print(f"  ✓ {ten:14s} phiên bản tự khai: {pb}")
     print("-" * 60)
-    print("Lưu ý: guard chặn ghi KTC-Database dùng chung với plugin ktc-ra-soat-897")
-    print("nếu đã cài; nếu chưa cài plugin đó, KTC-Database vẫn chỉ nên đọc theo quy")
-    print("ước dự án (xem CLAUDE.md), plugin này không tự chặn ghi.")
+    kiem_guard()
+    kiem_phu_thuoc()
     print("=" * 60)
+
+
+def kiem_guard():
+    """Tu thu guard: mot lenh ghi gia vao KTC-Database PHAI bi chan (ma 2), ghi vao 30-Ket-Qua PHAI qua (ma 0)."""
+    import json
+    import subprocess
+    import sys
+    g = os.path.join(GOC, "scripts", "ktc_guard.py")
+    if not os.path.isfile(g):
+        print("  ✗ guard: THIẾU scripts/ktc_guard.py — KHÔNG có bảo vệ ghi kho chuẩn")
+        return
+    def chay(p):
+        vao = json.dumps({"tool_name": "Write", "tool_input": {"file_path": p}})
+        try:
+            return subprocess.run([sys.executable, g], input=vao, text=True, capture_output=True,
+                                  timeout=20).returncode
+        except Exception:
+            return -1
+    chan = chay("X:/My Drive/KTC-Database/thu.txt")
+    qua = chay("X:/du-an/30-Ket-Qua/thu.txt")
+    if chan == 2 and qua == 0:
+        print("  ✓ guard: HOẠT ĐỘNG (chặn ghi KTC-Database, 03-Templates, 04-Good-Documents)")
+    else:
+        print(f"  ✗ guard: CHƯA HOẠT ĐỘNG (tự thử: chặn={chan}, cho qua={qua}) — không coi là có bảo vệ ghi")
+
+
+def kiem_phu_thuoc():
+    """Bao phu thuoc NGOAI goi (tham dinh lan 1 M-01): co/khong, khong tu ket luan dat."""
+    import sys
+    print(f"  · Python {sys.version.split()[0]} ({sys.executable})")
+    try:
+        sys.path.insert(0, os.path.join(GOC, "scripts"))
+        from duong_dan import ktc_database
+        print(f"  ✓ KTC-Database: {ktc_database(canh_bao_ban_cu=False)}")
+    except FileNotFoundError:
+        print("  ✗ KTC-Database: không tìm thấy — skill trả CAN_BO_SUNG khi cần kho")
+    except Exception as e:
+        print(f"  ✗ KTC-Database: không kiểm được ({e.__class__.__name__})")
+    for mod in ("docx", "openpyxl"):
+        try:
+            __import__(mod)
+            print(f"  ✓ thư viện {mod}")
+        except Exception:
+            print(f"  ✗ thư viện {mod} — phép đo thể thức/Excel sẽ ghi vào 'Kiểm tra chưa chạy'")
 
 
 if __name__ == "__main__":
@@ -274,6 +329,37 @@ def build_doctor_script():
     print("  ✓ ktc_quan_tri_doctor.py")
 
 
+def khoi_chuan_chung() -> str:
+    s = io.open(CHUAN_CHUNG, encoding="utf-8").read()
+    m = re.search(r"<!-- KHOI-CHEN-BAT-DAU -->\s*\n(.*?)\n<!-- KHOI-CHEN-KET-THUC -->", s, re.S)
+    if not m:
+        raise SystemExit(f"Khong tim thay khoi chen trong {CHUAN_CHUNG}")
+    return m.group(1).strip() + "\n"
+
+
+def chen_vao(path: str, khoi: str) -> str:
+    """Chen khoi ngay truoc tieu de cap 2 dau tien sau frontmatter. Da co <immutable_rules> thi bo qua."""
+    s = io.open(path, encoding="utf-8").read()
+    if "<immutable_rules>" in s:
+        return "đã có"
+    m_fm = re.match(r"^---\r?\n.*?\r?\n---\r?\n", s, re.S)
+    dau = m_fm.end() if m_fm else 0
+    m = re.search(r"^## ", s[dau:], re.M)
+    vt = dau + m.start() if m else len(s)
+    s2 = s[:vt] + khoi + "\n" + s[vt:]
+    io.open(path, "w", encoding="utf-8").write(s2)
+    return "đã chèn"
+
+
+def chen_chuan_chung():
+    print("── Chèn chuẩn chung (quy tắc bất biến, khuôn đầu ra) vào mọi skill và agent ──")
+    import glob
+    khoi = khoi_chuan_chung()
+    for p in sorted(glob.glob(os.path.join(PLUGIN_DIR, "skills", "*", "SKILL.md")) +
+                    glob.glob(os.path.join(PLUGIN_DIR, "agents", "*.md"))):
+        print(f"  ✓ {os.path.relpath(p, PLUGIN_DIR):40s} {chen_vao(p, khoi)}")
+
+
 def kiem_mo_ta():
     """Chan truoc khi dong goi: mo ta skill/agent vuot gioi han thi Claude tu choi khi tai len."""
     print("── Kiểm độ dài mô tả (plugin ≤ 500, skill/agent ≤ 1024 ký tự) ──")
@@ -284,9 +370,14 @@ def kiem_mo_ta():
         for p in sorted(glob.glob(mau)):
             s = io.open(p, encoding="utf-8").read()
             m = re.search(r"^description:\s*(.*)$", s, re.M)
-            d = m.group(1).strip().strip('"') if m else ""
+            tho = m.group(1).strip() if m else ""
+            d = tho.strip('"') if m else ""
             if not d or len(d) > GIOI_HAN_MO_TA_SKILL:
                 sai.append(f"{loai} {os.path.relpath(p, PLUGIN_DIR)}: {len(d)} ký tự")
+            # Loi that 19-26/9/2026: mo ta agent khong dat ngoac ma chua ": " -> YAML hong, luc chay
+            # agent mat toan bo truong frontmatter (claude plugin validate --strict 2.1.283 phat hien)
+            if tho and not tho.startswith(("'", '"')) and ": " in tho:
+                sai.append(f"{loai} {os.path.relpath(p, PLUGIN_DIR)}: mô tả không đặt trong ngoặc mà có ': ' — YAML hỏng")
     if sai:
         raise SystemExit("Mô tả không hợp lệ:\n  " + "\n  ".join(sai))
     print("  ✓ mọi mô tả trong giới hạn")
@@ -337,6 +428,7 @@ if __name__ == "__main__":
     build_hooks()
     build_doctor_script()
     chep_nguon_viet_tay()
+    chen_chuan_chung()
     kiem_mo_ta()
     print("── Đóng gói .zip (lặp lại được) ──")
     dong_goi_zip()

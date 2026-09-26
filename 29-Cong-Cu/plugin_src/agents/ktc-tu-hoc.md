@@ -20,7 +20,9 @@ dùng lại được**, để phiên sau không lặp lại lỗi cũ và không
 ## Quy trình
 1. **Đọc mốc** `05-Tri-Thuc-Tu-Hoc/.lan-hoc-cuoi` (ISO datetime; chưa có thì lấy 7 ngày gần nhất).
 2. **Thu tín hiệu sau mốc** từ `90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/*.jsonl`:
-   - `loai: yeu-cau` có `tin_hieu`: `sua-sai`, `quy-uoc` hoặc `quyet-dinh`. Đây là lời người dùng nguyên văn.
+   - `loai: yeu-cau` có `tin_hieu`: `sua-sai`, `quy-uoc` hoặc `quyet-dinh`. Từ plugin 1.3.0: có `noi_dung` khi người
+     dùng đã chọn ghi (`#học` hoặc `KTC_NHAT_KY_NOI_DUNG=1`) — là lời người dùng **đã che** số định danh, số điện thoại,
+     email; dòng chỉ có `do_dai` là lời **không được chọn ghi** — chỉ đếm, không suy đoán nội dung, không hỏi lại.
    - `loi: true`: thao tác thất bại. Tìm lỗi **lặp ≥ 2 lần** cùng kiểu.
    - `loai: canh-bao-the-thuc`: mã lỗi thể thức lặp lại trên sản phẩm.
    - Decision Log mới trong `92-Kinh-Nghiem/06-Decision-Log/` và `git log` sau mốc.

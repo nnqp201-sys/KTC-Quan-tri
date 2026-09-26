@@ -24,3 +24,6 @@ Claude outputs/
 # Nhat ky tu dong cua hook ktc_nhat_ky.py — ghi nguyen van loi nguoi dung, thong nhat voi .ktc897/.
 # CP-20260924-001 (A). Van doc duoc cuc bo (hook nap, agent ktc-tu-hoc); lich su cu con trong git.
 90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/
+
+# Cau hinh Claude Code cuc bo cua chu may (vd KTC_NHAT_KY_NOI_DUNG=1 cho tu hoc) — khong dua len git
+.claude/settings.local.json

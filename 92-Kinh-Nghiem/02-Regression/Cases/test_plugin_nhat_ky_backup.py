@@ -52,6 +52,7 @@ def anh_log_that():
 def chay(args, stdin=""):
     e = dict(os.environ)
     e.pop("CLAUDE_PROJECT_DIR", None)   # de script tu tim du an theo cwd trong input
+    e.pop("KTC_NHAT_KY_NOI_DUNG", None)  # ca mac dinh: khong chon ghi noi dung
     return subprocess.run([sys.executable, *args], input=stdin, capture_output=True, text=True,
                           encoding="utf-8", env=e, cwd=GOC)  # cwd = du an THAT: bat loi ghi nham
 
@@ -93,7 +94,46 @@ with tempfile.TemporaryDirectory() as t:
     noi = "".join(open(os.path.join(log_dir, f), encoding="utf-8").read() for f in os.listdir(log_dir))
     kiem("87" not in noi and "DIEM-RIENG-2" not in noi, "#riêng/#rieng: không ghi nội dung lời nhắn")
     kiem(noi.count("[#riêng — không ghi]") == 2, "#riêng: vẫn ghi mốc thời gian, không tín hiệu học")
-    kiem("lap ke hoach thang 10" in noi, "ca ngược: #riêng ở giữa câu thì vẫn ghi bình thường")
+    # 1.3.0 (tham dinh lan 2, R2-02): MAC DINH chi ghi mo ta; noi dung chi khi nguoi dung chu dong chon
+    kiem("lap ke hoach thang 10" not in noi, "1.3.0: lời nhắn thường KHÔNG ghi nội dung (mặc định)")
+    kiem('"do_dai"' in noi, "1.3.0: lời nhắn thường vẫn ghi độ dài (thông tin mô tả)")
+    chay([NK, "yeu-cau"], json.dumps({"session_id": "s1", "cwd": du_an,
+                                      "prompt": "sửa lại Diem KPI Nguyen A la 90 CANH-BAO-TT"}))
+    noi = "".join(open(os.path.join(log_dir, f), encoding="utf-8").read() for f in os.listdir(log_dir))
+    kiem("CANH-BAO-TT" not in noi and "sua-sai" in noi,
+         "1.3.0: có tín hiệu học vẫn KHÔNG ghi nội dung, chỉ ghi nhãn tín hiệu")
+    chay([NK, "yeu-cau"], json.dumps({"session_id": "s1", "cwd": du_an, "prompt": "#học từ nay dùng mã P-THHC HOC-1"}))
+    noi = "".join(open(os.path.join(log_dir, f), encoding="utf-8").read() for f in os.listdir(log_dir))
+    kiem("HOC-1" in noi and '"chon_ghi": "#học"' in noi and "#học từ nay" not in noi,
+         "ca ngược: mở đầu #học -> ghi nội dung (bỏ nhãn #học)")
+    env_bat = {**{k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}, "KTC_NHAT_KY_NOI_DUNG": "1"}
+
+    def chay_bat(prompt):
+        subprocess.run([sys.executable, NK, "yeu-cau"], input=json.dumps(
+            {"session_id": "s1", "cwd": du_an, "prompt": prompt}), capture_output=True, text=True,
+            encoding="utf-8", cwd=GOC, env=env_bat)
+    chay_bat("từ nay luôn ghi mã đơn vị chuẩn ENV-2 trong bảng")
+    chay_bat("mở giúp anh tệp kế hoạch tháng mười ENV-3")
+    chay_bat("sửa lại giúp anh, số 0912345678, CCCD " + "0520930" + "01234" + ", mail a.b@ktc.edu.vn ENV-4")
+    noi = "".join(open(os.path.join(log_dir, f), encoding="utf-8").read() for f in os.listdir(log_dir))
+    kiem("ENV-2" in noi, "chọn ghi (biến môi trường) + có tín hiệu học -> ghi nội dung")
+    kiem("ENV-3" not in noi, "ca ngược: chọn ghi nhưng KHÔNG có tín hiệu học -> không ghi nội dung")
+    kiem("ENV-4" in noi and "0912345678" not in noi and ("0520930" + "01234") not in noi and "a.b@ktc" not in noi
+         and "[SỐ ĐIỆN THOẠI]" in noi and "[SỐ ĐỊNH DANH]" in noi and "[EMAIL]" in noi,
+         "nội dung được ghi đã che số điện thoại, số định danh, email")
+    # Bo gan tin hieu bot bao gia (TT-20260924-08)
+    chay_bat("ok chốt nhé")
+    chay_bat("Căn cứ Quyết định số 1899/QĐ-CĐKT ngày 5/9 lập bảng ENV-5")
+    noi = "".join(open(os.path.join(log_dir, f), encoding="utf-8").read() for f in os.listdir(log_dir))
+    kiem("ENV-5" not in noi, "số hiệu văn bản \"Quyết định số …\" không bị tính là tín hiệu quyết định")
+    dong_cuoi = [json.loads(x) for f in os.listdir(log_dir) for x in open(os.path.join(log_dir, f), encoding="utf-8")]
+    kiem(not any(d.get("do_dai") == len("ok chốt nhé") and d.get("tin_hieu") for d in dong_cuoi),
+         "lời dưới 5 từ (\"ok chốt nhé\") không gắn tín hiệu")
+    # luu giu 30 ngay: tep cu bi xoa khi nap, tep moi giu lai
+    open(os.path.join(log_dir, "2020-01-01.jsonl"), "w").write("{}\n")
+    chay([NK, "nap"], json.dumps({"cwd": du_an}))
+    kiem(not os.path.exists(os.path.join(log_dir, "2020-01-01.jsonl")), "1.3.0: nhật ký cũ hơn 30 ngày bị xóa khi mở phiên")
+    kiem(len(os.listdir(log_dir)) >= 1, "ca ngược: nhật ký hôm nay không bị xóa")
 
     print("== ktc_backup_github.py ==")
     repo = os.path.join(t, "repo"); remote = os.path.join(t, "remote.git")
@@ -114,6 +154,16 @@ with tempfile.TemporaryDirectory() as t:
     kiem(r.returncode == 1 and "DỪNG" in r.stdout and so_commit == "1",
          "ca ngược: tệp tên giống bí mật -> dừng, không push")
     kiem(os.path.exists(os.path.join(repo, "my-credentials.json")), "không xóa tệp của người dùng khi dừng")
+    os.remove(os.path.join(repo, "my-credentials.json"))
+    # 1.3.0: quet NOI DUNG — tep ten binh thuong nhung chua so dinh danh ca nhan -> dung
+    open(os.path.join(repo, "ghi-chu.md"), "w").write("CCCD " + "0520930" + "01234, cua vien chuc")
+    r = chay([BK, "--du-an", repo])
+    so_commit = subprocess.run(["git", "-C", remote, "rev-list", "--count", "HEAD"],
+                               capture_output=True, text=True).stdout.strip()
+    kiem(r.returncode == 1 and "định danh" in r.stdout and so_commit == "1",
+         "1.3.0: tệp tên thường chứa số định danh -> dừng, không push")
+    os.remove(os.path.join(repo, "ghi-chu.md"))
+    open(os.path.join(repo, "my-credentials.json"), "w").write("x")
 
     # --- pythonw: Task Scheduler chay bang pythonw.exe, KHONG co std handle hop le ---
     # Loi that 18-20/9/2026: tien trinh con thua ke stdin hong -> Git Credential Manager khong
