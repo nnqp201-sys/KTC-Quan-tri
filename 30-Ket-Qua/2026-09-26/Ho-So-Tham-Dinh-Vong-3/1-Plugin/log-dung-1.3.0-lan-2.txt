@@ -1,0 +1,63 @@
+── Giai nen 8 goi .skill da xac minh vao 31-Plugin/skills/ ──
+  ✓ quan-tri       <- 22-KTC-Dieu-Phoi\ktc-quan-tri.skill  (20 tep)
+  ✓ bao-cao        <- 25-KTC-Bao-Cao\ktc-bao-cao-v3.14.skill  (46 tep)
+  ✓ ke-hoach       <- 23-KTC-Ke-Hoach\ktc-ke-hoach-v3.9.skill  (23 tep)
+  ✓ soan-thao-vb   <- 26-KTC-Soan-Thao-VB\ktc-soan-thao-vb-v1.10.skill  (95 tep)
+  ✓ theo-doi-cv    <- 24-KTC-Theo-doi-CV\ktc-theo-doi-cv-v1.7.skill  (12 tep)
+  ✓ the-thuc       <- 27-KTC-The-Thuc\ktc-the-thuc-v1.0.skill  (4 tep)
+  ✓ kpi-lap-ke-hoach <- 28-KTC-KPI\ktc-kpi-lap-ke-hoach-v1.2.skill  (19 tep)
+  ✓ kpi-tu-danh-gia <- 28-KTC-KPI\Tu-Danh-Gia\ktc-kpi-tu-danh-gia-v1.1.skill  (16 tep)
+── Ghi .claude-plugin/plugin.json ──
+  ✓ plugin.json
+── Ghi hooks/hooks.json (doctor + nhật ký + guard chặn ghi kho chuẩn) ──
+  ✓ hooks.json
+── Ghi scripts/ktc_quan_tri_doctor.py ──
+  ✓ ktc_quan_tri_doctor.py
+── Chép script/agent viết tay từ 29-Cong-Cu/plugin_src/ ──
+  - scripts/ktc_backup_github.py (chỉ dùng nội bộ, không đóng vào plugin)
+  ✓ scripts/ktc_guard.py
+  ✓ scripts/ktc_nhat_ky.py
+  ✓ scripts/ktc_the_thuc_hook.py
+  ✓ agents/ktc-hieu-luc-vien-dan.md
+  ✓ agents/ktc-kiem-ho-so-don-vi.md
+  ✓ agents/ktc-kiem-san-pham.md
+  ✓ agents/ktc-tra-cuu-can-cu.md
+  ✓ agents/ktc-tu-cai-tien.md
+  ✓ agents/ktc-tu-hoc.md
+  ✓ agents/ktc-xac-minh-minh-chung.md
+  ✓ scripts/tra_hieu_luc.py (từ 29-Cong-Cu)
+  ✓ scripts/kiem_vien_dan.py (từ 29-Cong-Cu)
+  ✓ scripts/duong_dan.py (từ 29-Cong-Cu)
+  ✓ scripts/doi_soat_so_lieu.py (từ 29-Cong-Cu)
+  ✓ scripts/kiem_minh_chung.py (từ 29-Cong-Cu)
+  ✓ scripts/kiem_the_thuc.py (từ 29-Cong-Cu)
+  ✓ scripts/kpi_calc.py (từ 29-Cong-Cu)
+  ✓ scripts/kpi_mau.py (từ 29-Cong-Cu)
+  ✓ scripts/validate_plan.py (từ 29-Cong-Cu)
+  ✓ scripts/kpi_danh_gia.py (từ 29-Cong-Cu)
+── Chèn chuẩn chung (quy tắc bất biến, khuôn đầu ra) vào mọi skill và agent ──
+  ✓ agents\ktc-hieu-luc-vien-dan.md          đã chèn
+  ✓ agents\ktc-kiem-ho-so-don-vi.md          đã chèn
+  ✓ agents\ktc-kiem-san-pham.md              đã chèn
+  ✓ agents\ktc-tra-cuu-can-cu.md             đã chèn
+  ✓ agents\ktc-tu-cai-tien.md                đã chèn
+  ✓ agents\ktc-tu-hoc.md                     đã chèn
+  ✓ agents\ktc-xac-minh-minh-chung.md        đã chèn
+  ✓ skills\bao-cao\SKILL.md                  đã chèn
+  ✓ skills\ke-hoach\SKILL.md                 đã chèn
+  ✓ skills\kpi-lap-ke-hoach\SKILL.md         đã chèn
+  ✓ skills\kpi-tu-danh-gia\SKILL.md          đã chèn
+  ✓ skills\quan-tri\SKILL.md                 đã chèn
+  ✓ skills\soan-thao-vb\SKILL.md             đã chèn
+  ✓ skills\the-thuc\SKILL.md                 đã chèn
+  ✓ skills\theo-doi-cv\SKILL.md              đã chèn
+── Kiểm độ dài mô tả (plugin ≤ 500, skill/agent ≤ 1024 ký tự) ──
+  ✓ mọi mô tả trong giới hạn
+── Đóng gói .zip (lặp lại được) ──
+  ✓ 30-Ket-Qua\2026-09-26\Plugin\ktc-quan-tri-1.3.0.zip  (260 tệp, 1207748 bytes)
+    sha256 2d0c795a79a0afb906183f31ef6c3841e5b9faddb4ed558052a81e1ecd5b4c87
+
+Đã dựng 31-Plugin tại: D:\.CLAUDE code\KTC-Quan-tri\31-Plugin
+# Lần dựng 1: 2d0c795a79a0afb906183f31ef6c3841e5b9faddb4ed558052a81e1ecd5b4c87
+# Lần dựng 2 (log này): 2d0c795a79a0afb906183f31ef6c3841e5b9faddb4ed558052a81e1ecd5b4c87
+# KẾT LUẬN: TRÙNG — đóng gói lặp lại được

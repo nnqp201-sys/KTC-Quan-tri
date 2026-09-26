@@ -1,0 +1,26 @@
+  OK dự thảo chuẩn không bị bắt lỗi (được: [])
+  OK VD01 căn cứ Luật có số hiệu
+  OK VD01 Luật có số hiệu kể cả khi kèm VBHN
+  OK VD01 viện dẫn trong nội dung cũng không ghi số hiệu luật
+  OK VD01 Pháp lệnh có số hiệu
+  OK VD01 không bắt nghị định có số hiệu
+  OK VD02 căn cứ luật thiếu ngày
+  OK VD02 ngày dạng dd/mm/yyyy được chấp nhận
+  OK VD03 VBHN làm căn cứ chính
+  OK VD04 Pháp lệnh 'của Quốc hội'
+  OK VD04 không bắt UBTVQH
+  OK VD05 chỉ dẫn luật sửa đổi
+  OK VD06 dấu cuối dòng giữa sai
+  OK VD06 dòng cuối thiếu dấu chấm
+  OK VD07 gạch đầu dòng
+  OK VD08 QĐ Hiệu trưởng thiếu QĐ 1976 đầu tiên
+  OK VD08 không áp cho kế hoạch
+  OK VD09 văn bản Trường đã bị thay thế
+  OK VD09 không nhầm QĐ 1229 (quy chế đào tạo) với QĐ 1299
+  OK VD09 không bắt điều khoản thay thế/bãi bỏ (thử thật trên kho 02, 19/9/2026)
+  OK VD06 không áp cho câu 'Căn cứ…' trong phần nội dung (ngoài khối căn cứ đầu văn bản)
+  OK VD10 dẫn checklist làm căn cứ
+  OK VD11 'điều' viết thường
+  OK VD12 viện dẫn lần sau vẫn ghi đầy đủ
+
+ĐẠT: 0 ca sai

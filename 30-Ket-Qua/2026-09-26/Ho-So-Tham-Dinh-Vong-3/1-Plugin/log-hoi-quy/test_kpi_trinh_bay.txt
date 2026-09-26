@@ -1,0 +1,38 @@
+== T1. Nội dung 300 ký tự (hanh-chinh): dòng KPI đủ cao cho cột B (công thức trỏ Ke Hoach) ==
+  OK KPI dòng 9: cao 193.2 pt ≥ ước 187.2 pt (300 ký tự, cột B rộng 32.2852)
+== T2. Độ rộng cột nằm giữa nhóm column_dimensions gộp (min–max) ==
+  OK KPI cột D (giữa nhóm C–F) = 8.7109375; cột U (giữa nhóm S–Y) = 30.0
+== T3. Truyền đủ người chỉ đạo, phối hợp, đơn vị tham mưu -> KPI!C–E; KPI!F là công thức ==
+  OK KPI!C/D/E = 'Phó Hiệu trưởng X', 'Các phòng', 'Phòng Y'
+  OK KPI!F9 = "='Ke Hoach'!E14"
+  OK C–F xuống dòng, căn trên
+  OK ca ngược: đủ trường -> không KH17/KH18
+== T4. Không truyền người phối hợp -> để trống + KH17; mặc định C = cấp trình, E = đơn vị ==
+  OK KPI!D trống, có KH17 (không tự bịa)
+  OK mặc định C = cấp trình, E = đơn vị
+  OK ca ngược: mẫu không có cột Người phối hợp -> không KH17
+  OK KPI!F trỏ dòng trống của Ke Hoach -> KH18 (LỖI)
+== T5. Nội dung quá dài (> 409 pt) -> KH19, không cắt im lặng ==
+  OK cảnh báo KH19 ở cả kpi_mau và validate_plan
+  OK chiều cao không vượt 409 pt
+== T6. Sau danh-gia: dòng KPI đủ cao cho sản phẩm thực tế (K) và minh chứng (S) ==
+  OK KPI dòng 9: cao 409 pt ≥ ước cho cột K 409 pt
+== T7. Tệp ra đang bị khóa (như Excel đang mở) -> thông báo tiếng Việt, mã ≠ 0, không traceback ==
+  OK kpi_mau: mã 2, thông báo: 'o89w\\dang_mo.xlsx: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.'
+  OK kpi_danh_gia: mã 2, thông báo: 'o89w\\dang_mo.xlsx: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.'
+== T8. Cả 6 nhóm: C–F đúng theo tiêu đề cột của mẫu ==
+  OK truong-pho-don-vi: C, E, F đúng ở Trục 1 và 4; không KH18
+  OK bo-mon: C, E, F đúng ở Trục 1 và 4; không KH18
+  OK nha-giao: C, E, F đúng ở Trục 1 và 4; không KH18
+  OK giao-vu: C, E, F đúng ở Trục 1 và 4; không KH18
+  OK hanh-chinh: C, E, F đúng ở Trục 1 và 4; không KH18
+  OK ho-tro: C, E, F đúng ở Trục 1 và 4; không KH18
+== T9. Không số nào đổi: tổng điểm, A, B, từng Trục, mức theo điểm = trước khi sửa ==
+  OK truong-pho-don-vi: tổng 74.282353 = 74.282353
+  OK bo-mon: tổng 72.549020 = 72.54902
+  OK nha-giao: tổng 72.549020 = 72.54902
+  OK giao-vu: tổng 78.184314 = 78.184314
+  OK hanh-chinh: tổng 78.184314 = 78.184314
+  OK ho-tro: tổng 83.521569 = 83.521569
+
+ĐẠT: 0 ca sai

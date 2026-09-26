@@ -1,0 +1,8 @@
+# Lệnh: C:\Users\nnqp2\.vscode\extensions\anthropic.claude-code-2.1.283-win32-x64\resources\native-binary\claude.exe plugin eval D:\.CLAUDE code\KTC-Quan-tri\29-Cong-Cu\_trung_gian\eval-run\ktc-quan-tri --runs 2 --ablation none --trust-plugin --allow-tools Write Edit --no-publish --threshold 1 --max-cost-usd 6 --json D:\.CLAUDE code\KTC-Quan-tri\30-Ket-Qua\2026-09-26\Nghiem-thu\ket-qua.json --report D:\.CLAUDE code\KTC-Quan-tri\30-Ket-Qua\2026-09-26\Nghiem-thu\bao-cao.html --output-dir D:\.CLAUDE code\KTC-Quan-tri\30-Ket-Qua\2026-09-26\Nghiem-thu\chi-tiet
+# CLI: 2.1.283 (Claude Code)
+# Thời điểm: 26/09/2026 20:16
+Wrote D:\.CLAUDE code\KTC-Quan-tri\30-Ket-Qua\2026-09-26\Nghiem-thu\ket-qua.json
+
+Report: D:\.CLAUDE code\KTC-Quan-tri\30-Ket-Qua\2026-09-26\Nghiem-thu\bao-cao.html
+
+# Mã thoát: 0

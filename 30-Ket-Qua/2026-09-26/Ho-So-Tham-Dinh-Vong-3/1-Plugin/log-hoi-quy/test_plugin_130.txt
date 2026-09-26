@@ -1,0 +1,97 @@
+== A. ktc_guard.py ==
+  OK chặn: Write vào KTC-Database
+  OK chặn: Edit mẫu 03-Templates(1) (dấu \)
+  OK chặn: MultiEdit 04-Good-Documents
+  OK chặn: NotebookEdit (chữ thường)
+  OK chặn: Bash rm
+  OK chặn: Bash chuyển hướng >
+  OK chặn: Bash chuyển hướng >>
+  OK chặn: Bash cp VÀO kho
+  OK chặn: Bash mv RA khỏi kho (xóa nguồn)
+  OK chặn: Bash sed -i
+  OK chặn: PowerShell Remove-Item
+  OK chặn: PowerShell Set-Content
+  OK chặn: PowerShell Copy-Item -Destination vào kho
+  OK chặn: PowerShell Out-File sau ống
+  OK cho qua: Write vào 30-Ket-Qua
+  OK cho qua: Bash đọc kho
+  OK cho qua: Bash liệt kê kho, 2>/dev/null
+  OK cho qua: Bash cp TỪ kho ra ngoài
+  OK cho qua: PowerShell Copy-Item từ kho ra ngoài
+  OK cho qua: Bash ghi log ngoài kho
+  OK cho qua: Read (không thuộc phạm vi guard)
+  OK fail-closed: dữ liệu hook hỏng -> chặn
+  OK fail-closed: JSON không phải đối tượng -> chặn
+== B. Bản dựng 31-Plugin ==
+  OK plugin.json version 1.3.0 (đang 1.3.0)
+  OK mô tả plugin không còn nói backup
+  OK hooks.json không còn gọi backup GitHub
+  OK hooks.json có PreToolUse gọi ktc_guard.py
+  OK matcher guard phủ Write, Edit, MultiEdit, NotebookEdit, Bash, PowerShell
+  OK script backup KHÔNG nằm trong plugin phân phối
+  OK script guard có trong plugin
+  OK đủ 8 skill, 7 agent (đang 8, 7)
+  OK skills\bao-cao\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\bao-cao\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\bao-cao\SKILL.md: khối nằm sau frontmatter
+  OK skills\ke-hoach\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\ke-hoach\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\ke-hoach\SKILL.md: khối nằm sau frontmatter
+  OK skills\kpi-lap-ke-hoach\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\kpi-lap-ke-hoach\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\kpi-lap-ke-hoach\SKILL.md: khối nằm sau frontmatter
+  OK skills\kpi-tu-danh-gia\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\kpi-tu-danh-gia\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\kpi-tu-danh-gia\SKILL.md: khối nằm sau frontmatter
+  OK skills\quan-tri\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\quan-tri\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\quan-tri\SKILL.md: khối nằm sau frontmatter
+  OK skills\soan-thao-vb\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\soan-thao-vb\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\soan-thao-vb\SKILL.md: khối nằm sau frontmatter
+  OK skills\the-thuc\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\the-thuc\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\the-thuc\SKILL.md: khối nằm sau frontmatter
+  OK skills\theo-doi-cv\SKILL.md: có khối chuẩn chung + 6 trạng thái
+  OK skills\theo-doi-cv\SKILL.md: khối chuẩn chung không bị chèn lặp
+  OK skills\theo-doi-cv\SKILL.md: khối nằm sau frontmatter
+  OK agents\ktc-hieu-luc-vien-dan.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-hieu-luc-vien-dan.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-hieu-luc-vien-dan.md: khối nằm sau frontmatter
+  OK agents\ktc-kiem-ho-so-don-vi.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-kiem-ho-so-don-vi.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-kiem-ho-so-don-vi.md: khối nằm sau frontmatter
+  OK agents\ktc-kiem-san-pham.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-kiem-san-pham.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-kiem-san-pham.md: khối nằm sau frontmatter
+  OK agents\ktc-tra-cuu-can-cu.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-tra-cuu-can-cu.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-tra-cuu-can-cu.md: khối nằm sau frontmatter
+  OK agents\ktc-tu-cai-tien.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-tu-cai-tien.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-tu-cai-tien.md: khối nằm sau frontmatter
+  OK agents\ktc-tu-hoc.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-tu-hoc.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-tu-hoc.md: khối nằm sau frontmatter
+  OK agents\ktc-xac-minh-minh-chung.md: có khối chuẩn chung + 6 trạng thái
+  OK agents\ktc-xac-minh-minh-chung.md: khối chuẩn chung không bị chèn lặp
+  OK agents\ktc-xac-minh-minh-chung.md: khối nằm sau frontmatter
+  OK skills\bao-cao\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\ke-hoach\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\kpi-lap-ke-hoach\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\kpi-tu-danh-gia\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\quan-tri\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\soan-thao-vb\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\the-thuc\SKILL.md: frontmatter description hợp lệ YAML
+  OK skills\theo-doi-cv\SKILL.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-hieu-luc-vien-dan.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-kiem-ho-so-don-vi.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-kiem-san-pham.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-tra-cuu-can-cu.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-tu-cai-tien.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-tu-hoc.md: frontmatter description hợp lệ YAML
+  OK agents\ktc-xac-minh-minh-chung.md: frontmatter description hợp lệ YAML
+  OK ca ngược: mô tả có ': ' không trong ngoặc bị phát hiện
+  OK ca ngược: mô tả trong ngoặc được chấp nhận
+  OK ca ngược: tệp thiếu khối bị phát hiện
+KET LUAN: SACH

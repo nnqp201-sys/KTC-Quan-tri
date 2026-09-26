@@ -1,0 +1,41 @@
+==========================================================================
+THỬ NGƯỢC — bộ kiểm có bắt được lỗi thật không?
+==========================================================================
+
+C7 — cụm hạ cấp chốt chặn 897 (PHẢI bắt):
+  ✓ bắt: | 5 | Rà soát chính thức trước khi trình ký (n      
+  ✓ bắt: Rà soát trước khi trình ký (dùng `ktc-ra-soat-      
+  ✓ bắt: ### Bước 5 — Rà soát chính thức *(tùy chọn)* D      
+  ✓ bắt: Có thể dùng 897 nếu cần thiết.                      
+
+C7 — câu ĐÚNG, không được báo nhầm (PHẢI bỏ qua):
+  ✓ bỏ qua: **897 là chốt chặn bắt buộc, không phải bước t   
+  ✓ bỏ qua: Rà soát bắt buộc bằng ktc-ra-soat-897 — không    
+  ✓ bỏ qua: Dùng hệ `ktc-ra-soat-897`. Đây là chốt chặn, k   
+
+C6 — tên hệ đã bỏ dùng làm đích định tuyến (PHẢI bắt):
+  ✓ bắt: dùng `ktc-van-ban` / `ktc-ra-soat-897`              
+  ✓ bắt: KHONG dung de soan van ban - dung ktc-van-ban       
+  ✓ bắt: chuyển sang ktc-dis-tong-hop-vb                     
+
+C6 — nhắc lại lịch sử, KHÔNG phải định tuyến (PHẢI bỏ qua):
+  ✓ bỏ qua: Kế thừa từ `KTC-DIS-Tong-Hop-VB`, thu hẹp có c   
+  ✓ bỏ qua: *Tiền lệ:* hệ `KTC-DIS-Tong-Hop-VB` từng chép    
+
+C1 — frontmatter hỏng (PHẢI bắt):
+  ✓ bắt: thiếu frontmatter                                   → ['Thiếu YAML frontmatter']
+  ✓ bắt: name viết hoa                                       → ["name không hợp lệ: '25-KTC-Bao-Cao'"]
+  ✓ bắt: thừa khóa version                                   → ["Khóa frontmatter phải đúng name+description, đang có ['name', 'description', 'version']"]
+  ✓ bắt: description quá 1024                                → ['description dài 1100 > 1024']
+  ✓ bỏ qua: hợp lệ                                           → hợp lệ
+
+C8 — bản sao lệch 1 dòng (PHẢI bắt, giống >= 50%):
+  ✓ bắt: bản sao lệch 1/12 dòng                              → giống 0.92
+  ✓ bắt: chỉ khác CRLF/LF vẫn là cùng tệp                    → giống 1.00
+
+C8 — chỉ trùng tên, nội dung khác (PHẢI bỏ qua):
+  ✓ bỏ qua: tệp trùng tên khác chủ đề                        → giống 0.00
+
+==========================================================================
+ĐẠT — mọi phép kiểm đều bắt đúng ca sai và bỏ qua đúng ca đúng
+==========================================================================
