@@ -76,7 +76,7 @@ def main():
         sp[nhom][os.path.splitext(p)[1].lower()] += 1
 
     try:
-        so_commit = subprocess.run(["git", "rev-list", "--count", f"--since={a.tu}", "HEAD"], cwd=DU_AN,
+        so_commit = subprocess.run(["git", "rev-list", "--count", f"--since={a.tu} 00:00", "HEAD"], cwd=DU_AN,
                                    capture_output=True, text=True).stdout.strip()
     except Exception:
         so_commit = "?"

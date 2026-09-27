@@ -1,0 +1,29 @@
+  OK ghi_ke_hoach: mẫu trong assets/ giữ nguyên byte
+  OK ghi_ke_hoach: giữ nguyên đủ 990 công thức của mẫu, đúng ô
+  OK công thức thêm mới chỉ là cột F sản phẩm, 6 ô = 6 đầu việc
+  OK NGƯỢC: ghi vào assets/ bị chặn
+  OK Kế hoạch sạch → 0 LỖI (['KH13', 'KH17'])
+  OK Dòng ví dụ đã xóa → không báo KH06
+  OK Tự nhận nhóm từ tiêu đề sheet Đánh giá
+  OK NGƯỢC: mẫu nguyên bản → KH06 dòng ví dụ 'Bahnar' chưa xóa
+  OK NGƯỢC: mẫu nguyên bản → KH15 chưa điền họ tên, đơn vị
+  OK Mẫu Quý III: ô số Quyết định trống → KH13 (cảnh báo)
+  OK NGƯỢC: thiếu sản phẩm → KH01, thiếu thời hạn → KH02 (Đ12.4)
+  OK NGƯỢC: số lượng 'vài' → KH03 không đo lường được
+  OK NGƯỢC: mức 'Trung bình' mà hệ số 2 → KH05
+  OK Phương án nhập tay → không áp KH05
+  OK NGƯỢC: Trưởng/Phó đơn vị không có Trục 4 → KH10 (Đ12.1)
+  OK Không giữ chức vụ thiếu Trục 4 → không KH10, chỉ cảnh báo KH11
+  OK NGƯỢC: '100% viên chức toàn khoa' → KH09 (Đ4.8)
+  OK NGƯỢC: đầu việc trùng nội dung → KH14 (Đ11.4a)
+  OK Phương án A, sản phẩm có trong Danh mục → không KH08
+  OK NGƯỢC: phương án A, sản phẩm ngoài Danh mục TB 1052 → KH08
+  OK NGƯỢC: 21 đầu việc trong 1 Trục bị chặn (không tự chèn dòng làm lệch công thức)
+  OK Mẫu truong-pho-don-vi: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
+  OK Mẫu bo-mon: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
+  OK Mẫu nha-giao: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
+  OK Mẫu giao-vu: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
+  OK Mẫu hanh-chinh: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
+  OK Mẫu ho-tro: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
+
+ĐẠT: 0 ca sai

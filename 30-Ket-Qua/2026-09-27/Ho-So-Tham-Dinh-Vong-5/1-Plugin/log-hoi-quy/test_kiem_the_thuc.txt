@@ -1,0 +1,19 @@
+  OK TT01 Document() rỗng bị bắt khổ Letter
+  OK TT02 lề mặc định (trái 3,18 / 2,54 cm) bị bắt
+  OK TT03 phông Calibri mặc định bị bắt
+  OK văn bản đúng chuẩn không có Mức 1–2 (được: [])
+  OK TT08 cơ quan chủ quản “UBND TỈNH KON TUM” bị bắt
+  OK TT09 Quốc hiệu cỡ 12 bị bắt
+  OK TT03 .VnTime bị bắt
+  OK TT04 nội dung cỡ 13 bị bắt
+  OK TT03b biến thể TimesNewRomanPSMT chỉ Mức 3
+  OK TX02 xlsx phông Arial bị bắt (skill xlsx cho phép, KTC thì không)
+  OK xlsx TNR, A4 ngang đạt
+  OK tao_tu_mau giữ lề trái 3 cm của mẫu
+  OK hook: tệp sai trong dự án KTC → mã 2, báo TT08
+  OK hook: tệp đúng → mã 0
+  OK hook: ngoài dự án KTC → không can thiệp
+  OK 15 mẫu 03-Templates(1) (trừ 10-Giay-moi) không bị báo Mức 1–2: {}
+  OK lỗi đã biết của 10-Giay-moi vẫn bị bắt
+
+ĐẠT: 0 ca sai

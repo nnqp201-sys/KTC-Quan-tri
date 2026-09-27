@@ -78,7 +78,7 @@
 
 ## Ghi chú về "28 LỖI" của kiểm tra tĩnh
 
-Cả 28 lỗi là phép kiểm **C12** (tệp đầu vào trùng KTC-Database): 29 tệp kế hoạch người dùng nạp ngày 27/9/2026 vào
+Cả 28 lỗi là phép kiểm **C12** (tệp đầu vào trùng KTC-Database): 28 tệp kế hoạch (đính chính 27/9: 28, không phải 29) người dùng nạp ngày 27/9/2026 vào
 `10-Dau-Vao/04-Chuyen-de/` đã có sẵn trong kho (C12 yêu cầu trỏ thay vì chép). Không có tệp nào thuộc plugin; mọi phép
 kiểm còn lại đạt, 0 cảnh báo. Việc giữ hay xóa bản chép do người dùng quyết định (CLAUDE.md: không tự xóa tài liệu).
 
