@@ -48,7 +48,7 @@ def main():
          "| Kết nối Google Drive bật? Quyền thư mục cấp cho Cowork | | |",
          "| Cowork: đầu phiên có dòng “guard: HOẠT ĐỘNG”? Python có trên máy? | — | |",
          "| Người thử, ngày thử, đại diện chứng kiến | | |", ""]
-    for ca in sorted(glob.glob(os.path.join(BO_CA, "[0-9][0-9]-*"))):
+    for ca in sorted(p for p in glob.glob(os.path.join(BO_CA, "[0-9][0-9]-*")) if os.path.isdir(p)):
         ten = os.path.basename(ca)
         _, prompt = doc(os.path.join(ca, "prompt.md"))
         d += [f"## Ca {ten}", "", "**Lời nhắc (dán nguyên văn):**", "", "```", prompt, "```", "", "**Tiêu chí đạt:**", ""]
@@ -80,7 +80,7 @@ def main():
     out = "\n".join(d)
     if a.ra:
         io.open(a.ra, "w", encoding="utf-8").write(out)
-    print(f"{len(glob.glob(os.path.join(BO_CA, '[0-9][0-9]-*')))} ca + 2 ca Cowork -> {a.ra or 'stdout'}")
+    print(f"{len([p for p in glob.glob(os.path.join(BO_CA, '[0-9][0-9]-*')) if os.path.isdir(p)])} ca + 2 ca Cowork -> {a.ra or 'stdout'}")
 
 
 if __name__ == "__main__":
