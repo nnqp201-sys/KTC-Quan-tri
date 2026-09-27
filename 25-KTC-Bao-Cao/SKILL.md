@@ -1,9 +1,11 @@
 ---
 name: ktc-bao-cao
-description: "Thu thap, tong hop, xay dung bao cao cong tac thang/quy/6-thang/nam cua Truong Cao dang Kon Tum tu bao cao Excel Phu luc TB736 (Ia/Ib/IIb/IIc) cua cac Phong/Khoa/Trung tam, theo cau truc 6 Truc ket qua trong tam (TB 817/TB-CDKT) va he thong KPI 3 chieu (so luong/chat luong/tien do). Quan ly checklist don vi (Skill 35), kiem tra bao cao don vi + cong thuc KPI (Skill 32), tong hop cap Truong theo chuan phong cach cao cap + tinh % KPI theo Truc (Skill 33 + Skill-Tu-hoc), doi chieu tien do voi Ke hoach cung ky (Skill 34 — co nhanh fallback A/B/C khi thieu KH). Tu dong dien mau bao cao Word TB736 cap Truong tu du lieu Excel that (fill_bc736.py + read_bc736_excel.py). Day la He KTC Report Intelligence System (KTC-RIS) v3.4. KHONG dung de soan van ban hanh chinh thong thuong hoac ra soat - dung ktc-soan-thao-vb hoac ktc-ra-soat-897 cho viec do."
+description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.14
+# KTC-Bao-Cao / KTC-RIS v3.15
+
+> **v3.15** (27/9/2026) — Mô tả kích hoạt viết lại có dấu, nêu tình huống viết đoạn đánh giá, tổng hợp bảng kết quả dán trong khung chat: nghiệm thu 1.3.1 cho thấy các yêu cầu này không kích hoạt skill (thẩm định lần 3, DL-20260927-001).
 
 > **v3.14** (19/9/2026) — Nguyên tắc 6 — chuẩn thể thức sản phẩm .docx/.xlsx theo 03-Templates(1)/04-Good-Documents, dùng kèm skill the-thuc (DL-20260919-003).
 

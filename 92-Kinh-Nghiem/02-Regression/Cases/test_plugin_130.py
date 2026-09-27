@@ -70,7 +70,7 @@ kiem(guard(None, raw="[1,2]") == 2, "fail-closed: JSON không phải đối tư�
 
 print("== B. Bản dựng 31-Plugin ==")
 pj = json.load(io.open(os.path.join(PLUGIN, ".claude-plugin", "plugin.json"), encoding="utf-8"))
-kiem(pj.get("version") == "1.3.0", f"plugin.json version 1.3.0 (đang {pj.get('version')})")
+kiem(pj.get("version", "").startswith("1.3."), f"plugin.json version 1.3.x (đang {pj.get('version')})")
 kiem("backup" not in pj.get("description", "").lower(), "mô tả plugin không còn nói backup")
 hk = io.open(os.path.join(PLUGIN, "hooks", "hooks.json"), encoding="utf-8").read()
 kiem("ktc_backup_github" not in hk, "hooks.json không còn gọi backup GitHub")

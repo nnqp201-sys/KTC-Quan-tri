@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Chay bo ca nghiem thu plugin KTC-Quan-tri tren Claude Code bang `claude plugin eval`.
 
-Bo ca: 92-Kinh-Nghiem/02-Regression/Evals-Nghiem-Thu/ (6 ca — tham dinh lan 2, ChatGPT 5.2.7 va P1.3).
+Bo ca: 92-Kinh-Nghiem/02-Regression/Evals-Nghiem-Thu/ (15 ca — 01-06 tham dinh lan 2; 07-15 tham dinh lan 3: KPI,
+bao cao, soan thao, co bo cham regex tat dinh).
 `--eval-dir` phai nam BEN TRONG thu muc plugin, nen chep 31-Plugin + bo ca sang thu muc tam
 29-Cong-Cu/_trung_gian/eval-run/ — 31-Plugin/ va goi zip khong bi lan ket qua.
 
@@ -35,11 +36,16 @@ def main():
     ap.add_argument("--runs", default="1")
     ap.add_argument("--max-cost-usd", default="5")
     ap.add_argument("--case")
+    # --chi 05 06 07: chi chep cac ca co tien to nay (`--case` cua CLI 2.1.283 khong nhan [..] hay {..})
+    ap.add_argument("--chi", nargs="*")
+    ap.add_argument("--nhan", default="", help="tien to ten tep ket qua, vd dot2-")
     a = ap.parse_args()
     if os.path.isdir(TAM):
         shutil.rmtree(TAM)
     shutil.copytree(os.path.join(DU_AN, "31-Plugin"), TAM)
-    shutil.copytree(BO_CA, os.path.join(TAM, "evals"))
+    shutil.copytree(BO_CA, os.path.join(TAM, "evals"),
+                    ignore=(lambda d, ten: [t for t in ten if os.path.isdir(os.path.join(d, t)) and d == BO_CA
+                                            and not any(t.startswith(c) for c in a.chi)]) if a.chi else None)
     # Manifest phat hanh dat defaultEnabled=false -> sandbox eval se KHONG nap plugin. Chi tren BAN SAO TAM nay
     # bat len de nghiem thu dung plugin; goi zip va 31-Plugin/ giu nguyen.
     pj = os.path.join(TAM, ".claude-plugin", "plugin.json")
@@ -53,14 +59,14 @@ def main():
     cmd = [cl, "plugin", "eval", TAM, "--runs", a.runs, "--ablation", "none", "--trust-plugin",
            "--allow-tools", "Write", "Edit", "--no-publish", "--threshold", "1",
            "--max-cost-usd", a.max_cost_usd,
-           "--json", os.path.join(ra, "ket-qua.json"), "--report", os.path.join(ra, "bao-cao.html"),
+           "--json", os.path.join(ra, a.nhan + "ket-qua.json"), "--report", os.path.join(ra, a.nhan + "bao-cao.html"),
            "--output-dir", os.path.join(ra, "chi-tiet")]
     if a.case:
         cmd += ["--case", a.case]
     env = dict(os.environ)
     env.pop("KTC_NHAT_KY_NOI_DUNG", None)
     r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", env=env, cwd=DU_AN)
-    io.open(os.path.join(ra, "log-eval.txt"), "w", encoding="utf-8").write(
+    io.open(os.path.join(ra, a.nhan + "log-eval.txt"), "w", encoding="utf-8").write(
         f"# Lệnh: {' '.join(cmd)}\n# CLI: {ver}\n# Thời điểm: {dt.datetime.now():%d/%m/%Y %H:%M}\n"
         f"{r.stdout}\n{r.stderr}\n# Mã thoát: {r.returncode}\n")
     print(r.stdout[-3000:])

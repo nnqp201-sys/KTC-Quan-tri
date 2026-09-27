@@ -1,5 +1,28 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.1 — 2026-09-27
+
+Tiếp thu thẩm định độc lập lần 3 (`KI-019`). Ca thử: `test_plugin_131.py`.
+
+- **Guard hai tầng** (ChatGPT L3 P0-2): chặn lệnh lồng (`powershell -Command`, `pwsh -c`, `cmd /c`, `bash -c`), mã
+  Python nhúng `open(..., 'w')`/`Path().write_text|unlink`, `cd` vào kho rồi ghi, UNC, `-EncodedCommand`; **hỏi người
+  dùng** khi đích không xác định (mã nhúng hoặc biến trỏ vào kho + dấu hiệu ghi). Vùng bảo vệ khớp theo thành phần
+  đường dẫn — sửa 3 lần chặn nhầm có từ 1.3.0 (tên tệp chứa "KTC-Database"). Sửa tách lệnh đường dẫn Windows (`\`).
+- **Nhật ký không lưu nội dung thô qua PostToolUse** (ChatGPT L3 P0-1): lệnh Bash/PowerShell → chương trình + loại
+  hành động; Agent → loại agent; Grep/Glob → không lưu mẫu; tệp → đường dẫn tương đối. Lệnh (đã che dữ liệu) chỉ
+  khi chủ máy chọn `KTC_NHAT_KY_NOI_DUNG=1`. Nhật ký cũ được làm sạch khi mở phiên (trừ máy đã chọn ghi).
+- **Tiết kiệm token** (ChatGPT L3 mục 4, P1-1; Gemini, Grok, Copilot): khối chuẩn chung chèn vào skill/agent rút từ
+  ~4.550 xuống ~2.460 ký tự (−46%) (giữ đủ 7 quy tắc, 6 trạng thái, 6 mã cảnh báo, tự kiểm); diễn giải, ví dụ, bảng mã
+  chuyển `references/00-Quy-Tac-Bat-Bien-Day-Du.md`; lịch sử phiên bản đầu `SKILL.md` chuyển
+  `references/LICH-SU-PHIEN-BAN.md`; phần nạp đầu phiên ≤ 4.500 ký tự, không in lệnh, không in đường dẫn ngoài dự án.
+- **Quy tắc bất đồng skill–agent** (Copilot L3 R5): nêu đủ các bên kèm căn cứ, `CAN_XAC_MINH`, người có thẩm quyền
+  quyết; không bỏ phiếu; Mức 1 theo bất kỳ bên nào thì chưa trình ký.
+- skill `bao-cao` **3.15**: viết lại mô tả kích hoạt (có dấu, nêu tình huống viết đoạn đánh giá, tổng hợp bảng kết quả
+  dán trong khung chat) — nghiệm thu đo được skill không tự kích hoạt với các yêu cầu này, trả lời thiếu khối trạng thái.
+- Mã `DOI_CHIEU_GAN_DUNG`: bắt buộc đối chiếu thủ công 100% trước khi lãnh đạo đơn vị ký duyệt (Gemini L3 4.1).
+- Bộ ca nghiệm thu Code thêm 9 ca cho ba luồng rủi ro cao — KPI, báo cáo, soạn thảo — có bộ chấm tất định
+  (regex) bên cạnh giám khảo LLM (ChatGPT L3 P1-3).
+
 ## 1.3.0 — 2026-09-26
 
 Tiếp thu thẩm định độc lập lần 1, lần 2 (`KI-019`). Mọi thay đổi có ca thử trong `test_plugin_130.py`,

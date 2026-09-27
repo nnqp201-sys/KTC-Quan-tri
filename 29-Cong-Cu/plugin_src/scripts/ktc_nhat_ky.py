@@ -2,7 +2,10 @@
 """Tu ghi nhat ky phien lam viec va nap lai vao context khi mo phien moi.
 
 Goi tu hooks.json voi 1 trong 4 che do:
-  ghi       PostToolUse      — ghi 1 dong JSONL: thoi gian, phien, cong cu, doi tuong (KHONG ghi noi dung tep)
+  ghi       PostToolUse      — ghi 1 dong JSONL: thoi gian, phien, cong cu, doi tuong (KHONG ghi noi dung tep).
+                               1.3.1 (tham dinh lan 3, ChatGPT P0-1): KHONG luu lenh Bash/PowerShell, mo ta Agent,
+                               mau Grep/Glob tho — chi luu loai hanh dong + chuong trinh; tep: duong dan tuong doi.
+                               Lenh (da che du lieu) chi luu khi chu may chon KTC_NHAT_KY_NOI_DUNG=1.
   yeu-cau   UserPromptSubmit — MAC DINH chi ghi do dai + nhan tin hieu hoc; noi dung (cat 600 ky tu) chi khi
                                nguoi dung chon: mo dau "#học" hoac bien KTC_NHAT_KY_NOI_DUNG=1 (1.3.0, R2-02)
   ket-phien SessionEnd       — ghi dong danh dau ket thuc phien
@@ -21,7 +24,13 @@ import sys
 
 THU_MUC_LOG = os.path.join("90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
 DAI_TOI_DA = 200          # cat ngan lenh/duong dan dai
-SO_DONG_NAP = 15          # so thao tac gan nhat dua vao context
+SO_DONG_NAP = 5           # so thao tac gan nhat dua vao context (1.3.1: 15 -> 5, khong in lenh)
+# 1.3.1 (ChatGPT P1-1): ngan sach phan nap dau phien ~1.500 token (~4.500 ky tu tieng Viet). Vuot thi cat
+# danh sach tri thuc, bao so muc con lai. KTC_NAP_DAY_DU=1 -> ban day du (15 thao tac, 12 tep, 160 ky tu/muc).
+NGAN_SACH_NAP = 4500
+CONG_CU_TEP = ("Write", "Edit", "MultiEdit", "Read", "NotebookEdit")
+MAU_GHI_LENH = re.compile(r"(?:>|\b(?:rm|mv|cp|mkdir|touch|tee|del|move|copy|sed\s+-i|set-content|add-content|out-file|"
+                          r"remove-item|copy-item|move-item|new-item|rename-item)\b)", re.I)
 
 
 def doc_stdin() -> dict:
@@ -52,20 +61,58 @@ def tim_du_an(data: dict):
     return None
 
 
-def doi_tuong(tool: str, inp: dict) -> str:
-    if tool in ("Write", "Edit", "Read", "NotebookEdit"):
-        s = inp.get("file_path", "")
-    elif tool in ("Bash", "PowerShell"):
-        s = inp.get("command", "")
-    elif tool in ("Grep", "Glob"):
-        s = inp.get("pattern", "")
+def _tuong_doi(du_an, p: str) -> str:
+    p = str(p)
+    try:
+        if du_an and os.path.abspath(p).lower().startswith(os.path.abspath(du_an).lower() + os.sep):
+            return os.path.relpath(p, du_an).replace("\\", "/")
+    except (ValueError, OSError):
+        pass
+    return p.replace("\\", "/")
+
+
+def phan_loai_lenh(lenh: str) -> dict:
+    """Mo ta lenh KHONG luu noi dung: chuong trinh dau tien + loai hanh dong."""
+    lenh = str(lenh).strip()
+    m = re.match(r"(?:cd\s+(?:\"[^\"]*\"|'[^']*'|\S+)\s*(?:;|&&)\s*)?(?:\w+=\S*\s+)*([^\s;|&]+)", lenh)
+    ct = (m.group(1) if m else "").strip("\"'&").replace("\\", "/").rsplit("/", 1)[-1][:24]
+    if re.search(r"\bgit\s+(?:commit|push|add|reset|checkout|rm)\b", lenh):
+        hd = "git-ghi"
+    elif MAU_GHI_LENH.search(lenh):
+        hd = "ghi"
+    elif re.search(r"\b(?:python\d*|py|node|powershell|pwsh)\b", lenh, re.I):
+        hd = "chay-script"
+    else:
+        hd = "doc"
+    return {"chuong_trinh": ct, "hanh_dong": hd}
+
+
+def doi_tuong(tool: str, inp: dict, du_an: str = None) -> str:
+    """Doi tuong DUOC PHEP luu mac dinh: duong dan tep (tuong doi), ten skill, loai agent. Lenh, mo ta Agent,
+    mau tim kiem la noi dung tho -> khong tra ve o day (1.3.1, P0-1)."""
+    if tool in CONG_CU_TEP:
+        s = _tuong_doi(du_an, inp.get("file_path") or inp.get("notebook_path") or "")
     elif tool == "Skill":
         s = inp.get("skill", "")
     elif tool == "Agent":
-        s = f'{inp.get("subagent_type", "")}: {inp.get("description", "")}'
+        s = inp.get("subagent_type", "") or "general"
     else:
         s = ""
-    s = " ".join(str(s).split())
+    s = che_du_lieu(" ".join(str(s).split()))
+    return s[:DAI_TOI_DA] + ("…" if len(s) > DAI_TOI_DA else "")
+
+
+def chi_tiet_tho(tool: str, inp: dict) -> str:
+    """Noi dung tho — CHI luu khi chu may chon KTC_NHAT_KY_NOI_DUNG=1; luon che du lieu."""
+    if tool in ("Bash", "PowerShell"):
+        s = inp.get("command", "")
+    elif tool in ("Grep", "Glob"):
+        s = inp.get("pattern", "")
+    elif tool == "Agent":
+        s = inp.get("description", "")
+    else:
+        return ""
+    s = che_du_lieu(" ".join(str(s).split()))
     return s[:DAI_TOI_DA] + ("…" if len(s) > DAI_TOI_DA else "")
 
 
@@ -147,7 +194,16 @@ def che_do_ghi(data: dict, loai: str):
     }
     if loai == "thao-tac":
         dong["cong_cu"] = tool
-        dong["doi_tuong"] = doi_tuong(tool, data.get("tool_input") or {})
+        inp = data.get("tool_input") or {}
+        dt_ = doi_tuong(tool, inp, du_an)
+        if dt_:
+            dong["doi_tuong"] = dt_
+        if tool in ("Bash", "PowerShell"):
+            dong.update(phan_loai_lenh(inp.get("command", "")))
+        if os.environ.get("KTC_NHAT_KY_NOI_DUNG") == "1":
+            ct = chi_tiet_tho(tool, inp)
+            if ct:
+                dong["chi_tiet"] = ct
         resp = data.get("tool_response")
         if isinstance(resp, dict) and (resp.get("is_error") or resp.get("error")):
             dong["loi"] = True
@@ -205,9 +261,8 @@ def moi_nhat(thu_muc: str):
     return tep[-1] if tep else None
 
 
-def nap_tri_thuc(du_an: str):
-    """In tri thuc tu hoc con hieu luc/cho duyet + so tin hieu hoc CHUA xu ly ke tu lan hoc cuoi."""
-    import re
+def nap_tri_thuc(du_an: str, ra: list, day_du: bool = False):
+    """Tri thuc tu hoc con hieu luc/cho duyet + so tin hieu hoc CHUA xu ly ke tu lan hoc cuoi -> `ra` (danh sach dong)."""
     thu_muc = os.path.join(du_an, TEP_TRI_THUC)
     tep = os.path.join(thu_muc, "TRI-THUC.md")
     muc = []
@@ -223,52 +278,120 @@ def nap_tri_thuc(du_an: str):
         pass
     chua = [d for d in doc_log(du_an, so_ngay=14)
             if d.get("loai") == "yeu-cau" and d.get("tin_hieu") and d.get("t", "") > moc]
-    print(f"--- Tri thức tự học ({len(muc)} mục hiệu lực/chờ duyệt — {TEP_TRI_THUC}/TRI-THUC.md) ---")
+    ra.append(f"--- Tri thức tự học ({len(muc)} mục hiệu lực/chờ duyệt — {TEP_TRI_THUC}/TRI-THUC.md) ---")
+    dai = 160 if day_du else 100
     for o in muc[-SO_TRI_THUC_NAP:]:
         dau = "?" if o[5].lower().startswith("chờ") else "•"
-        print(f"  {dau} [{o[0]}·{o[1]}] {o[2][:160]}")
+        noi = o[2] if len(o[2]) <= dai else o[2][:dai - 1] + "…"
+        ra.append(f"  {dau} [{o[0]}·{o[1]}] {noi}")
     if chua:
-        print(f"  ⟳ {len(chua)} tín hiệu học CHƯA xử lý (lời người dùng có sửa sai/quy ước/quyết định) — "
-              "gọi agent ktc-tu-hoc để rút tri thức.")
+        ra.append(f"  ⟳ {len(chua)} tín hiệu học CHƯA xử lý — gọi agent ktc-tu-hoc để rút tri thức.")
+
+
+def lam_sach_nhat_ky_cu(du_an: str) -> int:
+    """1.3.1 (P0-1): go lenh/mo ta/mau tho khoi nhat ky da ghi truoc 1.3.1 — tru khi chu may chon ghi noi dung.
+    Tra ve so dong da lam sach. Ghi lai tep qua tep tam roi thay the (khong de tep do dang)."""
+    if os.environ.get("KTC_NHAT_KY_NOI_DUNG") == "1":
+        return 0
+    thu_muc = os.path.join(du_an, THU_MUC_LOG)
+    if not os.path.isdir(thu_muc):
+        return 0
+    n = 0
+    for f in os.listdir(thu_muc):
+        if not f.endswith(".jsonl"):
+            continue
+        p = os.path.join(thu_muc, f)
+        dong, doi = [], False
+        for line in io.open(p, encoding="utf-8", errors="ignore"):
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            cc = d.get("cong_cu")
+            if d.get("loai") == "thao-tac" and cc not in CONG_CU_TEP and cc != "Skill" and "hanh_dong" not in d \
+                    and d.get("doi_tuong"):
+                tho = d.pop("doi_tuong")
+                if cc in ("Bash", "PowerShell"):
+                    d.update(phan_loai_lenh(tho))
+                elif cc == "Agent":
+                    d["doi_tuong"] = tho.split(":", 1)[0].strip() or "general"
+                d["da_lam_sach"] = "1.3.1"
+                doi, n = True, n + 1
+            d.pop("chi_tiet", None)
+            dong.append(d)
+        if doi:
+            tam = p + ".tam"
+            with io.open(tam, "w", encoding="utf-8") as h:
+                for d in dong:
+                    h.write(json.dumps(d, ensure_ascii=False) + "\n")
+            os.replace(tam, p)
+    return n
 
 
 def che_do_nap(data: dict):
     du_an = tim_du_an(data)
     if not du_an:
         return
+    day_du = os.environ.get("KTC_NAP_DAY_DU") == "1"
     don_nhat_ky_cu(du_an)
+    lam_sach_nhat_ky_cu(du_an)
     dong = doc_log(du_an)
     thao_tac = [d for d in dong if d.get("loai") == "thao-tac"]
-    sua = sorted({d["doi_tuong"] for d in thao_tac
-                  if d.get("cong_cu") in ("Write", "Edit") and d.get("doi_tuong")})
+    sua_tat_ca = {_tuong_doi(du_an, d["doi_tuong"]) for d in thao_tac
+                  if d.get("cong_cu") in ("Write", "Edit", "MultiEdit") and d.get("doi_tuong")}
+    # chi in tep TRONG du an (duong dan tuong doi); tep ngoai (thu muc tam...) chi dem
+    sua = sorted(x for x in sua_tat_ca if not (":" in x[:3] or x.startswith("/")))
+    ngoai = len(sua_tat_ca) - len(sua)
     loi = [d for d in thao_tac if d.get("loi")]
     phien = sorted({d.get("phien") for d in dong if d.get("phien")})
 
-    print("=== KTC-Quan-tri — nhật ký tự động 2 ngày gần nhất (nạp vào context) ===")
+    dau = ["=== KTC-Quan-tri — nhật ký tự động 2 ngày gần nhất (nạp vào context) ==="]
     if not dong:
-        print("Chưa có nhật ký tự động. (Ghi bắt đầu từ phiên này.)")
+        dau.append("Chưa có nhật ký tự động. (Ghi bắt đầu từ phiên này.)")
     else:
-        print(f"{len(phien)} phiên · {len(thao_tac)} thao tác · {len(sua)} tệp đã ghi/sửa · "
-              f"{len(loi)} thao tác lỗi")
+        dau.append(f"{len(phien)} phiên · {len(thao_tac)} thao tác · {len(sua)} tệp dự án đã ghi/sửa"
+                   + (f" (+{ngoai} tệp ngoài dự án)" if ngoai else "") + f" · {len(loi)} thao tác lỗi")
+        so_tep = 12 if day_du else 8
         if sua:
-            print("Tệp đã ghi/sửa:")
-            for s in sua[-12:]:
-                print(f"  - {s}")
-        print(f"{SO_DONG_NAP} thao tác gần nhất:")
-        for d in thao_tac[-SO_DONG_NAP:]:
-            dau = "✗" if d.get("loi") else "·"
-            print(f"  {dau} {d['t'][5:16]} {d.get('cong_cu', ''):10s} {d.get('doi_tuong', '')[:110]}")
+            dau.append(f"Tệp dự án đã ghi/sửa ({min(len(sua), so_tep)}/{len(sua)}):")
+            dau += [f"  - {s}" for s in sua[-so_tep:]]
+        so = 15 if day_du else SO_DONG_NAP
+        dau.append(f"{so} thao tác gần nhất (không in lệnh — P0-1):")
+        for d in thao_tac[-so:]:
+            ky = "✗" if d.get("loi") else "·"
+            if d.get("cong_cu") in ("Bash", "PowerShell"):
+                pl = d if "hanh_dong" in d else phan_loai_lenh(d.get("doi_tuong", ""))
+                mo_ta = f"{pl.get('chuong_trinh', '')} ({pl.get('hanh_dong', '')})"
+            elif d.get("cong_cu") in CONG_CU_TEP or d.get("cong_cu") in ("Skill", "Agent"):
+                mo_ta = _tuong_doi(du_an, d.get("doi_tuong", "")).split(":", 1)[0] if d.get("cong_cu") == "Agent"                     else _tuong_doi(du_an, d.get("doi_tuong", ""))
+            else:
+                mo_ta = ""
+            dau.append(f"  {ky} {d['t'][5:16]} {d.get('cong_cu', ''):10s} {mo_ta[:90]}")
 
-    nap_tri_thuc(du_an)
+    tri = []
+    nap_tri_thuc(du_an, tri, day_du)
 
+    duoi = []
     pm = moi_nhat(os.path.join(du_an, "90-Nhat-Ky-Van-Hanh", "03-Process-Memory"))
     cp = moi_nhat(os.path.join(du_an, "92-Kinh-Nghiem", "03-Change-Proposals"))
     dl = moi_nhat(os.path.join(du_an, "92-Kinh-Nghiem", "06-Decision-Log"))
-    print("Bản ghi gần nhất:")
+    duoi.append("Bản ghi gần nhất:")
     for nhan, v in (("Process Memory", pm), ("Đề xuất cải tiến", cp), ("Decision Log", dl)):
-        print(f"  - {nhan}: {v or '(chưa có)'}")
-    print("Nhắc: đọc MEMORY-INDEX.md và Pending.md trước khi làm việc (CLAUDE.md).")
-    print("=" * 72)
+        duoi.append(f"  - {nhan}: {v or '(chưa có)'}")
+    duoi.append("Nhắc: đọc MEMORY-INDEX.md và Pending.md trước khi làm việc (CLAUDE.md).")
+    duoi.append("=" * 72)
+
+    # Ngan sach: cat bot muc tri thuc CU NHAT (giu dong tieu de va dong tin hieu) cho toi khi vua
+    if not day_du:
+        def tong():
+            return sum(len(x) + 1 for x in dau + tri + duoi)
+        bo = 0
+        while tong() > NGAN_SACH_NAP - 80 and len(tri) > 2:
+            del tri[1]
+            bo += 1
+        if bo:
+            tri.insert(1, f"  … {bo} mục cũ hơn không nạp (ngân sách context) — đọc TRI-THUC.md khi cần.")
+    print("\n".join(dau + tri + duoi))
 
 
 def main():

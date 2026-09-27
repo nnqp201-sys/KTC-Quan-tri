@@ -30,7 +30,7 @@ PLUGIN_DIR = os.path.join(DU_AN, "31-Plugin")
 # (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
 GOI_NGUON = [
     (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
-    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.14.skill"), "ktc-bao-cao", "bao-cao"),
+    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.15.skill"), "ktc-bao-cao", "bao-cao"),
     (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.9.skill"), "ktc-ke-hoach", "ke-hoach"),
     (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.10.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.7.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
@@ -40,7 +40,7 @@ GOI_NGUON = [
      "kpi-tu-danh-gia"),
 ]
 
-PLUGIN_VERSION = "1.3.0"  # 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.3.1"  # 1.3.1 (27/9/2026, tiep thu tham dinh lan 3): guard 2 tang chan/hoi (ma nhung, vo lenh long, cd vao kho, UNC; vung = ca thanh phan duong dan); nhat ky khong luu lenh/mo ta tho, nap dau phien <= 4.500 ky tu; khoi chuan chung loi ~2.460 ky tu + ban day du trong references/; lich su phien ban tach khoi SKILL.md; quy tac bat dong skill-agent. 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -147,7 +147,7 @@ def build_manifest():
             "claudeStrictValidation": "ĐẠT 26/9/2026 (bản 1.3.0, claude.exe 2.1.283) — `claude plugin validate "
                                        "./31-Plugin --strict`; bản 1.2.1 KHÔNG đạt với CLI 2.1.283 (YAML mô tả agent "
                                        "ktc-kiem-san-pham, đã sửa ở 1.3.0); chạy lại mỗi lần dựng.",
-            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.14.skill", "ktc-ke-hoach-v3.9.skill",
+            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.15.skill", "ktc-ke-hoach-v3.9.skill",
                               "ktc-soan-thao-vb-v1.10.skill", "ktc-theo-doi-cv-v1.7.skill",
                               "ktc-the-thuc-v1.0.skill", "ktc-kpi-lap-ke-hoach-v1.2.skill",
                               "ktc-kpi-tu-danh-gia-v1.1.skill"],
@@ -351,13 +351,63 @@ def chen_vao(path: str, khoi: str) -> str:
     return "đã chèn"
 
 
+def khoi_day_du() -> str:
+    """Ban day du (dien giai, vi du, bang ma canh bao) — ghi thanh references/, chi nap khi can (1.3.1)."""
+    s = io.open(CHUAN_CHUNG, encoding="utf-8").read()
+    m = re.search(r"<!-- KHOI-DAY-DU-BAT-DAU -->\s*\n(.*?)\n<!-- KHOI-DAY-DU-KET-THUC -->", s, re.S)
+    if not m:
+        raise SystemExit(f"Khong tim thay khoi day du trong {CHUAN_CHUNG}")
+    return m.group(1).strip() + "\n"
+
+
+TEN_DAY_DU = "00-Quy-Tac-Bat-Bien-Day-Du.md"
+TEN_LICH_SU = "LICH-SU-PHIEN-BAN.md"
+
+
+def tach_lich_su(skill_md: str) -> int:
+    """1.3.1 (ChatGPT L3 muc 4): chuyen cac doan trich dan lich su "> **vX.Y** (ngay) — ..." o dau SKILL.md sang
+    references/LICH-SU-PHIEN-BAN.md; SKILL.md con 1 dong tro toi. Khong dong den dong "Phien ban: X" ma doctor doc.
+    Tra ve so muc da chuyen."""
+    s = io.open(skill_md, encoding="utf-8").read()
+    doan = re.split(r"(\n\s*\n)", s)
+    giu, lich_su = [], []
+    for d in doan:
+        if re.match(r"\s*> \*\*v\d+(\.\d+)+\*\* \(", d):
+            lich_su.append(d.strip())
+        else:
+            giu.append(d)
+    if not lich_su:
+        return 0
+    s2 = "".join(giu)
+    # dong tro toi ngay sau tieu de cap 1 dau tien
+    m = re.search(r"^# .*$", s2, re.M)
+    tro = f"\n\n> Lịch sử phiên bản: `references/{TEN_LICH_SU}` (không cần đọc khi làm việc)."
+    s2 = s2[:m.end()] + tro + s2[m.end():] if m else s2
+    s2 = re.sub(r"\n{3,}", "\n\n", s2)
+    io.open(skill_md, "w", encoding="utf-8").write(s2)
+    d = os.path.join(os.path.dirname(skill_md), "references")
+    os.makedirs(d, exist_ok=True)
+    io.open(os.path.join(d, TEN_LICH_SU), "w", encoding="utf-8").write(
+        "# Lịch sử phiên bản (tách khỏi SKILL.md khi dựng plugin 1.3.1 — không nạp khi làm việc)\n\n"
+        + "\n\n".join(lich_su) + "\n")
+    return len(lich_su)
+
+
 def chen_chuan_chung():
-    print("── Chèn chuẩn chung (quy tắc bất biến, khuôn đầu ra) vào mọi skill và agent ──")
+    print("── Chèn chuẩn chung (lõi) vào mọi skill và agent; bản đầy đủ vào references/ của skill ──")
     import glob
     khoi = khoi_chuan_chung()
+    day_du = khoi_day_du()
     for p in sorted(glob.glob(os.path.join(PLUGIN_DIR, "skills", "*", "SKILL.md")) +
                     glob.glob(os.path.join(PLUGIN_DIR, "agents", "*.md"))):
-        print(f"  ✓ {os.path.relpath(p, PLUGIN_DIR):40s} {chen_vao(p, khoi)}")
+        ghi_chu = chen_vao(p, khoi)
+        if os.path.basename(p) == "SKILL.md":
+            d = os.path.join(os.path.dirname(p), "references")
+            os.makedirs(d, exist_ok=True)
+            io.open(os.path.join(d, TEN_DAY_DU), "w", encoding="utf-8").write(day_du)
+            n = tach_lich_su(p)
+            ghi_chu += f" · {TEN_DAY_DU}" + (f" · tách {n} mục lịch sử" if n else "")
+        print(f"  ✓ {os.path.relpath(p, PLUGIN_DIR):40s} {ghi_chu}")
 
 
 def kiem_mo_ta():
