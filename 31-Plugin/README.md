@@ -86,7 +86,7 @@ quyền chỉ đọc (Viewer) trên Google Drive** cho mọi tài khoản không
   trưng — guard không nhìn thấy; máy không có Python thì hook không chạy — doctor báo "guard: CHƯA HOẠT ĐỘNG", khi
   đó **dừng các thao tác có ghi tệp**, chỉ dùng đọc và soạn nháp; Claude (trò chuyện) không có hook.
 - Ca thử: `test_plugin_130.py` (14 chặn, 7 cho qua, 2 fail-closed) và `test_plugin_131.py` (21 chặn gồm các lệnh vượt
-  guard do thẩm định lần 3, lần 4 chạy; 9 cho qua); chạy lại 1.653 lệnh thật trong nhật ký (18–27/9/2026): 0 chặn nhầm.
+  guard do thẩm định lần 3, lần 4 chạy; 12 cho qua, gồm lệnh `sed -i` bị chặn nhầm thật 27/9); chạy lại 1.653 lệnh thật trong nhật ký (18–27/9/2026): 0 chặn nhầm.
 
 ## Sao lưu GitHub — KHÔNG thuộc plugin (từ 1.3.0)
 

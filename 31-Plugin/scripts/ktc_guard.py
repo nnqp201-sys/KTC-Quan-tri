@@ -189,7 +189,23 @@ def kiem_lenh(lenh: str, sau: int = 0):
             if dt in DONG_TU_XOA_GHI | DONG_TU_DOI | DONG_TU_CHEP and any(_tuong_doi(t) for t in doi_so):
                 _chan(f"lệnh `{dt}` với đường dẫn tương đối khi đang đứng trong vùng bảo vệ")
         if dt in ("sed", "perl") and any(t.startswith("-i") for t in tok[1:]):
-            if any(VUNG.search(t) for t in doi_so):
+            # 1.3.2 (chan nham that 27/9/2026 18:4x): chi xet TEP DICH, khong xet bieu thuc sed/perl — bieu thuc
+            # co chu "KTC-Database" (vd thay chu trong mot tep ngoai kho) khong phai duong dan ghi.
+            # Bieu thuc: doi so sau -e/--expression/-f; neu khong co -e thi doi so khong-tuy-chon DAU TIEN.
+            bt, tep, i, co_e = set(), [], 1, False
+            while i < len(tok):
+                t = tok[i]
+                if t in ("-e", "--expression", "-f", "--file") and i + 1 < len(tok):
+                    bt.add(i + 1)
+                    co_e = True
+                    i += 2
+                    continue
+                i += 1
+            khong_tuy_chon = [k for k in range(1, len(tok)) if not tok[k].startswith("-") and k not in bt]
+            if not co_e and khong_tuy_chon:
+                khong_tuy_chon = khong_tuy_chon[1:]          # bo bieu thuc sed dung tran
+            tep = [tok[k] for k in khong_tuy_chon]
+            if any(VUNG.search(t) for t in tep):
                 _chan(f"sửa tại chỗ ({dt} -i) tệp trong vùng bảo vệ")
             continue
         if dt in DONG_TU_LIEN_KET or (dt in ("cmd", "cmd.exe") and "mklink" in cau.lower()):

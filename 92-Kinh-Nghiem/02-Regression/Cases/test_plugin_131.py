@@ -87,6 +87,10 @@ for cc, l, ten in HOI_132:
 QUA_132 = [
     ("Bash", r'cd "H:/My Drive/KTC-Database" && ls > C:\tmp\ds.txt', r"cd vào kho, ghi RA C:\… (đường dẫn Windows tuyệt đối)"),
     ("Bash", 'ln -s /tmp/a ./b', "ln -s ngoài kho"),
+    # chặn nhầm thật 27/9/2026: biểu thức sed có chữ KTC-Database, tệp đích ngoài kho
+    ("Bash", "sed -i 's/tệp trùng KTC-Database)/tệp trùng kho)/' 30-Ket-Qua/a.md", "sed -i biểu thức nhắc kho, tệp ngoài kho [chặn nhầm thật 27/9]"),
+    ("Bash", "sed -i -e 's/KTC-Database/kho/' 30-Ket-Qua/a.md", "sed -i -e biểu thức nhắc kho, tệp ngoài kho"),
+    ("Bash", "perl -pi -e 's/KTC-Database/kho/' 30-Ket-Qua/a.md", "perl -pi -e biểu thức nhắc kho, tệp ngoài kho"),
 ]
 for cc, l, ten in QUA_132:
     kq = guard(cc, l)
@@ -209,6 +213,41 @@ try:
     kiem("VD02" not in "✓ Không phát hiện", "ca ngược: kết quả sạch không chứa mã lỗi")
 finally:
     shutil.rmtree(tam2, ignore_errors=True)
+
+print("== F. kiem_ho_so.py: bắt tệp TrackChanges đã bị chấp nhận thay đổi / sai mã băm (1.3.2, F4-03) ==")
+import hashlib
+import zipfile as _zf
+KHS = os.path.join(GOC, "29-Cong-Cu", "kiem_ho_so.py")
+tam3 = tempfile.mkdtemp(prefix="ktc132hs_")
+try:
+    def docx_gia(p, co_vet):
+        than = ('<w:ins w:id="1" w:author="a"><w:r><w:t>x</w:t></w:r></w:ins>' if co_vet else "<w:r><w:t>x</w:t></w:r>")
+        with _zf.ZipFile(p, "w") as z:
+            z.writestr("[Content_Types].xml", "<Types/>")
+            z.writestr("word/document.xml", '<w:document xmlns:w="w"><w:body><w:p>' + than + "</w:p></w:body></w:document>")
+
+    def lap(co_vet, sua_sau=False):
+        os.makedirs(os.path.join(tam3, "4-Van-ban"), exist_ok=True)
+        p = os.path.join(tam3, "4-Van-ban", "TB_x_TrackChanges.docx")
+        if os.path.exists(p):
+            os.chmod(p, 0o666)
+        docx_gia(p, co_vet)
+        b = open(p, "rb").read()
+        io.open(os.path.join(tam3, "00-DANH-MUC-HO-SO.md"), "w", encoding="utf-8").write(
+            "| Nhóm | Tệp | Byte | SHA-256 |\n|---|---|---:|---|\n"
+            f"| 4-Van-ban | `TB_x_TrackChanges.docx` | {len(b)} | `{hashlib.sha256(b).hexdigest()}` |\n")
+        if sua_sau:                      # mo trong Word, chap nhan thay doi, luu lai
+            docx_gia(p, False)
+        return subprocess.run([sys.executable, KHS, tam3], capture_output=True, text=True, encoding="utf-8").returncode
+
+    kiem(lap(True) == 0, "hồ sơ đúng: TrackChanges còn đánh dấu, mã băm khớp → sạch")
+    kiem(lap(True, sua_sau=True) == 1, "ca ngược: tệp bị chấp nhận thay đổi sau khi lập hồ sơ → lỗi")
+    kiem(lap(False) == 1, "ca ngược: tệp tên TrackChanges nhưng 0 đánh dấu → lỗi")
+finally:
+    for r, _, fs in os.walk(tam3):
+        for f in fs:
+            os.chmod(os.path.join(r, f), 0o666)
+    shutil.rmtree(tam3, ignore_errors=True)
 
 print("KET LUAN:", "CO LOI " + str(loi) if loi else "SACH")
 sys.exit(1 if loi else 0)

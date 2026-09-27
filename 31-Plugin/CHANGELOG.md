@@ -6,10 +6,13 @@ Tiếp thu thẩm định độc lập lần 4 (`DL-20260927-002`). Ca thử: `t
 
 - **Guard tầng 2 chặn thay vì hỏi** (ChatGPT L4 F4-01, tái hiện: biến trỏ kho + `shutil.copy` trả `ask`): lệnh không xác
   định được đích mà có dấu hiệu ghi vào kho → chặn (mã 2); không còn lựa chọn "đồng ý". Chạy lại 1.653 lệnh thật: 0 chặn nhầm.
+- **Sửa chặn nhầm thật trong vận hành** (27/9/2026): `sed -i`/`perl -i` chỉ xét tệp đích, không xét biểu thức thay thế có chữ
+  "KTC-Database"; ca thử gồm đúng lệnh bị chặn nhầm.
 - Chặn tạo liên kết tượng trưng/thư mục trỏ vào kho (`ln`, `mklink`, `New-Item -ItemType SymbolicLink|Junction`).
 - Sửa nhận dạng đường dẫn tuyệt đối Windows `C:\…` (bản 1.3.1 coi là tương đối khi đang đứng trong kho → chặn nhầm).
 - Khối quy tắc lõi: ghi rõ đường dẫn bản đầy đủ cho agent `skills/quan-tri/references/00-Quy-Tac-Bat-Bien-Day-Du.md` (F4-07).
 - `kiem_vien_dan.py` đọc tệp văn bản UTF-8, UTF-16, cp1258, cp1252 (chuẩn hóa NFC), báo bảng mã đã dùng (Gemini L4).
+- `kiem_ho_so.py` (máy phát triển): kiểm mã băm hồ sơ và số đánh dấu tệp `_TrackChanges` trước khi gửi thẩm định (F4-03).
 - Bộ ca nghiệm thu khai báo `runs: 2` trong từng ca — metadata `runsPerCase` khớp số lượt chạy (F4-04).
 
 ## 1.3.1 — 2026-09-27
