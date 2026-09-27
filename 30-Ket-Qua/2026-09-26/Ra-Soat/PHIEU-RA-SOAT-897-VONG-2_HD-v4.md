@@ -142,3 +142,16 @@ Kết luận này không thay quyết định của người có thẩm quyền 
 
 ---
 Hệ KTC-Ra-Soat-897 v3.0 | Skill ktc-ra-soat-897 v3.0
+
+
+## Bổ sung 27/9/2026 — xác minh M4-01 → M4-03 bằng bản gốc
+
+Người dùng nạp bản gốc vào `10-Dau-Vao/09-Chua-Phan-Loai/`; đọc bằng python-docx:
+
+| Mã | Văn bản | Bản gốc (SHA-256 16 ký tự đầu) | Kết quả |
+|---|---|---|---|
+| M4-01 | TB 917/TB-CĐKT ngày 10/8/2026 — kết luận giao ban tuần 10/8–16/8/2026 | `aeb6ee44650428d6` | **Khớp** số, ngày, trích yếu. Mục 6 (Phòng TH-HC&QT) giao công cụ AI tổng hợp báo cáo, kế hoạch, hạn 28/8/2026 — khớp BC quá trình |
+| M4-02 | TB 924/TB-CĐKT ngày 11/8/2026 — hướng dẫn cài đặt, quản lý, sử dụng Claude (gói Team – Standard seat) | `32ee82d4d5f78073` | **Khớp**. TB 924 lấy chính TB 917 làm căn cứ |
+| M4-03 | TB 948/TB-CĐKT ngày 17/8/2026 — hướng dẫn rà soát dự thảo bằng công cụ AI | `68c7dbfe0c974791` | **Khớp** số, ngày. TB 948 gọi tên "Công cụ AI KTC-Ra-Soat-897-v2-Cai-tien"; TB 1056 (16/9/2026) gọi Skill "ktc-ra-soat-897" → TB v5 bổ sung tên gọi tại TB 948 trong ngoặc ở lần nhắc đầu (Track Changes, tác giả "Xác minh căn cứ (Claude)") |
+
+**Kết luận:** M4-01 → M4-03 đóng. Không phát sinh Mức 1. Điều kiện "xác minh TB 917 trước khi ký" đã đáp ứng.
