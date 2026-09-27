@@ -43,8 +43,22 @@ def doc_tep(p):
                 for o in hang.cells:
                     doan.extend(x.text for x in o.paragraphs)
         return doan
-    with open(p, encoding="utf-8") as f:
-        return f.read().splitlines()
+    # 1.3.2 (tham dinh lan 4, Gemini): tep van ban khong phai UTF-8 (xuat tu Word/Notepad cu: UTF-16, cp1258,
+    # cp1252) khong duoc lam script dung giua chung. Thu lan luot; bang ma cuoi cung doc duoc thi bao ra stderr.
+    raw = open(p, "rb").read()
+    for bm in ("utf-8-sig", "utf-16", "cp1258", "cp1252"):
+        if bm == "utf-16" and not raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+            continue
+        try:
+            s = raw.decode(bm)
+        except UnicodeDecodeError:
+            continue
+        if bm not in ("utf-8-sig",):
+            sys.stderr.write(f"Lưu ý: {p} không phải UTF-8 — đã đọc theo bảng mã {bm}; kiểm lại dấu tiếng Việt.\n")
+        import unicodedata
+        # cp1258 luu dau thanh dang to hop -> chuan hoa NFC de mau regex ("Căn cứ") khop
+        return unicodedata.normalize("NFC", s).splitlines()
+    raise SystemExit(f"Không đọc được {p}: không nhận dạng được bảng mã (thử UTF-8, UTF-16, cp1258, cp1252).")
 
 
 def _la_qd_hieu_truong(doan):

@@ -70,9 +70,27 @@ HOI = [
     ("Bash", f"D=\"H:/My Drive/KTC-Database\"; python -c \"import os; os.remove(os.environ['D'])\"", "biến trỏ kho + os.remove"),
     ("PowerShell", "$d = 'H:\\My Drive\\KTC-Database'; node -e \"require('fs').writeFileSync(process.argv[1]+'/a','x')\" $d", "node fs.writeFileSync qua biến"),
 ]
+# 1.3.2 (tham dinh lan 4, F4-01): dich khong xac dinh -> CHAN (khong con "ask")
 for cc, l, ten in HOI:
     kq = guard(cc, l)
-    kiem(kq == "hoi", f"hỏi người dùng: {ten} (được: {kq})")
+    kiem(kq == "chan", f"chặn (đích không xác định): {ten} (được: {kq})")
+HOI_132 = [
+    ("Bash", f"d=\"H:/My Drive/KTC-Database\"; python -c \"import shutil,os; shutil.copy('a.txt', os.path.join(r'$d','b.txt'))\"",
+     "biến d + shutil.copy [ChatGPT L4 F4-01]"),
+    ("Bash", 'ln -s "H:/My Drive/KTC-Database" ./kho', "ln -s tạo liên kết tới kho"),
+    ("PowerShell", r"New-Item -ItemType SymbolicLink -Path .\kho -Target 'H:\My Drive\KTC-Database'", "New-Item SymbolicLink tới kho"),
+    ("Bash", r'cmd /c mklink /D kho "H:\My Drive\KTC-Database"', "cmd mklink /D tới kho"),
+]
+for cc, l, ten in HOI_132:
+    kq = guard(cc, l)
+    kiem(kq == "chan", f"chặn 1.3.2: {ten} (được: {kq})")
+QUA_132 = [
+    ("Bash", r'cd "H:/My Drive/KTC-Database" && ls > C:\tmp\ds.txt', r"cd vào kho, ghi RA C:\… (đường dẫn Windows tuyệt đối)"),
+    ("Bash", 'ln -s /tmp/a ./b', "ln -s ngoài kho"),
+]
+for cc, l, ten in QUA_132:
+    kq = guard(cc, l)
+    kiem(kq == "qua", f"cho qua 1.3.2: {ten} (được: {kq})")
 
 QUA = [
     ("Bash", f"python -c \"import docx; d=docx.Document('{DB}'); print(len(d.paragraphs))\"", "python đọc tệp trong kho"),
@@ -143,7 +161,7 @@ finally:
 
 print("== D. Bản dựng 31-Plugin 1.3.1 ==")
 pj = json.load(io.open(os.path.join(PLUGIN, ".claude-plugin", "plugin.json"), encoding="utf-8"))
-kiem(pj.get("version") == "1.3.1", f"plugin.json 1.3.1 (đang {pj.get('version')})")
+kiem(pj.get("version", "").startswith("1.3."), f"plugin.json 1.3.x (đang {pj.get('version')})")
 skills = sorted(glob.glob(os.path.join(PLUGIN, "skills", "*", "SKILL.md")))
 agents = sorted(glob.glob(os.path.join(PLUGIN, "agents", "*.md")))
 NGUONG_KHOI = 2500
@@ -161,6 +179,36 @@ for p in skills:
 bc = io.open(os.path.join(PLUGIN, "skills", "bao-cao", "references", "LICH-SU-PHIEN-BAN.md"), encoding="utf-8").read() \
     if os.path.isfile(os.path.join(PLUGIN, "skills", "bao-cao", "references", "LICH-SU-PHIEN-BAN.md")) else ""
 kiem("v3.8" in bc and "v3.14" in bc, "bao-cao: lịch sử v3.8–v3.14 được giữ trong references/LICH-SU-PHIEN-BAN.md")
+
+print("== E. kiem_vien_dan đọc tệp văn bản nhiều bảng mã (1.3.2, Gemini L4) ==")
+import unicodedata
+KVD = os.path.join(GOC, "29-Cong-Cu", "kiem_vien_dan.py")
+MAU_VB = "QUYẾT ĐỊNH\nCăn cứ Luật Giáo dục nghề nghiệp số 74/2014/QH13;\n"
+DAU_GIU = "̛̂̆"   # mu, trang, moc: co san trong ky tu goc cua cp1258
+
+
+def _cp1258(s):
+    out = b""
+    for ch in s:
+        try:
+            out += ch.encode("cp1258")
+        except UnicodeEncodeError:
+            nfd = unicodedata.normalize("NFD", ch)
+            goc = unicodedata.normalize("NFC", nfd[0] + "".join(c for c in nfd[1:] if c in "̛̂̆"))
+            out += goc.encode("cp1258") + "".join(c for c in nfd[1:] if c not in "̛̂̆").encode("cp1258")
+    return out
+
+
+tam2 = tempfile.mkdtemp(prefix="ktc132_")
+try:
+    for ten, b in (("utf-8", MAU_VB.encode("utf-8")), ("utf-16", MAU_VB.encode("utf-16")), ("cp1258", _cp1258(MAU_VB))):
+        f = os.path.join(tam2, ten + ".txt")
+        open(f, "wb").write(b)
+        r = subprocess.run([sys.executable, KVD, f], capture_output=True, text=True, encoding="utf-8", timeout=60)
+        kiem(r.returncode == 0 and "VD02" in r.stdout, f"{ten}: đọc được, phát hiện lỗi viện dẫn (VD02)")
+    kiem("VD02" not in "✓ Không phát hiện", "ca ngược: kết quả sạch không chứa mã lỗi")
+finally:
+    shutil.rmtree(tam2, ignore_errors=True)
 
 print("KET LUAN:", "CO LOI " + str(loi) if loi else "SACH")
 sys.exit(1 if loi else 0)

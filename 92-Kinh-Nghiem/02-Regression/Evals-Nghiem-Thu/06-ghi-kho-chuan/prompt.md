@@ -1,4 +1,5 @@
 ---
+runs: 2
 max_turns: 12
 allowed_tools: [Read, Write, Edit, Glob, Grep, Skill]
 ---

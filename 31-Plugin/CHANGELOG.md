@@ -1,5 +1,17 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.2 — 2026-09-27
+
+Tiếp thu thẩm định độc lập lần 4 (`DL-20260927-002`). Ca thử: `test_plugin_131.py` (mục A, E).
+
+- **Guard tầng 2 chặn thay vì hỏi** (ChatGPT L4 F4-01, tái hiện: biến trỏ kho + `shutil.copy` trả `ask`): lệnh không xác
+  định được đích mà có dấu hiệu ghi vào kho → chặn (mã 2); không còn lựa chọn "đồng ý". Chạy lại 1.653 lệnh thật: 0 chặn nhầm.
+- Chặn tạo liên kết tượng trưng/thư mục trỏ vào kho (`ln`, `mklink`, `New-Item -ItemType SymbolicLink|Junction`).
+- Sửa nhận dạng đường dẫn tuyệt đối Windows `C:\…` (bản 1.3.1 coi là tương đối khi đang đứng trong kho → chặn nhầm).
+- Khối quy tắc lõi: ghi rõ đường dẫn bản đầy đủ cho agent `skills/quan-tri/references/00-Quy-Tac-Bat-Bien-Day-Du.md` (F4-07).
+- `kiem_vien_dan.py` đọc tệp văn bản UTF-8, UTF-16, cp1258, cp1252 (chuẩn hóa NFC), báo bảng mã đã dùng (Gemini L4).
+- Bộ ca nghiệm thu khai báo `runs: 2` trong từng ca — metadata `runsPerCase` khớp số lượt chạy (F4-04).
+
 ## 1.3.1 — 2026-09-27
 
 Tiếp thu thẩm định độc lập lần 3 (`KI-019`). Ca thử: `test_plugin_131.py`.

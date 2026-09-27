@@ -59,7 +59,7 @@ lớp thực thi ở ranh giới công cụ là guard dưới đây.
 |---|---|---|
 | `SessionStart` | `ktc_quan_tri_doctor.py` | In phiên bản; **tự thử guard** (báo HOẠT ĐỘNG / CHƯA HOẠT ĐỘNG); báo Python, KTC-Database, thư viện docx/openpyxl |
 | `SessionStart` | `ktc_nhat_ky.py nap` | Nạp tóm tắt gọn (≤ 4.500 ký tự ≈ 1.500 token; **không in lệnh**) nhật ký 2 ngày + tri thức tự học; **xóa nhật ký cũ hơn 30 ngày**; `KTC_NAP_DAY_DU=1` → bản chi tiết |
-| `PreToolUse` | `ktc_guard.py` | Chặn các thao tác ghi, xóa **đã nhận dạng** vào `KTC-Database`, `03-Templates(1)`, `04-Good-Documents`; **hỏi người dùng** khi không xác định được đích (xem mục Guard) |
+| `PreToolUse` | `ktc_guard.py` | Chặn các thao tác ghi, xóa **đã nhận dạng** vào `KTC-Database`, `03-Templates(1)`, `04-Good-Documents`; **chặn cả khi không xác định được đích** mà có dấu hiệu ghi (từ 1.3.2; xem mục Guard) |
 | `UserPromptSubmit` | `ktc_nhat_ky.py yeu-cau` | **Mặc định chỉ ghi độ dài + nhãn tín hiệu học**; nội dung (≤ 600 ký tự, đã che số định danh, số điện thoại, email) chỉ khi chọn: mở đầu `#học`, hoặc chủ máy đặt `KTC_NHAT_KY_NOI_DUNG=1` (khi đó chỉ ghi lời có tín hiệu học); `#riêng` không ghi |
 | `PostToolUse` | `ktc_nhat_ky.py ghi` | Ghi 1 dòng mỗi thao tác: công cụ, đường dẫn tệp (tương đối), tên skill, loại agent; lệnh shell chỉ ghi **chương trình + loại hành động** (1.3.1 — không ghi lệnh, mô tả agent, mẫu tìm kiếm); không ghi nội dung tệp |
 | `PostToolUse` | `ktc_the_thuc_hook.py` | Đo thể thức tệp .docx/.xlsx vừa ghi |
@@ -77,15 +77,16 @@ quyền chỉ đọc (Viewer) trên Google Drive** cho mọi tài khoản không
   shell ghi, xóa, chép vào, chuyển hướng `>`; lệnh lồng trong `powershell -Command`, `pwsh -c`, `cmd /c`, `bash -c`;
   mã Python nhúng `open('<kho>', 'w')`, `Path('<kho>').write_text/unlink`; `cd`/`Set-Location` vào kho rồi ghi đường
   dẫn tương đối; đường dẫn UNC; `-EncodedCommand` (không phân tích được).
-- **Tầng 2 — hỏi người dùng** (`permissionDecision: ask`) khi đích không xác định: lệnh nhắc tới kho, có dấu hiệu
-  ghi, và có mã nhúng (python, node, perl, powershell…) hoặc biến trỏ vào kho.
+- **Tầng 2 — chặn khi đích không xác định** (1.3.2; bản 1.3.1 hỏi người dùng): lệnh nhắc tới kho, có dấu hiệu ghi,
+  và có mã nhúng (python, node, perl, powershell…) hoặc biến trỏ vào kho. Không có lựa chọn "đồng ý" ghi vào kho chuẩn.
+- Chặn tạo liên kết tượng trưng/liên kết thư mục trỏ vào kho (`ln`, `mklink`, `New-Item -ItemType SymbolicLink`) — 1.3.2.
 - Vùng bảo vệ khớp khi tên là **cả một thành phần đường dẫn** (tệp `…-vao-KTC-Database.md` không bị chặn nhầm).
 - **Fail-closed** khi chạy được: dữ liệu hook hỏng hoặc lỗi nội bộ → chặn.
 - **Giới hạn còn lại:** script nằm trong tệp (`python x.py`), biến môi trường đặt từ phiên trước, liên kết tượng
   trưng — guard không nhìn thấy; máy không có Python thì hook không chạy — doctor báo "guard: CHƯA HOẠT ĐỘNG", khi
   đó **dừng các thao tác có ghi tệp**, chỉ dùng đọc và soạn nháp; Claude (trò chuyện) không có hook.
-- Ca thử: `test_plugin_130.py` (14 chặn, 7 cho qua, 2 fail-closed) và `test_plugin_131.py` (14 chặn gồm đúng hai lệnh
-  vượt guard do thẩm định lần 3 chạy, 3 hỏi, 7 cho qua); chạy lại 1.481 lệnh thật trong nhật ký: 0 chặn nhầm, 0 hỏi nhầm.
+- Ca thử: `test_plugin_130.py` (14 chặn, 7 cho qua, 2 fail-closed) và `test_plugin_131.py` (21 chặn gồm các lệnh vượt
+  guard do thẩm định lần 3, lần 4 chạy; 9 cho qua); chạy lại 1.653 lệnh thật trong nhật ký (18–27/9/2026): 0 chặn nhầm.
 
 ## Sao lưu GitHub — KHÔNG thuộc plugin (từ 1.3.0)
 

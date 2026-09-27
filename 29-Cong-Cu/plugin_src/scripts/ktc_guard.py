@@ -17,8 +17,11 @@ Pham vi kiem:
       `powershell -Command`, `pwsh -c`, `cmd /c`, `bash -c`/`sh -c` (kiem de quy); `open('<vung>', 'w')`,
       `Path('<vung>').write_text/unlink/...` trong ma Python nhung; `cd`/`Set-Location` vao vung roi ghi
       duong dan tuong doi; `-EncodedCommand` (khong phan tich duoc -> chan).
-    TANG 2 — HOI NGUOI DUNG (permissionDecision "ask") khi dich KHONG xac dinh duoc: lenh co nhac vung bao ve
-      VA co dau hieu ghi VA co ma nhung (python/node/perl/powershell...) hoac bien tro vao vung bao ve.
+    TANG 2 — khi dich KHONG xac dinh duoc: lenh co nhac vung bao ve VA co dau hieu ghi VA co ma nhung
+      (python/node/perl/powershell...) hoac bien tro vao vung bao ve. 1.3.1: hoi nguoi dung ("ask");
+      1.3.2 (tham dinh lan 4, F4-01): CHAN (exit 2) — khong de lua chon "dong y" ghi vao kho chuan.
+  - 1.3.2: chan tao lien ket tuong trung/cung tro vao vung bao ve (ln, mklink, New-Item -ItemType SymbolicLink)
+    — lien ket la duong vong de ghi vao kho qua duong dan "ngoai".
   - Van KHONG phai lop bao ve tuyet doi: script trong tep (`python x.py`), bien moi truong dat o phien truoc,
     lien ket tuong trung... khong nhin thay duoc. Lop bao ve CHINH la phan quyen chi doc (Viewer) tren Drive.
 
@@ -49,6 +52,8 @@ DONG_TU_XOA_GHI = {
 # dong tu sao chep/di chuyen: chi doi so CUOI (dich) bi xet; mv/move con xet ca nguon (xoa nguon)
 DONG_TU_CHEP = {"cp", "copy", "copy-item", "cpi", "xcopy", "robocopy", "install", "rsync"}
 DONG_TU_DOI = {"mv", "move", "move-item", "mi"}
+# 1.3.2: tao lien ket tro vao vung bao ve (bat ke vi tri doi so) — mo duong ghi vong qua duong dan ngoai kho
+DONG_TU_LIEN_KET = {"ln", "mklink", "junction", "linkd"}
 
 
 def _chan(ly_do: str):
@@ -127,17 +132,8 @@ CO_MA_HOA = {"-encodedcommand", "-enc", "-ec", "-e", "-en", "-enco", "-encod"}
 
 def _tuong_doi(t: str) -> bool:
     t = t.strip("\"'")
-    return bool(t) and not re.match(r"^(?:[a-z]:[\/]|[\/]|~|\$|%)", t, re.I)
-
-
-def _hoi(ly_do: str):
-    """Tang 2: khong chan cung — yeu cau nguoi dung xac nhan (Claude Code/Cowork PreToolUse 'ask')."""
-    print(json.dumps({"hookSpecificOutput": {
-        "hookEventName": "PreToolUse", "permissionDecision": "ask",
-        "permissionDecisionReason": "KTC-Quan-tri guard: " + ly_do + " — không xác định được đích ghi; kho "
-        "KTC-Database, 03-Templates(1), 04-Good-Documents chỉ được ĐỌC. Chỉ đồng ý nếu chắc chắn lệnh KHÔNG ghi vào kho."}},
-        ensure_ascii=False))
-    raise SystemExit(0)
+    # 1.3.2: "[\\/]" — ban 1.3.1 ghi "[\/]" (heredoc nuot dau "\") nen "C:\..." bi coi la duong dan tuong doi
+    return bool(t) and not re.match(r"^(?:[a-z]:[\\/]|[\\/]|~|\$|%)", t, re.I)
 
 
 def kiem_toan_lenh(lenh: str):
@@ -145,8 +141,12 @@ def kiem_toan_lenh(lenh: str):
     if OPEN_GHI.search(lenh) or PATH_GHI.search(lenh):
         _chan("mã nhúng mở/ghi/xóa tệp trong vùng bảo vệ")
     kiem_lenh(lenh)
+    # 1.3.2 (tham dinh lan 4, ChatGPT F4-01): khong xac dinh duoc dich ma co dau hieu ghi vao vung bao ve -> CHAN
+    # (truoc la "hoi nguoi dung"). Chay lai 1.481 lenh that: 0 lenh roi vao nhanh nay -> khong tang chan nham.
     if VUNG.search(lenh) and GHI.search(lenh) and (THONG_DICH.search(lenh) or BIEN_VUNG.search(lenh)):
-        _hoi("lệnh có nhắc vùng bảo vệ, có dấu hiệu ghi/xóa và có mã nhúng hoặc biến trỏ vào vùng bảo vệ")
+        _chan("lệnh có nhắc vùng bảo vệ, có dấu hiệu ghi/xóa và có mã nhúng hoặc biến trỏ vào vùng bảo vệ — không "
+              "xác định được đích ghi. Ghi sản phẩm bằng đường dẫn tường minh ngoài kho, hoặc tách bước đọc kho và "
+              "bước ghi thành hai lệnh riêng")
 
 
 def kiem_lenh(lenh: str, sau: int = 0):
@@ -192,6 +192,12 @@ def kiem_lenh(lenh: str, sau: int = 0):
             if any(VUNG.search(t) for t in doi_so):
                 _chan(f"sửa tại chỗ ({dt} -i) tệp trong vùng bảo vệ")
             continue
+        if dt in DONG_TU_LIEN_KET or (dt in ("cmd", "cmd.exe") and "mklink" in cau.lower()):
+            if VUNG.search(cau):
+                _chan(f"tạo liên kết (`{dt}`) trỏ vào vùng bảo vệ")
+        if dt in ("new-item", "ni") and re.search(r"-itemtype\s+['\"]?(symboliclink|junction|hardlink)", cau, re.I):
+            if VUNG.search(cau):
+                _chan("tạo liên kết (New-Item -ItemType SymbolicLink/Junction) trỏ vào vùng bảo vệ")
         if dt in DONG_TU_XOA_GHI:
             if any(VUNG.search(t) for t in tok[1:]):
                 _chan(f"lệnh `{dt}` tác động vào vùng bảo vệ")
