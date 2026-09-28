@@ -48,4 +48,7 @@ Báo cáo `Kiem-ho-so_<mã>_<kỳ>.md` gồm:
 - bảng lỗi;
 - tổng số lỗi theo mức;
 - **kết luận một dòng**: `ĐỦ ĐIỀU KIỆN TỔNG HỢP` (0 lỗi Mức 1–2) hoặc `TRẢ LẠI ĐƠN VỊ` (liệt kê lỗi phải sửa);
+  `TRẢ LẠI ĐƠN VỊ` là yêu cầu đơn vị sửa và nộp lại — **không** có nghĩa loại đơn vị khỏi báo cáo cấp Trường: khi tổng
+  hợp, chỉ bỏ **số KPI của dòng lỗi**, vẫn dùng tường thuật và các dòng đúng (QĐ-08, skill bao-cao v3.18);
+  ghi rõ trong kết quả danh sách dòng bị loại số KPI;
 - **đoạn văn ngắn gửi đơn vị**, lịch sự, nêu đúng ô cần sửa, để P-THHC chép gửi lại.

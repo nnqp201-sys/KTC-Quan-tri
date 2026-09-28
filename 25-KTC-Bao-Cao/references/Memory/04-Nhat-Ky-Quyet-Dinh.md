@@ -15,6 +15,24 @@ Mỗi mục: bối cảnh → quyết định → **lý do** → hệ quả kèm
 - **Lý do:** Đây là báo cáo trình UBND tỉnh và Hiệu trưởng ký. Một câu bịa trôi chảy nguy hiểm hơn
   một chỗ trống nhìn thấy được — người ký sẽ không biết mà rà.
 - **Hệ quả:** Báo cáo trông "thiếu" nhiều chỗ. Đây là **có chủ đích**, không phải khuyết điểm cần che.
+- **Làm rõ 28/9/2026 (QĐ-08):** "không bịa" ≠ "chỉ lấy từ đúng đầu mối". Nội dung tổng hợp từ báo cáo của đơn vị
+  khác, kế hoạch đã ban hành, Chương trình công tác năm, thông báo kết luận giao ban **có ghi nguồn** là tổng hợp, không
+  phải bịa. `[CẦN BỔ SUNG]` chỉ dùng khi **không có nguồn nào**.
+
+## QĐ-08 — Báo cáo tháng cấp Trường dựng từ bản đã ban hành, tổng hợp từ mọi nguồn có căn cứ
+**Ngày:** 28/9/2026 · **Trạng thái:** đang áp dụng · **Quy trình:** `Skill-Library/37-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh.md`
+
+- **Bối cảnh:** Chạy thử 28/9/2026 (Cowork, Claude Code, tài khoản phongthhcqt) cho báo cáo tháng 9 kém bản 21/9: dựng từ
+  mẫu trắng qua `fill_bc736.py`, còn thẻ `[CẦN BỔ SUNG [PHAN_I] …]` ở phần lớn mục vì Phòng QLĐT&BĐCL chưa nộp, mang lỗi
+  của mẫu ("nhiệm kỳ 2021-2026", "Báo cáo báo cáo"), thay tường thuật bằng tỷ lệ %, bỏ cả 3 đơn vị vì vài dòng sai công
+  thức KPI, không có kế hoạch tháng 10. Bản 21/9 (cùng dữ liệu) dựng từ BC-375, PL-375, KH-834 đã ban hành và tổng hợp từ
+  báo cáo của các khoa.
+- **Quyết định:** (1) mặc định 4 sản phẩm (báo cáo Word, phụ lục KPI, kế hoạch tháng sau, ghi chú đối soát) dựng từ bản đã
+  ban hành bằng `bc_thang.py`; (2) đầu mối chưa nộp → tổng hợp từ nguồn khác có ghi nguồn; (3) lỗi công thức dòng nào bỏ
+  số KPI dòng đó, giữ đơn vị; (4) nguồn ghi ở tệp ghi chú đối soát, không chèn vào thân văn bản; (5) `fill_bc736.py` chỉ
+  còn dự phòng khi kho không có bản đã ban hành.
+- **Lý do:** Nguyên tắc 7 (phát triển từ văn bản đã ban hành) và QĐ-01 (không bịa) cùng được giữ; báo cáo trình UBND tỉnh
+  cần đủ nội dung có căn cứ, không phải khung nhiều chỗ trống.
 
 ## QĐ-02 — Chủ ngữ báo cáo cấp Trường luôn là "Nhà trường"
 **Ngày:** trước 14/08/2026 · **Trạng thái:** đang áp dụng

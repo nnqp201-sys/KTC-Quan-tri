@@ -1,0 +1,35 @@
+== A. Bản sao trong gói kỹ năng báo cáo trùng nguồn ==
+  OK 25-KTC-Bao-Cao/references/Skill-Library/bc_thang.py trùng byte 29-Cong-Cu/bc_thang.py
+  OK 25-KTC-Bao-Cao/references/Skill-Library/vanphong.py trùng byte 29-Cong-Cu/vanphong.py
+  OK 25-KTC-Bao-Cao/references/Skill-Library/trich_tuong_thuat.py trùng byte 29-Cong-Cu/trich_tuong_thuat.py
+  OK 25-KTC-Bao-Cao/references/Skill-Library/duong_dan.py trùng byte 29-Cong-Cu/duong_dan.py
+== B. Mẫu trắng đã sửa lỗi (dự phòng) ==
+  OK mẫu trắng không còn 'nhiệm kỳ 2021-2026'
+  OK mẫu trắng không còn 'Báo cáo báo cáo'
+== C. Tìm nguồn, trích dữ liệu (kho + 10-Dau-Vao tháng 9) ==
+  OK kỳ 9/2026 → BC, PL tháng 8 đã ban hành; KH tháng 9 đã ban hành
+  OK nguon: phân loại ≥10 IIa, ≥9 IIb
+  OK trich: đọc ≥10 tường thuật IIa, không lỗi
+  OK trich: tệp cùng mã đơn vị không đè nhau
+== D. Dựng Word từ bản đã ban hành ==
+  OK word: không sót kỳ cũ ở tiêu đề, câu mở đầu, câu kết
+  OK NGƯỢC: word đếm đúng 1 chỗ '[CẦN BỔ SUNG' còn lại
+  OK word: đủ mục con cố định
+  OK word: tiêu đề mục I đúng kỳ
+  OK word: mục III là tháng sau
+  OK word: giữ căn cứ đúng của bản đã ban hành (2026-2031)
+  OK word: Nghị quyết xếp đúng thứ tự (59 trước 71) dù nhập ngược
+  OK word: nhãn đậm nghiêng, nội dung thường (2 run)
+== E. Phụ lục, kế hoạch ==
+  OK phu-luc: 5 dòng có kết quả, 1 dòng để trống
+  OK phu-luc: tiêu đề, tên sheet đúng kỳ
+  OK phu-luc: dòng có kết quả đủ công thức KPI (M = K×75%)
+  OK NGƯỢC: dòng chưa có kết quả không tự điền 100%
+  OK phu-luc: số lượng lưu dạng số
+  OK ke-hoach: tiêu đề tháng 10, số văn bản để trống
+  OK ke-hoach: giữ khối Nơi nhận
+  OK ke-hoach: số lượng '1' đổi thành số
+== F. Ca ngược: tệp gốc không phải báo cáo tháng ==
+  OK NGƯỢC: nội dung sai cấu trúc → mã 2, báo lỗi, không xuất tệp
+
+KET LUAN: SACH 

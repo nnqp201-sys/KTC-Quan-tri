@@ -23,7 +23,7 @@
   OK fail-closed: dữ liệu hook hỏng -> chặn
   OK fail-closed: JSON không phải đối tượng -> chặn
 == B. Bản dựng 31-Plugin ==
-  OK plugin.json version 1.3.x (đang 1.3.5)
+  OK plugin.json version 1.3.x (đang 1.3.6)
   OK mô tả plugin không còn nói backup
   OK hooks.json không còn gọi backup GitHub
   OK hooks.json có PreToolUse gọi ktc_guard.py

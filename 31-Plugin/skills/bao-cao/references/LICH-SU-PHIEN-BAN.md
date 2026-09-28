@@ -1,5 +1,7 @@
 # Lịch sử phiên bản (tách khỏi SKILL.md khi dựng plugin 1.3.1 — không nạp khi làm việc)
 
+> **v3.18** (28/9/2026) — Quy trình chính báo cáo tháng cấp Trường: 4 sản phẩm phát triển từ bản đã ban hành bằng `bc_thang.py` (Skill 37); đầu mối chưa nộp thì tổng hợp từ nguồn khác có ghi nguồn; lỗi công thức dòng không loại cả đơn vị; `fill_bc736.py` chỉ còn dự phòng (chạy thử 28/9/2026 kém bản 21/9).
+
 > **v3.17** (28/9/2026) — Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5).
 
 > **v3.16** (28/9/2026) — Chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002).

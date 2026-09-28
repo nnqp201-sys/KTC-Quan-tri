@@ -3,7 +3,9 @@ name: ktc-bao-cao
 description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.17
+# KTC-Bao-Cao / KTC-RIS v3.18
+
+> **v3.18** (28/9/2026) — Quy trình chính báo cáo tháng cấp Trường: 4 sản phẩm phát triển từ bản đã ban hành bằng `bc_thang.py` (Skill 37); đầu mối chưa nộp thì tổng hợp từ nguồn khác có ghi nguồn; lỗi công thức dòng không loại cả đơn vị; `fill_bc736.py` chỉ còn dự phòng (chạy thử 28/9/2026 kém bản 21/9).
 
 > **v3.17** (28/9/2026) — Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5).
 
@@ -99,18 +101,37 @@ xem bảng "khi nào đọc file nào" trong `references/Memory/README.md`.
 Ghi cuối phiên là quá muộn — phiên kết thúc thì ngữ cảnh mất. Bộ nhớ cũ không được cập nhật
 nguy hiểm hơn không có bộ nhớ, vì nó tạo cảm giác an tâm giả.
 
-## Quy trình 7 bước
+## Báo cáo tháng cấp Trường — QUY TRÌNH CHÍNH (v3.18, bắt buộc)
+
+**Đọc `references/Skill-Library/37-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh.md` trước khi làm.** Tóm tắt:
+
+- **Sản phẩm mặc định (4 tệp):** báo cáo Word (kết quả tháng N + nhiệm vụ tháng N+1) · phụ lục kết quả tháng N có công thức
+  KPI · kế hoạch công tác tháng N+1 (.xlsx) · ghi chú đối soát (.md). Chỉ được yêu cầu một phần thì làm phần đó và nói rõ
+  phần chưa làm.
+- **Phát triển từ bản ĐÃ BAN HÀNH** trong kho (báo cáo, phụ lục tháng N−1; kế hoạch tháng N) bằng công cụ
+  `references/Skill-Library/bc_thang.py` (`nguon` → `trich` → `word` / `phu-luc` / `ke-hoach`). **Không** dựng từ mẫu trắng
+  `00. Mau bao cao thang (cap Truong).docx` / `fill_bc736.py` khi kho có bản đã ban hành.
+- **Nguồn nội dung chính là tường thuật Phụ lục IIa của mọi đơn vị** — đọc hết. Đầu mối chưa nộp → tổng hợp từ báo cáo đơn
+  vị khác, kế hoạch đã ban hành, Chương trình công tác năm, thông báo kết luận giao ban (tổng hợp có nguồn, không phải suy
+  diễn); chỉ ghi `[CẦN BỔ SUNG: …]` khi không có nguồn nào.
+- Nguồn từng ý ghi ở **tệp ghi chú đối soát**, không chèn "(Nguồn: …)" vào thân văn bản. Tỷ lệ KPI theo Trục để ở phụ lục,
+  không thay tường thuật.
+- Dòng sai công thức KPI → chỉ bỏ số KPI của dòng đó; **không loại cả đơn vị**, không tự sửa số liệu đơn vị.
+- Công cụ tự kiểm: còn `[CẦN BỔ SUNG`, còn kỳ cũ, vi phạm văn phong, thiếu mục con — phải về 0 hoặc giải trình. Đo thể thức
+  mọi tệp; rà soát `ktc-ra-soat-897` trước trình ký.
+
+## Quy trình 7 bước (khung chung — bước 6 theo quy trình chính ở trên)
 Xem `references/Workflow/09-Tong-Hop-Bao-Cao.md`:
 
 | Bước | Mô tả | Skill |
 |------|-------|-------|
 | 0 | Lập Checklist đơn vị đầu kỳ | **Skill 35** |
-| 1 | Tiếp nhận Excel Phụ lục từ đơn vị | — |
-| 2 | Kiểm tra đủ mẫu/kỳ, gắn Trục/Nội hàm, kiểm KPI + Ghi chú | **Skill 32** |
-| 3 | Tổng hợp cấp Trường — lọc "Đưa vào KH Trường", tính % KPI theo Trục | **Skill 33** |
+| 1 | Tiếp nhận hồ sơ đơn vị (IIa tường thuật, IIb/IIc kết quả, Ia/Ib kế hoạch) — `bc_thang.py nguon`, `trich` | — |
+| 2 | Kiểm tra đủ mẫu/kỳ, gắn Trục/Nội hàm, kiểm KPI + Ghi chú (lỗi dòng nào bỏ số dòng đó, giữ đơn vị) | **Skill 32** |
+| 3 | Tổng hợp cấp Trường — lọc "Đưa vào KH Trường", tính % KPI theo Trục (cho phụ lục) | **Skill 33** |
 | 4 | Đối chiếu KH cùng kỳ (fallback A/B/C nếu thiếu) | **Skill 34** |
 | 5 | **Rà soát BẮT BUỘC trước khi trình ký** — chốt chặn, không bỏ qua | ktc-ra-soat-897 |
-| 6 | Xuất .docx qua `fill_bc736.py`, kèm 3 trường trách nhiệm | Nguyên tắc 2 |
+| 6 | Xuất 4 tệp từ bản đã ban hành bằng `bc_thang.py` (mẫu trắng + `fill_bc736.py` chỉ khi kho không có bản đã ban hành) | Skill 37 |
 | 7 | Checklist kết thúc kỳ — liệt kê file cần xóa, link output | **Skill 35** |
 
 ## 6 Skill chuyên biệt (v3.4)
@@ -123,6 +144,7 @@ Xem `references/Workflow/09-Tong-Hop-Bao-Cao.md`:
 | **32**-Skill-Thu-Thap-Bao-Cao-Don-Vi | `01-Thu-Thap-Kiem-Tra.md` | Kiểm tra báo cáo đơn vị đủ mẫu TB736, gắn Trục/Nội hàm, **kiểm công thức KPI** |
 | **33**-Skill-Tong-Hop-Bao-Cao-Truong | `02-Tong-Hop-Cap-Truong.md` | Gộp nhiều đơn vị, chiếu Checklist, xử lý trùng lặp, **tính % KPI theo Trục** |
 | **34**-Skill-Doi-Chieu-Tien-Do-KH | `03-Doi-Chieu-Tien-Do.md` | Đối chiếu KH — fallback A/B/C, dùng % KPI làm chỉ số khách quan |
+| **37**-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh | — | **Quy trình chính báo cáo tháng cấp Trường** — 4 sản phẩm từ bản đã ban hành, công cụ `bc_thang.py` |
 
 Cả 4 Skill nghiệp vụ dùng `30-Skill-Phan-Loai-6-Truc.md` (38 nội hàm, TB 817).
 
@@ -130,11 +152,12 @@ Cả 4 Skill nghiệp vụ dùng `30-Skill-Phan-Loai-6-Truc.md` (38 nội hàm, 
 
 | Script | Chức năng |
 |---|---|
+| `bc_thang.py` | **Công cụ chính (v3.18):** tìm bản đã ban hành, trích IIa/IIb/Ib, dựng báo cáo Word, phụ lục KPI, kế hoạch tháng sau từ bản đã ban hành, tự kiểm (kèm `vanphong.py`, `trich_tuong_thuat.py`, `duong_dan.py`) |
 | `read_bc736_excel.py` | Đọc Excel Phụ lục, kiểm KPI cascade, lọc "Đưa vào KH Trường", tổng hợp % theo Trục, dựng khung `content_map` nháp |
-| `fill_bc736.py` | Điền mẫu Word TB736 cấp Trường từ `content_map`, giữ nguyên 100% định dạng gốc (quốc hiệu, chữ ký) |
+| `fill_bc736.py` | **Dự phòng** — chỉ khi kho không có báo cáo tháng đã ban hành: điền mẫu trắng TB736 từ `content_map` |
 | `README-fill_bc736.md` | 22 khóa nội dung Phần I/III của báo cáo Word theo 6 Trục |
 
-Quy trình dùng: `read_bc736_excel.py` (dựng khung nháp từ Excel thật) → biên tập văn phong cấp Trường (Skill-Tu-hoc) → `fill_bc736.py` (điền vào mẫu Word) → kiểm tra bằng LibreOffice trước khi trình ký.
+Quy trình dùng: `bc_thang.py nguon` → `trich` → soạn nội dung JSON (văn phong cấp Trường, Skill-Tu-hoc) → `bc_thang.py word`, `phu-luc`, `ke-hoach` → `kiem_the_thuc.py` → rà soát 897. `read_bc736_excel.py` dùng để kiểm KPI cascade, tính % theo Trục cho phụ lục.
 
 ## Chuẩn phong cách — BẮT BUỘC đọc trước Bước 3 và Bước 6
 `references/Skill-Library/Skill-Tu-hoc-Phong-Cach-Bao-Cao.md` — 16 phần, học từ báo cáo UBND tỉnh Quảng Ngãi và Trường CĐKT.

@@ -129,7 +129,10 @@ vào 1 đoạn nếu có đủ dữ liệu, hoặc chỉ viết chủ đề nào
 3. Dựng `content_by_phase` theo 3 khóa PHAN_I/PHAN_II/PHAN_III, chạy `fill_report()`.
 4. Kiểm tra file `.docx` xuất ra bằng LibreOffice trước khi trình ký — rà lại chủ thể từng câu
    VÀ xác nhận Phần I/Phần III không bị lẫn nội dung của nhau.
-5. Đoạn nào còn `[CẦN BỔ SUNG]` → báo lại đơn vị phụ trách, KHÔNG tự viết thay.
+5. Đoạn nào còn `[CẦN BỔ SUNG]` → tìm nguồn khác có căn cứ (báo cáo đơn vị khác, kế hoạch đã ban hành, CTCT năm, thông
+   báo giao ban — QĐ-08); không có nguồn nào mới giữ đánh dấu và báo đơn vị phụ trách, KHÔNG tự viết thay.
+
+> **Từ v3.18 (28/9/2026) công cụ này là DỰ PHÒNG** — quy trình chính: `37-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh.md`.
 
 ## Lịch sử
 - 17/08/2026: Tạo lần đầu, dùng content_map đơn (có lỗi tiềm ẩn chưa phát hiện).

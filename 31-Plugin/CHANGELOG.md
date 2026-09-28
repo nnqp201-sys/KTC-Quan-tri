@@ -1,5 +1,24 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.6 — 2026-09-28
+
+**Báo cáo tháng cấp Trường dựng từ bản đã ban hành** (`DL-20260928-004`). Chạy thử 28/9/2026 trên Cowork và Claude Code
+(tài khoản phongthhcqt) cho báo cáo tháng 9 kém bản 21/9: dựng từ mẫu trắng qua `fill_bc736.py`, còn thẻ `[CẦN BỔ SUNG
+[PHAN_I] …]`, mang lỗi của mẫu, thay tường thuật bằng tỷ lệ %, bỏ cả đơn vị vì vài dòng sai công thức, thiếu kế hoạch
+tháng 10. Bản 21/9 đạt vì dùng công cụ chỉ có trong dự án. Ca thử: `test_bc_thang.py` (mới, 28 ca).
+
+- **`scripts/bc_thang.py`** (cũng trong `skills/bao-cao/references/Skill-Library/`): `nguon` (bản đã ban hành gần nhất,
+  Chương trình công tác năm, kế hoạch quý, kết luận giao ban; phân loại tệp đơn vị IIa/IIb/Ib) · `trich` (tường thuật IIa
+  theo Trục, dòng IIb/Ib) · `word` · `phu-luc` · `ke-hoach` (mở bản đã ban hành, thay nội dung, giữ thể thức, dựng lại
+  công thức KPI, tự kiểm `[CẦN BỔ SUNG`, kỳ cũ, văn phong, mục con). Dựng lại nội dung 21/9 bằng công cụ: trùng 100% chữ.
+- **Skill `bao-cao` 3.18:** quy trình chính 4 sản phẩm (báo cáo Word, phụ lục KPI, kế hoạch tháng sau, ghi chú đối soát);
+  đầu mối chưa nộp thì tổng hợp từ nguồn khác có ghi nguồn (QĐ-08); lỗi công thức dòng không loại cả đơn vị; nguồn ghi ở
+  ghi chú đối soát, không chèn vào thân văn bản; `fill_bc736.py` chỉ còn dự phòng.
+- Đóng thêm vào `scripts/`: `vanphong.py` (văn phong cấp Trường), `trich_tuong_thuat.py`, `ktc_trackchanges.py`
+  (Track Changes, Nguyên tắc 8 — trước chỉ có trong kỹ năng soạn thảo).
+- Mẫu trắng báo cáo tháng (dự phòng) sửa "nhiệm kỳ 2021-2026" → "2026-2031", "Báo cáo báo cáo", "tháng 7".
+- Tác tử `ktc-kiem-ho-so-don-vi`: `TRẢ LẠI ĐƠN VỊ` là yêu cầu sửa, không loại đơn vị khỏi báo cáo cấp Trường.
+
 ## 1.3.5 — 2026-09-28
 
 **Kết nối thư mục làm việc của đơn vị** cho tài khoản thành viên (phòng, khoa) trên Claude Cowork, Claude Code ngoài dự

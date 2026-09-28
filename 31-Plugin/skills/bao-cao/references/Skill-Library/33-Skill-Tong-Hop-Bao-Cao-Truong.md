@@ -179,6 +179,10 @@ Khi 2 hoặc nhiều đơn vị báo cáo cùng 1 nhiệm vụ (cùng nội dung
 
 ## Nguồn sinh nội dung báo cáo Word (`fill_bc736.py`) — [CẬP NHẬT 18/08/2026, API MỚI]
 
+> **[DỰ PHÒNG từ v3.18, 28/9/2026]** Quy trình chính dựng báo cáo tháng từ **bản đã ban hành** bằng `bc_thang.py` —
+> `37-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh.md`. Mục này chỉ dùng khi kho **không có** báo cáo tháng nào đã ban hành.
+> Khi đó, nhãn thiếu dữ liệu vẫn phải tìm nguồn khác (QĐ-08) trước khi để `[CẦN BỔ SUNG]`.
+
 **⚠️ Thay đổi quan trọng:** `fill_bc736.py` không còn dùng 1 `content_map` chung — lý do: nhiều
 đoạn bôi vàng trong mẫu TRÙNG NHAU giữa Phần I và Phần III (VD "Công tác tuyển sinh" xuất hiện
 y hệt ở cả 2 Phần), và cả 8 Nghị quyết Bộ Chính trị dùng chung 1 đoạn bôi vàng. Dùng chung 1 dict

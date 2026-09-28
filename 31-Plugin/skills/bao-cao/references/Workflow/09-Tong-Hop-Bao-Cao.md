@@ -33,7 +33,8 @@
    phải bước tùy chọn. Còn vấn đề **Mức 1 (bắt buộc sửa)** thì không được trình. Ngoài ra, bộ quy tắc của
    897 phải được dùng **ngay từ Bước 3 và Bước 6** khi đang viết, không đợi tới đây (nguyên tắc NT-3).
 
-6. Xuất .docx cấp Trường bằng `fill_bc736.py`:
+6. **[v3.18]** Xuất 4 sản phẩm từ bản đã ban hành bằng `bc_thang.py` — `Skill-Library/37-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh.md`.
+   Chỉ khi kho không có báo cáo tháng đã ban hành mới xuất bằng `fill_bc736.py` (dự phòng):
    - Dựng khung nháp `content_map` từ Excel IIb/IIc qua `build_content_map_skeleton()` (`read_bc736_excel.py`).
    - Biên tập lại văn phong cấp Trường (Skill-Tu-hoc) cho từng khóa trong 22 khóa (`README-fill_bc736.md`).
    - **⚠️ Kiểm tra bắt buộc: chủ thể mọi câu phải là "Nhà trường", không phải tên Phòng/Khoa (xem Skill-Tu-hoc Mục 0). Đọc lại từng đoạn trước khi đưa vào content_map.**
