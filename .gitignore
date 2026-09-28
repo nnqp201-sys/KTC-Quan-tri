@@ -28,3 +28,6 @@ Claude outputs/
 
 # Cau hinh Claude Code cuc bo cua chu may (vd KTC_NHAT_KY_NOI_DUNG=1 cho tu hoc) — khong dua len git
 .claude/settings.local.json
+
+# Ban plugin cu cho nguoi dung tu xoa (gom 27/9/2026) — khong dua ban cai tren may, cache vao git
+99-Luu-Tru/Can-Xoa/
