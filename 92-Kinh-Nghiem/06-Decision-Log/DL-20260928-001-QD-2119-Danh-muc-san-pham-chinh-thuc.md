@@ -38,7 +38,7 @@ mục trước đây, ghi nhớ thật kỹ lưỡng".
 · `Pending.md` KI-014 · `11-Du-lieu-Cong-Viec/00-README.md` · `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`
 (cảnh báo C5: bản trong gói `ktc-quan-tri.skill` chưa có ghi chú — đồng bộ ở bước 2).
 
-## Bước 2 — cập nhật mã, kỹ năng (chờ người phụ trách cho làm)
+## Bước 2 — cập nhật mã, kỹ năng (người phụ trách cho làm 28/9/2026 — ĐÃ XONG, xem mục cuối)
 1. `kpi_calc.py` (3 bản: `29-Cong-Cu/`, `28-KTC-KPI/scripts/`, `28-KTC-KPI/Tu-Danh-Gia/scripts/`): bỏ mã
    `THANG_DIEM_CHUA_PHAN_DINH` với phương án A/A×B; tra hệ số theo mã/tên sản phẩm từ PL-2119; lệch hệ số → cảnh báo.
 2. `validate_plan.py` KH08: đối chiếu "Danh mục QĐ 2119" thay "Danh mục TB 1052".
@@ -48,3 +48,23 @@ mục trước đây, ghi nhớ thật kỹ lưỡng".
 4. Ca thử `test_kpi_calc.py` theo hệ số chính thức; plugin **1.3.3**; bằng chứng; cài máy.
 5. Không đổi số liệu KPI đã chấm (quý III) — chỉ áp cho kế hoạch, đánh giá từ ngày QĐ có hiệu lực, trừ khi Phòng
    TCCB&CTHSSV hướng dẫn khác (câu hỏi cần xác nhận).
+
+## Kết quả bước 2 (28/9/2026)
+
+- Plugin **1.3.3**, SHA-256 `c1609207bdb910047f9af0b9932d0da986316be0b493506e074700b71e90ec1b` (dựng 2 lần trùng mã), commit `720b853`; validate --strict đạt; kiểm tra hệ thống 0 lỗi,
+  0 cảnh báo; hồi quy 21/21; đã cài máy (bản 1.3.2 lưu `ktc-marketplace/ktc-quan-tri.bak-1.3.2`).
+- `trich_danh_muc_qd2119.py` → `28-KTC-KPI/references/data/he-so-san-pham-QD2119.csv` (416 dòng, 0 lệch tập hệ số Nhóm);
+  `dong_goi_kpi.py` trích lại mỗi lần đồng bộ. CSV, script dự thảo TB 1052 → `99-Luu-Tru/Thay-the-QD-2119/`.
+- `kpi_calc.py`: `A` = "Có văn bản" (không còn `THANG_DIEM_CHUA_PHAN_DINH`); `AxB` vẫn cảnh báo (phép nhân chưa có văn bản).
+  Tra theo mã sản phẩm, STT phụ lục hoặc tên chính xác. KH08 dẫn QĐ 2119. Câu hỏi mở KPI #2 đóng.
+- Skill kpi-lap-ke-hoach 1.3, kpi-tu-danh-gia 1.2, quan-tri 1.14 (cách trích dẫn mới trong `13-Danh-Muc…`).
+- Chuẩn `20-Quy-Tac-Bat-Bien…`: `THANG_DIEM_CHUA_PHAN_DINH` chỉ còn cho cách quy đổi chưa có văn bản (A × B, thang dự thảo).
+- Guard: `.replace(`/`.rename(` chỉ là ghi khi có `Path(...)` hoặc `os.`; chạy lại 2.241 lệnh thật trong nhật ký phiên:
+  1.3.2 chặn 76, 1.3.3 chặn 54 — bỏ 22 chặn nhầm (lệnh chỉ đọc kho), 0 chặn mới; 54 còn lại là mã nhúng vừa nhắc kho vừa
+  ghi tệp (đích không xác định — chặn theo thiết kế tầng 2).
+- Nghiệm thu `claude plugin eval` ca 05, 07, 08, 09 (tiêu chí 05, 07 cập nhật theo QĐ 2119): 8/8 lượt đạt; ca 05, 07 trả lời
+  nêu đúng QĐ 2119 thay thế thang dự thảo.
+- Hồ sơ thẩm định vòng 5 chuyển sang 1.3.3: Báo cáo quá trình v6, Hướng dẫn v7, Báo cáo tiếp thu lần 4 v2 (Track Changes +
+  bản sạch); sửa số liệu nghiệm thu 1.3.2 ghi nhầm "15/15 ca, 30/30 lượt" (của 1.3.1) → 11/15 ca, 26/30 lượt. Phần cập
+  nhật chưa rà soát 897.
+- **Chưa làm (chờ quyết định):** `30-Skill-Phan-Loai-6-Truc.md` — cột (9)(10) Phụ lục TB736 vẫn thang 4 mức.

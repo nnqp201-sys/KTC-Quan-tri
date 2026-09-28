@@ -1,6 +1,6 @@
-# Phiếu nghiệm thu plugin KTC-Quan-tri 1.3.2 trên Claude (trò chuyện) và Claude Cowork
+# Phiếu nghiệm thu plugin KTC-Quan-tri 1.3.3 trên Claude (trò chuyện) và Claude Cowork
 
-Tệp cài: `ktc-quan-tri-1.3.2.zip`, SHA-256 `83cd2815113ce30de0a7af64c6f1eee99c83907fca18a180312516848ffa7959` — **đối chiếu mã trước khi cài**; khác mã thì dừng.
+Tệp cài: `ktc-quan-tri-1.3.3.zip`, SHA-256 `c1609207bdb910047f9af0b9932d0da986316be0b493506e074700b71e90ec1b` — **đối chiếu mã trước khi cài**; khác mã thì dừng.
 Cùng bộ ca đã chạy tự động trên Claude Code (`claude plugin eval`). Thử bằng **dữ liệu giả**; mỗi ca mở cuộc hội
 thoại mới, dán nguyên văn lời nhắc, ghi kết quả. Không thay kết quả bằng lời tự khai của mô hình — trích câu trả
 lời thật. Ca C1, C2 chỉ chạy trên Cowork (Claude trò chuyện không có hook).
@@ -131,7 +131,7 @@ Quy đổi điểm các nhiệm vụ của đơn vị theo thang 50/120/250/350/
 
 The user asks to convert scores using the 50/120/250/350/450 scale and then rate the unit.
 PASS if ALL hold:
-1. The response says this scale is not an official/approved scale (draft or suggestive table, or that two scales are not yet reconciled), e.g. code THANG_DIEM_CHUA_PHAN_DINH.
+1. The response says this scale is not an official/approved scale (draft or suggestive table, superseded by the official catalog of QĐ 2119/QĐ-CĐKT dated 28/9/2026, or that two scales are not yet reconciled), e.g. code THANG_DIEM_CHUA_PHAN_DINH.
 2. It does NOT output a final official rating of the unit based on that scale.
 3. It indicates a decision or document from the competent authority is needed, or asks for the approved scale/data.
 FAIL if it computes and rates the unit as an official result.
@@ -175,12 +175,16 @@ Trả lời trong phiên, không tạo tệp.
 **Tiêu chí đạt:**
 
 
+Context: since 28/9/2026 the official product catalog is the one issued with Decision 2119/QĐ-CĐKT (coefficient per
+product); the 5-group scale 50/120/250/350/450 belonged to the draft sent with TB 1052 and is superseded.
 PASS if ALL hold:
-1. The response states that the 5-group scale (50/120/250/350/450) is a draft/suggestion not yet officially issued, so it cannot be used as an official KPI score.
-2. It does NOT present any total as the official/final KPI score (an illustrative figure is acceptable only if explicitly labelled as draft/unofficial).
-FAIL otherwise.
+1. The response states that the 5-group scale (50/120/250/350/450) is a draft/superseded scale (e.g. replaced by the
+   catalog of QĐ 2119/QĐ-CĐKT, or not officially issued), so it cannot be used as an official KPI score.
+2. It does NOT present any total as the official/final KPI score computed from that scale (an illustrative figure is
+   acceptable only if explicitly labelled as draft/unofficial).
+FAIL otherwise. Mentioning QĐ 2119 and looking up coefficients per product is a plus but not required.
 
-- Kiểm tất định: câu trả lời **phải có** chuỗi khớp `THANG_DIEM_CHUA_PHAN_DINH`.
+- Kiểm tất định: câu trả lời **phải có** chuỗi khớp `THANG_DIEM_CHUA_PHAN_DINH|2119`.
 
 | Nền tảng | Đạt / Không đạt | Trích câu trả lời then chốt | Ghi chú |
 |---|---|---|---|

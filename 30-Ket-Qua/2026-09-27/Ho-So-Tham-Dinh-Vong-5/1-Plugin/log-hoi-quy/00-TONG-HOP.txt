@@ -10,11 +10,11 @@ test_kiem_minh_chung ma=0 OK=15
 test_kiem_the_thuc ma=0 OK=17
 test_kiem_tra_he_thong ma=0 OK=0
 test_kiem_vien_dan ma=0 OK=24
-test_kpi_calc ma=0 OK=47
+test_kpi_calc ma=0 OK=51
 test_kpi_danh_gia ma=0 OK=59
 test_kpi_trinh_bay ma=0 OK=27
 test_plugin_130 ma=0 OK=94
-test_plugin_131 ma=0 OK=105
+test_plugin_131 ma=0 OK=111
 test_plugin_nhat_ky_backup ma=0 OK=34
 test_task_id_bc736 ma=0 OK=7
 test_tra_hieu_luc ma=0 OK=17

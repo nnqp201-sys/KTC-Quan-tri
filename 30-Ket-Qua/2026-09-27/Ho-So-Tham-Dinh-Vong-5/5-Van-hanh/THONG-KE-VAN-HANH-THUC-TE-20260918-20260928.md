@@ -1,4 +1,4 @@
-# Thống kê vận hành thực tế Bộ công cụ KTC-Quan-tri (2026-09-18 → 2026-09-27)
+# Thống kê vận hành thực tế Bộ công cụ KTC-Quan-tri (2026-09-18 → 2026-09-28)
 
 Nguồn: nhật ký tự động `90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/` (chỉ thông tin mô tả — không có nội dung lời nhắn,
 câu lệnh), sản phẩm trong `30-Ket-Qua/`, lịch sử git. Sinh bằng `29-Cong-Cu/thong_ke_van_hanh.py` (lặp lại được).
@@ -9,13 +9,13 @@ câu lệnh), sản phẩm trong `30-Ket-Qua/`, lịch sử git. Sinh bằng `29
 
 | Chỉ số | Giá trị |
 |---|---:|
-| Số ngày có làm việc | 10 |
-| Số phiên làm việc | 37 |
-| Số thao tác công cụ | 2,111 |
-| Số lượt yêu cầu của người dùng | 95 |
+| Số ngày có làm việc | 11 |
+| Số phiên làm việc | 38 |
+| Số thao tác công cụ | 2,274 |
+| Số lượt yêu cầu của người dùng | 103 |
 | Thao tác báo lỗi (hook ghi nhận) | 0 |
-| Lần cập nhật mã nguồn (git) | 87 |
-| Tín hiệu học (sửa sai / quy ước / quyết định) | 10 / 19 / 17 |
+| Lần cập nhật mã nguồn (git) | 93 |
+| Tín hiệu học (sửa sai / quy ước / quyết định) | 10 / 22 / 18 |
 
 ## 2. Theo ngày
 
@@ -30,18 +30,19 @@ câu lệnh), sản phẩm trong `30-Ket-Qua/`, lịch sử git. Sinh bằng `29
 | 2026-09-24 | 4 | 290 |
 | 2026-09-25 | 15 | 266 |
 | 2026-09-26 | 7 | 282 |
-| 2026-09-27 | 3 | 454 |
+| 2026-09-27 | 3 | 482 |
+| 2026-09-28 | 2 | 135 |
 
 ## 3. Công cụ, kỹ năng, tác tử được gọi
 
 | Loại | Số lần |
 |---|---:|
-| Bash | 1704 |
-| Edit | 205 |
-| Write | 162 |
+| Bash | 1834 |
+| Edit | 217 |
+| Write | 179 |
 | Skill | 17 |
-| PowerShell | 14 |
-| Agent | 9 |
+| PowerShell | 17 |
+| Agent | 10 |
 
 | Kỹ năng gọi đích danh (Skill) | Số lần |
 |---|---:|
@@ -56,6 +57,7 @@ câu lệnh), sản phẩm trong `30-Ket-Qua/`, lịch sử git. Sinh bằng `29
 |---|---:|
 | `general-purpose` | 6 |
 | `ktc-quan-tri` | 3 |
+| `Explore` | 1 |
 
 Lưu ý: kỹ năng được nạp tự động theo mô tả không luôn hiện thành một lần gọi `Skill` trong nhật ký; số trên là
 **cận dưới** của số lần dùng kỹ năng.
@@ -78,7 +80,7 @@ Lưu ý: kỹ năng được nạp tự động theo mô tả không luôn hiệ
 | Soan-thao | 1 | 0 | 0 |
 | Track-Changes | 1 | 3 | 2 |
 | Van-hanh | 0 | 0 | 3 |
-| Tự thân Bộ công cụ (thẩm định, bằng chứng) | 33 | 0 | 34 |
+| Tự thân Bộ công cụ (thẩm định, bằng chứng) | 47 | 0 | 54 |
 
 ## 5. Giới hạn của số liệu
 

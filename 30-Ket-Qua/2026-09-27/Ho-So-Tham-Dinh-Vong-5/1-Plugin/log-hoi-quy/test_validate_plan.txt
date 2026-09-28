@@ -17,7 +17,7 @@
   OK NGƯỢC: '100% viên chức toàn khoa' → KH09 (Đ4.8)
   OK NGƯỢC: đầu việc trùng nội dung → KH14 (Đ11.4a)
   OK Phương án A, sản phẩm có trong Danh mục → không KH08
-  OK NGƯỢC: phương án A, sản phẩm ngoài Danh mục TB 1052 → KH08
+  OK NGƯỢC: phương án A, sản phẩm ngoài Danh mục QĐ 2119 → KH08
   OK NGƯỢC: 21 đầu việc trong 1 Trục bị chặn (không tự chèn dòng làm lệch công thức)
   OK Mẫu truong-pho-don-vi: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
   OK Mẫu bo-mon: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
