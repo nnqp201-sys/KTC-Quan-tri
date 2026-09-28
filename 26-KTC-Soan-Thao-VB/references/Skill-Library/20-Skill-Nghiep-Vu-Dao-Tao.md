@@ -22,5 +22,5 @@ Hỗ trợ soạn thảo/rà soát văn bản thuộc lĩnh vực Đào tạo: c
 - Không nhầm lẫn thuật ngữ giáo dục phổ thông/đại học với giáo dục nghề nghiệp.
 
 ## Related
-- Prompt: `05-Prompt-Library/08-Nghiep-Vu-Dao-Tao.md`
+- Prompt: `Prompt-Library/08-Nghiep-Vu-Dao-Tao/`
 - Skill nền: `07-`, `08-`, `10-` (Quyết định, Kế hoạch, Báo cáo)

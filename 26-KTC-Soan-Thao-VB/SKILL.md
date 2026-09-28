@@ -5,7 +5,9 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.12 — 28/9/2026
+## Phiên bản: v1.13 — 28/9/2026
+
+> v1.13: Tự đủ trong plugin (rà soát 28/9/2026): ghi rõ `17-Skill-Kiem-Tra-Tham-Quyen.md`, `29-Skill-Van-Ban-Dang.md` nằm trong plugin ktc-ra-soat-897 (bộ quy tắc 897, không giữ bản sao); sửa 20 đường dẫn cũ `06-Skill-Library/`, `05-Prompt-Library/…md`.
 
 > v1.12: Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5).
 

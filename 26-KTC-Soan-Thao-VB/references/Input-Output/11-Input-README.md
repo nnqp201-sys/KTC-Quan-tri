@@ -10,7 +10,7 @@ Khớp 1-1 với 4 thư mục dữ liệu nền để việc phân loại rõ r�
 - `11-Input/03-Templates/` — mẫu văn bản mới muốn bổ sung vào kho mẫu chuẩn
 - `11-Input/04-Good-Documents/` — văn bản tốt/đã ban hành muốn dùng làm dữ liệu học văn phong
 
-## Quy tắc vận hành (đã hiệu chỉnh theo giới hạn kỹ thuật thật — xem `06-Skill-Library/00-Nguyen-Tac-Chung.md`)
+## Quy tắc vận hành (đã hiệu chỉnh theo giới hạn kỹ thuật thật — xem `Skill-Library/00-Nguyen-Tac-Chung.md`)
 **Mỗi khi một tác vụ được thực hiện xong** (soạn thảo, rà soát, chuẩn hóa, trích xuất... — bất kỳ tác vụ nào có sử dụng hệ thống), nếu tại thời điểm đó `11-Input/` đang có file chưa xử lý, AI phải:
 
 1. **Phân loại & rà soát nhanh** từng file trong `11-Input/` — xác định file có phù hợp, có trùng lặp với dữ liệu đã có không (đối chiếu tên, số hiệu văn bản).

@@ -27,6 +27,6 @@ Draft or review a Biên bản (Minutes) — biên bản cuộc họp, hội đ�
 - Không bỏ sót thành phần tham dự bắt buộc.
 
 ## Related
-- Prompt: `05-Prompt-Library/01-Soan-Thao.md`, `04-Trich-Xuat.md`
+- Prompt: `Prompt-Library/01-Soan-Thao/`, `04-Trich-Xuat.md`
 - Checklist: `08-Checklist/01-The-Thuc.md`
 - Template: `03-Templates/03-09-`

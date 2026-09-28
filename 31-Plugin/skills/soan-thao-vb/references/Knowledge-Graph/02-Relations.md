@@ -17,5 +17,5 @@ Store the relationships between entities, cụ thể hóa cho hệ thống KTC.
 - **Workflow → sequences → Prompt + Skill usage**: thứ tự sử dụng theo `07-Workflow/01-06`.
 - **Checklist → validates → Workflow output**: checklist là cổng kiểm soát trước khi chuyển bước tiếp theo trong workflow.
 - **Good Document → supports → style learning (Skill 01, 04)**: văn bản tốt trong `04-Good-Documents` là dữ liệu tham chiếu văn phong cho Skill Soạn thảo và Chuẩn hóa.
-- **Role/Authority → signs → Document Type**: xác định bởi `17-Skill-Kiem-Tra-Tham-Quyen.md`, tham chiếu quy chế làm việc trong `02-KTC-Regulations`.
+- **Role/Authority → signs → Document Type**: xác định bởi `17-Skill-Kiem-Tra-Tham-Quyen.md` (plugin ktc-ra-soat-897, Skill-Library), tham chiếu quy chế làm việc trong `02-KTC-Regulations`.
 - **Use Case → chains → multiple Skills**: một use case thực tế thường gọi tuần tự nhiều skill (xem `05-Use-Cases.md`).

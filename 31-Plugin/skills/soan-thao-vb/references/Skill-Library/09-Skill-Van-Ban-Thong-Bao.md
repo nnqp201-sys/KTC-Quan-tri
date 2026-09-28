@@ -27,6 +27,6 @@ Draft or review a Thông báo (Notice) — thông báo kết luận cuộc họp
 - Không thêm nội dung ngoài phạm vi cuộc họp/yêu cầu gốc.
 
 ## Related
-- Prompt: `05-Prompt-Library/01-Soan-Thao.md`
+- Prompt: `Prompt-Library/01-Soan-Thao/`
 - Checklist: `08-Checklist/01-The-Thuc.md`, `04-Ngon-Ngu.md`
 - Template: `03-Templates/03-03-`

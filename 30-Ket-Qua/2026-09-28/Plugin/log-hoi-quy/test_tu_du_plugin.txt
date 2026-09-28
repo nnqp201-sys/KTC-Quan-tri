@@ -1,0 +1,41 @@
+== A. Không có SKILL.md lồng, không còn gói .skill lồng trong zip ==
+  OK chỉ có SKILL.md ở skills/<tên>/ (lồng: [])
+  OK zip ktc-quan-tri-1.3.9.zip không mang gói .skill lồng
+== B. Phần trước chỉ có trong dự án nay có trong gói ==
+  OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/output-contract.md
+  OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/template-format-dna.md
+  OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/scripts/analyze_plan_templates.py
+  OK có skills/theo-doi-cv/assets/00-Template-Routing-KTC-Theo-doi-CV.docx
+  OK có skills/bao-cao/assets/00. Mau bao cao thang (cap Truong).docx
+  OK có scripts/bc_thang.py
+  OK có scripts/ktc_trackchanges.py
+  OK có scripts/ktc_thu_muc.py
+  OK có skills/quan-tri/references/BAN-DO-TEP.md
+== C. Bảng đối chiếu tên tệp ==
+  OK bảng đối chiếu: 13-Bang-Ma-Don-Vi (gốc) → 12-Bang-Ma-Don-Vi (trong gói)
+  OK bảng đối chiếu có ≥ 10 chuẩn chung
+  OK bảng ghi rõ tệp ở plugin 897 và kho KTC-Database
+== D. Công cụ .py được kỹ năng, tác tử bảo chạy phải có trong gói ==
+  OK mọi lệnh `python …py` trong SKILL.md, tác tử đều có công cụ trong gói (thiếu: [])
+== E. Khối đường dẫn, phạm vi tác tử chỉ-dự-án ==
+  OK skills\bao-cao\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\ke-hoach\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\kpi-lap-ke-hoach\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\kpi-tu-danh-gia\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\quan-tri\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\soan-thao-vb\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\the-thuc\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK skills\theo-doi-cv\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-hieu-luc-vien-dan.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-kiem-ho-so-don-vi.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-kiem-san-pham.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-tra-cuu-can-cu.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-tu-cai-tien.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-tu-hoc.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents\ktc-xac-minh-minh-chung.md: khối <plugin_paths> trỏ BAN-DO-TEP
+  OK agents/ktc-tu-hoc.md: ghi rõ chỉ chạy trong dự án, không xin quyền thư mục
+  OK agents/ktc-tu-cai-tien.md: ghi rõ chỉ chạy trong dự án, không xin quyền thư mục
+== F. Không giữ bản sao bộ quy tắc 897 ==
+  OK không có tệp của bộ quy tắc 897 trong gói (có: [])
+
+KET LUAN: SACH

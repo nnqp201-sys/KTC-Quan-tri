@@ -24,5 +24,5 @@ Hỗ trợ soạn thảo/rà soát văn bản thuộc lĩnh vực Tổ chức - 
 - Không tự suy đoán thời hạn hiệu lực khi không có căn cứ rõ.
 
 ## Related
-- Prompt: `05-Prompt-Library/10-Nghiep-Vu-Can-Bo.md`
+- Prompt: `Prompt-Library/10-Nghiep-Vu-Can-Bo/`
 - Skill nền: `07-` (Quyết định), `13-` (Biên bản), `17-` (Thẩm quyền)

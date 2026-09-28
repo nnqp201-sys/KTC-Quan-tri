@@ -26,6 +26,6 @@ Draft or review a Công văn (Official letter) — trao đổi, xin ý kiến, p
 - Không bỏ sót phần "đề nghị" cụ thể khiến người nhận không biết cần phản hồi gì.
 
 ## Related
-- Prompt: `05-Prompt-Library/01-Soan-Thao.md`, `05-So-Sanh.md`
+- Prompt: `Prompt-Library/01-Soan-Thao/`, `05-So-Sanh.md`
 - Checklist: `08-Checklist/04-Ngon-Ngu.md`
 - Template: `03-Templates/03-08-`

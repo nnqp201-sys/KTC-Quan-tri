@@ -26,6 +26,6 @@ Draft or review a Tờ trình (Submission) — đề nghị cấp trên hoặc c
 - Không thiếu hồ sơ/căn cứ pháp lý bắt buộc kèm theo.
 
 ## Related
-- Prompt: `05-Prompt-Library/01-Soan-Thao.md`
+- Prompt: `Prompt-Library/01-Soan-Thao/`
 - Checklist: `08-Checklist/03-Phap-Ly.md`
 - Template: `03-Templates/03-07-`

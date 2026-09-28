@@ -17,7 +17,7 @@ Store direct mappings between tasks/document types and system assets (skill, pro
 ## Mapping theo Business Domain
 | Domain | Skill (Nhóm D) | Prompt |
 |---|---|---|
-| Đào tạo | `20-` | `05-Prompt-Library/08-Nghiep-Vu-Dao-Tao.md` |
+| Đào tạo | `20-` | `Prompt-Library/08-Nghiep-Vu-Dao-Tao/` |
 | Tuyển sinh | `21-` | `09-Nghiep-Vu-Tuyen-Sinh.md` |
 | Tổ chức - Cán bộ | `22-` | `10-Nghiep-Vu-Can-Bo.md` |
 | Tài chính - Kế toán | `23-` | `11-Nghiep-Vu-Tai-Chinh.md` |

@@ -29,6 +29,6 @@ Draft or review a Kế hoạch (Plan) — chiến lược/trung hạn, năm, qu�
 - Không bỏ sót phần tổ chức thực hiện/phân công trách nhiệm.
 
 ## Related
-- Prompt: `05-Prompt-Library/01-Soan-Thao.md`, `06-Tao-Dan-Y.md`
+- Prompt: `Prompt-Library/01-Soan-Thao/`, `06-Tao-Dan-Y.md`
 - Checklist: `08-Checklist/02-Noi-Dung.md`
 - Template: `03-Templates/03-04-`, `03-05-`

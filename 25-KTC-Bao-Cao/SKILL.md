@@ -3,7 +3,9 @@ name: ktc-bao-cao
 description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.19
+# KTC-Bao-Cao / KTC-RIS v3.20
+
+> **v3.20** (28/9/2026) — Tự đủ trong plugin (rà soát 28/9/2026): mẫu trắng báo cáo tháng (dự phòng, đã sửa 3 lỗi) vào `assets/`.
 
 > **v3.19** (28/9/2026) — Chạy thật plugin 1.3.6 (Claude Code, thư mục thành viên): bỏ số hiệu dị dạng của bản gốc ('Số375BC-CĐKT'), đổi kỳ ở tiêu đề nhóm, Trục của phụ lục; bộ nhớ quá trình không ghi vào tệp plugin khi chạy ngoài dự án (ghi vào ghi chú đối soát).
 

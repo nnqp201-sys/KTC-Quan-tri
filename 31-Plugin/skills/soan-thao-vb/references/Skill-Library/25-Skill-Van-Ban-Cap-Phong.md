@@ -21,4 +21,4 @@ Hỗ trợ soạn thảo/rà soát văn bản nội bộ cấp Phòng/Khoa/Trung
 - Không để đơn vị cấp phòng ban hành văn bản có tính chất quyết định vượt thẩm quyền (nhân sự, tài chính lớn, quy chế chung).
 
 ## Related
-- Skill: `17-Skill-Kiem-Tra-Tham-Quyen.md`, `11-Skill-Van-Ban-To-Trinh.md`, `10-Skill-Van-Ban-Bao-Cao.md`
+- Skill: `17-Skill-Kiem-Tra-Tham-Quyen.md` (plugin ktc-ra-soat-897, Skill-Library), `11-Skill-Van-Ban-To-Trinh.md`, `10-Skill-Van-Ban-Bao-Cao.md`

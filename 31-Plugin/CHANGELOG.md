@@ -1,5 +1,25 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.9 — 2026-09-28
+
+**Rà soát tự đủ toàn bộ plugin** (kỹ năng, hook, tác tử, tài liệu, công cụ) theo yêu cầu "mọi nội dung phải nằm trong
+plugin", sau khi Cowork xin cả thư mục dự án (1.3.8). Ca thử mới: `test_tu_du_plugin.py`.
+
+- **Kỹ năng `ke-hoach` 3.12:** gói tự học kế hoạch (`ktc-tu-hoc-ke-hoach`: hợp đồng đầu ra, "ADN thể thức" năm/quý/tháng,
+  nguồn mẫu, nhật ký học, `analyze_plan_templates.py`) trước chỉ có trong dự án — nay giải nén sẵn tại
+  `references/ktc-tu-hoc-ke-hoach/`. Công cụ dựng tự giải nén gói `.skill` lồng (trước bị loại khi đóng zip).
+- **`theo-doi-cv` 1.10:** mẫu `assets/00-Template-Routing-KTC-Theo-doi-CV.docx` (SKILL ghi "có" nhưng gói thiếu).
+- **`bao-cao` 3.20:** mẫu trắng báo cáo tháng (dự phòng, đã sửa 3 lỗi) vào `assets/`.
+- **`soan-thao-vb` 1.13:** sửa 20 đường dẫn cũ (`06-Skill-Library/`, `05-Prompt-Library/…md`); `17-Skill-Kiem-Tra-
+  Tham-Quyen.md`, `29-Skill-Van-Ban-Dang.md` ghi rõ nằm trong plugin ktc-ra-soat-897 (không giữ bản sao quy tắc 897).
+- **`skills/quan-tri/references/BAN-DO-TEP.md`** (sinh tự động, so sha256): tên chuẩn gốc → vị trí trong gói (vd
+  `13-Bang-Ma-Don-Vi.md` → `12-Bang-Ma-Don-Vi.md`), danh mục tệp ở kho KTC-Database, plugin 897, chỉ ở máy quản trị.
+  Khối `<plugin_paths>` trỏ tới bảng này.
+- **Tác tử `ktc-tu-hoc`, `ktc-tu-cai-tien`:** ghi rõ chỉ chạy trong dự án của P-THHC; nơi khác trả lời ngay, không tìm,
+  không xin quyền thư mục.
+- Đã kiểm: các script trong plugin (KPI, đối soát số liệu, `bc_thang`) chạy được từ thư mục ngoài dự án; hook nhật ký,
+  tự học chỉ hoạt động trong dự án (đúng thiết kế); guard, doctor, đo thể thức hoạt động ở mọi nơi.
+
 ## 1.3.8 — 2026-09-28
 
 Chạy thật trên Cowork (tài khoản phongthhcqt, 1.3.7, kỹ năng `soan-thao-vb`): Claude xin **thêm cả thư mục dự án

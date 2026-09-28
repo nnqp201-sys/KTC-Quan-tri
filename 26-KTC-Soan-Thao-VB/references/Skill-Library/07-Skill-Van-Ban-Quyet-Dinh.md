@@ -29,6 +29,6 @@ Draft or review a Quyết định (Decision) — quy phạm nội bộ (ban hàn
 - Không gộp nội dung của nhiều quyết định khác nhau vào một văn bản.
 
 ## Related
-- Prompt: `05-Prompt-Library/01-Soan-Thao.md`, `02-Ra-Soat.md`
+- Prompt: `Prompt-Library/01-Soan-Thao/`, `02-Ra-Soat.md`
 - Checklist: `08-Checklist/03-Phap-Ly.md`, `01-The-Thuc.md`
 - Template: `03-Templates/03-01-`, `03-02-`

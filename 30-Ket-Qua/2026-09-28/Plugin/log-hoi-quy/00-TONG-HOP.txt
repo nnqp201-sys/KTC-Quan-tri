@@ -21,5 +21,6 @@ test_task_id_bc736 ma=0 OK=7
 test_thu_muc ma=0 OK=19
 test_tra_hieu_luc ma=0 OK=17
 test_trackchanges ma=0 OK=0
+test_tu_du_plugin ma=0 OK=33
 test_tu_hoc ma=0 OK=12
 test_validate_plan ma=0 OK=27

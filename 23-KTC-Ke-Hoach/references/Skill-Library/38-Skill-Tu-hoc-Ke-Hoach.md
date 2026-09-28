@@ -14,6 +14,9 @@ Học kỹ thuật lập kế hoạch từ nguồn đã được xác nhận, kh
 
 > **Lưu ý (14/9/2026)**: `ktc-tu-hoc-ke-hoach` là **skill độc lập**, đóng gói riêng. Các tệp nêu dưới đây
 > nằm trong gói đó, **không** nằm trong gói `ktc-ke-hoach`. Phải nạp cả hai skill mới dùng được đầy đủ.
+> **Từ ke-hoach 3.12 (plugin 1.3.9):** gói này đã được giải nén sẵn tại `references/ktc-tu-hoc-ke-hoach/`
+> (`references/*.md`, `scripts/analyze_plan_templates.py`) — đọc thẳng ở đó, không cần nạp gói riêng, không tìm trong
+> thư mục dự án.
 
 - Trước mọi tác vụ: đọc `output-contract.md` **của skill `ktc-tu-hoc-ke-hoach`** (gói riêng tại `references/ktc-tu-hoc-ke-hoach.skill`, không nằm trong gói này).
 - Khi tạo hoặc định dạng năm/quý/tháng: đọc `template-format-dna.md` và `template-sources.md` **của skill `ktc-tu-hoc-ke-hoach`**; sao chép mẫu tương ứng trực tiếp từ Google Drive. Chỉ dùng `assets/templates/` nếu bản cài đặt cục bộ được người dùng cho phép mang theo mẫu.

@@ -3,7 +3,7 @@ name: bao-cao
 description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.19
+# KTC-Bao-Cao / KTC-RIS v3.20
 
 > Lịch sử phiên bản: `references/LICH-SU-PHIEN-BAN.md` (không cần đọc khi làm việc).
 
@@ -45,7 +45,8 @@ mã · mọi phép kiểm chưa chạy đã liệt kê · trạng thái khác `D
 <plugin_paths>
 **Đường dẫn trong plugin.** Tên thư mục dự án trong tài liệu (`20-Chuan-Chung/`, `2x-KTC-…/`, `29-Cong-Cu/`,
 `92-Kinh-Nghiem/`…) là nơi đặt **bản gốc trên máy phát triển**. Chạy qua plugin, Cowork, Claude trò chuyện: tìm **bản sao
-trong gói** theo tên tệp (thư mục kỹ năng, `skills/*/references/`, `scripts/` ở gốc plugin). **Không xin quyền, không thêm
+trong gói** theo tên tệp (thư mục kỹ năng, `skills/*/references/`, `scripts/` ở gốc plugin); tên khác bản gốc thì tra
+`skills/quan-tri/references/BAN-DO-TEP.md` (có cả danh mục tệp nằm ở kho KTC-Database, plugin 897). **Không xin quyền, không thêm
 thư mục dự án KTC-Quan-tri vào phiên** để đọc quy tắc — thư mục đó có dữ liệu cá nhân và không cần cho việc chạy. Không
 thấy tệp → làm theo SKILL.md, ghi `THIEU_DU_LIEU`, không đoán. Đầu vào, đầu ra: thư mục làm việc của người dùng (Nguyên tắc 3).
 </plugin_paths>

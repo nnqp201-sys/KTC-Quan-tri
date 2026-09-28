@@ -17,7 +17,7 @@ Store reasoning and selection rules used by the system (quy tắc suy luận và
 
 ## Quality gate rules
 - Không cho văn bản qua bước "Đánh giá chất lượng" (`19-`) nếu còn lỗi Critical ở bước thể thức (`02-`, `14-`) hoặc thiếu căn cứ pháp lý bắt buộc (`03-`).
-- Không cho văn bản qua bước "Trình ký" nếu `17-Skill-Kiem-Tra-Tham-Quyen.md` kết luận sai thẩm quyền.
+- Không cho văn bản qua bước "Trình ký" nếu `17-Skill-Kiem-Tra-Tham-Quyen.md` (plugin ktc-ra-soat-897, Skill-Library) kết luận sai thẩm quyền.
 - Văn bản nhân sự (`22-`), tài chính (`23-`) luôn cần đủ căn cứ quy trình (biên bản họp, đề nghị, phê duyệt trước) — đây là lĩnh vực nhạy cảm, áp dụng ngưỡng kiểm tra chặt hơn các loại văn bản thông thường.
 
 ## Workflow stability rules

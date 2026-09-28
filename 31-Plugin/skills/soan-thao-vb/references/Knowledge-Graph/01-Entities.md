@@ -30,7 +30,7 @@ Source folder: `04-Good-Documents` — dùng để học văn phong, cấu trúc
 Source folder: `05-Prompt-Library` — 12 nhóm hiện có (soạn thảo, rà soát, chuẩn hóa, trích xuất, so sánh, tạo dàn ý, và 5 nhóm nghiệp vụ: đào tạo, tuyển sinh, cán bộ, tài chính, HSSV).
 
 ### 8. Skill
-Source folder: `06-Skill-Library` — 26 skill, 4 nhóm (Core, Theo loại văn bản, Kiểm tra xuyên suốt, Nghiệp vụ). Xem `06-Skill-Library/27-Metadata.md`.
+Source folder: `06-Skill-Library` — 26 skill, 4 nhóm (Core, Theo loại văn bản, Kiểm tra xuyên suốt, Nghiệp vụ). Xem `Skill-Library/27-Metadata_20260807_v2.md`.
 
 ### 9. Workflow Step
 Source folder: `07-Workflow` — Soạn thảo → Rà soát → Trình ký → Ban hành → Lưu trữ → Cập nhật.
@@ -45,4 +45,4 @@ Instances: Hiệu trưởng, Phó Hiệu trưởng (theo lĩnh vực phụ trác
 Instances: Đào tạo, Tuyển sinh, Tổ chức - Cán bộ, Tài chính - Kế toán, Đảm bảo chất lượng, Đối ngoại - Hợp tác, Hành chính - Văn thư (cấp Phòng).
 
 ### 13. User Request (Yêu cầu người dùng)
-Đầu vào tự nhiên từ người dùng — điểm khởi đầu của toàn bộ pipeline, được xử lý bởi `06-Skill-Library/05-Skill-Phan-Tich-Yeu-Cau.md`.
+Đầu vào tự nhiên từ người dùng — điểm khởi đầu của toàn bộ pipeline, được xử lý bởi `Skill-Library/05-Skill-Phan-Tich-Yeu-Cau.md`.

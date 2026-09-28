@@ -28,7 +28,7 @@ Draft or review a Báo cáo (Report) — báo cáo định kỳ (tháng/quý/6 t
 - Không trộn lẫn số liệu của các kỳ báo cáo khác nhau.
 
 ## Related
-- Prompt: `05-Prompt-Library/06-Tao-Dan-Y.md`, `04-Trich-Xuat.md`
+- Prompt: `Prompt-Library/06-Tao-Dan-Y.md`, `04-Trich-Xuat.md`
 - Skill: `06-Skill-Tong-Hop-Noi-Dung.md`
 - Checklist: `08-Checklist/02-Noi-Dung.md`
 - Template: `03-Templates/03-06-`

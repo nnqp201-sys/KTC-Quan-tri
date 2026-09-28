@@ -23,5 +23,5 @@ Hỗ trợ soạn thảo/rà soát văn bản thuộc lĩnh vực Tài chính - 
 - Không bỏ qua bước đối chiếu quy chế chi tiêu nội bộ.
 
 ## Related
-- Prompt: `05-Prompt-Library/11-Nghiep-Vu-Tai-Chinh.md`
+- Prompt: `Prompt-Library/11-Nghiep-Vu-Tai-Chinh/`
 - Skill nền: `11-` (Tờ trình), `03-` (Căn cứ pháp lý)

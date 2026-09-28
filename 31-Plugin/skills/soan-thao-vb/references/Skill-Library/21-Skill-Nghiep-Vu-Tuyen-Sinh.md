@@ -22,5 +22,5 @@ Hỗ trợ soạn thảo/rà soát văn bản thuộc lĩnh vực Tuyển sinh: 
 - Không tự đặt chỉ tiêu khi chưa có căn cứ từ đề án/kế hoạch tuyển sinh đã duyệt.
 
 ## Related
-- Prompt: `05-Prompt-Library/09-Nghiep-Vu-Tuyen-Sinh.md`
+- Prompt: `Prompt-Library/09-Nghiep-Vu-Tuyen-Sinh/`
 - Skill nền: `09-` (Thông báo), `07-` (Quyết định)

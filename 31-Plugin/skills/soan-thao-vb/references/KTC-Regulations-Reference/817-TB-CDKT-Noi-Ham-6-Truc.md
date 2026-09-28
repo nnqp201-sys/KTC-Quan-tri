@@ -13,4 +13,4 @@ Quyết định 988/QĐ-CĐKT (Quy chế tổ chức và hoạt động); Quy đ
 Các đơn vị, tổ chức, cá nhân thuộc Trường áp dụng nội hàm 6 trục khi xây dựng kế hoạch công tác năm/quý/tháng — trình bày nhiệm vụ vào từng trục kết quả trọng tâm cho phù hợp.
 
 ## Nội dung đầy đủ (Phụ lục — 6 trục, 38 nội hàm)
-Đã mã hóa đầy đủ tại `06-Skill-Library/30-Skill-Phan-Loai-6-Truc.md` để dùng trực tiếp khi soạn thảo/rà soát Kế hoạch, Báo cáo.
+Đã mã hóa đầy đủ tại `Skill-Library/30-Skill-Phan-Loai-6-Truc.md` để dùng trực tiếp khi soạn thảo/rà soát Kế hoạch, Báo cáo.

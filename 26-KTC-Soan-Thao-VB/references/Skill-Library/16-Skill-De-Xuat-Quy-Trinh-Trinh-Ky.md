@@ -28,4 +28,4 @@
 
 ## Related
 - Workflow: `07-Workflow/03-Trinh-Ky.md`
-- Skill: `17-Skill-Kiem-Tra-Tham-Quyen.md`
+- Skill: `17-Skill-Kiem-Tra-Tham-Quyen.md` (plugin ktc-ra-soat-897, Skill-Library)
