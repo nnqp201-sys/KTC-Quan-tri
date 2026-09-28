@@ -1,5 +1,16 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.8 — 2026-09-28
+
+Chạy thật trên Cowork (tài khoản phongthhcqt, 1.3.7, kỹ năng `soan-thao-vb`): Claude xin **thêm cả thư mục dự án
+KTC-Quan-tri vào phiên** ("files Claude uses leave your device") chỉ để đọc "bản gốc" `20-Chuan-Chung/`,
+`26-KTC-Soan-Thao-VB/`, `27-KTC-The-Thuc/` — trong khi bản sao đã nằm trong gói. Thư mục dự án có nhật ký, KPI cá nhân.
+
+- Khối **`<plugin_paths>`** chèn khi dựng vào mọi `SKILL.md` và tác tử, ngay sau khối quy tắc lõi (không tính vào giới
+  hạn 2.500 ký tự): tên thư mục dự án trong tài liệu là nơi đặt bản gốc trên máy phát triển; chạy qua plugin thì tìm bản
+  sao trong gói; **không xin quyền, không thêm thư mục dự án vào phiên**; không thấy tệp thì `THIEU_DU_LIEU`.
+- Ca thử `test_plugin_131.py` mục D: mọi skill, agent có khối này.
+
 ## 1.3.7 — 2026-09-28
 
 Sửa từ **chạy thật plugin 1.3.6** như tài khoản thành viên (thư mục ngoài dự án, câu lệnh mẫu mới). Lần chạy đó đã ra đủ

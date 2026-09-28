@@ -224,6 +224,9 @@ for p in skills + agents:
     a, b = s.find("<immutable_rules>"), s.find("</quality_check>")
     kiem(0 < a < b and b - a <= NGUONG_KHOI, f"{ten}: khối lõi ≤ {NGUONG_KHOI} ký tự (được {b - a})")
     kiem("mâu thuẫn" in s[a:b] and "agent" in s[a:b], f"{ten}: khối lõi có quy tắc xử lý bất đồng skill–agent")
+    # 1.3.8: Cowork xin thêm cả thư mục dự án vào phiên để đọc "bản gốc" — mọi skill/agent phải có bản đồ đường dẫn
+    kiem("<plugin_paths>" in s and "Không xin quyền" in s and s.find("<plugin_paths>") > b,
+         f"{ten}: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi")
     kiem(not __import__("re").search(r"^> \*\*v\d+\.\d+\*\* \(", s, __import__("re").M), f"{ten}: không còn dòng lịch sử phiên bản")
 for p in skills:
     d = os.path.dirname(p)

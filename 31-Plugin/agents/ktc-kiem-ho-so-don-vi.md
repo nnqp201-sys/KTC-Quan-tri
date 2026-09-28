@@ -46,6 +46,14 @@ Task_ID) · **Kiểm tra đã chạy** · **Kiểm tra chưa chạy** · **Mã c
 mã · mọi phép kiểm chưa chạy đã liệt kê · trạng thái khác `DAT`/`DAT_CO_DIEU_KIEN` thì không có sản phẩm chính thức.
 </quality_check>
 
+<plugin_paths>
+**Đường dẫn trong plugin.** Tên thư mục dự án trong tài liệu (`20-Chuan-Chung/`, `2x-KTC-…/`, `29-Cong-Cu/`,
+`92-Kinh-Nghiem/`…) là nơi đặt **bản gốc trên máy phát triển**. Chạy qua plugin, Cowork, Claude trò chuyện: tìm **bản sao
+trong gói** theo tên tệp (thư mục kỹ năng, `skills/*/references/`, `scripts/` ở gốc plugin). **Không xin quyền, không thêm
+thư mục dự án KTC-Quan-tri vào phiên** để đọc quy tắc — thư mục đó có dữ liệu cá nhân và không cần cho việc chạy. Không
+thấy tệp → làm theo SKILL.md, ghi `THIEU_DU_LIEU`, không đoán. Đầu vào, đầu ra: thư mục làm việc của người dùng (Nguyên tắc 3).
+</plugin_paths>
+
 ## Ranh giới
 - Chỉ tạo báo cáo tại `30-Ket-Qua/<YYYY-MM-DD>/Kiem-Ho-So/<kỳ>/`. Không sửa tệp trong `10-Dau-Vao/` hoặc tệp đính kèm.
 - Không tự cấp Task_ID, không tự thêm nhiệm vụ. Nhiệm vụ không có trong kế hoạch thì đưa sang luồng *nhiệm vụ phát
