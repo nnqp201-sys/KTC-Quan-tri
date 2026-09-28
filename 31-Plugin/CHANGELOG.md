@@ -1,5 +1,30 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.10 — 2026-09-28
+
+**Sửa lỗi thể thức phần đầu văn bản soạn trên Cowork.** Thông báo bổ sung thành phần họp (28/9/2026) có bảng tiêu đề
+dựng tay: 16 cm chia đôi 8 + 8 cm, quốc hiệu và dòng địa danh xuống dòng, UBND và ngày tháng in đậm, thiếu đường kẻ
+dưới tên Trường và dưới trích yếu. `kiem_the_thuc.py` khi đó vẫn báo "đạt".
+
+- **Khung thể thức** `skills/the-thuc/assets/Khung-the-thuc-VBHC.docx`, dựng từ TB 1060/TB-CĐKT đã ban hành. Tạo tệp
+  bằng `kiem_the_thuc.py --khung <đích> <TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB>` khi không đọc được kho (Cowork, Chat).
+- **Phép đo mới TT12–TT19, ánh xạ bộ quy tắc 897** (bản gốc trên Drive: Checklist `01-The-Thuc`, `05-Hinh-Thuc`,
+  `08-Quy-Uoc-Rieng-CDKT`):
+  - bảng tiêu đề (TT12);
+  - chủ quản không đậm (TT13);
+  - đường kẻ dưới tên Trường, tiêu ngữ (TT14) và dưới trích yếu (TT18);
+  - địa danh, ngày tháng (TT15);
+  - căn cứ (TT16);
+  - cỡ, kiểu chữ từng thành phần theo TB 597 (TT17);
+  - KT./TL./TUQ., học hàm, học vị trước tên người ký (TT19).
+  - Bảng ánh xạ ở chuẩn 18 mục 3a.
+- **Hiệu chỉnh trên 434 văn bản đã ban hành** trong kho 02 và 04:
+  - ngưỡng cột phải của TT12 đặt ở 9 cm;
+  - TT14 xét cả cột, vì đường kẻ thường neo ở ô "Số"/"ngày".
+- **Lỗi thật của mẫu trống được ghi vào chuẩn 18 mục 6:** 02A thiếu đường kẻ; 06A, 06D tên Trường không đậm; 07 tên Trường cỡ 14.
+- **Phiên bản kỹ năng:** `the-thuc` 1.1, `soan-thao-vb` 1.14 (không tự dựng bảng tiêu đề). Chuẩn 18 cập nhật trong
+  quan-tri, ke-hoach, theo-doi-cv, bao-cao.
+
 ## 1.3.9 — 2026-09-28
 
 **Rà soát tự đủ toàn bộ plugin** (kỹ năng, hook, tác tử, tài liệu, công cụ) theo yêu cầu "mọi nội dung phải nằm trong

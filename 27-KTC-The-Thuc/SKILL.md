@@ -5,7 +5,8 @@ description: "Chuan the thuc, ky thuat trinh bay BAT BUOC cho moi tep .docx va .
 
 # KTC-The-Thuc — Chuẩn thể thức sản phẩm .docx/.xlsx
 
-**Phiên bản: 1.0 — 19/9/2026** — Ban hành theo DL-20260919-003.
+**Phiên bản: 1.1 — 28/9/2026** — Ban hành theo DL-20260919-003. 1.1: khung thể thức `assets/Khung-the-thuc-VBHC.docx`
+(`--khung`) khi không đọc được kho; phép đo bảng tiêu đề TT12–TT16.
 
 Skill này là **lớp chuẩn của Trường chồng lên skill `docx`/`xlsx`**. Cách tạo và sửa tệp vẫn theo `docx`/`xlsx`.
 Thể thức, số đo và bước kiểm thì theo skill này. Khi hai bên khác nhau, **skill này thắng**:

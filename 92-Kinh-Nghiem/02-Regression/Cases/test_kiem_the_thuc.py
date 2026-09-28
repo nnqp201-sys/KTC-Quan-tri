@@ -122,10 +122,46 @@ kiem("TT14" in bien("bo_ke", bo_duong_ke), "TT14 thiếu đường kẻ dưới 
 kiem("TT13" in bien("ubnd_dam", dam("UBND")), "TT13 “UBND TỈNH QUẢNG NGÃI” in đậm bị bắt")
 kiem("TT15" in bien("ngay_dam", dam("Quảng Ngãi, ngày")), "TT15 dòng địa danh in đậm bị bắt")
 kiem("TT16" in bien("can_cu", can_cu_khong_thut), "TT16 đoạn căn cứ không thụt đầu dòng bị bắt")
+
+
+# 3c. Anh xa 897 Checklist 01 muc 1, 08 muc 4-5 (TT17-TT19)
+def bo_ke_trich_yeu(d):
+    for p in d.paragraphs[:6]:
+        for e in list(p._p.iter()):
+            if e.tag in (W_ + "drawing", W_ + "pict") and e.getparent() is not None:
+                e.getparent().remove(e)
+
+
+def co_ubnd_14(d):
+    for p in k._doan_trong_bang(d):
+        if p.text.strip().startswith("UBND"):
+            for r in p.runs:
+                r.font.size = Pt(14)
+
+
+def nguoi_ky(ten, chuc=None):
+    def f(d):
+        o = d.tables[-1].rows[0].cells[1]
+        ps = [p for p in o.paragraphs if p.text.strip()]
+        ps[-1].runs[0].text = ten
+        if chuc:
+            ps[0].runs[0].text = chuc
+    return f
+
+
+kiem("TT18" in bien("ke_ty", bo_ke_trich_yeu), "TT18 thiếu đường kẻ dưới trích yếu bị bắt")
+kiem("TT17" in bien("ubnd14", co_ubnd_14), "TT17 tên cơ quan chủ quản cỡ 14 (TB 597: 13) bị bắt")
+kiem("TT19" in bien("hoc_ham", nguoi_ky("TS. Nguyễn Văn A")), "TT19 học hàm, học vị trước họ tên người ký bị bắt")
+kiem("TT19" in bien("kt_gach", nguoi_ky("Nguyễn Văn A", "K/T HIỆU TRƯỞNG")), "TT19 ký thay “K/T” (hệ Đảng) bị bắt")
+kiem("TT19" not in bien("ky_dung", nguoi_ky("Nguyễn Văn A", "KT. HIỆU TRƯỞNG")), "“KT. HIỆU TRƯỞNG” không bị bắt nhầm")
 FX = os.path.join(GOC, "92-Kinh-Nghiem", "02-Regression", "Fixtures", "the-thuc",
                   "TB-bang-tieu-de-dung-tay_Cowork_20260928.docx")
-m = ma(FX)
-kiem({"TT12", "TT13", "TT14", "TT15", "TT16"} <= m, f"tệp thật Cowork 28/9 (bảng tiêu đề dựng tay): bắt đủ 5 lỗi (được {sorted(m)})")
+m = ma(FX) if os.path.isfile(FX) else None  # Fixtures/ khong len git (.gitignore)
+if m is None:
+    print("  ⚠ BỎ QUA ca tệp thật Cowork 28/9: không có Fixtures/the-thuc/ trên máy này")
+else:
+    kiem({"TT12", "TT13", "TT14", "TT15", "TT16", "TT17", "TT18"} <= m,
+         f"tệp thật Cowork 28/9 (bảng tiêu đề dựng tay): bắt đủ 7 loại lỗi (được {sorted(m)})")
 
 # 4. Bien the ten TNR -> Muc 3, khong phai Muc 2
 d = docx.Document(p_dung)
@@ -196,12 +232,16 @@ except Exception:
 if mau_dir and os.path.isdir(mau_dir):
     loi_mau = {}
     for f in sorted(os.listdir(mau_dir)):
-        if f.endswith((".dotx", ".xltx")) and not f.startswith("10-"):   # 10-Giay-moi: loi mau da biet
+        if f.endswith((".dotx", ".xltx")) and not f.startswith(("10-", "02A-", "06A-", "06D-", "07-")):  # loi mau da biet (chuan 18 muc 6)
             nang = [x for x in k.kiem_tep(os.path.join(mau_dir, f)) if x[0] <= 2]
             if nang:
                 loi_mau[f] = nang
-    kiem(not loi_mau, f"15 mẫu 03-Templates(1) (trừ 10-Giay-moi) không bị báo Mức 1–2: {loi_mau}")
+    kiem(not loi_mau, f"11 mẫu 03-Templates(1) (trừ 5 mẫu có lỗi đã biết) không bị báo Mức 1–2: {loi_mau}")
+    for f in ("06A-Bao-cao-noi-bo.dotx", "06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx", "07-To-trinh.dotx"):
+        kiem("TT17" in ma(os.path.join(mau_dir, f)), f"lỗi đã biết của {f} (tên Trường sai cỡ/kiểu) vẫn bị bắt")
     kiem("TT08" in ma(os.path.join(mau_dir, "10-Giay-moi.dotx")), "lỗi đã biết của 10-Giay-moi vẫn bị bắt")
+    kiem("TT14" in ma(os.path.join(mau_dir, "02A-Quyet-dinh-ca-biet-Phe-duyet-nhiem-vu-du-toan.dotx")),
+         "lỗi đã biết của 02A (thiếu đường kẻ dưới tên Trường) vẫn bị bắt")
 else:
     print("  -- bỏ qua ca mẫu thật: không đọc được Drive")
 

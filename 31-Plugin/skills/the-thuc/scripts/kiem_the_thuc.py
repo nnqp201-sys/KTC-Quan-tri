@@ -11,6 +11,8 @@ Chi PHAT HIEN va GOI Y muc — khong sua tep. He A (hanh chinh). Khong ap cho va
 
 Chay:  python 29-Cong-Cu/kiem_the_thuc.py <tep .docx|.xlsx> [...]
        python 29-Cong-Cu/kiem_the_thuc.py --tao <mau .dotx> <dich .docx>   (tao ban lam viec tu mau)
+       python 29-Cong-Cu/kiem_the_thuc.py --khung <dich .docx> [TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB]
+           (khong doc duoc KTC-Database: tao tu khung dung tu TB 1060/TB-CĐKT da ban hanh — KHONG dung bang tieu de tay)
 Ma thoat: 1 neu co goi y Muc 1 hoac Muc 2, nguoc lai 0.
 """
 import collections
@@ -57,6 +59,44 @@ def tao_tu_mau(mau, dich):
         raw = _doi_kieu(raw, b"spreadsheetml.template.main+xml", b"spreadsheetml.sheet.main+xml")
     os.makedirs(os.path.dirname(os.path.abspath(dich)), exist_ok=True)
     open(dich, "wb").write(raw)
+    return dich
+
+
+# Khung the thuc VBHC dung tu TB 1060/TB-CĐKT da ban hanh — dung khi KHONG doc duoc KTC-Database (Cowork, Chat,
+# tai khoan thanh vien) thay cho dung bang tieu de bang tay (28/9/2026).
+TEN_KHUNG = "Khung-the-thuc-VBHC.docx"
+LOAI_VB = {"TB": "THÔNG BÁO", "KH": "KẾ HOẠCH", "BC": "BÁO CÁO", "TTr": "TỜ TRÌNH", "QĐ": "QUYẾT ĐỊNH",
+           "GM": "GIẤY MỜI", "HD": "HƯỚNG DẪN", "CTr": "CHƯƠNG TRÌNH", "BB": "BIÊN BẢN"}
+
+
+def tim_khung():
+    g = os.path.dirname(os.path.abspath(__file__))
+    for p in (os.path.join(g, "..", "assets"), os.path.join(g, "..", "skills", "the-thuc", "assets"),
+              os.path.join(g, "..", "27-KTC-The-Thuc", "assets")):
+        f = os.path.join(p, TEN_KHUNG)
+        if os.path.isfile(f):
+            return os.path.normpath(f)
+    raise FileNotFoundError(f"Không thấy {TEN_KHUNG} (skill the-thuc/assets)")
+
+
+def tao_khung(dich, loai="TB", nam=None):
+    """Tao tep lam viec tu khung: dat loai van ban (ten loai, ky hieu Số: /<loai>-CĐKT) va nam."""
+    import datetime
+    import docx
+    if loai not in LOAI_VB:
+        raise ValueError(f"Loại văn bản {loai!r} — chọn một trong {', '.join(LOAI_VB)}")
+    d = docx.Document(tim_khung())
+    nam = nam or datetime.date.today().year
+    for p in list(d.paragraphs) + list(_doan_trong_bang(d)):
+        for r in p.runs:
+            if r.text.strip() == "THÔNG BÁO":
+                r.text = r.text.replace("THÔNG BÁO", LOAI_VB[loai])
+            elif "/TB-CĐKT" in r.text:
+                r.text = r.text.replace("/TB-CĐKT", f"/{loai}-CĐKT")
+            elif "năm 2026" in r.text and "ngày" in p.text:
+                r.text = r.text.replace("năm 2026", f"năm {nam}")
+    os.makedirs(os.path.dirname(os.path.abspath(dich)), exist_ok=True)
+    d.save(dich)
     return dich
 
 
@@ -154,6 +194,202 @@ def _doan_trong_bang(d):
             for c in r.cells:
                 for p in c.paragraphs:
                     yield p
+
+
+def _co_duong_ke(o):
+    """O bang co duong ke (hinh Draw, VML line hoac vien duoi doan)."""
+    x = o._tc.xml
+    return "<w:drawing" in x or "<v:line" in x or "<v:shape" in x or re.search(r"<w:pBdr>.*?<w:bottom ", x, re.S)
+
+
+def _kiem_bang_tieu_de(d, g):
+    """TT12-TT15: hinh hoc bang tieu de (28/9/2026 — TB do Cowork dung tay: bang 16 cm chia doi, quoc hieu va dia danh
+    xuong dong, thieu duong ke duoi ten Truong; cac phep TT08-TT09 cu van bao 'dat').
+    So do van ban da ban hanh (TB 1060, 1092, TB phuong an A1): bang 17,25-17,5 cm; cot trai 7,0-7,5; cot phai 9,75-10,3."""
+    kq = []
+    if not d.tables:
+        return kq
+    t = d.tables[0]
+    o = [c for r in t.rows for c in r.cells]
+    chu = lambda c: " ".join(p.text for p in c.paragraphs).upper()  # noqa: E731
+    phai = [c for c in o if "CỘNG H" in chu(c) and "VIỆT NAM" in chu(c)]
+    trai = [c for c in o if "TRƯỜNG CAO ĐẲNG KON TUM" in chu(c)]
+    if not phai or not trai:
+        return kq
+    grid = [c.w.cm for c in t._tbl.tblGrid.gridCol_lst if c.w is not None]
+    rong = lambda c: c.width.cm if c.width is not None else None  # noqa: E731
+    w_trai = rong(trai[0]) or (grid[0] if grid else None)
+    w_phai = rong(phai[0]) or (grid[-1] if grid else None)
+    if w_trai and w_phai:
+        # Quet 434 van ban kho 02, 04 (28/9/2026): van ban that co cot phai 9,13-9,28 cm van hien thi dung -> nguong 9,0
+        if w_phai < 9.0 or w_trai > w_phai:
+            kq.append((2, "TT12", f"Bảng tiêu đề chia cột {w_trai:.2f} + {w_phai:.2f} cm — quốc hiệu, dòng địa danh sẽ xuống "
+                       "dòng. Văn bản đã ban hành: cột trái 7–7,5 cm, cột phải 9,75–10,3 cm (dựng bằng --khung)"))
+        elif w_trai + w_phai < 16.0:
+            kq.append((3, "TT12", f"Bảng tiêu đề rộng {w_trai + w_phai:.2f} cm — văn bản đã ban hành: 17,25–17,5 cm"))
+    da_xet, doan_bang = set(), []  # ca bang: dong "Số", "ngày" thuong o hang 2 (khung, TB 1060)
+    for c in o:
+        if id(c._tc) not in da_xet:
+            da_xet.add(id(c._tc))
+            doan_bang += c.paragraphs
+    for p in doan_bang:
+        t_up = p.text.strip().upper()
+        rs = [r for r in p.runs if r.text.strip()]
+        if not rs:
+            continue
+        if t_up.startswith(("UBND", "ỦY BAN NHÂN DÂN", "UỶ BAN NHÂN DÂN")) and any(r.bold for r in rs):
+            kq.append((2, "TT13", "Tên cơ quan chủ quản “UBND TỈNH QUẢNG NGÃI” in đậm — NĐ 30: in hoa, đứng, không đậm"))
+        if ", NGÀY" in t_up:
+            if any(r.bold for r in rs):
+                kq.append((2, "TT15", "Dòng địa danh, ngày tháng in đậm — NĐ 30: nghiêng, không đậm, cỡ 13–14"))
+            if not all(r.italic or (p.style is not None and p.style.font.italic) for r in rs):
+                kq.append((3, "TT15", "Dòng địa danh, ngày tháng không nghiêng — NĐ 30: chữ nghiêng"))
+    # Duong ke thuong la hinh noi neo o o "Số"/"ngày" cung cot (TB 1092, 1056) — xet ca cot
+    def cot(c):
+        for r in t.rows:
+            for j, x in enumerate(r.cells):
+                if x._tc is c._tc:
+                    return [rr.cells[j] for rr in t.rows if j < len(rr.cells)]
+        return [c]
+    if not any(_co_duong_ke(x) for x in cot(trai[0])):
+        kq.append((2, "TT14", "Thiếu đường kẻ dưới tên cơ quan ban hành “TRƯỜNG CAO ĐẲNG KON TUM” "
+                   "(NĐ 30: đường kẻ ngang, nét liền, bằng 1/3–1/2 dòng chữ)"))
+    if not any(_co_duong_ke(x) for x in cot(phai[0])):
+        kq.append((2, "TT14", "Thiếu đường kẻ dưới tiêu ngữ “Độc lập - Tự do - Hạnh phúc”"))
+    return kq
+
+
+# ------------------------------------------------------------------ anh xa bo quy tac 897
+# Nguon (KHONG chep, chi anh xa ma kiem): KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/
+#   01-The-Thuc.md muc 1 (9 thanh phan, quy dinh chung NĐ 30) · 08-Quy-Uoc-Rieng-CDKT.md muc 4 (TB 597 so cung),
+#   muc 5.1 (KT./TL./TUQ.), muc 5.4 (khong hoc ham, hoc vi). 01 muc 6: sai co chu, kieu chu, vi tri -> Muc 2.
+HOC_HAM = re.compile(r"^(GS|PGS|TS|ThS|BS|BSCKI+|CKI+|DS|KS|CN|NCS|TTƯT|NGƯT|NGND)\.?\s", re.I)
+
+
+def _thuoc_tinh(r, p, ten):
+    """bold/italic that: run -> style ky tu -> style doan (ca base_style)."""
+    v = getattr(r.font, ten)
+    if v is not None:
+        return v
+    for st in ([r.style] if r.style is not None else []) + [p.style]:
+        while st is not None:
+            x = getattr(st.font, ten)
+            if x is not None:
+                return x
+            st = st.base_style
+    return False
+
+
+def _kieu(g, p):
+    rs = [r for r in p.runs if r.text.strip()]
+    if not rs:
+        return None
+    return ({g.co(r, p) for r in rs}, all(_thuoc_tinh(r, p, "bold") for r in rs),
+            any(_thuoc_tinh(r, p, "bold") for r in rs), all(_thuoc_tinh(r, p, "italic") for r in rs))
+
+
+def _kiem_thanh_phan_897(d, g):
+    """TT17 (co, kieu chu tung thanh phan), TT18 (duong ke duoi trich yeu), TT19 (ky thay, hoc ham)."""
+    kq = []
+
+    def sai(ten, p, co=None, dam=None, nghieng=None, nguon="01 mục 1 · 08 mục 4"):
+        k = _kieu(g, p)
+        if k is None:
+            return
+        cs, dam_het, dam_co, ngh = k
+        loi = []
+        if co is not None and cs != {float(co)}:
+            loi.append(f"cỡ {'/'.join(f'{c:g}' for c in sorted(cs))} (chuẩn {co})")
+        if dam is True and not dam_het:
+            loi.append("chưa đậm")
+        if dam is False and dam_co:
+            loi.append("không được đậm")
+        if nghieng is True and not ngh:
+            loi.append("chưa nghiêng")
+        if loi:
+            kq.append((2, "TT17", f"{ten}: {', '.join(loi)} — 897 Checklist {nguon}"))
+
+    # Phan dau (bang dau tien)
+    if d.tables:
+        for p in _doan_trong_bang_dau(d):
+            t = p.text.strip()
+            tu = t.upper()
+            if tu.startswith(("UBND", "ỦY BAN NHÂN DÂN", "UỶ BAN NHÂN DÂN")):
+                sai("Tên cơ quan chủ quản", p, co=13)
+            elif tu == "TRƯỜNG CAO ĐẲNG KON TUM":
+                sai("Tên đơn vị ban hành", p, co=13, dam=True)
+            elif re.match(r"Số\s*:", t):
+                sai("Số, ký hiệu", p, co=13, dam=False)
+                m = re.match(r"Số\s*:(\s*)/", t)
+                if m and len(m.group(1)) < 6:
+                    kq.append((3, "TT17", f"Sau “Số:” chỉ để trống {len(m.group(1))} ký tự — tối thiểu 6 (897 Checklist 01 mục 1.4)"))
+                if re.match(r"Số\s*:\s*[1-9]/", t):
+                    kq.append((3, "TT17", "Số nhỏ hơn 10 phải thêm số 0 phía trước (897 Checklist 01 mục 1.4)"))
+            elif ", ngày" in t:
+                sai("Địa danh, ngày tháng", p, co=14)
+
+    # Ten loai, trich yeu, can cu (ngoai bang)
+    ps = [p for p in d.paragraphs]
+    i_loai = next((i for i, p in enumerate(ps[:12]) if p.text.strip() in LOAI_VB.values()), None)
+    if i_loai is not None:
+        sai("Tên loại văn bản", ps[i_loai], co=14, dam=True)
+        ty, co_ke = [], False
+        for p in ps[i_loai + 1:i_loai + 6]:
+            t = p.text.strip()
+            x = p._p.xml
+            co_ke |= "<w:drawing" in x or "<w:pict" in x or bool(re.search(r"<w:pBdr>.*?<w:bottom ", x, re.S))
+            if not t:
+                if ty:
+                    break
+                continue
+            if t.startswith("Căn cứ") or (p.paragraph_format.first_line_indent or 0) > 0:
+                break
+            ty.append(p)
+        for p in ty:
+            sai("Trích yếu", p, co=14, dam=True)
+        if ty and not co_ke:
+            kq.append((2, "TT18", "Thiếu đường kẻ ngang dưới trích yếu (dài 1/3–1/2 dòng chữ) — 897 Checklist 01 mục 1.6"))
+    for p in ps:
+        if p.text.strip().startswith("Căn cứ"):
+            sai("Căn cứ", p, co=14, nghieng=True)
+
+    # Nguoi ky, noi nhan (bang co "Nơi nhận")
+    for t in d.tables[1:]:
+        o = [c for r in t.rows for c in r.cells]
+        if not any(p.text.strip().startswith("Nơi nhận") for c in o for p in c.paragraphs):
+            continue
+        for c in o:
+            dps = [p for p in c.paragraphs if p.text.strip()]
+            if not dps:
+                continue
+            if dps[0].text.strip().startswith("Nơi nhận"):
+                sai("Từ “Nơi nhận”", dps[0], co=12, dam=True, nghieng=True)
+                for p in dps[1:]:
+                    sai("Danh sách nơi nhận", p, co=11)  # khong xet dam: mau 09 dam rieng dau "-" dong Luu
+                if not re.match(r"-\s*Lưu\s*:\s*VT", dps[-1].text.strip()):
+                    kq.append((3, "TT17", "Dòng cuối nơi nhận phải là “- Lưu: VT, <đơn vị soạn thảo>.” (897 Checklist 01 mục 1.9)"))
+                continue
+            chuc = [p for p in dps if p.text.strip().isupper()]
+            for p in chuc:
+                sai("Quyền hạn, chức vụ người ký", p, co=14, dam=True)
+                if re.match(r"(K/T|T/L|TU/Q)", p.text.strip()):
+                    kq.append((2, "TT19", f"“{p.text.strip()[:12]}” — hệ hành chính dùng KT./TL./TUQ. có dấu chấm (897 Checklist 08 mục 5.1)"))
+            if chuc and dps[-1] not in chuc:
+                ten = dps[-1]
+                sai("Họ tên người ký", ten, co=14, dam=True)
+                if HOC_HAM.match(ten.text.strip()):
+                    kq.append((2, "TT19", f"Ghi học hàm, học vị trước họ tên người ký “{ten.text.strip()}” (897 Checklist 01 mục 1.8)"))
+    return kq
+
+
+def _doan_trong_bang_dau(d):
+    da, kq = set(), []
+    for r in d.tables[0].rows:
+        for c in r.cells:
+            if id(c._tc) not in da:
+                da.add(id(c._tc))
+                kq += c.paragraphs
+    return kq
 
 
 # ------------------------------------------------------------------ kiem docx
@@ -261,6 +497,17 @@ def kiem_docx(d):
                     kq.append((2, "TT09", f"Tiêu ngữ cỡ {sorted(cs)} — TB 597: cỡ 14, đậm"))
                 if any(r.font.underline for r in rs):
                     kq.append((3, "TT09", "Tiêu ngữ dùng Underline — TB 597: kẻ đường bằng Draw"))
+        kq += _kiem_bang_tieu_de(d, g)
+        kq += _kiem_thanh_phan_897(d, g)
+
+    # TT16 doan "Can cu" ngoai bang phai thut dau dong nhu doan noi dung (TB 1060, 1092 da ban hanh: 1,25 cm)
+    can_cu = [p for p in doan if p.text.strip().startswith("Căn cứ")]
+    thut = [p for p in noi_dung if not p.text.strip().startswith("Căn cứ")
+            and (p.paragraph_format.first_line_indent or 0) > 0]
+    khong_thut = [p for p in can_cu if not (p.paragraph_format.first_line_indent or 0) > 0]
+    if khong_thut and thut:
+        kq.append((3, "TT16", f"{len(khong_thut)} đoạn “Căn cứ…” không thụt đầu dòng trong khi đoạn nội dung có thụt — "
+                   "văn bản đã ban hành: căn cứ thụt 1,25 cm, nghiêng"))
 
     # TT10 "Noi nhan"
     for p in tat_ca:
@@ -329,6 +576,9 @@ def main(argv):
         return 2
     if argv[0] == "--tao":
         print("Đã tạo", tao_tu_mau(argv[1], argv[2]))
+        return 0
+    if argv[0] == "--khung":
+        print("Đã tạo", tao_khung(argv[1], argv[2] if len(argv) > 2 else "TB"))
         return 0
     xau = False
     for p in argv:

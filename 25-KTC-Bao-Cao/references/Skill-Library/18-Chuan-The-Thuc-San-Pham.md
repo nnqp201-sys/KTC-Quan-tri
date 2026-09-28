@@ -20,7 +20,8 @@ hook `ktc_the_thuc_hook.py` tự đo mọi tệp `.docx`/`.xlsx` vừa sinh ra.
 |---|---|---|
 | 1 | **Văn bản cùng loại đã ban hành** trong `04-Good-Documents/` (NT-1, `14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`) | Cấu trúc, văn phong, thể thức |
 | 2 | **Mẫu trống** `.dotx`/`.xltx` trong `03-Templates(1)/`, theo bảng mục 2 | Thể thức, style, lề, bảng quốc hiệu |
-| 3 | Dựng mới bằng skill `docx`/`xlsx` | **Chỉ khi** không có 1 và 2. Bắt buộc đặt đủ số đo mục 3–4 |
+| 3 | **Khung thể thức trong skill** `the-thuc/assets/Khung-the-thuc-VBHC.docx` (dựng từ TB 1060/TB-CĐKT đã ban hành): `kiem_the_thuc.py --khung <đích> <loại>` | Khi không đọc được kho (Cowork, Chat, tài khoản thành viên). Giữ bảng tiêu đề, đường kẻ, bảng chữ ký |
+| 4 | Dựng mới bằng skill `docx`/`xlsx` | **Chỉ** cho `.xlsx` hoặc văn bản không phải hành chính. Bắt buộc đặt đủ số đo mục 3–4. **Không dựng bảng tiêu đề bằng tay** |
 
 - **Cấm** dùng `docx.Document()` rỗng (python-docx mặc định khổ **Letter**, phông Calibri) hoặc docx-js với lề
   mặc định (2,54 cm cả bốn lề). Sản phẩm `Phieu-de-xuat_Bo-sung-cot-Task_ID…docx` ngày 18/9/2026 ra khổ Letter
@@ -70,9 +71,45 @@ Báo cáo tổng hợp tháng cấp Trường dùng mẫu chính thức
 | Phần đầu | Bảng hai cột: `UBND TỈNH QUẢNG NGÃI` / **`TRƯỜNG CAO ĐẲNG KON TUM`** (cỡ 13, đậm) · Quốc hiệu cỡ 13, đậm · Tiêu ngữ cỡ 14, đậm, kẻ bằng Draw | TT08 · TT09 | 2 |
 | "Nơi nhận" | Cỡ 12, nghiêng, đậm; danh sách nơi nhận cỡ 11 | TT10 | 3 |
 | Số trang | Canh giữa ở lề trên, không hiện ở trang 1 | TT11 | 3 |
+| Bảng tiêu đề | Rộng 17,25–17,5 cm; cột trái 7–7,5 cm, cột phải 9,75–10,3 cm (đo TB 1060, 1092 và TB phương án A1 đã ban hành). Cột phải < 9 cm hoặc cột trái rộng hơn cột phải làm quốc hiệu, dòng địa danh xuống dòng (Mức 2); bảng < 16 cm (Mức 3) | TT12 | 2 · 3 |
+| Cơ quan chủ quản | `UBND TỈNH QUẢNG NGÃI` in hoa, đứng, **không đậm** | TT13 | 2 |
+| Đường kẻ | Đường kẻ ngang nét liền dưới tên Trường và dưới tiêu ngữ | TT14 | 2 |
+| Địa danh, ngày tháng | `Quảng Ngãi, ngày … tháng … năm …`, **nghiêng, không đậm** | TT15 | 2 (đậm) · 3 (không nghiêng) |
+| Căn cứ | Thụt đầu dòng như đoạn nội dung (1,25 cm), nghiêng | TT16 | 3 |
+
+**Bài học 28/9/2026:** thông báo bổ sung thành phần họp soạn trên Cowork dựng bảng tiêu đề bằng tay: bảng 16 cm chia
+đôi 8 + 8 cm, quốc hiệu và địa danh xuống dòng, UBND và dòng ngày tháng in đậm, thiếu đường kẻ dưới tên Trường. Công
+cụ đo khi đó (TT01–TT11) vẫn báo "đạt". TT12–TT16 được bổ sung để bắt đúng loại lỗi này.
 
 Cỡ chữ của các thành phần còn lại (số ký hiệu, tên loại, trích yếu, chữ ký) lấy theo bảng 16 dòng tại 897
 `08-Quy-Uoc-Rieng-CDKT.md` mục 4. **Không chép bảng đó vào đây.**
+
+### 3a. Ánh xạ bộ quy tắc 897 → phép đo (28/9/2026)
+
+Nguồn là bản gốc trên Google Drive: `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/`. Gồm **quy định chung**
+`01-The-Thuc.md` (NĐ 30), `05-Hinh-Thuc.md`, và **quy định riêng của Trường** `08-Quy-Uoc-Rieng-CDKT.md` (TB 597).
+Bảng dưới chỉ ghi mục nào được đo bằng mã nào; số đo xem tại chính mục đó. Khi 897 sửa số, sửa `kiem_the_thuc.py`
+theo, không sửa ở đây. Theo 01 mục 6, sai cỡ chữ, kiểu chữ hay vị trí là **Mức 2**.
+
+| Mục 897 | Thành phần | Mã đo |
+|---|---|---|
+| 05 mục 1 | Khổ A4, lề | TT01, TT02 |
+| 05 mục 2 · 3 | Phông, màu, dàn lề, thụt đầu dòng, cách dòng, cỡ lời văn | TT03–TT07 |
+| 05 mục 4 | Số trang | TT11 |
+| 01 mục 1.1–1.2 · 08 mục 4 | Quốc hiệu, tiêu ngữ, đường kẻ tiêu ngữ | TT09, TT14 |
+| 01 mục 1.3 · 08 mục 4 | Cơ quan chủ quản (13, không đậm), đơn vị ban hành (13, đậm), đường kẻ | TT08, TT13, TT17, TT14 |
+| 01 mục 1.4 · 08 mục 4 | Số, ký hiệu (13); trống ≥ 6 ký tự; số < 10 thêm 0 | TT17 |
+| 01 mục 1.5 · 08 mục 4 | Địa danh, ngày tháng (14, nghiêng, không đậm) | TT15, TT17 |
+| 01 mục 1.6 · 08 mục 4 | Tên loại, trích yếu (14, đậm), đường kẻ dưới trích yếu | TT17, TT18 |
+| 08 mục 4 (căn cứ) | Căn cứ (14, nghiêng, thụt đầu dòng) | TT16, TT17 |
+| 01 mục 1.8 · 08 mục 4, 5.4 | Chức vụ, họ tên người ký (14, đậm); không học hàm, học vị | TT17, TT19 |
+| 01 mục 1.9 · 08 mục 4 | "Nơi nhận" (12, nghiêng, đậm), danh sách (11), dòng "Lưu: VT, …" | TT10, TT17 |
+| 01 mục 5 · 08 mục 5.1 | KT./TL./TUQ. có dấu chấm, không K/T, T/L | TT19 |
+| Bảng tiêu đề (đo từ văn bản đã ban hành, không có số trong 897) | Độ rộng, tỉ lệ cột | TT12 |
+
+**Không đo bằng máy, để 897 kiểm khi rà soát:** 08 mục 1 (căn cứ QĐ 1976), 2, 2b, 3 (từ ngữ, viết hoa, tên đơn vị,
+cơ sở, bộ môn, viết tắt), 7 (chọn mẫu theo hệ A/B/D); 01 mục 3–4 (dấu, ký số, mật, khẩn). Các mục này là nội dung,
+không phải hình thức đo được trên tệp.
 
 ## 4. Số đo bắt buộc — .xlsx (kế hoạch, phụ lục, bảng KPI)
 
@@ -99,6 +136,9 @@ Cỡ chữ của các thành phần còn lại (số ký hiệu, tên loại, tr
 | Mẫu | Lỗi | Xử lý khi dùng |
 |---|---|---|
 | `10-Giay-moi.dotx` | Cơ quan chủ quản ghi "UBND TỈNH KON TUM"; tiêu ngữ lẫn cỡ 13 và 14 | Đổi thành `UBND TỈNH QUẢNG NGÃI`, tiêu ngữ cỡ 14 |
+| `02A-Quyet-dinh-ca-biet-Phe-duyet-nhiem-vu-du-toan.dotx` | Thiếu đường kẻ dưới "TRƯỜNG CAO ĐẲNG KON TUM" (chỉ có đường kẻ dưới tiêu ngữ) — TT14, phát hiện 28/9/2026 | Chép đường kẻ từ khung `Khung-the-thuc-VBHC.docx`, hoặc dựng bằng `--khung QĐ` |
+| `06A-Bao-cao-noi-bo.dotx`, `06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx` | "TRƯỜNG CAO ĐẲNG KON TUM" không đậm (chỉ có `bCs`, không áp cho chữ Latinh) — TT17, phát hiện 28/9/2026 | Đặt đậm tên Trường |
+| `07-To-trinh.dotx` | "TRƯỜNG CAO ĐẲNG KON TUM" cỡ 14 (TB 597: cỡ 13) — TT17, phát hiện 28/9/2026 | Đặt cỡ 13 |
 | Nhiều văn bản trong `04-Good-Documents` trước sáp nhập | "UBND TỈNH KON TUM", có tệp còn `.VnTime` | Chỉ lấy văn phong và cấu trúc; thể thức theo mục 3 |
 
 Theme của các mẫu có `themeFontLang = vi-VN`. Vì vậy phông "major" của theme hiển thị là **Times New Roman**, không

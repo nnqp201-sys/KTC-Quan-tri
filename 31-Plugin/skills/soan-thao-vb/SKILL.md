@@ -51,7 +51,9 @@ thư mục dự án KTC-Quan-tri vào phiên** để đọc quy tắc — thư m
 thấy tệp → làm theo SKILL.md, ghi `THIEU_DU_LIEU`, không đoán. Đầu vào, đầu ra: thư mục làm việc của người dùng (Nguyên tắc 3).
 </plugin_paths>
 
-## Phiên bản: v1.13 — 28/9/2026
+## Phiên bản: v1.14 — 28/9/2026
+
+> v1.14: Không đọc được kho thì dựng từ khung thể thức (`kiem_the_thuc.py --khung`, skill `the-thuc` 1.1), không tự dựng bảng tiêu đề. Nguyên nhân: thông báo soạn trên Cowork ngày 28/9/2026 bị sai thể thức phần đầu.
 
 > v1.13: Tự đủ trong plugin (rà soát 28/9/2026): ghi rõ `17-Skill-Kiem-Tra-Tham-Quyen.md`, `29-Skill-Van-Ban-Dang.md` nằm trong plugin ktc-ra-soat-897 (bộ quy tắc 897, không giữ bản sao); sửa 20 đường dẫn cũ `06-Skill-Library/`, `05-Prompt-Library/…md`.
 
@@ -110,6 +112,9 @@ Chi tiết: `references/Skill-Library/00-Nguyen-Tac-Chung.md`.
 1. **Phát triển từ văn bản cùng loại đã ban hành**, không dựng từ mẫu trống. Mẫu trống có bố cục nhưng
    **không chứa văn phong, độ nén, cách nêu số liệu**. Thứ tự nguồn: cùng loại cùng kỳ đã ban hành →
    kỳ gần nhất trong `04-Good-Documents/` → cùng loại khác cấp → mẫu trống `.dotx` (chỉ lấy số đo).
+   **Không đọc được kho** (Cowork, Chat, tài khoản thành viên) và không có văn bản đính kèm: tạo tệp bằng
+   `python scripts/kiem_the_thuc.py --khung <đích.docx> <TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB>`. Khung lấy từ văn bản đã
+   ban hành; chỉ thay chữ, **không tự dựng bảng tiêu đề** (skill `the-thuc`, bước 1–2).
 2. **Soạn trên văn bản đã có thì bật Track Changes** và xuất phát từ chính tệp gốc — không soạn lại rồi
    trình bày như bản sửa. Quy trình: `references/Skill-Library/15-Skill-Track-Changes.md`; công cụ:
    `references/Skill-Library/ktc_trackchanges.py`. Chỉ chạy được trên Claude Code.
@@ -119,8 +124,10 @@ Chi tiết: `references/Skill-Library/00-Nguyen-Tac-Chung.md`.
 
 ## Nguyên tắc đầu ra
 
-Kết quả hoàn chỉnh **xuất `.docx`** vào `30-Ket-Qua/YYYY-MM-DD/`. Dùng `python-docx` cho văn bản hành chính
-có bảng, không dùng docx-js.
+Kết quả hoàn chỉnh **xuất `.docx`** vào `30-Ket-Qua/YYYY-MM-DD/`. Dùng `python-docx` để sửa **trên tệp đã có
+thể thức**, gồm văn bản đã ban hành, mẫu `.dotx` hoặc khung (`--khung`). Không dùng docx-js, không `add_table` cho
+bảng tiêu đề, bảng chữ ký. Bảng tự dựng ngày 28/9/2026 chia đôi cột 8 + 8 cm, làm quốc hiệu xuống dòng và thiếu
+đường kẻ.
 
 **Đo định dạng phải bằng script**, không suy đoán bằng mắt. Không chạy được script đo thì ghi
 `FORMAT_BINARY_UNVERIFIED`.

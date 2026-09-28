@@ -1,6 +1,6 @@
 # Bảng đối chiếu tên tệp — bản gốc (dự án) → vị trí trong plugin
 
-Sinh tự động khi dựng plugin 1.3.9 (`dong_goi_plugin.py`, so nội dung sha256). Tài liệu nhắc tên thư mục
+Sinh tự động khi dựng plugin 1.3.10 (`dong_goi_plugin.py`, so nội dung sha256). Tài liệu nhắc tên thư mục
 dự án (`20-Chuan-Chung/…`, `29-Cong-Cu/…`): tra bảng này, **không xin quyền thư mục dự án**.
 
 | Bản gốc trên máy phát triển | Bản sao trong plugin |
