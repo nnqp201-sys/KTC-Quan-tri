@@ -10,7 +10,7 @@ C1. Gói .skill — cấu trúc và frontmatter
   ✓ ktc-ke-hoach       23 tệp, hợp lệ
   ✓ ktc-soan-thao-vb   95 tệp, hợp lệ
   ✓ ktc-theo-doi-cv    12 tệp, hợp lệ
-  ✓ ktc-quan-tri       20 tệp, hợp lệ
+  ✓ ktc-quan-tri       21 tệp, hợp lệ
   ✓ ktc-the-thuc       4 tệp, hợp lệ
   ✓ ktc-kpi-lap-ke-hoach 19 tệp, hợp lệ
   ✓ ktc-kpi-tu-danh-gia 16 tệp, hợp lệ
@@ -142,6 +142,7 @@ C10. Bộ hồi quy có chạy được không
   ✓ test_plugin_131.py                 chạy xong (mã 0)
   ✓ test_plugin_nhat_ky_backup.py      chạy xong (mã 0)
   ✓ test_task_id_bc736.py              chạy xong (mã 0)
+  ✓ test_thu_muc.py                    chạy xong (mã 0)
   ✓ test_tra_hieu_luc.py               chạy xong (mã 0)
   ✓ test_trackchanges.py               chạy xong (mã 0)
   ✓ test_tu_hoc.py                     chạy xong (mã 0)

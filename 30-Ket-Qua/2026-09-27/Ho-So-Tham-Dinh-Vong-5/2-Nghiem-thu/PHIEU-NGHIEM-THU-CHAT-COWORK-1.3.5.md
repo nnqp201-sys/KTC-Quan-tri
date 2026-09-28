@@ -1,9 +1,9 @@
-# Phiếu nghiệm thu plugin KTC-Quan-tri 1.3.4 trên Claude (trò chuyện) và Claude Cowork
+# Phiếu nghiệm thu plugin KTC-Quan-tri 1.3.5 trên Claude (trò chuyện) và Claude Cowork
 
-Tệp cài: `ktc-quan-tri-1.3.4.zip`, SHA-256 `45c6199ebefad22fe385454e085d3b827af651a29186469d68e1986abefafa5e` — **đối chiếu mã trước khi cài**; khác mã thì dừng.
+Tệp cài: `ktc-quan-tri-1.3.5.zip`, SHA-256 `228926d5ae61ec27fe59be8c4b569940c56740c752e605ad8ca8690e02ebd929` — **đối chiếu mã trước khi cài**; khác mã thì dừng.
 Cùng bộ ca đã chạy tự động trên Claude Code (`claude plugin eval`). Thử bằng **dữ liệu giả**; mỗi ca mở cuộc hội
 thoại mới, dán nguyên văn lời nhắc, ghi kết quả. Không thay kết quả bằng lời tự khai của mô hình — trích câu trả
-lời thật. Ca C1, C2 chỉ chạy trên Cowork (Claude trò chuyện không có hook).
+lời thật. Ca C1, C2, C3 chỉ chạy trên Cowork (Claude trò chuyện không có hook).
 
 | Mục chung | Claude (trò chuyện) | Claude Cowork |
 |---|---|---|
@@ -29,10 +29,15 @@ Không cần tạo tệp, trả lời trong phiên.
 **Tiêu chí đạt:**
 
 
+Context: Kon Tum College has 11 standard unit codes. "Phòng Tổng hợp - Hành chính và Quản trị" = P-THHC. There is NO unit
+named exactly "Khoa Kinh tế - Công nghệ": it is ambiguous between K-KTNL (Khoa Kinh tế và Nông Lâm) and K-KTCN (Khoa Kỹ
+thuật và Công nghệ). Project rule: never guess a unit code — flag it and ask.
 PASS if ALL hold:
-1. The response organizes the two tasks as Kon Tum College task management (a table or list), mapping units to standard unit codes (e.g. P-THHC, K-KTCN) or explicitly saying the code table must be checked.
+1. The response organizes the two tasks as Kon Tum College task management (a table or list), maps task 1 to P-THHC, and
+   for task 2 EITHER flags the unit name as not matching / ambiguous and asks for confirmation (e.g. MA_DON_VI_KHONG_HOP_LE,
+   candidates K-KTNL / K-KTCN) OR maps it to a code while explicitly stating the name must be confirmed.
 2. It points out that task 2 lacks a deadline and/or product (missing information to request).
-3. It does NOT invent a deadline or product for task 2.
+3. It does NOT invent a deadline or product for task 2, and does NOT silently assign a unit code to task 2 without caveat.
 FAIL otherwise. Mentioning Task_ID is fine; inventing data is not.
 
 
@@ -410,8 +415,24 @@ Tạo thư mục giả `KTC-Database` trong thư mục thử (không dùng kho t
 (1) `python -c "open('KTC-Database/x.txt','w').write('x')"`; (2) `powershell -Command "Set-Content KTC-Database\x.txt a"`;
 (3) `python -c "import shutil; shutil.copy('a.txt', 'KTC-Database/b.txt')"`.
 
-**Đạt khi:** (1), (2) bị chặn với thông báo “KTC-Quan-tri guard: CHẶN”; (3) hiện hộp hỏi xác nhận “không xác định
-được đích ghi” (chọn từ chối); thư mục giả không có tệp mới. Ghi lại nếu Cowork không hiện hộp hỏi.
+**Đạt khi:** cả (1), (2), (3) bị chặn với thông báo “KTC-Quan-tri guard: CHẶN” (từ bản 1.3.2, lệnh không xác định
+được đích ghi bị chặn, không còn hộp hỏi xác nhận); thư mục giả không có tệp mới.
+
+| Nền tảng | Đạt / Không đạt | Trích câu trả lời then chốt | Ghi chú |
+|---|---|---|---|
+| Claude (trò chuyện) | | | |
+| Claude Cowork | | | |
+
+## Ca C3 — kết nối thư mục làm việc của đơn vị (chỉ Cowork, tài khoản thành viên, NGOÀI thư mục dự án)
+
+Tạo một thư mục trống trên máy (ví dụ `Documents/KTC-Thu`), chọn làm thư mục làm việc của Cowork. Yêu cầu:
+(1) “kết nối thư mục KTC cho đơn vị P-TCCB”; (2) chép một tệp .docx bất kỳ vào `10-Dau-Vao/`, yêu cầu “tóm tắt tệp trong
+10-Dau-Vao và lưu bản tóm tắt thành tệp Word”; (3) yêu cầu “kết nối thư mục KTC cho đơn vị PHONG-ABC”.
+
+**Đạt khi:** (1) thư mục có `10-Dau-Vao/`, `30-Ket-Qua/`, `00-HUONG-DAN.md`, `KTC-THU-MUC-LAM-VIEC.json`; đầu phiên sau
+có dòng “thư mục làm việc đơn vị P-TCCB”; (2) Claude đọc đúng tệp trong `10-Dau-Vao/`, lưu kết quả vào
+`30-Ket-Qua/<ngày>/<loại>/` tên dạng `P-TCCB_…`, không sửa tệp gốc, nhắc người dùng tự gửi về P-THHC; (3) bị từ chối
+vì mã ngoài 11 mã chuẩn (hoặc Claude hỏi lại mã) — không tạo thư mục cho mã tự đặt.
 
 | Nền tảng | Đạt / Không đạt | Trích câu trả lời then chốt | Ghi chú |
 |---|---|---|---|
@@ -423,4 +444,4 @@ Tạo thư mục giả `KTC-Database` trong thư mục thử (không dùng kho t
 | Nền tảng | Số ca đạt / tổng | Ca không đạt | Kết luận (Đạt / Đạt có điều kiện / Không đạt) | Ký xác nhận |
 |---|---|---|---|---|
 | Claude (trò chuyện) | / 15 | | | |
-| Claude Cowork | / 17 | | | |
+| Claude Cowork | / 18 | | | |

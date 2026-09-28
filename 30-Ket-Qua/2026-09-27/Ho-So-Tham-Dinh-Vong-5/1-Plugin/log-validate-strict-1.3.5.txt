@@ -1,6 +1,6 @@
 # Lệnh: claude plugin validate ./31-Plugin --strict
 # CLI: 2.1.283 (Claude Code)
-# Thời điểm: 28/09/2026 13:41
+# Thời điểm: 28/09/2026 14:31
 Validating plugin manifest: D:\.CLAUDE code\KTC-Quan-tri\31-Plugin\.claude-plugin\plugin.json
 
 ✔ Validation passed
