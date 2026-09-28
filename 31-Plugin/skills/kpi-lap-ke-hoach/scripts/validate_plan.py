@@ -11,7 +11,7 @@ KHONG sua tep. KHONG ket luan thay Truong don vi (phe duyet — QD 1923 D13.1).
   KH05 LOI       He so khong khop muc do (chi khi phuong an muc-do)      QD 1923 PL II
   KH06 LOI       Dong vi du cua mau chua xoa                             Known-Issues-Bieu-Mau #4
   KH07 CANH_BAO  Thieu nguon minh chung                                  QD 1923 D12.4
-  KH08 LOI       San pham khong co trong Danh muc TB 1052 (phuong an A/AxB) Cau hoi mo so 2
+  KH08 LOI       San pham khong co trong Danh muc QD 2119 (phuong an A/AxB) QD 2119/QD-CDKT
   KH09 CANH_BAO  Dau hieu quy ket qua tap the thanh KPI ca nhan          QD 1923 D4.8
   KH10 LOI       Vien chuc quan ly khong co dau viec Truc (4)            QD 1923 D12.1
   KH11 CANH_BAO  Truc co diem toi da nhung khong co dau viec             mau Danh gia: diem Truc = 0
@@ -104,7 +104,7 @@ def kiem(p, nhom=None, phuong_an=None):
                 try:
                     kc.tra_A(o["E"])
                 except kc.LoiKPI as e:
-                    them("KH08", "LOI", vt, str(e), "Câu hỏi mở số 2")
+                    them("KH08", "LOI", vt, str(e), "QĐ 2119/QĐ-CĐKT (Danh mục sản phẩm, công việc)")
             mc = kp[f"{ct['cot_minh_chung']}{ct['kpi_dong'][r]}"].value if ct["cot_minh_chung"] else None
             if not mc and "minh chứng" not in str(o["J"] or "").lower():
                 them("KH07", "CANH_BAO", vt, f"'{nd[:50]}': chưa ghi nguồn minh chứng", "QĐ 1923, Đ12.4")

@@ -95,6 +95,26 @@ QUA_132 = [
 for cc, l, ten in QUA_132:
     kq = guard(cc, l)
     kiem(kq == "qua", f"cho qua 1.3.2: {ten} (được: {kq})")
+# 1.3.3: chặn nhầm thật 28/9/2026 — str.replace() khi chỉ đọc kho bị coi là ghi
+QUA_133 = [
+    ("Bash", f"python -c \"import docx; d=docx.Document('{DB}'); print(d.paragraphs[0].text.replace('a', 'b'))\"",
+     "python đọc kho, str.replace [chặn nhầm thật 28/9]"),
+    ("Bash", f"python -c \"import os; p=os.path.join('{DB}'); print(open(p).read().replace('\\n', ' '))\"",
+     "python os.path.join + str.replace, chỉ đọc"),
+    ("Bash", f"python -c \"import pandas as pd; print(pd.read_excel('{DB}').rename(columns=str.strip))\"",
+     "pandas DataFrame.rename, chỉ đọc"),
+]
+for cc, l, ten in QUA_133:
+    kq = guard(cc, l)
+    kiem(kq == "qua", f"cho qua 1.3.3: {ten} (được: {kq})")
+CHAN_133 = [
+    ("Bash", f"python -c \"from pathlib import Path; p=Path('{DB}'); p.rename('y.txt')\"", "Path qua biến .rename"),
+    ("Bash", f"python -c \"from pathlib import Path; Path('a.txt').replace('{DB}')\"", "Path(ngoài).replace(đích trong kho)"),
+    ("Bash", f"python -c \"import os; os.replace('a.txt', '{DB}')\"", "os.replace vào kho"),
+]
+for cc, l, ten in CHAN_133:
+    kq = guard(cc, l)
+    kiem(kq == "chan", f"chặn 1.3.3 (ca ngược): {ten} (được: {kq})")
 
 QUA = [
     ("Bash", f"python -c \"import docx; d=docx.Document('{DB}'); print(len(d.paragraphs))\"", "python đọc tệp trong kho"),

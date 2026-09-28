@@ -17,7 +17,7 @@ tra ngược.
 | `10-Sau-Truc-38-Noi-Ham.md` | Bảng đầy đủ 6 Trục và 38 Nội hàm kèm số sản phẩm | Phân loại nhiệm vụ |
 | `11-Skill-Phan-Loai-6-Truc.md` | Kỹ thuật phân loại vào 6 Trục (dùng chung toàn hệ thống KTC) | Phân loại nhiệm vụ |
 | `12-Bang-Ma-Don-Vi.md` | 11 mã đơn vị chuẩn, ánh xạ 3 kiểu viết đang tồn tại, cảnh báo độ phủ | **Bất cứ khi nào chạm tới tên đơn vị** |
-| `13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` | 122 nhiệm vụ chuẩn (17 lĩnh vực) · 371 sản phẩm · thang 5 nhóm · 29 loại văn bản | Gán mã và quy đổi điểm |
+| `13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` | 122 nhiệm vụ chuẩn (17 lĩnh vực) · Danh mục sản phẩm CHÍNH THỨC QĐ 2119/QĐ-CĐKT (416 sản phẩm) · lịch sử dự thảo 371 sản phẩm, thang 5 nhóm · 29 loại văn bản | Gán mã và quy đổi điểm |
 
 ## Nhóm 2 — Dữ liệu và vòng đời
 

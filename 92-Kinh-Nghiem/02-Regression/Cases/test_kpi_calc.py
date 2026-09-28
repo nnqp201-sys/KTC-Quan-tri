@@ -3,7 +3,7 @@
 
 Ca bien moi nguong xep loai [QD 1923 D19.1], tran 100% [D11.6], truc chinh 40% [D12.3], nhom tieu chi chung
 05 diem [D10.4], muc trong tam [D18], va ca NGUOC: goi thieu phuong an he so phai BAO LOI, khong tu chon;
-san pham khong co trong Danh muc TB 1052 phai BAO LOI, khong tu gan A.
+san pham khong co trong Danh muc QD 2119 phai BAO LOI, khong tu gan A.
 """
 import os
 import sys
@@ -69,18 +69,43 @@ for chu, v in (("Thấp", 1.0), ("Trung bình", 1.2), ("Cao", 1.5), ("Khó và p
 kiem(bao_loi(kc.he_so, "muc-do", "Rất khó") is not None, "NGƯỢC: mức độ ngoài 4 mức → báo lỗi, không đoán")
 kiem("Có văn bản" in kc.he_so("muc-do", "Cao")["trang_thai"], "Phương án mức độ ghi trạng thái 'Có văn bản'")
 
-# He so A / AxB — Danh muc TB 1052
-h = kc.he_so("A", san_pham="1.1")
-kiem(h["he_so"] == 4.5 and "DỰ THẢO" in h["trang_thai"], "TB 1052 STT 1.1 (Đề án phát triển) → A = 4,5, ghi DỰ THẢO")
-h = kc.he_so("AxB", "Khó và phức tạp", "1.1")
-kiem(h["he_so"] == 9.0 and "CHƯA CÓ VĂN BẢN" in h["trang_thai"], "A×B: 4,5 × 2,0 = 9,0 (khớp ví dụ trong QUY-UOC), ghi CHƯA CÓ VĂN BẢN")
-kiem(any("lệch" in c for c in kc.he_so("A", san_pham="1.3")["canh_bao"]), "TB 1052 STT 1.3 (Nhóm 2, hệ số 1,5) → cảnh báo lệch Nhóm")
-kiem(any("bất thường" in c for c in kc.he_so("A", san_pham="29.22")["canh_bao"]), "TB 1052 STT 29.22 hệ số 50 → cảnh báo bất thường")
-kiem(any(c.startswith("THANG_DIEM_CHUA_PHAN_DINH") for c in kc.he_so("A", san_pham="1.1")["canh_bao"]), "Phương án A (dự thảo TB 1052) → mã THANG_DIEM_CHUA_PHAN_DINH")
-kiem(any(c.startswith("THANG_DIEM_CHUA_PHAN_DINH") for c in kc.he_so("AxB", "Cao", "1.1")["canh_bao"]), "Phương án A×B → mã THANG_DIEM_CHUA_PHAN_DINH")
+# He so A / AxB — Danh muc CHINH THUC QD 2119/QD-CDKT ngay 28/9/2026 (thay the du thao TB 1052, DL-20260928-001)
+h = kc.he_so("A", san_pham="1.1.DA01.01")
+kiem(h["he_so"] == 4.5 and "2119" in h["trang_thai"] and "Có văn bản" in h["trang_thai"],
+     "QĐ 2119 mã 1.1.DA01.01 (Đề án phát triển Trường) → A = 4,5, ghi 'Có văn bản: … QĐ 2119'")
+kiem(kc.he_so("A", san_pham="1.1")["he_so"] == 4.5, "tra theo STT phụ lục '1.1' → cùng sản phẩm, A = 4,5")
+kiem(kc.he_so("A", san_pham="Chiến lược, Đề án phát triển Trường giai đoạn trung, dài hạn")["he_so"] == 4.5,
+     "tra theo tên chính xác → A = 4,5")
+kiem(not any(c.startswith("THANG_DIEM_CHUA_PHAN_DINH") for c in kc.he_so("A", san_pham="1.1.DA01.01")["canh_bao"]),
+     "Phương án A (QĐ 2119 chính thức) → KHÔNG còn mã THANG_DIEM_CHUA_PHAN_DINH")
+# san pham DOI he so so voi du thao: phai ra gia tri CHINH THUC (bat loi con doc CSV cu)
+kiem(kc.he_so("A", san_pham="Quy chế, quy định công tác tuyển sinh")["he_so"] == 2.0,
+     "Quy chế tuyển sinh: QĐ 2119 = 2,0 (dự thảo cũ 2,5) → lấy 2,0")
+kiem(kc.he_so("A", san_pham="Bản ghi nhớ hợp tác quốc tế")["he_so"] == 2.0,
+     "Bản ghi nhớ hợp tác quốc tế: QĐ 2119 = 2,0 (dự thảo cũ 1,0) → lấy 2,0")
+h = kc.he_so("AxB", "Khó và phức tạp", "1.1.DA01.01")
+kiem(h["he_so"] == 9.0 and "CHƯA CÓ VĂN BẢN" in h["trang_thai"], "A×B: 4,5 × 2,0 = 9,0, ghi CHƯA CÓ VĂN BẢN (phép nhân)")
+kiem(any(c.startswith("THANG_DIEM_CHUA_PHAN_DINH") for c in kc.he_so("AxB", "Cao", "1.1.DA01.01")["canh_bao"]),
+     "Phương án A×B → vẫn mã THANG_DIEM_CHUA_PHAN_DINH (phép nhân chưa có văn bản)")
 kiem(not kc.he_so("muc-do", "Cao")["canh_bao"], "ca ngược: phương án mức độ (QĐ 1923 có văn bản) → không cảnh báo thang điểm")
-kiem(bao_loi(kc.he_so, "A", None, "Sản phẩm không có trong danh mục") is not None,
-     "NGƯỢC: sản phẩm không có trong Danh mục TB 1052 → báo lỗi, không tự gán A")
+kiem(len([k for k in kc.danh_muc() if k.startswith("ma:")]) == 416, "Danh mục nạp đủ 416 sản phẩm QĐ 2119")
+e = bao_loi(kc.he_so, "A", None, "Sản phẩm không có trong danh mục")
+kiem(e is not None and "2119" in str(e), "NGƯỢC: sản phẩm không có trong Danh mục QĐ 2119 → báo lỗi, không tự gán A")
+# ca nguoc canh bao lech Nhom / bat thuong: CSV gia (phu luc chinh thuc khong co dong lech)
+import csv as _csv, tempfile as _tf, os as _os  # noqa: E402
+_d = _tf.mkdtemp()
+_p = _os.path.join(_d, kc.TEN_CSV)
+with open(_p, "w", encoding="utf-8-sig", newline="") as _f:
+    _w = _csv.DictWriter(_f, fieldnames=["ma_san_pham", "stt", "ten_san_pham", "mo_ta", "loai_san_pham", "nhom", "he_so",
+                                         "lech_nhom"])
+    _w.writeheader()
+    _w.writerow({"ma_san_pham": "9.9.XX01.01", "stt": "9.9", "ten_san_pham": "gia", "mo_ta": "", "loai_san_pham": "",
+                 "nhom": "Nhóm 1", "he_so": 50, "lech_nhom": "hệ số 50 ngoài tập hệ số Nhóm 1"})
+kc.danh_muc(_p)
+_cb = kc.he_so("A", san_pham="9.9.XX01.01")["canh_bao"]
+kiem(any("ngoài tập" in c for c in _cb) and any("bất thường" in c for c in _cb),
+     "ca ngược: dòng hệ số ngoài tập Nhóm, > 10 → cảnh báo lệch và bất thường")
+kc._DM = None   # tra lai danh muc that
 kiem(bao_loi(kc.he_so, "nhap-tay", None, None, None) is not None, "NGƯỢC: nhập tay thiếu hệ số → báo lỗi")
 
 # Goi y Danh muc — chi liet ke, khong tu gan

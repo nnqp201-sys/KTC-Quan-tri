@@ -122,7 +122,7 @@ Hệ có nhiều tác nhân kiểm cùng một sản phẩm (skill soạn, agent
 | `NGHI_CHI_DAN_TRONG_DU_LIEU` | Dữ liệu chứa câu ra lệnh cho AI | Kiểm tra nguồn tệp; báo đơn vị nộp |
 | `DOI_CHIEU_GAN_DUNG` | Khớp theo tên gần đúng, không theo Task_ID/mã | **Đối chiếu thủ công 100% với dữ liệu gốc trước khi lãnh đạo đơn vị ký duyệt** |
 | `FORMAT_BINARY_UNVERIFIED` | Không đo được thể thức thật (không chạy được script) | Đo trên Claude Code hoặc kiểm tay |
-| `THANG_DIEM_CHUA_PHAN_DINH` | Dùng thang điểm chưa ban hành (thang 5 nhóm) | Không dùng làm điểm chính thức |
+| `THANG_DIEM_CHUA_PHAN_DINH` | Dùng cách quy đổi chưa có văn bản (quy ước A × B; thang 50/120/250/350/450 của dự thảo đã bị QĐ 2119/QĐ-CĐKT thay thế) | Không dùng làm điểm chính thức |
 | `MA_DON_VI_KHONG_HOP_LE` | Tên/mã đơn vị không có trong bảng mã chuẩn | Sửa theo bảng mã |
 
 - **Việc người có thẩm quyền phải quyết** — liệt kê; AI chỉ đề xuất.

@@ -123,7 +123,7 @@ ds_a = [dict(d, san_pham="Chiến lược, Đề án phát triển Trường gia
 p = lap("hanh-chinh", ds_a, "phuong-an-A.xlsx", pa="A")
 kiem("KH08" not in ma(vp.kiem(p, "hanh-chinh", "A")), "Phương án A, sản phẩm có trong Danh mục → không KH08")
 wb = km.mo(p); wb["Ke Hoach"]["E14"].value = "Sản phẩm tự đặt"; wb.save(p)
-kiem("KH08" in ma(vp.kiem(p, "hanh-chinh", "A")), "NGƯỢC: phương án A, sản phẩm ngoài Danh mục TB 1052 → KH08")
+kiem("KH08" in ma(vp.kiem(p, "hanh-chinh", "A")), "NGƯỢC: phương án A, sản phẩm ngoài Danh mục QĐ 2119 → KH08")
 
 # --- vuot 20 dong / Truc
 try:

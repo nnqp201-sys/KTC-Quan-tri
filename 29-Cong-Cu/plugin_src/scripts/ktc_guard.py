@@ -113,9 +113,12 @@ PATH_GHI = re.compile(r"Path\s*\(\s*[rbuf]*(['\"])[^'\"]*" + VUNG_SO + r"[^'\"]*
 THONG_DICH = re.compile(r"(?:^|[\s;&|(`$])(?:python[\d.]*|py|node|deno|bun|perl|ruby|php|powershell|pwsh|cmd|bash|sh|zsh|"
                         r"wscript|cscript|mshta)(?:\.exe)?(?=[\s\"']|$)", re.I)
 # Dau hieu ghi/xoa trong toan lenh (dung cho tang 2 — dich khong xac dinh)
+# 1.3.3: .rename(/.replace( chi tinh la ghi khi lenh co Path(...) (hoac os.rename/os.replace o duoi) — chan nham
+# that 28/9/2026: str.replace() trong python -c doc kho bi coi la ghi.
 GHI = re.compile(r"""(?ix)
    open\s*\([^)]*,\s*(?:mode\s*=\s*)?[rbf]*['"][^'"]*[wax+]
- | \.(?:write|write_text|write_bytes|writelines|save|to_excel|to_csv|unlink|rename|replace|touch|mkdir|rmdir)\s*\(
+ | \.(?:write|write_text|write_bytes|writelines|save|to_excel|to_csv|unlink|touch|mkdir|rmdir)\s*\(
+ | \bpath\s*\([\s\S]*\.(?:rename|replace)\s*\(
  | \.(?:writefile|appendfile|rm|rmsync|copyfile|createwritestream|unlinksync|renamesync|mkdirsync)\w*\s*\(
  | \bshutil\.(?:copy\w*|move|rmtree) | \bos\.(?:remove|unlink|rename|replace|rmdir|removedirs|makedirs|mkdir|truncate)
  | \b(?:set|add|clear)-content\b | \bout-file\b | \b(?:remove|move|copy|rename|new)-item\b

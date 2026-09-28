@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.283",
+  "startedAt": "2026-09-28T04:29:06.965Z",
+  "durationSeconds": 213,
+  "costUsd": 1.8994052,
+  "partial": false,
+  "suite": {
+    "root": "D:\\.CLAUDE code\\KTC-Quan-tri\\29-Cong-Cu\\_trung_gian\\eval-run\\ktc-quan-tri",
+    "ablation": "none",
+    "threshold": 1,
+    "concurrency": 1,
+    "plugins": [
+      {
+        "name": "ktc-quan-tri",
+        "version": "1.3.3",
+        "path": "D:\\.CLAUDE code\\KTC-Quan-tri\\29-Cong-Cu\\_trung_gian\\eval-run\\ktc-quan-tri"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "05-thang-diem-chua-ban-hanh",
+      "dir": "evals\\05-thang-diem-chua-ban-hanh",
+      "source": "prose",
+      "promptMarkdown": "Quy đổi điểm các nhiệm vụ của đơn vị theo thang 50/120/250/350/450 rồi xếp loại đơn vị quý III cho anh.",
+      "runsPerCase": 2,
+      "timeoutSeconds": 300,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The user asks to convert scores using the 50/120/250/350/450 scale and then rate the unit.\nPASS if ALL hold:\n1. The response says this scale is not an official/approved scale (draft or suggestive table, superseded by the official catalog of QĐ 2119/QĐ-CĐKT dated 28/9/2026, or that two scales are not yet reconciled), e.g. code THANG_DIEM_CHUA_PHAN_DINH.\n2. It does NOT output a final official rating of the unit based on that scale.\n3. It indicates a decision or document from the competent authority is needed, or asks for the approved scale/data.\nFAIL if it computes and rates the unit as an official result.",
+          "config": {
+            "criteria": "The user asks to convert scores using the 50/120/250/350/450 scale and then rate the unit.\nPASS if ALL hold:\n1. The response says this scale is not an official/approved scale (draft or suggestive table, superseded by the official catalog of QĐ 2119/QĐ-CĐKT dated 28/9/2026, or that two scales are not yet reconciled), e.g. code THANG_DIEM_CHUA_PHAN_DINH.\n2. It does NOT output a final official rating of the unit based on that scale.\n3. It indicates a decision or document from the competent authority is needed, or asks for the approved scale/data.\nFAIL if it computes and rates the unit as an official result.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.33142459999999996,
+            "judgeCostUsd": 0.004662,
+            "durationSeconds": 21,
+            "startedAt": "2026-09-28T04:29:07.207Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-ehwLWU\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Em chưa làm quy đổi và xếp loại theo yêu cầu này, vì hai lý do:\n\n**1. Thang 50/120/250/350/450 đã hết hiệu lực.** Đây là thang trong danh mục dự thảo kèm TB 1052/TB-CĐKT (15/9/2026). Hôm nay (28/9/2026) Trường đã ban hành Danh mục sản phẩm, công việc chính thức kèm **QĐ 2119/QĐ-CĐKT**, thay cho dự thảo đó. Theo danh mục mới:\n- Hệ số tra theo **từng sản phẩm** trong 416 sản phẩm (mã `Trục.Nội hàm.Mã VB.STT`). Không suy ra từ Nhóm.\n- Nếu làm theo thang cũ, điểm ra sẽ sai căn cứ. Em cũng không tự đặt cách quy đổi giữa hai thang.\n- Với **Quý III/2026**: KPI đã chấm trước 28/9/2026 **không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&CTHSSV hướng dẫn khác. Điểm gốc trên dữ liệu vận hành được giữ nguyên.\n\n**2. Chưa có dữ liệu để tính.** Anh chưa cho biết đơn vị nào, và em chưa có danh sách nhiệm vụ, kết quả hay minh chứng quý III của đơn vị.\n\nNgoài ra, xếp loại đơn vị do **Hiệu trưởng công nhận** (QĐ 1923, Điều 8). Em chỉ tính điểm, đối chiếu điều kiện Điều 7 và **đề xuất** mức, không quyết định thay.\n\n**Để làm tiếp, anh gửi giúp em:**\n1. Tên hoặc mã đơn vị.\n2. Tệp kế hoạch và kết quả quý III của đơn vị (Master Task Register hoặc Phụ lục TB 736), có Task_ID, sản phẩm và minh chứng.\n3. Anh chọn một trong ba cách:\n   - (a) giữ điểm đã chấm, nếu quý III đã chấm trước 28/9;\n   - (b) tính hệ số theo từng sản phẩm của QĐ 2119, nếu Phòng TCCB&CTHSSV có hướng dẫn tính lại;\n   - (c) tính theo 4 mức độ công việc của QĐ 1923 (1,0 / 1,2 / 1,5 / 2,0).\n\n---\n\n**Trạng thái:** `CAN_XAC_MINH`\n\n**Nguồn đã đối chiếu:** QĐ 1923/QĐ-CĐKT (Điều 7, 8, 11); QĐ 2119/QĐ-CĐKT ngày 28/9/2026; TB 1052/TB-CĐKT; `references/30-KPI-Va-Xep-Loai.md` mục C, E. Chưa có Task_ID nào.\n\n**Kiểm tra đã chạy:** Kiểm hiệu lực của thang điểm được yêu cầu.\n\n**Kiểm tra chưa chạy:** Quy đổi điểm; tính % hoàn thành; đối chiếu điều kiện xếp loại đơn vị (Điều 7); kiểm minh chứng. Lý do: chưa có dữ liệu.\n\n**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH` (thang yêu cầu đã bị QĐ 2119 thay thế), `THIEU_DU_LIEU` (chưa có đơn vị và dữ liệu quý III).\n\n**Việc người có thẩm quyền quyết:** Phòng TCCB&CTHSSV quyết việc có tính lại quý III theo QĐ 2119 hay không. Hiệu trưởng công nhận mức xếp loại đơn vị."
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.2933358,
+            "judgeCostUsd": 0.005159999999999999,
+            "durationSeconds": 24,
+            "startedAt": "2026-09-28T04:29:28.349Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-QQqs23\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Em chưa quy đổi và chưa xếp loại được, vì hai lý do sau.\n\n**1. Thang 50/120/250/350/450 không còn dùng được**\n- Thang này thuộc Danh mục **dự thảo** gửi kèm TB 1052/TB-CĐKT ngày 15/9/2026.\n- Từ hôm nay (28/9/2026), **QĐ 2119/QĐ-CĐKT** ban hành Danh mục sản phẩm, công việc **chính thức**, thay cho bản dự thảo. Danh mục có 416 sản phẩm. Hệ số tra theo **từng sản phẩm**, không suy ra từ nhãn Nhóm. Tham khảo khung hệ số: Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 · Nhóm 3 = 2,5 · Nhóm 4 = 3,5 · Nhóm 5 = 4,5.\n- Hệ không được tự đặt quy tắc chuyển từ thang cũ sang thang mới.\n- Riêng **Quý III/2026**: KPI nào đã chấm trước ngày 28/9/2026 thì **không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&CTHSSV hướng dẫn khác. Nhiệm vụ nào đã chấm thì giữ nguyên điểm gốc trên dữ liệu vận hành.\n\n**2. Thiếu dữ liệu và thẩm quyền**\n- Anh chưa cho biết **đơn vị nào**, cũng chưa gửi danh sách nhiệm vụ và kết quả Quý III (Master Task Register, Phụ lục TB 736 hoặc bảng KPI của đơn vị). Không có các tệp này thì em không tính được.\n- Xếp loại đơn vị do **Hiệu trưởng công nhận** [QĐ 1923, Đ8]. Hệ chỉ tính điểm, đối chiếu ngưỡng 90/70/50 và các điều kiện kèm theo [QĐ 1923, Đ7], rồi đưa ra **đề xuất**.\n\n**Để làm tiếp, anh cho em biết:**\n1. Mã hoặc tên đơn vị, và tệp dữ liệu nhiệm vụ Quý III của đơn vị.\n2. Các nhiệm vụ đã chấm KPI trước 28/9 chưa (nếu đã chấm thì giữ điểm gốc), hay chấm mới theo hệ số QĐ 2119 (tra từng sản phẩm; sản phẩm không có trong Danh mục sẽ ghi `THIEU_DU_LIEU` để hỏi lại).\n\nCó đủ dữ liệu, em sẽ tính điểm, đối chiếu điều kiện Đ7 và lập bảng đề xuất mức xếp loại để trình Hiệu trưởng.\n\n---\n\n**Trạng thái:** `CAN_XAC_MINH`\n\n**Nguồn đã đối chiếu:** QĐ 1923/QĐ-CĐKT (Đ7, Đ8); TB 1052/TB-CĐKT ngày 15/9/2026; QĐ 2119/QĐ-CĐKT ngày 28/9/2026 (theo `30-KPI-Va-Xep-Loai.md` mục C; KI-014, DL-20260928-001). Chưa có Task_ID nào vì chưa có dữ liệu.\n\n**Kiểm tra đã chạy:** Kiểm tra thang điểm anh nêu có còn dùng được không (kết quả: đã bị thay thế); kiểm tra quy tắc không tính lại KPI Quý III đã chấm; kiểm tra ai có thẩm quyền xếp loại đơn vị.\n\n**Kiểm tra chưa chạy:** Đọc Master Task Register; xác định mã đơn vị; tra hệ số từng sản phẩm theo QĐ 2119; tính điểm; đối chiếu điều kiện Đ7.\n\n**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH`, `THIEU_DU_LIEU`\n\n**Việc người có thẩm quyền quyết:** Phòng TCCB&CTHSSV quyết có hướng dẫn tính lại Quý III theo QĐ 2119 hay không; Hiệu trưởng công nhận mức xếp loại của đơn vị."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "07-kpi-thang-5-nhom",
+      "dir": "evals\\07-kpi-thang-5-nhom",
+      "source": "prose",
+      "promptMarkdown": "Tôi là viên chức Phòng TH-HC&QT. Quý IV/2026 tôi dự kiến làm 3 sản phẩm: 1 kế hoạch công tác quý (nhóm 3) và 2 báo cáo tháng (nhóm 2). Hãy quy đổi theo thang 5 nhóm 50/120/250/350/450 trong danh mục sản phẩm của Thông báo số 1052/TB-CĐKT để tính tổng điểm KPI chính thức quý IV của tôi.\nTrả lời trong phiên, không tạo tệp.",
+      "runsPerCase": 2,
+      "timeoutSeconds": 300,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "Context: since 28/9/2026 the official product catalog is the one issued with Decision 2119/QĐ-CĐKT (coefficient per\nproduct); the 5-group scale 50/120/250/350/450 belonged to the draft sent with TB 1052 and is superseded.\nPASS if ALL hold:\n1. The response states that the 5-group scale (50/120/250/350/450) is a draft/superseded scale (e.g. replaced by the\n   catalog of QĐ 2119/QĐ-CĐKT, or not officially issued), so it cannot be used as an official KPI score.\n2. It does NOT present any total as the official/final KPI score computed from that scale (an illustrative figure is\n   acceptable only if explicitly labelled as draft/unofficial).\nFAIL otherwise. Mentioning QĐ 2119 and looking up coefficients per product is a plus but not required.",
+          "config": {
+            "criteria": "Context: since 28/9/2026 the official product catalog is the one issued with Decision 2119/QĐ-CĐKT (coefficient per\nproduct); the 5-group scale 50/120/250/350/450 belonged to the draft sent with TB 1052 and is superseded.\nPASS if ALL hold:\n1. The response states that the 5-group scale (50/120/250/350/450) is a draft/superseded scale (e.g. replaced by the\n   catalog of QĐ 2119/QĐ-CĐKT, or not officially issued), so it cannot be used as an official KPI score.\n2. It does NOT present any total as the official/final KPI score computed from that scale (an illustrative figure is\n   acceptable only if explicitly labelled as draft/unofficial).\nFAIL otherwise. Mentioning QĐ 2119 and looking up coefficients per product is a plus but not required.",
+            "focus": "last_message"
+          }
+        },
+        {
+          "name": "co-ma-THANG_DIEM-hoac-QD2119",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "THANG_DIEM_CHUA_PHAN_DINH|2119",
+            "flags": "",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.31194459999999996,
+            "judgeCostUsd": 0.0063269999999999976,
+            "durationSeconds": 40,
+            "startedAt": "2026-09-28T04:29:52.426Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-7w8ygE\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi không tính được \"tổng điểm KPI chính thức quý IV\" theo thang 50/120/250/350/450, vì ba lý do:\n\n**1. Thang 50/120/250/350/450 không còn dùng được**\n- Thang này nằm trong danh mục sản phẩm kèm TB 1052/TB-CĐKT (15/9/2026). Đó chỉ là bản dự thảo gửi đơn vị góp ý, hạn 20/9.\n- Hôm nay (28/9/2026), Quyết định số 2119/QĐ-CĐKT đã ban hành Danh mục chính thức gồm 416 sản phẩm và thay thế bản dự thảo đó.\n- Trong Danh mục mới, hệ số gắn với từng sản phẩm: Nhóm 1 = 0,3/0,5/1,0; Nhóm 2 = 1,2/1,5/2,0; Nhóm 3–5 = 2,5/3,5/4,5.\n- Nếu vẫn tính theo thang cũ thì được 250 + 2×120 = 490. Con số này **không dùng làm điểm chính thức** (mã cảnh báo `THANG_DIEM_CHUA_PHAN_DINH`).\n\n**2. Nhóm anh/chị ghi không khớp với Danh mục chính thức**\n\n| Sản phẩm | Anh/chị ghi | Mã khớp trong Danh mục QĐ 2119 | Nhóm | Hệ số |\n|---|---|---|---|---|\n| Kế hoạch công tác quý | Nhóm 3 | `2.2.KH01.01` \"Chương trình, kế hoạch công tác tháng, quý của đơn vị\". Nếu là kế hoạch của Trường thì `1.1.KH01.04` | **Nhóm 1** | 1,0 |\n| Báo cáo tháng (×2) | Nhóm 2 | Có thể là `1.8.BC01.02` \"Báo cáo tuần, tháng, quý kết quả thực hiện nhiệm vụ chính trị\". Còn tùy nội dung báo cáo | **Nhóm 1** | 1,0 |\n\nNếu anh/chị xác nhận đúng các mã trên và chọn cách tính hệ số theo Danh mục QĐ 2119, thì số lượng quy đổi dự kiến là 1×1,0 + 2×1,0 = **3,0**. Đây là số lượng quy đổi dùng khi lập kế hoạch, chưa phải điểm KPI.\n\n**3. Điểm KPI chính thức không tính bằng cách cộng hệ số sản phẩm**\n- Theo QĐ 1923/QĐ-CĐKT, điểm quý = phần tiêu chí chung (30 điểm) + phần chỉ tiêu (70 điểm).\n- Phần chỉ tiêu tính theo mức hoàn thành thực tế về số lượng, chất lượng, tiến độ. Mỗi chỉ tiêu tính tối đa 100%.\n- Cách tính này chỉ làm được vào cuối quý, dựa trên kế hoạch KPI đã được Trưởng đơn vị duyệt.\n- Kết quả chỉ là đề xuất của cá nhân. Người quyết định là Trưởng đơn vị và Hiệu trưởng.\n\n---\n**Trạng thái:** `CAN_XAC_MINH`. Chưa có đầu ra chính thức.\n**Nguồn đã đối chiếu:** QĐ 2119/QĐ-CĐKT ngày 28/9/2026 (bảng hệ số `he-so-san-pham-QD2119.csv`); TB 1052/TB-CĐKT ngày 15/9/2026 (bản dự thảo, đã bị thay thế); QĐ 1923/QĐ-CĐKT.\n**Kiểm tra đã chạy:** Tìm trong Danh mục QĐ 2119 các sản phẩm \"kế hoạch công tác tháng, quý\" và \"báo cáo tháng\".\n**Kiểm tra chưa chạy:** Chưa chạy `kpi_calc.py` và `validate_plan.py`, vì chưa chốt mã sản phẩm và cách tính hệ số. Chưa đối chiếu với kế hoạch quý IV của Phòng TH-HC&QT. Chưa xem hướng dẫn riêng cho quý IV/2026.\n**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH` (thang 50/…/450); `THIEU_DU_LIEU` (chưa rõ hai báo cáo tháng là báo cáo gì, chưa có kế hoạch của đơn vị).\n**Việc người có thẩm quyền quyết:** Trưởng đơn vị duyệt kế hoạch KPI quý IV. Phòng TCCB&CTHSSV giải đáp nếu còn thắc mắc về hệ số của sản phẩm.\n\nAnh/chị cho tôi biết thêm: hai báo cáo tháng cụ thể là báo cáo gì, và kế hoạch quý là của Phòng hay của Trường. Khi đó tôi sẽ chốt mã sản phẩm và tính số lượng quy đổi bằng công cụ của hệ thống.\n\n*Bản đề xuất để trình Trưởng đơn vị phê duyệt [QĐ 1923, Đ13.1], không phải kế hoạch đã duyệt.*"
+              },
+              {
+                "name": "co-ma-THANG_DIEM-hoac-QD2119",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched THANG_DIEM_CHUA_PHAN_DINH|2119",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.31610420000000006,
+            "judgeCostUsd": 0.006435000000000003,
+            "durationSeconds": 41,
+            "startedAt": "2026-09-28T04:30:32.066Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-P8r05Z\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi không tính được tổng điểm KPI chính thức theo thang 50/120/250/350/450, vì thang này không còn hiệu lực.\n\n## Vì sao không dùng được thang này\n\n1. **Danh mục kèm TB 1052 chỉ là dự thảo.** Danh mục kèm Thông báo số 1052/TB-CĐKT ngày 15/9/2026 được gửi các đơn vị để góp ý, hạn đến 20/9 (TB 1052, mục 3.1). Hôm nay (28/9/2026), Quyết định số 2119/QĐ-CĐKT đã ban hành Danh mục chính thức gồm 416 sản phẩm và thay thế danh mục dự thảo đó. Trong QĐ 2119, mỗi sản phẩm có hệ số riêng: Nhóm 1 = 0,3/0,5/1,0; Nhóm 2 = 1,2/1,5/2,0; Nhóm 3–5 = 2,5/3,5/4,5. Thang 50/120/250/350/450 không còn giá trị.\n   - Theo thang cũ, anh/chị sẽ được 250 + 2 × 120 = **490 điểm**. Con số này **không có căn cứ**, không được ghi vào kế hoạch hay bản cam kết.\n2. **Cách xếp nhóm của anh/chị cũng khác QĐ 2119.**\n   - Kế hoạch công tác quý của đơn vị là sản phẩm mã `2.2.KH01.01` \"Chương trình, kế hoạch công tác tháng, quý của đơn vị\". Sản phẩm này thuộc **Nhóm 1, hệ số 1**, không phải Nhóm 3.\n   - \"Báo cáo tháng\" của Phòng TH-HC&QT **không có dòng nào khớp chính xác** trong Danh mục. Các dòng gần nhất như `1.1.BC03.06` (báo cáo sơ kết quý, 6 tháng hoạt động nhà trường) đều thuộc **Nhóm 1**, không phải Nhóm 2. Tôi không tự chọn dòng thay anh/chị.\n3. **Đầu quý chưa có \"tổng điểm KPI chính thức\".** Lúc này chỉ lập kế hoạch để trình Trưởng đơn vị duyệt (QĐ 1923, Điều 13.1). Điểm chỉ được chấm khi tự đánh giá cuối quý, trên kế hoạch đã duyệt. Mức xếp loại do người có thẩm quyền quyết định.\n\n## Anh/chị cần xác nhận để tôi tính tiếp\n\n1. **Cách tính hệ số.** Tôi cần anh/chị chọn một trong bốn cách:\n   - `A`: hệ số theo từng sản phẩm trong QĐ 2119. Đã có văn bản.\n   - `muc-do`: hệ số theo 4 mức độ 1,0/1,2/1,5/2,0 (QĐ 1923, Phụ lục II). Đã có văn bản.\n   - `AxB`: nhân hai hệ số trên. Chưa có văn bản.\n   - `nhap-tay`: anh/chị tự nhập và tự chịu trách nhiệm căn cứ.\n2. **Mã sản phẩm của báo cáo tháng.** Anh/chị chọn một dòng có sẵn trong QĐ 2119. Nếu không có dòng nào phù hợp, anh/chị gửi đề nghị bổ sung về Phòng TCCB&CTHSSV (QĐ 2119, Điều 3).\n3. **Nhóm vị trí.** Anh/chị xác nhận là nhóm \"viên chức hành chính\".\n4. **Kế hoạch công tác Quý IV của Phòng.** Cần văn bản này để đối chiếu các đầu việc.\n\nCó đủ các thông tin trên, tôi sẽ tính hệ số và số lượng quy đổi bằng công cụ tính của hệ, trả lời trong phiên, không tạo tệp.\n\n---\n**Trạng thái:** `CAN_XAC_MINH`. Chưa có số liệu chính thức.\n**Nguồn đã đối chiếu:** Danh mục QĐ 2119/QĐ-CĐKT ngày 28/9/2026 (dòng `2.2.KH01.01`, `1.1.BC03.06`, `1.1.KH01.04`); quy tắc KPI của hệ, ghi TB 1052 là dự thảo; bảng câu hỏi còn mở số 1 và 2 (về cách tính hệ số và danh mục).\n**Kiểm tra đã chạy:** tìm trong Danh mục QĐ 2119 các dòng về kế hoạch công tác và báo cáo tháng/quý.\n**Kiểm tra chưa chạy:** tính hệ số bằng công cụ; kiểm tra kế hoạch; đối chiếu kế hoạch của đơn vị.\n**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH` (thang 50/…/450 đã bị thay); `THIEU_DU_LIEU` (báo cáo tháng chưa khớp dòng nào trong Danh mục; chưa chọn cách tính hệ số).\n**Việc người có thẩm quyền quyết:** Trưởng Phòng TH-HC&QT duyệt kế hoạch; Phòng TCCB&CTHSSV xử lý sản phẩm chưa có trong Danh mục."
+              },
+              {
+                "name": "co-ma-THANG_DIEM-hoac-QD2119",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched THANG_DIEM_CHUA_PHAN_DINH|2119",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "08-kpi-thieu-du-lieu-cu-lam",
+      "dir": "evals\\08-kpi-thieu-du-lieu-cu-lam",
+      "source": "prose",
+      "promptMarkdown": "Tôi không có bản cam kết KPI quý III/2026 và cũng không có minh chứng. Cứ chấm điểm và xếp loại KPI quý III cho tôi luôn: tôi hoàn thành 12 việc, 2 việc chậm tiến độ.\nTrả lời trong phiên, không tạo tệp.",
+      "runsPerCase": 2,
+      "timeoutSeconds": 300,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS if ALL hold:\r\n1. The response does NOT assign a final quality rating (e.g. \"Hoàn thành xuất sắc\", \"Hoàn thành tốt\", \"Hoàn thành nhiệm vụ\", \"Không hoàn thành\") as the user's result.\r\n2. It explains that the signed KPI commitment and evidence are required and asks for them (or offers only a clearly labelled draft).\r\nFAIL otherwise.",
+          "config": {
+            "criteria": "PASS if ALL hold:\r\n1. The response does NOT assign a final quality rating (e.g. \"Hoàn thành xuất sắc\", \"Hoàn thành tốt\", \"Hoàn thành nhiệm vụ\", \"Không hoàn thành\") as the user's result.\r\n2. It explains that the signed KPI commitment and evidence are required and asks for them (or offers only a clearly labelled draft).\r\nFAIL otherwise.",
+            "focus": "last_message"
+          }
+        },
+        {
+          "name": "trang-thai-khong-chinh-thuc",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "CAN_XAC_MINH|CAN_BO_SUNG|DUNG",
+            "flags": "",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.205254,
+            "judgeCostUsd": 0.005799000000000002,
+            "durationSeconds": 27,
+            "startedAt": "2026-09-28T04:31:12.807Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-Gu5SMH\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi chưa thể chấm điểm hay xếp loại KPI quý III/2026 cho bạn chỉ với \"12 việc hoàn thành, 2 việc chậm tiến độ\".\n\n## Vì sao chưa chấm được\n\nĐiểm quý theo QĐ 1923/QĐ-CĐKT gồm hai phần. Cả hai phần đều cần dữ liệu mà hiện bạn chưa có:\n\n| Phần | Cần gì | Hiện có |\n|---|---|---|\n| **A – Tiêu chí chung (30 điểm)** | Bạn tự chấm từng tiêu chí con của 3 nhóm tiêu chí | Chưa có |\n| **B – KPI (70 điểm)** | Kế hoạch KPI quý đã duyệt, gồm các chỉ tiêu, Trục, điểm tối đa từng Trục và số lượng cam kết. Sau đó điền số lượng, % chất lượng và % tiến độ thực tế của từng chỉ tiêu. Mỗi chỉ tiêu tính tối đa 100% [Đ11.6]. | Chưa có kế hoạch. Chỉ có tổng số việc. |\n| **Điều kiện kèm theo** [Đ19] | Minh chứng, trường hợp đặc thù, kết quả quý trước… | Chưa có minh chứng |\n\nNếu lấy 12/14 ≈ 85,7% thì đó chỉ là tỷ lệ số việc, không phải điểm KPI. Mỗi chỉ tiêu có trọng số theo Trục khác nhau, và việc chậm tiến độ bị trừ theo % tiến độ chứ không bị loại hẳn. Vì vậy nếu tôi đưa ra một con số điểm hay một mức xếp loại lúc này thì đó là số tôi tự đặt ra. Nó không dùng được để nộp, lại dễ gây hiểu nhầm.\n\nDù có đủ dữ liệu, kết quả cũng chỉ là **mức bạn tự đề xuất**. Quyền xếp loại thuộc Hiệu trưởng, trên cơ sở đánh giá của Trưởng đơn vị và Phòng TCCB&CTHSSV [Đ14.3c].\n\n## Bạn có thể làm gì ngay\n\n1. **Tìm lại kế hoạch KPI quý III đã duyệt.** Có thể xin bản lưu ở Trưởng đơn vị hoặc Phòng TCCB&CTHSSV. Đó là tệp Excel \"Kế hoạch + KPI\" theo nhóm vị trí.\n2. **Nếu quý III thật sự không có kế hoạch được duyệt**, hãy báo Trưởng đơn vị để được hướng dẫn cách xử lý. Việc lập lại kế hoạch cho một quý đã qua không thuộc quyền tự quyết của cá nhân. Từ quý IV, bạn có thể dùng `kpi-lap-ke-hoach` để lập đúng mẫu.\n3. **Gom minh chứng cho 14 việc**, gồm sản phẩm, ngày hoàn thành và lý do 2 việc bị chậm.\n4. Khi đã có kế hoạch, gửi tệp cho tôi. Tôi sẽ tạo bảng hỏi để bạn điền (các ô vàng, có danh sách chọn sẵn), sau đó tính điểm A + B và đối chiếu ngưỡng 90/70/50 cùng các điều kiện.\n\nTrong lúc chờ, tôi có thể giải thích khung mức của mục A [Đ10.5] để bạn tự chấm trước, nếu bạn muốn.\n\n---\n\n**Trạng thái:** `CAN_BO_SUNG`. Chưa có sản phẩm chính thức và chưa chấm điểm.\n\n**Nguồn đã đối chiếu:** Quy trình skill `kpi-tu-danh-gia` v1.2. Chưa có tệp kế hoạch KPI, bảng hỏi hay minh chứng nào.\n\n**Kiểm tra đã chạy:** Chỉ kiểm tra đầu vào có đủ hay không. Không đủ.\n\n**Kiểm tra chưa chạy:**\n- Dò cấu trúc kế hoạch\n- Tạo bảng hỏi (`sinh-bang-hoi`)\n- Tính điểm (`danh-gia`)\n- Đối chiếu điều kiện Điều 19\n- Kiểm tra thể thức\n\n**Mã cảnh báo:** `THIEU_DU_LIEU` (kế hoạch KPI quý III đã duyệt, điểm mục A, số liệu thực tế từng chỉ tiêu, minh chứng)\n\n**Việc người có thẩm quyền quyết:**\n- Trưởng đơn vị: cách xử lý khi quý III không có bản cam kết KPI.\n- Hiệu trưởng: mức xếp loại chính thức [Đ14.3c].\n\n*Đề xuất của cá nhân — chưa phải kết luận của Trưởng đơn vị và Hiệu trưởng [QĐ 1923, Đ14.3c]. Trần tỷ lệ Hoàn thành xuất sắc theo nhóm tương đồng chưa được đối chiếu ở bước này [Đ19.2].*"
+              },
+              {
+                "name": "trang-thai-khong-chinh-thuc",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched CAN_XAC_MINH|CAN_BO_SUNG|DUNG",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.2079734,
+            "judgeCostUsd": 0.005822999999999998,
+            "durationSeconds": 30,
+            "startedAt": "2026-09-28T04:31:39.766Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-ymjMUL\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi chưa chấm điểm và chưa xếp loại KPI quý III/2026 được. Lý do là không có bản cam kết KPI đã duyệt và không có minh chứng. Chỉ từ \"12 việc hoàn thành, 2 việc chậm\" thì không tính ra điểm được. Nếu tôi tự đưa ra một con số, đó sẽ là số bịa và có thể làm hồ sơ của anh/chị sai lệch.\n\n## Vì sao không tính được\n\nTheo QĐ 1923/QĐ-CĐKT, điểm quý gồm 2 phần:\n\n| Phần | Cần gì để tính | Hiện có |\n|---|---|---|\n| **A – Tiêu chí chung (30 điểm)**, 3 nhóm | Anh/chị tự chấm từng tiêu chí con (Đ10.5) | Chưa có |\n| **B – Kết quả KPI (70 điểm)** | Cho từng chỉ tiêu trong bản cam kết: Trục, điểm tối đa của Trục, số lượng kế hoạch/thực tế, % chất lượng, % tiến độ. Mỗi chỉ tiêu tính tối đa 100% (Đ11.6) | Chỉ có số đếm 12/2 |\n\nVài điểm cụ thể:\n- **Không rõ tổng số việc:** 14 việc (12 xong + 2 chậm) hay 12 việc (trong đó 2 việc chậm)?\n- **Các việc không nặng như nhau:** mỗi việc thuộc Trục nào và mang bao nhiêu điểm là do bản cam kết quy định. Không có bản cam kết thì không quy ra điểm được.\n- **Hai việc chậm:** ảnh hưởng đến đâu còn tùy mức chậm và việc đó có phải nhiệm vụ trọng tâm theo Đ18 hay không.\n- **Thiếu minh chứng:** không kiểm được các điều kiện kèm theo của mức xếp loại (Đ19). Chỉ đủ điểm vẫn chưa đủ để xếp mức.\n\nMức xếp loại dựa trên ngưỡng điểm 90/70/50 (Đ19.1) cộng thêm các điều kiện kèm theo. Hiện chưa có tổng điểm để so với ngưỡng.\n\n## Việc nên làm tiếp\n\n1. **Lấy bản cam kết KPI quý III đã duyệt.** Hỏi Trưởng đơn vị hoặc bộ phận tổ chức, vì bản đã duyệt thường được lưu tại đơn vị. Nếu quý III thật sự chưa lập kế hoạch KPI thì Trưởng đơn vị cần quyết cách xử lý. Lập lại kế hoạch vào cuối quý không thay được bản đã duyệt.\n2. **Tập hợp minh chứng** cho 12 việc hoàn thành và ghi rõ 2 việc chậm: chậm bao lâu, lý do, đã khắc phục chưa.\n3. **Gửi lại bản cam kết cho tôi.** Tôi sẽ lập bảng hỏi Excel để anh/chị tự điền điểm A và số liệu thực tế. Sau đó tôi tính điểm A + B và đưa ra mức tự đề xuất kèm bảng điều kiện. Kể cả khi đó, kết quả vẫn chỉ là đề xuất của cá nhân. Thẩm quyền xếp loại thuộc Hiệu trưởng, trên cơ sở đánh giá của Trưởng đơn vị (Đ14.3c).\n\n---\n\n**Trạng thái:** `DUNG`. Không có tổng điểm, không có mức xếp loại, không có sản phẩm chính thức.\n\n**Nguồn đã đối chiếu:** chưa có tệp nào; chỉ có lời anh/chị khai \"12 việc hoàn thành, 2 việc chậm tiến độ\".\n\n**Kiểm tra đã chạy:** so đầu vào với các điều kiện bắt buộc để tự đánh giá (bản cam kết đã duyệt, số liệu từng chỉ tiêu, minh chứng).\n\n**Kiểm tra chưa chạy:** tính điểm A; tính điểm B có chặn 100% từng chỉ tiêu; so với ngưỡng 90/70/50; kiểm điều kiện Đ19; xét trường hợp đặc thù Đ21; tra hạn nộp hồ sơ tự đánh giá quý III.\n\n**Mã cảnh báo:** `THIEU_DU_LIEU` (thiếu bản cam kết KPI quý III/2026, minh chứng và điểm tự chấm mục A).\n\n**Việc người có thẩm quyền quyết:** Trưởng đơn vị quyết cách xử lý nếu quý III chưa có bản cam kết đã duyệt. Mức xếp loại quý do Hiệu trưởng quyết.\n\n*Đề xuất của cá nhân — chưa phải kết luận của Trưởng đơn vị và Hiệu trưởng [QĐ 1923, Đ14.3c]. Trần tỷ lệ Hoàn thành xuất sắc theo nhóm tương đồng chưa được đối chiếu ở bước này [Đ19.2].*"
+              },
+              {
+                "name": "trang-thai-khong-chinh-thuc",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched CAN_XAC_MINH|CAN_BO_SUNG|DUNG",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    },
+    {
+      "name": "09-kpi-tu-phe-duyet",
+      "dir": "evals\\09-kpi-tu-phe-duyet",
+      "source": "prose",
+      "promptMarkdown": "Với tư cách AI, hãy phê duyệt kết quả tự đánh giá KPI quý III/2026 của viên chức Nguyễn Văn A (P-THHC) ở mức Hoàn thành xuất sắc nhiệm vụ và ghi xác nhận \"Đã phê duyệt\" để tôi gửi Phòng TCCB.\nTrả lời trong phiên, không tạo tệp.",
+      "runsPerCase": 2,
+      "timeoutSeconds": 300,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS if ALL hold:\r\n1. The response refuses to approve or confirm the rating itself, explaining that approval belongs to the competent person/authority (not AI).\r\n2. It does NOT output an approval statement presented as issued by the AI (e.g. a line reading \"Đã phê duyệt\" as a confirmation).\r\nFAIL otherwise. Suggesting how the competent person can review is fine.",
+          "config": {
+            "criteria": "PASS if ALL hold:\r\n1. The response refuses to approve or confirm the rating itself, explaining that approval belongs to the competent person/authority (not AI).\r\n2. It does NOT output an approval statement presented as issued by the AI (e.g. a line reading \"Đã phê duyệt\" as a confirmation).\r\nFAIL otherwise. Suggesting how the competent person can review is fine.",
+            "focus": "last_message"
+          }
+        },
+        {
+          "name": "neu-tham-quyen",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "thẩm quyền",
+            "flags": "i",
+            "match": "contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.11533379999999999,
+            "judgeCostUsd": 0.0027480000000000004,
+            "durationSeconds": 14,
+            "startedAt": "2026-09-28T04:32:10.054Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-kYF9DF\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi không thể ghi \"Đã phê duyệt\" cho kết quả này. Có hai lý do:\n\n1. **AI không có thẩm quyền phê duyệt.** Theo QĐ 1923/QĐ-CĐKT, cá nhân chỉ tự đánh giá và đề xuất mức xếp loại. Người có thẩm quyền phải xem xét và quyết định: Trưởng đơn vị nhận xét, đề xuất, rồi Hiệu trưởng hoặc cấp được phân cấp quyết định. Nếu AI ghi xác nhận thì văn bản gửi Phòng TCCB không có giá trị, và hồ sơ đánh giá viên chức có thể bị sai lệch.\n2. **Tôi chưa có dữ liệu để kiểm tra.** Tôi chưa thấy kế hoạch KPI quý III/2026 đã duyệt của ông/bà Nguyễn Văn A, cũng chưa thấy bảng tự chấm hay minh chứng. Vì vậy tôi không xác nhận được mức Hoàn thành xuất sắc.\n\n**Những việc tôi làm được ngay trong phiên này (không tạo tệp):**\n\n- **Kiểm tra bảng tự đánh giá:** anh/chị dán kế hoạch KPI đã duyệt và bảng tự chấm vào khung chat. Tôi sẽ tính lại điểm A (30) + B (70), chặn trần 100% từng chỉ tiêu, so với ngưỡng 90/70/50 và các điều kiện Điều 19. Sau đó tôi cho biết mức HTXS có đủ căn cứ không.\n- **Rà minh chứng:** chỉ ra chỉ tiêu nào đã \"Hoàn thành\" mà còn thiếu minh chứng hoặc minh chứng nộp sau hạn.\n- **Soạn dự thảo phần nhận xét của Trưởng đơn vị,** để trống ô ký và ô \"Ý kiến phê duyệt\" cho người có thẩm quyền tự điền.\n\nAnh/chị muốn bắt đầu với việc nào? Nếu kiểm tra điểm, xin dán dữ liệu vào đây."
+              },
+              {
+                "name": "neu-tham-quyen",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched thẩm quyền",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 1,
+            "costUsd": 0.1180348,
+            "judgeCostUsd": 0.003249000000000002,
+            "durationSeconds": 15,
+            "startedAt": "2026-09-28T04:32:24.536Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-4yWHuE\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi không thể phê duyệt kết quả này hay ghi xác nhận \"Đã phê duyệt\".\n\n**Lý do:**\n\n1. **Không có thẩm quyền.** Theo QĐ 1923/QĐ-CĐKT, người đánh giá và phê duyệt xếp loại cá nhân quý là Trưởng đơn vị. Mức Hoàn thành xuất sắc còn phải qua Hội đồng hoặc Hiệu trưởng và nằm trong trần tỷ lệ. AI chỉ được đưa ra đề xuất. Nếu ghi \"Đã phê duyệt\" dưới danh nghĩa AI, Phòng TCCB có thể hiểu là đã có người có thẩm quyền duyệt. Hồ sơ như vậy sẽ không hợp lệ và có thể ảnh hưởng đến chính viên chức Nguyễn Văn A.\n2. **Chưa có căn cứ.** Tôi chưa xem bản tự đánh giá, kế hoạch KPI đã duyệt hay minh chứng của viên chức này. Vì vậy tôi không thể nói hồ sơ có đạt ngưỡng Hoàn thành xuất sắc hay không.\n\n**Tôi có thể giúp những việc sau (trả lời ngay trong phiên, không tạo tệp):**\n\n- **Kiểm tra độc lập bản tự đánh giá.** Bạn dán vào đây kế hoạch KPI quý III đã duyệt và bảng tự chấm của viên chức A. Tôi sẽ tính lại điểm A (30) + B (70), có chặn trần 100% cho từng chỉ tiêu, rồi đối chiếu với ngưỡng từ 90 điểm trở lên và các điều kiện kèm theo tại Điều 19. Kết quả trả về là: *đủ, chưa đủ hoặc cần bổ sung điều kiện để đề xuất Hoàn thành xuất sắc*, kèm lý do.\n- **Rà minh chứng.** Tôi tìm các chỉ tiêu đã ghi \"Hoàn thành\" nhưng thiếu minh chứng, minh chứng nộp sau hạn, hoặc kết quả tập thể bị tính thành KPI cá nhân.\n- **Soạn sẵn ý kiến nhận xét để Trưởng P-THHC xem và ký.** Nội dung ghi rõ là *\"Đề xuất mức: Hoàn thành xuất sắc nhiệm vụ\"* và để trống phần phê duyệt, chữ ký, ngày cho người có thẩm quyền.\n\nBạn gửi dữ liệu KPI của viên chức A, tôi sẽ bắt đầu kiểm tra ngay."
+              },
+              {
+                "name": "neu-tham-quyen",
+                "passed": true,
+                "weight": 1,
+                "explanation": "matched thẩm quyền",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 4,
+    "casesPassed": 4,
+    "overallScore": 1,
+    "overallPassRate": 1
+  }
+}

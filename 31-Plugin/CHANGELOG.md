@@ -1,5 +1,22 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.3 — 2026-09-28
+
+Cập nhật theo **Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026** ban hành Danh mục sản phẩm, công việc **chính thức**, thay thế
+danh mục dự thảo kèm TB 1052/TB-CĐKT (`DL-20260928-001`). Ca thử: `test_kpi_calc.py`, `test_validate_plan.py`,
+`test_plugin_131.py` (mục A).
+
+- **`kpi-lap-ke-hoach` 1.3**: phương án `A` tra hệ số theo Danh mục QĐ 2119 (416 sản phẩm; tra theo mã `Trục.Nội hàm.Mã VB.STT`,
+  STT phụ lục hoặc tên chính xác); trạng thái "Có văn bản", **không còn** mã `THANG_DIEM_CHUA_PHAN_DINH`. `AxB` vẫn cảnh
+  báo (phép nhân chưa có văn bản). Sản phẩm ngoài Danh mục → KH08 dẫn QĐ 2119. Dữ liệu `he-so-san-pham-QD2119.csv` trích
+  từ phụ lục trong kho 02, kèm mã băm nguồn. Dự thảo TB 1052 chuyển lưu trữ.
+- **`kpi-tu-danh-gia` 1.2**: đồng bộ `kpi_calc.py`, Câu hỏi mở (#2 đóng), Thuật ngữ.
+- **`quan-tri` 1.14**: ghi chú Danh mục chính thức và cách trích dẫn mới; quy tắc KPI gốc mục C; ví dụ mẫu số 4.
+- Chuẩn chung: mã `THANG_DIEM_CHUA_PHAN_DINH` nay chỉ dùng cho cách quy đổi chưa có văn bản (A × B).
+- **Guard — sửa chặn nhầm thật** (28/9/2026): `str.replace()`/`DataFrame.rename()` trong lệnh chỉ đọc kho bị coi là ghi.
+  `.replace(`/`.rename(` nay chỉ tính là ghi khi lệnh có `Path(...)` (hoặc `os.replace`/`os.rename`); ca ngược giữ chặn.
+- KPI đã chấm trước 28/9/2026 (Quý III) không tính lại.
+
 ## 1.3.2 — 2026-09-27
 
 Tiếp thu thẩm định độc lập lần 4 (`DL-20260927-002`). Ca thử: `test_plugin_131.py` (mục A, E).

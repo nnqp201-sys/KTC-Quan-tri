@@ -6,8 +6,10 @@ Mo hinh KHONG duoc tu nham: moi con so (he so, so luong quy doi, diem, xep loai)
 HE SO QUY DOI — Cau hoi mo so 1 (28-KTC-KPI/references/Cau-Hoi-Mo.md). KHONG CO MAC DINH; goi thieu phuong an -> loi.
   muc-do    He so theo 4 muc do (Thap 1,0 · Trung binh 1,2 · Cao 1,5 · Kho va phuc tap 2,0)
             [QD 1923, Phu luc II — ghi chu muc do cong viec; Phu luc I cot (7)(9)(10)]  -> CO VAN BAN
-  A         He so san pham theo Danh muc kem TB 1052 (Nhom 1..5)                        -> DU THAO, chua ban hanh
-  AxB       A (TB 1052) x B (muc do)  — quy uoc Phong TH-HC&QT ghi nhan 24/9/2026       -> CHUA CO VAN BAN (KI-014)
+  A         He so san pham theo Danh muc QD 2119/QD-CDKT ngay 28/9/2026 (theo tung san pham) -> CO VAN BAN (chinh thuc,
+            thay the danh muc du thao kem TB 1052 — DL-20260928-001)
+  AxB       A (QD 2119) x B (muc do) — quy uoc Phong TH-HC&QT ghi nhan 24/9/2026; QD 2119 CHI quy dinh he so A, phep
+            nhan voi muc do CHUA CO VAN BAN
   nhap-tay  Nguoi dung nhap he so, tu chiu trach nhiem ve can cu
 
 Chay (JSON vao -> JSON ra):
@@ -29,8 +31,9 @@ DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PHUONG_AN = ("muc-do", "A", "AxB", "nhap-tay")
 TRANG_THAI = {
     "muc-do": "Có văn bản: QĐ 1923/QĐ-CĐKT, Phụ lục II (ghi chú mức độ công việc)",
-    "A": "DỰ THẢO: Danh mục kèm TB 1052/TB-CĐKT chưa ban hành (KI-014)",
-    "AxB": "CHƯA CÓ VĂN BẢN: quy ước Phòng TH-HC&QT ghi nhận 24/9/2026, chờ Phòng TCCB&CTHSSV xác nhận (KI-014)",
+    "A": "Có văn bản: Danh mục sản phẩm, công việc ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026",
+    "AxB": "CHƯA CÓ VĂN BẢN: hệ số A theo QĐ 2119/QĐ-CĐKT, phép nhân với mức độ (B) là quy ước Phòng TH-HC&QT ghi nhận "
+           "24/9/2026, chờ Phòng TCCB&CTHSSV xác nhận",
     "nhap-tay": "Người dùng nhập — căn cứ do người lập kế hoạch tự chịu trách nhiệm",
 }
 # [QD 1923, Phu luc II, ghi chu] — ten muc theo danh sach chon (data validation) cua Phu luc I
@@ -55,12 +58,15 @@ def muc_do_tu_chu(s):
     return None
 
 
-# ------------------------------------------------------------------ danh muc TB 1052
+# ------------------------------------------------------------------ danh muc QD 2119 (chinh thuc)
+# QD 2119/QD-CDKT ngay 28/9/2026 thay the danh muc du thao kem TB 1052 (DL-20260928-001). CSV trich bang
+# 29-Cong-Cu/trich_danh_muc_qd2119.py tu phu luc PL-2119 trong KTC-Database (kem sha256 nguon).
+TEN_CSV = "he-so-san-pham-QD2119.csv"
 _DM = None
 
 
 def danh_muc(p=None):
-    """{ten san pham chuan hoa: dong} tu CSV da trich (trich_danh_muc_tb1052.py)."""
+    """{khoa: dong} tu CSV — khoa: 'ma:<ma san pham>', 'stt:<STT>', ten san pham chuan hoa."""
     global _DM
     if _DM is None or p:
         if not p:
@@ -69,26 +75,27 @@ def danh_muc(p=None):
             ung = [os.path.join(DU_AN, "28-KTC-KPI", "references", "data"),
                    os.path.join(here, "..", "references", "data"),
                    os.path.join(here, "..", "skills", "kpi-lap-ke-hoach", "references", "data")]
-            p = next((os.path.join(d, "he-so-san-pham-TB1052.csv") for d in ung
-                      if os.path.exists(os.path.join(d, "he-so-san-pham-TB1052.csv"))), None)
+            p = next((os.path.join(d, TEN_CSV) for d in ung if os.path.exists(os.path.join(d, TEN_CSV))), None)
             if not p:
-                raise LoiKPI("Không thấy he-so-san-pham-TB1052.csv — dừng, hỏi người dùng.")
+                raise LoiKPI(f"Không thấy {TEN_CSV} (Danh mục QĐ 2119) — dừng, hỏi người dùng.")
         with open(p, encoding="utf-8-sig", newline="") as f:
             _DM = {}
             for h in csv.DictReader(f):
-                _DM.setdefault(_kd(h["ten_san_pham"]), h)
+                _DM.setdefault("ma:" + h["ma_san_pham"].strip().upper(), h)
                 _DM.setdefault("stt:" + str(h["stt"]).strip(), h)
+                _DM.setdefault(_kd(h["ten_san_pham"]), h)
     return _DM
 
 
 def tra_A(ma_hoac_ten):
-    """Tra he so A theo STT danh muc ('3.12') hoac TEN SAN PHAM KHOP CHINH XAC (chuan hoa).
-    Khong co -> LoiKPI: dung hoi, KHONG tu gan A [Cau hoi mo so 2]."""
+    """Tra he so A theo MA SAN PHAM QD 2119 ('1.1.DA01.01'), STT phu luc ('1.1') hoac TEN SAN PHAM KHOP CHINH XAC
+    (chuan hoa). Khong co -> LoiKPI: dung hoi, KHONG tu gan A [Cau hoi mo so 2]."""
     dm = danh_muc()
-    h = dm.get("stt:" + str(ma_hoac_ten).strip()) or dm.get(_kd(ma_hoac_ten))
+    k = str(ma_hoac_ten or "").strip()
+    h = dm.get("ma:" + k.upper()) or dm.get("stt:" + k) or dm.get(_kd(k))
     if not h:
-        raise LoiKPI(f"Sản phẩm '{ma_hoac_ten}' không có trong Danh mục TB 1052 — dừng, hỏi người dùng "
-                     "(không tự gán hệ số A).")
+        raise LoiKPI(f"Sản phẩm '{ma_hoac_ten}' không có trong Danh mục ban hành kèm QĐ 2119/QĐ-CĐKT — dừng, hỏi người "
+                     "dùng (THIEU_DU_LIEU; không tự gán hệ số A).")
     return float(h["he_so"]), h
 
 
@@ -104,8 +111,9 @@ def tim_danh_muc(tu_khoa, loai=None, toi_da=15):
             continue
         tu = set(re.findall(r"\w+", _kd(f"{h['ten_san_pham']} {h['mo_ta']}")))
         if tk and all(t in tu for t in tk) and (not loai or _kd(loai) == _kd(h["loai_san_pham"])):
-            ra.append({"stt": h["stt"], "ten": h["ten_san_pham"], "loai": h["loai_san_pham"], "nhom": h["nhom"],
-                       "he_so": float(h["he_so"]), "lech_nhom": h["lech_nhom"]})
+            ra.append({"ma_san_pham": h["ma_san_pham"], "stt": h["stt"], "ten": h["ten_san_pham"],
+                       "loai": h["loai_san_pham"], "nhom": h["nhom"], "he_so": float(h["he_so"]),
+                       "lech_nhom": h["lech_nhom"]})
     return ra[:toi_da]
 
 
@@ -131,14 +139,15 @@ def he_so(phuong_an, muc_do=None, san_pham=None, nhap=None):
         hs = float(nhap)
     else:
         A, dong = tra_A(san_pham)
-        # Tham dinh lan 2 (Gemini, diem 4): canh bao CHU DONG — he so A lay tu thang cua du thao TB 1052
-        # (chua ban hanh, hai thang chua phan dinh KI-014); ma thong nhat voi khuon dau ra chung (20-Chuan-Chung/20).
-        cb.append("THANG_DIEM_CHUA_PHAN_DINH: hệ số A theo dự thảo Danh mục kèm TB 1052 (chưa ban hành, KI-014) — "
-                  "kết quả chỉ để tham khảo, giữ điểm gốc trên dữ liệu vận hành, không dùng làm số chính thức")
+        # 28/9/2026: A theo QD 2119/QD-CDKT (chinh thuc) -> KHONG con canh bao THANG_DIEM_CHUA_PHAN_DINH cho phuong an A.
+        # A x B: QD 2119 chi quy dinh he so A; phep nhan voi muc do van chua co van ban -> giu ma canh bao.
+        if phuong_an == "AxB":
+            cb.append("THANG_DIEM_CHUA_PHAN_DINH: hệ số A theo QĐ 2119/QĐ-CĐKT, nhưng phép nhân A × mức độ chưa có văn bản "
+                      "(quy ước Phòng TH-HC&QT, chờ Phòng TCCB&CTHSSV xác nhận) — không dùng làm số chính thức")
         if dong.get("lech_nhom"):
-            cb.append(f"Hệ số A dòng {dong['stt']} lệch Nhóm: {dong['lech_nhom']} (KI-014)")
+            cb.append(f"Hệ số A sản phẩm {dong['ma_san_pham']} ngoài tập hệ số của {dong['nhom']}: {dong['lech_nhom']}")
         if A > 10:
-            cb.append(f"Hệ số A = {A} bất thường (dòng {dong['stt']}) — có thể lỗi nhập liệu của Danh mục")
+            cb.append(f"Hệ số A = {A} bất thường (sản phẩm {dong['ma_san_pham']}) — kiểm lại phụ lục QĐ 2119")
         hs = A if phuong_an == "A" else round(A * B, 4)
     return {"he_so": hs, "phuong_an": phuong_an, "trang_thai": TRANG_THAI[phuong_an], "canh_bao": cb}
 
@@ -248,7 +257,7 @@ def main(argv):
             out = quy_doi_ke_hoach(json.load(open(a.json, encoding="utf-8")), a.phuong_an)
         elif a.lenh == "tim":
             out = {"goi_y": tim_danh_muc(a.tu_khoa, a.loai),
-                   "luu_y": "Chỉ là gợi ý — người dùng chọn STT; Danh mục là DỰ THẢO (TB 1052)"}
+                   "luu_y": "Chỉ là gợi ý — người dùng chọn mã sản phẩm; Danh mục chính thức theo QĐ 2119/QĐ-CĐKT"}
         elif a.lenh == "diem":
             out = diem_chi_tieu(a.ty_le, a.diem_toi_da)
         else:

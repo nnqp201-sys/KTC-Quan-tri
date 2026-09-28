@@ -6,6 +6,7 @@
 | Trục kết quả | Nhóm mục tiêu lớn mà kết quả được quy về — 6 Trục theo HD 02-HD/BTCTW, Trường vận dụng | QĐ 1923, Đ3.3, Đ12.1 |
 | Trục chính / Trục phụ | Trục giữ vai trò chủ yếu (≥ 40% trọng số) / phối hợp, hỗ trợ | QĐ 1923, Đ12.3 |
 | Bản cam kết KPI | Văn bản ký giữa Hiệu trưởng và từng viên chức, kèm Phụ lục chỉ tiêu KPI từng quý | QĐ 1923, Đ3.5; TB 1052 |
+| Danh mục sản phẩm, công việc | Danh mục chính thức 416 sản phẩm, mỗi sản phẩm có mã `Trục.Nội hàm.Mã VB.STT` và hệ số quy đổi riêng (Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 · Nhóm 3–5 = 2,5/3,5/4,5); thay thế danh mục dự thảo kèm TB 1052 | QĐ 2119/QĐ-CĐKT ngày 28/9/2026 |
 | Nhiệm vụ trọng tâm, then chốt | Chấm theo 3 mức trước khi quy đổi % | QĐ 1923, Đ18 |
 | Dưới mức tối thiểu (quý) | Tổng điểm quý < 50 hoặc thuộc trường hợp Đ19.1d | QĐ 1923, Đ19.3 |
 | Số lượng quy đổi | Số lượng × hệ số quy đổi | Mẫu Kế hoạch Quý III, sheet KPI cột J |

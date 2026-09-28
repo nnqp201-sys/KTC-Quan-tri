@@ -41,7 +41,10 @@ Task_ID) · **Kiểm tra đã chạy** · **Kiểm tra chưa chạy** · **Mã c
 mã · mọi phép kiểm chưa chạy đã liệt kê · trạng thái khác `DAT`/`DAT_CO_DIEU_KIEN` thì không có sản phẩm chính thức.
 </quality_check>
 
-## Phiên bản: v1.1 — 25/9/2026
+## Phiên bản: v1.2 — 28/9/2026
+
+> v1.2 (28/9/2026): đồng bộ `kpi_calc.py` và Câu hỏi mở theo Danh mục CHÍNH THỨC kèm QĐ 2119/QĐ-CĐKT (thay dự thảo
+> TB 1052). Chấm điểm tự đánh giá không đổi; KPI đã chấm trước 28/9/2026 không tính lại.
 
 > v1.1 (25/9/2026, lệnh sửa trình bày): đo lại chiều cao dòng sheet KPI sau khi ghi số thực tế (sản phẩm
 > thực tế, minh chứng); tệp ra đang mở trong Excel → báo rõ, không lộ lỗi kỹ thuật. Không đổi số nào.

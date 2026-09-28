@@ -2,6 +2,10 @@
 
 Chuyển từ dòng phiên bản của `SKILL.md` ngày 26/9/2026 (tiếp thu thẩm định lần 1, m-01): `SKILL.md` chỉ giữ một dòng phiên bản hiện hành.
 
+## 1.14 — 28/9/2026
+
+- Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 ban hành Danh mục sản phẩm, công việc **chính thức**, thay thế danh mục dự thảo kèm TB 1052 (DL-20260928-001): ghi chú đầu `13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`, cách trích dẫn mới; `30-KPI-Va-Xep-Loai.md` đồng bộ quy tắc KPI gốc mục C; ví dụ mẫu số 4; README.
+
 ## 1.13 — 26/9/2026
 
 - Quy tắc bất biến, ranh giới dữ liệu, khuôn đầu ra 6 trạng thái: chuẩn chung `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md`, chèn khi đóng gói plugin 1.3.0.

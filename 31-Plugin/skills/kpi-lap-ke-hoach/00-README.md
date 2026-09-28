@@ -14,7 +14,7 @@ Lập kế hoạch công tác quý và danh mục sản phẩm/chỉ tiêu KPI c
 | `references/Skill-Library/19-Quy-Tac-KPI.md` | `20-Chuan-Chung/19-Quy-Tac-KPI.md` | `dong_goi_kpi.py` (C5 kiểm) |
 | `scripts/kpi_calc.py`, `kpi_mau.py`, `validate_plan.py` | `29-Cong-Cu/` cùng tên | `dong_goi_kpi.py` |
 | `assets/Mau-KeHoach-DanhGia_*.xlsx` (6 tệp) | KTC-Database `03-Templates/03-12- Danh gia xep loai va KPI/` | `dong_goi_kpi.py` (sha256) |
-| `references/data/he-so-san-pham-TB1052.csv` | Danh mục kèm TB 1052, KTC-Database kho 02 | `trich_danh_muc_tb1052.py` |
+| `references/data/he-so-san-pham-QD2119.csv` | Phụ lục Danh mục kèm QĐ 2119/QĐ-CĐKT (28/9/2026, chính thức), KTC-Database kho 02 | `trich_danh_muc_qd2119.py` (qua `dong_goi_kpi.py`) |
 
 Viết tay trong hệ: `SKILL.md`, `references/Cau-Hoi-Mo.md`, `Known-Issues-Bieu-Mau.md`, `Thuat-Ngu.md`,
 `references/quy/*.yaml`.

@@ -66,15 +66,19 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
 11. **Kế hoạch công tác quý của Trường:** đơn vị đánh giá, đề nghị điều chỉnh gửi Phòng TH-HC&QT chậm nhất ngày 02
     tháng cuối quý; Phòng TH-HC&QT trình kế hoạch quý của Trường chậm nhất ngày 15 tháng cuối quý [QĐ 2073, Đ10.2].
 
-## C. Hệ số quy đổi khối lượng — chưa thống nhất
+## C. Hệ số quy đổi khối lượng
 
 - **Có văn bản:** hệ số theo **4 mức độ công việc** — Thấp 1,0 · Trung bình 1,2 · Cao 1,5 · Khó, phức tạp 2,0; điểm chấm
   công việc tương ứng 100 · 120 · 150 · 200 [QĐ 1923, Phụ lục II (ghi chú) và Phụ lục I cột (7)(9)(10)].
-- **Dự thảo:** hệ số sản phẩm theo Danh mục kèm TB 1052 (Nhóm 1–5) — chưa ban hành; 204/371 dòng lệch giá trị chuẩn của
-  Nhóm (KI-014).
-- **Chưa có văn bản:** quy ước A × B (Phòng TH-HC&QT ghi nhận 24/9/2026).
+- **Có văn bản (từ 28/9/2026):** hệ số sản phẩm theo Danh mục sản phẩm, công việc ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026
+  — **chính thức, thay thế** danh mục dự thảo kèm TB 1052. 416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`; hệ số lấy
+  **theo từng sản phẩm**, không suy từ nhãn Nhóm (Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 · Nhóm 3 = 2,5 · Nhóm 4 = 3,5
+  · Nhóm 5 = 4,5). Sản phẩm không có trong Danh mục → `THIEU_DU_LIEU`, hỏi; không tự gán. Thang 50/120/250/350/450
+  của dự thảo **hết dùng** (KI-014 đã có văn bản phân định, DL-20260928-001).
+- **Chưa có văn bản:** quy ước A × B — phép nhân hệ số sản phẩm với hệ số mức độ (Phòng TH-HC&QT ghi nhận 24/9/2026).
+- KPI đã chấm trước 28/9/2026 (Quý III/2026) **không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&CTHSSV hướng dẫn khác.
 - **Không có mặc định, không tự chọn:** người lập kế hoạch chọn phương án; đầu ra ghi phương án và trạng thái. Xem Câu
-  hỏi mở số 1–2 và `92-Kinh-Nghiem/05-Known-Issues/Pending.md` KI-014. **Không tự đặt quy tắc chuyển đổi giữa các thang.**
+  hỏi mở số 1 và `92-Kinh-Nghiem/05-Known-Issues/Pending.md` KI-014. **Không tự đặt quy tắc chuyển đổi giữa các thang.**
 
 ## D. Chấm điểm (thang 100)
 

@@ -8,7 +8,7 @@ Nguon duy nhat -> ban sao trong tung skill (sua o NGUON, khong sua ban sao):
   20-Chuan-Chung/19-Quy-Tac-KPI.md          -> <skill>/references/Skill-Library/19-Quy-Tac-KPI.md
   29-Cong-Cu/kpi_*.py, validate_plan.py     -> <skill>/scripts/   (moi skill chi mang script no dung)
   KTC-Database/03-Templates/03-12-.../Mau-KeHoach-DanhGia_*.xlsx (6 tep) -> <skill>/assets/  (giu nguyen byte)
-  Danh muc TB 1052 (kho 02)                -> 28-KTC-KPI/references/data/he-so-san-pham-TB1052.csv (trich lai)
+  Danh muc QD 2119 (kho 02, CHINH THUC)    -> 28-KTC-KPI/references/data/he-so-san-pham-QD2119.csv (trich lai)
   28-KTC-KPI/references/{Cau-Hoi-Mo, Known-Issues-Bieu-Mau, Thuat-Ngu}.md, quy/*.yaml (viet tay o skill lap-ke-hoach)
                                            -> Tu-Danh-Gia/references/ (ban sao — goi .skill phai tu chua)
 Ban sao bi sua tay khac nguon -> BAO LOI, khong ghi de im lang (bai hoc 14/9/2026: goi lech nguon roi).
@@ -73,9 +73,9 @@ def dong_bo(ghi_de=False):
         if not os.path.exists(dst) or sha(dst) != sha(src):
             shutil.copy2(src, dst)
             print(f"  ↻ {os.path.relpath(dst, DU_AN)}")
-    import trich_danh_muc_tb1052 as t
+    import trich_danh_muc_qd2119 as t
     if t.main([]) != 0:
-        loi.append("Trích Danh mục TB 1052 thất bại")
+        loi.append("Trích Danh mục QĐ 2119 thất bại")
     return loi
 
 

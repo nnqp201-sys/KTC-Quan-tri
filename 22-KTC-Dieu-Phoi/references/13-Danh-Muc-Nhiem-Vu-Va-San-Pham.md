@@ -60,7 +60,9 @@ Bản gốc: `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong 
   `21.1` Nhóm 2 hệ số 1; `10.10`, `38.3` hệ số 0,3 (dưới Nhóm 1). Chi tiết:
   `30-Ket-Qua/2026-09-19/De-xuat/Gop-y-Danh-muc-SP-TB-1052.md`.
 
-Khi trích dẫn, ghi *"Danh mục sản phẩm/công việc kèm Thông báo 1052/TB-CĐKT (chưa ban hành chính thức)"*.
+~~Khi trích dẫn, ghi "Danh mục sản phẩm/công việc kèm Thông báo 1052/TB-CĐKT (chưa ban hành chính thức)"~~ — **từ 28/9/2026**
+trích dẫn *"Danh mục sản phẩm, công việc ban hành kèm theo Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 của Hiệu trưởng
+Trường Cao đẳng Kon Tum"*. Phần dưới về TB 1052 và thang 5 nhóm giữ làm lịch sử.
 
 ### Thang quy đổi 5 nhóm — là bảng GỢI Ý, không phải danh sách giá trị hợp lệ
 

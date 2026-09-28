@@ -1,5 +1,10 @@
 # Danh mục nhiệm vụ chuẩn và quy đổi sản phẩm
 
+> **CẬP NHẬT 28/9/2026 — Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 ban hành Danh mục sản phẩm, công việc CHÍNH THỨC, THAY THẾ bảng dự thảo mô tả
+> ở mục sản phẩm dưới đây.** Tra mã, hệ số từ phụ lục `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx` (416 sản phẩm; hệ số theo
+> từng sản phẩm: Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 · Nhóm 3–5 = 2,5/3,5/4,5). Mục "122 nhiệm vụ chuẩn `A01`–`S04`"
+> là hệ mã khác (nhiệm vụ chuẩn), không bị QĐ 2119 thay thế.
+
 **Nguồn:** `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/` — hai tệp Excel.
 **Căn cứ gốc:** Quyết định 1923/QĐ-CĐKT ngày 30/8/2026 và các Phụ lục I, II, III kèm theo.
 
@@ -55,7 +60,9 @@ Bản gốc: `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong 
   `21.1` Nhóm 2 hệ số 1; `10.10`, `38.3` hệ số 0,3 (dưới Nhóm 1). Chi tiết:
   `30-Ket-Qua/2026-09-19/De-xuat/Gop-y-Danh-muc-SP-TB-1052.md`.
 
-Khi trích dẫn, ghi *"Danh mục sản phẩm/công việc kèm Thông báo 1052/TB-CĐKT (chưa ban hành chính thức)"*.
+~~Khi trích dẫn, ghi "Danh mục sản phẩm/công việc kèm Thông báo 1052/TB-CĐKT (chưa ban hành chính thức)"~~ — **từ 28/9/2026**
+trích dẫn *"Danh mục sản phẩm, công việc ban hành kèm theo Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 của Hiệu trưởng
+Trường Cao đẳng Kon Tum"*. Phần dưới về TB 1052 và thang 5 nhóm giữ làm lịch sử.
 
 ### Thang quy đổi 5 nhóm — là bảng GỢI Ý, không phải danh sách giá trị hợp lệ
 
