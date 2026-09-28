@@ -2,6 +2,8 @@
 
 > **CHỜ LỆNH (28/9/2026) — Tiếp nhận VNPT Office:** kế hoạch đã duyệt `91-Tai-Lieu-Thiet-Ke/Ke-hoach-Tiep-nhan-VNPT-Office_20260928_v1.md` (lệnh gốc `GOAL-tiep-nhan-office_v1.1.md`). **Chỉ thực hiện khi người phụ trách yêu cầu**, theo thứ tự Bước 0 → Giai đoạn 1 → 1b (OAuth do anh tạo) → 2. Bước 0 (commit ngoại lệ 28 tệp + gom bản cũ vào `99-Luu-Tru/Can-Xoa/`) đã làm trên đĩa, chưa commit.
 
+> **Guard 1.3.3 chặn nhầm (28/9/2026):** đứng trong kho (`cd` vào thư mục kho) rồi chạy `python - <<'EOF'` có `if i > 45:` → dấu `>` trong mã Python bị hiểu là chuyển hướng ghi. Cách tránh: chạy script từ tệp, đứng ngoài kho. Sửa ở bản kế tiếp: không phân tích chuyển hướng bên trong thân heredoc.
+>
 > ~~**Guard 1.3.2 chặn nhầm (28/9/2026):**~~ **ĐÃ SỬA ở 1.3.3** (ca thử test_plugin_131 mục A). lệnh chỉ ĐỌC kho bằng `python -c` có `str.replace(...)` bị tầng 2 coi là ghi (mẫu `.replace(` trong GHI nhằm `Path.replace`). Sửa ở bản kế tiếp: chỉ coi `.replace(`/`.rename(` là ghi khi đi sau `Path(...)`/`os.`; thêm ca thử cho đúng lệnh này.
 
 Lỗi và khoảng trống **đã biết nhưng chưa xử lý**. Ghi lại để không quên và không tốn công phát hiện lại.
@@ -389,7 +391,7 @@ trên Claude Chat/Cowork sẽ dùng quy tắc sai. Cần đóng gói lại, và 
 
 > **ĐÃ CÓ VĂN BẢN PHÂN ĐỊNH — 28/9/2026:** Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 ban hành Danh mục sản phẩm, công việc **chính thức, thay thế** danh mục dự thảo (TB 1052). Phụ lục PL-2119 dùng **hệ số theo từng sản phẩm**, hợp nhất hai thang cũ: Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 (các giá trị của thang 4 mức) · Nhóm 3–5 = 2,5/3,5/4,5. Cột "Điểm" không còn. **Status mới: Đã giải quyết về căn cứ**; việc còn lại là cập nhật mã, kỹ năng (`kpi_calc.py` mã `THANG_DIEM_CHUA_PHAN_DINH`, `validate_plan.py` KH08, `30-Skill-Phan-Loai-6-Truc.md`, `19-Quy-Tac-KPI.md` và bản sao trong các gói) — `DL-20260928-001`. Phần dưới giữ làm lịch sử.
 >
-> **Bước 2 xong 28/9/2026 (plugin 1.3.3, commit `720b853`):** `kpi_calc.py`, `validate_plan.py` KH08, chuẩn 19, 20, kỹ năng KPI, quan-tri 1.14 đã theo QĐ 2119. **Còn mở (hỏi người phụ trách):** chấm cột (9)(10) Phụ lục TB736 có chuyển sang hệ số QĐ 2119 không — `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` vẫn quy định thang 4 mức cho TB736; chưa sửa (cần căn cứ hoặc quyết định). KPI Quý III đã chấm: không tính lại.
+> **Bước 2 xong 28/9/2026 (plugin 1.3.3, commit `720b853`):** `kpi_calc.py`, `validate_plan.py` KH08, chuẩn 19, 20, kỹ năng KPI, quan-tri 1.14 đã theo QĐ 2119. **Cột (9)(10) Phụ lục TB736 — ĐÃ QUYẾT 28/9 (`DL-20260928-002`):** giữ thang 4 mức theo QĐ 1923 PL I, II (QĐ 2119 không sửa mẫu này); QĐ 2119 áp cho cột Sản phẩm. Còn: sửa chữ trong `30-Skill-Phan-Loai-6-Truc.md` + 5 gói → plugin 1.3.4, **chờ người phụ trách cho làm**; câu hỏi kỳ chuyển đổi gửi Phòng TCCB&CTHSSV. KPI Quý III đã chấm: không tính lại.
 
 **Status:** Open · **Priority:** Cao — ảnh hưởng mọi phép quy đổi khối lượng công việc
 **Phát hiện:** 14/9/2026, khi đồng bộ `30-Skill-Phan-Loai-6-Truc.md` giữa bản gốc và gói `.skill`
