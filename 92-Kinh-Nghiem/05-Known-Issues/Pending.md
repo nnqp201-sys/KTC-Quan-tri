@@ -2,6 +2,8 @@
 
 > **CHỜ LỆNH (28/9/2026) — Tiếp nhận VNPT Office:** kế hoạch đã duyệt `91-Tai-Lieu-Thiet-Ke/Ke-hoach-Tiep-nhan-VNPT-Office_20260928_v1.md` (lệnh gốc `GOAL-tiep-nhan-office_v1.1.md`). **Chỉ thực hiện khi người phụ trách yêu cầu**, theo thứ tự Bước 0 → Giai đoạn 1 → 1b (OAuth do anh tạo) → 2. Bước 0 (commit ngoại lệ 28 tệp + gom bản cũ vào `99-Luu-Tru/Can-Xoa/`) đã làm trên đĩa, chưa commit.
 
+> **Guard 1.3.2 chặn nhầm (28/9/2026):** lệnh chỉ ĐỌC kho bằng `python -c` có `str.replace(...)` bị tầng 2 coi là ghi (mẫu `.replace(` trong GHI nhằm `Path.replace`). Sửa ở bản kế tiếp: chỉ coi `.replace(`/`.rename(` là ghi khi đi sau `Path(...)`/`os.`; thêm ca thử cho đúng lệnh này.
+
 Lỗi và khoảng trống **đã biết nhưng chưa xử lý**. Ghi lại để không quên và không tốn công phát hiện lại.
 
 **Cập nhật:** 20/9/2026
