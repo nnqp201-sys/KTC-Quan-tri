@@ -2,6 +2,10 @@
 
 Chuyển từ dòng phiên bản của `SKILL.md` ngày 26/9/2026 (tiếp thu thẩm định lần 1, m-01): `SKILL.md` chỉ giữ một dòng phiên bản hiện hành.
 
+## 1.15 — 28/9/2026
+
+- `11-Skill-Phan-Loai-6-Truc.md` (bản sao chuẩn 6 Trục): chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002); bỏ ghi chú thang 5 nhóm là dự thảo và KI-014 chưa xử lý.
+
 ## 1.14 — 28/9/2026
 
 - Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 ban hành Danh mục sản phẩm, công việc **chính thức**, thay thế danh mục dự thảo kèm TB 1052 (DL-20260928-001): ghi chú đầu `13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`, cách trích dẫn mới; `30-KPI-Va-Xep-Loai.md` đồng bộ quy tắc KPI gốc mục C; ví dụ mẫu số 4; README.

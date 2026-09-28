@@ -69,6 +69,30 @@ def _tach_cau_lenh(lenh: str):
     return [c.strip() for c in re.split(r"(?:&&|\|\||;|\n|\|)", lenh) if c.strip()]
 
 
+HEREDOC = re.compile(r"<<-?\s*(['\"]?)(\w+)\1")
+SHELL_NHAN_HEREDOC = re.compile(r"(?:^|[\s;&|(])(?:bash|sh|zsh|dash|ksh|pwsh|powershell|cmd)(?:\.exe)?(?=[\s<]|$)", re.I)
+
+
+def _bo_than_heredoc(lenh: str) -> str:
+    """1.3.4 (chan nham that 28/9/2026): than heredoc dua cho trinh thong dich (python - <<'EOF' ... EOF) la MA, khong
+    phai cau lenh shell — `if i > 45:` bi hieu la chuyen huong ghi khi dang dung trong kho. Bo than khoi phan tich cau
+    lenh; than dua cho shell (bash <<EOF) thi giu. Tang 2 (kiem_toan_lenh) van xet TOAN chuoi, ke ca than heredoc."""
+    dong, ra, i = lenh.split("\n"), [], 0
+    while i < len(dong):
+        d = dong[i]
+        ra.append(d)
+        m = HEREDOC.search(d)
+        i += 1
+        if m and not SHELL_NHAN_HEREDOC.search(d[:m.start()]):
+            ket = m.group(2)
+            while i < len(dong) and dong[i].strip() != ket:
+                i += 1
+            if i < len(dong):
+                ra.append(dong[i])
+                i += 1
+    return "\n".join(ra)
+
+
 def _tokens(cau: str):
     # Co "\" (duong dan Windows) thi tach kieu non-posix: posix coi "\" la ky tu thoat, "Drive\KTC-Database"
     # thanh "DriveKTC-Database" va lot khoi VUNG (1.3.1); non-posix giu ngoac kep trong token -> bo ngoac.
@@ -156,7 +180,7 @@ def kiem_lenh(lenh: str, sau: int = 0):
     if sau > 3:
         _chan("lệnh lồng quá sâu, không phân tích được")
     trong_vung = False     # da cd/Set-Location vao vung bao ve
-    for cau in _tach_cau_lenh(lenh):
+    for cau in _tach_cau_lenh(_bo_than_heredoc(lenh)):
         _kiem_chuyen_huong(cau)
         tok = _tokens(cau)
         if not tok:

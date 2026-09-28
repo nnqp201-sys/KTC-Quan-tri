@@ -41,7 +41,9 @@ Task_ID) · **Kiểm tra đã chạy** · **Kiểm tra chưa chạy** · **Mã c
 mã · mọi phép kiểm chưa chạy đã liệt kê · trạng thái khác `DAT`/`DAT_CO_DIEU_KIEN` thì không có sản phẩm chính thức.
 </quality_check>
 
-## Phiên bản: v1.10 — 24/9/2026
+## Phiên bản: v1.11 — 28/9/2026
+
+> v1.11: chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002).
 
 > v1.10: đồng bộ `references/Nguyen-Tac/00-Quy-Tac-Khai-Thac-Internet.md` với bản gốc 897 (15/9/2026) — Mức 1 tra `phapluat.gov.vn` trước tiên, thêm vbpl.vn và Công báo.
 

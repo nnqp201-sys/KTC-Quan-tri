@@ -1,5 +1,18 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.4 — 2026-09-28
+
+Chuẩn phân loại 6 Trục theo quyết định `DL-20260928-002`; không đổi kết quả tính. Ca thử: `test_plugin_131.py` (mục A).
+
+- **Chuẩn 6 Trục** (bản sao trong `ke-hoach` 3.10, `theo-doi-cv` 1.8, `bao-cao` 3.16, `soan-thao-vb` 1.11, `quan-tri` 1.15):
+  cột (9)(10) Phụ lục kế hoạch, báo cáo (TB 736) theo 4 mức độ, **căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II** (trước
+  chỉ dựa dữ liệu vận hành); bảng quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (hệ số sản phẩm
+  dùng cho cột Sản phẩm và KPI cá nhân phương án A; không thay cột (10), không nhân hai hệ số); bỏ ghi chú thang 5 nhóm là
+  dự thảo và KI-014 chưa xử lý.
+- **Guard — sửa chặn nhầm thật** (28/9/2026): đứng trong kho chạy `python - <<'EOF'` có `if i > 45:` bị hiểu là chuyển hướng
+  ghi. Thân heredoc đưa cho trình thông dịch không còn phân tích như câu lệnh shell (đưa cho `bash`/`sh` thì vẫn phân tích);
+  tầng 2 vẫn xét toàn chuỗi. Chạy lại 2.283 lệnh thật: bỏ 3 lần chặn nhầm, 0 lần chặn mới.
+
 ## 1.3.3 — 2026-09-28
 
 Cập nhật theo **Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026** ban hành Danh mục sản phẩm, công việc **chính thức**, thay thế

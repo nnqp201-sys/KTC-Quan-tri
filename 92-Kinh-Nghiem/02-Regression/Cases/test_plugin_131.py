@@ -115,6 +115,23 @@ CHAN_133 = [
 for cc, l, ten in CHAN_133:
     kq = guard(cc, l)
     kiem(kq == "chan", f"chặn 1.3.3 (ca ngược): {ten} (được: {kq})")
+# 1.3.4: chặn nhầm thật 28/9/2026 — dấu ">" trong thân heredoc Python khi đang đứng trong kho
+KHO = "H:/My Drive/KTC-Database/02-KTC-Regulations"
+QUA_134 = [
+    ("Bash", f'cd "{KHO}"; python - <<\'EOF\'\nimport docx\nfor i, r in enumerate(range(99)):\n    if i > 45:\n        break\nEOF',
+     "đứng trong kho, heredoc Python có `if i > 45:` [chặn nhầm thật 28/9]"),
+]
+for cc, l, ten in QUA_134:
+    kq = guard(cc, l)
+    kiem(kq == "qua", f"cho qua 1.3.4: {ten} (được: {kq})")
+CHAN_134 = [
+    ("Bash", f'cd "{KHO}"; bash <<\'EOF\'\necho a > moi.txt\nEOF', "thân heredoc đưa cho bash, ghi tương đối trong kho"),
+    ("Bash", f'cd "{KHO}"; python - <<\'EOF\'\nopen("moi.txt", "w").write("x")\nEOF', "thân heredoc Python ghi tệp trong kho (tầng 2)"),
+    ("Bash", f'cd "{KHO}"; cat > moi.txt <<\'EOF\'\nx\nEOF', "cat > tệp tương đối trên dòng heredoc"),
+]
+for cc, l, ten in CHAN_134:
+    kq = guard(cc, l)
+    kiem(kq == "chan", f"chặn 1.3.4 (ca ngược): {ten} (được: {kq})")
 
 QUA = [
     ("Bash", f"python -c \"import docx; d=docx.Document('{DB}'); print(len(d.paragraphs))\"", "python đọc tệp trong kho"),

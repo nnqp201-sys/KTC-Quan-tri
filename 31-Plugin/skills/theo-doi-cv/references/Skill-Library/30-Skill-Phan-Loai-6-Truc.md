@@ -5,6 +5,8 @@ Phân loại, sắp xếp nhiệm vụ/công việc vào đúng 1 trong 6 trục
 
 ## Nguồn căn cứ
 - Thông báo số 817/TB-CĐKT ngày 14/7/2026 của Hiệu trưởng Trường Cao đẳng Kon Tum — "nội hàm 6 trục kết quả trọng tâm theo Hướng dẫn số 02-HD/BTCTW ngày 22/5/2026 của Ban Tổ chức Trung ương" (lưu tại `02-KTC-Regulations`).
+- Quyết định số 1923/QĐ-CĐKT ngày 30/8/2026 của Hiệu trưởng ban hành Quy chế đánh giá, xếp loại chất lượng tập thể, cá nhân gắn với KPI — mẫu **Phụ lục I** (kế hoạch công tác quý của đơn vị) và **Phụ lục II** (cá nhân): cột Điểm chấm công việc, Hệ số quy đổi theo 4 mức độ công việc.
+- Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 của Hiệu trưởng ban hành Danh mục sản phẩm, công việc (416 sản phẩm, hệ số theo từng sản phẩm) — cơ sở xây dựng kế hoạch công tác (Điều 2).
 - Các mẫu Kế hoạch công tác tháng/quý đã ban hành thực tế của Trường (lưu tại `04-Good-Documents`/`03-Templates`) — dùng để tham khảo cách trình bày bảng nhiệm vụ theo trục (cột: TT, Nội dung công việc, Người trực tiếp chỉ đạo, Đơn vị chủ trì, Sản phẩm/công việc, Số lượng, Độ khó/mới/phức tạp, Thời gian hoàn thành, Điểm chấm công việc, Hệ số quy đổi, Ghi chú).
 
 ## Trigger conditions
@@ -44,10 +46,10 @@ Nội hàm: (1) Quốc phòng và giáo dục quốc phòng, an ninh; (2) Bảo 
 3. Trình bày theo đúng cấu trúc bảng mẫu của Trường (tham khảo `03-Templates`/`04-Good-Documents`): TT (số thứ tự theo trục, ví dụ 1.1, 1.2... cho trục 1) → Nội dung công việc → Người trực tiếp chỉ đạo → Đơn vị chủ trì → Sản phẩm/công việc → Số lượng → Độ khó/mới/phức tạp/phạm vi tác động (4 mức: Thấp/Trung bình/Cao/Khó và phức tạp) → Thời gian hoàn thành → Điểm chấm công việc → Hệ số quy đổi → Ghi chú.
 4. Với Báo cáo kết quả: đối chiếu số nhiệm vụ hoàn thành/đang thực hiện/quá hạn theo từng trục, dùng đúng "Chỉ số đánh giá cuối cùng" đã quy định cho từng nội hàm (ví dụ trục 1 nội hàm 2 - Tuyển sinh: "Tỷ lệ đạt chỉ tiêu tuyển sinh theo ngành, trình độ đào tạo").
 
-## Thang điểm chấm công việc — thang đang dùng thật trong Kế hoạch/Báo cáo tháng
+## Thang điểm chấm công việc — cột (9)(10) Phụ lục kế hoạch, báo cáo (TB 736)
 
-> **Khôi phục 14/9/2026.** Mục này từng có trong bản nằm trong `ktc-bao-cao.skill` nhưng bị rơi khỏi bản
-> gốc ở `20-Chuan-Chung/`. Đối chiếu dữ liệu thật xác nhận đây là thang **đang được dùng**, nên khôi phục.
+**Căn cứ:** Quyết định số 1923/QĐ-CĐKT, Phụ lục I (kế hoạch công tác quý của đơn vị) và Phụ lục II (cá nhân), phần ghi chú:
+mức độ công việc gồm 4 mức Thấp; Trung bình; Cao; Khó, phức tạp và mang tính đột phá.
 
 | Độ khó / mới / phức tạp | Điểm chấm công việc | Hệ số quy đổi |
 |---|---|---|
@@ -56,25 +58,24 @@ Nội hàm: (1) Quốc phòng và giáo dục quốc phòng, an ninh; (2) Bảo 
 | Cao | 150 | 1,5 |
 | Khó và phức tạp | 200 | 2,0 |
 
-**Bằng chứng đo được (14/9/2026)** — đếm cặp (Điểm, Hệ số) trên tệp Excel thật:
+Dữ liệu vận hành khớp căn cứ (đo 14/9/2026): 27 tệp báo cáo, kế hoạch của đơn vị kỳ T8–T9/2026 (800 dòng), Phụ lục kết quả
+công tác tháng cấp Trường (39 nhiệm vụ), Kế hoạch công tác Quý III/2026 đã duyệt — chỉ xuất hiện 4 cặp trên.
 
-| Nguồn | Kết quả |
-|---|---|
-| 27 tệp báo cáo/kế hoạch của đơn vị, kỳ T8–T9/2026 | 800 dòng, **chỉ xuất hiện 4 cặp trên** (100/1 · 200/2 · 120/1,2 · 150/1,5) |
-| `00. Phu luc chi tiet ket qua cong tac thang (cap Truong).xlsx` (39 nhiệm vụ thật) | chỉ 4 cặp trên |
-| `Ke_hoach_cong_tac_Quy_III_2026...CHUAN.xlsx` (kế hoạch quý đã duyệt) | chỉ 4 cặp trên |
+**Quan hệ với Danh mục sản phẩm, công việc (Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026)** — `DL-20260928-002`:
 
-**Phân biệt với thang 5 nhóm — hai thang khác nhau, không thay thế nhau:**
-
-| | Thang này (4 mức) | Thang 5 nhóm |
+| | Cột (9)(10) — mức độ công việc | Hệ số Danh mục QĐ 2119 |
 |---|---|---|
-| Điểm | 100 · 120 · 150 · 200 | 50 · 120 · 250 · 350 · 450 |
-| Hệ số | 1,0 · 1,2 · 1,5 · 2,0 | 0,5 · 1,2 · 2,5 · 3,5 · 4,5 |
-| Dùng ở | Cột (9)(10) của Phụ lục TB736 — kế hoạch và báo cáo công tác tháng/quý | `Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx` — quy đổi sản phẩm theo loại văn bản |
-| Trạng thái | Đang dùng thật, đo được trên dữ liệu đã ban hành | **Dự thảo lần 4**, chưa thấy trong dữ liệu vận hành |
+| Đo gì | Độ khó, mới, phức tạp của **công việc cụ thể** (cột 7) | Giá trị quy đổi của **loại sản phẩm** (Nhóm 1–5) |
+| Giá trị | 1,0 · 1,2 · 1,5 · 2,0 (điểm 100 · 120 · 150 · 200) | Nhóm 1 = 0,3 · 0,5 · 1,0; Nhóm 2 = 1,2 · 1,5 · 2,0; Nhóm 3 = 2,5; Nhóm 4 = 3,5; Nhóm 5 = 4,5 |
+| Căn cứ | QĐ 1923, Phụ lục I, II | QĐ 2119, Phụ lục (thay thế danh mục kèm TB 1052 và thang 50/120/250/350/450) |
+| Dùng ở | Cột (9)(10) Phụ lục TB 736; cột Điểm chấm, Hệ số của PL I, II | Cột (5) "Sản phẩm/công việc": gọi tên sản phẩm theo Danh mục; mã sản phẩm (vd `1.1.DA01.01`) ghi ở Ghi chú — tùy chọn. KPI cá nhân phương án `A` |
 
-Khi chấm điểm nhiệm vụ trong Phụ lục TB736, dùng thang 4 mức. **Không áp thang 5 nhóm vào cột (9)(10).**
-Khoảng lệch giữa hai thang chưa được xử lý — xem `92-Kinh-Nghiem/05-Known-Issues/Pending.md` mục `KI-014`.
+Quy tắc:
+- Chấm cột (9)(10) theo 4 mức. QĐ 2119 không sửa, không bãi bỏ mẫu Phụ lục I, II của QĐ 1923.
+- **Không** thay cột (10) bằng hệ số Danh mục QĐ 2119, **không** nhân hai hệ số (quy ước A × B chưa có văn bản) — gặp yêu cầu
+  như vậy: nêu căn cứ trên, mã `THANG_DIEM_CHUA_PHAN_DINH`, đề nghị hỏi Phòng TCCB&CTHSSV.
+- Thang 50/120/250/350/450 (danh mục kèm TB 1052) đã bị QĐ 2119 thay thế — không dùng.
+- Kỳ chuyển cột (10) sang hệ số Danh mục (nếu có) chờ hướng dẫn của Phòng TCCB&CTHSSV; có văn bản thì sửa mục này.
 
 ## Severity categories (khi rà soát)
 - Critical: xếp nhiệm vụ vào trục hoàn toàn sai phạm vi (ví dụ xếp công tác bổ nhiệm cán bộ vào trục 1 thay vì trục 4).
