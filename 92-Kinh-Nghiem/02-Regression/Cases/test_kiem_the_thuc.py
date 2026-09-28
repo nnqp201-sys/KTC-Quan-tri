@@ -43,27 +43,19 @@ kiem("TT02" in m, "TT02 lề mặc định (trái 3,18 / 2,54 cm) bị bắt")
 kiem("TT03" in m, "TT03 phông Calibri mặc định bị bắt")
 
 # 2. Van ban dung chuan
-p_dung = os.path.join(TMP, "dung.docx")
-d = docx.Document()
-s = d.sections[0]
-s.page_width, s.page_height = Cm(21), Cm(29.7)
-s.top_margin, s.bottom_margin, s.left_margin, s.right_margin = Cm(2), Cm(2), Cm(3), Cm(2)
-st = d.styles["Normal"]
-st.font.name, st.font.size = "Times New Roman", Pt(14)
-t = d.add_table(rows=2, cols=2)
-for o, (txt, co) in zip([t.cell(0, 0), t.cell(0, 1), t.cell(1, 0), t.cell(1, 1)],
-                        [("UBND TỈNH QUẢNG NGÃI", 13), ("CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM", 13),
-                         ("TRƯỜNG CAO ĐẲNG KON TUM", 13), ("Độc lập - Tự do - Hạnh phúc", 14)]):
-    r = o.paragraphs[0].add_run(txt)
-    r.font.size, r.bold = Pt(co), True
-for _ in range(3):
-    d.add_paragraph("Nhà trường triển khai nhiệm vụ trọng tâm theo kế hoạch đã ban hành, bảo đảm tiến độ. " * 2)
-from docx.enum.text import WD_ALIGN_PARAGRAPH  # noqa: E402
-for p in d.paragraphs:
-    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+# Tu 28/9/2026: dung tu khung (--khung, dung tu TB 1060 da ban hanh) — bang tieu de tay khong con dat (TT12-TT15)
+import copy  # noqa: E402
+p_dung = k.tao_khung(os.path.join(TMP, "dung.docx"), "BC", 2026)
+d = docx.Document(p_dung)
+p_nd = next(p for p in d.paragraphs if p.text.startswith("[Nội dung"))
+p_nd.runs[0].text = "Nhà trường triển khai nhiệm vụ trọng tâm theo kế hoạch đã ban hành, bảo đảm tiến độ. " * 2
+for _ in range(2):
+    p_nd._p.addnext(copy.deepcopy(p_nd._p))
 d.save(p_dung)
 kq = k.kiem_tep(p_dung)
-kiem(not [x for x in kq if x[0] <= 2], f"văn bản đúng chuẩn không có Mức 1–2 (được: {kq})")
+kiem(not kq, f"văn bản dựng từ khung: 0 gợi ý (được: {kq})")
+kiem(docx.Document(p_dung).paragraphs[0].text == "BÁO CÁO" and "/BC-CĐKT" in
+     " ".join(p.text for p in k._doan_trong_bang(docx.Document(p_dung))), "--khung BC: đổi tên loại và ký hiệu")
 
 # 3. Ca thu nguoc tung loi
 d = docx.Document(p_dung)
@@ -80,6 +72,60 @@ kiem("TT08" in m, "TT08 cơ quan chủ quản “UBND TỈNH KON TUM” bị b�
 kiem("TT09" in m, "TT09 Quốc hiệu cỡ 12 bị bắt")
 kiem("TT03" in m, "TT03 .VnTime bị bắt")
 kiem("TT04" in m, "TT04 nội dung cỡ 13 bị bắt")
+
+# 3b. Bang tieu de dung tay (loi TB Cowork 28/9/2026) — tung loi mot, tren ban dung tu khung
+W_ = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+
+
+def bien(ten, sua):
+    d = docx.Document(p_dung)
+    sua(d)
+    p = os.path.join(TMP, ten + ".docx")
+    d.save(p)
+    return ma(p)
+
+
+def chia_doi(d):
+    t = d.tables[0]
+    for c in t._tbl.tblGrid.gridCol_lst:
+        c.w = Cm(8)
+    for r in t.rows:
+        for c in r.cells:
+            c.width = Cm(8)
+
+
+def bo_duong_ke(d):
+    for e in list(d.tables[0]._tbl.iter()):
+        if e.tag in (W_ + "drawing", W_ + "pict") or e.tag.endswith("}AlternateContent"):
+            if e.getparent() is not None:
+                e.getparent().remove(e)
+
+
+def dam(bat_dau):
+    def f(d):
+        for p in k._doan_trong_bang(d):
+            if p.text.strip().startswith(bat_dau):
+                for r in p.runs:
+                    r.bold = True
+    return f
+
+
+def can_cu_khong_thut(d):
+    p = next(p for p in d.paragraphs if p.text.startswith("Căn cứ"))
+    p.paragraph_format.first_line_indent = Cm(0)
+    p_nd = next(p for p in d.paragraphs if p.text.startswith("Nhà trường"))
+    p_nd.paragraph_format.first_line_indent = Cm(1.25)
+
+
+kiem("TT12" in bien("chia_doi", chia_doi), "TT12 bảng tiêu đề chia đôi 8 + 8 cm bị bắt")
+kiem("TT14" in bien("bo_ke", bo_duong_ke), "TT14 thiếu đường kẻ dưới tên Trường, tiêu ngữ bị bắt")
+kiem("TT13" in bien("ubnd_dam", dam("UBND")), "TT13 “UBND TỈNH QUẢNG NGÃI” in đậm bị bắt")
+kiem("TT15" in bien("ngay_dam", dam("Quảng Ngãi, ngày")), "TT15 dòng địa danh in đậm bị bắt")
+kiem("TT16" in bien("can_cu", can_cu_khong_thut), "TT16 đoạn căn cứ không thụt đầu dòng bị bắt")
+FX = os.path.join(GOC, "92-Kinh-Nghiem", "02-Regression", "Fixtures", "the-thuc",
+                  "TB-bang-tieu-de-dung-tay_Cowork_20260928.docx")
+m = ma(FX)
+kiem({"TT12", "TT13", "TT14", "TT15", "TT16"} <= m, f"tệp thật Cowork 28/9 (bảng tiêu đề dựng tay): bắt đủ 5 lỗi (được {sorted(m)})")
 
 # 4. Bien the ten TNR -> Muc 3, khong phai Muc 2
 d = docx.Document(p_dung)

@@ -20,7 +20,8 @@ hook `ktc_the_thuc_hook.py` tự đo mọi tệp `.docx`/`.xlsx` vừa sinh ra.
 |---|---|---|
 | 1 | **Văn bản cùng loại đã ban hành** trong `04-Good-Documents/` (NT-1, `14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`) | Cấu trúc, văn phong, thể thức |
 | 2 | **Mẫu trống** `.dotx`/`.xltx` trong `03-Templates(1)/`, theo bảng mục 2 | Thể thức, style, lề, bảng quốc hiệu |
-| 3 | Dựng mới bằng skill `docx`/`xlsx` | **Chỉ khi** không có 1 và 2. Bắt buộc đặt đủ số đo mục 3–4 |
+| 3 | **Khung thể thức trong skill** `the-thuc/assets/Khung-the-thuc-VBHC.docx` (dựng từ TB 1060/TB-CĐKT đã ban hành): `kiem_the_thuc.py --khung <đích> <loại>` | Khi không đọc được kho (Cowork, Chat, tài khoản thành viên). Giữ bảng tiêu đề, đường kẻ, bảng chữ ký |
+| 4 | Dựng mới bằng skill `docx`/`xlsx` | **Chỉ** cho `.xlsx` hoặc văn bản không phải hành chính. Bắt buộc đặt đủ số đo mục 3–4. **Không dựng bảng tiêu đề bằng tay** |
 
 - **Cấm** dùng `docx.Document()` rỗng (python-docx mặc định khổ **Letter**, phông Calibri) hoặc docx-js với lề
   mặc định (2,54 cm cả bốn lề). Sản phẩm `Phieu-de-xuat_Bo-sung-cot-Task_ID…docx` ngày 18/9/2026 ra khổ Letter
@@ -70,6 +71,15 @@ Báo cáo tổng hợp tháng cấp Trường dùng mẫu chính thức
 | Phần đầu | Bảng hai cột: `UBND TỈNH QUẢNG NGÃI` / **`TRƯỜNG CAO ĐẲNG KON TUM`** (cỡ 13, đậm) · Quốc hiệu cỡ 13, đậm · Tiêu ngữ cỡ 14, đậm, kẻ bằng Draw | TT08 · TT09 | 2 |
 | "Nơi nhận" | Cỡ 12, nghiêng, đậm; danh sách nơi nhận cỡ 11 | TT10 | 3 |
 | Số trang | Canh giữa ở lề trên, không hiện ở trang 1 | TT11 | 3 |
+| Bảng tiêu đề | Rộng 17,25–17,5 cm; cột trái 7–7,5 cm, cột phải 9,75–10,3 cm (đo TB 1060, 1092 và TB phương án A1 đã ban hành). Cột phải < 9,5 cm hoặc cột trái rộng hơn cột phải làm quốc hiệu, dòng địa danh xuống dòng | TT12 | 2 |
+| Cơ quan chủ quản | `UBND TỈNH QUẢNG NGÃI` in hoa, đứng, **không đậm** | TT13 | 2 |
+| Đường kẻ | Đường kẻ ngang nét liền dưới tên Trường và dưới tiêu ngữ | TT14 | 2 |
+| Địa danh, ngày tháng | `Quảng Ngãi, ngày … tháng … năm …`, **nghiêng, không đậm** | TT15 | 2 (đậm) · 3 (không nghiêng) |
+| Căn cứ | Thụt đầu dòng như đoạn nội dung (1,25 cm), nghiêng | TT16 | 3 |
+
+**Bài học 28/9/2026:** thông báo bổ sung thành phần họp soạn trên Cowork dựng bảng tiêu đề bằng tay: bảng 16 cm chia
+đôi 8 + 8 cm, quốc hiệu và địa danh xuống dòng, UBND và dòng ngày tháng in đậm, thiếu đường kẻ dưới tên Trường. Công
+cụ đo khi đó (TT01–TT11) vẫn báo "đạt". TT12–TT16 được bổ sung để bắt đúng loại lỗi này.
 
 Cỡ chữ của các thành phần còn lại (số ký hiệu, tên loại, trích yếu, chữ ký) lấy theo bảng 16 dòng tại 897
 `08-Quy-Uoc-Rieng-CDKT.md` mục 4. **Không chép bảng đó vào đây.**
