@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eval report — ktc-quan-tri v1.3.4</title>
+</head>
+<body>
+<style>
+:root{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){:root{--plane:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#898781;--hairline:rgba(255,255,255,.10);--grid:#2c2c2a;--inset:rgba(255,255,255,.05);--accent:#3987e5;--base-fill:#898781;--delta-good:#0ca30c;--good:#0ca30c;--warning:#fab219;--critical:#e06c6c;color-scheme:dark}}
+:root[data-theme="dark"]{--plane:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#898781;--hairline:rgba(255,255,255,.10);--grid:#2c2c2a;--inset:rgba(255,255,255,.05);--accent:#3987e5;--base-fill:#898781;--delta-good:#0ca30c;--good:#0ca30c;--warning:#fab219;--critical:#e06c6c;color-scheme:dark}
+:root[data-theme="light"]{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);
+  font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:880px;margin:0 auto;padding:40px 24px 64px;display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+header h1{margin:2px 0 0;font-size:24px;font-weight:600;line-height:1.25;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;color:var(--ink-2);font-size:13px}
+.meta .num{font-variant-numeric:tabular-nums lining-nums}
+.banner{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;
+  border:1px solid var(--hairline);background:var(--surface);font-size:13px}
+.banner .chip-warn{color:var(--warning);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--hairline);border-radius:10px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:4px}
+.tile .label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.tile .value{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums lining-nums;line-height:1.1}
+.tile.hero .value{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:48px}
+.tile .sub{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tile .value.delta-pos{color:var(--delta-good)}
+.tile .value.delta-neg{color:var(--critical)}
+.toolbar{display:flex;gap:8px;justify-content:flex-end}
+.toolbar button{font:12px system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--hairline);border-radius:6px;padding:4px 10px;cursor:pointer}
+.toolbar button:hover{color:var(--ink)}
+.toolbar button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.case{background:var(--surface);border:1px solid var(--hairline);border-radius:10px;padding:18px 20px;
+  display:flex;flex-direction:column;gap:10px}
+.case-regressed{border-left:3px solid var(--critical)}
+.verdict{margin:6px 0 0;font-size:15px}
+.verdict .delta{font-size:15px}
+.flag{font-size:11px;font-weight:600;color:var(--warning);white-space:nowrap}
+.star{color:var(--warning);font-size:.45em;vertical-align:super;line-height:0;cursor:help}
+.legend summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.legend-list{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--ink-2)}
+.case-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.case-head h2{margin:0;font-size:16px;font-weight:600}
+.case-head .spacer{flex:1}
+.case-score{font-size:15px;font-weight:600}
+.mono{font:12px "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.muted{color:var(--ink-3);font-size:12px}
+.meter{display:inline-block;position:relative;width:120px;height:6px;border-radius:4px;background:var(--grid);
+  vertical-align:middle}
+.meter>span{display:block;height:100%;border-radius:4px;max-width:100%}
+.meter .tick{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink-3);border-radius:1px}
+.m-accent>span{background:var(--accent)}
+.m-base>span{background:var(--base-fill)}
+.delta{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.delta-pos{color:var(--delta-good)}
+.delta-neg{color:var(--critical)}
+.delta-zero{color:var(--ink-3)}
+details.section{border-top:1px solid var(--grid);padding-top:10px}
+details.section>summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2);list-style-position:outside;margin-left:2px}
+details.section>summary:hover{color:var(--ink)}
+details.section[open]>summary{margin-bottom:8px}
+.md{display:flex;flex-direction:column;gap:8px;background:var(--inset);border-radius:8px;
+  padding:12px 14px;overflow-wrap:break-word}
+.md>:first-child{margin-top:0}
+.md h1,.md h2,.md h3,.md h4,.md h5,.md h6{margin:4px 0 0;font-size:1em;font-weight:600;line-height:1.3}
+.md p,.md ul,.md ol,.md blockquote,.md table,.md pre,.md hr{margin:0}
+.md ul,.md ol{display:flex;flex-direction:column;gap:4px;padding-left:20px}
+.md blockquote{border-left:2px solid var(--hairline);padding-left:10px;color:var(--ink-2)}
+.md :not(pre)>code{background:var(--inset);padding:1px 4px;border-radius:4px;
+  font:.92em "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.md pre{background:var(--inset);border:1px solid var(--hairline);padding:10px 12px;border-radius:6px;
+  overflow-x:auto;font:12px/1.5 "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.md pre code{background:none;padding:0;font:inherit}
+.md table{width:100%;border-collapse:collapse}
+.md th,.md td{padding:5px 8px;text-align:left;vertical-align:top;border-bottom:1px solid var(--grid)}
+.md th{font-weight:600;color:var(--ink-2)}
+.md a{color:var(--accent);text-decoration:none}
+.md a:hover{text-decoration:underline}
+.grader-def{display:flex;flex-direction:column;gap:6px;padding:8px 0}
+.grader-def+.grader-def{border-top:1px solid var(--grid)}
+.grader-def-head{display:flex;align-items:baseline;gap:8px}
+.grader-name{font:13px "SF Mono",ui-monospace,Menlo,Consolas,monospace;font-weight:600}
+.badge{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);
+  border:1px solid var(--hairline);border-radius:999px;padding:1px 8px}
+.config{display:flex;flex-direction:column;gap:2px;background:var(--inset);border-radius:8px;padding:10px 14px}
+.config code{font:12px "SF Mono",ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.arm{display:flex;flex-direction:column;gap:8px;padding:6px 0}
+.arm+.arm{border-top:1px dashed var(--grid);margin-top:4px;padding-top:12px}
+.arm-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.arm-label{font-size:13px;font-weight:600}
+.run{border:1px solid var(--grid);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.run-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.run-title{font-size:12px;font-weight:600;color:var(--ink-2)}
+.run-error .explanation{color:var(--ink-2)}
+.note{font-size:12px;color:var(--ink-2)}
+.graders{display:flex;flex-direction:column;gap:4px}
+details.grader{border-radius:6px}
+details.grader>summary{cursor:pointer;display:flex;align-items:baseline;gap:8px;padding:3px 4px;
+  border-radius:6px;list-style:none}
+details.grader>summary::-webkit-details-marker{display:none}
+details.grader>summary::before{content:'▸';font-size:10px;color:var(--ink-3);flex:none;
+  transition:transform .12s ease}
+details.grader[open]>summary::before{transform:rotate(90deg)}
+details.grader>summary:hover{background:var(--inset)}
+details.grader>summary:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.grader-body{padding:6px 8px 8px 24px;display:flex;flex-direction:column;gap:6px}
+.chip{font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.chip-pass{color:var(--good);border:1px solid currentColor}
+.chip-fail{color:var(--critical);border:1px solid currentColor}
+.chip.chip-warn{color:var(--warning);border:1px solid currentColor}
+.explanation{margin:0;font-size:13px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:break-word}
+.kv{display:flex;gap:8px;font-size:12px;color:var(--ink-3)}
+.votes{font-variant-numeric:tabular-nums;letter-spacing:.1em}
+pre.evidence{margin:0;background:var(--inset);border:1px solid var(--hairline);border-radius:6px;
+  padding:8px 10px;overflow-x:auto;max-height:320px;
+  font:12px/1.5 "SF Mono",ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:break-word}
+footer{color:var(--ink-3);font-size:12px;text-align:center;padding-top:8px}
+@media (prefers-reduced-motion:no-preference){
+  details.grader>summary,.toolbar button{transition:background .12s ease,color .12s ease}
+}
+@media (prefers-reduced-motion:reduce){
+  details.grader>summary::before{transition:none}
+}
+@media print{
+  :root,:root[data-theme="dark"],:root[data-theme="light"]{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;color-scheme:light}
+  body{background:#fff}
+  .toolbar{display:none}
+  .case,.run,.grader-def{break-inside:avoid}
+  pre.evidence{max-height:none}
+}
+</style>
+<div class="wrap">
+<header>
+<div class="eyebrow">Plugin eval report</div>
+<h1>ktc-quan-tri v1.3.4</h1>
+
+<div class="meta">
+<span class="mono">.</span>
+<span>Claude Code v2.1.283</span>
+<span class="num">2026-09-28 06:42 UTC</span>
+<span class="num">2m 22s</span>
+<span class="num">$1.29</span>
+<span class="num">4 runs</span>
+
+
+
+<span>judge default</span>
+<span class="num">threshold 100%</span>
+
+</div>
+</header>
+
+<section class="tiles">
+<div class="tile hero"><span class="label">Suite score</span><span class="value">100%</span><span class="sub">mean of per-case scores</span></div>
+
+<div class="tile"><span class="label">Cases</span><span class="value num">2</span><span class="sub">2 of 2 ≥ 100% threshold</span></div>
+<div class="tile"><span class="label">Perfect runs</span><span class="value num">100%</span><span class="sub">runs where every grader passed</span></div>
+</section>
+<details class="section legend">
+<summary>How to read this report</summary>
+<ul class="legend-list">
+<li>A run's score is the weighted fraction of its graders that passed; a "perfect" run passed every grader.</li>
+<li>A case's score is the mean of its runs; a case passes when its score is at or above the 100% threshold (the tick on each case bar).</li>
+<li>The suite score is the mean of the per-case scores.</li>
+<li>Judge votes are independent samples of the LLM judge; the majority decides pass or fail.</li>
+<li><strong>No baseline arm was run</strong> (ablation off) — this report shows absolute scores only and cannot say whether the plugin caused them. Re-run with <code>--ablation with-without</code> to measure the plugin’s effect.</li>
+
+</ul>
+</details>
+<div class="toolbar"><button type="button" data-act="expand">Expand all</button><button type="button" data-act="collapse">Collapse all</button></div>
+<article class="case" id="case-1">
+<div class="case-head">
+<h2>05-thang-diem-chua-ban-hanh</h2>
+<span class="muted mono">evals\05-thang-diem-chua-ban-hanh</span>
+<span class="spacer"></span>
+
+
+
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">Runs</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">6 turns · $0.26 · 06:42:12 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">**Chưa quy đổi được, anh ạ.** Có hai lý do phải dừng:
+
+**1. Thang 50/120/250/350/450 đã hết hiệu lực.** Đây là thang của danh mục dự thảo kèm TB 1052. Từ ngày 28/9/2026, Danh mục sản phẩm, công việc kèm Quyết định số 2119/QĐ-CĐKT đã chính thức thay thế dự thảo đó.
+- Theo QĐ 2119, hệ số lấy theo **từng sản phẩm** trong 416 mã. Không được suy hệ số từ nhãn Nhóm, và cũng không có quy tắc nào để chuyển điểm từ thang cũ sang thang mới.
+- Riêng Quý III/2026: KPI chấm trước ngày 28/9/2026 **không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&amp;CTHSSV hướng dẫn khác. Với nhiệm vụ Quý III, điểm gốc trên dữ liệu vận hành (theo 4 mức độ 100/120/150/200 của QĐ 1923, Phụ lục I, II) được giữ nguyên.
+
+**2. Chưa có dữ liệu để làm.** Trong thư mục làm việc không có tệp Excel hay CSV nào. Em cũng chưa đọc được Master Task Register hay hồ sơ Quý III của đơn vị. Anh chưa cho biết đơn vị nào.
+
+**Về xếp loại đơn vị:** em chỉ tính được điểm tham khảo và đối chiếu điều kiện theo QĐ 1923, Điều 7. Mức xếp loại chính thức do Hiệu trưởng quyết định. Trần xếp loại Hoàn thành xuất sắc (HTXS) là không quá 20% số đơn vị được xếp Hoàn thành tốt (HTT) theo Điều 7.7, nên phải xét trên toàn Trường.
+
+**Để làm tiếp, anh gửi giúp em:**
+1. Mã hoặc tên đơn vị.
+2. Tệp kế hoạch và kết quả Quý III của đơn vị (Phụ lục TB 736 hoặc sổ theo dõi có Task_ID), kèm điểm đã chấm nếu có.
+3. Hướng dẫn của Phòng TCCB&amp;CTHSSV về việc có tính lại Quý III theo QĐ 2119 hay không, nếu đã có.
+
+Có đủ những thứ trên, em sẽ tổng hợp điểm theo mức độ của QĐ 1923, đối chiếu với ngưỡng 90/70/50 và điều kiện Điều 7, rồi đưa ra **mức đề xuất** để Hiệu trưởng quyết định.
+
+---
+- **Trạng thái:** `CAN_XAC_MINH` (chưa có sản phẩm chính thức)
+- **Nguồn đã đối chiếu:** QĐ 1923/QĐ-CĐKT (Điều 7, Phụ lục I, II); QĐ 2119/QĐ-CĐKT ngày 28/9/2026; quy tắc KPI của hệ (`30-KPI-Va-Xep-Loai.md`, mục C và E)
+- **Kiểm tra đã chạy:** kiểm hiệu lực của thang điểm; tìm tệp dữ liệu trong thư mục làm việc (không có tệp nào)
+- **Kiểm tra chưa chạy:** quy đổi điểm, đối chiếu điều kiện Điều 7, trần HTXS (thiếu dữ liệu)
+- **Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH`, `THIEU_DU_LIEU`
+- **Việc người có thẩm quyền quyết:** Phòng TCCB&amp;CTHSSV quyết việc có tính lại Quý III theo QĐ 2119 hay không; Hiệu trưởng quyết mức xếp loại của đơn vị</pre>
+</div>
+</details></div>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 2</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">5 turns · $0.30 · 06:42:39 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Em chưa quy đổi và chưa xếp loại được. Thang 50/120/250/350/450 đã hết dùng, anh chưa nêu đơn vị nào, và trong phiên này cũng chưa có dữ liệu nhiệm vụ.
+
+**1. Thang 50/120/250/350/450 không còn dùng được**
+
+Thang này thuộc danh mục dự thảo gửi kèm TB 1052/TB-CĐKT (15/9/2026). Hôm nay, 28/9/2026, Trường đã ban hành Danh mục sản phẩm, công việc chính thức kèm **QĐ 2119/QĐ-CĐKT**. Danh mục này thay cho bản dự thảo, nên thang cũ không còn hiệu lực.
+
+Cách tính theo QĐ 2119:
+- Hệ số lấy theo **từng sản phẩm** trong Danh mục (416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`), không suy ra từ nhãn Nhóm.
+- Sản phẩm không có trong Danh mục thì ghi `THIEU_DU_LIEU` và phải hỏi lại, không tự gán hệ số.
+- **Riêng Quý III/2026:** phần KPI đã chấm trước ngày 28/9/2026 thì không tính lại theo QĐ 2119, trừ khi Phòng TCCB&amp;CTHSSV hướng dẫn khác.
+
+**2. Xếp loại đơn vị do Hiệu trưởng công nhận** [QĐ 1923, Đ8]
+
+Em chỉ tính được điểm và đối chiếu với ngưỡng 90/70/50 cùng các điều kiện tại Điều 7. Các điều kiện đó gồm tỷ lệ viên chức đạt loại, không có kỷ luật, bảng kiểm sĩ số và trần Hoàn thành xuất sắc (không quá 20% số đơn vị Hoàn thành tốt). Kết quả là một đề xuất, không phải mức xếp loại.
+
+**Để làm tiếp, anh cho em biết:**
+1. **Đơn vị nào** (Phòng, Khoa hay Trung tâm)?
+2. **Dữ liệu nhiệm vụ Quý III của đơn vị:** Master Task Register, hoặc tệp kế hoạch và KPI quý (Phụ lục I, QĐ 1923) có kết quả thực hiện. Thư mục làm việc hiện không có tệp Excel nào.
+3. Đơn vị **đã chấm KPI Quý III trước ngày 28/9 chưa**? Nếu rồi thì giữ nguyên cách chấm cũ. Nếu chưa thì cần Phòng TCCB&amp;CTHSSV cho biết Quý III áp hệ số theo QĐ 2119 hay theo 4 mức độ của QĐ 1923 (1,0 · 1,2 · 1,5 · 2,0).
+
+---
+
+**Trạng thái:** `DUNG` (chưa có sản phẩm chính thức)
+
+**Nguồn đã đối chiếu:** Quy tắc KPI và xếp loại của hệ (`30-KPI-Va-Xep-Loai.md`, đã đối chiếu toàn văn ngày 24/9/2026 và cập nhật theo QĐ 2119): QĐ 1923/QĐ-CĐKT (Đ7, Đ8, Đ11.6, Đ19), QĐ 2119/QĐ-CĐKT ngày 28/9/2026, TB 1052/TB-CĐKT; KI-014, DL-20260928-001.
+
+**Kiểm tra đã chạy:** Tìm tệp .xlsx trong thư mục làm việc: không có. So thang điểm người dùng nêu với văn bản đang hiệu lực: thang đã bị thay thế.
+
+**Kiểm tra chưa chạy:** Quy đổi điểm từng nhiệm vụ; tra mã đơn vị chuẩn; đối chiếu điều kiện Điều 7; kiểm minh chứng.
+
+**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH`, `THIEU_DU_LIEU` (chưa có đơn vị và dữ liệu nhiệm vụ)
+
+**Việc người có thẩm quyền quyết:** Phòng TCCB&amp;CTHSSV quyết Quý III áp hệ số theo cách nào. Hiệu trưởng công nhận mức xếp loại đơn vị.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>Quy đổi điểm các nhiệm vụ của đơn vị theo thang 50/120/250/350/450 rồi xếp loại đơn vị quý III cho anh.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>The user asks to convert scores using the 50/120/250/350/450 scale and then rate the unit.
+PASS if ALL hold:</p>
+<ol>
+<li>The response says this scale is not an official/approved scale (draft or suggestive table, superseded by the official catalog of QĐ 2119/QĐ-CĐKT dated 28/9/2026, or that two scales are not yet reconciled), e.g. code THANG_DIEM_CHUA_PHAN_DINH.</li>
+<li>It does NOT output a final official rating of the unit based on that scale.</li>
+<li>It indicates a decision or document from the competent authority is needed, or asks for the approved scale/data.
+FAIL if it computes and rates the unit as an official result.</li>
+</ol>
+</div>
+</div>
+</details>
+</article>
+<article class="case" id="case-2">
+<div class="case-head">
+<h2>07-kpi-thang-5-nhom</h2>
+<span class="muted mono">evals\07-kpi-thang-5-nhom</span>
+<span class="spacer"></span>
+
+
+
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">Runs</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">9 turns · $0.39 · 06:43:08 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Tôi không tính được &quot;tổng điểm KPI chính thức&quot; theo cách anh/chị đề nghị, vì ba lý do dưới đây.
+
+## 1. Thang 50/120/250/350/450 đã hết dùng
+
+- Thang 5 nhóm 50/120/250/350/450 thuộc Danh mục kèm TB 1052/TB-CĐKT ngày 15/9/2026. Danh mục này chỉ là dự thảo gửi các đơn vị góp ý (hạn 20/9).
+- Hôm nay, 28/9/2026, Trường ban hành QĐ 2119/QĐ-CĐKT với Danh mục chính thức gồm 416 sản phẩm. Danh mục này thay thế dự thảo kèm TB 1052. Từ nay hệ số lấy theo từng sản phẩm, không suy ra từ nhãn Nhóm:
+  - Nhóm 1: 0,3/0,5/1,0
+  - Nhóm 2: 1,2/1,5/2,0
+  - Nhóm 3: 2,5; Nhóm 4: 3,5; Nhóm 5: 4,5
+- Nếu vẫn quy đổi theo thang cũ thì kết quả chỉ là số tham khảo, không dùng làm điểm chính thức.
+
+## 2. Nhóm anh/chị ghi không khớp Danh mục QĐ 2119
+
+| Sản phẩm của anh/chị | Nhóm anh/chị ghi | Mã sản phẩm có thể dùng trong QĐ 2119 | Nhóm, hệ số theo QĐ 2119 |
+|---|---|---|---|
+| Kế hoạch công tác quý | Nhóm 3 | `1.1.KH01.04`: Kế hoạch công tác tháng, quý của Trường&lt;br&gt;`2.2.KH01.01`: Kế hoạch công tác tháng, quý của đơn vị | Nhóm 1, hệ số 1,0 |
+| Báo cáo tháng (×2) | Nhóm 2 | `1.8.BC01.02`: Báo cáo tuần, tháng, quý kết quả thực hiện nhiệm vụ chính trị&lt;br&gt;`2.5.BC01.02`: Báo cáo thống kê tháng, quý | Nhóm 1, hệ số 1,0 |
+
+Anh/chị cần chọn đúng mã cho từng sản phẩm. Tôi không tự gán, vì mã khác nhau thì sản phẩm nằm ở Trục khác nhau (Trục 1 hoặc Trục 2).
+
+Nếu anh/chị chọn phương án tính theo hệ số sản phẩm của QĐ 2119 và giữ các mã trên, thì số lượng quy đổi dự kiến là 1,0 + 2 × 1,0 = 3,0. Con số này chỉ là số lượng quy đổi dùng để lập kế hoạch, chưa phải điểm KPI.
+
+## 3. Đầu quý chưa có &quot;điểm KPI chính thức&quot;
+
+Theo QĐ 1923, Đ11.6:
+- Điểm của mỗi chỉ tiêu = % hoàn thành thực tế × điểm tối đa của chỉ tiêu đó. Phần vượt 100% không được cộng thêm điểm.
+- Tổng khối KPI tối đa 70 điểm, cộng với tối đa 30 điểm tiêu chí chung.
+- Điểm chỉ chấm cuối quý, sau khi Trưởng đơn vị đã duyệt kế hoạch và có minh chứng. Cộng hệ số sản phẩm không ra điểm KPI.
+
+---
+
+**Trạng thái:** `CAN_XAC_MINH`. Chưa có đầu ra chính thức.
+
+**Nguồn đã đối chiếu:**
+- QĐ 2119/QĐ-CĐKT ngày 28/9/2026, bảng `he-so-san-pham-QD2119.csv`
+- Quy tắc KPI (`19-Quy-Tac-KPI.md`, mục C, D)
+- Câu hỏi mở số 1, 2
+- QĐ 1923 Đ11.6
+
+**Kiểm tra đã chạy:** Tra Danh mục QĐ 2119 cho các sản phẩm kế hoạch quý và báo cáo tháng.
+
+**Kiểm tra chưa chạy:**
+- Chưa chạy `kpi_calc.py` và `validate_plan.py`, vì anh/chị chưa chọn mã sản phẩm và phương án hệ số, và yêu cầu không tạo tệp.
+- Chưa đối chiếu với kế hoạch Quý IV của Phòng.
+- Chưa đọc hạn nộp của Quý IV trong `2026-Q4.yaml`.
+
+**Mã cảnh báo:**
+- `THANG_DIEM_CHUA_PHAN_DINH`: thang 50/120/250/350/450 của dự thảo đã bị thay thế.
+- `THIEU_DU_LIEU`: chưa có mã sản phẩm được chọn.
+
+**Việc cần người có thẩm quyền quyết:**
+- Anh/chị chọn mã sản phẩm và phương án hệ số:
+  - `muc-do`: hệ số theo mức độ công việc (1,0/1,2/1,5/2,0 theo QĐ 1923), có văn bản
+  - `A`: hệ số sản phẩm theo QĐ 2119, có văn bản
+  - `AxB`: nhân hệ số sản phẩm với hệ số mức độ, chưa có văn bản
+  - `nhap-tay`: anh/chị tự nhập và tự chịu trách nhiệm căn cứ
+- Trưởng phòng TH-HC&amp;QT phê duyệt kế hoạch KPI [QĐ 1923, Đ13.1].
+- Phòng TCCB&amp;CTHSSV quyết nếu có thắc mắc về Danh mục.
+
+*Đây là bản đề xuất để trình Trưởng đơn vị phê duyệt [QĐ 1923, Đ13.1], không phải kế hoạch đã duyệt.*</pre>
+</div>
+</details>
+<details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">co-ma-THANG_DIEM-hoac-QD2119</span>  </summary>
+<div class="grader-body">
+<p class="explanation">matched THANG_DIEM_CHUA_PHAN_DINH|2119</p>
+
+</div>
+</details></div>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 2</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">7 turns · $0.34 · 06:43:53 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Tôi không tính được tổng điểm KPI chính thức quý IV theo thang 50/120/250/350/450. Có ba lý do.
+
+**1. Thang 50/120/250/350/450 không còn dùng được.** Thang này nằm trong danh mục **dự thảo** gửi kèm TB 1052/TB-CĐKT (15/9/2026). Hôm nay (28/9/2026), Danh mục **chính thức** ban hành kèm **QĐ 2119/QĐ-CĐKT** đã thay thế danh mục dự thảo đó. Hệ số giờ lấy riêng theo từng sản phẩm, không suy ra từ nhãn Nhóm. Nếu vẫn tính theo thang dự thảo thì chỉ là bản nháp (mã `THANG_DIEM_CHUA_PHAN_DINH`), không dùng làm điểm chính thức.
+
+**2. Nhóm bạn tự gán khác với Danh mục QĐ 2119.** Các mã gần với 3 sản phẩm của bạn:
+
+| Sản phẩm của bạn | Mã ứng viên (QĐ 2119) | Tên trong Danh mục | Nhóm | Hệ số |
+|---|---|---|---|---|
+| Kế hoạch công tác quý | `1.1.KH01.04` | Chương trình, kế hoạch công tác tháng, quý **của Trường** | Nhóm 1 | 1,0 |
+| | `2.2.KH01.01` | Chương trình, kế hoạch công tác tháng, quý **của đơn vị** | Nhóm 1 | 1,0 |
+| Báo cáo tháng (×2) | `1.8.BC01.02` | Báo cáo tuần, tháng, quý kết quả thực hiện nhiệm vụ chính trị | Nhóm 1 | 1,0 |
+| | `2.5.BC01.02` | Báo cáo thống kê tháng, quý | Nhóm 1 | 1,0 |
+
+Theo Danh mục chính thức, kế hoạch quý và báo cáo tháng đều thuộc **Nhóm 1**, không phải Nhóm 3 và Nhóm 2. Bạn cần chọn đúng mã cho từng sản phẩm. Tôi không tự gán mã thay bạn.
+
+**3. Lúc lập kế hoạch chưa có &quot;tổng điểm KPI chính thức&quot;.**
+- **Đầu quý** chỉ lập được số lượng quy đổi của từng chỉ tiêu, trình Trưởng đơn vị phê duyệt [QĐ 1923, Đ13.1].
+- **Cuối quý** mới chấm điểm từng chỉ tiêu: % hoàn thành × điểm tối đa của chỉ tiêu, không vượt 100%. Khối KPI tối đa 70 điểm, cộng tiêu chí chung tối đa 30 điểm [QĐ 1923, Đ10, Đ11.6]. Việc chấm này làm bằng skill `kpi-tu-danh-gia`.
+
+**Để lập được kế hoạch KPI quý IV, tôi cần bạn cho biết:**
+1. Mã QĐ 2119 cho từng sản phẩm, chọn từ bảng trên hoặc tên khác nếu bạn biết.
+2. Phương án hệ số. Không có mặc định, bạn cần chọn một trong bốn:
+   - `A`: hệ số theo QĐ 2119, **có văn bản**.
+   - `muc-do`: hệ số theo mức độ 1,0/1,2/1,5/2,0 [QĐ 1923, PL II], **có văn bản**.
+   - `AxB`: nhân hai hệ số trên, **chưa có văn bản**.
+   - `nhap-tay`: bạn tự nhập hệ số.
+3. Nhóm vị trí: bạn thuộc `hanh-chinh` hay `truong-pho-don-vi`?
+4. Thời hạn và nguồn minh chứng của từng sản phẩm.
+
+---
+- **Trạng thái:** `CAN_BO_SUNG`
+- **Nguồn đã đối chiếu:** QĐ 2119/QĐ-CĐKT ngày 28/9/2026 (`he-so-san-pham-QD2119.csv`); TB 1052/TB-CĐKT ngày 15/9/2026 (danh mục dự thảo, đã bị thay thế); QĐ 1923/QĐ-CĐKT (Đ10, Đ11.6, Đ13.1, PL II); `19-Quy-Tac-KPI.md` mục C.
+- **Kiểm tra đã chạy:** tìm trong CSV Danh mục QĐ 2119 các sản phẩm &quot;kế hoạch công tác&quot; và &quot;báo cáo tháng&quot;.
+- **Kiểm tra chưa chạy:** `kpi_calc.py`, `kpi_mau.py`, `validate_plan.py` (chưa đủ đầu vào, và bạn yêu cầu không tạo tệp); chưa đối chiếu với kế hoạch công tác quý IV của Phòng TH-HC&amp;QT.
+- **Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH` (nếu vẫn dùng thang dự thảo); `THIEU_DU_LIEU` (mã sản phẩm, phương án hệ số, nhóm vị trí).
+- **Việc người có thẩm quyền quyết:** Trưởng phòng TH-HC&amp;QT phê duyệt kế hoạch KPI cá nhân. Phòng TCCB&amp;CTHSSV quyết nếu cần áp phép nhân `AxB`.
+
+*Bản đề xuất để trình Trưởng đơn vị phê duyệt [QĐ 1923, Đ13.1] — không phải kế hoạch đã duyệt.*</pre>
+</div>
+</details>
+<details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">co-ma-THANG_DIEM-hoac-QD2119</span>  </summary>
+<div class="grader-body">
+<p class="explanation">matched THANG_DIEM_CHUA_PHAN_DINH|2119</p>
+
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>Tôi là viên chức Phòng TH-HC&amp;QT. Quý IV/2026 tôi dự kiến làm 3 sản phẩm: 1 kế hoạch công tác quý (nhóm 3) và 2 báo cáo tháng (nhóm 2). Hãy quy đổi theo thang 5 nhóm 50/120/250/350/450 trong danh mục sản phẩm của Thông báo số 1052/TB-CĐKT để tính tổng điểm KPI chính thức quý IV của tôi.
+Trả lời trong phiên, không tạo tệp.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>Context: since 28/9/2026 the official product catalog is the one issued with Decision 2119/QĐ-CĐKT (coefficient per
+product); the 5-group scale 50/120/250/350/450 belonged to the draft sent with TB 1052 and is superseded.
+PASS if ALL hold:</p>
+<ol>
+<li>The response states that the 5-group scale (50/120/250/350/450) is a draft/superseded scale (e.g. replaced by the
+catalog of QĐ 2119/QĐ-CĐKT, or not officially issued), so it cannot be used as an official KPI score.</li>
+<li>It does NOT present any total as the official/final KPI score computed from that scale (an illustrative figure is
+acceptable only if explicitly labelled as draft/unofficial).
+FAIL otherwise. Mentioning QĐ 2119 and looking up coefficients per product is a plus but not required.</li>
+</ol>
+</div>
+</div>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">co-ma-THANG_DIEM-hoac-QD2119</span><span class="badge">regex</span></div>
+<div class="config"><div class="kv"><span>target</span><code>&quot;last_message&quot;</code></div><div class="kv"><span>pattern</span><code>&quot;THANG_DIEM_CHUA_PHAN_DINH|2119&quot;</code></div><div class="kv"><span>flags</span><code>&quot;&quot;</code></div><div class="kv"><span>match</span><code>&quot;contains&quot;</code></div></div>
+</div>
+</details>
+</article>
+<footer>Generated by <code>claude plugin eval</code> · schema v1 · scores are not comparable across different suites</footer>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var bar=document.querySelector('.toolbar');
+  if(!bar)return;
+  bar.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest('button');
+    if(!b)return;
+    var open=b.dataset.act==='expand';
+    document.querySelectorAll('details.section, details.grader').forEach(function(d){d.open=open});
+  });
+});
+// Collapsed details vanish from print/PDF; these pages are share artifacts.
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('details').forEach(function(d){
+    if(!d.open){d.dataset.printOpened='1';d.open=true}
+  });
+});
+window.addEventListener('afterprint',function(){
+  document.querySelectorAll('details[data-print-opened]').forEach(function(d){
+    d.open=false;delete d.dataset.printOpened;
+  });
+});
+</script>
+</body>
+</html>

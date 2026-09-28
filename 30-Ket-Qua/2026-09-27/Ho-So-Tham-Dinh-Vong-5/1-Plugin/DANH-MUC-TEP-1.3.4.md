@@ -1,9 +1,9 @@
-# Danh mục tệp — ktc-quan-tri-1.3.3.zip
+# Danh mục tệp — ktc-quan-tri-1.3.4.zip
 
 | Tệp | Byte | SHA-256 |
 |---|---:|---|
-| `.claude-plugin/plugin.json` | 1781 | `81995f26bf97c9e3a70e88dc5e1b2c707a1962dda1563de18be469a3de60dba6` |
-| `CHANGELOG.md` | 23032 | `eec57de6e516a0732c79356c1a06c149102dbae3d6717e84311daf1fd2a68fe4` |
+| `.claude-plugin/plugin.json` | 1782 | `723bf1f0c7551bb9b2fb285e7e5df8b7b90e1e36cf7c7ecaee0d35f8ebb910c3` |
+| `CHANGELOG.md` | 24270 | `5a653ef030d880c84ba4f5eb7af411e3b00dcb13bf29a1e347e82e0fb2cc6180` |
 | `README.md` | 9515 | `602e7cc25bf9b616d7d5d7227b2c3d99c45abaf275a903c9f5867e12c4708ec1` |
 | `agents/ktc-hieu-luc-vien-dan.md` | 8464 | `aac02ca1314ff0da680c663f5dd85720d2e4db1f2067da989b29444ef2f041aa` |
 | `agents/ktc-kiem-ho-so-don-vi.md` | 7469 | `af766611f32f8be4624f2676a72b32ec503a2cfd5f39a2370419d7f3852a807b` |
@@ -21,16 +21,16 @@
 | `scripts/kpi_calc.py` | 14203 | `9532b0702bcdcac600762817a052315b3edf790d9b52dfd2795ffd5aea44aacb` |
 | `scripts/kpi_danh_gia.py` | 37320 | `dd93e0a7460226476115909f964b9f0e660d0072a039f251f9a8c5e4cc369867` |
 | `scripts/kpi_mau.py` | 26541 | `faabd3618bdc70a399475ba2405b0cc0ea8b94ae0814ed07c33950a34b130db4` |
-| `scripts/ktc_guard.py` | 14441 | `95b5ceb446d9bbeb9cdf3d8e4c2720290483e0af02f915a63ce70ce6142b1fcf` |
+| `scripts/ktc_guard.py` | 15472 | `4749956dacb4cdaf506dad4b9ce8ee7343936dcdd36e24b3cdec767cd21c4d5e` |
 | `scripts/ktc_nhat_ky.py` | 18165 | `f2935b8ee21c6ec17b430a8253387f851e937f282910b3cc85ac90825c387cf1` |
 | `scripts/ktc_quan_tri_doctor.py` | 4120 | `afc796ed7f128092b61c904e84c317f2e91bc7ab21934841ce8fcc554d88c518` |
 | `scripts/ktc_the_thuc_hook.py` | 4410 | `01a221c81532cc9419e9b00e6c552ea04ae5790064d5af79287f5e07744cb81e` |
 | `scripts/tra_hieu_luc.py` | 13541 | `91e8a404e6e69708feeccb3807e275498687936fbb0d660034f821501ef88d8c` |
 | `scripts/validate_plan.py` | 11318 | `1e8245e7a2feedf44e03432f20405060bdcd357081d6bf0b3f6ad71838816999` |
-| `skills/bao-cao/SKILL.md` | 13736 | `d114ff2e1108d8d04568c937de3ebd6971f99732d0c843b048ac465a07951604` |
+| `skills/bao-cao/SKILL.md` | 13736 | `c76bfb98d1bda1e5c68c9399290b7026070e13d5c3d5cbc17ea6c05b84708d13` |
 | `skills/bao-cao/assets/mau-nhat-ky-chay.md` | 1326 | `d0418c2250bc71c84499127e8868ba11366fc455cf6691ca10ba5950a17857d2` |
 | `skills/bao-cao/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8757 | `07e214296c79265902c84e3d0e7962f04c6d9b279981f9d81a11ed63bb6e35fd` |
-| `skills/bao-cao/references/LICH-SU-PHIEN-BAN.md` | 2047 | `0415e5a0a5b6213719890d7164acd541fe1b4aa1e476c187d0150ff9efc17bdc` |
+| `skills/bao-cao/references/LICH-SU-PHIEN-BAN.md` | 2322 | `6e676898c134ed25235e706778abe71487d4db7d1dd18c267b3acc8d26740bed` |
 | `skills/bao-cao/references/Memory/01-Nhat-Ky-Chay.md` | 3219 | `cc9dad15b5beb3a9388dd6d8b943b995be8aa9fe491a70cfdd9bb824e1588a08` |
 | `skills/bao-cao/references/Memory/02-So-Dang-Ky-Loi.md` | 4011 | `1e1aa6a91b4770dd7164dcf07e3f9a4d596c05faa1b9ac2a24662de73618f536` |
 | `skills/bao-cao/references/Memory/03-Chat-Luong-Du-Lieu-Don-Vi.md` | 3460 | `d1d2dd7f8adde9cb12822fc245de2c52d1869df71df854c5bbf602bfd5f0ffe7` |
@@ -51,7 +51,7 @@
 | `skills/bao-cao/references/Skill-Library/04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md` | 3748 | `62f79573f63ee7b0358f8d4379fd8df81600d4bc4299f4aa9b387b157c0c3b78` |
 | `skills/bao-cao/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15337 | `61e0e7d52d691a7ede6448fa9802af3b475713dcdf6ec47007e5fbe371b60a84` |
 | `skills/bao-cao/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 8565 | `0875c606c0e76de922b169a3e6482b699cac75f15651ab4bc76e2ee6fe48c67d` |
-| `skills/bao-cao/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 11063 | `f7d6f6c0efe0dab8d0e85593e05365d1f5d0b79a0e237152d206eeed871e555f` |
+| `skills/bao-cao/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
 | `skills/bao-cao/references/Skill-Library/31-Skill-Phu-Luc-TB736-Excel.md` | 8413 | `1c3e4538b88e729d9cab7d8e0e63f2c5164f509aecf024069bc797c9759991aa` |
 | `skills/bao-cao/references/Skill-Library/32-Skill-Thu-Thap-Bao-Cao-Don-Vi.md` | 6468 | `2974657733537316b49f282db7279b2510066333c5fe4ac1bf7aecebd5e3fb36` |
 | `skills/bao-cao/references/Skill-Library/33-Skill-Tong-Hop-Bao-Cao-Truong.md` | 19890 | `0f09b81d066e26d94aa0ce7a941db103cd81f60d5b7de83e0bf568f976212956` |
@@ -76,7 +76,7 @@
 | `skills/bao-cao/references/Skill-Library/test_regression_v34.py` | 8066 | `3c96a783d09b43ae10449cabcb266fc75e7c3cdd57a86edf9b06bf2cbea86175` |
 | `skills/bao-cao/references/Workflow/09-Tong-Hop-Bao-Cao.md` | 5750 | `2ad4da5b57e791dd0b111cfc528810f8c5a126e56c9d594670c5b6466acfe50c` |
 | `skills/ke-hoach/00-README.md` | 2020 | `5189be3c63989c56cb2c9593baaebe9d10cacd24f41d70e11afcf9c2d573f3d5` |
-| `skills/ke-hoach/SKILL.md` | 12862 | `c22cc63ac346164da1fb34373eef1fab86bfaa2b6e1038074245184ee32b29af` |
+| `skills/ke-hoach/SKILL.md` | 13126 | `5d12200a4e0ab5729ebeb93ae7712d3c50561bc9c2d0045124302776f1eceed9` |
 | `skills/ke-hoach/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8757 | `07e214296c79265902c84e3d0e7962f04c6d9b279981f9d81a11ed63bb6e35fd` |
 | `skills/ke-hoach/references/Prompt-Library/00-Preflight-Check.md` | 2544 | `379111fbc832230abc4d7275f713dbd9f870f98d1b985190f985af3ef3a70691` |
 | `skills/ke-hoach/references/Prompt-Library/16-Tong-Hop-Ke-Hoach/00-Preflight-Check.md` | 2683 | `3d86e80fc3d21177792d3fd36797ea5e0ec0d57458bf12cf6355f5c289b466fb` |
@@ -90,7 +90,7 @@
 | `skills/ke-hoach/references/Skill-Library/04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md` | 3748 | `62f79573f63ee7b0358f8d4379fd8df81600d4bc4299f4aa9b387b157c0c3b78` |
 | `skills/ke-hoach/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15337 | `61e0e7d52d691a7ede6448fa9802af3b475713dcdf6ec47007e5fbe371b60a84` |
 | `skills/ke-hoach/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 8565 | `0875c606c0e76de922b169a3e6482b699cac75f15651ab4bc76e2ee6fe48c67d` |
-| `skills/ke-hoach/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 11063 | `f7d6f6c0efe0dab8d0e85593e05365d1f5d0b79a0e237152d206eeed871e555f` |
+| `skills/ke-hoach/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
 | `skills/ke-hoach/references/Skill-Library/34-Skill-Nhan-Ke-Hoach-Preflight.md` | 10382 | `62a14fc4128636596b6be4e80cfaffa60398fcd137acd4d76442b317f69f1398` |
 | `skills/ke-hoach/references/Skill-Library/35-Skill-Thu-Thap-De-Xuat-Don-Vi.md` | 1132 | `0737ae20a05a0189a426bfa2879e73673579b9a7a1b4e9daab3f0a047217301f` |
 | `skills/ke-hoach/references/Skill-Library/36-Skill-Tong-Hop-Ke-Hoach-Truong.md` | 10438 | `c159435a8c096a5aeec052668632590fad3f960b9b7d9cff2af0afca1565f2c0` |
@@ -137,13 +137,13 @@
 | `skills/kpi-tu-danh-gia/scripts/kpi_danh_gia.py` | 37320 | `dd93e0a7460226476115909f964b9f0e660d0072a039f251f9a8c5e4cc369867` |
 | `skills/kpi-tu-danh-gia/scripts/kpi_mau.py` | 26541 | `faabd3618bdc70a399475ba2405b0cc0ea8b94ae0814ed07c33950a34b130db4` |
 | `skills/quan-tri/00-README-ktc-quan-tri.md` | 3654 | `09e040af4b55de3ae8f89b1d39c0f1e83135815f0955b60b87800f5a67a550b1` |
-| `skills/quan-tri/CHANGELOG.md` | 2979 | `56dcd287aedda18dc2612ac6b8a8525d2040706abf314ee51a0748cb5bfa20d1` |
-| `skills/quan-tri/SKILL.md` | 16920 | `672ae7b87ed27f685384e2c0c8c541cac299dd154f0b947dcf9d4cab2ea4d4b0` |
+| `skills/quan-tri/CHANGELOG.md` | 3381 | `43e8df0c3fb6f8a109f7426d4058f2a687376f500a742a5d64ba53aca5ed2f16` |
+| `skills/quan-tri/SKILL.md` | 17196 | `9953170e7fa1821ca8f20eec7bc0f73dd90b8e81a7b4f6c5fdfd93d6f9125712` |
 | `skills/quan-tri/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8757 | `07e214296c79265902c84e3d0e7962f04c6d9b279981f9d81a11ed63bb6e35fd` |
 | `skills/quan-tri/references/01-Nguyen-Tac-Chung.md` | 17932 | `e44a6a7c77a13079a0f14f2cc2b77c581074a001e16019f9611ce8070078d83b` |
 | `skills/quan-tri/references/02-Chi-Muc-KTC-Database.md` | 4424 | `a1dfe3763345fe5a7b10f889483768fae79f7ef56a54e6b5983e7f94115ad4a2` |
 | `skills/quan-tri/references/10-Sau-Truc-38-Noi-Ham.md` | 5459 | `05e05eff884f3712a8956452812703b7e6b92979d6c3e1842906a9ad145ce688` |
-| `skills/quan-tri/references/11-Skill-Phan-Loai-6-Truc.md` | 11063 | `f7d6f6c0efe0dab8d0e85593e05365d1f5d0b79a0e237152d206eeed871e555f` |
+| `skills/quan-tri/references/11-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
 | `skills/quan-tri/references/12-Bang-Ma-Don-Vi.md` | 7968 | `0ede4623f71330e437d2f87f8cd252e0abe7e688c495d6cb6ddb8b066c0dd2b2` |
 | `skills/quan-tri/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` | 9736 | `d4129907acfbce7d99c6567fef08a9377eeae1341d8ff92e7ea9dc9d300cf642` |
 | `skills/quan-tri/references/17-Quy-Tac-Vien-Dan.md` | 15337 | `61e0e7d52d691a7ede6448fa9802af3b475713dcdf6ec47007e5fbe371b60a84` |
@@ -158,7 +158,7 @@
 | `skills/quan-tri/references/41-Gioi-Han-Nen-Tang.md` | 3060 | `7cd07629a8d352aef12f64e2979d62382bdcd4b88b3ba8d75d618ab8b2def008` |
 | `skills/quan-tri/references/README.md` | 3319 | `42fee403581089d0fd56dfad72795188bc183a8462cd9e2d44a957499c2fedb5` |
 | `skills/soan-thao-vb/00-README.md` | 4819 | `2ea4c3b76d491bceb08511ab1a907db79cea30d1e84f776b460f2e51aeb8e813` |
-| `skills/soan-thao-vb/SKILL.md` | 15173 | `799edd87e7c7c19231fb597810b5c5c4524ca6725660a44d78fc5602c26f0aca` |
+| `skills/soan-thao-vb/SKILL.md` | 15429 | `ae5056cb23a4eac53ffe54129e0be157e2b37a41e36f8fd71e3d97c025a34cc3` |
 | `skills/soan-thao-vb/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8757 | `07e214296c79265902c84e3d0e7962f04c6d9b279981f9d81a11ed63bb6e35fd` |
 | `skills/soan-thao-vb/references/Input-Output/11-Input-README.md` | 4047 | `4f0a50e5d1ea66b16d4c07e06b47ecf95fcb9d3a67c0d5322603d0d7e5f317df` |
 | `skills/soan-thao-vb/references/KTC-Regulations-Reference/817-TB-CDKT-Noi-Ham-6-Truc.md` | 1062 | `546181e196f72e347bd37b428db3cc17b55ccd986e8c2361536afa21847b1de4` |
@@ -239,7 +239,7 @@
 | `skills/soan-thao-vb/references/Skill-Library/25-Skill-Van-Ban-Cap-Phong.md` | 1478 | `d394b2036bb65289bedafbf5e1ca8b6e028598b3e5faf5862efed90edddf8ca4` |
 | `skills/soan-thao-vb/references/Skill-Library/26-Skill-Van-Ban-Doi-Ngoai.md` | 1558 | `c7a939f212b15eaba894c6cd9152d95281e57cf6b66901862357820e0cd4764c` |
 | `skills/soan-thao-vb/references/Skill-Library/27-Metadata_20260807_v2.md` | 2312 | `617a5e588ffcef19e5227d5ae780010f5f26855774be5736c2a06f364a621d46` |
-| `skills/soan-thao-vb/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 11063 | `f7d6f6c0efe0dab8d0e85593e05365d1f5d0b79a0e237152d206eeed871e555f` |
+| `skills/soan-thao-vb/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
 | `skills/soan-thao-vb/references/Skill-Library/31-Skill-Nghiep-Vu-HSSV.md` | 1533 | `c3d333f9d840baf6ac159d8f8d78081d68e1a26cf9a429479b9ca21dd45dc8a6` |
 | `skills/soan-thao-vb/references/Skill-Library/README.md` | 2043 | `b4c799f13af50bf70d61f4b391319dffb69edf871c876ce44e35004f2a504873` |
 | `skills/soan-thao-vb/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` | 4964 | `697e0134a3a10dcdcf19164b7d673c40754e1c7f0fa79941de15671d1ace94f9` |
@@ -259,12 +259,12 @@
 | `skills/the-thuc/references/18-Chuan-The-Thuc-San-Pham.md` | 8565 | `0875c606c0e76de922b169a3e6482b699cac75f15651ab4bc76e2ee6fe48c67d` |
 | `skills/the-thuc/scripts/kiem_the_thuc.py` | 15642 | `aecf6650f6b08b5b4dc7bef2b2af9a8365fcebc2d090a4ba70acb10c35c8592e` |
 | `skills/theo-doi-cv/00-README.md` | 3971 | `65a1a875a6510a60a0aaa9a3246d5827bd8a8e2b110fce4546b154c8a844f853` |
-| `skills/theo-doi-cv/SKILL.md` | 10542 | `a240a4e0c197072ae7618d74c898710dc7a8506d7cad4885f1f0a441fda0f8f8` |
+| `skills/theo-doi-cv/SKILL.md` | 10805 | `9cb4526f9ac54f5d5b34063594a22a71a6c0a76f0bfc6bb65f1a4a7c4d9c92d6` |
 | `skills/theo-doi-cv/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8757 | `07e214296c79265902c84e3d0e7962f04c6d9b279981f9d81a11ed63bb6e35fd` |
 | `skills/theo-doi-cv/references/Skill-Library/00-Nguyen-Tac-Chung.md` | 17932 | `e44a6a7c77a13079a0f14f2cc2b77c581074a001e16019f9611ce8070078d83b` |
 | `skills/theo-doi-cv/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15337 | `61e0e7d52d691a7ede6448fa9802af3b475713dcdf6ec47007e5fbe371b60a84` |
 | `skills/theo-doi-cv/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 8565 | `0875c606c0e76de922b169a3e6482b699cac75f15651ab4bc76e2ee6fe48c67d` |
-| `skills/theo-doi-cv/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 11063 | `f7d6f6c0efe0dab8d0e85593e05365d1f5d0b79a0e237152d206eeed871e555f` |
+| `skills/theo-doi-cv/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
 | `skills/theo-doi-cv/references/Skill-Library/40-Skill-Tiep-Nhan-Nhiem-Vu.md` | 2584 | `a65dae2850a89913597a52b55883aea8f70652e055a11cc7cf71e031cdecf5c1` |
 | `skills/theo-doi-cv/references/Skill-Library/41-Skill-Cap-Nhat-Tien-Do.md` | 2271 | `6c20c3f6f3a585fa090cbbcec7d0d51d9d9ac329bed7dccaccc582102be68027` |
 | `skills/theo-doi-cv/references/Skill-Library/42-Skill-Canh-Bao.md` | 2189 | `41f92e05daf6fa5f96cc966c6bf8ed9aefa674921f35604c1203f21f1855a46b` |

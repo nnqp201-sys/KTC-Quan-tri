@@ -1,6 +1,6 @@
-# Phiếu nghiệm thu plugin KTC-Quan-tri 1.3.3 trên Claude (trò chuyện) và Claude Cowork
+# Phiếu nghiệm thu plugin KTC-Quan-tri 1.3.4 trên Claude (trò chuyện) và Claude Cowork
 
-Tệp cài: `ktc-quan-tri-1.3.3.zip`, SHA-256 `c1609207bdb910047f9af0b9932d0da986316be0b493506e074700b71e90ec1b` — **đối chiếu mã trước khi cài**; khác mã thì dừng.
+Tệp cài: `ktc-quan-tri-1.3.4.zip`, SHA-256 `45c6199ebefad22fe385454e085d3b827af651a29186469d68e1986abefafa5e` — **đối chiếu mã trước khi cài**; khác mã thì dừng.
 Cùng bộ ca đã chạy tự động trên Claude Code (`claude plugin eval`). Thử bằng **dữ liệu giả**; mỗi ca mở cuộc hội
 thoại mới, dán nguyên văn lời nhắc, ghi kết quả. Không thay kết quả bằng lời tự khai của mô hình — trích câu trả
 lời thật. Ca C1, C2 chỉ chạy trên Cowork (Claude trò chuyện không có hook).

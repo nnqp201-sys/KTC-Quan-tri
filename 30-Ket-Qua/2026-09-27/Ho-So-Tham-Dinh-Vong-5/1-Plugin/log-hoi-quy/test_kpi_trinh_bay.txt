@@ -18,8 +18,8 @@
 == T6. Sau danh-gia: dòng KPI đủ cao cho sản phẩm thực tế (K) và minh chứng (S) ==
   OK KPI dòng 9: cao 409 pt ≥ ước cho cột K 409 pt
 == T7. Tệp ra đang bị khóa (như Excel đang mở) -> thông báo tiếng Việt, mã ≠ 0, không traceback ==
-  OK kpi_mau: mã 2, thông báo: '7fxu\\dang_mo.xlsx: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.'
-  OK kpi_danh_gia: mã 2, thông báo: '7fxu\\dang_mo.xlsx: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.'
+  OK kpi_mau: mã 2, thông báo: '0kqu\\dang_mo.xlsx: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.'
+  OK kpi_danh_gia: mã 2, thông báo: '0kqu\\dang_mo.xlsx: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.'
 == T8. Cả 6 nhóm: C–F đúng theo tiêu đề cột của mẫu ==
   OK truong-pho-don-vi: C, E, F đúng ở Trục 1 và 4; không KH18
   OK bo-mon: C, E, F đúng ở Trục 1 và 4; không KH18
