@@ -96,6 +96,9 @@ if co_kho and os.path.isdir(DV):
         kiem(any("nhiệm kỳ 2026-2031" in x for x in txt), "word: giữ căn cứ đúng của bản đã ban hành (2026-2031)")
         i59, i71 = (next(i for i, x in enumerate(txt) if x.startswith(f"* Nghị quyết số {s}")) for s in ("59", "71"))
         kiem(i59 < i71, "word: Nghị quyết xếp đúng thứ tự (59 trước 71) dù nhập ngược")
+        o_so = docx.Document(os.path.join(tam, "bc.docx")).tables[0].rows[1].cells[0].text
+        kiem("Số:" in o_so and not any(ch.isdigit() for ch in o_so.split("/")[0]),
+             f"word: số văn bản để trống cho Văn thư, kể cả khi bản gốc ghi dị dạng 'Số375BC-CĐKT' (được: {o_so[:25]!r})")
         run2 = next(p for p in docx.Document(os.path.join(tam, "bc.docx")).paragraphs if p.text.startswith("* Công tác tuyển sinh"))
         kiem(len(run2.runs) >= 2 and run2.runs[1].bold in (False, None), "word: nhãn đậm nghiêng, nội dung thường (2 run)")
 
@@ -117,6 +120,9 @@ if co_kho and os.path.isdir(DV):
         kiem(len(f) >= 9 and ws["M11"].value == "=K11*75%", "phu-luc: dòng có kết quả đủ công thức KPI (M = K×75%)")
         kiem(ws["K10"].value is None, "NGƯỢC: dòng chưa có kết quả không tự điền 100%")
         kiem(isinstance(ws["F11"].value, (int, float)), "phu-luc: số lượng lưu dạng số")
+        sot = [c.coordinate for row in ws.iter_rows(min_row=8, max_col=2) for c in row
+               if isinstance(c.value, str) and "tháng 8" in c.value.lower()]
+        kiem(not sot, f"phu-luc: tiêu đề nhóm, Trục không còn 'tháng 8' của bản gốc (sót: {sot[:3]})")
         kh = {"ky": {"thang": 10, "nam": 2026}, "can_cu": "        Căn cứ thử.",
               "truc": {"1": {"dong": [{"nd": "Việc thử", "cd": "Hiệu trưởng", "ct": "Phòng TH-HC&QT", "sp": "Kế hoạch",
                                         "sl": "1", "dk": "Cao", "thoi_han": "Chậm nhất ngày 31/10/2026"}]}}}

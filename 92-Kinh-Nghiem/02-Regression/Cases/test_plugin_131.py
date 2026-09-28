@@ -115,6 +115,18 @@ CHAN_133 = [
 for cc, l, ten in CHAN_133:
     kq = guard(cc, l)
     kiem(kq == "chan", f"chặn 1.3.3 (ca ngược): {ten} (được: {kq})")
+# 1.3.6: chạy thật 28/9/2026 — skill ghi "bộ nhớ quá trình" vào chính tệp plugin đã cài
+GOC_PL = os.path.join(GOC, "31-Plugin")
+if os.path.isdir(os.path.join(GOC_PL, ".claude-plugin")):
+    _G_CU, GUARD = GUARD, os.path.join(GOC_PL, "scripts", "ktc_guard.py")      # guard ban dung (co .claude-plugin/)
+    for ten, p, mong in (("Write vào Memory của plugin", os.path.join(GOC_PL, "skills", "bao-cao", "references", "Memory", "02-So-Dang-Ky-Loi.md"), "chan"),
+                         ("Edit vào bộ đệm .claude/plugins", os.path.expanduser(r"~\.claude\plugins\cache\x\y\SKILL.md"), "chan"),
+                         ("Write vào thư mục làm việc (ngoài plugin)", r"C:\Tam\KTC-Thu\30-Ket-Qua\2026-09-28\bao-cao\a.docx", "qua")):
+        kq = guard("Write", p)
+        kiem(kq == mong, f"1.3.6: {ten} → {mong} (được: {kq})")
+    GUARD = _G_CU
+else:
+    print("  ⚠ BỎ QUA 1.3.6 plugin-dir: guard không chạy từ bản dựng có .claude-plugin/")
 # 1.3.4: chặn nhầm thật 28/9/2026 — dấu ">" trong thân heredoc Python khi đang đứng trong kho
 KHO = "H:/My Drive/KTC-Database/02-KTC-Regulations"
 QUA_134 = [

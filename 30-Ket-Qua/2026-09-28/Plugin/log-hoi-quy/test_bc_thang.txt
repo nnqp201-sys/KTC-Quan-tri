@@ -19,6 +19,7 @@
   OK word: mục III là tháng sau
   OK word: giữ căn cứ đúng của bản đã ban hành (2026-2031)
   OK word: Nghị quyết xếp đúng thứ tự (59 trước 71) dù nhập ngược
+  OK word: số văn bản để trống cho Văn thư, kể cả khi bản gốc ghi dị dạng 'Số375BC-CĐKT' (được: 'Số:      /BC-CĐKT')
   OK word: nhãn đậm nghiêng, nội dung thường (2 run)
 == E. Phụ lục, kế hoạch ==
   OK phu-luc: 5 dòng có kết quả, 1 dòng để trống
@@ -26,6 +27,7 @@
   OK phu-luc: dòng có kết quả đủ công thức KPI (M = K×75%)
   OK NGƯỢC: dòng chưa có kết quả không tự điền 100%
   OK phu-luc: số lượng lưu dạng số
+  OK phu-luc: tiêu đề nhóm, Trục không còn 'tháng 8' của bản gốc (sót: [])
   OK ke-hoach: tiêu đề tháng 10, số văn bản để trống
   OK ke-hoach: giữ khối Nơi nhận
   OK ke-hoach: số lượng '1' đổi thành số

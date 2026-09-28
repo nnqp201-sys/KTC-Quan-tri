@@ -3,7 +3,7 @@ name: bao-cao
 description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.18
+# KTC-Bao-Cao / KTC-RIS v3.19
 
 > Lịch sử phiên bản: `references/LICH-SU-PHIEN-BAN.md` (không cần đọc khi làm việc).
 
@@ -113,6 +113,12 @@ xem bảng "khi nào đọc file nào" trong `references/Memory/README.md`.
 
 Ghi cuối phiên là quá muộn — phiên kết thúc thì ngữ cảnh mất. Bộ nhớ cũ không được cập nhật
 nguy hiểm hơn không có bộ nhớ, vì nó tạo cảm giác an tâm giả.
+
+**Ghi ở đâu (v3.18):** các tệp `references/Memory/` chỉ được **ghi** khi đang làm việc trong dự án KTC-Quan-tri (thư
+mục `25-KTC-Bao-Cao/`). Chạy qua plugin, gói kỹ năng, Cowork, tài khoản thành viên: **không sửa tệp của plugin** (bản
+phát hành — sửa sẽ mất khi cập nhật và lệch giữa các máy; guard chặn). Khi đó ghi nhật ký chạy, lỗi dữ liệu đơn vị, lỗi
+công cụ vào **tệp ghi chú đối soát** của kỳ trong `30-Ket-Qua/<ngày>/<loại>/` (hoặc nêu trong câu trả lời) để Phòng
+TH-HC&QT đưa vào bộ nhớ gốc.
 
 ## Báo cáo tháng cấp Trường — QUY TRÌNH CHÍNH (v3.18, bắt buộc)
 

@@ -32,6 +32,7 @@ neu may khong co Python thi hook khong chay duoc — doctor dau phien bao "guard
 Ma thoat: 0 = cho phep · 2 = chan (thong bao ra stderr cho Claude).
 """
 import json
+import os
 import re
 import shlex
 import sys
@@ -257,6 +258,21 @@ def kiem_lenh(lenh: str, sau: int = 0):
                 _chan(f"lệnh `{dt}` chép vào vùng bảo vệ: {dich[0]}")
 
 
+GOC_PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def _trong_plugin(p: str) -> bool:
+    """1.3.6 (chay that 28/9/2026): skill bao-cao ghi 'bo nho qua trinh' vao chinh tep cua plugin da cai. Tep plugin la
+    ban phat hanh — sua o may nguoi dung se mat khi cap nhat va lech giua cac may."""
+    if not p:
+        return False
+    ap = os.path.normcase(os.path.abspath(p))
+    if re.search(r"[\\/]\.claude[\\/]plugins[\\/]", ap):
+        return True
+    goc = os.path.normcase(GOC_PLUGIN)
+    return os.path.isdir(os.path.join(GOC_PLUGIN, ".claude-plugin")) and (ap == goc or ap.startswith(goc + os.sep))
+
+
 def kiem(data: dict):
     ten = data.get("tool_name") or ""
     vao = data.get("tool_input") or {}
@@ -264,6 +280,9 @@ def kiem(data: dict):
         p = vao.get("file_path") or vao.get("notebook_path") or ""
         if VUNG.search(str(p)):
             _chan(f"{ten} vào {p}")
+        if _trong_plugin(str(p)):
+            _chan(f"{ten} vào tệp của plugin đã cài ({p}). Không sửa tệp plugin; ghi nhật ký, bộ nhớ quá trình, sản phẩm "
+                  "vào thư mục làm việc (30-Ket-Qua/<ngày>/<loại>/, ghi chú đối soát)")
     elif ten in CONG_CU_LENH:
         kiem_toan_lenh(str(vao.get("command") or ""))
 

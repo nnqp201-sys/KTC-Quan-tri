@@ -1,5 +1,17 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.7 — 2026-09-28
+
+Sửa từ **chạy thật plugin 1.3.6** như tài khoản thành viên (thư mục ngoài dự án, câu lệnh mẫu mới). Lần chạy đó đã ra đủ
+4 sản phẩm (báo cáo Word 8.720 chữ dựng từ BC-375, phụ lục 261 công thức KPI, kế hoạch tháng 10, ghi chú đối soát; 0 lỗi
+thể thức Mức 1–2) nhưng lộ 4 lỗi. Ca thử: `test_bc_thang.py`, `test_plugin_131.py`.
+
+- `bc_thang.py word`: bản đã ban hành trong kho ghi số hiệu dị dạng "Số375BC-CĐKT" → nay vẫn để trống số cho Văn thư.
+- `bc_thang.py phu-luc`: tiêu đề nhóm, Trục của bản gốc còn "tháng 8" → đổi sang kỳ báo cáo.
+- **Guard:** chặn Write/Edit vào tệp của plugin đã cài (và bộ đệm `.claude/plugins/`) — lần chạy đã ghi "bộ nhớ quá
+  trình" vào chính tệp plugin. Kỹ năng `bao-cao` 3.19: ngoài dự án thì ghi vào ghi chú đối soát.
+- Hook đo thể thức bỏ qua `10-Dau-Vao/` (tệp đơn vị vừa chép vào bị đo nhầm như sản phẩm).
+
 ## 1.3.6 — 2026-09-28
 
 **Báo cáo tháng cấp Trường dựng từ bản đã ban hành** (`DL-20260928-004`). Chạy thử 28/9/2026 trên Cowork và Claude Code

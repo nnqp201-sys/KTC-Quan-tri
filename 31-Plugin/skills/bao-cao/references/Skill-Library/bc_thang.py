@@ -363,7 +363,8 @@ def dung_word(goc, nd, ra):
             for c in row.cells:
                 for p in c.paragraphs:
                     t = p.text
-                    t2 = re.sub(r"Số:\s*\d+/", "Số:      /", t)
+                    # 1.3.6: ban trong kho co so hieu di dang "Số375BC-CĐKT" (thieu ":" va "/") — chay that 28/9 giu nham so 375
+                    t2 = re.sub(r"^(\s*)Số\s*:?\s*\d+\s*/?\s*(?=[A-ZĐ]{2,}-)", r"\1Số:      /", t)
                     t2 = re.sub(r"ngày\s*\d{1,2}\s*tháng\s*\d{1,2}\s*năm", f"ngày     tháng {nd.get('thang_lap', m)} năm", t2)
                     if t2 != t:
                         _dat_chu_doan(p, t2)
@@ -498,6 +499,10 @@ def dung_phu_luc(goc, nd, ra):
         a, bv = str(ws.cell(r, 1).value or "").strip(), ws.cell(r, 2).value
         if re.fullmatch(r"[1-6]", a) and bv and "Trục" in str(bv)[:10]:
             ten_truc_goc[int(a)] = bv
+    # 1.3.6: tieu de nhom/Truc cua ban goc co the mang ky cu ("... tháng 8") — chay that 28/9 sot o muc II
+    doi_ky = lambda v: re.sub(r"(tháng|THÁNG)\s+\d{1,2}\b", lambda k: f"{k.group(1)} {m}", v) if isinstance(v, str) else v
+    tieu_I, tieu_II = doi_ky(tieu_I), doi_ky(tieu_II)
+    ten_truc_goc = {k: doi_ky(v) for k, v in ten_truc_goc.items()}
     for mg in [x for x in list(ws.merged_cells.ranges) if x.min_row >= r_dau]:
         ws.unmerge_cells(str(mg))
     ws.delete_rows(r_dau, ws.max_row - r_dau + 1)

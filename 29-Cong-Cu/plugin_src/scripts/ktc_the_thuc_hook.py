@@ -11,7 +11,7 @@ import sys
 import time
 
 GOC_PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BO_QUA = {".git", "node_modules", "__pycache__", "99-Luu-Tru", "92-Kinh-Nghiem", "31-Plugin",
+BO_QUA = {".git", "node_modules", "__pycache__", "99-Luu-Tru", "92-Kinh-Nghiem", "31-Plugin", "10-Dau-Vao",
           "KTC-Database", "_trung_gian"}
 MOI = 180          # giay — tep sua trong khoang nay coi la "vua sinh"
 TOI_DA_MUC = 25000
