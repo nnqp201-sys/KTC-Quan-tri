@@ -3,7 +3,9 @@ name: ktc-bao-cao
 description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.16
+# KTC-Bao-Cao / KTC-RIS v3.17
+
+> **v3.17** (28/9/2026) — Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5).
 
 > **v3.16** (28/9/2026) — Chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002).
 

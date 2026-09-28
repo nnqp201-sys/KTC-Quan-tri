@@ -5,7 +5,9 @@ description: "Lập kế hoạch công tác quý và danh mục sản phẩm/ch�
 
 # KTC-KPI — Lập kế hoạch và KPI cá nhân theo quý
 
-## Phiên bản: v1.3 — 28/9/2026
+## Phiên bản: v1.4 — 28/9/2026
+
+> v1.4 (28/9/2026): lưu tệp ra thư mục làm việc của đơn vị khi đã kết nối (plugin 1.3.5).
 
 > v1.3 (28/9/2026): phương án `A` tra hệ số theo **Danh mục CHÍNH THỨC ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026**
 > (416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`), thay danh mục dự thảo kèm TB 1052. `A` không còn cảnh báo
@@ -54,7 +56,8 @@ Cần có (thiếu thì hỏi, **không tự điền**):
 
 - Điểm chi tiết, nhận xét, minh chứng chỉ dành cho người có thẩm quyền và người được đánh giá [QĐ 1923, Đ23.2].
 - Không đưa tên, điểm của người khác vào ví dụ, nhật ký, tệp dùng chung. Trong dự án KTC-Quan-tri, lưu tại
-  `30-Ket-Qua/<YYYY-MM-DD>/KPI-ca-nhan/` (đã loại khỏi git); trên Claude.ai/Cowork, giao tệp trực tiếp cho người dùng.
+  `30-Ket-Qua/<YYYY-MM-DD>/KPI-ca-nhan/` (đã loại khỏi git) — trong dự án hoặc thư mục làm việc đơn vị đã kết nối
+  (Nguyên tắc 3); chưa kết nối thư mục (Claude.ai, Cowork), giao tệp trực tiếp cho người dùng.
 - Không chép số điện thoại, tên người liên hệ trong văn bản hướng dẫn vào đầu ra.
 
 ## 5. Quy trình

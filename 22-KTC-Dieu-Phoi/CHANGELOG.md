@@ -2,6 +2,11 @@
 
 Chuyển từ dòng phiên bản của `SKILL.md` ngày 26/9/2026 (tiếp thu thẩm định lần 1, m-01): `SKILL.md` chỉ giữ một dòng phiên bản hiện hành.
 
+## 1.16 — 28/9/2026
+
+- Kết nối thư mục làm việc của đơn vị cho tài khoản thành viên (Cowork): mục mới trong `SKILL.md`, công cụ
+  `scripts/ktc_thu_muc.py` (khởi tạo `10-Dau-Vao/`, `30-Ket-Qua/`, tệp đánh dấu), Nguyên tắc 3 bổ sung.
+
 ## 1.15 — 28/9/2026
 
 - `11-Skill-Phan-Loai-6-Truc.md` (bản sao chuẩn 6 Trục): chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002); bỏ ghi chú thang 5 nhóm là dự thảo và KI-014 chưa xử lý.

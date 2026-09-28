@@ -54,7 +54,27 @@ def main():
     print("-" * 60)
     kiem_guard()
     kiem_phu_thuoc()
+    kiem_thu_muc()
     print("=" * 60)
+
+
+def kiem_thu_muc():
+    """1.3.5: che do thu muc — du an / thu muc lam viec cua don vi / chua ket noi (giao tep trong phien)."""
+    import sys
+    try:
+        sys.path.insert(0, os.path.join(GOC, "scripts"))
+        from ktc_thu_muc import tim_goc
+        che_do, goc, ma = tim_goc()
+    except Exception as e:
+        print(f"  · thư mục làm việc: không kiểm được ({e.__class__.__name__})")
+        return
+    if che_do == "du-an":
+        print(f"  ✓ thư mục: dự án KTC-Quan-tri ({goc})")
+    elif che_do == "don-vi":
+        print(f"  ✓ thư mục làm việc đơn vị {ma}: {goc} — đầu vào 10-Dau-Vao/, kết quả 30-Ket-Qua/")
+    else:
+        print("  · chưa kết nối thư mục làm việc — kết quả giao trong phiên. Muốn đọc 10-Dau-Vao/, lưu 30-Ket-Qua/ tự động:"
+              " chọn một thư mục trong Cowork rồi yêu cầu “kết nối thư mục KTC cho đơn vị <mã>”.")
 
 
 def kiem_guard():
@@ -90,7 +110,8 @@ def kiem_phu_thuoc():
         from duong_dan import ktc_database
         print(f"  ✓ KTC-Database: {ktc_database(canh_bao_ban_cu=False)}")
     except FileNotFoundError:
-        print("  ✗ KTC-Database: không tìm thấy — skill trả CAN_BO_SUNG khi cần kho")
+        print("  ✗ KTC-Database: không tìm thấy — skill trả CAN_BO_SUNG khi cần kho. Kho được chia sẻ qua Google Drive:"
+              " thêm lối tắt “KTC-Database” vào Drive của tôi, hoặc đặt biến KTC_DATABASE_DIR trỏ tới thư mục kho")
     except Exception as e:
         print(f"  ✗ KTC-Database: không kiểm được ({e.__class__.__name__})")
     for mod in ("docx", "openpyxl"):

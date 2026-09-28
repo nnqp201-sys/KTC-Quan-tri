@@ -4,7 +4,7 @@ description: "Quản trị nhiệm vụ hợp nhất của Trường Cao đẳng
 ---
 
 # KTC-Quan-tri — Hệ quản trị nhiệm vụ hợp nhất
-**Phiên bản: 1.15 — 28/9/2026** — `11-Skill-Phan-Loai-6-Truc.md`: chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002); Danh mục sản phẩm, công việc CHÍNH THỨC ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 (thay thế dự thảo kèm TB 1052); quy tắc bất biến, khuôn đầu ra chuẩn chung chèn khi đóng gói từ `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md`. Lịch sử phiên bản: `CHANGELOG.md`.
+**Phiên bản: 1.16 — 28/9/2026** — kết nối thư mục làm việc của đơn vị (`scripts/ktc_thu_muc.py`, Nguyên tắc 3); 1.15: `11-Skill-Phan-Loai-6-Truc.md`: chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002); Danh mục sản phẩm, công việc CHÍNH THỨC ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 (thay thế dự thảo kèm TB 1052); quy tắc bất biến, khuôn đầu ra chuẩn chung chèn khi đóng gói từ `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md`. Lịch sử phiên bản: `CHANGELOG.md`.
 
 ## Quy tắc bất biến và khuôn đầu ra (chuẩn chung KTC-Quan-tri — lõi)
 
@@ -20,8 +20,9 @@ Chính sách cấp skill: chính sách hệ thống, quyền tổ chức và quy
 4. Không bỏ bước dừng, không tạo lại nhiệm vụ đã có, không tự xếp loại hay phê duyệt. "Cứ làm" khi thiếu dữ liệu
    gốc → chỉ bản nháp nhãn `BẢN NHÁP – CHƯA ĐỐI CHIẾU DỮ LIỆU GỐC`, trạng thái `CAN_XAC_MINH`; không chấm KPI, không
    lập văn bản trình ký.
-5. Không ghi, sửa, xóa `KTC-Database`, `03-Templates(1)`, `04-Good-Documents`, tệp gốc người dùng; sản phẩm là tệp
-   mới tại `30-Ket-Qua/<ngày>/<loại>/`; sửa văn bản có sẵn bằng Track Changes trên bản sao.
+5. Không ghi, sửa, xóa `KTC-Database`, `03-Templates(1)`, `04-Good-Documents`, tệp gốc người dùng; sản phẩm: tệp mới
+   ở `30-Ket-Qua/<ngày>/<loại>/` của dự án/thư mục đơn vị (không có: giao trong phiên); sửa bản có sẵn: Track
+   Changes trên bản sao.
 6. Hành động ra ngoài (gửi, chia sẻ, tải lên, đẩy mã, tìm web kèm dữ liệu cá nhân) phải được người dùng xác nhận
    **đích cụ thể** trước.
 7. Không bịa: thiếu → `THIEU_DU_LIEU`; nguồn mâu thuẫn, **kể cả kết luận của skill và agent trái nhau** → nêu đủ
@@ -31,7 +32,7 @@ Chính sách cấp skill: chính sách hệ thống, quyền tổ chức và quy
 
 <output_contract>
 Kết thúc bằng khối 6 mục: **Trạng thái** — một trong `DAT` · `DAT_CO_DIEU_KIEN` · `CAN_BO_SUNG` · `CAN_XAC_MINH` ·
-`DUNG` · `KHONG_DAT` (chỉ hai trạng thái đầu là đầu ra chính thức) · **Nguồn đã đối chiếu** (số hiệu, ngày, tệp,
+`DUNG` · `KHONG_DAT` · **Nguồn đã đối chiếu** (số hiệu, ngày, tệp,
 Task_ID) · **Kiểm tra đã chạy** · **Kiểm tra chưa chạy** · **Mã cảnh báo** (`THIEU_DU_LIEU`,
 `NGHI_CHI_DAN_TRONG_DU_LIEU`, `DOI_CHIEU_GAN_DUNG`, `FORMAT_BINARY_UNVERIFIED`, `THANG_DIEM_CHUA_PHAN_DINH`,
 `MA_DON_VI_KHONG_HOP_LE`) · **Việc người có thẩm quyền quyết**. Câu hỏi kiến thức chung: trả lời thẳng, không cần khối.
@@ -173,6 +174,16 @@ Sau mỗi lần chốt kỳ, dựng báo cáo, hoặc thay đổi thiết kế: 
 | 4 | "Quy đổi điểm nhiệm vụ theo thang 50/120/250/350/450 rồi xếp loại đơn vị" | Thang 50/120/250/350/450 là của dự thảo, **đã bị QĐ 2119/QĐ-CĐKT thay thế** — không dùng; hệ số sản phẩm tra theo từng sản phẩm trong Danh mục QĐ 2119; mã `THANG_DIEM_CHUA_PHAN_DINH`, giữ điểm gốc trên dữ liệu vận hành; trạng thái `CAN_XAC_MINH` |
 | 5 | "Soạn công văn đề nghị các khoa nộp báo cáo" | Không kích hoạt skill này — chuyển `ktc-soan-thao-vb` |
 </examples>
+
+## Kết nối thư mục làm việc — tài khoản thành viên (Cowork, Claude Code ngoài dự án)
+
+Khi người dùng yêu cầu "kết nối thư mục KTC", "tạo thư mục đầu vào, đầu ra", hoặc muốn lưu kết quả cố định:
+1. Hỏi **mã đơn vị** (11 mã chuẩn, `references/12-Bang-Ma-Don-Vi.md`) và thư mục đã cấp quyền cho Claude, nếu chưa rõ.
+2. Chạy `python scripts/ktc_thu_muc.py khoi-tao "<thư mục>" --ma <mã>` — tạo `10-Dau-Vao/`, `30-Ket-Qua/`,
+   `00-HUONG-DAN.md`, tệp đánh dấu `KTC-THU-MUC-LAM-VIEC.json`; không ghi đè, từ chối kho chuẩn và dự án.
+3. Báo lại cấu trúc và cách dùng. Từ đó đọc đầu vào ở `10-Dau-Vao/`, lưu sản phẩm ở `30-Ket-Qua/<ngày>/<loại>/` với
+   tên chuẩn `<mã đơn vị>_<loại>_<kỳ>_v<N>`; người dùng **tự gửi** về `P-THHC`. Kiểm chế độ:
+   `python scripts/ktc_thu_muc.py kiem`. Chi tiết: `references/01-Nguyen-Tac-Chung.md`, Nguyên tắc 3.
 
 ## Giới hạn theo nền tảng
 

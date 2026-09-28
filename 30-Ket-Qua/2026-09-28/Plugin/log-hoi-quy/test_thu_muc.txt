@@ -1,0 +1,26 @@
+== A. Khởi tạo, nhận diện ==
+  OK thư mục chưa kết nối → chế độ 'khong'
+  OK tạo 10-Dau-Vao/, 30-Ket-Qua/
+  OK tệp đánh dấu ghi mã chuẩn (chữ hoa) P-TCCB
+  OK có 00-HUONG-DAN.md
+  OK thư mục con nhận đúng gốc đơn vị (tìm lên cha)
+  OK khởi tạo lại: không ghi đè tệp đã có
+== B. Ca ngược — phải từ chối ==
+  OK NGƯỢC: thư mục đã của P-TCCB, khởi tạo mã khác → từ chối
+  OK NGƯỢC: thư mục không tồn tại → từ chối
+  OK NGƯỢC: mã ngoài 11 mã chuẩn → từ chối, không đoán
+  OK NGƯỢC: trong KTC-Database → từ chối
+  OK NGƯỢC: không tạo tệp nào trong kho
+  OK NGƯỢC: trong dự án KTC-Quan-tri → từ chối
+  OK dự án vẫn nhận là 'du-an' (ưu tiên)
+  OK NGƯỢC: thư mục con của thư mục đã kết nối → từ chối (dùng gốc)
+== C. CLI ==
+  OK CLI kiem trả JSON đúng
+  OK NGƯỢC: CLI khởi tạo mã sai → mã thoát 2
+== D. Hook đo thể thức chạy trong thư mục đơn vị ==
+  OK tệp .docx lệch chuẩn trong thư mục đơn vị → hook đo, báo (mã 2)
+  OK NGƯỢC: thư mục chưa kết nối → hook im lặng như trước (mã 0)
+== E. Bản sao trong kỹ năng điều phối khớp nguồn ==
+  OK 22-KTC-Dieu-Phoi/scripts/ktc_thu_muc.py trùng byte với 29-Cong-Cu/plugin_src/scripts/
+
+KET LUAN: SACH

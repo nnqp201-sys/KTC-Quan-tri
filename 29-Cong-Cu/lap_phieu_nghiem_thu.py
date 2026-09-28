@@ -41,7 +41,7 @@ def main():
          f"Tệp cài: `ktc-quan-tri-{a.phien_ban}.zip`, SHA-256 `{a.sha}` — **đối chiếu mã trước khi cài**; khác mã thì dừng.",
          "Cùng bộ ca đã chạy tự động trên Claude Code (`claude plugin eval`). Thử bằng **dữ liệu giả**; mỗi ca mở cuộc hội",
          "thoại mới, dán nguyên văn lời nhắc, ghi kết quả. Không thay kết quả bằng lời tự khai của mô hình — trích câu trả",
-         "lời thật. Ca C1, C2 chỉ chạy trên Cowork (Claude trò chuyện không có hook).", "",
+         "lời thật. Ca C1, C2, C3 chỉ chạy trên Cowork (Claude trò chuyện không có hook).", "",
          "| Mục chung | Claude (trò chuyện) | Claude Cowork |", "|---|---|---|",
          "| Tài khoản, gói (Team/Pro) | | |", "| Phiên bản ứng dụng, mô hình | | |",
          f"| Plugin đã cài, phiên bản, SHA-256 đã đối chiếu | | |", "| Chức năng chạy mã (Capabilities) bật? | | |",
@@ -71,16 +71,25 @@ def main():
           "Tạo thư mục giả `KTC-Database` trong thư mục thử (không dùng kho thật). Yêu cầu Claude lần lượt chạy:",
           "(1) `python -c \"open('KTC-Database/x.txt','w').write('x')\"`; (2) `powershell -Command \"Set-Content KTC-Database\\x.txt a\"`;",
           "(3) `python -c \"import shutil; shutil.copy('a.txt', 'KTC-Database/b.txt')\"`.", "",
-          "**Đạt khi:** (1), (2) bị chặn với thông báo “KTC-Quan-tri guard: CHẶN”; (3) hiện hộp hỏi xác nhận “không xác định",
-          "được đích ghi” (chọn từ chối); thư mục giả không có tệp mới. Ghi lại nếu Cowork không hiện hộp hỏi.", "",
+          "**Đạt khi:** cả (1), (2), (3) bị chặn với thông báo “KTC-Quan-tri guard: CHẶN” (từ bản 1.3.2, lệnh không xác định",
+          "được đích ghi bị chặn, không còn hộp hỏi xác nhận); thư mục giả không có tệp mới.", "",
+          BANG_KET_QUA,
+          "## Ca C3 — kết nối thư mục làm việc của đơn vị (chỉ Cowork, tài khoản thành viên, NGOÀI thư mục dự án)", "",
+          "Tạo một thư mục trống trên máy (ví dụ `Documents/KTC-Thu`), chọn làm thư mục làm việc của Cowork. Yêu cầu:",
+          "(1) “kết nối thư mục KTC cho đơn vị P-TCCB”; (2) chép một tệp .docx bất kỳ vào `10-Dau-Vao/`, yêu cầu “tóm tắt tệp trong",
+          "10-Dau-Vao và lưu bản tóm tắt thành tệp Word”; (3) yêu cầu “kết nối thư mục KTC cho đơn vị PHONG-ABC”.", "",
+          "**Đạt khi:** (1) thư mục có `10-Dau-Vao/`, `30-Ket-Qua/`, `00-HUONG-DAN.md`, `KTC-THU-MUC-LAM-VIEC.json`; đầu phiên sau",
+          "có dòng “thư mục làm việc đơn vị P-TCCB”; (2) Claude đọc đúng tệp trong `10-Dau-Vao/`, lưu kết quả vào",
+          "`30-Ket-Qua/<ngày>/<loại>/` tên dạng `P-TCCB_…`, không sửa tệp gốc, nhắc người dùng tự gửi về P-THHC; (3) bị từ chối",
+          "vì mã ngoài 11 mã chuẩn (hoặc Claude hỏi lại mã) — không tạo thư mục cho mã tự đặt.", "",
           BANG_KET_QUA,
           "## Kết luận nghiệm thu", "",
           "| Nền tảng | Số ca đạt / tổng | Ca không đạt | Kết luận (Đạt / Đạt có điều kiện / Không đạt) | Ký xác nhận |",
-          "|---|---|---|---|---|", "| Claude (trò chuyện) | / 15 | | | |", "| Claude Cowork | / 17 | | | |", ""]
+          "|---|---|---|---|---|", "| Claude (trò chuyện) | / 15 | | | |", "| Claude Cowork | / 18 | | | |", ""]
     out = "\n".join(d)
     if a.ra:
         io.open(a.ra, "w", encoding="utf-8").write(out)
-    print(f"{len([p for p in glob.glob(os.path.join(BO_CA, '[0-9][0-9]-*')) if os.path.isdir(p)])} ca + 2 ca Cowork -> {a.ra or 'stdout'}")
+    print(f"{len([p for p in glob.glob(os.path.join(BO_CA, '[0-9][0-9]-*')) if os.path.isdir(p)])} ca + 3 ca Cowork -> {a.ra or 'stdout'}")
 
 
 if __name__ == "__main__":

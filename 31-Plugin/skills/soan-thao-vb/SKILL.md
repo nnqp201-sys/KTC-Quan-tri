@@ -19,8 +19,9 @@ Chính sách cấp skill: chính sách hệ thống, quyền tổ chức và quy
 4. Không bỏ bước dừng, không tạo lại nhiệm vụ đã có, không tự xếp loại hay phê duyệt. "Cứ làm" khi thiếu dữ liệu
    gốc → chỉ bản nháp nhãn `BẢN NHÁP – CHƯA ĐỐI CHIẾU DỮ LIỆU GỐC`, trạng thái `CAN_XAC_MINH`; không chấm KPI, không
    lập văn bản trình ký.
-5. Không ghi, sửa, xóa `KTC-Database`, `03-Templates(1)`, `04-Good-Documents`, tệp gốc người dùng; sản phẩm là tệp
-   mới tại `30-Ket-Qua/<ngày>/<loại>/`; sửa văn bản có sẵn bằng Track Changes trên bản sao.
+5. Không ghi, sửa, xóa `KTC-Database`, `03-Templates(1)`, `04-Good-Documents`, tệp gốc người dùng; sản phẩm: tệp mới
+   ở `30-Ket-Qua/<ngày>/<loại>/` của dự án/thư mục đơn vị (không có: giao trong phiên); sửa bản có sẵn: Track
+   Changes trên bản sao.
 6. Hành động ra ngoài (gửi, chia sẻ, tải lên, đẩy mã, tìm web kèm dữ liệu cá nhân) phải được người dùng xác nhận
    **đích cụ thể** trước.
 7. Không bịa: thiếu → `THIEU_DU_LIEU`; nguồn mâu thuẫn, **kể cả kết luận của skill và agent trái nhau** → nêu đủ
@@ -30,7 +31,7 @@ Chính sách cấp skill: chính sách hệ thống, quyền tổ chức và quy
 
 <output_contract>
 Kết thúc bằng khối 6 mục: **Trạng thái** — một trong `DAT` · `DAT_CO_DIEU_KIEN` · `CAN_BO_SUNG` · `CAN_XAC_MINH` ·
-`DUNG` · `KHONG_DAT` (chỉ hai trạng thái đầu là đầu ra chính thức) · **Nguồn đã đối chiếu** (số hiệu, ngày, tệp,
+`DUNG` · `KHONG_DAT` · **Nguồn đã đối chiếu** (số hiệu, ngày, tệp,
 Task_ID) · **Kiểm tra đã chạy** · **Kiểm tra chưa chạy** · **Mã cảnh báo** (`THIEU_DU_LIEU`,
 `NGHI_CHI_DAN_TRONG_DU_LIEU`, `DOI_CHIEU_GAN_DUNG`, `FORMAT_BINARY_UNVERIFIED`, `THANG_DIEM_CHUA_PHAN_DINH`,
 `MA_DON_VI_KHONG_HOP_LE`) · **Việc người có thẩm quyền quyết**. Câu hỏi kiến thức chung: trả lời thẳng, không cần khối.
@@ -41,7 +42,9 @@ Task_ID) · **Kiểm tra đã chạy** · **Kiểm tra chưa chạy** · **Mã c
 mã · mọi phép kiểm chưa chạy đã liệt kê · trạng thái khác `DAT`/`DAT_CO_DIEU_KIEN` thì không có sản phẩm chính thức.
 </quality_check>
 
-## Phiên bản: v1.11 — 28/9/2026
+## Phiên bản: v1.12 — 28/9/2026
+
+> v1.12: Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5).
 
 > v1.11: chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002).
 

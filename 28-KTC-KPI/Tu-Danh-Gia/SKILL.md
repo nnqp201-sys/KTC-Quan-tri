@@ -5,7 +5,9 @@ description: "Tự đánh giá, chấm điểm và đề xuất mức xếp lo�
 
 # KTC-KPI — Tự đánh giá, đề xuất xếp loại cá nhân theo quý
 
-## Phiên bản: v1.2 — 28/9/2026
+## Phiên bản: v1.3 — 28/9/2026
+
+> v1.3 (28/9/2026): lưu tệp ra thư mục làm việc của đơn vị khi đã kết nối (plugin 1.3.5).
 
 > v1.2 (28/9/2026): đồng bộ `kpi_calc.py` và Câu hỏi mở theo Danh mục CHÍNH THỨC kèm QĐ 2119/QĐ-CĐKT (thay dự thảo
 > TB 1052). Chấm điểm tự đánh giá không đổi; KPI đã chấm trước 28/9/2026 không tính lại.
@@ -48,7 +50,7 @@ Theo thứ tự: tệp đính kèm trong phiên → thư mục dự án → hỏ
 
 - Điểm chi tiết, nhận xét, minh chứng chỉ cho người có thẩm quyền, người được đánh giá và người liên quan theo chức
   năng [QĐ 1923, Đ23.2]. Dữ liệu này nhạy cảm hơn kế hoạch (điểm phẩm chất chính trị, đạo đức).
-- Trong dự án: lưu tại `30-Ket-Qua/<YYYY-MM-DD>/KPI-ca-nhan/` (đã loại khỏi git, có ca thử). Trên Claude.ai/Cowork: giao
+- Trong dự án hoặc thư mục làm việc đơn vị đã kết nối: lưu tại `30-Ket-Qua/<YYYY-MM-DD>/KPI-ca-nhan/` (đã loại khỏi git, có ca thử). Trên Claude.ai/Cowork: giao
   tệp trực tiếp, không đưa điểm của người khác vào ví dụ. Trong Claude Code: nhắc người dùng gõ `#riêng` ở đầu tin nhắn
   khi dán điểm, nhận xét.
 

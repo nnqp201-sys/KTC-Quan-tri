@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """PostToolUse hook — tu do the thuc moi tep .docx/.xlsx vua sinh ra (DL-20260919-003).
 
-Chi chay trong du an KTC (co thu muc 90-Nhat-Ky-Van-Hanh o cwd hoac thu muc cha).
+Chay trong du an KTC (co 90-Nhat-Ky-Van-Hanh/) HOAC thu muc lam viec cua don vi (co KTC-THU-MUC-LAM-VIEC.json, 1.3.5).
 Con goi y Muc 1-2 -> in stderr + ma thoat 2 de Claude thay va sua truoc khi giao.
 Hook KHONG BAO GIO duoc lam hong phien: moi loi noi bo -> thoat 0 im lang.
 """
@@ -19,6 +19,14 @@ TRANG_THAI = os.path.join(os.path.expanduser("~"), ".claude", "ktc_the_thuc_da_d
 
 
 def goc_du_an(cwd):
+    # 1.3.5: nhan ca THU MUC LAM VIEC cua don vi (tep KTC-THU-MUC-LAM-VIEC.json, ktc_thu_muc.py) — tai khoan thanh vien
+    # tren Cowork cung duoc do the thuc tu dong, khong chi du an.
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from ktc_thu_muc import tim_goc
+        return tim_goc(cwd)[1]
+    except Exception:
+        pass
     p = os.path.abspath(cwd)
     for _ in range(6):
         if os.path.isdir(os.path.join(p, "90-Nhat-Ky-Van-Hanh")):

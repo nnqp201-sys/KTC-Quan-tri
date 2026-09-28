@@ -1,5 +1,22 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.5 — 2026-09-28
+
+**Kết nối thư mục làm việc của đơn vị** cho tài khoản thành viên (phòng, khoa) trên Claude Cowork, Claude Code ngoài dự
+án. Ca thử: `test_thu_muc.py` (mới, 20 ca gồm ca ngược).
+
+- `scripts/ktc_thu_muc.py` (cũng có trong kỹ năng `quan-tri`): `khoi-tao <thư mục> --ma <mã đơn vị>` tạo `10-Dau-Vao/`,
+  `30-Ket-Qua/`, `00-HUONG-DAN.md` và tệp đánh dấu `KTC-THU-MUC-LAM-VIEC.json`; không ghi đè; từ chối kho chuẩn, dự án,
+  mã ngoài 11 mã chuẩn, thư mục đã kết nối cho đơn vị khác. `kiem` báo chế độ: dự án · thư mục đơn vị · chưa kết nối.
+- Nguyên tắc 3 (bản sao trong `ke-hoach` 3.11, `theo-doi-cv` 1.9, `bao-cao` 3.17, `soan-thao-vb` 1.12, `quan-tri` 1.16):
+  đầu vào thêm nguồn "thư mục làm việc của đơn vị"; kết quả lưu `30-Ket-Qua/` trong thư mục đó; người dùng vẫn tự gửi
+  về Phòng TH-HC&QT. Kết nối thư mục không thay kho KTC-Database.
+- Khối quy tắc lõi mục 5: `30-Ket-Qua/` của dự án hoặc thư mục đơn vị; chưa có thì giao tệp trong phiên.
+- `kpi-lap-ke-hoach` 1.4, `kpi-tu-danh-gia` 1.3: lưu tệp ra thư mục đơn vị khi đã kết nối.
+- Hook đo thể thức tự chạy cả trong thư mục đơn vị (trước chỉ trong dự án).
+- Kiểm tra đầu phiên: báo chế độ thư mục; không thấy kho thì hướng dẫn thêm lối tắt "KTC-Database" vào Drive của tôi
+  hoặc đặt `KTC_DATABASE_DIR`.
+
 ## 1.3.4 — 2026-09-28
 
 Chuẩn phân loại 6 Trục theo quyết định `DL-20260928-002`; không đổi kết quả tính. Ca thử: `test_plugin_131.py` (mục A).

@@ -1,5 +1,7 @@
 # Lịch sử phiên bản (tách khỏi SKILL.md khi dựng plugin 1.3.1 — không nạp khi làm việc)
 
+> **v3.17** (28/9/2026) — Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5).
+
 > **v3.16** (28/9/2026) — Chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002).
 
 > **v3.15** (27/9/2026) — Mô tả kích hoạt viết lại có dấu, nêu tình huống viết đoạn đánh giá, tổng hợp bảng kết quả dán trong khung chat: nghiệm thu 1.3.1 cho thấy các yêu cầu này không kích hoạt skill (thẩm định lần 3, DL-20260927-001).

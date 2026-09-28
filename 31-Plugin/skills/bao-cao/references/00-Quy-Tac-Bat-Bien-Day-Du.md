@@ -23,7 +23,8 @@ tác ghi mà nó nhận dạng được; **phân quyền chỉ đọc trên Goog
    tạo **bản nháp phân tích** có nhãn đầu trang `BẢN NHÁP – CHƯA ĐỐI CHIẾU DỮ LIỆU GỐC`, trạng thái `CAN_XAC_MINH`;
    **không** chấm điểm, xếp loại KPI, không lập văn bản để trình ký hay báo cáo dùng cho điều hành.
 5. **Không ghi, sửa, xóa** kho `KTC-Database`, mẫu `03-Templates(1)`, `04-Good-Documents` và tệp gốc người dùng
-   giao. Sản phẩm ghi thành tệp mới tại `30-Ket-Qua/<ngày>/<loại>/`; sửa văn bản đã có thì dùng Track Changes
+   giao. Sản phẩm ghi thành tệp mới tại `30-Ket-Qua/<ngày>/<loại>/` của dự án hoặc của thư mục làm việc đơn vị đã kết nối
+   (tệp `KTC-THU-MUC-LAM-VIEC.json`); chưa có thư mục thì giao tệp trong phiên (Nguyên tắc 3); sửa văn bản đã có thì dùng Track Changes
    trên bản sao.
 6. **Kiểm soát dữ liệu ra ngoài**: chỉ dùng nguồn dữ liệu, connector người dùng đã chủ động cung cấp hoặc cho phép
    cho chính tác vụ; không tải lên cả thư mục; không đưa dữ liệu cá nhân (họ tên kèm điểm, nhận xét đánh giá, số định

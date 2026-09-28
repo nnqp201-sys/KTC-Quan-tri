@@ -60,15 +60,19 @@ bộ môn (**không** có thư mục `10-Dau-Vao/`, không ghi được vào d�
 1. **Tệp người dùng đính kèm trong phiên** ("Add files and photos"): Claude Chat/Cowork — tệp tải lên phiên
    (trên Chat thường ở `/mnt/user-data/uploads/`); Claude Code — tệp được kéo vào hoặc nêu đường dẫn.
 2. Thư mục dự án `10-Dau-Vao/<nhánh>/<kỳ>/…` — chỉ khi đang chạy trong dự án KTC-Quan-tri.
-3. Không có cả hai → **hỏi người dùng** tải tệp lên; không tự suy diễn dữ liệu, không từ chối chỉ vì thiếu
-   thư mục.
+3. **Thư mục làm việc của đơn vị** đã kết nối (xem mục "Kết nối thư mục làm việc" dưới đây): `10-Dau-Vao/` trong
+   thư mục đó.
+4. Không có các nguồn trên → **hỏi người dùng** tải tệp lên hoặc kết nối thư mục; không tự suy diễn dữ liệu, không
+   từ chối chỉ vì thiếu thư mục.
 
 Tệp đính kèm được xử lý **như hồ sơ nộp thật**: kiểm đúng mẫu TB736, đúng kỳ, đúng đơn vị (mã chuẩn); sai
 mẫu → cảnh báo cho đơn vị tự sửa, không tự sửa số liệu. Ghi rõ trong kết quả: "Nguồn: tệp đính kèm <tên tệp>".
 
 **Kết quả:**
 - Trong dự án KTC-Quan-tri: lưu `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/` như Nguyên tắc 2.
-- Tài khoản thành viên (không có dự án): trả tệp `.docx`/`.xlsx` ngay trong phiên/project để người dùng **tải
+- Thư mục làm việc của đơn vị đã kết nối: lưu `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/` **trong thư mục đó**, đặt tên
+  chuẩn như dưới đây, đồng thời báo đường dẫn tệp trong câu trả lời. Người dùng vẫn **tự gửi** về `P-THHC`.
+- Tài khoản thành viên chưa kết nối thư mục: trả tệp `.docx`/`.xlsx` ngay trong phiên/project để người dùng **tải
   về**, rồi **tự gửi về phòng TH-HC&QT (`P-THHC`)** để tổng hợp. Không có hộp nhận tự động — skill không tự nộp
   thay, không ghi vào `10-Dau-Vao` (người dùng quyết 19/9/2026, `DL-20260919-001`).
 
@@ -89,6 +93,22 @@ sửa. **Còn lỗi thì nói rõ "chưa nên gửi"** — không tự sửa s�
 
 Khi P-THHC nhận tệp: lưu vào `10-Dau-Vao/01-Dau-Moi-Nop/<kỳ>/<mã đơn vị>/` giữ nguyên tên — tên chuẩn giúp xếp
 đúng chỗ không cần mở tệp.
+
+**Kết nối thư mục làm việc (Claude Cowork, Claude Code ngoài dự án — bổ sung 28/9/2026, plugin 1.3.5)**
+
+Tài khoản thành viên có thể cho Bộ công cụ một thư mục đầu vào, đầu ra cố định thay vì tải tệp từng phiên:
+1. Trong Cowork, chọn một thư mục trên máy (hoặc thư mục Google Drive đồng bộ về máy) làm thư mục làm việc.
+2. Yêu cầu "kết nối thư mục KTC cho đơn vị `<mã>`". Kỹ năng điều phối chạy `scripts/ktc_thu_muc.py khoi-tao
+   <thư mục> --ma <mã>`: tạo `10-Dau-Vao/`, `30-Ket-Qua/`, `00-HUONG-DAN.md` và tệp đánh dấu
+   `KTC-THU-MUC-LAM-VIEC.json` (mã đơn vị). Không ghi đè tệp đã có; không tạo trong kho chuẩn hay trong dự án;
+   mã đơn vị phải thuộc 11 mã chuẩn, không đoán.
+3. Các phiên sau: thư mục có tệp đánh dấu (ở thư mục làm việc hoặc thư mục cha, tối đa 6 cấp) được coi là đã kết
+   nối — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/`; hook đo thể thức tự chạy như trong dự án. Kiểm:
+   `scripts/ktc_thu_muc.py kiem`.
+4. Tệp gốc trong `10-Dau-Vao/` của đơn vị là **tệp gốc người dùng** — không sửa, không ghi đè; sửa văn bản đã có thì
+   tạo bản mới có Track Changes trong `30-Ket-Qua/`.
+5. Kết nối thư mục **không** thay kho KTC-Database: văn bản cần căn cứ vẫn phải đọc được kho (thêm lối tắt
+   "KTC-Database" vào Drive của tôi, hoặc đặt biến `KTC_DATABASE_DIR`); không đọc được thì theo quy tắc thiếu kho.
 
 ## Nguyên tắc 4 — Nơi lưu đầu vào, cách tìm KTC-Database, làm việc trên Google Drive (18/9/2026)
 
