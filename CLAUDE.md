@@ -77,7 +77,8 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 | Nội dung | Đọc |
 |---|---|
 | 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-KTC-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
-| 17 lĩnh vực, mã `A01`–`S04`, danh mục sản phẩm | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
+| **Danh mục sản phẩm, công việc CHÍNH THỨC — QĐ 2119/QĐ-CĐKT ngày 28/9/2026** (416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`, hệ số theo từng sản phẩm) | `KTC-Database/02-KTC-Regulations/02-01-…/QD-2119-QD-CDKT_…_v1.docx` + phụ lục `PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx` (đọc thẳng từ kho, không chép) |
+| 17 lĩnh vực, mã `A01`–`S04` (nhiệm vụ chuẩn — khác mã sản phẩm QĐ 2119) | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
 | Quy đổi KPI và xếp loại chất lượng (QĐ 1923) | `20-Chuan-Chung/19-Quy-Tac-KPI.md` · lập KPI cá nhân: hệ `28-KTC-KPI/` · tự đánh giá cá nhân quý: `28-KTC-KPI/Tu-Danh-Gia/` |
 | Mã đơn vị | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
 | Căn cứ, viện dẫn văn bản (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) — **VBHC: Luật không ghi số hiệu** | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` · tự kiểm `29-Cong-Cu/kiem_vien_dan.py` · quét hiệu lực `29-Cong-Cu/tra_hieu_luc.py` (agent `ktc-hieu-luc-vien-dan`) |
@@ -85,12 +86,13 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 
 Số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi kèm Trục, không dùng số nội hàm đứng một mình.
 
-**Hai thang điểm — không trộn.** Cùng khái niệm quy đổi khối lượng công việc đang có hai thang
-(`KI-014`, chưa có văn bản phân định). Thang đang xuất hiện trên dữ liệu vận hành (cột điểm/hệ số Phụ lục
-TB736) nằm trong `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md`. Thang 5 nhóm 50/120/250/350/450 trong
-danh mục sản phẩm là **bảng gợi ý** (dự thảo lần 4; đã gửi đơn vị rà soát theo TB 1052/TB-CĐKT ngày 15/9/2026, **chưa ban hành**), không phải danh sách giá trị hợp lệ — xem
-`22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`. Không dùng thang 5 nhóm để kiểm dữ liệu vận hành.
-Không tự đặt quy tắc chuyển đổi giữa hai thang.
+**Danh mục sản phẩm, hệ số quy đổi — QĐ 2119/QĐ-CĐKT ngày 28/9/2026 là văn bản CHÍNH THỨC, THAY THẾ mọi danh
+mục trước đây** (dự thảo lần 4 kèm TB 1052/TB-CĐKT, bảng 371 sản phẩm, thang "50/120/250/350/450" đều **hết dùng**).
+Hệ số lấy **đúng theo từng sản phẩm** trong phụ lục PL-2119: Nhóm 1 = 0,3 · 0,5 · 1,0; Nhóm 2 = 1,2 · 1,5 · 2,0;
+Nhóm 3 = 2,5; Nhóm 4 = 3,5; Nhóm 5 = 4,5 (không suy hệ số từ nhãn Nhóm). QĐ này **đóng `KI-014`** (hai thang cũ
+được hợp nhất trong một bảng hệ số). Sản phẩm không có trong PL-2119 → báo `THIEU_DU_LIEU`, không tự đặt hệ số.
+Danh mục được rà soát hằng năm (Điều 3 QĐ 2119, Phòng TCCB&CTHSSV tổng hợp). Mã sản phẩm QĐ 2119
+(`1.1.DA01.01`) khác mã nhiệm vụ chuẩn `A01`–`S04` và khác Task_ID — không dùng lẫn.
 
 **Cơ quan chủ quản trong thể thức**: `UBND TỈNH QUẢNG NGÃI` – `TRƯỜNG CAO ĐẲNG KON TUM` (nhất quán trong toàn
 bộ khung đánh giá hiện hành, sau sáp nhập tỉnh). Không dùng "UBND tỉnh Kon Tum" ở văn bản mới.

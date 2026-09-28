@@ -22,7 +22,8 @@ Toàn bộ dữ liệu ở đây là **dẫn xuất**. Khi cần căn cứ, trí
 |---|---|
 | Thông báo 817/TB-CĐKT | Nguồn gốc 6 Trục và 38 Nội hàm, cụ thể hóa HD 02-HD/BTCTW ngày 22/5/2026 |
 | Quyết định **1923/QĐ-CĐKT ngày 30/8/2026** (Hiệu trưởng Lê Trí Khải) | Ban hành Quy chế đánh giá, xếp loại chất lượng gắn KPI — căn cứ pháp lý của toàn bộ khung đánh giá |
-| Thông báo **1052/TB-CĐKT ngày 15/9/2026** + phụ lục Danh mục sản phẩm/công việc quy đổi | Kết luận Tọa đàm KPI; đơn vị rà soát danh mục trước 20/9, ký cam kết KPI trước 21/9; chưa ban hành danh mục |
+| Thông báo **1052/TB-CĐKT ngày 15/9/2026** + phụ lục Danh mục sản phẩm/công việc quy đổi | Kết luận Tọa đàm KPI; đơn vị rà soát danh mục trước 20/9, ký cam kết KPI trước 21/9. Phụ lục danh mục kèm TB này **đã bị thay thế** bởi QĐ 2119 |
+| **Quyết định 2119/QĐ-CĐKT ngày 28/9/2026** (Hiệu trưởng Lê Trí Khải) + Phụ lục Danh mục sản phẩm, công việc | **Danh mục CHÍNH THỨC, thay thế mọi danh mục trước**: 416 sản phẩm, hệ số theo từng sản phẩm; căn cứ lập kế hoạch và đánh giá xếp loại quý, năm |
 | Phụ lục I, II, III kèm QĐ 1923 | Mẫu kế hoạch công tác quý đơn vị · mẫu kế hoạch/danh mục công việc cá nhân · mẫu phiếu đánh giá xếp loại |
 
 Phụ lục I có đúng hai cột `Điểm chấm công việc` và `Hệ số quy đổi` — tức thang 5 nhóm dưới đây được áp
@@ -32,8 +33,8 @@ trực tiếp trên biểu mẫu chính thức.
 
 - **6 Trục** kết quả trọng tâm, dưới đó **38 Nội hàm** (số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi
   kèm Trục, không dùng số nội hàm đứng một mình).
-- **5 nhóm quy đổi**: Nhóm 1 = 50 điểm/hệ số 0,5 · Nhóm 2 = 120/1,2 · Nhóm 3 = 250/2,5 · Nhóm 4 = 350/3,5 ·
-  Nhóm 5 = 450/4,5.
+- **5 nhóm, hệ số theo QĐ 2119** (lấy theo từng sản phẩm, không suy từ nhãn Nhóm): Nhóm 1 = 0,3 · 0,5 · 1,0 ·
+  Nhóm 2 = 1,2 · 1,5 · 2,0 · Nhóm 3 = 2,5 · Nhóm 4 = 3,5 · Nhóm 5 = 4,5. ~~50/120/250/350/450~~ (dự thảo, hết dùng).
 - **17 lĩnh vực** nhiệm vụ chuẩn A–S (không có chữ J và O).
 - **4 mức xếp loại**: Hoàn thành xuất sắc nhiệm vụ (≥ 90 điểm) · Hoàn thành tốt nhiệm vụ (70–89) ·
   Hoàn thành nhiệm vụ (50–69) · Không hoàn thành nhiệm vụ (< 50). Thang 100 điểm = 30 điểm tiêu chí chung
@@ -48,7 +49,9 @@ sheet `02-Danh-muc-tra-cuu`.
    QLĐT&BĐCL (366), Phòng Tổ chức (126), TC-KT (77). **Sáu Khoa hoàn toàn vắng mặt** — lĩnh vực
    `S. Nhiệm vụ chuyên môn nhà giáo` chỉ có 4 nhiệm vụ, sinh ra từ viên chức Phòng có tham gia giảng dạy.
    Do đó **không được coi 122 nhiệm vụ chuẩn là danh mục đầy đủ**.
-2. **Danh mục 371 sản phẩm: đã gửi đơn vị rà soát theo TB 1052/TB-CĐKT (15/9/2026), chưa ban hành.** Phụ lục
+2. **ĐÃ BAN HÀNH — QĐ 2119/QĐ-CĐKT ngày 28/9/2026 (416 sản phẩm), thay thế danh mục dự thảo.** Tệp
+   `DANH MUC SAN PHAM CONG VIEC/Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx` chỉ còn giá trị lịch sử —
+   **không dùng tra hệ số**; tra phụ lục chính thức `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx`. Lịch sử: danh mục 371 sản phẩm đã gửi đơn vị rà soát theo TB 1052/TB-CĐKT (15/9/2026). Phụ lục
    kèm TB trùng từng dòng với tệp dự thảo lần 4 ở đây (bỏ cột Điểm, STT theo 38 lĩnh vực). Bản gốc nằm trong
    KTC-Database kho 02, **không chép về đây** (C12). Chi tiết: `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md`.
 3. **Bảng tổng hợp tự mâu thuẫn ở Trục 1**: sheet `Tong hop theo Truc` ghi 102 sản phẩm, nhưng chính dòng

@@ -385,6 +385,8 @@ trên Claude Chat/Cowork sẽ dùng quy tắc sai. Cần đóng gói lại, và 
 
 ## KI-014 — Hai thang điểm quy đổi cùng tồn tại, chưa có văn bản phân định
 
+> **ĐÃ CÓ VĂN BẢN PHÂN ĐỊNH — 28/9/2026:** Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 ban hành Danh mục sản phẩm, công việc **chính thức, thay thế** danh mục dự thảo (TB 1052). Phụ lục PL-2119 dùng **hệ số theo từng sản phẩm**, hợp nhất hai thang cũ: Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 (các giá trị của thang 4 mức) · Nhóm 3–5 = 2,5/3,5/4,5. Cột "Điểm" không còn. **Status mới: Đã giải quyết về căn cứ**; việc còn lại là cập nhật mã, kỹ năng (`kpi_calc.py` mã `THANG_DIEM_CHUA_PHAN_DINH`, `validate_plan.py` KH08, `30-Skill-Phan-Loai-6-Truc.md`, `19-Quy-Tac-KPI.md` và bản sao trong các gói) — `DL-20260928-001`. Phần dưới giữ làm lịch sử.
+
 **Status:** Open · **Priority:** Cao — ảnh hưởng mọi phép quy đổi khối lượng công việc
 **Phát hiện:** 14/9/2026, khi đồng bộ `30-Skill-Phan-Loai-6-Truc.md` giữa bản gốc và gói `.skill`
 
