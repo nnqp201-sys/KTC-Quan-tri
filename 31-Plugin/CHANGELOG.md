@@ -1,5 +1,17 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.12 — 2026-09-29
+
+**Sửa báo nhầm của phép đo TT17** khi lập hồ sơ thẩm định vòng 5: văn bản của đơn vị (mẫu 2.2 theo Checklist 08 mục 7 của
+897: "TRƯỜNG CAO ĐẲNG KON TUM" / "PHÒNG …") bị báo "tên đơn vị ban hành chưa đậm". Ở mẫu này tên Trường là **cơ quan
+chủ quản**, đúng là không đậm.
+
+- Phép đo phần đầu nhận vai trò **theo vị trí dòng**: dòng 1 là cơ quan chủ quản (cỡ 13, không đậm), dòng 2 là đơn vị ban
+  hành (cỡ 13, đậm). Có ca thử mẫu 2.2 đúng và sai.
+- **Đính chính chuẩn 18 mục 6:** 06A, 06D **không** có lỗi "tên Trường không đậm" (bản 1.3.10 ghi nhầm). 06D có lỗi khác
+  là số trang hiện ở trang 1 (TT11b).
+- Kỹ năng `the-thuc` 1.3.
+
 ## 1.3.11 — 2026-09-29
 
 **Chỉ đạo 28/9/2026:** "lấy Template (1) mà ráp nội dung vào, hoặc tìm văn bản tốt, văn bản tương tự mà sửa lại". Bản

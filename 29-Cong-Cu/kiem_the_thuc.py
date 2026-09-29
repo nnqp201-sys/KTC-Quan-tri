@@ -310,16 +310,29 @@ def _kiem_thanh_phan_897(d, g):
         if loi:
             kq.append((2, "TT17", f"{ten}: {', '.join(loi)} — 897 Checklist {nguon}"))
 
-    # Phan dau (bang dau tien)
+    # Phan dau (bang dau tien). Vai tro theo VI TRI dong o cot trai (08 muc 7): dong 1 = co quan chu quan (13, KHONG dam),
+    # dong 2 = don vi ban hanh (13, dam). Mau 2.1: UBND TINH QUANG NGAI / TRUONG CAO DANG KON TUM; mau 2.2 (van ban
+    # cua don vi): TRUONG CAO DANG KON TUM / PHONG, KHOA... — o mau 2.2 ten Truong la chu quan (29/9/2026: phep do cu
+    # coi ten Truong luon la don vi ban hanh, bao nham BC cua Phong).
     if d.tables:
+        for r_ in d.tables[0].rows:
+            for c in r_.cells:
+                dong = [p for p in c.paragraphs if p.text.strip() and p.text.strip().isupper()
+                        and not re.match(r"Số\s*:", p.text.strip())]
+                if dong and "CỘNG H" not in dong[0].text.upper() and "ĐẢNG" not in dong[0].text.upper():
+                    if len(dong) >= 2:
+                        sai("Tên cơ quan chủ quản", dong[0], co=13, dam=False)
+                        sai("Tên đơn vị ban hành", dong[1], co=13, dam=True)
+                    elif dong[0].text.strip().upper() == "TRƯỜNG CAO ĐẲNG KON TUM":
+                        sai("Tên đơn vị ban hành", dong[0], co=13, dam=True)
+                    break
+            else:
+                continue
+            break
         for p in _doan_trong_bang_dau(d):
             t = p.text.strip()
             tu = t.upper()
-            if tu.startswith(("UBND", "ỦY BAN NHÂN DÂN", "UỶ BAN NHÂN DÂN")):
-                sai("Tên cơ quan chủ quản", p, co=13)
-            elif tu == "TRƯỜNG CAO ĐẲNG KON TUM":
-                sai("Tên đơn vị ban hành", p, co=13, dam=True)
-            elif re.match(r"Số\s*:", t):
+            if re.match(r"Số\s*:", t):
                 sai("Số, ký hiệu", p, co=13, dam=False)
                 m = re.match(r"Số\s*:(\s*)/", t)
                 if m and len(m.group(1)) < 6:

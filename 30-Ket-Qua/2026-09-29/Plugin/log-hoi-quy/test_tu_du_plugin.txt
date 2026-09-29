@@ -1,6 +1,6 @@
 == A. Không có SKILL.md lồng, không còn gói .skill lồng trong zip ==
   OK chỉ có SKILL.md ở skills/<tên>/ (lồng: [])
-  OK zip ktc-quan-tri-1.3.11.zip không mang gói .skill lồng
+  OK zip ktc-quan-tri-1.3.12.zip không mang gói .skill lồng
 == B. Phần trước chỉ có trong dự án nay có trong gói ==
   OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/output-contract.md
   OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/template-format-dna.md

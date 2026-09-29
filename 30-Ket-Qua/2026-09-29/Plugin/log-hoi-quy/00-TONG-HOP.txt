@@ -8,7 +8,7 @@ test_c5_soi_trong_goi ma=0 OK=0
 test_doi_soat_so_lieu ma=0 OK=24
 test_he_ngoai ma=0 OK=6
 test_kiem_minh_chung ma=0 OK=15
-test_kiem_the_thuc ma=0 OK=36
+test_kiem_the_thuc ma=0 OK=38
 test_kiem_tra_he_thong ma=0 OK=0
 test_kiem_vien_dan ma=0 OK=24
 test_kpi_calc ma=0 OK=51

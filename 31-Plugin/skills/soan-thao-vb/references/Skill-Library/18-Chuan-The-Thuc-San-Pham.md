@@ -148,7 +148,8 @@ không phải hình thức đo được trên tệp.
 |---|---|---|
 | `10-Giay-moi.dotx` | Cơ quan chủ quản ghi "UBND TỈNH KON TUM"; tiêu ngữ lẫn cỡ 13 và 14 | Đổi thành `UBND TỈNH QUẢNG NGÃI`, tiêu ngữ cỡ 14 |
 | `02A-Quyet-dinh-ca-biet-Phe-duyet-nhiem-vu-du-toan.dotx` | Thiếu đường kẻ dưới "TRƯỜNG CAO ĐẲNG KON TUM" (chỉ có đường kẻ dưới tiêu ngữ) — TT14, phát hiện 28/9/2026 | Chép đường kẻ từ khung `Khung-the-thuc-VBHC.docx`, hoặc dựng bằng `--khung QĐ` |
-| `06A-Bao-cao-noi-bo.dotx`, `06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx` | "TRƯỜNG CAO ĐẲNG KON TUM" không đậm (chỉ có `bCs`, không áp cho chữ Latinh) — TT17, phát hiện 28/9/2026 | Đặt đậm tên Trường |
+| `06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx` | Đầu trang thứ nhất hiện số trang — TT11b, phát hiện 29/9/2026 | Bật "Different First Page", để trống đầu trang thứ nhất |
+| `06A`, `06D` (mẫu 2.2 — văn bản của đơn vị) | **Không phải lỗi:** "TRƯỜNG CAO ĐẲNG KON TUM" là cơ quan chủ quản nên không đậm; đơn vị ban hành "PHÒNG…/ĐƠN VỊ…" đậm. Ngày 28/9 ghi nhầm là lỗi, đính chính 29/9 | Giữ nguyên |
 | `01-Quyet-dinh-ban-hanh-Quy-che.dotx` | Chữ "Nơi nhận" cỡ 11 (TB 597: cỡ 12) — TT17, phát hiện 28/9/2026 | Đặt cỡ 12 |
 | `03A-Thong-bao-Huong-dan-dang-ky-ke-hoach-bao-cao.dotx` | (1) Đường kẻ dưới trích yếu dùng màu theme `accent1`, hiện **xanh**; (2) ô chữ ký 6 dòng trống, khối chữ ký dễ tách trang; (3) mục III dùng đoạn in đậm — đừng nhân bản đoạn đó cho lời văn; (4) kèm section 2 "Phụ lục IIa" | Đặt màu đen; giữ 4 dòng trống, bật không tách dòng bảng; nhân bản đoạn lời văn thường; bỏ section 2. Khung `Khung-the-thuc-VBHC.docx` đã xử lý sẵn 4 điểm này |
 | Nhiều mẫu `03-Templates(1)` | Chữ lưu dạng Unicode tổ hợp **NFD** ("ậ" = "â" + dấu nặng), tìm/thay theo NFC sẽ trượt | `kiem_the_thuc.py` chuẩn hóa NFC trước khi đo; khi ráp nội dung, so chữ sau `unicodedata.normalize("NFC", …)` |

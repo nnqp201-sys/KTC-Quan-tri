@@ -149,6 +149,26 @@ def nguoi_ky(ten, chuc=None):
     return f
 
 
+def mau_22(dam_phong):
+    """Mau 2.2 (van ban cua don vi): TRUONG CAO DANG KON TUM (chu quan, khong dam) / PHONG ... (ban hanh, dam)."""
+    def f(d):
+        ps = [p for p in d.tables[0].rows[0].cells[0].paragraphs if p.text.strip()]
+        ps[0].runs[0].text = "TRƯỜNG CAO ĐẲNG KON TUM"
+        for r in ps[0].runs:
+            r.bold = False
+        ps[1].runs[0].text = "PHÒNG TH-HC&QT"
+        for r in ps[1].runs[1:]:
+            r.text = ""
+        for r in ps[1].runs:
+            r.bold = dam_phong
+    return f
+
+
+kiem("TT17" not in bien("m22_dung", mau_22(True)),
+     "mẫu 2.2: tên Trường là chủ quản (không đậm) + Phòng đậm → không báo (lỗi báo nhầm BC quá trình 29/9)")
+kiem("TT17" in bien("m22_sai", mau_22(False)), "mẫu 2.2: tên Phòng (đơn vị ban hành) không đậm → TT17")
+
+
 def so_trang_1(d):
     h = d.sections[0].first_page_header
     (h.paragraphs[0] if h.paragraphs else h.add_paragraph()).add_run("1")
@@ -239,12 +259,16 @@ except Exception:
 if mau_dir and os.path.isdir(mau_dir):
     loi_mau = {}
     for f in sorted(os.listdir(mau_dir)):
-        if f.endswith((".dotx", ".xltx")) and not f.startswith(("01-", "10-", "02A-", "06A-", "06D-", "07-")):  # loi mau da biet (chuan 18 muc 6)
+        if f.endswith((".dotx", ".xltx")) and not f.startswith(("01-", "10-", "02A-", "06D-", "07-")):  # loi mau da biet (chuan 18 muc 6)
             nang = [x for x in k.kiem_tep(os.path.join(mau_dir, f)) if x[0] <= 2]
             if nang:
                 loi_mau[f] = nang
-    kiem(not loi_mau, f"10 mẫu 03-Templates(1) (trừ 6 mẫu có lỗi đã biết) không bị báo Mức 1–2: {loi_mau}")
-    for f in ("01-Quyet-dinh-ban-hanh-Quy-che.dotx", "06A-Bao-cao-noi-bo.dotx", "06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx", "07-To-trinh.dotx"):
+    kiem(not loi_mau, f"11 mẫu 03-Templates(1) (trừ 5 mẫu có lỗi đã biết) không bị báo Mức 1–2: {loi_mau}")
+    kiem("TT11b" in ma(os.path.join(mau_dir, "06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx")),
+         "lỗi đã biết của 06D (số trang ở trang 1) vẫn bị bắt")
+    kiem(not [x for x in k.kiem_tep(os.path.join(mau_dir, "06A-Bao-cao-noi-bo.dotx")) if x[0] <= 2],
+         "06A (mẫu 2.2: tên Trường là chủ quản, không đậm) không bị báo nhầm")
+    for f in ("01-Quyet-dinh-ban-hanh-Quy-che.dotx", "07-To-trinh.dotx"):
         kiem("TT17" in ma(os.path.join(mau_dir, f)), f"lỗi đã biết của {f} (tên Trường sai cỡ/kiểu) vẫn bị bắt")
     kiem("TT08" in ma(os.path.join(mau_dir, "10-Giay-moi.dotx")), "lỗi đã biết của 10-Giay-moi vẫn bị bắt")
     kiem("TT14" in ma(os.path.join(mau_dir, "02A-Quyet-dinh-ca-biet-Phe-duyet-nhiem-vu-du-toan.dotx")),

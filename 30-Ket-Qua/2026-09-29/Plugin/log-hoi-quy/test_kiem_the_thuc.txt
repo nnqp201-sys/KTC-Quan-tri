@@ -12,6 +12,8 @@
   OK TT13 “UBND TỈNH QUẢNG NGÃI” in đậm bị bắt
   OK TT15 dòng địa danh in đậm bị bắt
   OK TT16 đoạn căn cứ không thụt đầu dòng bị bắt
+  OK mẫu 2.2: tên Trường là chủ quản (không đậm) + Phòng đậm → không báo (lỗi báo nhầm BC quá trình 29/9)
+  OK mẫu 2.2: tên Phòng (đơn vị ban hành) không đậm → TT17
   OK TT11b chữ số “1” ở đầu trang thứ nhất bị bắt (lỗi bản v2 ngày 28/9)
   OK TT11b không báo nhầm văn bản dựng từ khung (ẩn số trang 1)
   OK TT18 thiếu đường kẻ dưới trích yếu bị bắt
@@ -27,10 +29,10 @@
   OK hook: tệp sai trong dự án KTC → mã 2, báo TT08
   OK hook: tệp đúng → mã 0
   OK hook: ngoài dự án KTC → không can thiệp
-  OK 10 mẫu 03-Templates(1) (trừ 6 mẫu có lỗi đã biết) không bị báo Mức 1–2: {}
+  OK 11 mẫu 03-Templates(1) (trừ 5 mẫu có lỗi đã biết) không bị báo Mức 1–2: {}
+  OK lỗi đã biết của 06D (số trang ở trang 1) vẫn bị bắt
+  OK 06A (mẫu 2.2: tên Trường là chủ quản, không đậm) không bị báo nhầm
   OK lỗi đã biết của 01-Quyet-dinh-ban-hanh-Quy-che.dotx (tên Trường sai cỡ/kiểu) vẫn bị bắt
-  OK lỗi đã biết của 06A-Bao-cao-noi-bo.dotx (tên Trường sai cỡ/kiểu) vẫn bị bắt
-  OK lỗi đã biết của 06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx (tên Trường sai cỡ/kiểu) vẫn bị bắt
   OK lỗi đã biết của 07-To-trinh.dotx (tên Trường sai cỡ/kiểu) vẫn bị bắt
   OK lỗi đã biết của 10-Giay-moi vẫn bị bắt
   OK lỗi đã biết của 02A (thiếu đường kẻ dưới tên Trường) vẫn bị bắt
