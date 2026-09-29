@@ -24,3 +24,17 @@ commit), nghiệm thu 15 ca trên chính tệp zip, BC tiếp thu lần 5, TB v8
    Thông báo.
 7. **Nội dung dài thêm làm khối chữ ký tách trang** (TB v8, BC v7) — sửa bằng `cantSplit` + `keepNext` (hàm `giu_khoi_ky`
    trong `scratchpad/dung_1313.py`); luôn xuất PDF xem trang cuối sau mỗi lần sửa Track Changes.
+
+## Bổ sung (tối 29/9/2026) — rà soát 897 chính thức toàn văn trước khi gửi P-QLKHCN thẩm định
+
+Báo cáo 8 phần: `30-Ket-Qua/2026-09-29/Ra-Soat/BAO-CAO-RA-SOAT-897-CHINH-THUC_…docx` — 0 Mức 1; 3 Mức 2, 8 Mức 3 đã sửa
+(tác giả “Sửa theo rà soát 897 chính thức 29/9 (Claude)”, kịch bản `sua_897_ct.py`); 5 Mức 4. Hồ sơ vòng 6: 91 tệp, sạch.
+
+8. **Rà "chỉ phần sửa đổi" bỏ sót lỗi cấu trúc.** Vòng 5 (rà chữ phần chèn) không thấy hàng bảng BC quá trình lệch cột —
+   `hang_moi_cuoi_bang` nhận danh sách thiếu ô vẫn chạy, chép phần còn lại của hàng trên. Trước khi gửi hồ sơ ra ngoài: rà toàn
+   văn, dump từng bảng theo ô; thêm hàng bảng thì truyền đủ số cột.
+9. **Mô tả hiệu lực phải lấy từ chính văn, không từ quy ước nội bộ.** "QĐ 2119 thay thế danh mục kèm TB 1052" có trong CLAUDE.md
+   nhưng không có trong QĐ 2119 (còn lấy TB 1052 làm căn cứ) → Mức 2 trong văn bản trình.
+10. **Mục lục tĩnh lệch sau mỗi lần chèn** — đo trang thật bằng Word (`Range.Information(3)`) rồi sửa, đo lại sau khi sửa.
+11. Kho thiếu KH 848, TB 917, 924, 948 (đề xuất nạp 27/9 chưa áp) và không có bản gốc TB 597 — tác tử hiệu lực chỉ đối chiếu
+    được bản ngoài kho.

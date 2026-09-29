@@ -79,17 +79,20 @@ thư mục dự án, lịch sử mã nguồn, nhật ký hay dữ liệu cá nh�
 | 3-Ra-soat-897 | `PHIEU-RA-SOAT-897-VONG-3_TB-v7.md` | 10244 | `5c2084be21e67476cdf1bc8d04426ee515ff8bdd703b007d3b166b40345934d9` |
 | 3-Ra-soat-897 | `PHIEU-RA-SOAT-897-VONG-4_BC-v6_HD-v7_TT-v2.md` | 10704 | `a244bb279eb59276d70adb960c659f954327a22aaa90629d72bf4f29aac3bb42` |
 | 3-Ra-soat-897 | `PHIEU-RA-SOAT-897-VONG-5_TB-v8_HD-v8_BC-v7_TT5-v1.md` | 11208 | `4089266a01c2ac5464dd0d2ae69b2b3151ad21efbbeeab532a66357486d95c92` |
-| 4-Van-ban | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v1.docx` | 47390 | `b4795a9a00106e8388951c9ea46cfa03b1b3f71fcf7416a0d23d0bd30e82c656` |
-| 4-Van-ban | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260929_v8_TrackChanges.docx` | 76150 | `b8db28000cfe7e888f8b6114615b6298cf3b075f894add92ae59edb8ec8ae9bf` |
-| 4-Van-ban | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260929_v8_ban-sach.docx` | 75803 | `d9e924adcaa5d6c1a2ab431e3bb86c2748bfba96c9c0cf24765d4118fa476c07` |
-| 4-Van-ban | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20260929_v8_TrackChanges.docx` | 65864 | `a708cf562119380218c2195703c184f95ddef388afd7d5e8747aac5d75dd1b2c` |
-| 4-Van-ban | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20260929_v8_ban-sach.docx` | 65256 | `00e7466cd4a914aa09a9f57bd21cd686f4658e88d0010a01bf0bb01a775128d0` |
-| 4-Van-ban | `BC_Qua-trinh-xay-dung-bo-cong-cu-KTC-Quan-tri_20260929_v7_TrackChanges.docx` | 75506 | `a68ec91f04c89d1bbf7ba4c5e89d0b25334746126e5ba9b0d377ccd19f7d2161` |
-| 4-Van-ban | `BC_Qua-trinh-xay-dung-bo-cong-cu-KTC-Quan-tri_20260929_v7_ban-sach.docx` | 74055 | `73992535b7293ab45f31f277a3869ab4aee241cd1f0523231c6507ce08d07812` |
+| 3-Ra-soat-897 | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-KTC-Quan-tri-gui-tham-dinh_20260929.docx` | 45943 | `b92d58637db411fe412b07be281b6dc01d7d1648807fddd8a4238537be76984d` |
+| 4-Van-ban | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v2_TrackChanges.docx` | 47784 | `4127ee08745833448563eb89e4ce6e72f5196ab2abd8ff506fcf5511e8dd85f6` |
+| 4-Van-ban | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v2_ban-sach.docx` | 47551 | `65dfe67ff6535a74601cb66943682db662f7a8d8a07159e636014b237df689be` |
+| 4-Van-ban | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260929_v8_TrackChanges.docx` | 76150 | `c9b774369a9899b6a053195ab41e964c1749698b929a286ab216a605457861e1` |
+| 4-Van-ban | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260929_v8_ban-sach.docx` | 75803 | `6dd495abed5f90a1f4aa63e7c99574fff19b00b22765336db4ccb5e4aabdda5d` |
+| 4-Van-ban | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20260929_v8_TrackChanges.docx` | 66783 | `fa24b79f67a334095e8467e9dd2729a0032d82224536568edb17b185186d3da3` |
+| 4-Van-ban | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20260929_v8_ban-sach.docx` | 65408 | `e6681aaf7c2c6f9efe93c1173b4e6a8af03e9d5128b3ad7f3047247b1f2fac00` |
+| 4-Van-ban | `BC_Qua-trinh-xay-dung-bo-cong-cu-KTC-Quan-tri_20260929_v7_TrackChanges.docx` | 76202 | `3b060fe5e3f3bb22465a38762f4ccec3f1eedf121b2c28cb9f87f56ac63df599` |
+| 4-Van-ban | `BC_Qua-trinh-xay-dung-bo-cong-cu-KTC-Quan-tri_20260929_v7_ban-sach.docx` | 74328 | `354768965f62a8256670b039cc6365ac627a8e53710c7365e1bbd5dfb8c5da99` |
 | 4-Van-ban/ban-nen | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260927_v7_ban-sach.docx` | 75578 | `2accd54ace167947b89f15b27e3916036ba8bd6588bb4820df99a1d75ea029a7` |
 | 4-Van-ban/ban-nen | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20260928_v7_ban-sach.docx` | 64725 | `5f46b2b8079a6e9f75139e9d3dfad62b90c21ba6023d4e963c5426472da7f898` |
 | 4-Van-ban/ban-nen | `BC_Qua-trinh-xay-dung-bo-cong-cu-KTC-Quan-tri_20260928_v6_ban-sach.docx` | 72124 | `f5b97c7fa940e715e2900b715a8d84656f6bb9b8863a09320a1b31fa757e482a` |
 | 4-Van-ban/ban-nen | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-4-KTC-Quan-tri_20260928_v2_ban-sach.docx` | 46533 | `24f78fb3f07e8d23fd3a7b59900c2313b53d796bed1e74898d34adaabdbbedb9` |
+| 4-Van-ban/ban-nen | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v1.docx` | 47390 | `238d70802e6111c3e78627e5ee7653b1e24982ace81cef1657e39c34dea26a76` |
 | 5-Van-hanh | `THONG-KE-VAN-HANH-THUC-TE-20260918-20260928.md` | 3303 | `f467c831d048ee8d6bd7a03b8185d5af7fbec99a0ba97381af79604aafcabfb4` |
 | 5-Van-hanh | `BIEN-BAN-KIEM-TRA-PHAN-QUYEN-CHI-DOC-KTC-DATABASE_mau-v2.md` | 4294 | `471de3f74ac79c32c4353b9eb981ef596b8c907268a89b9e513cb9248d4ca89a` |
 | 5-Van-hanh | `DANH-MUC-28-TEP-DAU-VAO-TRUNG-KHO_cho-duyet.md` | 7806 | `7fefca544bc72a988d41f354675d6729e7a0d90eecc603dd3ff3247488912d46` |
@@ -114,7 +117,10 @@ thư mục dự án, lịch sử mã nguồn, nhật ký hay dữ liệu cá nh�
 - **Văn bản:** Báo cáo tiếp thu, giải trình lần 5 (văn bản mới, bản 1). Dự thảo Thông báo bản 8, Tài liệu hướng dẫn bản 8,
   Báo cáo quá trình xây dựng bản 7: mỗi văn bản hai tệp — `_TrackChanges` (**chỉ đọc**, tác giả đánh dấu “Tiếp thu thẩm
   định lần 5, bản 1.3.13 (Claude)”) dựng trên bản sạch đã qua rà soát vòng 4 (`4-Van-ban/ban-nen/`), và `_ban-sach`.
-- **Rà soát 897:** phần sửa đổi lần này đã rà soát bổ sung (vòng 5) — `3-Ra-soat-897/PHIEU-RA-SOAT-897-VONG-5_…`.
+- **Rà soát 897:** phần sửa đổi lần này đã rà soát bổ sung (vòng 5) — `3-Ra-soat-897/PHIEU-RA-SOAT-897-VONG-5_…`; sau đó
+  **rà soát chính thức toàn văn** 4 văn bản trước khi gửi thẩm định — `3-Ra-soat-897/BAO-CAO-RA-SOAT-897-CHINH-THUC_…docx`
+  (8 phần; 0 Mức 1; 3 Mức 2 và 8 Mức 3 đã sửa bằng Track Changes, tác giả “Sửa theo rà soát 897 chính thức 29/9 (Claude)”;
+  5 góp ý Mức 4). Báo cáo tiếp thu lần 5: bản 2 (Track Changes trên bản 1, bản 1 ở `4-Van-ban/ban-nen/`).
 - **Chưa thực hiện (không trình bày như đã đạt):** biên bản phân quyền chỉ đọc (cổng G1), kiểm kê cấp tổ chức, nghiệm thu
   trên Claude (trò chuyện) và Cowork (cổng G2), thí điểm tại đơn vị (cổng G3).
 - Hồ sơ đã được kiểm bằng `kiem_ho_so.py` ngay trước khi gửi. **Không mở rồi lưu lại** tệp trong thư mục này — mở bản sạch
