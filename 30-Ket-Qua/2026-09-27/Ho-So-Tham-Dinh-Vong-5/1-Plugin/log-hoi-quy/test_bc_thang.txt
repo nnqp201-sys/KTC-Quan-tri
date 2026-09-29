@@ -1,0 +1,12 @@
+== A. Bản sao trong gói kỹ năng báo cáo trùng nguồn ==
+  OK 25-KTC-Bao-Cao/references/Skill-Library/bc_thang.py trùng byte 29-Cong-Cu/bc_thang.py
+  OK 25-KTC-Bao-Cao/references/Skill-Library/vanphong.py trùng byte 29-Cong-Cu/vanphong.py
+  OK 25-KTC-Bao-Cao/references/Skill-Library/trich_tuong_thuat.py trùng byte 29-Cong-Cu/trich_tuong_thuat.py
+  OK 25-KTC-Bao-Cao/references/Skill-Library/duong_dan.py trùng byte 29-Cong-Cu/duong_dan.py
+== B. Mẫu trắng đã sửa lỗi (dự phòng) ==
+  OK mẫu trắng không còn 'nhiệm kỳ 2021-2026'
+  OK mẫu trắng không còn 'Báo cáo báo cáo'
+== C. Tìm nguồn, trích dữ liệu (kho + 10-Dau-Vao tháng 9) ==
+  ⚠ BỎ QUA: 10-Dau-Vao/01-Dau-Moi-Nop/2026-09 chỉ còn 4 tệp (cần hồ sơ ≥ 10 đơn vị)
+
+KET LUAN: SACH (có mục bỏ qua)

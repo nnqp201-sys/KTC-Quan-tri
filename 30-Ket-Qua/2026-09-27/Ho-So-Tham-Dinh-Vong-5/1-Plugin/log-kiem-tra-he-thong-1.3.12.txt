@@ -6,12 +6,12 @@ Dự án: D:\.CLAUDE code\KTC-Quan-tri
 ────────────────────────────────────────────────────────────────────────────
 C1. Gói .skill — cấu trúc và frontmatter
 ────────────────────────────────────────────────────────────────────────────
-  ✓ ktc-bao-cao        46 tệp, hợp lệ
-  ✓ ktc-ke-hoach       23 tệp, hợp lệ
+  ✓ ktc-bao-cao        52 tệp, hợp lệ
+  ✓ ktc-ke-hoach       30 tệp, hợp lệ
   ✓ ktc-soan-thao-vb   95 tệp, hợp lệ
-  ✓ ktc-theo-doi-cv    12 tệp, hợp lệ
+  ✓ ktc-theo-doi-cv    13 tệp, hợp lệ
   ✓ ktc-quan-tri       21 tệp, hợp lệ
-  ✓ ktc-the-thuc       4 tệp, hợp lệ
+  ✓ ktc-the-thuc       5 tệp, hợp lệ
   ✓ ktc-kpi-lap-ke-hoach 19 tệp, hợp lệ
   ✓ ktc-kpi-tu-danh-gia 16 tệp, hợp lệ
 
@@ -110,7 +110,7 @@ C11. Không tệp nào chỉ tồn tại bên trong gói .skill
 ────────────────────────────────────────────────────────────────────────────
 C12. Đầu vào trùng KTC-Database (Nguyên tắc 4.4 — trỏ thay vì chép)
 ────────────────────────────────────────────────────────────────────────────
-  ✓ 105 tệp đầu vào · 18 trùng thuộc ngoại lệ đã duyệt
+  ✓ 80 tệp đầu vào · 18 trùng thuộc ngoại lệ đã duyệt
 
 ────────────────────────────────────────────────────────────────────────────
 C13. Không ghi cứng đường dẫn ổ đĩa (Nguyên tắc 4.2)
@@ -125,6 +125,7 @@ C14. Script agent viện dẫn đều được đóng vào plugin
 ────────────────────────────────────────────────────────────────────────────
 C10. Bộ hồi quy có chạy được không
 ────────────────────────────────────────────────────────────────────────────
+  ✓ test_bc_thang.py                   chạy xong (mã 0)
   ✓ test_c11_ban_goc_trong_zip.py      chạy xong (mã 0)
   ✓ test_c12_c13_kho_va_o_dia.py       chạy xong (mã 0)
   ✓ test_c14_cong_cu_agent.py          chạy xong (mã 0)
@@ -145,6 +146,7 @@ C10. Bộ hồi quy có chạy được không
   ✓ test_thu_muc.py                    chạy xong (mã 0)
   ✓ test_tra_hieu_luc.py               chạy xong (mã 0)
   ✓ test_trackchanges.py               chạy xong (mã 0)
+  ✓ test_tu_du_plugin.py               chạy xong (mã 0)
   ✓ test_tu_hoc.py                     chạy xong (mã 0)
   ✓ test_validate_plan.py              chạy xong (mã 0)
 

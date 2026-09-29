@@ -31,6 +31,9 @@
   OK chặn 1.3.3 (ca ngược): Path qua biến .rename (được: chan)
   OK chặn 1.3.3 (ca ngược): Path(ngoài).replace(đích trong kho) (được: chan)
   OK chặn 1.3.3 (ca ngược): os.replace vào kho (được: chan)
+  OK 1.3.6: Write vào Memory của plugin → chan (được: chan)
+  OK 1.3.6: Edit vào bộ đệm .claude/plugins → chan (được: chan)
+  OK 1.3.6: Write vào thư mục làm việc (ngoài plugin) → qua (được: qua)
   OK cho qua 1.3.4: đứng trong kho, heredoc Python có `if i > 45:` [chặn nhầm thật 28/9] (được: qua)
   OK chặn 1.3.4 (ca ngược): thân heredoc đưa cho bash, ghi tương đối trong kho (được: chan)
   OK chặn 1.3.4 (ca ngược): thân heredoc Python ghi tệp trong kho (tầng 2) (được: chan)
@@ -55,51 +58,66 @@
   OK nạp mặc định không in lệnh thô
   OK ca ngược: vượt ngân sách bị phát hiện
 == D. Bản dựng 31-Plugin 1.3.1 ==
-  OK plugin.json 1.3.x (đang 1.3.5)
+  OK plugin.json 1.3.x (đang 1.3.12)
   OK skills\bao-cao\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\bao-cao\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\bao-cao\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\bao-cao\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\ke-hoach\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\ke-hoach\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\ke-hoach\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\ke-hoach\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\kpi-lap-ke-hoach\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\kpi-lap-ke-hoach\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\kpi-lap-ke-hoach\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\kpi-lap-ke-hoach\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\kpi-tu-danh-gia\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\kpi-tu-danh-gia\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\kpi-tu-danh-gia\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\kpi-tu-danh-gia\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\quan-tri\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\quan-tri\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\quan-tri\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\quan-tri\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\soan-thao-vb\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\soan-thao-vb\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\soan-thao-vb\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\soan-thao-vb\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\the-thuc\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\the-thuc\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\the-thuc\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\the-thuc\SKILL.md: không còn dòng lịch sử phiên bản
   OK skills\theo-doi-cv\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK skills\theo-doi-cv\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK skills\theo-doi-cv\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\theo-doi-cv\SKILL.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-hieu-luc-vien-dan.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-hieu-luc-vien-dan.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-hieu-luc-vien-dan.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-hieu-luc-vien-dan.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-kiem-ho-so-don-vi.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-kiem-ho-so-don-vi.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-kiem-ho-so-don-vi.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-kiem-ho-so-don-vi.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-kiem-san-pham.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-kiem-san-pham.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-kiem-san-pham.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-kiem-san-pham.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-tra-cuu-can-cu.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-tra-cuu-can-cu.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-tra-cuu-can-cu.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-tra-cuu-can-cu.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-tu-cai-tien.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-tu-cai-tien.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-tu-cai-tien.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-tu-cai-tien.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-tu-hoc.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-tu-hoc.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-tu-hoc.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-tu-hoc.md: không còn dòng lịch sử phiên bản
   OK agents\ktc-xac-minh-minh-chung.md: khối lõi ≤ 2500 ký tự (được 2495)
   OK agents\ktc-xac-minh-minh-chung.md: khối lõi có quy tắc xử lý bất đồng skill–agent
+  OK agents\ktc-xac-minh-minh-chung.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK agents\ktc-xac-minh-minh-chung.md: không còn dòng lịch sử phiên bản
   OK skills\bao-cao: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
   OK skills\ke-hoach: có references/00-Quy-Tac-Bat-Bien-Day-Du.md

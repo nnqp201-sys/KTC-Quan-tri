@@ -1,16 +1,16 @@
-# Bằng chứng kiểm thử — plugin ktc-quan-tri 1.3.5
+# Bằng chứng kiểm thử — plugin ktc-quan-tri 1.3.12
 
-**Lập tự động** bởi `29-Cong-Cu/lap_bang_chung_plugin.py` lúc 28/09/2026 14:31 — mọi con số lấy từ nhật ký trong thư mục này.
+**Lập tự động** bởi `29-Cong-Cu/lap_bang_chung_plugin.py` lúc 29/09/2026 08:20 — mọi con số lấy từ nhật ký trong thư mục này.
 
 ## 1. Artifact
 
 | Mục | Giá trị |
 |---|---|
-| Tệp | `ktc-quan-tri-1.3.5.zip` (271 tệp) |
-| SHA-256 | `228926d5ae61ec27fe59be8c4b569940c56740c752e605ad8ca8690e02ebd929` (tính lại khớp tệp `.sha256`) |
+| Tệp | `ktc-quan-tri-1.3.12.zip` (291 tệp) |
+| SHA-256 | `ac18042010912719e19342f8eb422d74a4c3f3f93e674cd02661168a8e7869df` (tính lại khớp tệp `.sha256`) |
 | Lặp lại được | `log-dung-*-lan-2.txt` nếu có (dòng cuối ghi mã của hai lần dựng) |
-| Danh mục tệp | `DANH-MUC-TEP-1.3.5.md` (SHA-256 từng tệp) |
-| So với bản trước | `ktc-quan-tri-1.3.4.zip` SHA-256 `45c6199ebefad22fe385454e085d3b827af651a29186469d68e1986abefafa5e`; thêm 2 tệp: `scripts/ktc_thu_muc.py`, `skills/quan-tri/scripts/ktc_thu_muc.py`; bỏ 0 tệp: — |
+| Danh mục tệp | `DANH-MUC-TEP-1.3.12.md` (SHA-256 từng tệp) |
+| So với bản trước | `ktc-quan-tri-1.3.11.zip` SHA-256 `c960210dce737abdfc5895ad11f0d35165733dbc87fb21ac2ef179cd91f3ee28`; thêm 0 tệp: —; bỏ 0 tệp: — |
 | Không chứa | `.git/`, `KPI-ca-nhan/`, `*.jsonl`, `ktc_backup_github.py` |
 
 ## 2. Hooks — trước và sau
@@ -35,18 +35,19 @@
 | openpyxl | 3.1.5 |
 | lxml | 6.1.2 |
 | Claude Code CLI | 2.1.283 (Claude Code) |
-| Git | `383dd17` + 65 tệp nguồn thay đổi chưa commit — chưa truy về được một commit |
+| Git | `28df076` + 34 tệp nguồn thay đổi chưa commit — chưa truy về được một commit |
 
 ## 4. Kết quả
 
 | Phép kiểm | Kết quả | Nhật ký |
 |---|---|---|
-| `claude plugin validate ./31-Plugin --strict` | ĐẠT (mã 0) | `log-validate-strict-1.3.5.txt` |
-| Kiểm tra tĩnh toàn hệ | KẾT LUẬN: 0 LỖI · 0 cảnh báo (mã 0) | `log-kiem-tra-he-thong-1.3.5.txt` |
-| Bộ hồi quy | 22/22 bộ mã thoát 0 | `log-hoi-quy/` |
+| `claude plugin validate ./31-Plugin --strict` | ĐẠT (mã 0) | `log-validate-strict-1.3.12.txt` |
+| Kiểm tra tĩnh toàn hệ | KẾT LUẬN: 0 LỖI · 0 cảnh báo (mã 0) | `log-kiem-tra-he-thong-1.3.12.txt` |
+| Bộ hồi quy | 24/24 bộ mã thoát 0 | `log-hoi-quy/` |
 
 | Bộ | Mã thoát | Dòng OK |
 |---|---:|---:|
+| `test_bc_thang` | 0 | 6 |
 | `test_c11_ban_goc_trong_zip` | 0 | 0 |
 | `test_c12_c13_kho_va_o_dia` | 0 | 6 |
 | `test_c14_cong_cu_agent` | 0 | 5 |
@@ -54,19 +55,20 @@
 | `test_doi_soat_so_lieu` | 0 | 24 |
 | `test_he_ngoai` | 0 | 6 |
 | `test_kiem_minh_chung` | 0 | 15 |
-| `test_kiem_the_thuc` | 0 | 17 |
+| `test_kiem_the_thuc` | 0 | 38 |
 | `test_kiem_tra_he_thong` | 0 | 0 |
 | `test_kiem_vien_dan` | 0 | 24 |
 | `test_kpi_calc` | 0 | 51 |
 | `test_kpi_danh_gia` | 0 | 59 |
 | `test_kpi_trinh_bay` | 0 | 27 |
 | `test_plugin_130` | 0 | 94 |
-| `test_plugin_131` | 0 | 115 |
+| `test_plugin_131` | 0 | 133 |
 | `test_plugin_nhat_ky_backup` | 0 | 34 |
 | `test_task_id_bc736` | 0 | 7 |
 | `test_thu_muc` | 0 | 19 |
 | `test_tra_hieu_luc` | 0 | 17 |
 | `test_trackchanges` | 0 | 0 |
+| `test_tu_du_plugin` | 0 | 33 |
 | `test_tu_hoc` | 0 | 12 |
 | `test_validate_plan` | 0 | 27 |
 

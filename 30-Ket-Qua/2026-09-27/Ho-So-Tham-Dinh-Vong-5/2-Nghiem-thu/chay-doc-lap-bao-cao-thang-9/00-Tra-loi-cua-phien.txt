@@ -1,0 +1,59 @@
+Tôi đã dựng xong bốn tệp dự thảo, nhưng **chưa trình ký được**. Ba đầu mối chưa nộp báo cáo nên báo cáo Word còn 14 chỗ đánh dấu `[CẦN BỔ SUNG]`, và bước rà soát bắt buộc `ktc-ra-soat-897` chưa chạy. Cả bốn tệp nằm trong `30-Ket-Qua/2026-09-28/bao-cao/`:
+
+| Tệp | Nội dung | Phát triển từ |
+|---|---|---|
+| `BC_Ket-qua-cong-tac-thang-9-ke-hoach-thang-10-2026_DU-THAO_20260928.docx` | I. Kết quả tháng 9 · II. Đánh giá chung · III. Nhiệm vụ tháng 10; chủ thể "Nhà trường" | BC 375/BC-CĐKT (tháng 8) |
+| `PL_KPI-Ket-qua-cong-tac-thang-9-2026_DU-THAO_20260928.xlsx` | 53 nhiệm vụ của KH 834, có công thức KPI (8)–(16) | Phụ lục KPI kèm BC 375 |
+| `KH_Ke-hoach-cong-tac-thang-10-2026_DU-THAO_20260928.xlsx` | 30 nhiệm vụ mới và 9 nhiệm vụ chuyển tiếp | KH 834/KH-CĐKT |
+| `00-Ghi-chu-doi-soat-thang-9-2026.md` | Nguồn từng ý, lỗi dữ liệu đơn vị, đơn vị chưa nộp, mâu thuẫn giữa các nguồn | — |
+
+**Tình hình nộp của 13 đầu mối:**
+- **Chưa nộp gì:** Phòng QLĐT&BĐCL (chủ trì 13/53 nhiệm vụ), Công đoàn cơ sở, Đoàn TN – Hội SV.
+- **Nộp thiếu:** Phòng TH-HC&QT thiếu IIa và Ib của Phòng, còn IIb của Phòng bỏ trống toàn bộ cột KPI (lặp lại lỗi tháng 8). Khoa KT&NL chỉ nộp IIa.
+- **Nộp nhưng có lỗi:** công thức KPI sai ở P-TCKT (4 dòng), P-QLKH (1 dòng), Ban Truyền thông (1 dòng). Theo quy trình, tôi chỉ bỏ số KPI của những dòng này, vẫn tổng hợp đơn vị. IIa của KTCN không theo khung TB 736 nên tôi đọc tay. P-TCCB bỏ trống nhiều mục và còn sót dòng mẫu. K-KHCB và K-YDUOC còn nội dung chép từ kỳ cũ.
+
+**Về phụ lục:** chỉ 9/53 dòng có KPI từ IIb hợp lệ. 44 dòng ghi "chưa có kết quả", không dòng nào bị kết luận "chưa hoàn thành" chỉ vì thiếu báo cáo. Vì 83% số dòng chưa có kết quả, không nên đọc tổng theo Trục thành tỷ lệ hoàn thành.
+
+**Lỗi đã phát hiện và sửa trên tệp đầu ra:**
+- BC 375 gốc ghi số hiệu sai định dạng ("Số375BC-CĐKT"), nên công cụ đã giữ nguyên số 375 trong dự thảo mới. Tôi đã sửa tay thành "Số:      /BC-CĐKT" và ghi lỗi công cụ là BUG-17 trong sổ lỗi.
+- Tiêu đề mục II của phụ lục mang theo tiêu đề tháng 8; tôi sửa lại theo KH 834.
+
+**Đã kiểm:**
+- Cả ba tệp đạt `kiem_the_thuc.py` (0 gợi ý).
+- Báo cáo Word: 0 vi phạm văn phong, không sót kỳ cũ, đủ mục con.
+- Công thức phụ lục kiểm bằng script: mỗi ô tham chiếu đúng hàng, các dải SUM khớp khối Trục.
+
+Tệp gốc trong `10-Dau-Vao` và kho không bị sửa.
+
+**Trạng thái:** `DAT_CO_DIEU_KIEN` (là dự thảo, chưa phải sản phẩm chính thức).
+
+**Nguồn đã đối chiếu:**
+- 29 tệp đầu vào của 10 đầu mối.
+- Bản đã ban hành: BC 375, phụ lục KPI tháng 8, KH 834.
+- Kết luận giao ban TB 1019, 1047, 1071, 1092/TB-CĐKT.
+- BC 407/BC-CĐKT ngày 17/9/2026 (số liệu tuyển sinh 560 chỉ tiêu, đạt 47,1% tính đến 05/9).
+- QĐ 311/QĐ-CĐKT (Chương trình công tác năm 2026), CV 5884/VP-KTTH.
+
+**Kiểm tra đã chạy:** `bc_thang.py` (tìm nguồn, trích, dựng, tự kiểm); `read_bc736_excel.py` (công thức KPI cascade); `kiem_the_thuc.py` cho 3 tệp; script kiểm công thức phụ lục; `kiem_tra_bo_nho.py`. Bộ nhớ quá trình đã cập nhật (TRANG-THAI, nhật ký chạy, sổ chất lượng dữ liệu, sổ lỗi).
+
+**Kiểm tra chưa chạy:**
+- Rà soát `ktc-ra-soat-897` (bắt buộc trước trình ký).
+- Kiểm độc lập `ktc-kiem-san-pham`.
+- Kiểm hiệu lực các văn bản được viện dẫn.
+- Tính lại công thức bằng Excel: máy không có bộ tính, cần mở tệp bằng Excel một lần để có giá trị hiển thị.
+
+**Mã cảnh báo:**
+- `THIEU_DU_LIEU`: 14 chỗ cần bổ sung; kho chưa có Kế hoạch quý IV để làm căn cứ.
+- `CAN_XAC_MINH`: 7 mâu thuẫn giữa các nguồn.
+- `DOI_CHIEU_GAN_DUNG`: một số ý là phân loại hoặc suy luận của người tổng hợp, đã ghi rõ trong tệp ghi chú.
+- `FORMAT_BINARY_UNVERIFIED`: công thức Excel chưa được tính lại bằng Excel.
+- Phông Calibri ở 3 tệp gốc của đơn vị (hook báo); tôi không sửa tệp gốc.
+
+**Việc người có thẩm quyền quyết:**
+1. Đôn đốc Phòng QLĐT&BĐCL, Công đoàn cơ sở, Đoàn TN – Hội SV và Phòng TH-HC&QT nộp báo cáo.
+2. Xác nhận **Lễ tốt nghiệp đã tổ chức ngày 26/9** (theo TB 1071) hay dời sang tháng 10 (theo Chương trình công tác năm và kế hoạch tháng 10 của Ban Truyền thông, KTCN).
+3. Làm rõ Hội thảo "Chuyển đổi số toàn diện…" đã tổ chức hay chưa: BC 375 và BC 407 ghi là đã tổ chức, Phòng QLKHCN&HTPT ghi sẽ tổ chức trước 11/10.
+4. Xác định độ khó cho 14 dòng kế hoạch chưa có nguồn (hiện công thức tạm tính 100 điểm).
+5. Duyệt danh sách các dòng Ib bị loại khỏi kế hoạch tháng 10 (lý do ở mục 6 tệp ghi chú).
+6. Trước khi ban hành: xóa cột ghi chú đối soát (cột Q của phụ lục, cột L của kế hoạch) và để trống số, ngày cho Văn thư.
+exit 0
