@@ -1,0 +1,40 @@
+  OK TT01 Document() rỗng bị bắt khổ Letter
+  OK TT02 lề mặc định (trái 3,18 / 2,54 cm) bị bắt
+  OK TT03 phông Calibri mặc định bị bắt
+  OK văn bản dựng từ khung: 0 gợi ý (được: [])
+  OK --khung BC: đổi tên loại và ký hiệu
+  OK TT08 cơ quan chủ quản “UBND TỈNH KON TUM” bị bắt
+  OK TT09 Quốc hiệu cỡ 12 bị bắt
+  OK TT03 .VnTime bị bắt
+  OK TT04 nội dung cỡ 13 bị bắt
+  OK TT12 bảng tiêu đề chia đôi 8 + 8 cm bị bắt
+  OK TT14 thiếu đường kẻ dưới tên Trường, tiêu ngữ bị bắt
+  OK TT13 “UBND TỈNH QUẢNG NGÃI” in đậm bị bắt
+  OK TT15 dòng địa danh in đậm bị bắt
+  OK TT16 đoạn căn cứ không thụt đầu dòng bị bắt
+  OK mẫu 2.2: tên Trường là chủ quản (không đậm) + Phòng đậm → không báo (lỗi báo nhầm BC quá trình 29/9)
+  OK mẫu 2.2: tên Phòng (đơn vị ban hành) không đậm → TT17
+  OK TT11b chữ số “1” ở đầu trang thứ nhất bị bắt (lỗi bản v2 ngày 28/9)
+  OK TT11b không báo nhầm văn bản dựng từ khung (ẩn số trang 1)
+  OK TT18 thiếu đường kẻ dưới trích yếu bị bắt
+  OK TT17 tên cơ quan chủ quản cỡ 14 (TB 597: 13) bị bắt
+  OK TT19 học hàm, học vị trước họ tên người ký bị bắt
+  OK TT19 ký thay “K/T” (hệ Đảng) bị bắt
+  OK “KT. HIỆU TRƯỞNG” không bị bắt nhầm
+  OK tệp thật Cowork 28/9 (bảng tiêu đề dựng tay): bắt đủ 7 loại lỗi (được ['TT12', 'TT13', 'TT14', 'TT15', 'TT16', 'TT17', 'TT18'])
+  OK TT03b biến thể TimesNewRomanPSMT chỉ Mức 3
+  OK TX02 xlsx phông Arial bị bắt (skill xlsx cho phép, KTC thì không)
+  OK xlsx TNR, A4 ngang đạt
+  OK tao_tu_mau giữ lề trái 3 cm của mẫu
+  OK hook: tệp sai trong dự án KTC → mã 2, báo TT08
+  OK hook: tệp đúng → mã 0
+  OK hook: ngoài dự án KTC → không can thiệp
+  OK 11 mẫu 03-Templates(1) (trừ 5 mẫu có lỗi đã biết) không bị báo Mức 1–2: {}
+  OK lỗi đã biết của 06D (số trang ở trang 1) vẫn bị bắt
+  OK 06A (mẫu 2.2: tên Trường là chủ quản, không đậm) không bị báo nhầm
+  OK lỗi đã biết của 01-Quyet-dinh-ban-hanh-Quy-che.dotx (tên Trường sai cỡ/kiểu) vẫn bị bắt
+  OK lỗi đã biết của 07-To-trinh.dotx (tên Trường sai cỡ/kiểu) vẫn bị bắt
+  OK lỗi đã biết của 10-Giay-moi vẫn bị bắt
+  OK lỗi đã biết của 02A (thiếu đường kẻ dưới tên Trường) vẫn bị bắt
+
+ĐẠT: 0 ca sai

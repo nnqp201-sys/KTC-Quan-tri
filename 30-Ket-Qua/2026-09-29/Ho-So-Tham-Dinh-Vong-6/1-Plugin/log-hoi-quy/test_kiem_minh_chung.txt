@@ -1,0 +1,17 @@
+  OK đọc cột theo tên tiêu đề: 4 nhiệm vụ, 5 minh chứng + 1 dòng cập nhật (được 4, 6)
+  OK sheet “Cập nhật tiến độ” KHÔNG bị đọc nhầm thành sheet nhiệm vụ (không ghi đè trạng thái)
+  OK MC01: NV4 hoàn thành không có minh chứng → Mức 1
+  OK MC01: NV1 có minh chứng thật → không báo (thử ngược)
+  OK MC01: NV3 đang thực hiện → không đòi minh chứng
+  OK MC03: đường dẫn không tồn tại → Mức 2
+  OK MC03: URL Drive → chuyển mở qua Google Drive, không tự kết luận
+  OK MC04: minh chứng phát sinh sau hạn
+  OK MC04: thiếu ngày phát sinh
+  OK MC05: “Đã xác minh” thiếu người/ngày → xác minh hình thức
+  OK MC06: minh chứng trỏ tới nhiệm vụ không tồn tại
+  OK MC07: một liên kết dùng cho nhiều nhiệm vụ
+  OK MC02: minh chứng không có liên kết
+  OK Master Task Register: bỏ dòng mô tả “(bắt buộc)”
+  OK Master Task Register: MC01 đúng nhiệm vụ thiếu Minh_Chung
+
+ĐẠT: 0 ca sai

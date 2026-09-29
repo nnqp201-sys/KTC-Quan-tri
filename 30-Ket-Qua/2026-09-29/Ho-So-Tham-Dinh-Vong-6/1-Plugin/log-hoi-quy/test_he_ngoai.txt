@@ -1,0 +1,8 @@
+  OK  ten_bia_tra_None                       tên hệ không có thật -> None, không đoán bừa
+  OK  uu_tien_bien_moi_truong                biến môi trường KTC_<TEN> được ưu tiên trước
+  OK  khong_phai_he_ngoai                    đường dẫn trong chính dự án -> không xử như hệ ngoài
+  OK  mot_doan_khong_tinh                    chỉ mỗi tên hệ, không có tệp -> False
+  OK  he_ngoai_khong_co_tep                  ca ngược: hệ có thật nhưng tệp KHÔNG có -> vẫn phải báo thiếu
+  OK  he_ngoai_co_tep                        hệ ngoài có thật + tệp có thật -> nhận
+
+ĐẠT: 0 ca sai

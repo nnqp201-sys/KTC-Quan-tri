@@ -1,0 +1,21 @@
+── Chuẩn hóa xuống dòng ──
+── Chuẩn hóa xuống dòng (dựng lặp lại được từ mọi bản checkout) ──
+  ✓ 3 tệp đổi xuống dòng
+  ✓ .md CRLF → LF                                              
+  ✓ .json CRLF → LF                                            
+  ✓ .py LF giữ nguyên                                          
+  ✓ .cmd → CRLF (Windows cần)                                  
+  ✓ tệp nhị phân không đụng tới                                
+  ✓ so băm bảng đối chiếu bỏ qua CR                            
+── Gói phát hành hiện hành ──
+  ✓ không tệp văn bản nào mang CRLF                            []
+  ✓ BAN-DO-TEP đủ dòng 20-Chuan-Chung (≥ 14)                   15 dòng
+── Guard chịu tải nội dung Markdown lớn (Gemini L5 1.2) ──
+  ✓ Write bảng 3000×30 (~2,7 MB)                               mã 0, 0.15 giây (giới hạn hook 30 giây)
+  ✓ Write nội dung dị dạng                                     mã 0, 0.07 giây (giới hạn hook 30 giây)
+  ✓ Edit bảng lớn                                              mã 0, 0.08 giây (giới hạn hook 30 giây)
+  ✓ Bash heredoc bảng lớn                                      mã 0, 0.26 giây (giới hạn hook 30 giây)
+  ✓ PowerShell here-string bảng lớn                            mã 0, 1.99 giây (giới hạn hook 30 giây)
+  ✓ Write bảng lớn vào kho → vẫn CHẶN                          mã 2, 0.06 giây (giới hạn hook 30 giây)
+
+ĐẠT
