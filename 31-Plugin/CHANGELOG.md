@@ -1,5 +1,17 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.13 — 2026-09-29
+
+**Tiếp thu thẩm định lần 5 (L5-04, ChatGPT; mục 2.1, Grok): gói phát hành phải truy về được một commit.** Dựng lại bản
+1.3.12 từ bản checkout sạch của chính commit phát hành (`5d98f2b`) ra mã băm khác bản đã phát hành. Nguyên nhân: git trên
+Windows (`core.autocrlf=true`) checkout tệp văn bản ra CRLF, còn thư mục làm việc đang lẫn LF và CRLF (470 tệp CRLF). Hệ
+quả: 17 tệp chỉ khác ký tự xuống dòng; bảng `BAN-DO-TEP.md` so khớp bằng mã băm nên mất 10 dòng.
+
+- Công cụ đóng gói chuẩn hóa mọi tệp văn bản về LF (`.cmd`, `.bat` về CRLF) trước khi nén. Bảng đối chiếu so băm bỏ qua CR.
+- **Nội dung chức năng giống 1.3.12:** 8 kỹ năng, 7 tác tử, hook, script không đổi; chỉ khác ký tự xuống dòng và số phiên
+  bản. Hồ sơ bằng chứng có phép so đối chiếu từng tệp.
+- Dựng từ bản checkout sạch của commit phát hành cho đúng mã băm của gói phát hành (có nhật ký).
+
 ## 1.3.12 — 2026-09-29
 
 **Sửa báo nhầm của phép đo TT17** khi lập hồ sơ thẩm định vòng 5: văn bản của đơn vị (mẫu 2.2 theo Checklist 08 mục 7 của

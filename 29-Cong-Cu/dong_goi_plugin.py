@@ -40,7 +40,7 @@ GOI_NGUON = [
      "kpi-tu-danh-gia"),
 ]
 
-PLUGIN_VERSION = "1.3.12"  # 1.3.12 (29/9/2026): TT17 nhan vai tro phan dau theo vi tri dong (mau 2.2: ten Truong la co quan chu quan, khong dam) — sua bao nham BC cua Phong khi lap ho so vong 5; dinh chinh loi mau 06A, 06D; the-thuc 1.3. 1.3.11 (29/9/2026): nguyen tac sua van ban tuong tu / rap noi dung vao mau (chi dao 28/9); khung dung lai tu mau 03A (khung ghep tu TB 1060 hien "1" o trang 1, lech duong ke trich yeu); TT11b so trang o trang 1; chuan hoa NFC (mau luu NFD, phep so chu im lang truot); TT19 khoi chu ky 2 hang; loi mau 01, 03A; the-thuc 1.2, soan-thao-vb 1.15. 1.3.10 (28/9/2026): khung the thuc VBHC (tu TB 1060 da ban hanh, --khung) khi khong doc duoc kho; phep do TT12-TT19 anh xa 897 Checklist 01, 05, 08 (bang tieu de, duong ke, co/kieu tung thanh phan, ky thay, hoc ham); the-thuc 1.1, soan-thao-vb 1.14 — sua loi TB dung bang tieu de tay tren Cowork. 1.3.9 (28/9/2026): ra soat tu du — goi tu hoc ke hoach, mau dinh tuyen theo doi CV, mau trang bao cao vao goi; BAN-DO-TEP.md; agent tu-hoc/tu-cai-tien ghi pham vi chi du an; soan-thao sua duong dan cu, tro 17/29 ve plugin 897. 1.3.8 (28/9/2026): khoi <plugin_paths> chen vao moi skill, agent — khong xin quyen them thu muc du an vao phien (Cowork xin ca KTC-Quan-tri de doc ban goc 20-Chuan-Chung). 1.3.7 (28/9/2026): sua tu chay that 1.3.6 — so hieu di dang, ky cu o tieu de phu luc, guard chan Write/Edit vao tep plugin da cai, hook the thuc bo qua 10-Dau-Vao; bao-cao 3.19. 1.3.6 (28/9/2026): bao cao thang cap Truong dung tu ban DA BAN HANH (bc_thang.py, skill bao-cao v3.18, Skill 37) — khac phuc chay thu 28/9 kem ban 21/9; dong vao plugin bc_thang, vanphong, trich_tuong_thuat, ktc_trackchanges; mau trang sua 3 loi; agent kiem ho so: tra lai don vi khong loai khoi bao cao. 1.3.5 (28/9/2026): ket noi thu muc lam viec cua don vi (ktc_thu_muc.py, Nguyen tac 3) — tai khoan thanh vien tren Cowork doc 10-Dau-Vao/, luu 30-Ket-Qua/; hook do the thuc chay ca trong thu muc don vi; doctor bao che do thu muc, huong dan loi tat kho. ke-hoach 3.11, theo-doi-cv 1.9, bao-cao 3.17, soan-thao-vb 1.12, quan-tri 1.16, kpi-lap-ke-hoach 1.4, kpi-tu-danh-gia 1.3. 1.3.4 (28/9/2026): chuan 6 Truc — can cu QD 1923 PL I, II cho cot Diem cham/He so, quan he voi Danh muc QD 2119 (DL-20260928-002); ke-hoach 3.10, theo-doi-cv 1.8, bao-cao 3.16, soan-thao-vb 1.11, quan-tri 1.15; guard bo than heredoc dua cho trinh thong dich khoi phan tich cau lenh. 1.3.3 (28/9/2026): Danh muc san pham CHINH THUC QD 2119/QD-CDKT thay du thao TB 1052 (kpi_calc phuong an A co van ban, KH08, quan-tri 1.14, kpi-lap-ke-hoach 1.3, kpi-tu-danh-gia 1.2); guard: .replace/.rename chi la ghi khi co Path(...)/os. 1.3.2 (27/9/2026, tiep thu tham dinh lan 4): guard tang 2 CHAN thay vi hoi (F4-01); chan tao lien ket tro vao kho; sua nhan dang duong dan tuyet doi C:\; duong dan quy tac day du cho agent; kiem_vien_dan doc nhieu bang ma. 1.3.1 (27/9/2026, tiep thu tham dinh lan 3): guard 2 tang chan/hoi (ma nhung, vo lenh long, cd vao kho, UNC; vung = ca thanh phan duong dan); nhat ky khong luu lenh/mo ta tho, nap dau phien <= 4.500 ky tu; khoi chuan chung loi ~2.460 ky tu + ban day du trong references/; lich su phien ban tach khoi SKILL.md; quy tac bat dong skill-agent. 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.3.13"  # 1.3.13 (29/9/2026, tiep thu tham dinh lan 5 L5-04): dung lap lai duoc tu ban checkout sach cua commit — chuan hoa xuong dong LF truoc khi nen, BAN-DO-TEP so bam bo qua CR; noi dung chuc nang giong 1.3.12. 1.3.12 (29/9/2026): TT17 nhan vai tro phan dau theo vi tri dong (mau 2.2: ten Truong la co quan chu quan, khong dam) — sua bao nham BC cua Phong khi lap ho so vong 5; dinh chinh loi mau 06A, 06D; the-thuc 1.3. 1.3.11 (29/9/2026): nguyen tac sua van ban tuong tu / rap noi dung vao mau (chi dao 28/9); khung dung lai tu mau 03A (khung ghep tu TB 1060 hien "1" o trang 1, lech duong ke trich yeu); TT11b so trang o trang 1; chuan hoa NFC (mau luu NFD, phep so chu im lang truot); TT19 khoi chu ky 2 hang; loi mau 01, 03A; the-thuc 1.2, soan-thao-vb 1.15. 1.3.10 (28/9/2026): khung the thuc VBHC (tu TB 1060 da ban hanh, --khung) khi khong doc duoc kho; phep do TT12-TT19 anh xa 897 Checklist 01, 05, 08 (bang tieu de, duong ke, co/kieu tung thanh phan, ky thay, hoc ham); the-thuc 1.1, soan-thao-vb 1.14 — sua loi TB dung bang tieu de tay tren Cowork. 1.3.9 (28/9/2026): ra soat tu du — goi tu hoc ke hoach, mau dinh tuyen theo doi CV, mau trang bao cao vao goi; BAN-DO-TEP.md; agent tu-hoc/tu-cai-tien ghi pham vi chi du an; soan-thao sua duong dan cu, tro 17/29 ve plugin 897. 1.3.8 (28/9/2026): khoi <plugin_paths> chen vao moi skill, agent — khong xin quyen them thu muc du an vao phien (Cowork xin ca KTC-Quan-tri de doc ban goc 20-Chuan-Chung). 1.3.7 (28/9/2026): sua tu chay that 1.3.6 — so hieu di dang, ky cu o tieu de phu luc, guard chan Write/Edit vao tep plugin da cai, hook the thuc bo qua 10-Dau-Vao; bao-cao 3.19. 1.3.6 (28/9/2026): bao cao thang cap Truong dung tu ban DA BAN HANH (bc_thang.py, skill bao-cao v3.18, Skill 37) — khac phuc chay thu 28/9 kem ban 21/9; dong vao plugin bc_thang, vanphong, trich_tuong_thuat, ktc_trackchanges; mau trang sua 3 loi; agent kiem ho so: tra lai don vi khong loai khoi bao cao. 1.3.5 (28/9/2026): ket noi thu muc lam viec cua don vi (ktc_thu_muc.py, Nguyen tac 3) — tai khoan thanh vien tren Cowork doc 10-Dau-Vao/, luu 30-Ket-Qua/; hook do the thuc chay ca trong thu muc don vi; doctor bao che do thu muc, huong dan loi tat kho. ke-hoach 3.11, theo-doi-cv 1.9, bao-cao 3.17, soan-thao-vb 1.12, quan-tri 1.16, kpi-lap-ke-hoach 1.4, kpi-tu-danh-gia 1.3. 1.3.4 (28/9/2026): chuan 6 Truc — can cu QD 1923 PL I, II cho cot Diem cham/He so, quan he voi Danh muc QD 2119 (DL-20260928-002); ke-hoach 3.10, theo-doi-cv 1.8, bao-cao 3.16, soan-thao-vb 1.11, quan-tri 1.15; guard bo than heredoc dua cho trinh thong dich khoi phan tich cau lenh. 1.3.3 (28/9/2026): Danh muc san pham CHINH THUC QD 2119/QD-CDKT thay du thao TB 1052 (kpi_calc phuong an A co van ban, KH08, quan-tri 1.14, kpi-lap-ke-hoach 1.3, kpi-tu-danh-gia 1.2); guard: .replace/.rename chi la ghi khi co Path(...)/os. 1.3.2 (27/9/2026, tiep thu tham dinh lan 4): guard tang 2 CHAN thay vi hoi (F4-01); chan tao lien ket tro vao kho; sua nhan dang duong dan tuyet doi C:\; duong dan quy tac day du cho agent; kiem_vien_dan doc nhieu bang ma. 1.3.1 (27/9/2026, tiep thu tham dinh lan 3): guard 2 tang chan/hoi (ma nhung, vo lenh long, cd vao kho, UNC; vung = ca thanh phan duong dan); nhat ky khong luu lenh/mo ta tho, nap dau phien <= 4.500 ky tu; khoi chuan chung loi ~2.460 ky tu + ban day du trong references/; lich su phien ban tach khoi SKILL.md; quy tac bat dong skill-agent. 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -529,6 +529,35 @@ def giai_nen_goi_long():
 
 TEN_BAN_DO = "BAN-DO-TEP.md"
 
+# 1.3.13 (thẩm định lần 5, L5-04): git trên Windows (core.autocrlf=true) checkout ra CRLF, thư mục làm việc lẫn LF/CRLF
+# -> dựng từ bản checkout sạch của cùng commit ra sha256 khác (17 tệp khác xuống dòng, BAN-DO-TEP mất 10 dòng vì so
+# băm). Chuẩn hóa: tệp văn bản về LF (.cmd/.bat về CRLF) trước khi nén; so băm bỏ qua CR.
+DUOI_VAN_BAN = {".md", ".py", ".json", ".txt", ".csv", ".yaml", ".yml", ".ps1", ".sh", ".html", ".xml", ".toml"}
+DUOI_CRLF = {".cmd", ".bat"}
+
+
+def _bam_lf(q):
+    return hashlib.sha256(io.open(q, "rb").read().replace(b"\r\n", b"\n")).hexdigest()
+
+
+def chuan_hoa_xuong_dong():
+    print("── Chuẩn hóa xuống dòng (dựng lặp lại được từ mọi bản checkout) ──")
+    doi = 0
+    for r, ds, fs in os.walk(PLUGIN_DIR):
+        for f in fs:
+            duoi = os.path.splitext(f)[1].lower()
+            if duoi not in DUOI_VAN_BAN and duoi not in DUOI_CRLF:
+                continue
+            q = os.path.join(r, f)
+            b = io.open(q, "rb").read()
+            n = b.replace(b"\r\n", b"\n")
+            if duoi in DUOI_CRLF:
+                n = n.replace(b"\n", b"\r\n")
+            if n != b:
+                io.open(q, "wb").write(n)
+                doi += 1
+    print(f"  ✓ {doi} tệp đổi xuống dòng")
+
 
 def lap_ban_do_tep():
     """1.3.9: bang doi chieu ten tep BAN GOC (du an) -> vi tri trong plugin, lap tu dong bang so noi dung (sha256).
@@ -539,11 +568,10 @@ def lap_ban_do_tep():
     theo_bam = {}
     for q in glob.glob(os.path.join(PLUGIN_DIR, "**", "*.*"), recursive=True):
         if os.path.isfile(q):
-            theo_bam.setdefault(hashlib.sha256(io.open(q, "rb").read()).hexdigest(), []).append(
-                os.path.relpath(q, PLUGIN_DIR).replace("\\", "/"))
+            theo_bam.setdefault(_bam_lf(q), []).append(os.path.relpath(q, PLUGIN_DIR).replace("\\", "/"))
     dong = []
     for src in sorted(glob.glob(os.path.join(DU_AN, "20-Chuan-Chung", "*.md"))):
-        h = hashlib.sha256(io.open(src, "rb").read()).hexdigest()
+        h = _bam_lf(src)
         vt = sorted(theo_bam.get(h, []))
         if vt:
             dong.append(f"| `20-Chuan-Chung/{os.path.basename(src)}` | " + " · ".join(f"`{v}`" for v in vt[:3])
@@ -583,6 +611,7 @@ if __name__ == "__main__":
     lap_ban_do_tep()
     chen_chuan_chung()
     kiem_mo_ta()
+    chuan_hoa_xuong_dong()
     print("── Đóng gói .zip (lặp lại được) ──")
     dong_goi_zip()
     print()
