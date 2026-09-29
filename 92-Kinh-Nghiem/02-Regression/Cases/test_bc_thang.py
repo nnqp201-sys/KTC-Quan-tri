@@ -61,7 +61,11 @@ try:
 except Exception as e:
     ng, co_kho = None, False
     bo_qua.append(f"không đọc được kho ({e.__class__.__name__})")
-if co_kho and os.path.isdir(DV):
+so_tep_dv = len([f for f in os.listdir(DV) if f.lower().endswith((".docx", ".xlsx"))]) if os.path.isdir(DV) else 0
+if co_kho and os.path.isdir(DV) and so_tep_dv < 15:
+    # 29/9/2026: thu muc dau vao thang 9 da duoc don (con 4 tep) — thieu du lieu thi bo qua co canh bao, khong bao sai
+    bo_qua.append(f"10-Dau-Vao/01-Dau-Moi-Nop/2026-09 chỉ còn {so_tep_dv} tệp (cần hồ sơ ≥ 10 đơn vị)")
+elif co_kho and os.path.isdir(DV):
     kiem(ng["BC"]["ky"] == "2026-08" and ng["PL"]["ky"] == "2026-08" and ng["KH"]["ky"] == "2026-09",
          "kỳ 9/2026 → BC, PL tháng 8 đã ban hành; KH tháng 9 đã ban hành")
     ma, j = chay("nguon", "--ky", "2026-09", "--dau-vao", DV)

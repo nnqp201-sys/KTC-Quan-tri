@@ -20,7 +20,7 @@ hook `ktc_the_thuc_hook.py` tự đo mọi tệp `.docx`/`.xlsx` vừa sinh ra.
 |---|---|---|
 | 1 | **Văn bản cùng loại đã ban hành** trong `04-Good-Documents/` (NT-1, `14-Nguyen-Tac-Soan-Thao-Bat-Bien.md`) | Cấu trúc, văn phong, thể thức |
 | 2 | **Mẫu trống** `.dotx`/`.xltx` trong `03-Templates(1)/`, theo bảng mục 2 | Thể thức, style, lề, bảng quốc hiệu |
-| 3 | **Khung thể thức trong skill** `the-thuc/assets/Khung-the-thuc-VBHC.docx` (dựng từ TB 1060/TB-CĐKT đã ban hành): `kiem_the_thuc.py --khung <đích> <loại>` | Khi không đọc được kho (Cowork, Chat, tài khoản thành viên). Giữ bảng tiêu đề, đường kẻ, bảng chữ ký |
+| 3 | **Khung thể thức trong skill** `the-thuc/assets/Khung-the-thuc-VBHC.docx` (dựng từ mẫu `03A-Thong-bao`, đã sửa các lỗi của mẫu ở mục 6): `kiem_the_thuc.py --khung <đích> <loại>` | Khi không đọc được kho (Cowork, Chat, tài khoản thành viên) và người dùng không đính kèm mẫu hay văn bản tương tự |
 | 4 | Dựng mới bằng skill `docx`/`xlsx` | **Chỉ** cho `.xlsx` hoặc văn bản không phải hành chính. Bắt buộc đặt đủ số đo mục 3–4. **Không dựng bảng tiêu đề bằng tay** |
 
 - **Cấm** dùng `docx.Document()` rỗng (python-docx mặc định khổ **Letter**, phông Calibri) hoặc docx-js với lề
@@ -28,6 +28,17 @@ hook `ktc_the_thuc_hook.py` tự đo mọi tệp `.docx`/`.xlsx` vừa sinh ra.
   21,6×27,9 cm chính vì lỗi này.
 - Mở mẫu `.dotx`/`.xltx` thành tệp làm việc: `python kiem_the_thuc.py --tao <mẫu> <đích.docx|.xlsx>`. Lệnh này
   giữ nguyên style, lề và bảng thể thức. Không mở `.dotx` bằng cách đổi đuôi tên tệp.
+- **Ráp nội dung vào mẫu hoặc văn bản tương tự** (chỉ đạo 28/9/2026: "lấy Template (1) mà ráp nội dung vào"):
+  1. Chỉ **thay chữ trong run có sẵn**. Run chứa hình (đường kẻ) thì giữ nguyên.
+  2. Thêm đoạn bằng cách **nhân bản đoạn cùng vai trò**: lời văn nhân bản từ đoạn lời văn thường, không lấy đoạn tiêu
+     đề mục in đậm.
+  3. Xóa đoạn giữ chỗ không dùng và section phụ lục đi kèm mẫu.
+  4. So chữ sau khi chuẩn hóa NFC (mẫu lưu dạng NFD).
+  5. **Không** dựng lại bảng tiêu đề, bảng chữ ký, không ghép phần của nhiều văn bản. Bản ghép từ TB 1060 ngày 28/9 hiện
+     số "1" ở trang 1 và lệch đường kẻ trích yếu.
+- **Xem trang thật trước khi giao** (Claude Code): mở bằng Word, xuất PDF rồi xem. Kiểm khối nơi nhận, chữ ký không bị
+  tách trang, đường kẻ đúng chỗ và màu đen, trang 1 không có số trang. Nội dung dài quá một trang thì cho câu kết đi cùng
+  khối chữ ký (giữ với đoạn sau, không tách dòng bảng); không nén cách dòng của mẫu.
 - `03-Templates/` (không có `(1)`) **không phải** kho mẫu: phần lớn là văn bản thật. Xem
   `22-KTC-Dieu-Phoi/references/02-Chi-Muc-KTC-Database.md`.
 
@@ -138,6 +149,9 @@ không phải hình thức đo được trên tệp.
 | `10-Giay-moi.dotx` | Cơ quan chủ quản ghi "UBND TỈNH KON TUM"; tiêu ngữ lẫn cỡ 13 và 14 | Đổi thành `UBND TỈNH QUẢNG NGÃI`, tiêu ngữ cỡ 14 |
 | `02A-Quyet-dinh-ca-biet-Phe-duyet-nhiem-vu-du-toan.dotx` | Thiếu đường kẻ dưới "TRƯỜNG CAO ĐẲNG KON TUM" (chỉ có đường kẻ dưới tiêu ngữ) — TT14, phát hiện 28/9/2026 | Chép đường kẻ từ khung `Khung-the-thuc-VBHC.docx`, hoặc dựng bằng `--khung QĐ` |
 | `06A-Bao-cao-noi-bo.dotx`, `06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx` | "TRƯỜNG CAO ĐẲNG KON TUM" không đậm (chỉ có `bCs`, không áp cho chữ Latinh) — TT17, phát hiện 28/9/2026 | Đặt đậm tên Trường |
+| `01-Quyet-dinh-ban-hanh-Quy-che.dotx` | Chữ "Nơi nhận" cỡ 11 (TB 597: cỡ 12) — TT17, phát hiện 28/9/2026 | Đặt cỡ 12 |
+| `03A-Thong-bao-Huong-dan-dang-ky-ke-hoach-bao-cao.dotx` | (1) Đường kẻ dưới trích yếu dùng màu theme `accent1`, hiện **xanh**; (2) ô chữ ký 6 dòng trống, khối chữ ký dễ tách trang; (3) mục III dùng đoạn in đậm — đừng nhân bản đoạn đó cho lời văn; (4) kèm section 2 "Phụ lục IIa" | Đặt màu đen; giữ 4 dòng trống, bật không tách dòng bảng; nhân bản đoạn lời văn thường; bỏ section 2. Khung `Khung-the-thuc-VBHC.docx` đã xử lý sẵn 4 điểm này |
+| Nhiều mẫu `03-Templates(1)` | Chữ lưu dạng Unicode tổ hợp **NFD** ("ậ" = "â" + dấu nặng), tìm/thay theo NFC sẽ trượt | `kiem_the_thuc.py` chuẩn hóa NFC trước khi đo; khi ráp nội dung, so chữ sau `unicodedata.normalize("NFC", …)` |
 | `07-To-trinh.dotx` | "TRƯỜNG CAO ĐẲNG KON TUM" cỡ 14 (TB 597: cỡ 13) — TT17, phát hiện 28/9/2026 | Đặt cỡ 13 |
 | Nhiều văn bản trong `04-Good-Documents` trước sáp nhập | "UBND TỈNH KON TUM", có tệp còn `.VnTime` | Chỉ lấy văn phong và cấu trúc; thể thức theo mục 3 |
 

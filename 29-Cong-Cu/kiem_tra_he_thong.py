@@ -27,10 +27,10 @@ NGOAI = os.path.dirname(DU_AN)
 HE = {
     "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.20.skill"),
     "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.12.skill"),
-    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.14.skill"),
+    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.15.skill"),
     "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.10.skill"),
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
-    "ktc-the-thuc":     ("27-KTC-The-Thuc", "27-KTC-The-Thuc/ktc-the-thuc-v1.1.skill"),
+    "ktc-the-thuc":     ("27-KTC-The-Thuc", "27-KTC-The-Thuc/ktc-the-thuc-v1.2.skill"),
     "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "28-KTC-KPI/ktc-kpi-lap-ke-hoach-v1.4.skill"),
     "ktc-kpi-tu-danh-gia": ("28-KTC-KPI/Tu-Danh-Gia", "28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.3.skill"),
 }

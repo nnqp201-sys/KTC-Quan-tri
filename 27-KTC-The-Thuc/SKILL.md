@@ -5,8 +5,9 @@ description: "Chuan the thuc, ky thuat trinh bay BAT BUOC cho moi tep .docx va .
 
 # KTC-The-Thuc — Chuẩn thể thức sản phẩm .docx/.xlsx
 
-**Phiên bản: 1.1 — 28/9/2026** — Ban hành theo DL-20260919-003. 1.1: khung thể thức `assets/Khung-the-thuc-VBHC.docx`
-(`--khung`) khi không đọc được kho; phép đo bảng tiêu đề TT12–TT16.
+**Phiên bản: 1.2 — 29/9/2026** — Ban hành theo DL-20260919-003. 1.2: nguyên tắc sửa văn bản tương tự hoặc ráp nội
+dung vào mẫu `03-Templates(1)`; khung dựng lại từ mẫu 03A; bước xem trang thật; phép đo TT11b (số trang ở trang 1),
+chuẩn hóa NFC. 1.1: khung `assets/Khung-the-thuc-VBHC.docx` (`--khung`); phép đo TT12–TT19 ánh xạ 897.
 
 Skill này là **lớp chuẩn của Trường chồng lên skill `docx`/`xlsx`**. Cách tạo và sửa tệp vẫn theo `docx`/`xlsx`.
 Thể thức, số đo và bước kiểm thì theo skill này. Khi hai bên khác nhau, **skill này thắng**:
@@ -18,27 +19,30 @@ Thể thức, số đo và bước kiểm thì theo skill này. Khi hai bên kh�
 | Phông | Theo mẫu, hoặc Arial/Times New Roman | **Times New Roman**, Unicode, cỡ nội dung **14** |
 | Nguồn dựng | Tạo mới | Văn bản tương đồng đã ban hành → mẫu `.dotx`/`.xltx` → chỉ sau cùng mới tạo mới |
 
-## Quy trình — 4 bước, không bỏ bước
+## Quy trình — 5 bước, không bỏ bước
 
-1. **Chọn nguồn** theo `references/18-Chuan-The-Thuc-San-Pham.md` mục 1–2:
-   - Tìm văn bản cùng loại trong `KTC-Database/04-Good-Documents/`.
-   - Không có thì dùng mẫu trống trong `KTC-Database/03-Templates(1)/`.
-   - Không đọc được Drive (Cowork, Chat, tài khoản thành viên) và người dùng không đính kèm văn bản cùng loại:
-     dùng **khung thể thức có sẵn trong skill** `assets/Khung-the-thuc-VBHC.docx`. Khung dựng từ TB 1060/TB-CĐKT đã
-     ban hành, có bảng tiêu đề 17,25 cm (cột 7,5 + 9,75 cm), đường kẻ, style, lề và bảng chữ ký.
-   - **Cấm dựng bảng tiêu đề bằng tay** (`add_table`, docx-js). Bảng tự dựng thường chia đôi cột, làm quốc hiệu và
-     dòng địa danh xuống dòng, thiếu đường kẻ dưới tên Trường. Lỗi này xảy ra ngày 28/9/2026; phép đo TT12–TT15 bắt lỗi này.
-2. **Mở mẫu thành tệp làm việc:**
-   - Có mẫu `.dotx`/`.xltx`: `python scripts/kiem_the_thuc.py --tao <mẫu> <đích.docx|.xlsx>`.
-   - Không có: `python scripts/kiem_the_thuc.py --khung <đích.docx> <TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB>`. Lệnh đặt sẵn tên
-     loại, ký hiệu `Số:   /<loại>-CĐKT` và năm. Công văn, văn bản có "V/v" cần mẫu 03-Templates(1).
-   - Sau đó soạn nội dung bằng skill `docx`/`xlsx` **trên tệp đó**, giữ bảng tiêu đề, style, lề và bảng chữ ký.
-     Chỉ thay chữ, không dựng lại bảng. Thêm đoạn bằng cách **nhân bản đoạn có sẵn** (căn cứ, nội dung), không tạo
-     đoạn mới từ đầu.
-   - Mẫu ghi "UBND TỈNH KON TUM" thì đổi thành **UBND TỈNH QUẢNG NGÃI**.
+1. **Chọn nguồn** theo `references/18-Chuan-The-Thuc-San-Pham.md` mục 1–2. Nguyên tắc: **tìm văn bản tốt, văn bản
+   tương tự mà sửa lại; hoặc lấy mẫu `03-Templates(1)` mà ráp nội dung vào** (chỉ đạo 28/9/2026). Thứ tự:
+   1. Văn bản cùng loại đã ban hành trong `KTC-Database/04-Good-Documents/`, `02-KTC-Regulations/`: sao tệp, sửa chữ.
+   2. Mẫu trống cùng loại trong `KTC-Database/03-Templates(1)/`: `--tao`, rồi ráp nội dung.
+   3. Không đọc được Drive (Cowork, Chat, tài khoản thành viên): **xin người dùng đính kèm** mẫu `03-Templates(1)`
+      cùng loại hoặc một văn bản tương tự đã ban hành.
+   4. Chỉ khi vẫn không có: khung trong skill `assets/Khung-the-thuc-VBHC.docx` (`--khung`), dựng từ mẫu 03A đã
+      sửa lỗi.
+   - **Cấm dựng bảng tiêu đề, bảng chữ ký bằng tay** (`add_table`, docx-js), và cấm ghép phần của nhiều văn bản. Ngày
+     28/9/2026 bảng tự dựng làm quốc hiệu xuống dòng; bản ghép từ TB 1060 hiện số "1" ở trang 1, lệch đường kẻ.
+2. **Mở thành tệp làm việc rồi ráp nội dung** (cách ráp: chuẩn 18 mục 1):
+   - Mẫu `.dotx`/`.xltx`: `python scripts/kiem_the_thuc.py --tao <mẫu> <đích.docx|.xlsx>`. Văn bản `.docx`: sao tệp.
+   - Khung: `python scripts/kiem_the_thuc.py --khung <đích.docx> <TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB>`.
+   - Chỉ thay chữ trong run có sẵn, giữ run chứa đường kẻ. Thêm đoạn bằng cách **nhân bản đoạn cùng vai trò**: lời văn
+     từ đoạn lời văn thường, không lấy đoạn tiêu đề mục in đậm. Xóa đoạn giữ chỗ không dùng và section phụ lục đi kèm mẫu.
+   - Mẫu lưu chữ dạng Unicode NFD: so, tìm chữ sau `unicodedata.normalize("NFC", …)`.
+   - Mẫu ghi "UBND TỈNH KON TUM" thì đổi thành **UBND TỈNH QUẢNG NGÃI**. Lỗi đã biết của từng mẫu: chuẩn 18 mục 6.
 3. **Đo:** `python scripts/kiem_the_thuc.py <tệp>` với **từng** tệp trước khi giao. Còn Mức 1–2 thì sửa rồi đo lại.
    Không giao tệp còn lỗi Mức 1–2.
-4. **Báo kết quả đo** cuối câu trả lời, hoặc trong phiếu tự kiểm của đơn vị:
+4. **Xem trang thật** (Claude Code có Word): xuất PDF rồi xem. Kiểm khối chữ ký không tách trang, đường kẻ đúng chỗ
+   và màu đen, trang 1 không có số trang. Công cụ đo không thay được bước này; không xem được thì ghi rõ "chưa xem trang".
+5. **Báo kết quả đo** cuối câu trả lời, hoặc trong phiếu tự kiểm của đơn vị:
    `Thể thức: đạt (kiem_the_thuc, 0 lỗi Mức 1–2)`. Không chạy được Python thì ghi `FORMAT_BINARY_UNVERIFIED`,
    không được tuyên bố đạt chuẩn.
 

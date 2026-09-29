@@ -5,9 +5,11 @@ description: "Soan thao van ban hanh chinh moi cho Truong Cao dang Kon Tum theo 
 
 # KTC-Soan-Thao-VB — Hệ soạn thảo văn bản hành chính
 
-## Phiên bản: v1.14 — 28/9/2026
+## Phiên bản: v1.15 — 29/9/2026
 
-> v1.14: Không đọc được kho thì dựng từ khung thể thức (`kiem_the_thuc.py --khung`, skill `the-thuc` 1.1), không tự dựng bảng tiêu đề. Nguyên nhân: thông báo soạn trên Cowork ngày 28/9/2026 bị sai thể thức phần đầu.
+> v1.15: Thứ tự dựng văn bản theo chỉ đạo 28/9/2026 (văn bản tương tự → mẫu `03-Templates(1)` ráp nội dung → xin đính kèm → khung); không ghép nhiều văn bản.
+
+> v1.14: Dựng văn bản bằng cách sửa văn bản tương tự hoặc ráp nội dung vào mẫu `03-Templates(1)`; không đọc được kho thì xin đính kèm, sau cùng mới dùng khung (`--khung`, skill `the-thuc` 1.1); không tự dựng bảng tiêu đề, không ghép văn bản. Nguyên nhân: thông báo soạn ngày 28/9/2026 sai thể thức phần đầu.
 
 > v1.13: Tự đủ trong plugin (rà soát 28/9/2026): ghi rõ `17-Skill-Kiem-Tra-Tham-Quyen.md`, `29-Skill-Van-Ban-Dang.md` nằm trong plugin ktc-ra-soat-897 (bộ quy tắc 897, không giữ bản sao); sửa 20 đường dẫn cũ `06-Skill-Library/`, `05-Prompt-Library/…md`.
 
@@ -66,9 +68,10 @@ Chi tiết: `references/Skill-Library/00-Nguyen-Tac-Chung.md`.
 1. **Phát triển từ văn bản cùng loại đã ban hành**, không dựng từ mẫu trống. Mẫu trống có bố cục nhưng
    **không chứa văn phong, độ nén, cách nêu số liệu**. Thứ tự nguồn: cùng loại cùng kỳ đã ban hành →
    kỳ gần nhất trong `04-Good-Documents/` → cùng loại khác cấp → mẫu trống `.dotx` (chỉ lấy số đo).
-   **Không đọc được kho** (Cowork, Chat, tài khoản thành viên) và không có văn bản đính kèm: tạo tệp bằng
-   `python scripts/kiem_the_thuc.py --khung <đích.docx> <TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB>`. Khung lấy từ văn bản đã
-   ban hành; chỉ thay chữ, **không tự dựng bảng tiêu đề** (skill `the-thuc`, bước 1–2).
+   Cách làm: **sao văn bản tương tự rồi sửa, hoặc mở mẫu `03-Templates(1)` (`--tao`) rồi ráp nội dung vào**. Chỉ
+   thay chữ; lời văn thêm bằng cách nhân bản đoạn lời văn có sẵn; **không tự dựng bảng tiêu đề, không ghép nhiều văn
+   bản**. Không đọc được kho thì xin người dùng đính kèm mẫu hoặc văn bản tương tự. Sau cùng mới dùng khung
+   (`kiem_the_thuc.py --khung <đích.docx> <loại>`). Chi tiết: skill `the-thuc` bước 1–4.
 2. **Soạn trên văn bản đã có thì bật Track Changes** và xuất phát từ chính tệp gốc — không soạn lại rồi
    trình bày như bản sửa. Quy trình: `references/Skill-Library/15-Skill-Track-Changes.md`; công cụ:
    `references/Skill-Library/ktc_trackchanges.py`. Chỉ chạy được trên Claude Code.

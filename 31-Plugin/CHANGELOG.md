@@ -1,5 +1,25 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.3.11 — 2026-09-29
+
+**Chỉ đạo 28/9/2026:** "lấy Template (1) mà ráp nội dung vào, hoặc tìm văn bản tốt, văn bản tương tự mà sửa lại". Bản
+thông báo v2 (1.3.10) vẫn chưa đạt: khung ghép từ nhiều phần của TB 1060 hiện số "1" ở trang 1 và lệch đường kẻ dưới
+trích yếu.
+
+- **Kỹ năng `the-thuc` 1.2, `soan-thao-vb` 1.15:**
+  - Thứ tự dựng văn bản: văn bản tương tự → mẫu `03-Templates(1)` (`--tao`, ráp nội dung) → xin người dùng đính kèm →
+    khung.
+  - Cách ráp nội dung (chuẩn 18 mục 1); cấm ghép nhiều văn bản.
+  - Bước xem trang thật: xuất PDF bằng Word, kiểm khối chữ ký, đường kẻ, số trang.
+- **Khung dựng lại từ mẫu 03A**, đã sửa lỗi của mẫu: đường kẻ trích yếu màu theme xanh chuyển sang đen, khối chữ ký
+  không tách trang, bỏ phụ lục IIa.
+- **Công cụ đo:**
+  - TT11b: số trang hoặc chữ ở đầu trang thứ nhất.
+  - Chuẩn hóa chữ về NFC trước khi đo. Mẫu lưu chữ dạng NFD, nên trước đây các phép so "Nơi nhận", "Căn cứ" trượt mà
+    không báo gì.
+  - TT19 đọc khối chữ ký chia 2 hàng.
+- **Lỗi mẫu ghi thêm vào chuẩn 18 mục 6:** 01 ("Nơi nhận" cỡ 11), 03A (4 điểm), và lưu ý chữ NFD.
+
 ## 1.3.10 — 2026-09-28
 
 **Sửa lỗi thể thức phần đầu văn bản soạn trên Cowork.** Thông báo bổ sung thành phần họp (28/9/2026) có bảng tiêu đề

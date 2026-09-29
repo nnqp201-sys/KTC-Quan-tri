@@ -12,7 +12,7 @@ Chi PHAT HIEN va GOI Y muc — khong sua tep. He A (hanh chinh). Khong ap cho va
 Chay:  python 29-Cong-Cu/kiem_the_thuc.py <tep .docx|.xlsx> [...]
        python 29-Cong-Cu/kiem_the_thuc.py --tao <mau .dotx> <dich .docx>   (tao ban lam viec tu mau)
        python 29-Cong-Cu/kiem_the_thuc.py --khung <dich .docx> [TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB]
-           (khong doc duoc KTC-Database: tao tu khung dung tu TB 1060/TB-CĐKT da ban hanh — KHONG dung bang tieu de tay)
+           (khong doc duoc KTC-Database: tao tu khung dung tu mau 03A-Thong-bao — KHONG dung bang tieu de tay)
 Ma thoat: 1 neu co goi y Muc 1 hoac Muc 2, nguoc lai 0.
 """
 import collections
@@ -62,7 +62,8 @@ def tao_tu_mau(mau, dich):
     return dich
 
 
-# Khung the thuc VBHC dung tu TB 1060/TB-CĐKT da ban hanh — dung khi KHONG doc duoc KTC-Database (Cowork, Chat,
+# Khung the thuc VBHC dung tu mau 03A-Thong-bao (28/9/2026; thay khung ghep tu TB 1060 — hien "1" o trang 1,
+# duong ke trich yeu lech) — dung khi KHONG doc duoc KTC-Database (Cowork, Chat,
 # tai khoan thanh vien) thay cho dung bang tieu de bang tay (28/9/2026).
 TEN_KHUNG = "Khung-the-thuc-VBHC.docx"
 LOAI_VB = {"TB": "THÔNG BÁO", "KH": "KẾ HOẠCH", "BC": "BÁO CÁO", "TTr": "TỜ TRÌNH", "QĐ": "QUYẾT ĐỊNH",
@@ -229,8 +230,8 @@ def _kiem_bang_tieu_de(d, g):
             kq.append((3, "TT12", f"Bảng tiêu đề rộng {w_trai + w_phai:.2f} cm — văn bản đã ban hành: 17,25–17,5 cm"))
     da_xet, doan_bang = set(), []  # ca bang: dong "Số", "ngày" thuong o hang 2 (khung, TB 1060)
     for c in o:
-        if id(c._tc) not in da_xet:
-            da_xet.add(id(c._tc))
+        if c._tc not in da_xet:
+            da_xet.add(c._tc)
             doan_bang += c.paragraphs
     for p in doan_bang:
         t_up = p.text.strip().upper()
@@ -358,8 +359,20 @@ def _kiem_thanh_phan_897(d, g):
         o = [c for r in t.rows for c in r.cells]
         if not any(p.text.strip().startswith("Nơi nhận") for c in o for p in c.paragraphs):
             continue
+        # khoi chu ky co the chia 2 hang (mau 03A: chuc vu hang 1, ho ten hang 2) -> gom moi o khong phai "Noi nhan"
+        ky, da = [], set()
         for c in o:
+            if c._tc in da:
+                continue
+            da.add(c._tc)
             dps = [p for p in c.paragraphs if p.text.strip()]
+            if dps and not dps[0].text.strip().startswith("Nơi nhận"):
+                ky += dps
+        for c in [c for c in o if c.paragraphs and c.paragraphs[0].text.strip().startswith("Nơi nhận")][:1] + [None]:
+            if c is None:
+                dps = ky
+            else:
+                dps = [p for p in c.paragraphs if p.text.strip()]
             if not dps:
                 continue
             if dps[0].text.strip().startswith("Nơi nhận"):
@@ -386,8 +399,8 @@ def _doan_trong_bang_dau(d):
     da, kq = set(), []
     for r in d.tables[0].rows:
         for c in r.cells:
-            if id(c._tc) not in da:
-                da.add(id(c._tc))
+            if c._tc not in da:
+                da.add(c._tc)
                 kq += c.paragraphs
     return kq
 
@@ -396,6 +409,12 @@ def _doan_trong_bang_dau(d):
 def kiem_docx(d):
     """Tra ve list[(muc, ma, mo_ta)]."""
     from docx.enum.text import WD_ALIGN_PARAGRAPH
+    import unicodedata
+    # Mau 03-Templates(1)/03A luu chu dang NFD ("â" + dau nang to hop) -> moi phep so chu ("Nơi nhận", "Căn cứ"...)
+    # truot va phep kiem im lang bo qua (28/9/2026). Chuan hoa NFC trong bo nho truoc khi do (khong ghi tep).
+    for t in d.element.body.iter(f"{W}t"):
+        if t.text:
+            t.text = unicodedata.normalize("NFC", t.text)
     kq = []
     g = GiaiDocx(d)
 
@@ -517,6 +536,19 @@ def kiem_docx(d):
             if cs and cs != {12.0}:
                 kq.append((3, "TT10", f"“Nơi nhận” cỡ {sorted(cs)} — TB 597: cỡ 12, nghiêng, đậm"))
             break
+
+    # TT11b so trang hien o trang 1 (897 Checklist 05 muc 4.3) — ban TB 28/9/2026 dung tu ghep TB 1060 hien "1"
+    #   (ban do la CHU "1" co dinh trong header trang dau, khong phai truong PAGE) -> xet ca truong PAGE lan chu
+    s0 = d.sections[0]
+    tp = s0._sectPr.find(f"{W}titlePg")
+    co_titlepg = tp is not None and tp.get(f"{W}val") not in ("0", "false")
+    dau_trang1 = s0.first_page_header if co_titlepg else s0.header
+    if not dau_trang1.is_linked_to_previous or co_titlepg:
+        x1 = dau_trang1._element.xml
+        chu1 = "".join(re.findall(r"<w:t[^>]*>([^<]*)</w:t>", x1)).strip()
+        if "PAGE" in x1 or re.search(r"\d", chu1):
+            kq.append((2, "TT11b", f"Trang thứ nhất hiện số trang/chữ ở đầu trang (“{chu1 or 'PAGE'}”) — 897 Checklist "
+                       "05 mục 4.3: không hiển thị số trang thứ nhất"))
 
     # TT11 so trang: co truong PAGE o header
     if len(noi_dung) > 25:

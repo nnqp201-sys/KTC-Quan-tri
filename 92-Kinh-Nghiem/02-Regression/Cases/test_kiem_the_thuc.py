@@ -54,14 +54,14 @@ for _ in range(2):
 d.save(p_dung)
 kq = k.kiem_tep(p_dung)
 kiem(not kq, f"văn bản dựng từ khung: 0 gợi ý (được: {kq})")
-kiem(docx.Document(p_dung).paragraphs[0].text == "BÁO CÁO" and "/BC-CĐKT" in
+kiem("BÁO CÁO" in [p.text for p in docx.Document(p_dung).paragraphs] and "/BC-CĐKT" in
      " ".join(p.text for p in k._doan_trong_bang(docx.Document(p_dung))), "--khung BC: đổi tên loại và ký hiệu")
 
 # 3. Ca thu nguoc tung loi
 d = docx.Document(p_dung)
 d.tables[0].cell(0, 0).paragraphs[0].runs[0].text = "UBND TỈNH KON TUM"
 d.tables[0].cell(0, 1).paragraphs[0].runs[0].font.size = Pt(12)
-d.paragraphs[0].runs[0].font.name = ".VnTime"
+[p for p in d.paragraphs if p.runs][0].runs[0].font.name = ".VnTime"
 for p in d.paragraphs:
     for r in p.runs:
         r.font.size = Pt(13)
@@ -141,14 +141,21 @@ def co_ubnd_14(d):
 
 def nguoi_ky(ten, chuc=None):
     def f(d):
-        o = d.tables[-1].rows[0].cells[1]
-        ps = [p for p in o.paragraphs if p.text.strip()]
+        # khoi chu ky: moi doan co chu o cot phai cua moi hang (mau 03A: ho ten o hang 2)
+        ps = [p for r in d.tables[-1].rows for p in r.cells[1].paragraphs if p.text.strip()]
         ps[-1].runs[0].text = ten
         if chuc:
             ps[0].runs[0].text = chuc
     return f
 
 
+def so_trang_1(d):
+    h = d.sections[0].first_page_header
+    (h.paragraphs[0] if h.paragraphs else h.add_paragraph()).add_run("1")
+
+
+kiem("TT11b" in bien("trang1", so_trang_1), "TT11b chữ số “1” ở đầu trang thứ nhất bị bắt (lỗi bản v2 ngày 28/9)")
+kiem("TT11b" not in ma(p_dung), "TT11b không báo nhầm văn bản dựng từ khung (ẩn số trang 1)")
 kiem("TT18" in bien("ke_ty", bo_ke_trich_yeu), "TT18 thiếu đường kẻ dưới trích yếu bị bắt")
 kiem("TT17" in bien("ubnd14", co_ubnd_14), "TT17 tên cơ quan chủ quản cỡ 14 (TB 597: 13) bị bắt")
 kiem("TT19" in bien("hoc_ham", nguoi_ky("TS. Nguyễn Văn A")), "TT19 học hàm, học vị trước họ tên người ký bị bắt")
@@ -165,7 +172,7 @@ else:
 
 # 4. Bien the ten TNR -> Muc 3, khong phai Muc 2
 d = docx.Document(p_dung)
-d.paragraphs[0].runs[0].font.name = "TimesNewRomanPSMT"
+[p for p in d.paragraphs if p.runs][0].runs[0].font.name = "TimesNewRomanPSMT"
 p_bt = os.path.join(TMP, "bienthe.docx")
 d.save(p_bt)
 kq = k.kiem_tep(p_bt)
@@ -232,12 +239,12 @@ except Exception:
 if mau_dir and os.path.isdir(mau_dir):
     loi_mau = {}
     for f in sorted(os.listdir(mau_dir)):
-        if f.endswith((".dotx", ".xltx")) and not f.startswith(("10-", "02A-", "06A-", "06D-", "07-")):  # loi mau da biet (chuan 18 muc 6)
+        if f.endswith((".dotx", ".xltx")) and not f.startswith(("01-", "10-", "02A-", "06A-", "06D-", "07-")):  # loi mau da biet (chuan 18 muc 6)
             nang = [x for x in k.kiem_tep(os.path.join(mau_dir, f)) if x[0] <= 2]
             if nang:
                 loi_mau[f] = nang
-    kiem(not loi_mau, f"11 mẫu 03-Templates(1) (trừ 5 mẫu có lỗi đã biết) không bị báo Mức 1–2: {loi_mau}")
-    for f in ("06A-Bao-cao-noi-bo.dotx", "06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx", "07-To-trinh.dotx"):
+    kiem(not loi_mau, f"10 mẫu 03-Templates(1) (trừ 6 mẫu có lỗi đã biết) không bị báo Mức 1–2: {loi_mau}")
+    for f in ("01-Quyet-dinh-ban-hanh-Quy-che.dotx", "06A-Bao-cao-noi-bo.dotx", "06D-Huong-dan-xay-dung-ke-hoach-bao-cao.dotx", "07-To-trinh.dotx"):
         kiem("TT17" in ma(os.path.join(mau_dir, f)), f"lỗi đã biết của {f} (tên Trường sai cỡ/kiểu) vẫn bị bắt")
     kiem("TT08" in ma(os.path.join(mau_dir, "10-Giay-moi.dotx")), "lỗi đã biết của 10-Giay-moi vẫn bị bắt")
     kiem("TT14" in ma(os.path.join(mau_dir, "02A-Quyet-dinh-ca-biet-Phe-duyet-nhiem-vu-du-toan.dotx")),

@@ -2,7 +2,7 @@
 
 > **CHỜ LỆNH (28/9/2026) — Tiếp nhận VNPT Office:** kế hoạch đã duyệt `91-Tai-Lieu-Thiet-Ke/Ke-hoach-Tiep-nhan-VNPT-Office_20260928_v1.md` (lệnh gốc `GOAL-tiep-nhan-office_v1.1.md`). **Chỉ thực hiện khi người phụ trách yêu cầu**, theo thứ tự Bước 0 → Giai đoạn 1 → 1b (OAuth do anh tạo) → 2. Bước 0 (commit ngoại lệ 28 tệp + gom bản cũ vào `99-Luu-Tru/Can-Xoa/`) đã làm trên đĩa, chưa commit.
 
-> **Báo cáo tháng — chờ chạy lại (28/9/2026, `DL-20260928-004`):** plugin 1.3.7 đã sửa (dựng từ bản đã ban hành). Người phụ trách chạy lại báo cáo tháng 9 trên tài khoản `phongthhcqt` (Claude Code + Cowork; Cowork phải gỡ bản cũ, tải `ktc-quan-tri-1.3.10.zip`; chọn mô hình mạnh nhất; câu lệnh mẫu mới) → em so với bản 21/9 và bản chạy độc lập, rồi cập nhật HD v7 (câu lệnh VI.2), BC quá trình v6, BC tiếp thu v2, hồ sơ vòng 5 (`scratchpad/dung_136.py`, `lap_ho_so_vong5_136.py` — đổi sang 1.3.7).
+> **Báo cáo tháng — chờ chạy lại (28/9/2026, `DL-20260928-004`):** plugin 1.3.7 đã sửa (dựng từ bản đã ban hành). Người phụ trách chạy lại báo cáo tháng 9 trên tài khoản `phongthhcqt` (Claude Code + Cowork; Cowork phải gỡ bản cũ, tải `ktc-quan-tri-1.3.11.zip`; chọn mô hình mạnh nhất; câu lệnh mẫu mới) → em so với bản 21/9 và bản chạy độc lập, rồi cập nhật HD v7 (câu lệnh VI.2), BC quá trình v6, BC tiếp thu v2, hồ sơ vòng 5 (`scratchpad/dung_136.py`, `lap_ho_so_vong5_136.py` — đổi sang 1.3.7).
 >
 > **Tài khoản thành viên (28/9/2026, `DL-20260928-003`):** plugin 1.3.5 cho kết nối thư mục làm việc của đơn vị trên Cowork. **Chưa thử thật** bằng tài khoản thành viên — người phụ trách chạy ca C3 trong `PHIEU-NGHIEM-THU-CHAT-COWORK-1.3.5.md`. Kho KTC-Database với thành viên: cần quyền đọc + lối tắt "KTC-Database" trong Drive của tôi (hoặc `KTC_DATABASE_DIR`).
 >
