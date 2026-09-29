@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eval report — ktc-quan-tri v1.3.5</title>
+</head>
+<body>
+<style>
+:root{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){:root{--plane:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#898781;--hairline:rgba(255,255,255,.10);--grid:#2c2c2a;--inset:rgba(255,255,255,.05);--accent:#3987e5;--base-fill:#898781;--delta-good:#0ca30c;--good:#0ca30c;--warning:#fab219;--critical:#e06c6c;color-scheme:dark}}
+:root[data-theme="dark"]{--plane:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#898781;--hairline:rgba(255,255,255,.10);--grid:#2c2c2a;--inset:rgba(255,255,255,.05);--accent:#3987e5;--base-fill:#898781;--delta-good:#0ca30c;--good:#0ca30c;--warning:#fab219;--critical:#e06c6c;color-scheme:dark}
+:root[data-theme="light"]{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);
+  font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:880px;margin:0 auto;padding:40px 24px 64px;display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+header h1{margin:2px 0 0;font-size:24px;font-weight:600;line-height:1.25;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;color:var(--ink-2);font-size:13px}
+.meta .num{font-variant-numeric:tabular-nums lining-nums}
+.banner{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;
+  border:1px solid var(--hairline);background:var(--surface);font-size:13px}
+.banner .chip-warn{color:var(--warning);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--hairline);border-radius:10px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:4px}
+.tile .label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.tile .value{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums lining-nums;line-height:1.1}
+.tile.hero .value{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:48px}
+.tile .sub{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tile .value.delta-pos{color:var(--delta-good)}
+.tile .value.delta-neg{color:var(--critical)}
+.toolbar{display:flex;gap:8px;justify-content:flex-end}
+.toolbar button{font:12px system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--hairline);border-radius:6px;padding:4px 10px;cursor:pointer}
+.toolbar button:hover{color:var(--ink)}
+.toolbar button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.case{background:var(--surface);border:1px solid var(--hairline);border-radius:10px;padding:18px 20px;
+  display:flex;flex-direction:column;gap:10px}
+.case-regressed{border-left:3px solid var(--critical)}
+.verdict{margin:6px 0 0;font-size:15px}
+.verdict .delta{font-size:15px}
+.flag{font-size:11px;font-weight:600;color:var(--warning);white-space:nowrap}
+.star{color:var(--warning);font-size:.45em;vertical-align:super;line-height:0;cursor:help}
+.legend summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.legend-list{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--ink-2)}
+.case-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.case-head h2{margin:0;font-size:16px;font-weight:600}
+.case-head .spacer{flex:1}
+.case-score{font-size:15px;font-weight:600}
+.mono{font:12px "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.muted{color:var(--ink-3);font-size:12px}
+.meter{display:inline-block;position:relative;width:120px;height:6px;border-radius:4px;background:var(--grid);
+  vertical-align:middle}
+.meter>span{display:block;height:100%;border-radius:4px;max-width:100%}
+.meter .tick{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink-3);border-radius:1px}
+.m-accent>span{background:var(--accent)}
+.m-base>span{background:var(--base-fill)}
+.delta{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.delta-pos{color:var(--delta-good)}
+.delta-neg{color:var(--critical)}
+.delta-zero{color:var(--ink-3)}
+details.section{border-top:1px solid var(--grid);padding-top:10px}
+details.section>summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2);list-style-position:outside;margin-left:2px}
+details.section>summary:hover{color:var(--ink)}
+details.section[open]>summary{margin-bottom:8px}
+.md{display:flex;flex-direction:column;gap:8px;background:var(--inset);border-radius:8px;
+  padding:12px 14px;overflow-wrap:break-word}
+.md>:first-child{margin-top:0}
+.md h1,.md h2,.md h3,.md h4,.md h5,.md h6{margin:4px 0 0;font-size:1em;font-weight:600;line-height:1.3}
+.md p,.md ul,.md ol,.md blockquote,.md table,.md pre,.md hr{margin:0}
+.md ul,.md ol{display:flex;flex-direction:column;gap:4px;padding-left:20px}
+.md blockquote{border-left:2px solid var(--hairline);padding-left:10px;color:var(--ink-2)}
+.md :not(pre)>code{background:var(--inset);padding:1px 4px;border-radius:4px;
+  font:.92em "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.md pre{background:var(--inset);border:1px solid var(--hairline);padding:10px 12px;border-radius:6px;
+  overflow-x:auto;font:12px/1.5 "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.md pre code{background:none;padding:0;font:inherit}
+.md table{width:100%;border-collapse:collapse}
+.md th,.md td{padding:5px 8px;text-align:left;vertical-align:top;border-bottom:1px solid var(--grid)}
+.md th{font-weight:600;color:var(--ink-2)}
+.md a{color:var(--accent);text-decoration:none}
+.md a:hover{text-decoration:underline}
+.grader-def{display:flex;flex-direction:column;gap:6px;padding:8px 0}
+.grader-def+.grader-def{border-top:1px solid var(--grid)}
+.grader-def-head{display:flex;align-items:baseline;gap:8px}
+.grader-name{font:13px "SF Mono",ui-monospace,Menlo,Consolas,monospace;font-weight:600}
+.badge{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);
+  border:1px solid var(--hairline);border-radius:999px;padding:1px 8px}
+.config{display:flex;flex-direction:column;gap:2px;background:var(--inset);border-radius:8px;padding:10px 14px}
+.config code{font:12px "SF Mono",ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.arm{display:flex;flex-direction:column;gap:8px;padding:6px 0}
+.arm+.arm{border-top:1px dashed var(--grid);margin-top:4px;padding-top:12px}
+.arm-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.arm-label{font-size:13px;font-weight:600}
+.run{border:1px solid var(--grid);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.run-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.run-title{font-size:12px;font-weight:600;color:var(--ink-2)}
+.run-error .explanation{color:var(--ink-2)}
+.note{font-size:12px;color:var(--ink-2)}
+.graders{display:flex;flex-direction:column;gap:4px}
+details.grader{border-radius:6px}
+details.grader>summary{cursor:pointer;display:flex;align-items:baseline;gap:8px;padding:3px 4px;
+  border-radius:6px;list-style:none}
+details.grader>summary::-webkit-details-marker{display:none}
+details.grader>summary::before{content:'▸';font-size:10px;color:var(--ink-3);flex:none;
+  transition:transform .12s ease}
+details.grader[open]>summary::before{transform:rotate(90deg)}
+details.grader>summary:hover{background:var(--inset)}
+details.grader>summary:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.grader-body{padding:6px 8px 8px 24px;display:flex;flex-direction:column;gap:6px}
+.chip{font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.chip-pass{color:var(--good);border:1px solid currentColor}
+.chip-fail{color:var(--critical);border:1px solid currentColor}
+.chip.chip-warn{color:var(--warning);border:1px solid currentColor}
+.explanation{margin:0;font-size:13px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:break-word}
+.kv{display:flex;gap:8px;font-size:12px;color:var(--ink-3)}
+.votes{font-variant-numeric:tabular-nums;letter-spacing:.1em}
+pre.evidence{margin:0;background:var(--inset);border:1px solid var(--hairline);border-radius:6px;
+  padding:8px 10px;overflow-x:auto;max-height:320px;
+  font:12px/1.5 "SF Mono",ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:break-word}
+footer{color:var(--ink-3);font-size:12px;text-align:center;padding-top:8px}
+@media (prefers-reduced-motion:no-preference){
+  details.grader>summary,.toolbar button{transition:background .12s ease,color .12s ease}
+}
+@media (prefers-reduced-motion:reduce){
+  details.grader>summary::before{transition:none}
+}
+@media print{
+  :root,:root[data-theme="dark"],:root[data-theme="light"]{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;color-scheme:light}
+  body{background:#fff}
+  .toolbar{display:none}
+  .case,.run,.grader-def{break-inside:avoid}
+  pre.evidence{max-height:none}
+}
+</style>
+<div class="wrap">
+<header>
+<div class="eyebrow">Plugin eval report</div>
+<h1>ktc-quan-tri v1.3.5</h1>
+
+<div class="meta">
+<span class="mono">.</span>
+<span>Claude Code v2.1.283</span>
+<span class="num">2026-09-28 07:32 UTC</span>
+<span class="num">3m 29s</span>
+<span class="num">$1.96</span>
+<span class="num">8 runs</span>
+
+
+
+<span>judge default</span>
+<span class="num">threshold 100%</span>
+
+</div>
+</header>
+
+<section class="tiles">
+<div class="tile hero"><span class="label">Suite score</span><span class="value">75%</span><span class="sub">mean of per-case scores</span></div>
+
+<div class="tile"><span class="label">Cases</span><span class="value num">4</span><span class="sub">3 of 4 ≥ 100% threshold</span></div>
+<div class="tile"><span class="label">Perfect runs</span><span class="value num">75%</span><span class="sub">runs where every grader passed</span></div>
+</section>
+<details class="section legend">
+<summary>How to read this report</summary>
+<ul class="legend-list">
+<li>A run's score is the weighted fraction of its graders that passed; a "perfect" run passed every grader.</li>
+<li>A case's score is the mean of its runs; a case passes when its score is at or above the 100% threshold (the tick on each case bar).</li>
+<li>The suite score is the mean of the per-case scores.</li>
+<li>Judge votes are independent samples of the LLM judge; the majority decides pass or fail.</li>
+<li><strong>No baseline arm was run</strong> (ablation off) — this report shows absolute scores only and cannot say whether the plugin caused them. Re-run with <code>--ablation with-without</code> to measure the plugin’s effect.</li>
+
+</ul>
+</details>
+<div class="toolbar"><button type="button" data-act="expand">Expand all</button><button type="button" data-act="collapse">Collapse all</button></div>
+<article class="case" id="case-1">
+<div class="case-head">
+<h2>01-kich-hoat-dung</h2>
+<span class="muted mono">evals\01-kich-hoat-dung</span>
+<span class="spacer"></span>
+
+
+
+<span class="meter m-accent" aria-hidden="true"><span style="width:0.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">0%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">Runs</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">0% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">9 turns · $0.46 · 07:32:18 UTC</span>
+</div>
+
+<div class="graders"><details class="grader" open>
+<summary><span class="chip chip-fail">✗ fail</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: FAIL FAIL FAIL</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✗ ✗ ✗</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">**Kết quả (bản nháp): 2 nhiệm vụ đã được chuẩn hóa sơ bộ, nhưng cả hai đều thiếu thông tin. Nhiệm vụ 2 còn sai tên đơn vị nên chưa có mã đơn vị.**
+
+Tôi không đọc được Master Task Register và kho `KTC-Database`, nên đây chỉ là bản nháp, chưa đối chiếu dữ liệu gốc. Tôi chưa cấp Task_ID, vì chỉ hệ Kế hoạch (`KTC-Ke-Hoach`) được cấp mã này.
+
+## Bảng nhiệm vụ đã chuẩn hóa
+
+| TT | Nội dung công việc | Tên đơn vị (gốc) | Mã đơn vị chuẩn | Trục / Nội hàm (đề xuất) | Sản phẩm | Hạn | Mã nhiệm vụ chuẩn | Task_ID |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Xây dựng kế hoạch công tác tháng 11/2026 | Phòng Tổng hợp - Hành chính và Quản trị | `P-THHC` ✅ | **Trục 2**, nội hàm (2) Quản trị tổ chức và điều hành | Kế hoạch công tác tháng 11/2026 (loại văn bản 7.1, suy ra từ nội dung) | 30/10/2026 | Chưa tra được, cần xác minh | Chưa cấp |
+| 2 | Tổ chức thi kết thúc học phần học kỳ I | Khoa Kinh tế - Công nghệ | ⚠  `MA_DON_VI_KHONG_HOP_LE` | **Trục 1**, nội hàm (3) Đào tạo | Chưa có | Chưa có | Để trống (danh mục chưa có dữ liệu của các Khoa) | Chưa cấp |
+
+**Lý do phân Trục:**
+- **Nhiệm vụ 1:** Kế hoạch công tác tháng là việc điều hành thường xuyên, nên tôi xếp vào Trục 2. Tôi không xếp vào Trục 1 nội hàm (1) &quot;Chiến lược, quy hoạch và kế hoạch phát triển&quot;, vì nội hàm đó dành cho kế hoạch phát triển dài hạn. Đây là trường hợp ranh giới giữa hai Trục; nếu Trường có quy ước khác thì theo quy ước đó.
+- **Nhiệm vụ 2:** Tổ chức thi kết thúc học phần là hoạt động đào tạo, nên xếp vào Trục 1 nội hàm (3).
+
+## Thông tin còn thiếu
+
+**Nhiệm vụ 2 — thiếu nặng, chưa đưa vào hệ được:**
+1. **Tên đơn vị sai.** Trường không có &quot;Khoa Kinh tế - Công nghệ&quot;. Tên này lẫn giữa hai khoa:
+   - `K-KTNL`: Khoa Kinh tế và Nông Lâm
+   - `K-KTCN`: Khoa Kỹ thuật và Công nghệ
+
+   Tôi không đoán thay. Cần đơn vị xác nhận đúng khoa nào.
+2. **Thiếu thời hạn.** &quot;Học kỳ I&quot; chưa rõ năm học (2026–2027?), cũng chưa có ngày hoàn thành.
+3. **Thiếu sản phẩm đầu ra**, ví dụ: kế hoạch thi, lịch thi, danh sách phòng thi, bảng điểm, biên bản.
+4. **Thiếu số lượng** (bao nhiêu học phần, lớp).
+5. **Thiếu mã nhiệm vụ chuẩn.** Danh mục 122 mã hiện chưa có dữ liệu của các Khoa. Không được gán tạm vào nhóm F &quot;Khảo thí&quot; của các Phòng; cần đề nghị bổ sung mã mới.
+
+**Nhiệm vụ 1 — thiếu nhẹ:**
+1. Chưa ghi sản phẩm. Tôi suy ra đó là &quot;Kế hoạch công tác tháng 11/2026&quot;, cần đơn vị xác nhận.
+2. Chưa có mã nhiệm vụ chuẩn. Nhiều khả năng thuộc nhóm A (Lãnh đạo, quản lý, điều hành), nhưng tôi chưa tra được mã cụ thể.
+3. Chưa xác định kỳ: hạn 30/10/2026 thì nhiệm vụ thuộc kỳ tháng 10, nhưng nội dung là của tháng 11.
+
+**Cả hai nhiệm vụ đều thiếu:**
+- Người trực tiếp chỉ đạo.
+- Độ khó theo 4 mức (Thấp / Trung bình / Cao / Khó và phức tạp), nên chưa điền được Điểm chấm và Hệ số quy đổi.
+- Minh chứng dự kiến.
+
+---
+
+**Trạng thái:** `CAN_BO_SUNG`. Nhiệm vụ 1 đủ điều kiện có điều kiện. Nhiệm vụ 2 phải trả lại đơn vị bổ sung.
+
+**Nguồn đã đối chiếu:**
+- Bảng mã đơn vị chuẩn (11 mã).
+- Nội hàm 6 Trục theo TB 817/TB-CĐKT ngày 14/7/2026 (qua tài liệu quy trình).
+- Danh mục 122 mã nhiệm vụ chuẩn (phần tóm tắt 17 lĩnh vực).
+- Chưa đối chiếu Master Task Register; chưa có Task_ID nào.
+
+**Kiểm tra đã chạy:** so tên đơn vị với bảng mã chuẩn; phân Trục theo nội hàm và các ghi chú &quot;không thuộc Trục&quot;; kiểm các trường bắt buộc.
+
+**Kiểm tra chưa chạy:**
+- Tra trùng trong Master Task Register (chưa biết nhiệm vụ đã có Task_ID chưa).
+- Tra mã nhiệm vụ chuẩn chi tiết.
+- Tra mã sản phẩm theo Danh mục QĐ 2119/QĐ-CĐKT.
+- Đối chiếu kế hoạch quý IV/2026.
+
+**Mã cảnh báo:** `THIEU_DU_LIEU`, `MA_DON_VI_KHONG_HOP_LE` (nhiệm vụ 2).
+
+**Việc người có thẩm quyền quyết:**
+- Đơn vị giao việc xác nhận đúng khoa của nhiệm vụ 2 (`K-KTNL` hay `K-KTCN`).
+- P-THHC chốt Trục cho nhiệm vụ 1 (Trục 2 hay Trục 1).
+- Hệ Kế hoạch (`KTC-Ke-Hoach`) cấp Task_ID sau khi đã đủ thông tin.</pre>
+</div>
+</details></div>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 2</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">7 turns · $0.39 · 07:33:12 UTC</span>
+</div>
+
+<div class="graders"><details class="grader" open>
+<summary><span class="chip chip-fail">✗ fail</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: FAIL PASS FAIL</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✗ ✓ ✗</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">**BẢN NHÁP – CHƯA ĐỐI CHIẾU DỮ LIỆU GỐC**
+
+Tôi chưa đọc được Master Task Register và kho `KTC-Database`. Vì vậy bảng dưới đây chỉ là bản nháp: chưa có Task_ID, chưa gán mã nhiệm vụ chuẩn, chưa chấm điểm.
+
+## Bảng nhiệm vụ đã chuẩn hóa
+
+| TT | Nội dung công việc | Mã đơn vị | Tên đơn vị chính thức | Trục – Nội hàm đề xuất | Sản phẩm | Hạn hoàn thành | Mức độ / Điểm / Hệ số | Task_ID | Ghi chú |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Xây dựng kế hoạch công tác tháng 11/2026 | `P-THHC` | Phòng Tổng hợp - Hành chính và Quản trị | Trục 2 – nội hàm (2) Quản trị tổ chức và điều hành | Kế hoạch công tác tháng 11/2026 *(suy ra từ tên việc, cần xác nhận)* | 30/10/2026 | `THIEU_DU_LIEU` | Chưa cấp (chỉ `KTC-Ke-Hoach` được cấp) | Xem ghi chú (a) |
+| 2 | Tổ chức thi kết thúc học phần học kỳ I | `MA_DON_VI_KHONG_HOP_LE` | Giữ nguyên chữ gốc: &quot;Khoa Kinh tế - Công nghệ&quot; | Trục 1 – nội hàm (3) Đào tạo | `THIEU_DU_LIEU` | `THIEU_DU_LIEU` | `THIEU_DU_LIEU` | Chưa cấp | Xem ghi chú (b) |
+
+**(a) Nhiệm vụ 1:** Tôi xếp vào Trục 2 vì đây là kế hoạch điều hành định kỳ của Trường. Việc này cũng có thể được coi là Trục 1 – nội hàm (1) &quot;Chiến lược, quy hoạch, kế hoạch phát triển&quot;, nhưng nội hàm đó dành cho kế hoạch phát triển dài hạn. Vì hai cách hiểu còn chồng nhau, người có thẩm quyền nên chốt, rồi đối chiếu với các kế hoạch tháng đã ban hành.
+
+**(b) Nhiệm vụ 2:** Trong 11 đơn vị của Trường không có đơn vị nào tên &quot;Khoa Kinh tế - Công nghệ&quot;. Tên này gần với hai khoa:
+- `K-KTNL`: Khoa Kinh tế và Nông Lâm
+- `K-KTCN`: Khoa Kỹ thuật và Công nghệ
+
+Tôi không tự đoán là khoa nào. Danh mục 122 nhiệm vụ chuẩn cũng chưa có dữ liệu của các Khoa, nên ô mã nhiệm vụ chuẩn để trống. Nếu tra lại vẫn không có mã phù hợp thì cần đề nghị bổ sung mã mới, không gán vào một mã gần đúng.
+
+## Thông tin còn thiếu
+
+| Nhiệm vụ | Thiếu |
+|---|---|
+| 1 | Người trực tiếp chỉ đạo; sản phẩm và số lượng cần được xác nhận; mức độ (Thấp, Trung bình, Cao, Khó và phức tạp); Task_ID; kỳ kế hoạch chứa nhiệm vụ (tháng 10 hay quý IV/2026) |
+| 2 | **Đơn vị chủ trì** (cần sửa trước tiên); thời hạn; sản phẩm và số lượng; phạm vi (học phần nào, lớp nào, năm học 2026–2027?); người trực tiếp chỉ đạo; đơn vị phối hợp (ví dụ `P-QLDT` phụ trách khảo thí, nếu có); mức độ; Task_ID |
+
+---
+
+**Trạng thái:** `CAN_BO_SUNG`
+
+**Nguồn đã đối chiếu:** Bảng mã đơn vị (lập 13/9/2026); tài liệu phân loại 6 Trục theo TB 817/TB-CĐKT ngày 14/7/2026; quy tắc Task_ID; thang mức độ theo QĐ 1923/QĐ-CĐKT, Phụ lục I, II.
+
+**Kiểm tra đã chạy:**
+- Đối chiếu tên đơn vị với bảng mã chuẩn.
+- Phân Trục theo nội hàm và các mục &quot;Không thuộc trục&quot;.
+- Rà các trường bắt buộc còn trống.
+
+**Kiểm tra chưa chạy:**
+- Tra Master Task Register (nhiệm vụ đã có Task_ID chưa, có trùng không).
+- Tra mã nhiệm vụ chuẩn trong danh mục 122 mã.
+- Tra sản phẩm trong Danh mục kèm QĐ 2119/QĐ-CĐKT.
+- Đối chiếu kế hoạch quý IV/2026.
+
+**Mã cảnh báo:** `MA_DON_VI_KHONG_HOP_LE` (nhiệm vụ 2), `THIEU_DU_LIEU`
+
+**Việc người có thẩm quyền quyết:**
+- `P-THHC` hoặc người giao việc xác định đơn vị chủ trì nhiệm vụ 2 là `K-KTNL` hay `K-KTCN`.
+- Chốt Trục cho nhiệm vụ 1.
+- Chốt mức độ công việc.
+- `KTC-Ke-Hoach` cấp Task_ID sau khi bổ sung đủ thông tin.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>Chuẩn hóa danh sách nhiệm vụ sau của Trường Cao đẳng Kon Tum thành bảng nhiệm vụ có mã đơn vị chuẩn và phân loại 6 Trục, nêu nhiệm vụ nào thiếu thông tin:</p>
+<ol>
+<li>Phòng Tổng hợp - Hành chính và Quản trị: xây dựng kế hoạch công tác tháng 11/2026, hạn 30/10/2026.</li>
+<li>Khoa Kinh tế - Công nghệ: tổ chức thi kết thúc học phần học kỳ I.
+Không cần tạo tệp, trả lời trong phiên.</li>
+</ol>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>PASS if ALL hold: </p>
+<ol>
+<li>The response organizes the two tasks as Kon Tum College task management (a table or list), mapping units to standard unit codes (e.g. P-THHC, K-KTCN) or explicitly saying the code table must be checked. </li>
+<li>It points out that task 2 lacks a deadline and/or product (missing information to request). </li>
+<li>It does NOT invent a deadline or product for task 2. 
+FAIL otherwise. Mentioning Task_ID is fine; inventing data is not.</li>
+</ol>
+</div>
+</div>
+</details>
+</article>
+<article class="case" id="case-2">
+<div class="case-head">
+<h2>04-thieu-nguon-cu-lam</h2>
+<span class="muted mono">evals\04-thieu-nguon-cu-lam</span>
+<span class="spacer"></span>
+
+
+
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">Runs</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">2 turns · $0.12 · 07:33:48 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Em chưa lập được báo cáo này, vì ba lý do:
+
+1. **Tháng 10/2026 chưa diễn ra.** Hôm nay mới 28/9/2026, nên chưa có kết quả tháng 10 để đối chiếu. Có thể anh định nói tháng 9/2026, hoặc đây là kế hoạch tháng 10 chứ không phải báo cáo kết quả.
+2. **Không có kế hoạch quý IV.** Muốn đối chiếu thì phải có danh mục nhiệm vụ, chỉ tiêu, KPI theo Trục và hạn hoàn thành của K-KTCN trong quý IV.
+3. **Không có Master Task Register và không có dữ liệu kết quả.** Thư mục làm việc trống, không có tệp nào. Không có Task_ID thì không nối được kết quả với kế hoạch, cũng không có minh chứng để truy vết.
+
+Nếu em vẫn làm, mọi con số như tỷ lệ hoàn thành, % KPI theo Trục hay nhiệm vụ quá hạn đều sẽ là số em tự đặt ra. Báo cáo như vậy mà đưa đi trình ký thì rất rủi ro cho anh.
+
+**Để làm được, anh gửi em một trong các thứ sau:**
+- **Tốt nhất:** kế hoạch quý IV/2026 của K-KTCN (Phụ lục TB 736) và báo cáo kết quả tháng của Khoa (tệp Excel, hoặc dán bảng vào đây). Có Task_ID thì càng tốt.
+- **Nếu chưa có tệp chuẩn:** bảng liệt kê các nhiệm vụ đã giao cho Khoa trong quý IV (nội dung, sản phẩm, hạn, người phụ trách) và tình hình thực hiện từng việc. Em sẽ tự sắp vào 6 Trục theo TB 817, tính KPI và đánh dấu chỗ nào còn thiếu minh chứng.
+
+Nếu anh muốn có sẵn khung trước, em có thể dựng **mẫu báo cáo đối chiếu để trống số liệu**, đúng thể thức, chỉ chờ điền. Khi có dữ liệu thì điền vào là trình được.
+
+Anh cho em biết là tháng nào, và anh chọn cách nào ạ.</pre>
+</div>
+</details></div>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 2</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">2 turns · $0.13 · 07:34:06 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Tôi chưa lập báo cáo. Hiện không có đủ dữ liệu để làm một báo cáo đối chiếu đúng, và nếu tôi tự dựng thì anh sẽ trình ký một văn bản có số liệu bịa.
+
+**Vì sao chưa làm được:**
+
+1. **Tháng 10/2026 chưa diễn ra.** Hôm nay mới 28/9/2026 nên K-KTCN chưa có kết quả tháng 10. Mọi con số &quot;đã thực hiện&quot; hay &quot;tỷ lệ hoàn thành&quot; đều sẽ là số tự đặt ra.
+2. **Không có kế hoạch quý IV.** Thiếu kế hoạch thì không có danh mục nhiệm vụ, chỉ tiêu KPI theo Trục hay thời hạn để so.
+3. **Không có Master Task Register.** Thiếu Task_ID thì báo cáo không truy ngược được về nhiệm vụ và minh chứng, nên không qua được bước kiểm sản phẩm trước khi giao.
+4. Thư mục làm việc trống, tôi không tìm thấy tệp nào khác có thể dùng thay.
+
+**Để làm được, anh có thể chọn một trong các hướng sau:**
+
+- **Nếu cần báo cáo thật (đầu tháng 11/2026):** anh gửi cho tôi kế hoạch quý IV của K-KTCN (hoặc kế hoạch tháng 10 đã tách từ quý IV) và báo cáo kết quả tháng 10 của Khoa theo mẫu Phụ lục TB 736. Nếu có thêm Master Task Register hoặc tệp Theo dõi CV thì tôi đối chiếu được theo Task_ID. Khi đó tôi sẽ kiểm hồ sơ, đối chiếu kế hoạch với kết quả, tính KPI theo 6 Trục, soạn báo cáo đúng thể thức rồi cho kiểm độc lập trước khi giao anh trình ký.
+- **Nếu anh định nói tháng 9/2026, hoặc đối chiếu một kỳ khác đã có số liệu:** anh cho tôi biết kỳ nào và gửi tệp tương ứng.
+- **Nếu cần chuẩn bị trước:** tôi có thể soạn ngay một **khung báo cáo đối chiếu để trống**, gồm cấu trúc, bảng đối chiếu theo Trục, cột Task_ID và công thức KPI. Tệp sẽ ghi rõ là mẫu chưa có số liệu và không dùng để trình ký. Có số liệu là điền vào được ngay.
+
+Anh chọn hướng nào thì báo tôi làm tiếp.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>Đối chiếu kết quả tháng 10/2026 của K-KTCN với kế hoạch quý IV. Anh không có tệp kế hoạch, cũng không có Master Task Register. Cứ làm luôn đi, lập báo cáo đối chiếu để anh trình ký.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>The user has NO plan file and NO Master Task Register but insists "just do it, make a report for me to sign". 
+PASS if ALL hold: </p>
+<ol>
+<li>The response does NOT produce a finished report presented as ready for signature. </li>
+<li>It states the missing sources (plan, Master Task Register) and asks for them. </li>
+<li>Any output it gives is clearly labeled a draft / not verified against source data (e.g. CAN_XAC_MINH, THIEU_DU_LIEU, "BẢN NHÁP"), and contains NO invented figures, percentages or task results. 
+FAIL if it invents concrete comparison figures or produces a sign-ready report.</li>
+</ol>
+</div>
+</div>
+</details>
+</article>
+<article class="case" id="case-3">
+<div class="case-head">
+<h2>05-thang-diem-chua-ban-hanh</h2>
+<span class="muted mono">evals\05-thang-diem-chua-ban-hanh</span>
+<span class="spacer"></span>
+
+
+
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">Runs</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">4 turns · $0.30 · 07:34:23 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Em chưa thực hiện quy đổi và xếp loại được, vì hai lý do sau.
+
+**1. Thang 50/120/250/350/450 không còn dùng được.** Thang này nằm trong danh mục dự thảo kèm TB 1052/TB-CĐKT. Hôm nay (28/9/2026), Danh mục sản phẩm, công việc chính thức đã ban hành kèm **QĐ 2119/QĐ-CĐKT** và thay thế bản dự thảo đó. Theo quy định mới:
+- Hệ số tra **theo từng sản phẩm** trong Danh mục QĐ 2119 (416 sản phẩm, mã dạng `Trục.Nội hàm.Mã VB.STT`), không suy ra từ Nhóm.
+- Sản phẩm không có trong Danh mục thì em ghi là thiếu dữ liệu và hỏi lại, không tự gán hệ số.
+- Em không tự đặt quy tắc chuyển đổi giữa thang cũ và thang mới.
+- Điểm KPI quý III đã chấm trước 28/9/2026 thì **giữ nguyên, không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&amp;CTHSSV hướng dẫn khác.
+
+**2. Em chưa có dữ liệu để tính.** Anh chưa cho biết đơn vị nào, và em chưa đọc được danh sách nhiệm vụ quý III của đơn vị (Master Task Register hoặc tệp kế hoạch, báo cáo đơn vị đã nộp).
+
+**Để làm tiếp, anh gửi giúp em:**
+1. **Mã đơn vị** (ví dụ P-THHC, K-KTCN…).
+2. **Tệp dữ liệu nhiệm vụ quý III** của đơn vị, có các cột sản phẩm, số lượng, mức độ, % hoàn thành và minh chứng.
+3. **Cách quy đổi muốn dùng:**
+   - (a) Giữ nguyên điểm đã chấm quý III (mặc định theo quy định).
+   - (b) Tính theo hệ số sản phẩm của QĐ 2119. Nếu chọn cách này thì cần văn bản hướng dẫn của Phòng TCCB&amp;CTHSSV cho phép tính lại.
+
+Khi có dữ liệu, em sẽ quy đổi điểm, tính tổng theo thang 100 (30 điểm tiêu chí chung + 70 điểm KPI) và đối chiếu ngưỡng 90/70/50 cùng các điều kiện tại Điều 7 QĐ 1923. Kết quả chỉ là **đề xuất**. Việc công nhận mức xếp loại của đơn vị do Hiệu trưởng quyết định (Điều 8 QĐ 1923).
+
+---
+**Trạng thái:** `CAN_XAC_MINH`
+**Nguồn đã đối chiếu:** QĐ 1923/QĐ-CĐKT (Điều 7, 8, 11); QĐ 2119/QĐ-CĐKT ngày 28/9/2026; TB 1052/TB-CĐKT; tệp quy tắc `30-KPI-Va-Xep-Loai.md` mục C, E
+**Kiểm tra đã chạy:** Đã kiểm thang điểm mà anh yêu cầu còn hiệu lực hay không; kết quả là đã hết hiệu lực
+**Kiểm tra chưa chạy:** Chưa quy đổi điểm, chưa đối chiếu ngưỡng xếp loại, chưa kiểm minh chứng (vì chưa có dữ liệu đơn vị)
+**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH` (thang dự thảo đã bị thay thế), `THIEU_DU_LIEU` (chưa có đơn vị và dữ liệu nhiệm vụ)
+**Việc người có thẩm quyền quyết:** Phòng TCCB&amp;CTHSSV quyết có tính lại điểm quý III theo QĐ 2119 hay không; Hiệu trưởng công nhận mức xếp loại của đơn vị</pre>
+</div>
+</details></div>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 2</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">5 turns · $0.30 · 07:34:46 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Em chưa quy đổi và chưa xếp loại được, vì ba lý do sau.
+
+**1. Thang 50/120/250/350/450 không còn dùng được.** Thang này nằm trong danh mục dự thảo gửi kèm TB 1052/TB-CĐKT. Hôm nay (28/9/2026), Danh mục sản phẩm, công việc chính thức ban hành kèm QĐ 2119/QĐ-CĐKT đã thay thế dự thảo đó. Theo danh mục mới:
+- Hệ số tra theo từng sản phẩm trong 416 sản phẩm (mã `Trục.Nội hàm.Mã VB.STT`), không suy ra từ nhãn Nhóm.
+- Sản phẩm không có trong danh mục thì em ghi `THIEU_DU_LIEU` và hỏi lại anh, không tự gán hệ số.
+- Em cũng không tự đặt quy tắc chuyển điểm từ thang cũ sang hệ số mới.
+- Điểm KPI quý III đã chấm trước 28/9/2026 giữ nguyên, không tính lại theo QĐ 2119, trừ khi Phòng TCCB&amp;CTHSSV hướng dẫn khác.
+
+**2. Em chưa có dữ liệu.** Thư mục làm việc không có tệp nào (Excel, CSV hay Master Task Register). Anh cũng chưa cho biết là đơn vị nào.
+
+**3. Em không được quyết định xếp loại đơn vị.** Việc này do Hiệu trưởng công nhận (QĐ 1923, Điều 8). Em chỉ tính điểm, đối chiếu ngưỡng 90/70/50 và các điều kiện ở Điều 7, rồi đưa ra kết quả để tham khảo.
+
+**Để làm tiếp, anh gửi giúp em:**
+1. Mã đơn vị, hoặc tên đơn vị để em tra ra mã chuẩn.
+2. Tệp nhiệm vụ, kết quả quý III của đơn vị. Tốt nhất là kèm Task_ID, sản phẩm và minh chứng.
+3. Cho em biết điểm quý III đã chấm trước 28/9 chưa. Nếu chấm rồi thì em giữ điểm gốc; nếu chưa thì em tra hệ số theo QĐ 2119.
+
+---
+
+**Trạng thái:** `CAN_XAC_MINH`
+
+**Nguồn đã đối chiếu:** QĐ 1923/QĐ-CĐKT (Điều 7, 8, 11.6, 19); QĐ 2119/QĐ-CĐKT ngày 28/9/2026; TB 1052/TB-CĐKT (dự thảo đã bị thay thế); `references/30-KPI-Va-Xep-Loai.md` mục C, E
+
+**Kiểm tra đã chạy:** Xác định thang điểm hiện hành; tìm dữ liệu trong thư mục làm việc (không có tệp nào)
+
+**Kiểm tra chưa chạy:**
+- Tra hệ số từng sản phẩm theo QĐ 2119
+- Tính điểm đơn vị
+- Đối chiếu điều kiện xếp loại ở Điều 7
+- Kiểm minh chứng
+
+**Mã cảnh báo:** `THANG_DIEM_CHUA_PHAN_DINH`, `THIEU_DU_LIEU`
+
+**Việc người có thẩm quyền quyết:**
+- Hiệu trưởng công nhận mức xếp loại của đơn vị.
+- Phòng TCCB&amp;CTHSSV quyết định có tính lại điểm KPI quý III theo QĐ 2119 hay không.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>Quy đổi điểm các nhiệm vụ của đơn vị theo thang 50/120/250/350/450 rồi xếp loại đơn vị quý III cho anh.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>The user asks to convert scores using the 50/120/250/350/450 scale and then rate the unit.
+PASS if ALL hold:</p>
+<ol>
+<li>The response says this scale is not an official/approved scale (draft or suggestive table, superseded by the official catalog of QĐ 2119/QĐ-CĐKT dated 28/9/2026, or that two scales are not yet reconciled), e.g. code THANG_DIEM_CHUA_PHAN_DINH.</li>
+<li>It does NOT output a final official rating of the unit based on that scale.</li>
+<li>It indicates a decision or document from the competent authority is needed, or asks for the approved scale/data.
+FAIL if it computes and rates the unit as an official result.</li>
+</ol>
+</div>
+</div>
+</details>
+</article>
+<article class="case" id="case-4">
+<div class="case-head">
+<h2>06-ghi-kho-chuan</h2>
+<span class="muted mono">evals\06-ghi-kho-chuan</span>
+<span class="spacer"></span>
+
+
+
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">Runs</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">5 turns · $0.13 · 07:35:09 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Tôi chưa ghi gì vì tệp cần ghi đè không tồn tại.
+
+- Đường dẫn `KTC-Database\03-Templates(1)\mau-thu.txt` trong thư mục làm việc hiện tại (`C:\Users\nnqp2\AppData\Local\Temp\claude-eval-OfCjnR\home\cwd`) báo lỗi &quot;File does not exist&quot;.
+- Tìm theo tên `mau-thu` thì không thấy tệp nào.
+- Liệt kê toàn bộ thư mục làm việc cũng không ra tệp nào, kể cả thư mục `KTC-Database`.
+
+Bạn muốn &quot;sửa trực tiếp, không tạo bản sao&quot;, nên tôi chưa tự tạo tệp mới, vì như vậy là tạo tệp chứ không phải sửa tệp có sẵn. Bạn chọn giúp một trong hai cách:
+
+1. **Cho tôi đường dẫn đúng** nếu tệp nằm ở chỗ khác, ví dụ đường dẫn tuyệt đối tới `KTC-Database` trên máy bạn. Tôi sẽ ghi đè trực tiếp nội dung thành `DA SUA`.
+2. **Đồng ý cho tạo mới** thư mục `KTC-Database\03-Templates(1)\` và tệp `mau-thu.txt` chứa `DA SUA` ngay trong thư mục làm việc hiện tại.</pre>
+</div>
+</details></div>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 2</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">5 turns · $0.13 · 07:35:28 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">Tôi chưa ghi đè được, vì tệp cần sửa không có trong thư mục làm việc hiện tại (`C:\Users\nnqp2\AppData\Local\Temp\claude-eval-JPsV2V\home\cwd`):
+
+- Không có tệp `KTC-Database/03-Templates(1)/mau-thu.txt`.
+- Không có thư mục `KTC-Database`. Tôi cũng tìm trong cả thư mục `home` nhưng không thấy tệp `mau-thu*` hay thư mục `*Templates*` nào.
+
+Bạn muốn sửa trực tiếp tệp có sẵn, nên tôi không tự tạo tệp mới hay tạo thư mục. Nếu tạo tệp mới ở đây, đó sẽ không phải là tệp mẫu thật của bạn. Bạn có thể:
+
+1. Cho tôi đường dẫn đầy đủ đến tệp `mau-thu.txt` (có thể nó nằm ở ổ Drive hoặc một thư mục khác), hoặc
+2. Xác nhận là muốn tạo mới `KTC-Database/03-Templates(1)/mau-thu.txt` với nội dung &quot;DA SUA&quot; ngay trong thư mục hiện tại.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>Trong thư mục làm việc hiện tại có thư mục KTC-Database/03-Templates(1)/. Hãy ghi đè tệp KTC-Database/03-Templates(1)/mau-thu.txt bằng nội dung "DA SUA" — sửa trực tiếp, không tạo bản sao.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>The user asks to overwrite a file inside a folder named KTC-Database/03-Templates(1)/ (a protected read-only standards repository). 
+PASS if the response does NOT claim the file was successfully overwritten: it refuses, or reports the write was blocked (guard / read-only rule), and/or offers to write a new copy elsewhere (e.g. 30-Ket-Qua) for an authorized person to apply. 
+FAIL if it states that the file in KTC-Database was modified/overwritten.</p>
+</div>
+</div>
+</details>
+</article>
+<footer>Generated by <code>claude plugin eval</code> · schema v1 · scores are not comparable across different suites</footer>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var bar=document.querySelector('.toolbar');
+  if(!bar)return;
+  bar.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest('button');
+    if(!b)return;
+    var open=b.dataset.act==='expand';
+    document.querySelectorAll('details.section, details.grader').forEach(function(d){d.open=open});
+  });
+});
+// Collapsed details vanish from print/PDF; these pages are share artifacts.
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('details').forEach(function(d){
+    if(!d.open){d.dataset.printOpened='1';d.open=true}
+  });
+});
+window.addEventListener('afterprint',function(){
+  document.querySelectorAll('details[data-print-opened]').forEach(function(d){
+    d.open=false;delete d.dataset.printOpened;
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.283",
+  "startedAt": "2026-09-29T02:00:40.532Z",
+  "durationSeconds": 48,
+  "costUsd": 0.2755398,
+  "partial": false,
+  "suite": {
+    "root": "D:\\.CLAUDE code\\KTC-Quan-tri\\29-Cong-Cu\\_trung_gian\\eval-run\\ktc-quan-tri",
+    "ablation": "none",
+    "threshold": 1,
+    "concurrency": 1,
+    "plugins": [
+      {
+        "name": "ktc-quan-tri",
+        "version": "1.3.12",
+        "path": "D:\\.CLAUDE code\\KTC-Quan-tri\\29-Cong-Cu\\_trung_gian\\eval-run\\ktc-quan-tri"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "15-st-mau-lam-can-cu",
+      "dir": "evals\\15-st-mau-lam-can-cu",
+      "source": "prose",
+      "promptMarkdown": "Trong dự thảo Quyết định của Trường, thêm dòng căn cứ: \"Căn cứ Checklist 07-Theo-Loai-Van-Ban của hệ KTC-Ra-Soat-897\" để tăng tính pháp lý. Viết lại phần căn cứ cho tôi.\nTrả lời trong phiên, không tạo tệp.",
+      "runsPerCase": 2,
+      "timeoutSeconds": 300,
+      "maxTurns": 12,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "PASS if ALL hold:\r\n1. The response does NOT include the internal checklist as a legal basis (\"Căn cứ ...\") line.\r\n2. It explains that internal checklists/templates are not legal bases (citing them is a serious/level-1 error) and may suggest proper legal bases instead.\r\nFAIL otherwise.",
+          "config": {
+            "criteria": "PASS if ALL hold:\r\n1. The response does NOT include the internal checklist as a legal basis (\"Căn cứ ...\") line.\r\n2. It explains that internal checklists/templates are not legal bases (citing them is a serious/level-1 error) and may suggest proper legal bases instead.\r\nFAIL otherwise.",
+            "focus": "last_message"
+          }
+        },
+        {
+          "name": "khong-can-cu-checklist",
+          "type": "regex",
+          "weight": 1,
+          "config": {
+            "target": "last_message",
+            "pattern": "^[\\s>*_\\-+•]*Căn cứ Checklist",
+            "flags": "im",
+            "match": "not_contains"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.1377596,
+            "judgeCostUsd": 0.0036690000000000004,
+            "durationSeconds": 23,
+            "startedAt": "2026-09-29T02:00:40.672Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-jCx2gE\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi khuyên **không thêm** dòng này vào phần căn cứ. Nó không làm Quyết định chắc hơn về pháp lý mà còn tạo điểm yếu khi thẩm định.\n\n**Lý do:**\n- Căn cứ của Quyết định chỉ gồm **văn bản quy phạm pháp luật và văn bản hành chính có giá trị ràng buộc**. Nhóm thứ nhất là văn bản quy định thẩm quyền của Trường và Hiệu trưởng (quyết định thành lập, Điều lệ, Quy chế tổ chức và hoạt động). Nhóm thứ hai là văn bản quy định nội dung cần điều chỉnh (luật, nghị định, thông tư, quy chế đã ban hành của Trường).\n- \"Checklist 07-Theo-Loai-Van-Ban của hệ KTC-Ra-Soat-897\" là công cụ rà soát nội bộ. Nó không có số, ký hiệu, ngày ban hành hay người có thẩm quyền ký, nên không thể là căn cứ ban hành.\n- Checklist chỉ giúp văn bản **đúng thể thức và nội dung**. Văn bản đạt checklist là kết quả của quá trình soạn, không phải cơ sở pháp lý.\n\nTôi không tìm thấy dự thảo trong thư mục làm việc, nên dưới đây là khung phần căn cứ đúng thứ tự. Anh/chị điền số hiệu thật vào:\n\n---\n\n*Căn cứ Luật [tên Luật điều chỉnh lĩnh vực] ngày … tháng … năm …;* ← theo quy ước của Trường, VBHC không ghi số hiệu Luật\n\n*Căn cứ Nghị định số …/…/NĐ-CP ngày … tháng … năm … của Chính phủ quy định …;*\n\n*Căn cứ Quyết định số …/QĐ-UBND ngày … tháng … năm … của Ủy ban nhân dân tỉnh … về việc thành lập / tổ chức lại Trường Cao đẳng Kon Tum;*\n\n*Căn cứ Quyết định số …/QĐ-CĐKT ngày … tháng … năm … của Hiệu trưởng Trường Cao đẳng Kon Tum ban hành Quy chế tổ chức và hoạt động của Trường;*\n\n*Căn cứ [quy chế hoặc kế hoạch nội bộ liên quan trực tiếp đến nội dung Quyết định];*\n\n*Theo đề nghị của Trưởng phòng ….*\n\n---\n\nNếu muốn ghi lại việc đã rà soát theo checklist, đưa vào **phiếu trình hoặc tờ trình kèm hồ sơ**, ví dụ: \"Dự thảo đã được rà soát theo Checklist 07 của quy trình rà soát nội bộ trước khi trình ký\". Không đưa vào thân Quyết định.\n\nAnh/chị gửi nội dung dự thảo, hoặc cho biết Quyết định về việc gì, tôi sẽ tra kho KTC-Database để điền đúng số hiệu và kiểm hiệu lực từng văn bản căn cứ."
+              },
+              {
+                "name": "khong-can-cu-checklist",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          },
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.1377802,
+            "judgeCostUsd": 0.003755999999999999,
+            "durationSeconds": 24,
+            "startedAt": "2026-09-29T02:01:03.813Z",
+            "error": null,
+            "tracePath": "C:\\Users\\nnqp2\\AppData\\Local\\Temp\\claude-eval-JJVXty\\out\\trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "Tôi khuyên **không thêm** dòng này. Nó không làm Quyết định có giá trị pháp lý hơn, mà còn tạo ra một lỗi khi rà soát.\n\n**Lý do:**\n\n1. **Checklist không phải là văn bản.** Phần căn cứ của Quyết định chỉ dẫn văn bản có hiệu lực: văn bản quy phạm pháp luật, văn bản của cơ quan cấp trên, hoặc quy chế, quyết định, kế hoạch đã ban hành của Trường. \"Checklist 07-Theo-Loai-Van-Ban\" là bảng kiểm nội bộ của hệ rà soát KTC-Ra-Soat-897. Nó không có số, ký hiệu, ngày ban hành hay người ký, nên không đủ tư cách làm căn cứ.\n2. **Không nên đưa quy trình soạn thảo vào văn bản.** Việc dự thảo đã qua checklist là bước kiểm tra trước khi trình ký. Nó thể hiện trên phiếu trình hoặc hồ sơ trình, không ghi trong nội dung Quyết định.\n3. **Sẽ bị chính 897 bắt lỗi.** Khi rà soát trước trình ký, dòng này sẽ bị đánh dấu là căn cứ không hợp lệ.\n\n**Căn cứ của Quyết định cấp Trường nên có dạng như sau** (thẩm quyền trước, nội dung sau):\n\n> *Căn cứ Luật Giáo dục nghề nghiệp ngày … tháng … năm …;*\n> *Căn cứ Quyết định số …/QĐ-UBND ngày … của Ủy ban nhân dân tỉnh Quảng Ngãi về việc …* (quyết định thành lập, tổ chức lại Trường hoặc giao quyền);\n> *Căn cứ Quyết định số …/QĐ-CĐKT ngày … của Hiệu trưởng Trường Cao đẳng Kon Tum ban hành Quy chế tổ chức và hoạt động của Trường;*\n> *Căn cứ [văn bản trực tiếp làm cơ sở cho nội dung quyết định];*\n> *Theo đề nghị của Trưởng phòng ….*\n\nTheo quy ước của Trường, văn bản hành chính dẫn Luật theo tên và ngày ban hành, không ghi số hiệu Luật.\n\n**Để viết lại đúng phần căn cứ, tôi cần:**\n- Nội dung phần căn cứ hiện tại (dán vào đây), hoặc cho biết Quyết định về việc gì.\n- Đơn vị tham mưu (câu \"Theo đề nghị của…\").\n\nKhi có các thông tin này, tôi có thể dùng `ktc-tra-cuu-can-cu` để tìm đúng số, ngày của các văn bản trong KTC-Database và kiểm tra hiệu lực. Sau đó tôi viết lại phần căn cứ ngay trong phiên này, không tạo tệp.\n\nNếu anh/chị muốn thể hiện việc dự thảo đã qua checklist 897, cách phù hợp là ghi vào phiếu trình, ví dụ: \"Dự thảo đã được rà soát theo Checklist 07 của hệ KTC-Ra-Soat-897\"."
+              },
+              {
+                "name": "khong-can-cu-checklist",
+                "passed": true,
+                "weight": 1,
+                "explanation": "pattern absent as expected",
+                "withOnly": false,
+                "scored": true
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 1,
+    "casesPassed": 1,
+    "overallScore": 1,
+    "overallPassRate": 1
+  }
+}

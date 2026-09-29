@@ -1,0 +1,52 @@
+==========================================================================
+THỬ NGƯỢC C11 — có phát hiện tệp chỉ tồn tại trong zip không?
+==========================================================================
+
+Ca 1 — gói mang 3 tệp, nguồn rời không có tệp nào (đúng lỗi đã mắc):
+
+────────────────────────────────────────────────────────────────────────────
+C11. Không tệp nào chỉ tồn tại bên trong gói .skill
+────────────────────────────────────────────────────────────────────────────
+  ⚠ he-thu             3 tệp không có bản nguồn ngoài zip
+      references/a.md
+      references/b.md
+      references/c.md
+  ✓ phải cảnh báo đủ 3 tệp                                     → 3 cảnh báo
+
+Ca 2 — mọi tệp trong gói đều có bản nguồn ngoài zip:
+
+────────────────────────────────────────────────────────────────────────────
+C11. Không tệp nào chỉ tồn tại bên trong gói .skill
+────────────────────────────────────────────────────────────────────────────
+  ✓ he-thu             mọi tệp đều có bản nguồn ngoài zip
+  ✓ phải sạch                                                  → 0 cảnh báo
+
+Ca 3 — thiếu đúng 1 tệp trong ba:
+
+────────────────────────────────────────────────────────────────────────────
+C11. Không tệp nào chỉ tồn tại bên trong gói .skill
+────────────────────────────────────────────────────────────────────────────
+  ⚠ he-thu             1 tệp không có bản nguồn ngoài zip
+      references/b.md
+  ✓ phải cảnh báo đúng 1 tệp                                   → 1 cảnh báo
+
+Ca 4 — tệp nằm sâu nhiều cấp thư mục:
+
+────────────────────────────────────────────────────────────────────────────
+C11. Không tệp nào chỉ tồn tại bên trong gói .skill
+────────────────────────────────────────────────────────────────────────────
+  ⚠ he-thu             1 tệp không có bản nguồn ngoài zip
+      references/Memory/01-Nhat-Ky.md
+  ✓ vẫn phải bắt được                                          → 1 cảnh báo
+
+Ca 5 — nguồn rời THỪA tệp mà gói không có (hợp lệ, không được báo):
+
+────────────────────────────────────────────────────────────────────────────
+C11. Không tệp nào chỉ tồn tại bên trong gói .skill
+────────────────────────────────────────────────────────────────────────────
+  ✓ he-thu             mọi tệp đều có bản nguồn ngoài zip
+  ✓ không được cảnh báo                                        → 0 cảnh báo
+
+==========================================================================
+ĐẠT — C11 bắt đúng tệp mồ côi trong zip, không báo nhầm
+==========================================================================
