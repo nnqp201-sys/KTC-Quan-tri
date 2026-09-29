@@ -36,5 +36,7 @@ Báo cáo 8 phần: `30-Ket-Qua/2026-09-29/Ra-Soat/BAO-CAO-RA-SOAT-897-CHINH-THU
 9. **Mô tả hiệu lực phải lấy từ chính văn, không từ quy ước nội bộ.** "QĐ 2119 thay thế danh mục kèm TB 1052" có trong CLAUDE.md
    nhưng không có trong QĐ 2119 (còn lấy TB 1052 làm căn cứ) → Mức 2 trong văn bản trình.
 10. **Mục lục tĩnh lệch sau mỗi lần chèn** — đo trang thật bằng Word (`Range.Information(3)`) rồi sửa, đo lại sau khi sửa.
-11. Kho thiếu KH 848, TB 917, 924, 948 (đề xuất nạp 27/9 chưa áp) và không có bản gốc TB 597 — tác tử hiệu lực chỉ đối chiếu
-    được bản ngoài kho.
+11. Kho thiếu KH 848, TB 917, 924, 948 (đề xuất nạp 27/9 chưa áp) — tác tử hiệu lực chỉ đối chiếu được bản ngoài kho.
+12. **"Không tìm thấy" có thể chỉ là tìm theo tên tệp.** TB 597 vẫn nằm trong kho 02 nhưng tên tệp gốc không có số hiệu
+    (`01. Thong bao huong dan the thuc…`); phiên khác đã chuẩn hóa tên thành `TB-597-TB-CDKT_…_20260519_v1.docx` + sidecar.
+    Trước khi ghi "không có trong kho", tìm theo **nội dung** (dòng "Số: 597/TB-CĐKT") chứ không chỉ theo tên tệp.

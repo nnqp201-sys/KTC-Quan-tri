@@ -79,7 +79,7 @@ thư mục dự án, lịch sử mã nguồn, nhật ký hay dữ liệu cá nh�
 | 3-Ra-soat-897 | `PHIEU-RA-SOAT-897-VONG-3_TB-v7.md` | 10244 | `5c2084be21e67476cdf1bc8d04426ee515ff8bdd703b007d3b166b40345934d9` |
 | 3-Ra-soat-897 | `PHIEU-RA-SOAT-897-VONG-4_BC-v6_HD-v7_TT-v2.md` | 10704 | `a244bb279eb59276d70adb960c659f954327a22aaa90629d72bf4f29aac3bb42` |
 | 3-Ra-soat-897 | `PHIEU-RA-SOAT-897-VONG-5_TB-v8_HD-v8_BC-v7_TT5-v1.md` | 11208 | `4089266a01c2ac5464dd0d2ae69b2b3151ad21efbbeeab532a66357486d95c92` |
-| 3-Ra-soat-897 | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-KTC-Quan-tri-gui-tham-dinh_20260929.docx` | 45943 | `b92d58637db411fe412b07be281b6dc01d7d1648807fddd8a4238537be76984d` |
+| 3-Ra-soat-897 | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-KTC-Quan-tri-gui-tham-dinh_20260929.docx` | 46028 | `f1bbfa4efc4de0cee3436ee00fc489c008aeadbd73cbc21a05a4cc623e68ea88` |
 | 4-Van-ban | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v2_TrackChanges.docx` | 47784 | `4127ee08745833448563eb89e4ce6e72f5196ab2abd8ff506fcf5511e8dd85f6` |
 | 4-Van-ban | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v2_ban-sach.docx` | 47551 | `65dfe67ff6535a74601cb66943682db662f7a8d8a07159e636014b237df689be` |
 | 4-Van-ban | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260929_v8_TrackChanges.docx` | 76150 | `c9b774369a9899b6a053195ab41e964c1749698b929a286ab216a605457861e1` |
