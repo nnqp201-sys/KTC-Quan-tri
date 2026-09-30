@@ -10,7 +10,7 @@ Tra ở đây trước — **không tự đặt ra thang điểm hay tiêu chí 
 | Thư mục | Nội dung |
 |---|---|
 | `DANH MUC SAN PHAM CONG VIEC/` | `Bang tong hop_phan tich_DANH_MUC_NHIEM_VU_CHUAN...xlsx` — **122 nhiệm vụ chuẩn** (mã `A01`–`S04`, 17 lĩnh vực) gộp từ 1.358 dòng nhiệm vụ gốc của 69 tệp Biểu số 1, kèm bảng đối chiếu 100% nhiệm vụ gốc → nhiệm vụ chuẩn và phân loại theo 18 loại tài liệu. `Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx` — **371 sản phẩm** quy đổi, gắn loại văn bản (29 loại) + Nhóm/Điểm/Hệ số + Trục + Nội hàm |
-| `CHI SO KPI/` | KPI cấp Trường phân bổ cho Lãnh đạo Trường; KPI cá nhân dùng chung theo 9 chức danh; 5 bộ KPI cá nhân riêng theo phòng và chủ nhiệm/quản lý phòng xưởng |
+| `CHI SO KPI/` | **Bộ chỉ số KPI CHÍNH THỨC — QĐ 2164/QĐ-CĐKT ngày 30/9/2026** (`Bo-chi-so-KPIs/`: Quyết định + 55 phụ lục — I–XI tập thể 11 đơn vị, XII Lãnh đạo Trường, XIII–XXXII cá nhân theo đơn vị, chức danh). Dẫn xuất: `00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md` (mục lục, lỗi tiêu đề phụ lục), `bo-chi-so-kpi-QD2164.csv` (1.972 chỉ số, sinh bằng `29-Cong-Cu/trich_bo_chi_so_kpi.py`). 7 tệp dự thảo 4 - 8/9/2026 đã chuyển `99-Luu-Tru/Chi-so-KPI-du-thao-truoc-QD2164/` — **không dùng** |
 | `KHUNG TIEU CHI DANH GIA...` | Khung đánh giá tập thể 11 đơn vị (mỗi đơn vị 1 `.xlsx` khung + 1 `.docx` phân tích); `Truong_LDT/` — Trường, tập thể Lãnh đạo Trường, Hiệu trưởng, Phó Hiệu trưởng; `Khung cá nhân/` — 6 phụ lục II–VII theo nhóm chức danh |
 
 ## Văn bản gốc — trích dẫn văn bản, không trích tệp Excel
@@ -24,6 +24,7 @@ Toàn bộ dữ liệu ở đây là **dẫn xuất**. Khi cần căn cứ, trí
 | Quyết định **1923/QĐ-CĐKT ngày 30/8/2026** (Hiệu trưởng Lê Trí Khải) | Ban hành Quy chế đánh giá, xếp loại chất lượng gắn KPI — căn cứ pháp lý của toàn bộ khung đánh giá |
 | Thông báo **1052/TB-CĐKT ngày 15/9/2026** + phụ lục Danh mục sản phẩm/công việc quy đổi | Kết luận Tọa đàm KPI; đơn vị rà soát danh mục trước 20/9, ký cam kết KPI trước 21/9. Phụ lục danh mục kèm TB này **đã bị thay thế** bởi QĐ 2119 |
 | **Quyết định 2119/QĐ-CĐKT ngày 28/9/2026** (Hiệu trưởng Lê Trí Khải) + Phụ lục Danh mục sản phẩm, công việc | **Danh mục CHÍNH THỨC, thay thế mọi danh mục trước**: 416 sản phẩm, hệ số theo từng sản phẩm; căn cứ lập kế hoạch và đánh giá xếp loại quý, năm |
+| **Quyết định 2164/QĐ-CĐKT ngày 30/9/2026** (Hiệu trưởng Lê Trí Khải) + 55 phụ lục | **Bộ chỉ số KPI chính thức** đối với tập thể, cá nhân: tiêu chí/nhiệm vụ, chỉ số, đơn vị đo theo 6 Trục; cơ sở ký Bản cam kết KPI, đánh giá quý, năm. Phụ lục không có trọng số, chỉ tiêu (xác định khi lập Bản cam kết, tổng 100% — Điều 3.1). Bản gốc đang ở `KTC-Database/11-Input/Bo-chi-so-KPIs/`, chờ nạp kho 02 |
 | Phụ lục I, II, III kèm QĐ 1923 | Mẫu kế hoạch công tác quý đơn vị · mẫu kế hoạch/danh mục công việc cá nhân · mẫu phiếu đánh giá xếp loại |
 
 Phụ lục I có đúng hai cột `Điểm chấm công việc` và `Hệ số quy đổi` — tức thang 5 nhóm dưới đây được áp

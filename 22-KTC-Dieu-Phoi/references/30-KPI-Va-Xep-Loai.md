@@ -21,6 +21,7 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
 | Quy chế | **QĐ 1923/QĐ-CĐKT** ngày 30/8/2026, 5 chương 28 điều, kèm PL I (mẫu kế hoạch quý đơn vị), PL II (mẫu kế hoạch và danh mục công việc cá nhân), PL III (phiếu đánh giá năm) | Nguyên tắc, khung tiêu chí, thang điểm, quy trình, thẩm quyền | Hiệu lực từ ngày ký; thay QĐ 1490/QĐ-CĐKT (04/10/2024) và QĐ 366/QĐ-CĐKT (11/02/2026) [QĐ 1923, Điều 2 QĐ] |
 | Khung tiêu chí | **QĐ 2078/QĐ-CĐKT** ngày 23/9/2026, Phụ lục I–XXVIII | Biểu mẫu tự đánh giá theo đơn vị, vị trí | **Văn bản chính chưa có trong kho**; có 10/28 Phụ lục |
 | Cam kết | **TB 1052/TB-CĐKT** ngày 15/9/2026, kèm Mẫu Bản cam kết KPI và Danh mục sản phẩm/công việc quy đổi | Bản cam kết cá nhân – Hiệu trưởng; danh mục sản phẩm | Danh mục là **dự thảo** gửi đơn vị góp ý (hạn 20/9) [TB 1052, mục 3.1] |
+| Bộ chỉ số KPI | **QĐ 2164/QĐ-CĐKT** ngày 30/9/2026, 55 Phụ lục: I–XI tập thể 11 đơn vị; XII Lãnh đạo Trường; XIII–XXXII cá nhân theo đơn vị, chức danh | Danh mục chỉ số KPI (tiêu chí/nhiệm vụ, chỉ số, đơn vị đo) theo 6 Trục — cơ sở lập, ký Bản cam kết KPI, đánh giá quý, năm [QĐ 2164, Điều 1, 2] | **Chính thức** (30/9/2026), thay các bộ chỉ số dự thảo. Phụ lục **không có trọng số, chỉ tiêu** — xác định khi lập Bản cam kết; tổng trọng số mỗi bộ = 100% [QĐ 2164, Điều 3.1]. Bản gốc chờ nạp kho 02 |
 | Hướng dẫn quý | Quý III/2026: **CV 694/CĐKT-TCCB** ngày 24/9/2026 | Thời hạn, kỹ thuật của quý | Mỗi quý một văn bản — thời hạn đặt trong tệp cấu hình quý, không đặt ở đây |
 | Kế hoạch công tác | **QĐ 2073/QĐ-CĐKT** ngày 23/9/2026, Chương III | Quy trình, thời hạn kế hoạch năm/quý/tháng của Trường | Thay QĐ 1299 |
 
@@ -184,5 +185,6 @@ trung bình 3 chiều (số lượng, chất lượng, tiến độ) quy đổi 
 
 ## Nguồn dữ liệu để tra thêm
 
-`11-Du-lieu-Cong-Viec/` — `CHI SO KPI/` (KPI cấp Trường, KPI cá nhân theo chức danh) · `KHUNG TIEU CHI DANH GIA TAP THE
+`11-Du-lieu-Cong-Viec/` — `CHI SO KPI/` (Bộ chỉ số KPI chính thức theo QĐ 2164: `Bo-chi-so-KPIs/` 55 phụ lục, mục lục
+`00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md`, dữ liệu `bo-chi-so-kpi-QD2164.csv` — 1.972 chỉ số) · `KHUNG TIEU CHI DANH GIA TAP THE
 VÀ CA NHAN/` (khung đánh giá tập thể, cá nhân). Bản gốc văn bản: KTC-Database kho 02 và `03-Templates/03-12-`.

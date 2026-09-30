@@ -79,6 +79,7 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 | 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-KTC-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
 | **Danh mục sản phẩm, công việc CHÍNH THỨC — QĐ 2119/QĐ-CĐKT ngày 28/9/2026** (416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`, hệ số theo từng sản phẩm) | `KTC-Database/02-KTC-Regulations/02-01-…/QD-2119-QD-CDKT_…_v1.docx` + phụ lục `PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx` (đọc thẳng từ kho, không chép) |
 | 17 lĩnh vực, mã `A01`–`S04` (nhiệm vụ chuẩn — khác mã sản phẩm QĐ 2119) | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
+| **Bộ chỉ số KPI tập thể, cá nhân CHÍNH THỨC — QĐ 2164/QĐ-CĐKT ngày 30/9/2026** (55 phụ lục; thay các bộ chỉ số dự thảo) | `11-Du-lieu-Cong-Viec/CHI SO KPI/Bo-chi-so-KPIs/` · mục lục `00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md` · dữ liệu `bo-chi-so-kpi-QD2164.csv` |
 | Quy đổi KPI và xếp loại chất lượng (QĐ 1923) | `20-Chuan-Chung/19-Quy-Tac-KPI.md` · lập KPI cá nhân: hệ `28-KTC-KPI/` · tự đánh giá cá nhân quý: `28-KTC-KPI/Tu-Danh-Gia/` |
 | Mã đơn vị | `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md` |
 | Căn cứ, viện dẫn văn bản (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) — **VBHC: Luật không ghi số hiệu** | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` · tự kiểm `29-Cong-Cu/kiem_vien_dan.py` · quét hiệu lực `29-Cong-Cu/tra_hieu_luc.py` (agent `ktc-hieu-luc-vien-dan`) |
