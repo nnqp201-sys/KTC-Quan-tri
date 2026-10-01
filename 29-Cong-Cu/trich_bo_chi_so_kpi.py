@@ -5,8 +5,8 @@
                                                                    tieu chi/nhiem vu, chi so KPI, don vi do, ...)
     11-Du-lieu-Cong-Viec/CHI SO KPI/00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md   muc luc 55 phu luc + kiem tra chat luong
 
-Nguon: 11-Du-lieu-Cong-Viec/CHI SO KPI/Bo-chi-so-KPIs/ (ban nguoi phu trach nap ngay 30/9/2026; ban goc cho nap kho 02
-KTC-Database — hien o 11-Input/Bo-chi-so-KPIs). Khong sua tep goc. Chay lai khi phu luc duoc dieu chinh (Dieu 3, 4 QD 2164).
+Nguon: 11-Du-lieu-Cong-Viec/CHI SO KPI/Bo-chi-so-KPIs/ (ban nguoi phu trach nap ngay 30/9/2026, du 55 phu luc; kho 02
+KTC-Database da co Quyet dinh va 51/55 phu luc tu 30/9/2026). Khong sua tep goc. Chay lai khi phu luc duoc dieu chinh (Dieu 3, 4 QD 2164).
 
     python 29-Cong-Cu/trich_bo_chi_so_kpi.py
 """
@@ -99,7 +99,8 @@ def main():
          "không sửa tay. Khi trích dẫn làm căn cứ: dẫn **Quyết định và phụ lục**, không dẫn tệp này.", "",
          f"- Quyết định: `Bo-chi-so-KPIs/2164. Quyet dinh ban hanh bo Chi so KPI_Truong.docx` (sha256 "
          f"`{hashlib.sha256(open(qd, 'rb').read()).hexdigest()}`), Hiệu trưởng Lê Trí Khải ký, hiệu lực từ ngày ký. Bản gốc "
-         "đang ở `KTC-Database/11-Input/Bo-chi-so-KPIs/`, chờ nạp kho 02.",
+         "kho 02: `02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/QD-2164-QD-CDKT_…_2026.docx` (trùng mã băm), "
+         "phụ lục trong thư mục con `02-01-KPI_Phu-luc-ca-nhan-theo-vi-tri-2026/`.",
          "- Mục đích (Điều 2): xây dựng, ký Bản cam kết KPI hằng năm; theo dõi, đánh giá, xếp loại hằng quý, hằng năm theo "
          "Quy chế đánh giá KPI (Quyết định số 1923/QĐ-CĐKT); quản lý viên chức. Áp dụng: tập thể các phòng, khoa; toàn thể "
          "viên chức, người lao động, nhà giáo.",

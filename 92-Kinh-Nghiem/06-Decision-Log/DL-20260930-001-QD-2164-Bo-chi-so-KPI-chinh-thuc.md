@@ -45,8 +45,10 @@ chính thức, thay thế các bản trước đây … xem qua kỹ lưỡng v�
    chuyển `99-Luu-Tru/Chi-so-KPI-du-thao-truoc-QD2164/` (git mv, không xóa) — **không dùng**.
 2. Bản trong dự án: `11-Du-lieu-Cong-Viec/CHI SO KPI/Bo-chi-so-KPIs/` (người phụ trách nạp). Dẫn xuất tự động:
    `00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md`, `bo-chi-so-kpi-QD2164.csv` — chạy lại script khi phụ lục được điều chỉnh.
-3. Bản gốc cần nạp kho 02 (hiện ở `KTC-Database/11-Input/Bo-chi-so-KPIs/`) — đề xuất
-   `30-Ket-Qua/2026-09-30/De-Xuat-Kho/00-DE-XUAT-NAP-QD2164.md`; kho chỉ đọc, người quản lý kho áp dụng.
+3. Bản gốc nạp kho 02 ngày 30/9/2026 (người quản lý kho): Quyết định `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/QD-2164-QD-CDKT_Ban-hanh-Bo-Chi-so-KPI-Truong_2026.docx` — trùng mã băm; phụ lục `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/02-01-KPI_Phu-luc-ca-nhan-theo-vi-tri-2026/`.
+   Kiểm 01/10/2026: 51/55 phụ lục trùng mã băm; **thiếu XIV.4, XV.1, XXV, XXVI** (chỉ còn ở `11-Input`); thừa tệp
+   “Copy of Phu luc XVI.4…”; `11-Input` còn đủ bản cũ chờ dọn. Bản trong dự án (`Bo-chi-so-KPIs/`, đủ 55) giữ làm nguồn
+   trích cho đến khi kho đủ.
 4. Cập nhật: `11-Du-lieu-Cong-Viec/00-README.md`, `.claude/rules/20-du-lieu-cong-viec.md`, `CLAUDE.md` (bảng tra),
    `20-Chuan-Chung/19-Quy-Tac-KPI.md` (bảng A thêm tầng "Bộ chỉ số KPI") và 3 bản sao.
 5. **Chưa đưa vào plugin** (đang đóng băng chức năng trong thí điểm — BC tiếp thu lần 5, mục 7): kỹ năng `kpi-lap-ke-hoach`

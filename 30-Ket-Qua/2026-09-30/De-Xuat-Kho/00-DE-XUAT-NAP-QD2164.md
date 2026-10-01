@@ -1,3 +1,12 @@
+# Đề xuất nạp kho 02 — ĐÃ ÁP DỤNG MỘT PHẦN (kiểm 01/10/2026)
+
+> **Kết quả kiểm 01/10/2026:** Quyết định đã nạp `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/QD-2164-QD-CDKT_Ban-hanh-Bo-Chi-so-KPI-Truong_2026.docx` (trùng mã băm). Phụ lục nạp vào thư mục
+> `KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/02-01-KPI_Phu-luc-ca-nhan-theo-vi-tri-2026/`: 51/55 trùng mã băm; **còn thiếu Phụ lục XIV.4, XV.1, XXV, XXVI** (vẫn ở `11-Input`);
+> thừa tệp “Copy of Phu luc XVI.4…” (trùng XVI.4) — đề nghị xóa; `11-Input` còn đủ 56 tệp cũ — xóa sau khi nạp đủ.
+> Tên thư mục “…ca-nhan…” nhưng chứa cả 11 phụ lục tập thể (I–XI) — có thể đổi thành “…tap-the-ca-nhan…”.
+
+## Nội dung đề xuất ban đầu (30/9/2026)
+
 # Đề xuất nạp kho 02 — Quyết định số 2164/QĐ-CĐKT ngày 30/9/2026 và 55 phụ lục
 
 **Người áp dụng:** người quản lý kho KTC-Database (kho chỉ đọc với AI — đề xuất này không tự ghi vào kho).

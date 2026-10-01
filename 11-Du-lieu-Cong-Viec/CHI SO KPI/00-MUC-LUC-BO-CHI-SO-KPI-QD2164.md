@@ -2,7 +2,7 @@
 
 Tệp **dẫn xuất**, sinh tự động bằng `29-Cong-Cu/trich_bo_chi_so_kpi.py` từ 55 phụ lục trong `Bo-chi-so-KPIs/` — không sửa tay. Khi trích dẫn làm căn cứ: dẫn **Quyết định và phụ lục**, không dẫn tệp này.
 
-- Quyết định: `Bo-chi-so-KPIs/2164. Quyet dinh ban hanh bo Chi so KPI_Truong.docx` (sha256 `8e9fc664d4e6e7a9f2c6a1c0f9afed8c95ab7f8ab629e59ff1d80034597b5512`), Hiệu trưởng Lê Trí Khải ký, hiệu lực từ ngày ký. Bản gốc đang ở `KTC-Database/11-Input/Bo-chi-so-KPIs/`, chờ nạp kho 02.
+- Quyết định: `Bo-chi-so-KPIs/2164. Quyet dinh ban hanh bo Chi so KPI_Truong.docx` (sha256 `8e9fc664d4e6e7a9f2c6a1c0f9afed8c95ab7f8ab629e59ff1d80034597b5512`), Hiệu trưởng Lê Trí Khải ký, hiệu lực từ ngày ký. Bản gốc kho 02: `02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/QD-2164-QD-CDKT_…_2026.docx` (trùng mã băm), phụ lục trong thư mục con `02-01-KPI_Phu-luc-ca-nhan-theo-vi-tri-2026/`.
 - Mục đích (Điều 2): xây dựng, ký Bản cam kết KPI hằng năm; theo dõi, đánh giá, xếp loại hằng quý, hằng năm theo Quy chế đánh giá KPI (Quyết định số 1923/QĐ-CĐKT); quản lý viên chức. Áp dụng: tập thể các phòng, khoa; toàn thể viên chức, người lao động, nhà giáo.
 - Nguyên tắc (Điều 3): SMART; **tổng trọng số mỗi bộ KPI bằng 100%**; điều chỉnh qua Phòng TCCB&CTHSSV trình Hiệu trưởng. **Phụ lục không có cột trọng số, chỉ tiêu** — trọng số, chỉ tiêu xác định khi lập, ký Bản cam kết KPI (mẫu Phụ lục Quyết định số 1923/QĐ-CĐKT).
 - Dữ liệu: `bo-chi-so-kpi-QD2164.csv` — 1972 chỉ số, mỗi dòng một chỉ số (phụ lục, đối tượng, mã đơn vị, Trục, STT, tiêu chí/nhiệm vụ, chỉ số KPI, đơn vị đo; Phụ lục XII thêm người chịu trách nhiệm, lãnh đạo chủ trì, đơn vị đầu mối, phối hợp).
