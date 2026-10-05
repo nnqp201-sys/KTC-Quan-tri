@@ -24,6 +24,16 @@
 2. Tồn tại (1) thực hiện theo chỉ đạo Hiệu trưởng: thẩm định độc lập vòng 6 trên bản 1.3.13 bằng NotebookLM, Copilot, “Work”
    (cần làm rõ “Work” — xem tham mưu ngày 05/10).
 3. Đóng băng chức năng giữ nguyên trong thí điểm; tồn tại (4) xử lý bằng phân quyền chỉ đọc (tồn tại 3).
+5. **“Work” = ChatGPT Work** (sửa cách hiểu ban đầu “Microsoft 365 Copilot”, 05/10 chiều): điểm b Mục 8 TB 1056 liệt kê “ChatGPT,
+   ChatGPT Work, Gemini, Copilot, NotebookLM, Grok, Dola” và xác định tính độc lập **theo nhà cung cấp** — Copilot cá nhân và
+   Microsoft 365 Copilot là một hệ (Microsoft). Lần 6: NotebookLM (Google, đối chiếu văn bản), Copilot (Microsoft, bản gộp),
+   ChatGPT Work (OpenAI, kiểm kỹ thuật: mã băm, danh mục tệp, chạy guard). Người phụ trách xác nhận lại nếu ý Hiệu trưởng khác.
+6. Đã lập (05/10): gói thẩm định lần 6 `30-Ket-Qua/2026-10-05/Tham-Dinh-Doc-Lap-Lan-6/` (34 nguồn, 5 tệp gộp, gói đầy đủ .zip,
+   3 câu lệnh, quét bảo mật; công cụ `29-Cong-Cu/lap_goi_tham_dinh_doc.py`), chép sang OneDrive `1 Claude AI\Lan 6_ho-so-tham-dinh`;
+   dự thảo Kế hoạch thí điểm (dựng từ KH 831; Phòng TH-HC&QT + 02 đơn vị Hiệu trưởng chỉ định — để trống, tô vàng; chuẩn bị
+   06 - 13/10, vận hành 14/10 - 06/11, báo cáo 13/11, trình 20/11; 12 chỉ số, 6 bắt buộc) và dự thảo Phiếu xin ý kiến Phòng
+   TCCB&CTHSSV (dựng từ Phiếu trình 20/7/2026; 4 nội dung: cách quy đổi, thời điểm, cột mẫu PL I/II QĐ 1923, trọng số theo Điều
+   3 QĐ 2164; hạn trả lời 13/10) tại `30-Ket-Qua/2026-10-05/Soan-Thao/`. Hai dự thảo chưa rà soát 897 chính thức.
 4. Hai chỗ diễn đạt trong phiếu chưa đúng hồ sơ (không đề nghị sửa văn bản đã ký, chỉ lưu ý khi báo cáo tiếp): “kích hoạt đúng
    8/8 kỹ năng KPI” — hồ sơ là 8/8 câu hỏi thử cho 2 kỹ năng KPI; “Haiku 4.5 nhận căn cứ không có nguồn” — hồ sơ là nhận
    checklist nội bộ làm căn cứ pháp lý.
