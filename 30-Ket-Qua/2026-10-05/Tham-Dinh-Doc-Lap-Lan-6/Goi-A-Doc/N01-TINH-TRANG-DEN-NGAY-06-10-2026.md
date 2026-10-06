@@ -21,9 +21,9 @@ Lộ trình 04 cổng G0 - G3 tại N04 mục 9 được thay bằng việc hoà
 | Tồn tại | Trạng thái ngày 06/10/2026 |
 |---|---|
 | (1) Thẩm định độc lập xác nhận khắc phục trên bản 1.3.13 | Đang thực hiện — chính là lần thẩm định này |
-| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | **Đã kiểm thử** bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng (người phụ trách xác nhận 06/10/2026); đang tổng hợp kết quả vào phiếu N16, không kiểm thử lại |
-| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | Chưa thực hiện; mốc mới tại N19 (07/10, 08/10) |
-| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là biện pháp hỗ trợ; bảo vệ chính là phân quyền chỉ đọc — đóng cùng tồn tại (3) |
+| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | **Giải trình của đơn vị soạn thảo:** Người phụ trách xác nhận (06/10/2026) đã kiểm thử bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng; không kiểm thử lại theo phiếu N16. Sản phẩm dùng thật trên Claude (trò chuyện) có lưu: Dự thảo Kế hoạch tham dự Hội nghị Báo cáo viên (19/9/2026), Đề án đào tạo sát hạch lái xe Hạng A dự thảo lần 3 có Track Changes (20/9/2026) — **hai sản phẩm này làm trên các bản trước 1.3.13**. Chưa có tệp kết quả lưu riêng cho lượt kiểm thử 1.3.13 |
+| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | **Giải trình:** Kho KTC-Database do người phụ trách (Phòng TH-HC&QT) trực tiếp quản lý, phân quyền — không lập biên bản riêng. Các bản cũ **chưa từng cài ở cấp tổ chức** (chỉ cài ở chế độ người dùng tự cài), nên không có bản cần thu hồi |
+| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là biện pháp hỗ trợ; bảo vệ chính là phân quyền chỉ đọc do người phụ trách quản lý (tồn tại (3)) |
 | (5) Quy ước nhân hệ số sản phẩm × mức độ | **Đã đóng 06/10/2026**: Phòng TCCB&CTHSSV trả lời trên Phiếu xin ý kiến (N29): Chỉ theo hệ số sản phẩm Quyết định số 2119/QĐ-CĐKT, từ Quý IV/2026, không nhân hệ số mức độ; mẫu Phụ lục I, II Quyết định số 1923/QĐ-CĐKT giữ thang 4 mức; trọng số Bản cam kết chấp nhận cả 3 cách. Plugin 1.3.13 chưa đặt mặc định (đóng băng) — người dùng chọn phương án `A` |
 
 ## 3. Đối chiếu Phiếu trình (N02) với hồ sơ
@@ -46,6 +46,6 @@ Số liệu trong Phiếu trình khớp hồ sơ, trừ 02 chỗ diễn đạt (
 | K-05 | Công cụ đo thể thức và kỹ năng soạn thảo chưa kiểm, chưa tự viết hoa chữ đầu sau dấu hai chấm (quy ước riêng của Trường); ngày 29/9 phải sửa tay 132 vị trí | Sau thí điểm |
 | K-06 | Kỹ năng lập KPI, tự đánh giá KPI chưa gợi ý chỉ số theo phụ lục Quyết định số 2164/QĐ-CĐKT đúng chức danh, chưa kiểm tổng trọng số 100% | Sau thí điểm; trong thí điểm người dùng tra phụ lục gốc |
 | K-07 | Câu lệnh mẫu chưa có dòng ghi chú phạm vi văn bản hành chính, văn bản Đảng (GM-6) | Sau thí điểm |
-| K-08 | Chưa có biên bản phân quyền; chưa kiểm kê cấp tổ chức; kết quả kiểm thử Claude, Cowork chưa tổng hợp vào phiếu | Tồn tại (2), (3) |
+| K-08 | Không lập biên bản phân quyền, không kiểm kê cấp tổ chức; kiểm thử Claude, Cowork trên 1.3.13 chưa có tệp kết quả lưu riêng | Giải trình tại mục 2, tồn tại (2), (3) |
 | K-09 | Plugin chưa đặt phương án `A` làm mặc định theo ý kiến Phòng TCCB&CTHSSV ngày 06/10/2026 | Sau thí điểm (đóng băng) |
 | K-10 | Chưa có dữ liệu vận hành tại đơn vị khác ngoài Phòng TH-HC&QT | Thí điểm (N19) |

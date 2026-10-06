@@ -99,13 +99,13 @@ phiên bản” có nhất quán với danh mục tệp không.
 
 ### Phần B — 05 tồn tại theo Phiếu trình ngày 03/10/2026 (N02)
 
-Với từng tồn tại (1) đến (5): (a) Mô tả trong Phiếu trình có đúng với hồ sơ không; (b) Biện pháp khắc phục đã nêu có đủ và kiểm
+Với từng tồn tại (1) đến (5): Đánh giá cả giải trình của đơn vị soạn thảo tại N01 mục 2 (có hợp lý, đủ để đóng tồn tại không); (a) Mô tả trong Phiếu trình có đúng với hồ sơ không; (b) Biện pháp khắc phục đã nêu có đủ và kiểm
 chứng được không; (c) **Bằng chứng tối thiểu để coi là đã đóng**; (d) Mức vấn đề theo mục 4; (e) Tồn tại nào phải đóng trước khi
 bắt đầu thí điểm, tồn tại nào đóng trong thí điểm. Phạm vi khắc phục chỉ gồm 05 tồn tại này (lộ trình 04 cổng G0 - G3 tại N04 mục 9 không còn dùng); đối chiếu trạng thái tại N01 mục 2.
 
 ### Phần C — Dự thảo Kế hoạch thí điểm (N19) và điều kiện thí điểm
 
-Đánh giá: Phạm vi đơn vị, thời gian; quy tắc dữ liệu (trước và sau khi có biên bản phân quyền); mô hình được dùng; **chỉ số đo**
+Đánh giá: Phạm vi đơn vị, thời gian; quy tắc dữ liệu (phân quyền chỉ đọc do người phụ trách quản lý); mô hình được dùng; **chỉ số đo**
 (có đo được, có so sánh được với cách làm trước không, ai đo, đo khi nào); tiêu chí dừng thí điểm; nội dung báo cáo kết quả để
 Lãnh đạo Trường quyết định. Nêu chỉ số còn thiếu hoặc chưa đo được trên thực tế.
 
@@ -174,7 +174,7 @@ không thì .md).
 | N14 | Nhật ký kiểm tra: Kiểm tra plugin chế độ nghiêm, kiểm tra tĩnh toàn hệ, 25 bộ hồi quy, dựng lại từ commit | md |
 | N15 | Kết quả nghiệm thu đợt 11 trên Claude Code (Opus 5.5: 15 ca; Sonnet 5, Haiku 4.5: 3 ca), trích từ tệp kết quả gốc | md |
 | N16 | Phiếu nghiệm thu Claude (trò chuyện) 15 ca, Cowork 18 ca (chưa thực hiện) | md |
-| N17 | Biên bản kiểm tra phân quyền chỉ đọc kho KTC-Database (mẫu bản 2, chưa thực hiện) | md |
+| N17 | Mẫu biên bản kiểm tra phân quyền chỉ đọc kho (bản 2) — không thực hiện, xem giải trình N01 mục 2 | md |
 | N18 | Thống kê vận hành thực tế tại Phòng TH-HC&QT, 18 - 28/9/2026 | md |
 | N19 | Dự thảo Kế hoạch thí điểm (chưa phê duyệt) | pdf |
 | N20 | Plugin: Tệp khai báo, README, nhật ký thay đổi, hook, 07 tác tử | md |
