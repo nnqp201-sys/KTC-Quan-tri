@@ -122,7 +122,7 @@ theo, không sửa ở đây. Theo 01 mục 6, sai cỡ chữ, kiểu chữ hay 
 
 1. **Mỗi phụ lục một section riêng; số trang đánh riêng, bắt đầu lại từ 1** (`w:pgNumType w:start="1"` trên từng section).
    Không dùng ngắt trang thường để tách phụ lục. Phụ lục khổ ngang thì section đó khổ ngang.
-2. **Không ghi dòng “(Kèm theo … số … ngày …)”** dưới tiêu đề phụ lục — văn bản ký số không bắt buộc dòng này (897 Checklist 01).
+2. **Không ghi dòng “(Kèm theo … số … ngày …)”** dưới tiêu đề phụ lục (897 Checklist 01). **100% văn bản của Trường là văn bản ký số** — không đề cập, không áp quy định riêng cho văn bản giấy.
 3. Không để trang trắng giữa thân văn bản và phụ lục (thừa ngắt trang kép); kiểm bằng bản PDF in thử: đếm trang, xem số trang
    đầu mỗi phụ lục bằng 1. Rà soát 897 **không** nêu lỗi “trùng số trang” giữa các phụ lục.
 
