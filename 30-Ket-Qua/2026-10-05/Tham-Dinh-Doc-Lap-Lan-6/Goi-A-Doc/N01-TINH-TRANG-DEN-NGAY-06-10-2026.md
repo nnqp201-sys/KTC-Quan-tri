@@ -1,4 +1,4 @@
-# N01 — TÌNH TRẠNG ĐẾN NGÀY 05/10/2026, DANH MỤC LỖI ĐÃ BIẾT
+# N01 — TÌNH TRẠNG ĐẾN NGÀY 06/10/2026, DANH MỤC LỖI ĐÃ BIẾT
 
 Đơn vị soạn thảo: Phòng TH-HC&QT. Nội dung dưới đây là **tự khai** của đơn vị soạn thảo; bên thẩm định đối chiếu với nguồn gốc.
 
@@ -14,15 +14,17 @@
 
 Không thay đổi chức năng plugin từ ngày 29/9/2026 (đóng băng chức năng trong thí điểm, N04 mục 7).
 
-## 2. Trạng thái 04 cổng quyết định (N04 mục 9)
+## 2. Trạng thái 05 tồn tại theo Phiếu trình (N02, điểm c Mục 4) — căn cứ duy nhất để đóng hồ sơ
 
-| Cổng | Mốc dự kiến tại N04 | Trạng thái ngày 05/10/2026 |
-|---|---|---|
-| G0 — Kỹ thuật | 29/9 | Đạt có ghi chú (N11, N12, N15) |
-| G1 — Dữ liệu: Biên bản phân quyền chỉ đọc kho KTC-Database | 02/10 | **Chưa thực hiện** — quá mốc; mốc mới đề xuất tại N19 |
-| Kiểm kê, thu hồi phiên bản cũ cấp tổ chức (Phòng QLKHCN&HTPT) | 03/10 | **Chưa thực hiện** — quá mốc; mốc mới đề xuất tại N19 |
-| G2 — Môi trường: Nghiệm thu Claude 15 ca, Cowork 18 ca | 07/10 | **Chưa thực hiện**; phiếu sẵn (N16) |
-| G3 — Thí điểm | Kỳ báo cáo tháng 10/2026 | Chưa bắt đầu; dự thảo Kế hoạch tại N19 |
+Lộ trình 04 cổng G0 - G3 tại N04 mục 9 được thay bằng việc hoàn thành 05 tồn tại theo ý kiến của Phòng QLKHCN&HTPT.
+
+| Tồn tại | Trạng thái ngày 06/10/2026 |
+|---|---|
+| (1) Thẩm định độc lập xác nhận khắc phục trên bản 1.3.13 | Đang thực hiện — chính là lần thẩm định này |
+| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | **Đã kiểm thử** bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng (người phụ trách xác nhận 06/10/2026); đang tổng hợp kết quả vào phiếu N16, không kiểm thử lại |
+| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | Chưa thực hiện; mốc mới tại N19 (07/10, 08/10) |
+| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là biện pháp hỗ trợ; bảo vệ chính là phân quyền chỉ đọc — đóng cùng tồn tại (3) |
+| (5) Quy ước nhân hệ số sản phẩm × mức độ | **Đã đóng 06/10/2026**: Phòng TCCB&CTHSSV trả lời trên Phiếu xin ý kiến (N29): Chỉ theo hệ số sản phẩm Quyết định số 2119/QĐ-CĐKT, từ Quý IV/2026, không nhân hệ số mức độ; mẫu Phụ lục I, II Quyết định số 1923/QĐ-CĐKT giữ thang 4 mức; trọng số Bản cam kết chấp nhận cả 3 cách. Plugin 1.3.13 chưa đặt mặc định (đóng băng) — người dùng chọn phương án `A` |
 
 ## 3. Đối chiếu Phiếu trình (N02) với hồ sơ
 
@@ -44,6 +46,6 @@ Số liệu trong Phiếu trình khớp hồ sơ, trừ 02 chỗ diễn đạt (
 | K-05 | Công cụ đo thể thức và kỹ năng soạn thảo chưa kiểm, chưa tự viết hoa chữ đầu sau dấu hai chấm (quy ước riêng của Trường); ngày 29/9 phải sửa tay 132 vị trí | Sau thí điểm |
 | K-06 | Kỹ năng lập KPI, tự đánh giá KPI chưa gợi ý chỉ số theo phụ lục Quyết định số 2164/QĐ-CĐKT đúng chức danh, chưa kiểm tổng trọng số 100% | Sau thí điểm; trong thí điểm người dùng tra phụ lục gốc |
 | K-07 | Câu lệnh mẫu chưa có dòng ghi chú phạm vi văn bản hành chính, văn bản Đảng (GM-6) | Sau thí điểm |
-| K-08 | Chưa nghiệm thu Claude (trò chuyện), Cowork; chưa có biên bản phân quyền; chưa kiểm kê cấp tổ chức | Tồn tại (2), (3) |
-| K-09 | Quy ước nhân hệ số sản phẩm (Quyết định số 2119/QĐ-CĐKT) với hệ số mức độ công việc (Quyết định số 1923/QĐ-CĐKT) chưa có ý kiến của Phòng TCCB&CTHSSV | Tồn tại (5); dự thảo Phiếu xin ý kiến tại N29 |
+| K-08 | Chưa có biên bản phân quyền; chưa kiểm kê cấp tổ chức; kết quả kiểm thử Claude, Cowork chưa tổng hợp vào phiếu | Tồn tại (2), (3) |
+| K-09 | Plugin chưa đặt phương án `A` làm mặc định theo ý kiến Phòng TCCB&CTHSSV ngày 06/10/2026 | Sau thí điểm (đóng băng) |
 | K-10 | Chưa có dữ liệu vận hành tại đơn vị khác ngoài Phòng TH-HC&QT | Thí điểm (N19) |

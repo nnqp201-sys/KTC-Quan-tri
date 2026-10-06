@@ -35,7 +35,7 @@ Lần này trình bày Phần I, Phần II (Phần A, đủ 24 dòng). Tôi sẽ
 ## Câu 2
 
 ```text
-Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại, 04 cổng G0 - G3) và Phần IV (Phần C — dự thảo Kế hoạch thí điểm N19 trong GOP-1).
+Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại, trạng thái tại N01 mục 2) và Phần IV (Phần C — dự thảo Kế hoạch thí điểm N19 trong GOP-1).
 ```
 
 ## Câu 3

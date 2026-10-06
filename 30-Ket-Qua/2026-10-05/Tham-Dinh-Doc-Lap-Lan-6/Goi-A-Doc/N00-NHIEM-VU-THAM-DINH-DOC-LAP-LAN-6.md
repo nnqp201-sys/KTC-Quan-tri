@@ -32,7 +32,7 @@ soạn văn bản hành chính, lập và tự đánh giá KPI cá nhân. Dùng 
 | Tệp plugin | `ktc-quan-tri-1.3.13.zip`, 291 tệp, SHA-256 `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e`, dựng từ commit mã nguồn `16215a8` |
 | Nội dung plugin (bản đọc) | N20 đến N28: Toàn văn các tệp văn bản (.md, .py, .json, .yaml) trích từ chính tệp zip trên, kèm SHA-256 từng tệp để đối chiếu |
 | Văn bản trình | Dự thảo Thông báo hướng dẫn sử dụng bản 8 (N06); Tài liệu hướng dẫn sử dụng chi tiết bản 8 (N07); Báo cáo quá trình xây dựng bản 7 (N05); Báo cáo tiếp thu, giải trình lần 5 bản 2 (N04) |
-| Văn bản thí điểm (dự thảo, chưa phê duyệt) | Kế hoạch thí điểm (N19); Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số (N29) |
+| Văn bản thí điểm (dự thảo, chưa phê duyệt) | Kế hoạch thí điểm (N19); Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số, đã có ý kiến trả lời ngày 06/10/2026 (N29) |
 
 Hệ thống chỉ đọc được tài liệu (không mở được tệp zip, không chạy được mã) thì thẩm định trên bản đọc N20 đến N28 và hồ sơ
 bằng chứng, ghi rõ giới hạn đó tại Phần I của báo cáo.
@@ -101,7 +101,7 @@ phiên bản” có nhất quán với danh mục tệp không.
 
 Với từng tồn tại (1) đến (5): (a) Mô tả trong Phiếu trình có đúng với hồ sơ không; (b) Biện pháp khắc phục đã nêu có đủ và kiểm
 chứng được không; (c) **Bằng chứng tối thiểu để coi là đã đóng**; (d) Mức vấn đề theo mục 4; (e) Tồn tại nào phải đóng trước khi
-bắt đầu thí điểm, tồn tại nào đóng trong thí điểm. Đánh giá thêm lộ trình 04 cổng G0 đến G3 (N04, mục 9) và trạng thái tại N01.
+bắt đầu thí điểm, tồn tại nào đóng trong thí điểm. Phạm vi khắc phục chỉ gồm 05 tồn tại này (lộ trình 04 cổng G0 - G3 tại N04 mục 9 không còn dùng); đối chiếu trạng thái tại N01 mục 2.
 
 ### Phần C — Dự thảo Kế hoạch thí điểm (N19) và điều kiện thí điểm
 
@@ -158,7 +158,7 @@ không thì .md).
 | Mã | Nội dung | Định dạng |
 |---|---|---|
 | N00 | Nhiệm vụ thẩm định lần 6 (tài liệu này) | md |
-| N01 | Tình trạng đến ngày 05/10/2026, danh mục lỗi đã biết, thay đổi sau ngày 29/9/2026 | md |
+| N01 | Tình trạng đến ngày 06/10/2026, danh mục lỗi đã biết, thay đổi sau ngày 29/9/2026 | md |
 | N02 | Phiếu trình của Phòng QLKHCN&HTPT ngày 03/10/2026, ý kiến Lãnh đạo Phòng và Hiệu trưởng ngày 04/10/2026 (bản chép lời) | md |
 | N03 | Tờ trình đề nghị thẩm định của Phòng TH-HC&QT | pdf |
 | N04 | Báo cáo tiếp thu, giải trình ý kiến thẩm định độc lập lần 5 (bản 2) | pdf |
@@ -180,5 +180,5 @@ không thì .md).
 | N20 | Plugin: Tệp khai báo, README, nhật ký thay đổi, hook, 07 tác tử | md |
 | N21 | Plugin: Toàn văn 19 script Python dùng chung (gồm thao tác chặn ghi `ktc_guard.py`) | md |
 | N22 đến N28 | Plugin: Toàn văn 08 kỹ năng (SKILL.md và tài liệu tham chiếu) | md |
-| N29 | Dự thảo Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số (chưa ban hành) | pdf |
+| N29 | Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số, có ý kiến trả lời ngày 06/10/2026 | pdf |
 | N30 đến N33 | Báo cáo thẩm định lần 5 của ChatGPT, Copilot, Grok, Gemini (nguyên văn) | pdf, md |

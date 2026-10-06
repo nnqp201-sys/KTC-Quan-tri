@@ -31,7 +31,7 @@ Lần này trình bày Phần I và Phần K. Tôi sẽ yêu cầu các phần t
 ## Câu 2
 
 ```text
-Tiếp tục theo N00: Phần II (Phần A, đủ 24 dòng, dùng kết quả Phần K làm bằng chứng), Phần III (Phần B — 05 tồn tại, 04 cổng) và Phần IV (Phần C — dự thảo Kế hoạch thí điểm N19).
+Tiếp tục theo N00: Phần II (Phần A, đủ 24 dòng, dùng kết quả Phần K làm bằng chứng), Phần III (Phần B — 05 tồn tại, trạng thái tại N01 mục 2) và Phần IV (Phần C — dự thảo Kế hoạch thí điểm N19).
 ```
 
 ## Câu 3

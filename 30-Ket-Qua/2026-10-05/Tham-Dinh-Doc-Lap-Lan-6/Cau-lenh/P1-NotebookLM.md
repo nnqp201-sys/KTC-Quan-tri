@@ -25,7 +25,7 @@ Bạn là chuyên gia thẩm định độc lập, khắt khe, khách quan. Nhi�
 **Câu 2:**
 
 ```text
-Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại theo Phiếu trình N02, đánh giá thêm 04 cổng G0 - G3 và trạng thái tại N01) và Phần IV (Phần C — đánh giá dự thảo Kế hoạch thí điểm N19, chỉ số đo, tiêu chí dừng). Phần B trình bày bảng: Tồn tại | Đánh giá mô tả | Biện pháp đủ chưa | Bằng chứng để đóng | Mức | Đóng trước/trong thí điểm.
+Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại theo Phiếu trình N02, đối chiếu trạng thái tại N01 mục 2) và Phần IV (Phần C — đánh giá dự thảo Kế hoạch thí điểm N19, chỉ số đo, tiêu chí dừng). Phần B trình bày bảng: Tồn tại | Đánh giá mô tả | Biện pháp đủ chưa | Bằng chứng để đóng | Mức | Đóng trước/trong thí điểm.
 ```
 
 **Câu 3:**
