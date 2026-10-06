@@ -118,6 +118,17 @@ theo, không sửa ở đây. Theo 01 mục 6, sai cỡ chữ, kiểu chữ hay 
 | 01 mục 5 · 08 mục 5.1 | KT./TL./TUQ. có dấu chấm, không K/T, T/L | TT19 |
 | Bảng tiêu đề (đo từ văn bản đã ban hành, không có số trong 897) | Độ rộng, tỉ lệ cột | TT12 |
 
+### Phụ lục văn bản .docx — bắt buộc khi dựng (NĐ 30 Phụ lục I; 897 Checklist 01 mục 1, 05 mục 4; người phụ trách chốt 06/10/2026)
+
+1. **Mỗi phụ lục một section riêng; số trang đánh riêng, bắt đầu lại từ 1** (`w:pgNumType w:start="1"` trên từng section).
+   Không dùng ngắt trang thường để tách phụ lục. Phụ lục khổ ngang thì section đó khổ ngang.
+2. **Không ghi dòng “(Kèm theo … số … ngày …)”** dưới tiêu đề phụ lục — văn bản ký số không bắt buộc dòng này (897 Checklist 01).
+3. Không để trang trắng giữa thân văn bản và phụ lục (thừa ngắt trang kép); kiểm bằng bản PDF in thử: đếm trang, xem số trang
+   đầu mỗi phụ lục bằng 1. Rà soát 897 **không** nêu lỗi “trùng số trang” giữa các phụ lục.
+
+Đã áp: KH thí điểm KTC-Quan-tri v1 (06/10/2026). Chưa có mã đo trong `kiem_the_thuc.py`, chưa vào gói `.skill` (đóng băng) —
+xem Pending.
+
 **Không đo bằng máy, để 897 kiểm khi rà soát:** 08 mục 1 (căn cứ QĐ 1976), 2, 2b, 3 (từ ngữ, viết hoa, tên đơn vị,
 cơ sở, bộ môn, viết tắt), 7 (chọn mẫu theo hệ A/B/D); 01 mục 3–4 (dấu, ký số, mật, khẩn). Các mục này là nội dung,
 không phải hình thức đo được trên tệp.
