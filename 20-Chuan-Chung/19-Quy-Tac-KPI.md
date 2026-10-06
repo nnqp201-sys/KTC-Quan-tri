@@ -76,7 +76,11 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
   **theo từng sản phẩm**, không suy từ nhãn Nhóm (Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 · Nhóm 3 = 2,5 · Nhóm 4 = 3,5
   · Nhóm 5 = 4,5). Sản phẩm không có trong Danh mục → `THIEU_DU_LIEU`, hỏi; không tự gán. Thang 50/120/250/350/450
   của dự thảo **hết dùng** (KI-014 đã có văn bản phân định, DL-20260928-001).
-- **Chưa có văn bản:** quy ước A × B — phép nhân hệ số sản phẩm với hệ số mức độ (Phòng TH-HC&QT ghi nhận 24/9/2026).
+- **Ý kiến Phòng TCCB&CTHSSV ngày 06/10/2026** (Phiếu xin ý kiến của Phòng TH-HC&QT, bà Nguyễn Thị Lành ký; `DL-20261006-001`):
+  KPI cá nhân quy đổi **chỉ theo hệ số sản phẩm QĐ 2119** (phương án `A`), **từ Quý IV/2026**; **không nhân** với hệ số mức độ
+  (A × B không áp dụng). Cột “Điểm chấm công việc”, “Hệ số quy đổi” mẫu PL I, PL II QĐ 1923 **giữ thang 4 mức**. Trọng số chỉ
+  tiêu khi lập Bản cam kết: chấp nhận **cả 3 cách** (điểm tối đa theo Trục; tỷ lệ khối lượng quy đổi; Trưởng đơn vị và cá nhân
+  thống nhất) — ghi rõ cách đã chọn.
 - KPI đã chấm trước 28/9/2026 (Quý III/2026) **không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&CTHSSV hướng dẫn khác.
 - **Không có mặc định, không tự chọn:** người lập kế hoạch chọn phương án; đầu ra ghi phương án và trạng thái. Xem Câu
   hỏi mở số 1 và `92-Kinh-Nghiem/05-Known-Issues/Pending.md` KI-014. **Không tự đặt quy tắc chuyển đổi giữa các thang.**
