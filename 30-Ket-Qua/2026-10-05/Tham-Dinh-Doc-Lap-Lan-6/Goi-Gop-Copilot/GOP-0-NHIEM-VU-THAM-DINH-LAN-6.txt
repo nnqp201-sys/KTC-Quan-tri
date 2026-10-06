@@ -217,6 +217,8 @@ Không thay đổi chức năng plugin từ ngày 29/9/2026 (đóng băng chức
 
 Lộ trình 04 cổng G0 - G3 tại N04 mục 9 được thay bằng việc hoàn thành 05 tồn tại theo ý kiến của Phòng QLKHCN&HTPT.
 
+**Chỉ đạo mới nhất của Hiệu trưởng (truyền đạt ngày 06/10/2026):** Chỉ lấy ý kiến thẩm định AI lần 6; **không kiểm thử thêm**; trong quá trình vận hành nếu có vướng mắc thì điều chỉnh, cập nhật Bộ công cụ. Các tồn tại (2), (3), (4) xử lý theo giải trình dưới đây, không bổ sung kiểm thử, biên bản.
+
 | Tồn tại | Trạng thái ngày 06/10/2026 |
 |---|---|
 | (1) Thẩm định độc lập xác nhận khắc phục trên bản 1.3.13 | Đang thực hiện — chính là lần thẩm định này |

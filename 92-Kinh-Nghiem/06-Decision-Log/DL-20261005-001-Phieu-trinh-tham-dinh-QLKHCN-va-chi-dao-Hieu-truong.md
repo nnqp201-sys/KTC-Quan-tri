@@ -37,3 +37,8 @@
 4. Hai chỗ diễn đạt trong phiếu chưa đúng hồ sơ (không đề nghị sửa văn bản đã ký, chỉ lưu ý khi báo cáo tiếp): “kích hoạt đúng
    8/8 kỹ năng KPI” — hồ sơ là 8/8 câu hỏi thử cho 2 kỹ năng KPI; “Haiku 4.5 nhận căn cứ không có nguồn” — hồ sơ là nhận
    checklist nội bộ làm căn cứ pháp lý.
+
+## Cập nhật 06/10/2026 — chỉ đạo riêng mới nhất của Hiệu trưởng (người phụ trách truyền đạt)
+Chỉ lấy ý kiến thẩm định AI lần 6; **không kiểm thử thêm** (không nghiệm thu lại Claude, Cowork); vướng mắc trong vận hành thì
+điều chỉnh, cập nhật hệ. Không lập biên bản phân quyền (người phụ trách quản lý kho), không kiểm kê thu hồi (bản cũ chưa cài cấp tổ
+chức). Tồn tại (5) đóng theo ý kiến Phòng TCCB&CTHSSV (`DL-20261006-001`). Gói lần 6 và KH thí điểm đã sửa theo (commit sau `3129410`).
