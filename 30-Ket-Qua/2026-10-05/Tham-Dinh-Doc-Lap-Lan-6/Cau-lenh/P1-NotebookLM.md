@@ -1,11 +1,11 @@
 # Câu lệnh thẩm định lần 6 — NotebookLM (Google)
 
-**Gửi:** Toàn bộ 34 tệp trong `Goi-A-Doc/` (N00 đến N33). **Không** gửi tệp .zip (NotebookLM không mở được).
+**Gửi:** Toàn bộ 35 tệp trong `Goi-A-Doc/` (N00 đến N34). **Không** gửi tệp .zip (NotebookLM không mở được).
 
 ## Bước 1 — Tạo sổ tay, nạp nguồn
 
 1. Vào notebooklm.google.com bằng tài khoản Google của Trường → **Tạo mới** (New notebook).
-2. **Thêm nguồn** (Add sources) → tải lên 34 tệp trong `Goi-A-Doc/`. Chờ tất cả nguồn xử lý xong (dấu tích).
+2. **Thêm nguồn** (Add sources) → tải lên 35 tệp trong `Goi-A-Doc/`. Chờ tất cả nguồn xử lý xong (dấu tích).
 3. Nếu có mục **Định cấu hình cuộc trò chuyện** (Configure chat) → chọn **Tùy chỉnh** (Custom) → dán đoạn sau:
 
 ```text
@@ -25,7 +25,7 @@ Bạn là chuyên gia thẩm định độc lập, khắt khe, khách quan. Nhi�
 **Câu 2:**
 
 ```text
-Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại theo Phiếu trình N02, đối chiếu trạng thái tại N01 mục 2) và Phần IV (Phần C — đánh giá dự thảo Kế hoạch thí điểm N19, chỉ số đo, tiêu chí dừng). Phần B trình bày bảng: Tồn tại | Đánh giá mô tả | Biện pháp đủ chưa | Bằng chứng để đóng | Mức | Đóng trước/trong thí điểm.
+Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại theo Phiếu trình N02, đối chiếu trạng thái tại N01 mục 2) và Phần IV (Phần C — Báo cáo khắc phục tồn tại N19, các sửa đổi tại bản 9 của N06, N07, điều kiện ban hành). Phần B trình bày bảng: Tồn tại | Đánh giá mô tả | Biện pháp đủ chưa | Bằng chứng để đóng | Mức | Đóng trước ban hành/trong vận hành.
 ```
 
 **Câu 3:**
@@ -37,7 +37,7 @@ Tiếp tục theo N00: Phần V (Phần D — phát hiện mới). Đọc kỹ n
 **Câu 4:**
 
 ```text
-Tiếp tục theo N00: Phần VI (Phần E — chấm điểm thang 100 theo 05 tiêu chí, tiêu chí không đủ nguồn ghi "không chấm"), Phần VII (Phần F — chọn 01 trong 03 phương án kết luận, nêu điều kiện tối thiểu để áp dụng diện rộng sau thí điểm) và Phần VIII (Tự kiểm: đếm số nhận định theo 3 nhãn, xác nhận không viện dẫn ngoài nguồn, nêu phần chưa làm được).
+Tiếp tục theo N00: Phần VI (Phần E — chấm điểm thang 100 theo 05 tiêu chí, tiêu chí không đủ nguồn ghi "không chấm"), Phần VII (Phần F — chọn 01 trong 03 phương án kết luận, nêu nội dung cần theo dõi trong quý vận hành đầu tiên) và Phần VIII (Tự kiểm: đếm số nhận định theo 3 nhãn, xác nhận không viện dẫn ngoài nguồn, nêu phần chưa làm được).
 ```
 
 **Câu 5 (tự soát lỗi):**

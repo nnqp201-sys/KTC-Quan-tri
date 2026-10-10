@@ -1,4 +1,4 @@
-# N01 — TÌNH TRẠNG ĐẾN NGÀY 06/10/2026, DANH MỤC LỖI ĐÃ BIẾT
+# N01 — TÌNH TRẠNG ĐẾN NGÀY 10/10/2026, DANH MỤC LỖI ĐÃ BIẾT
 
 Đơn vị soạn thảo: Phòng TH-HC&QT. Nội dung dưới đây là **tự khai** của đơn vị soạn thảo; bên thẩm định đối chiếu với nguồn gốc.
 
@@ -18,14 +18,14 @@ Không thay đổi chức năng plugin từ ngày 29/9/2026 (đóng băng chức
 
 Lộ trình 04 cổng G0 - G3 tại N04 mục 9 được thay bằng việc hoàn thành 05 tồn tại theo ý kiến của Phòng QLKHCN&HTPT.
 
-**Chỉ đạo mới nhất của Hiệu trưởng (truyền đạt ngày 06/10/2026):** Chỉ lấy ý kiến thẩm định AI lần 6; **không kiểm thử thêm**; trong quá trình vận hành nếu có vướng mắc thì điều chỉnh, cập nhật Bộ công cụ. Các tồn tại (2), (3), (4) xử lý theo giải trình dưới đây, không bổ sung kiểm thử, biên bản.
+**Chỉ đạo của Hiệu trưởng (06/10 và 10/10/2026):** Chỉ lấy ý kiến thẩm định AI lần 6; **không kiểm thử thêm**; vướng mắc trong vận hành thì điều chỉnh, cập nhật Bộ công cụ; khẩn trương trình thẩm định lần 2 và trình ban hành. Chi tiết khắc phục: N19.
 
-| Tồn tại | Trạng thái ngày 06/10/2026 |
+| Tồn tại | Trạng thái ngày 10/10/2026 |
 |---|---|
 | (1) Thẩm định độc lập xác nhận khắc phục trên bản 1.3.13 | Đang thực hiện — chính là lần thẩm định này |
-| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | **Giải trình của đơn vị soạn thảo:** Người phụ trách xác nhận (06/10/2026) đã kiểm thử bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng; không kiểm thử lại theo phiếu N16. Sản phẩm dùng thật trên Claude (trò chuyện) có lưu: Dự thảo Kế hoạch tham dự Hội nghị Báo cáo viên (19/9/2026), Đề án đào tạo sát hạch lái xe Hạng A dự thảo lần 3 có Track Changes (20/9/2026) — **hai sản phẩm này làm trên các bản trước 1.3.13**. Chưa có tệp kết quả lưu riêng cho lượt kiểm thử 1.3.13 |
-| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | **Giải trình:** Kho KTC-Database do người phụ trách (Phòng TH-HC&QT) trực tiếp quản lý, phân quyền — không lập biên bản riêng. Các bản cũ **chưa từng cài ở cấp tổ chức** (chỉ cài ở chế độ người dùng tự cài), nên không có bản cần thu hồi |
-| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là biện pháp hỗ trợ; bảo vệ chính là phân quyền chỉ đọc do người phụ trách quản lý (tồn tại (3)) |
+| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | Người phụ trách xác nhận đã kiểm thử bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng; **không có tệp kết quả lưu riêng** cho lượt kiểm thử này, phiếu N16 không thực hiện. Bằng chứng đo được: Vận hành thật bản 1.3.13 trên Claude Code 29/9 - 10/10/2026 (N34: 10 ngày, 26 phiên, 924 thao tác, 0 thao tác lỗi). Hai sản phẩm dùng thật trên Claude (trò chuyện) có lưu (19/9, 20/9/2026) làm trên bản trước 1.3.13 |
+| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | **Đã kiểm tra thật ngày 10/10/2026** cấu hình chia sẻ thư mục KTC-Database trên Google Drive (đọc danh sách quyền qua kết nối Google Drive): 36 tài khoản — 01 chủ sở hữu (tài khoản của Trường), 03 quyền chỉnh sửa (tài khoản quản lý kho), 32 tài khoản đơn vị, cá nhân **chỉ có quyền xem**. Không lập biên bản thử ghi bằng tài khoản thử. Các bản trước 1.3.13 chưa từng cài ở cấp tổ chức nên không có bản cần thu hồi |
+| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là lớp bổ trợ; lớp chính là quyền xem của 32 tài khoản người dùng trên Google Drive (tồn tại (3)); 03 tài khoản có quyền chỉnh sửa vẫn phụ thuộc thao tác chặn ghi và người dùng. Nhận dạng thêm kịch bản: Lần cập nhật kế tiếp |
 | (5) Quy ước nhân hệ số sản phẩm × mức độ | **Đã đóng 06/10/2026**: Phòng TCCB&CTHSSV trả lời trên Phiếu xin ý kiến (N29): Chỉ theo hệ số sản phẩm Quyết định số 2119/QĐ-CĐKT, từ Quý IV/2026, không nhân hệ số mức độ; mẫu Phụ lục I, II Quyết định số 1923/QĐ-CĐKT giữ thang 4 mức; trọng số Bản cam kết chấp nhận cả 3 cách. Plugin 1.3.13 chưa đặt mặc định (đóng băng) — người dùng chọn phương án `A` |
 
 ## 3. Đối chiếu Phiếu trình (N02) với hồ sơ

@@ -1,6 +1,6 @@
 # NHIỆM VỤ THẨM ĐỊNH LẦN 6, TÌNH TRẠNG, PHIẾU TRÌNH
 
-Tệp gộp nguyên văn các nguồn sau, theo thứ tự: N00-NHIEM-VU-THAM-DINH-DOC-LAP-LAN-6.md, N01-TINH-TRANG-DEN-NGAY-06-10-2026.md, N02-PHIEU-TRINH-QLKHCN-03-10-2026-VA-Y-KIEN-LANH-DAO.md
+Tệp gộp nguyên văn các nguồn sau, theo thứ tự: N00-NHIEM-VU-THAM-DINH-DOC-LAP-LAN-6.md, N01-TINH-TRANG-DEN-NGAY-10-10-2026.md, N02-PHIEU-TRINH-QLKHCN-03-10-2026-VA-Y-KIEN-LANH-DAO.md
 
 
 ====================================================================================================
@@ -23,6 +23,7 @@ soạn văn bản hành chính, lập và tự đánh giá KPI cá nhân. Dùng 
 - Ngày 03/10/2026, Phòng QLKHCN&HTPT (đơn vị thẩm định của Trường) kết luận: Bản 1.3.13 **đủ điều kiện thí điểm có kiểm soát**,
   **chưa đủ điều kiện áp dụng diện rộng**; còn **05 tồn tại** (nguồn N02).
 - Ngày 04/10/2026, Hiệu trưởng thống nhất và chỉ đạo **lấy thêm ý kiến thẩm định của các hệ thống AI độc lập khác**.
+- Ngày 10/10/2026, theo chỉ đạo của Hiệu trưởng về việc khẩn trương hoàn thiện, trình thẩm định lần 2 và **trình ban hành**, đơn vị soạn thảo lập Báo cáo kết quả khắc phục 05 tồn tại (N19), sửa Dự thảo Thông báo, Tài liệu hướng dẫn lên bản 9 (N06, N07). Không còn giai đoạn thí điểm riêng: Bộ công cụ được đề nghị ban hành ở chế độ người dùng tự cài, vướng mắc điều chỉnh trong vận hành.
 
 **Mục đích lần 6:**
 
@@ -30,7 +31,7 @@ soạn văn bản hành chính, lập và tự đánh giá KPI cá nhân. Dùng 
 |---|---|---|
 | 1 | Xác nhận độc lập việc khắc phục các ý kiến thẩm định lần 5 trên bản 1.3.13 (tồn tại (1) của Phiếu trình) | A |
 | 2 | Đánh giá 05 tồn tại và lộ trình khắc phục | B |
-| 3 | Đánh giá dự thảo Kế hoạch thí điểm và điều kiện thí điểm | C |
+| 3 | Đánh giá Báo cáo khắc phục tồn tại (N19) và điều kiện ban hành | C |
 | 4 | Phát hiện vấn đề mới chưa được nêu | D |
 | 5 | Chấm điểm và kết luận | E, F |
 
@@ -40,8 +41,8 @@ soạn văn bản hành chính, lập và tự đánh giá KPI cá nhân. Dùng 
 |---|---|
 | Tệp plugin | `ktc-quan-tri-1.3.13.zip`, 291 tệp, SHA-256 `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e`, dựng từ commit mã nguồn `16215a8` |
 | Nội dung plugin (bản đọc) | N20 đến N28: Toàn văn các tệp văn bản (.md, .py, .json, .yaml) trích từ chính tệp zip trên, kèm SHA-256 từng tệp để đối chiếu |
-| Văn bản trình | Dự thảo Thông báo hướng dẫn sử dụng bản 8 (N06); Tài liệu hướng dẫn sử dụng chi tiết bản 8 (N07); Báo cáo quá trình xây dựng bản 7 (N05); Báo cáo tiếp thu, giải trình lần 5 bản 2 (N04) |
-| Văn bản thí điểm (dự thảo, chưa phê duyệt) | Kế hoạch thí điểm (N19); Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số, đã có ý kiến trả lời ngày 06/10/2026 (N29) |
+| Văn bản trình | Dự thảo Thông báo hướng dẫn sử dụng bản 9 (N06); Tài liệu hướng dẫn sử dụng chi tiết bản 9 (N07); Báo cáo quá trình xây dựng bản 7 (N05); Báo cáo tiếp thu, giải trình lần 5 bản 2 (N04) |
+| Văn bản khắc phục tồn tại | Báo cáo kết quả khắc phục 05 nội dung còn tồn tại, đề nghị thẩm định lần 2 (N19, dự thảo); Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số, đã có ý kiến trả lời ngày 06/10/2026 (N29) |
 
 Hệ thống chỉ đọc được tài liệu (không mở được tệp zip, không chạy được mã) thì thẩm định trên bản đọc N20 đến N28 và hồ sơ
 bằng chứng, ghi rõ giới hạn đó tại Phần I của báo cáo.
@@ -73,16 +74,16 @@ bằng chứng, ghi rõ giới hạn đó tại Phần I của báo cáo.
 
 | Mức | Ý nghĩa |
 |---|---|
-| Mức 1 | Phải khắc phục **trước khi thí điểm** hoặc trước khi dùng dữ liệu nội bộ: Sai số liệu, lộ, lọt dữ liệu, ghi đè dữ liệu gốc, viện dẫn căn cứ sai, AI tự quyết định thay người có thẩm quyền |
+| Mức 1 | Phải khắc phục **trước khi ban hành**: Sai số liệu, lộ, lọt dữ liệu, ghi đè dữ liệu gốc, viện dẫn căn cứ sai, AI tự quyết định thay người có thẩm quyền |
 | Mức 2 | Phải khắc phục **trước khi áp dụng diện rộng** |
-| Mức 3 | Nên khắc phục trong thời gian thí điểm |
+| Mức 3 | Nên khắc phục trong quá trình vận hành |
 | Mức 4 | Góp ý, cải tiến |
 
 ## 5. Nội dung thẩm định
 
 ### Phần A — Xác nhận khắc phục ý kiến thẩm định lần 5
 
-Đối chiếu từng mục dưới đây giữa ý kiến gốc (N30 đến N33), giải trình của đơn vị soạn thảo (N04) và bằng chứng (N10 đến N18,
+Đối chiếu từng mục dưới đây giữa ý kiến gốc (N30 đến N33), giải trình của đơn vị soạn thảo (N04) và bằng chứng (N10 đến N18, N34,
 N20 đến N28). Kết luận **một** trong: `Đã khắc phục` · `Khắc phục một phần` · `Chưa khắc phục` · `Không tiếp thu — giải trình
 hợp lý` · `Không tiếp thu — giải trình chưa hợp lý` · `Không xác minh được`.
 
@@ -110,13 +111,11 @@ phiên bản” có nhất quán với danh mục tệp không.
 
 Với từng tồn tại (1) đến (5): Đánh giá cả giải trình của đơn vị soạn thảo tại N01 mục 2 (có hợp lý, đủ để đóng tồn tại không); (a) Mô tả trong Phiếu trình có đúng với hồ sơ không; (b) Biện pháp khắc phục đã nêu có đủ và kiểm
 chứng được không; (c) **Bằng chứng tối thiểu để coi là đã đóng**; (d) Mức vấn đề theo mục 4; (e) Tồn tại nào phải đóng trước khi
-bắt đầu thí điểm, tồn tại nào đóng trong thí điểm. Phạm vi khắc phục chỉ gồm 05 tồn tại này (lộ trình 04 cổng G0 - G3 tại N04 mục 9 không còn dùng); đối chiếu trạng thái tại N01 mục 2.
+ban hành, tồn tại nào đóng trong quá trình vận hành. Phạm vi khắc phục chỉ gồm 05 tồn tại này (lộ trình 04 cổng G0 - G3 tại N04 mục 9 không còn dùng); đối chiếu trạng thái tại N01 mục 2.
 
-### Phần C — Dự thảo Kế hoạch thí điểm (N19) và điều kiện thí điểm
+### Phần C — Báo cáo khắc phục tồn tại (N19) và điều kiện ban hành
 
-Đánh giá: Phạm vi đơn vị, thời gian; quy tắc dữ liệu (phân quyền chỉ đọc do người phụ trách quản lý); mô hình được dùng; **chỉ số đo**
-(có đo được, có so sánh được với cách làm trước không, ai đo, đo khi nào); tiêu chí dừng thí điểm; nội dung báo cáo kết quả để
-Lãnh đạo Trường quyết định. Nêu chỉ số còn thiếu hoặc chưa đo được trên thực tế.
+Đánh giá: Báo cáo N19 có phản ánh đúng hồ sơ không; các sửa đổi tại bản 9 của Thông báo, Hướng dẫn (bỏ điều kiện thí điểm, biên bản, nghiệm thu, kiểm kê; bổ sung trách nhiệm theo dõi, cập nhật trong vận hành) có tạo rủi ro Mức 1 nào không; quy tắc dữ liệu (phân quyền chỉ đọc do người phụ trách quản lý); mô hình được dùng; nội dung đơn vị soạn thảo cam kết hoàn thiện trong vận hành (N19 mục 3) có đủ không; đề xuất việc cần theo dõi và chỉ số nên báo cáo hằng quý.
 
 ### Phần D — Phát hiện mới
 
@@ -131,7 +130,7 @@ bằng chứng (trích dẫn ngắn), hậu quả cụ thể, đề xuất khắ
 | 2 | An toàn dữ liệu, chống bịa thông tin, chống câu lệnh ẩn, không quyết định thay người có thẩm quyền | 25 |
 | 3 | Kiểm thử, bằng chứng, khả năng truy vết, dựng lại được | 20 |
 | 4 | Tương thích 3 nền tảng (Claude, Cowork, Code) và tính khả thi với người dùng không chuyên | 15 |
-| 5 | Chất lượng hồ sơ, văn bản trình (Thông báo, Hướng dẫn, Báo cáo, Kế hoạch thí điểm) | 15 |
+| 5 | Chất lượng hồ sơ, văn bản trình (Thông báo, Hướng dẫn, Báo cáo) | 15 |
 
 Tiêu chí nào không đủ nguồn để chấm thì ghi “không chấm” và lý do, không cho điểm ước lượng. Thang điểm lần 6 khác các lần 1 đến
 5, không so sánh trực tiếp điểm giữa các lần.
@@ -140,19 +139,19 @@ Tiêu chí nào không đủ nguồn để chấm thì ghi “không chấm” v
 
 Chọn **một** phương án và nêu lý do:
 
-1. Đồng ý tiếp tục thí điểm có kiểm soát theo Phiếu trình ngày 03/10/2026.
-2. Đồng ý thí điểm với điều kiện bổ sung (liệt kê điều kiện, gắn với mã phát hiện).
-3. Chưa đồng ý thí điểm (nêu vấn đề Mức 1 cụ thể).
+1. Đồng ý ban hành Bộ công cụ ở chế độ người dùng tự cài theo đề nghị tại N19.
+2. Đồng ý ban hành với điều kiện bổ sung (liệt kê điều kiện, gắn với mã phát hiện).
+3. Chưa đồng ý ban hành (nêu vấn đề Mức 1 cụ thể).
 
-Nêu riêng: Điều kiện tối thiểu để Lãnh đạo Trường xem xét ban hành, áp dụng diện rộng sau thí điểm.
+Nêu riêng: Nội dung cần theo dõi, điều chỉnh trong 01 quý vận hành đầu tiên.
 
 ## 6. Cấu trúc báo cáo thẩm định (bắt buộc, đúng thứ tự)
 
 - **I. Thông tin chung:** Tên hệ thống, chế độ hoặc mô hình đã dùng (nếu biết), ngày thẩm định; danh sách nguồn **đã mở được** và
   **không mở được**; giới hạn của nền tảng.
 - **II. Phần A:** Bảng `Mã | Kết luận | Bằng chứng (nguồn, vị trí) | Nhãn | Ghi chú`, đủ 24 dòng.
-- **III. Phần B:** Bảng `Tồn tại | Đánh giá mô tả | Biện pháp đủ chưa | Bằng chứng để đóng | Mức | Đóng trước/trong thí điểm`.
-- **IV. Phần C:** Nhận xét và đề xuất sửa Kế hoạch thí điểm, chỉ số đo bổ sung.
+- **III. Phần B:** Bảng `Tồn tại | Đánh giá mô tả | Biện pháp đủ chưa | Bằng chứng để đóng | Mức | Đóng trước ban hành/trong vận hành`.
+- **IV. Phần C:** Nhận xét Báo cáo khắc phục tồn tại, các sửa đổi tại bản 9, điều kiện ban hành.
 - **V. Phần D:** Bảng `Mã (L6-xx) | Mức | Vị trí | Mô tả | Bằng chứng | Đề xuất | Nhãn`.
 - **VI. Phần E:** Bảng điểm, mỗi tiêu chí có nhận xét gắn mã phát hiện.
 - **VII. Phần F:** Kết luận, điều kiện.
@@ -167,13 +166,13 @@ không thì .md).
 | Mã | Nội dung | Định dạng |
 |---|---|---|
 | N00 | Nhiệm vụ thẩm định lần 6 (tài liệu này) | md |
-| N01 | Tình trạng đến ngày 06/10/2026, danh mục lỗi đã biết, thay đổi sau ngày 29/9/2026 | md |
+| N01 | Tình trạng đến ngày 10/10/2026, danh mục lỗi đã biết, thay đổi sau ngày 29/9/2026 | md |
 | N02 | Phiếu trình của Phòng QLKHCN&HTPT ngày 03/10/2026, ý kiến Lãnh đạo Phòng và Hiệu trưởng ngày 04/10/2026 (bản chép lời) | md |
 | N03 | Tờ trình đề nghị thẩm định của Phòng TH-HC&QT | pdf |
 | N04 | Báo cáo tiếp thu, giải trình ý kiến thẩm định độc lập lần 5 (bản 2) | pdf |
 | N05 | Báo cáo quá trình xây dựng bộ công cụ (bản 7) | pdf |
-| N06 | Dự thảo Thông báo hướng dẫn sử dụng (bản 8) | pdf |
-| N07 | Tài liệu hướng dẫn sử dụng chi tiết (bản 8) | pdf |
+| N06 | Dự thảo Thông báo hướng dẫn sử dụng (bản 9, đã bỏ điều kiện thí điểm) | pdf |
+| N07 | Tài liệu hướng dẫn sử dụng chi tiết (bản 9) | pdf |
 | N08 | Báo cáo rà soát văn bản theo bộ quy tắc KTC-Ra-Soat-897 ngày 29/9/2026 | pdf |
 | N09 | Phiếu rà soát KTC-Ra-Soat-897 vòng 5 | md |
 | N10 | Ghi chú phát hành 1.3.13 | md |
@@ -185,19 +184,20 @@ không thì .md).
 | N16 | Phiếu nghiệm thu Claude (trò chuyện) 15 ca, Cowork 18 ca (chưa thực hiện) | md |
 | N17 | Mẫu biên bản kiểm tra phân quyền chỉ đọc kho (bản 2) — không thực hiện, xem giải trình N01 mục 2 | md |
 | N18 | Thống kê vận hành thực tế tại Phòng TH-HC&QT, 18 - 28/9/2026 | md |
-| N19 | Dự thảo Kế hoạch thí điểm (chưa phê duyệt) | pdf |
+| N19 | Báo cáo kết quả khắc phục 05 nội dung còn tồn tại, đề nghị thẩm định lần 2 (dự thảo) | pdf |
 | N20 | Plugin: Tệp khai báo, README, nhật ký thay đổi, hook, 07 tác tử | md |
 | N21 | Plugin: Toàn văn 19 script Python dùng chung (gồm thao tác chặn ghi `ktc_guard.py`) | md |
 | N22 đến N28 | Plugin: Toàn văn 08 kỹ năng (SKILL.md và tài liệu tham chiếu) | md |
 | N29 | Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số, có ý kiến trả lời ngày 06/10/2026 | pdf |
+| N34 | Thống kê vận hành thực tế bản 1.3.13 tại Phòng TH-HC&QT, 29/9 - 10/10/2026 | md |
 | N30 đến N33 | Báo cáo thẩm định lần 5 của ChatGPT, Copilot, Grok, Gemini (nguyên văn) | pdf, md |
 
 
 ====================================================================================================
-NGUỒN N01-TINH-TRANG-DEN-NGAY-06-10-2026.md
+NGUỒN N01-TINH-TRANG-DEN-NGAY-10-10-2026.md
 ====================================================================================================
 
-# N01 — TÌNH TRẠNG ĐẾN NGÀY 06/10/2026, DANH MỤC LỖI ĐÃ BIẾT
+# N01 — TÌNH TRẠNG ĐẾN NGÀY 10/10/2026, DANH MỤC LỖI ĐÃ BIẾT
 
 Đơn vị soạn thảo: Phòng TH-HC&QT. Nội dung dưới đây là **tự khai** của đơn vị soạn thảo; bên thẩm định đối chiếu với nguồn gốc.
 
@@ -217,14 +217,14 @@ Không thay đổi chức năng plugin từ ngày 29/9/2026 (đóng băng chức
 
 Lộ trình 04 cổng G0 - G3 tại N04 mục 9 được thay bằng việc hoàn thành 05 tồn tại theo ý kiến của Phòng QLKHCN&HTPT.
 
-**Chỉ đạo mới nhất của Hiệu trưởng (truyền đạt ngày 06/10/2026):** Chỉ lấy ý kiến thẩm định AI lần 6; **không kiểm thử thêm**; trong quá trình vận hành nếu có vướng mắc thì điều chỉnh, cập nhật Bộ công cụ. Các tồn tại (2), (3), (4) xử lý theo giải trình dưới đây, không bổ sung kiểm thử, biên bản.
+**Chỉ đạo của Hiệu trưởng (06/10 và 10/10/2026):** Chỉ lấy ý kiến thẩm định AI lần 6; **không kiểm thử thêm**; vướng mắc trong vận hành thì điều chỉnh, cập nhật Bộ công cụ; khẩn trương trình thẩm định lần 2 và trình ban hành. Chi tiết khắc phục: N19.
 
-| Tồn tại | Trạng thái ngày 06/10/2026 |
+| Tồn tại | Trạng thái ngày 10/10/2026 |
 |---|---|
 | (1) Thẩm định độc lập xác nhận khắc phục trên bản 1.3.13 | Đang thực hiện — chính là lần thẩm định này |
-| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | **Giải trình của đơn vị soạn thảo:** Người phụ trách xác nhận (06/10/2026) đã kiểm thử bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng; không kiểm thử lại theo phiếu N16. Sản phẩm dùng thật trên Claude (trò chuyện) có lưu: Dự thảo Kế hoạch tham dự Hội nghị Báo cáo viên (19/9/2026), Đề án đào tạo sát hạch lái xe Hạng A dự thảo lần 3 có Track Changes (20/9/2026) — **hai sản phẩm này làm trên các bản trước 1.3.13**. Chưa có tệp kết quả lưu riêng cho lượt kiểm thử 1.3.13 |
-| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | **Giải trình:** Kho KTC-Database do người phụ trách (Phòng TH-HC&QT) trực tiếp quản lý, phân quyền — không lập biên bản riêng. Các bản cũ **chưa từng cài ở cấp tổ chức** (chỉ cài ở chế độ người dùng tự cài), nên không có bản cần thu hồi |
-| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là biện pháp hỗ trợ; bảo vệ chính là phân quyền chỉ đọc do người phụ trách quản lý (tồn tại (3)) |
+| (2) Kiểm thử trên Claude (trò chuyện), Claude Cowork | Người phụ trách xác nhận đã kiểm thử bản 1.3.13 trên tài khoản cá nhân và tài khoản của Phòng TH-HC&QT, cả hai nền tảng; **không có tệp kết quả lưu riêng** cho lượt kiểm thử này, phiếu N16 không thực hiện. Bằng chứng đo được: Vận hành thật bản 1.3.13 trên Claude Code 29/9 - 10/10/2026 (N34: 10 ngày, 26 phiên, 924 thao tác, 0 thao tác lỗi). Hai sản phẩm dùng thật trên Claude (trò chuyện) có lưu (19/9, 20/9/2026) làm trên bản trước 1.3.13 |
+| (3) Biên bản phân quyền chỉ đọc kho; kiểm kê, thu hồi bản cũ cấp tổ chức | **Đã kiểm tra thật ngày 10/10/2026** cấu hình chia sẻ thư mục KTC-Database trên Google Drive (đọc danh sách quyền qua kết nối Google Drive): 36 tài khoản — 01 chủ sở hữu (tài khoản của Trường), 03 quyền chỉnh sửa (tài khoản quản lý kho), 32 tài khoản đơn vị, cá nhân **chỉ có quyền xem**. Không lập biên bản thử ghi bằng tài khoản thử. Các bản trước 1.3.13 chưa từng cài ở cấp tổ chức nên không có bản cần thu hồi |
+| (4) Thao tác chặn ghi chưa nhận dạng 5/10 kịch bản | Giữ là lớp bổ trợ; lớp chính là quyền xem của 32 tài khoản người dùng trên Google Drive (tồn tại (3)); 03 tài khoản có quyền chỉnh sửa vẫn phụ thuộc thao tác chặn ghi và người dùng. Nhận dạng thêm kịch bản: Lần cập nhật kế tiếp |
 | (5) Quy ước nhân hệ số sản phẩm × mức độ | **Đã đóng 06/10/2026**: Phòng TCCB&CTHSSV trả lời trên Phiếu xin ý kiến (N29): Chỉ theo hệ số sản phẩm Quyết định số 2119/QĐ-CĐKT, từ Quý IV/2026, không nhân hệ số mức độ; mẫu Phụ lục I, II Quyết định số 1923/QĐ-CĐKT giữ thang 4 mức; trọng số Bản cam kết chấp nhận cả 3 cách. Plugin 1.3.13 chưa đặt mặc định (đóng băng) — người dùng chọn phương án `A` |
 
 ## 3. Đối chiếu Phiếu trình (N02) với hồ sơ

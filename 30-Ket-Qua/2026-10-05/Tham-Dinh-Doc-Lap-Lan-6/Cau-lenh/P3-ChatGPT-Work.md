@@ -1,6 +1,6 @@
 # Câu lệnh thẩm định lần 6 — ChatGPT Work (OpenAI)
 
-**Gửi:** Một tệp `Goi-day-du-tham-dinh-lan-6.zip` (khoảng 4,4 MB), gồm 34 nguồn của Gói A, tệp plugin `ktc-quan-tri-1.3.13.zip`
+**Gửi:** Một tệp `Goi-day-du-tham-dinh-lan-6.zip` (khoảng 4,4 MB), gồm 35 nguồn của Gói A, tệp plugin `ktc-quan-tri-1.3.13.zip`
 kèm mã SHA-256, tệp kết quả nghiệm thu gốc. ChatGPT chạy được mã Python nên được giao thêm **Phần K — kiểm tra kỹ thuật**; đây là
 hệ duy nhất trong lần 6 kiểm được mã băm, chạy được thao tác chặn ghi.
 
@@ -31,7 +31,7 @@ Lần này trình bày Phần I và Phần K. Tôi sẽ yêu cầu các phần t
 ## Câu 2
 
 ```text
-Tiếp tục theo N00: Phần II (Phần A, đủ 24 dòng, dùng kết quả Phần K làm bằng chứng), Phần III (Phần B — 05 tồn tại, trạng thái tại N01 mục 2) và Phần IV (Phần C — dự thảo Kế hoạch thí điểm N19).
+Tiếp tục theo N00: Phần II (Phần A, đủ 24 dòng, dùng kết quả Phần K làm bằng chứng), Phần III (Phần B — 05 tồn tại, trạng thái tại N01 mục 2) và Phần IV (Phần C — Báo cáo khắc phục tồn tại N19, các sửa đổi tại bản 9 của N06, N07, điều kiện ban hành).
 ```
 
 ## Câu 3

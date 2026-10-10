@@ -16,6 +16,7 @@ import hashlib, io, json, os, re, shutil, statistics, subprocess, sys, tempfile,
 DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 V6 = os.path.join(DU_AN, '30-Ket-Qua', '2026-09-29', 'Ho-So-Tham-Dinh-Vong-6')
 ST = os.path.join(DU_AN, '30-Ket-Qua', '2026-10-05', 'Soan-Thao')
+ST10 = os.path.join(DU_AN, '30-Ket-Qua', '2026-10-10', 'Soan-Thao')
 OUT = os.path.join(DU_AN, '30-Ket-Qua', '2026-10-05', 'Tham-Dinh-Doc-Lap-Lan-6')
 A = os.path.join(OUT, 'Goi-A-Doc')
 G = os.path.join(OUT, 'Goi-Gop-Copilot')
@@ -29,14 +30,14 @@ PDF = [  # (ma, ten dich, nguon .docx)
      os.path.join(V6, '4-Van-ban', 'BC_Tiep-thu-giai-trinh-tham-dinh-lan-5-KTC-Quan-tri_20260929_v2_ban-sach.docx')),
     ('N05', 'N05-BC-QUA-TRINH-XAY-DUNG-BAN-7.pdf',
      os.path.join(V6, '4-Van-ban', 'BC_Qua-trinh-xay-dung-bo-cong-cu-KTC-Quan-tri_20260929_v7_ban-sach.docx')),
-    ('N06', 'N06-DU-THAO-THONG-BAO-HUONG-DAN-SU-DUNG-BAN-8.pdf',
-     os.path.join(V6, '4-Van-ban', 'TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20260929_v8_ban-sach.docx')),
-    ('N07', 'N07-TAI-LIEU-HUONG-DAN-SU-DUNG-CHI-TIET-BAN-8.pdf',
-     os.path.join(V6, '4-Van-ban', 'HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20260929_v8_ban-sach.docx')),
+    ('N06', 'N06-DU-THAO-THONG-BAO-HUONG-DAN-SU-DUNG-BAN-9.pdf',
+     os.path.join(ST10, 'TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_ban-sach.docx')),
+    ('N07', 'N07-TAI-LIEU-HUONG-DAN-SU-DUNG-CHI-TIET-BAN-9.pdf',
+     os.path.join(ST10, 'HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_ban-sach.docx')),
     ('N08', 'N08-BAO-CAO-RA-SOAT-KTC-RA-SOAT-897-29-9-2026.pdf',
      os.path.join(V6, '3-Ra-soat-897', 'BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-KTC-Quan-tri-gui-tham-dinh_20260929.docx')),
-    ('N19', 'N19-DU-THAO-KE-HOACH-THI-DIEM.pdf',
-     os.path.join(ST, 'KH_Thi-diem-co-kiem-soat-bo-cong-cu-AI-KTC-Quan-tri_20261005_v1.docx')),
+    ('N19', 'N19-BAO-CAO-KHAC-PHUC-NOI-DUNG-CON-TON-TAI.pdf',
+     os.path.join(ST10, 'BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v1.docx')),
     ('N29', 'N29-DU-THAO-PHIEU-XIN-Y-KIEN-PHONG-TCCB-CTHSSV.pdf',
      os.path.join(ST, 'PXYK_Quy-uoc-tinh-diem-san-pham-KTC-Quan-tri_gui-Phong-TCCB-CTHSSV_20261005_v1.docx')),
     ('N30', 'N30-CHATGPT-BAO-CAO-THAM-DINH-LAN-5.pdf', os.path.join(L5, 'ChatGPT. L5. Bao-cao-tham-dinh-lan-5-KTC-Quan-tri-20260929.docx')),
@@ -52,6 +53,8 @@ MD = [  # (ma, ten dich, nguon, tieu de)
     ('N17', 'N17-BIEN-BAN-PHAN-QUYEN-CHI-DOC-KHO-MAU-V2.md',
      os.path.join(V6, '5-Van-hanh', 'BIEN-BAN-KIEM-TRA-PHAN-QUYEN-CHI-DOC-KTC-DATABASE_mau-v2.md'), ''),
     ('N18', 'N18-THONG-KE-VAN-HANH-THUC-TE-18-28-9-2026.md', os.path.join(V6, '5-Van-hanh', 'THONG-KE-VAN-HANH-THUC-TE-20260918-20260928.md'), ''),
+    ('N34', 'N34-THONG-KE-VAN-HANH-THUC-TE-29-9-DEN-10-10-2026.md',
+     os.path.join(DU_AN, '30-Ket-Qua', '2026-10-10', 'Tham-Dinh-Lan-2', 'THONG-KE-VAN-HANH-THUC-TE-20260929-20261010.md'), ''),
     ('N32', 'N32-GROK-BAO-CAO-THAM-DINH-LAN-5.md', os.path.join(L5, 'Grok.L5, Bao_cao_tham_dinh_doc_lap_lan_5_KTC-Quan-tri_20260929.md'), ''),
     ('N33', 'N33-GEMINI-BAO-CAO-THAM-DINH-LAN-5.md', os.path.join(L5, 'gemini.L5.-code-1790654042830.md'), ''),
 ]
@@ -250,7 +253,7 @@ def gop():
     noi('GOP-0-NHIEM-VU-THAM-DINH-LAN-6.txt', [t for t in tat_ca if t.startswith(('N00', 'N01', 'N02'))],
         'NHIỆM VỤ THẨM ĐỊNH LẦN 6, TÌNH TRẠNG, PHIẾU TRÌNH')
     noi('GOP-2-BANG-CHUNG-KIEM-THU-NGHIEM-THU.txt',
-        [t for t in tat_ca if t[:3] in ('N09', 'N10', 'N11', 'N12', 'N13', 'N14', 'N15', 'N16', 'N17', 'N18')],
+        [t for t in tat_ca if t[:3] in ('N09', 'N10', 'N11', 'N12', 'N13', 'N14', 'N15', 'N16', 'N17', 'N18', 'N34')],
         'BẰNG CHỨNG KIỂM THỬ, NGHIỆM THU, VẬN HÀNH (N09 - N18)')
     noi('GOP-4-BAO-CAO-THAM-DINH-LAN-5-CUA-CAC-AI.txt', [t for t in tat_ca if t[:3] in ('N32', 'N33')],
         'BÁO CÁO THẨM ĐỊNH LẦN 5 CỦA GROK, GEMINI (N32, N33; báo cáo của ChatGPT, Copilot xem N30, N31 dạng PDF)')

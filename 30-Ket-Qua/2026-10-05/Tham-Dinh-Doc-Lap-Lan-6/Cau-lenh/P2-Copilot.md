@@ -1,7 +1,7 @@
 # Câu lệnh thẩm định lần 6 — Copilot (Microsoft)
 
 **Gửi:** 05 tệp trong `Goi-Gop-Copilot/` (GOP-0 đến GOP-4). Copilot giới hạn số tệp, độ dài mỗi lần gửi nên dùng bản gộp thay cho
-34 tệp rời.
+35 tệp rời.
 
 Copilot bản cá nhân (copilot.microsoft.com) và Microsoft 365 Copilot (tài khoản Trường, thẻ **Work**) **cùng một nhà cung cấp**
 — theo điểm b Mục 8 Thông báo số 1056/TB-CĐKT chỉ tính là **một** hệ thống độc lập. Chọn **một** trong hai cách:
@@ -35,7 +35,7 @@ Lần này trình bày Phần I, Phần II (Phần A, đủ 24 dòng). Tôi sẽ
 ## Câu 2
 
 ```text
-Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại, trạng thái tại N01 mục 2) và Phần IV (Phần C — dự thảo Kế hoạch thí điểm N19 trong GOP-1).
+Tiếp tục theo N00: Phần III (Phần B — 05 tồn tại, trạng thái tại N01 mục 2) và Phần IV (Phần C — Báo cáo khắc phục tồn tại N19, các sửa đổi tại bản 9 của N06, N07, điều kiện ban hành).
 ```
 
 ## Câu 3
