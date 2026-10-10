@@ -6,11 +6,11 @@ Dự kiến trình Phòng QLKHCN&HTPT thẩm định lần 2: Thứ Hai, ngày 1
 
 | Thư mục | Tệp | Byte | SHA-256 |
 |---|---|---:|---|
-| . | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx` | 44390 | `dfcdf9f4fec44a0db6247ee80e8b792bd8be3d960dd7b4b55d05c6cf0502f830` |
+| . | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx` | 44390 | `7392497759f0b888a2cd0bdf79e2bc94f2f9c772726b8b11f773f4f97cf44a45` |
 | . | `BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v2.docx` | 39053 | `6d73619776cedd017d1d1a48c71e01a47b23febf9de3c9df09858f072ee4ff75` |
 | . | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-6-KTC-Quan-tri_20261010_v1.docx` | 42440 | `8da887c7a8671b6798258b4b0257c88a64f1c4d452425b6fe41b1fcee9526fae` |
-| . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 67378 | `7dfd109dd4ac479f5f1d612da566bc73181c86aaa9a865499ee76acdb22ff32c` |
-| . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 67002 | `bdd712b2966a8a426d6ca1abdfdc659e9146e52d2589c07208a7c7d3ca099f96` |
+| . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 67813 | `5aff625e8286dce4beb47faf11f36b88ef43abec06831924768b95d24a913f1c` |
+| . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 65659 | `70baea47b6a594711b084cf740742cd60a361f65f1b1df16d3039f68dc177fe8` |
 | . | `PXYK_Y-kien-Phong-TCCB-CTHSSV_20261006.docx` | 58453 | `aa00d584df77d8d6e0b04cc1209a0d777345ec67443233292fba952b628608fe` |
 | . | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 77189 | `a6f32bbb387f7c6b129fe58a02bc12d3fa611966145a99f023849af6e3350942` |
 | . | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 80405 | `1d45594776725b63a93098c62f520eb355e467f8a364b9a3544f5596db767524` |
