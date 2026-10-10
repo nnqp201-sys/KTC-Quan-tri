@@ -25,6 +25,14 @@ Mức 1 kỹ thuật của tệp plugin.
    tiếp, đưa kiểm tra quyền vào báo cáo quý). Không tiếp thu: Copilot đòi phiếu nghiệm thu, biên bản kiểm kê; 2 phát hiện Copilot sai
    (HD đã cảnh báo Haiku; TB đã có báo cáo quý).
 
+## Quyết định của người phụ trách (10/10/2026, tối) — thay mục 1 ở trên
+**Giữ quyền chỉnh sửa cho 2 tài khoản `nnqp201`, `phucdaotaotcnkt`**: do người phụ trách kho (Phó Trưởng phòng TH-HC&QT) trực tiếp
+quản lý, dùng để cập nhật văn bản thường xuyên, mọi lúc, mọi nơi. Kho có **4 tài khoản quản lý** (1 chủ sở hữu + 3 chỉnh sửa), 32 tài
+khoản người dùng chỉ xem. Điều kiện "chuyển 2 tài khoản về quyền xem" của 5 hệ AI: **tiếp thu một phần** (BC tiếp thu lần 6 nội dung
+2.1; BC khắc phục v2 dòng 3, 4). Rủi ro đã ghi trong báo cáo: trên 4 tài khoản quản lý, guard là lớp bảo vệ duy nhất khi dùng plugin;
+người quản lý chịu trách nhiệm, khôi phục bằng lịch sử phiên bản Drive. **Không còn việc chặn ban hành.** Không nhắc lại đề nghị hạ
+quyền 2 tài khoản này. Trình Phòng QLKHCN&HTPT: Thứ Hai 12/10/2026.
+
 ## Sản phẩm
 `30-Ket-Qua/2026-10-10/Soan-Thao/`: BC tiếp thu, giải trình lần 6 v1 (6 trang) · BC khắc phục v2 · TB v9, HD v9 (Track Changes 3 tác
 giả: "Khắc phục tồn tại…", "Sửa theo rà soát 897…", "Tiếp thu thẩm định lần 6") + bản sạch. Hồ sơ lần 2:

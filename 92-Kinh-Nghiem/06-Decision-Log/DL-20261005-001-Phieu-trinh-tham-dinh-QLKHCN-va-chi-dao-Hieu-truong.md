@@ -28,7 +28,7 @@
    ChatGPT Work, Gemini, Copilot, NotebookLM, Grok, Dola” và xác định tính độc lập **theo nhà cung cấp** — Copilot cá nhân và
    Microsoft 365 Copilot là một hệ (Microsoft). Lần 6: NotebookLM (Google, đối chiếu văn bản), Copilot (Microsoft, bản gộp),
    ChatGPT Work (OpenAI, kiểm kỹ thuật: mã băm, danh mục tệp, chạy guard). Người phụ trách xác nhận lại nếu ý Hiệu trưởng khác.
-6. Đã lập (05/10): gói thẩm định lần 6 `30-Ket-Qua/2026-10-05/Tham-Dinh-Doc-Lap-Lan-6/` (34 nguồn, 5 tệp gộp, gói đầy đủ .zip,
+6. Đã lập (05/10): gói thẩm định lần 6 `30-Ket-Qua/2026-10-10/Tham-Dinh-Doc-Lap-Lan-6/` (34 nguồn, 5 tệp gộp, gói đầy đủ .zip,
    3 câu lệnh, quét bảo mật; công cụ `29-Cong-Cu/lap_goi_tham_dinh_doc.py`), chép sang OneDrive `1 Claude AI\Lan 6_ho-so-tham-dinh`;
    dự thảo Kế hoạch thí điểm (dựng từ KH 831; Phòng TH-HC&QT + 02 đơn vị Hiệu trưởng chỉ định — để trống, tô vàng; chuẩn bị
    06 - 13/10, vận hành 14/10 - 06/11, báo cáo 13/11, trình 20/11; 12 chỉ số, 6 bắt buộc) và dự thảo Phiếu xin ý kiến Phòng

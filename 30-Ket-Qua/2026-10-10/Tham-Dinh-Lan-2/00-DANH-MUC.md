@@ -2,13 +2,13 @@
 
 Gửi Phòng QLKHCN&HTPT. Hồ sơ lần 1 (29/9/2026, 91 tệp) giữ nguyên. Hồ sơ này gồm: Báo cáo tiếp thu, giải trình thẩm định độc lập lần 6; Báo cáo kết quả khắc phục 05 nội dung còn tồn tại (bản 2); Dự thảo Thông báo, Tài liệu hướng dẫn bản 9 (Track Changes và bản sạch); Báo cáo rà soát KTC-Ra-Soat-897 ngày 10/10/2026; 05 báo cáo thẩm định lần 6 của các hệ thống AI; ý kiến Phòng TCCB&CTHSSV; tệp plugin.
 
-**Còn 01 việc trước khi trình ký:** Chuyển 02 tài khoản còn quyền chỉnh sửa kho về quyền xem.
+Dự kiến trình Phòng QLKHCN&HTPT thẩm định lần 2: Thứ Hai, ngày 12/10/2026.
 
 | Thư mục | Tệp | Byte | SHA-256 |
 |---|---|---:|---|
-| . | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx` | 44316 | `6f75805b81f5f0bf2fc1510dc66c8796bfd594c1a2ea5ac58c350bb04e3a07f3` |
-| . | `BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v2.docx` | 39038 | `2671a5ece9fc536ae49d9a600c01df5e4d245bc2546e3beb56e187622853a559` |
-| . | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-6-KTC-Quan-tri_20261010_v1.docx` | 42300 | `9b751bf611abde7acbf89d388da6294d6140c76dc807d8e372ba1065eaeffa5b` |
+| . | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx` | 44390 | `dfcdf9f4fec44a0db6247ee80e8b792bd8be3d960dd7b4b55d05c6cf0502f830` |
+| . | `BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v2.docx` | 39053 | `6d73619776cedd017d1d1a48c71e01a47b23febf9de3c9df09858f072ee4ff75` |
+| . | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-6-KTC-Quan-tri_20261010_v1.docx` | 42440 | `8da887c7a8671b6798258b4b0257c88a64f1c4d452425b6fe41b1fcee9526fae` |
 | . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 67378 | `7dfd109dd4ac479f5f1d612da566bc73181c86aaa9a865499ee76acdb22ff32c` |
 | . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 67002 | `bdd712b2966a8a426d6ca1abdfdc659e9146e52d2589c07208a7c7d3ca099f96` |
 | . | `PXYK_Y-kien-Phong-TCCB-CTHSSV_20261006.docx` | 58453 | `aa00d584df77d8d6e0b04cc1209a0d777345ec67443233292fba952b628608fe` |
