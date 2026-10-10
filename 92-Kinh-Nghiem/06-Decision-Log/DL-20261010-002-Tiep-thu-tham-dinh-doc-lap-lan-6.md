@@ -43,8 +43,11 @@ Mục 1 Phần I), HD v9 (Mục 1 Phần II), báo cáo 897 (dòng 2). Nội dun
 
 ## Đã gửi thẩm định lần 2 (10/10/2026, tối)
 Người phụ trách **tự điều chỉnh thêm rồi đã gửi** báo cáo đề nghị thẩm định lần 2 tới Phòng QLKHCN&HTPT. **Bản đã gửi là bản chính
-thức**; các tệp trong `30-Ket-Qua/2026-10-10/` có thể khác bản đã gửi (chưa nhận lại bản đã gửi để đối chiếu). Không dựng lại, không
-sửa tiếp các tệp này nếu chưa có bản đã gửi làm gốc.
+thức**, lưu tại `30-Ket-Qua/2026-10-10/Tham-Dinh-Lan-2/` (người phụ trách đã sắp xếp, đổi tên; gửi qua Hệ thống QLVB&ĐH 21:20–21:28,
+kèm Tờ trình đề nghị thẩm định; BC khắc phục và BC tiếp thu lần 6 đã ký số). Đối chiếu chữ với bản dựng: chỉ khác ngày (10 tháng 10),
+nơi gửi BC khắc phục ("Hiệu trưởng nhà trường; Phòng QLKHCN&HTPT"), chữ "DỰ THẢO" trên TB, HD. Hai báo cáo đã gửi được chép về
+`Soan-Thao/` làm gốc. **Không sửa tệp trong `Tham-Dinh-Lan-2/`; không chạy lại `hoan_tat_l6.py`** (sẽ ghi đè bản đã gửi).
+Việc tiếp: chờ ý kiến thẩm định lần 2 của Phòng QLKHCN&HTPT → tiếp thu → trình Hiệu trưởng ký Thông báo.
 
 ## Sản phẩm
 `30-Ket-Qua/2026-10-10/Soan-Thao/`: BC tiếp thu, giải trình lần 6 v1 (6 trang) · BC khắc phục v2 · TB v9, HD v9 (Track Changes 3 tác

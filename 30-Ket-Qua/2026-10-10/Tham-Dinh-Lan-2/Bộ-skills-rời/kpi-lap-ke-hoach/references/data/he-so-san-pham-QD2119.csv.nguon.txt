@@ -1,0 +1,5 @@
+nguon: KTC-Database/02-KTC-Regulations/02-01- Quy che - quy dinh - huong dan chung/PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx
+sha256: 1bf16b3f77a947ebf04d3159bf770c9466d159fcf3ee592a891af511fe6a2b00
+so_dong: 416
+so_dong_lech_nhom: 0
+trang_thai: CHINH THUC — Quyet dinh so 2119/QD-CDKT ngay 28/9/2026 (thay the danh muc du thao kem TB 1052)
