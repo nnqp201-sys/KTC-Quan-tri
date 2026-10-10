@@ -6069,3 +6069,5 @@ if __name__ == "__main__":
 - `read_bc736_excel.py` — đọc Excel Phụ lục, kiểm KPI, lọc Ghi chú, tổng hợp %, dựng khung content_map.
 - `fill_bc736.py` — điền mẫu Word TB736 cấp Trường, giữ nguyên định dạng gốc.
 `````
+
+=== HẾT TỆP N24-PLUGIN-KY-NANG-BAO-CAO.md — MÃ KIỂM: D8240A ===

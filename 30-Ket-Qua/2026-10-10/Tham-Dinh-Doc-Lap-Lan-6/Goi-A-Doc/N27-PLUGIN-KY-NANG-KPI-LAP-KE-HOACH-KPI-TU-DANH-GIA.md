@@ -4199,3 +4199,5 @@ if __name__ == "__main__":
     import sys
     sys.exit(main(sys.argv[1:]))
 `````
+
+=== HẾT TỆP N27-PLUGIN-KY-NANG-KPI-LAP-KE-HOACH-KPI-TU-DANH-GIA.md — MÃ KIỂM: 01EB16 ===

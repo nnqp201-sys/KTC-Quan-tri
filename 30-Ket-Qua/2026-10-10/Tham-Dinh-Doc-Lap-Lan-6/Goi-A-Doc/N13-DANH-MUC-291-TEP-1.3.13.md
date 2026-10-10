@@ -295,3 +295,5 @@
 | `skills/theo-doi-cv/references/Skill-Library/43-Skill-Minh-Chung.md` | 2210 | `aaf6467398daabe48b3e0f0f2051d43134b5b11f386ec64d6d28faecfa0884b3` |
 | `skills/theo-doi-cv/references/Skill-Library/44-Skill-Dieu-Chinh-Va-Ban-Giao.md` | 2949 | `a8afff830bba95423ad0f545d12f204c62962640c95a82334e89d88289b71fd0` |
 | `skills/theo-doi-cv/references/Workflow/11-Theo-Doi-Vong-Doi.md` | 2022 | `b3ad5988f6ea1e54605ab9311bdd65d9d6f1eb6ee2e8b9cbeb65cfb30e4de4b8` |
+
+=== HẾT TỆP N13-DANH-MUC-291-TEP-1.3.13.md — MÃ KIỂM: 68C496 ===

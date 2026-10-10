@@ -58,3 +58,5 @@ Google Drive** — đưa vào biên bản kiểm tra phân quyền (thao tác 8 
 Tệp bảng 3.000 dòng × 30 cột (khoảng 2,7 MB) và nội dung dị dạng qua Write, Edit, Bash heredoc, PowerShell here-string:
 thời gian xử lý 0,05 - 2,3 giây, không treo; ghi vào kho vẫn bị chặn. Giới hạn 30 giây đã có trong `hooks.json`. Ca thử
 hồi quy trong `test_dung_lap_lai.py`.
+
+=== HẾT TỆP N12-DUNG-LAI-TU-MA-NGUON-VA-THU-TAI-1.3.13.md — MÃ KIỂM: 2FF431 ===

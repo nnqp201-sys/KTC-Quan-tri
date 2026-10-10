@@ -1268,3 +1268,5 @@ lệch chuẩn ở đâu. Ghi cuối phiên là quá muộn — phiên kết th�
 ktc-ke-hoach ──Task_ID──▶ ktc-theo-doi-cv ──gói bàn giao──▶ ktc-bao-cao ──▶ ktc-ra-soat-897 ──▶ trình ký
 ```
 `````
+
+=== HẾT TỆP N25-PLUGIN-KY-NANG-THEO-DOI-CV.md — MÃ KIỂM: C38F0E ===

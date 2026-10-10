@@ -81,3 +81,5 @@
 - Kiểm kê, thu hồi bản cũ ở cấp tổ chức (Phòng QLKHCN&HTPT, quyền Owner).
 - Guard không phân tích mã Python/JS nhúng trong lệnh shell; máy không có Python thì hook không chạy.
 - Kiểm thử dùng dữ liệu giả lập hoặc mẫu biểu; chưa có dữ liệu vận hành thật.
+
+=== HẾT TỆP N11-BANG-CHUNG-KIEM-THU-1.3.13.md — MÃ KIỂM: 952D9D ===

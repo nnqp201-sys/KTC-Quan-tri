@@ -1,10 +1,5 @@
-<!-- N34: chép nguyên văn từ `THONG-KE-VAN-HANH-THUC-TE-20260929-20261010.md` (sha256 8739987397940b527c05d20cbc00eeae4a88acff1c5c55c44c9a9fc825212493) -->
+[PHẦN 3/3 của GOP-2-BANG-CHUNG-KIEM-THU-NGHIEM-THU.txt — đọc đủ 3 phần theo thứ tự]
 
-# Thống kê vận hành thực tế Bộ công cụ KTC-Quan-tri (2026-09-29 → 2026-10-10)
-
-Nguồn: nhật ký tự động `90-Nhat-Ky-Van-Hanh/04-Nhat-Ky-Tu-Dong/` (chỉ thông tin mô tả — không có nội dung lời nhắn,
-câu lệnh), sản phẩm trong `30-Ket-Qua/`, lịch sử git. Sinh bằng `29-Cong-Cu/thong_ke_van_hanh.py` (lặp lại được).
-**Phạm vi:** vận hành của người phụ trách xây dựng trên Claude Code (máy Phòng TH-HC&QT), việc thật của Phòng —
 **không** phải thí điểm tại các đơn vị; không suy ra kết quả cho Claude (trò chuyện), Cowork.
 
 ## 1. Tổng quan
@@ -80,4 +75,4 @@ Lưu ý: kỹ năng được nạp tự động theo mô tả không luôn hiệ
 - Hook `loi` chỉ bắt lỗi công cụ mà ứng dụng báo về; lỗi nghiệp vụ (số liệu sai) phát hiện qua rà soát, kiểm thử.
 - Chưa đo token thực tế theo tác vụ (ứng dụng không trả số token cho hook) — thí điểm cần ghi theo phiếu.
 
-=== HẾT TỆP N34-THONG-KE-VAN-HANH-THUC-TE-29-9-DEN-10-10-2026.md — MÃ KIỂM: B285E2 ===
+=== HẾT TỆP GOP-2-BANG-CHUNG-KIEM-THU-NGHIEM-THU_phan-3-tren-3.txt — MÃ KIỂM: 486A02 ===

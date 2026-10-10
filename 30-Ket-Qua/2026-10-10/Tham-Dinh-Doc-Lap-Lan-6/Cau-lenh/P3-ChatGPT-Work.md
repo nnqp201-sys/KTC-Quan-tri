@@ -7,6 +7,14 @@ hệ duy nhất trong lần 6 kiểm được mã băm, chạy được thao tá
 Dùng tài khoản ChatGPT của Trường (bản dành cho tổ chức), chọn mô hình suy luận mạnh nhất hiện có, bật công cụ phân tích dữ liệu
 (chạy mã).
 
+## Bước 0 — kiểm tra đọc tệp (gửi ngay sau khi tải tệp, trước mọi câu khác)
+
+```text
+Giải nén tệp đính kèm bằng Python. In ra: (1) số tệp trong từng thư mục; (2) với mỗi tệp .md trong Goi-A-Doc: Tên tệp, số ký tự, và dòng cuối cùng (dòng có “MÃ KIỂM”); (3) với mỗi tệp .pdf: Số trang. Chỉ in kết quả chạy mã, không tóm tắt nội dung.
+```
+
+Đối chiếu câu trả lời với `MA-KIEM-DOC-TEP.md` (tệp này **không** tải lên). Tệp nào sai mã hoặc “không đọc được”: Xem cách xử lý tại `01-CACH-DOC-TEP-TUNG-HE.md`. Chỉ gửi các câu tiếp theo khi mọi tệp đã đúng mã.
+
 ## Câu 1 (gửi kèm tệp zip)
 
 ```text

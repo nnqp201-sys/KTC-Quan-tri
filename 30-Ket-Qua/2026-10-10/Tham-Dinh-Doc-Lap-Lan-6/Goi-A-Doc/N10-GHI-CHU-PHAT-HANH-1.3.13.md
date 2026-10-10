@@ -14,3 +14,5 @@ soát 897 (Dự thảo Thông báo hướng dẫn sử dụng).
 | Bằng chứng | `BANG-CHUNG-KIEM-THU-1.3.13.md`, `DANH-MUC-TEP-1.3.13.md`, `log-*.txt`, `log-hoi-quy/` |
 
 Mã SHA-256 để ngoài zip vì ghi mã vào trong gói sẽ làm đổi chính mã đó.
+
+=== HẾT TỆP N10-GHI-CHU-PHAT-HANH-1.3.13.md — MÃ KIỂM: AEFB2A ===

@@ -14,6 +14,14 @@ Bạn là chuyên gia thẩm định độc lập, khắt khe, khách quan. Nhi�
 
 4. Chọn độ dài câu trả lời **Dài hơn** (Longer) nếu có.
 
+## Bước 0 — kiểm tra đọc tệp (gửi ngay sau khi tải tệp, trước mọi câu khác)
+
+```text
+Liệt kê toàn bộ nguồn bạn đang có theo bảng: Tên nguồn | Mã kiểm. Mã kiểm là 6 ký tự nằm ở dòng cuối cùng của mỗi nguồn dạng văn bản, có dạng “=== HẾT TỆP ... — MÃ KIỂM: xxxxxx ===”. Với nguồn PDF, ghi số trang thay cho mã kiểm. Nguồn nào bạn không đọc được đến dòng cuối thì ghi “không đọc được”, không đoán.
+```
+
+Đối chiếu câu trả lời với `MA-KIEM-DOC-TEP.md` (tệp này **không** tải lên). Tệp nào sai mã hoặc “không đọc được”: Xem cách xử lý tại `01-CACH-DOC-TEP-TUNG-HE.md`. Chỉ gửi các câu tiếp theo khi mọi tệp đã đúng mã.
+
 ## Bước 2 — Gửi lần lượt 5 câu hỏi (chờ trả lời xong mới gửi câu tiếp)
 
 **Câu 1:**

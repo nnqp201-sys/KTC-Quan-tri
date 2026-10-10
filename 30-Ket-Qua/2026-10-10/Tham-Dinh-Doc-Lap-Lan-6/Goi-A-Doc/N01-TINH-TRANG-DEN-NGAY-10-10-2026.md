@@ -53,3 +53,5 @@ Số liệu trong Phiếu trình khớp hồ sơ, trừ 02 chỗ diễn đạt (
 | K-08 | Không lập biên bản phân quyền, không kiểm kê cấp tổ chức; kiểm thử Claude, Cowork trên 1.3.13 chưa có tệp kết quả lưu riêng | Giải trình tại mục 2, tồn tại (2), (3) |
 | K-09 | Plugin chưa đặt phương án `A` làm mặc định theo ý kiến Phòng TCCB&CTHSSV ngày 06/10/2026 | Sau thí điểm (đóng băng) |
 | K-10 | Chưa có dữ liệu vận hành tại đơn vị khác ngoài Phòng TH-HC&QT | Thí điểm (N19) |
+
+=== HẾT TỆP N01-TINH-TRANG-DEN-NGAY-10-10-2026.md — MÃ KIỂM: 0981C9 ===

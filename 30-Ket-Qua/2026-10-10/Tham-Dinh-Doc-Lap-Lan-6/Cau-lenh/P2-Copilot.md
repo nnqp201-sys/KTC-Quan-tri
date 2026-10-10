@@ -15,6 +15,14 @@ Nếu một lần không gửi đủ 05 tệp: Gửi GOP-0, GOP-1 kèm Câu 1; g
 còn lại, đọc hết rồi mới trả lời” (Mục 8 Thông báo số 1056/TB-CĐKT cho phép chia nhiều lượt đính kèm, nhưng phải đối chiếu tổng
 thể trước khi kết luận). Chọn chế độ suy luận sâu (**Think Deeper** hoặc **Smart**) nếu có.
 
+## Bước 0 — kiểm tra đọc tệp (gửi ngay sau khi tải tệp, trước mọi câu khác)
+
+```text
+Trước khi làm việc khác, với từng tệp tôi vừa đính kèm hãy lập bảng: Tên tệp | Mã kiểm | Tiêu đề dòng đầu tiên. Mã kiểm là 6 ký tự ở dòng cuối cùng của mỗi tệp .txt, dạng “=== HẾT TỆP ... — MÃ KIỂM: xxxxxx ===”. Với tệp PDF, ghi số trang và tên văn bản cuối cùng trong tệp. Tệp nào bạn không đọc được đến dòng cuối thì ghi “không đọc được đến cuối”, tuyệt đối không đoán mã.
+```
+
+Đối chiếu câu trả lời với `MA-KIEM-DOC-TEP.md` (tệp này **không** tải lên). Tệp nào sai mã hoặc “không đọc được”: Xem cách xử lý tại `01-CACH-DOC-TEP-TUNG-HE.md`. Chỉ gửi các câu tiếp theo khi mọi tệp đã đúng mã.
+
 ## Câu 1 (gửi kèm tệp)
 
 ```text

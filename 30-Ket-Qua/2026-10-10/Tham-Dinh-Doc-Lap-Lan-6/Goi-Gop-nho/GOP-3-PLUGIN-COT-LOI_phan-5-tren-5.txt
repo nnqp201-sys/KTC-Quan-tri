@@ -1,0 +1,12 @@
+[PHẦN 5/5 của GOP-3-PLUGIN-COT-LOI.txt — đọc đủ 5 phần theo thứ tự]
+
+| Cỡ chữ từng thành phần (số ký hiệu, trích yếu, chữ ký…) | `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/08-Quy-Uoc-Rieng-CDKT.md` mục 4 (bản gốc, không chép) |
+
+## Giới hạn
+
+- Chỉ áp cho **văn bản hành chính** (hệ A). Văn bản Đảng theo HD 05-HD/VPTW, dùng `ktc-ra-soat-897`.
+- Không thay rà soát 897 trước trình ký. Còn Mức 1 theo 897 thì không được trình.
+- Không sửa kho `KTC-Database` (chỉ đọc). Lỗi của chính mẫu thì ghi đề xuất ra `30-Ket-Qua/`.
+`````
+
+=== HẾT TỆP GOP-3-PLUGIN-COT-LOI_phan-5-tren-5.txt — MÃ KIỂM: 87D713 ===

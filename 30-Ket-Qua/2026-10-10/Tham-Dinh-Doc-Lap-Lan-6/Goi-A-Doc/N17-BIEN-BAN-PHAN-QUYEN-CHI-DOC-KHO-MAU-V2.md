@@ -59,3 +59,5 @@ thao tác nào ghi được thì dừng, xóa tệp thử, ghi “Không đạt�
 | Người kiểm tra | Người chứng kiến | Trưởng phòng TH-HC&QT |
 |---|---|---|
 | (ký, ghi rõ họ tên) | (ký, ghi rõ họ tên) | (ký, ghi rõ họ tên) |
+
+=== HẾT TỆP N17-BIEN-BAN-PHAN-QUYEN-CHI-DOC-KHO-MAU-V2.md — MÃ KIỂM: 861916 ===

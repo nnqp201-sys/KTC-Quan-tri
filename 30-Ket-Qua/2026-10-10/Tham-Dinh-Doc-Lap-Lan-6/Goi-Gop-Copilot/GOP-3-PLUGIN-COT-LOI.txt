@@ -9071,3 +9071,5 @@ thấy tệp → làm theo SKILL.md, ghi `THIEU_DU_LIEU`, không đoán. Đầu 
 - Không thay rà soát 897 trước trình ký. Còn Mức 1 theo 897 thì không được trình.
 - Không sửa kho `KTC-Database` (chỉ đọc). Lỗi của chính mẫu thì ghi đề xuất ra `30-Ket-Qua/`.
 `````
+
+=== HẾT TỆP GOP-3-PLUGIN-COT-LOI.txt — MÃ KIỂM: A40CB1 ===

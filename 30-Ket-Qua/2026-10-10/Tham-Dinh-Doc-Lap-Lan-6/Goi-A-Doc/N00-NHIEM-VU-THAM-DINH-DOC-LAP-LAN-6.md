@@ -183,3 +183,5 @@ không thì .md).
 | N34 | Thống kê vận hành thực tế bản 1.3.13 tại Phòng TH-HC&QT, 29/9 - 10/10/2026 | md |
 | N35 | Báo cáo rà soát KTC-Ra-Soat-897 ngày 10/10/2026 đối với N06, N07, N19 | pdf |
 | N30 đến N33 | Báo cáo thẩm định lần 5 của ChatGPT, Copilot, Grok, Gemini (nguyên văn) | pdf, md |
+
+=== HẾT TỆP N00-NHIEM-VU-THAM-DINH-DOC-LAP-LAN-6.md — MÃ KIỂM: 094E66 ===

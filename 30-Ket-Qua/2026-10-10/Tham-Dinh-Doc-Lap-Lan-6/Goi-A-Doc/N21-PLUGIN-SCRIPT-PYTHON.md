@@ -6206,3 +6206,5 @@ if __name__ == "__main__":
         r = cap_truong(s)
         print(f"  TRUOC: {s}\n  SAU  : {r}\n  loi  : {kiem_tra(r) or 'sach'}\n")
 `````
+
+=== HẾT TỆP N21-PLUGIN-SCRIPT-PYTHON.md — MÃ KIỂM: AC5E98 ===

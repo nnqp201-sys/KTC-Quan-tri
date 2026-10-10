@@ -1,0 +1,2499 @@
+[PHẦN 2/5 của GOP-3-PLUGIN-COT-LOI.txt — đọc đủ 5 phần theo thứ tự]
+
+    def dong(stt, x):
+        r = cur[0] + 1
+        v = {1: stt, 2: x["nd"], 3: x.get("cd"), 4: x.get("ct"), 5: x.get("sp"), 6: _so(x.get("sl")), 7: x.get("dk"),
+             8: x.get("thoi_han"), 11: x.get("ghi_chu")}
+        for c, ctm in ct_data.items():
+            v[c] = _dich(ctm, f"{L(c)}{r}")
+        if 9 not in ct_data:
+            v[9] = DIEM.get(x.get("dk"))
+            v[10] = (v[9] / 100) if v[9] else None
+        if x.get("doi_soat"):
+            v[12] = x["doi_soat"]
+        tk["dong"] += 1
+        return dat(s_data, v)
+
+    dat(s_nhom, {1: "I", 2: tieu_I}, gop_nhom)
+    for t in range(1, 7):
+        tr = nd["truc"].get(str(t), {})
+        dat(s_truc, {1: str(t), 2: tr.get("ten") or ten_truc_goc.get(t) or f"Trục ({t}) - {TEN_TRUC[t]}"}, gop_truc)
+        for k, x in enumerate(tr.get("dong", []), 1):
+            dong(f"{t}.{k}", x)
+    ct2 = nd.get("chuyen_tiep", [])
+    if ct2:
+        dat(s_nhom, {1: "II", 2: tieu_II}, gop_nhom)
+        for k, x in enumerate(ct2, 1):
+            dong(str(k), x)
+            tk["chuyen_tiep"] += 1
+    cur[0] += 2
+    r = cur[0]
+    for c, (v, st) in duoi.items():
+        ws.cell(r, c).value = v
+        ws.cell(r, c)._style = st
+    for c1, c2 in gop_duoi:
+        ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+    if cao_duoi:
+        ws.row_dimensions[r].height = cao_duoi
+    _tnr(ws, cur[0], NC + 1)
+    _cot_doi_soat(ws, r_h, NC + 1, range(r_dau, cur[0]), rong=48)
+    ws.print_area = f"A1:{L(NC)}{cur[0]}"
+    os.makedirs(os.path.dirname(os.path.abspath(ra)), exist_ok=True)
+    wb.save(ra)
+    return {"tep": ra, "hang_cuoi": cur[0], **tk}
+
+
+# ================================================================ main
+def main(argv):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    ap = argparse.ArgumentParser()
+    sub = ap.add_subparsers(dest="lenh", required=True)
+    a = sub.add_parser("nguon")
+    a.add_argument("--ky", required=True)
+    a.add_argument("--dau-vao")
+    a = sub.add_parser("trich")
+    a.add_argument("--dau-vao", required=True)
+    a.add_argument("--ra", required=True)
+    for ten in ("word", "phu-luc", "ke-hoach"):
+        a = sub.add_parser(ten)
+        a.add_argument("--goc", required=True)
+        a.add_argument("--noi-dung", required=True)
+        a.add_argument("--ra", required=True)
+    a = ap.parse_args(argv)
+    try:
+        if a.lenh == "nguon":
+            y, m = _ky(a.ky)
+            ra = {"ky": a.ky, "ban_da_ban_hanh": tim_ban_da_ban_hanh(y, m)}
+            if a.dau_vao:
+                pl = phan_loai_dau_vao(a.dau_vao)
+                ra["dau_vao"] = {k: [{"ma": x["ma"], "tep": os.path.relpath(x["tep"], a.dau_vao)} for x in v]
+                                 for k, v in pl.items()}
+        elif a.lenh == "trich":
+            d = trich(a.dau_vao)
+            json.dump(d, open(a.ra, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+            ra = {"ra": a.ra, **d["thong_ke"], "loi": d["loi"]}
+        else:
+            nd = json.load(open(a.noi_dung, encoding="utf-8"))
+            f = {"word": dung_word, "phu-luc": dung_phu_luc, "ke-hoach": dung_ke_hoach}[a.lenh]
+            ra = f(a.goc, nd, a.ra)
+    except (FileNotFoundError, ValueError, StopIteration, KeyError) as e:
+        print(json.dumps({"loi": f"{e.__class__.__name__}: {e}"}, ensure_ascii=False))
+        return 2
+    print(json.dumps(ra, ensure_ascii=False, indent=1))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/doi_soat_so_lieu.py` (20982 byte, sha256 `f2bad80bad0e17e9ec25710b7e6b70a2ee69028ccc0bc39af84b119e649c80f9`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Doi soat so lieu CHEO GIUA CAC TEP Phu luc TB 736 — DL-20260919-006.
+
+read_bc736_excel.py (skill bao-cao) da kiem cong thuc KPI TRONG tung tep. Cong cu nay lam phan con thieu:
+  DS01  Loi trong tung tep (chuyen tiep canh bao cua read_bc736_excel) — dem theo don vi
+  DS02  Tong hop cap Truong <-> tong cac don vi: so nhiem vu, SL quy doi, KPI quy doi theo Truc
+  DS03  Ke hoach <-> ket qua cung ky cua moi don vi: nhiem vu KH thieu ket qua; ket qua khong co trong KH
+  DS04  Task_ID trung trong mot tep / giua cac don vi
+  DS05  % KPI 3 chieu theo Truc tinh lai (bang tham chieu duy nhat — hai agent dung chung so nay)
+  DS06  Ma don vi (ten thu muc/tep) co trong 20-Chuan-Chung/13-Bang-Ma-Don-Vi.md khong; tep khong phai .xlsx
+
+Dung chung cho agent ktc-kiem-ho-so-don-vi va ktc-kiem-san-pham de moi lan chay cho CUNG mot ket qua.
+KHONG sua so lieu. KHONG quy doi giua hai thang diem (KI-014).
+
+Chay:
+  python 29-Cong-Cu/doi_soat_so_lieu.py --kq <thu muc ky | tep...> [--kh <thu muc | tep...>]
+         [--tong-hop <tep tong hop KQ cap Truong>] [--md <bao cao.md>]
+  Thu muc ky dang 10-Dau-Vao/01-Dau-Moi-Nop/<ky>/<ma don vi>/: tep ten bat dau "BC"/"KQ" la ket qua, "KH" la ke hoach.
+Ma thoat: 1 neu co lech DS02 hoac Task_ID trung (DS04); nguoc lai 0.
+"""
+import difflib
+import glob
+import os
+import re
+import sys
+import unicodedata
+import warnings
+
+DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _p in (os.path.join(DU_AN, "25-KTC-Bao-Cao", "references", "Skill-Library"),
+           *glob.glob(os.path.join(DU_AN, "skills", "bao-cao", "references", "Skill-Library"))):
+    if os.path.isdir(_p):
+        sys.path.insert(0, _p)
+import read_bc736_excel as r  # noqa: E402
+
+TRUC = range(1, 7)
+NGUONG_GIONG = 0.82     # do giong noi dung de coi la cung nhiem vu khi khong co Task_ID
+SAI_SO = 0.05
+
+
+def _chuan(s):
+    s = unicodedata.normalize("NFC", " ".join(str(s or "").split())).lower()
+    return re.sub(r"[^\w\s]", "", s)
+
+
+def ma_chuan():
+    """Doc danh sach ma chuan tu 13-Bang-Ma-Don-Vi.md (du an hoac plugin)."""
+    ung = [os.path.join(DU_AN, "20-Chuan-Chung", "13-Bang-Ma-Don-Vi.md")] + \
+        glob.glob(os.path.join(DU_AN, "skills", "*", "references", "**", "*Bang-Ma-Don-Vi.md"), recursive=True)
+    for p in ung:
+        if os.path.isfile(p):
+            return set(re.findall(r"^\|\s*`([A-Z]+-[A-Z]+)`", open(p, encoding="utf-8").read(), re.M))
+    return set()
+
+
+def _khong_dau(s):
+    t = unicodedata.normalize("NFD", str(s or "").lower())
+    return "".join(c for c in t if unicodedata.category(c) != "Mn").replace("đ", "d")
+
+
+def _khoa(s):
+    """Khoa so khop ten don vi: bo dau, bo moi ky tu khong phai chu/so. 'PHÒNG TH-HC&QT' -> 'phongthhcqt'."""
+    return re.sub(r"[^a-z0-9]", "", _khong_dau(s))
+
+
+_BIEN_THE = None
+
+
+def bien_the_ma():
+    """{khoa chuan hoa -> ma} tu MOI cot cua 13-Bang-Ma-Don-Vi.md (ten chinh thuc + bien the) va duoi ma.
+    Chi khop CHINH XAC sau chuan hoa — khong dung do giong (KI-001: nguong < 100% cho khop gia)."""
+    global _BIEN_THE
+    if _BIEN_THE is None:
+        _BIEN_THE = {}
+        p = os.path.join(DU_AN, "20-Chuan-Chung", "13-Bang-Ma-Don-Vi.md")
+        ung = [p] + glob.glob(os.path.join(DU_AN, "skills", "*", "references", "**", "*Bang-Ma-Don-Vi.md"),
+                              recursive=True)
+        for q in ung:
+            if not os.path.isfile(q):
+                continue
+            for dong in open(q, encoding="utf-8"):
+                # Muc "Anh xa bo sung — may doc": | `bien the` | `MA` | cap | bang chung |  (quyet dinh da chot,
+                # bien the co bang chung tren tep that — vd Ban Truyen thong -> P-THHC, chot 14/9/2026)
+                bs = re.match(r"^\|\s*`([^`]+)`\s*\|\s*`([A-Z]+-[A-Z]+)`\s*\|", dong)
+                if bs and not re.fullmatch(r"[A-Z]+-[A-Z]+", bs.group(1)):
+                    _BIEN_THE.setdefault(_khoa(bs.group(1)), bs.group(2))
+                    continue
+                m = re.match(r"^\|\s*`([A-Z]+-[A-Z]+)`\s*\|(.*)", dong)
+                if not m:
+                    continue
+                ma = m.group(1)
+                _BIEN_THE.setdefault(_khoa(ma.split("-", 1)[1]), ma)
+                for o in m.group(2).split("|"):
+                    o = o.replace("⚠️", "").replace("`", "").strip()
+                    if o and not o.startswith("*"):
+                        _BIEN_THE.setdefault(_khoa(o), ma)
+            break
+    return _BIEN_THE
+
+
+_DAU = {}
+
+
+def dau_tep(p):
+    """Doc phan dau Phu luc: dong ngay sau 'TRUONG CAO DANG KON TUM' la don vi, dong tiep theo co
+    'KE HOACH'/'BAO CAO' la tieu de (loai + ky). Dung khi ten tep/thu muc khong theo quy uoc
+    (21/9/2026: 10-Dau-Vao doi sang '1. BAO CAO PL IIB/KHCB.xlsx' — gop 10 don vi thanh 1, tron KH vao KQ)."""
+    if p in _DAU:
+        return _DAU[p]
+    kq = {"don_vi": None, "loai": None, "ky": None}
+    if p.lower().endswith(".xlsx"):
+        try:
+            from openpyxl import load_workbook
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                wb = load_workbook(p, read_only=True, data_only=True)
+                o = [str(r[0] or "").strip() for r in
+                     wb.active.iter_rows(min_row=1, max_row=12, max_col=1, values_only=True)]
+                wb.close()
+            # o CHI chua ten Truong — dong "Phu luc IIb … CUA TRUONG CAO DANG KON TUM" cung chua cum nay
+            i = next(k for k, x in enumerate(o) if _khoa(x) == "truongcaodangkontum")
+            dv = re.sub(r"^\s*đơn vị\s*:?\s*", "", o[i + 1], flags=re.I).strip(" .…")
+            kq["don_vi"] = dv or None
+            for x in o[i + 1:]:
+                t = " ".join(_khong_dau(x).split())
+                if "ke hoach" in t or "bao cao" in t:
+                    kq["loai"] = "KH" if "ke hoach" in t else "KQ"
+                    m = re.search(r"(thang|quy)\s*(\d{1,2}|iv|iii|ii|i)\b.*?nam\s*(\d{4})", t) or \
+                        re.search(r"(nam)\s*()(\d{4})", t)
+                    if m:
+                        so = {"i": 1, "ii": 2, "iii": 3, "iv": 4}.get(m.group(2), m.group(2) or 0)
+                        kq["ky"] = (m.group(1), int(so), int(m.group(3)))
+                    break
+        except (StopIteration, IndexError, OSError, ValueError, KeyError):
+            pass
+    _DAU[p] = kq
+    return kq
+
+
+def ma_don_vi(p):
+    """Ma don vi: thu muc/tep theo quy uoc -> ten don vi trong phan dau tep -> ten tep (khop chinh xac).
+    Khong khop -> '?<ten>' de tach rieng, KHONG gop voi don vi khac; DS06 bao ra."""
+    thu = os.path.basename(os.path.dirname(p))
+    if re.fullmatch(r"[A-Z]{1,3}-[A-Z]+", thu):
+        return thu
+    m = re.match(r"([A-Z]{1,3}-[A-Z]+)_", os.path.basename(p))
+    if m:
+        return m.group(1)
+    bt = bien_the_ma()
+    ten = dau_tep(p)["don_vi"]
+    than = os.path.splitext(os.path.basename(p))[0]
+    for ung in (ten, than, *than.split()[::-1]):
+        # ten tep hay bo chu "Khoa"/"Phong" ('SƯ PHẠM.docx' <-> bien the 'Khoa-Su-Pham') — van khop chinh xac
+        for k in (_khoa(ung), "khoa" + _khoa(ung), "phong" + _khoa(ung)) if ung else ():
+            if k in bt:
+                return bt[k]
+    return "?" + (ten or than)
+
+
+def ky_tep(p):
+    """Ky cua tep theo ten: 'thang-8-2026' -> ('thang', 8, 2026); khong co trong ten thi lay tieu de trong tep.
+    Thu muc nop moi ky chua KQ thang N va KH thang N+1 — KHONG duoc so cheo hai ky (loi thu that 19/9/2026)."""
+    t = _khong_dau(os.path.basename(p))
+    m = re.search(r"(thang|quy|nam)[-_ ]?(\d{1,2})?[-_ .]*(\d{4})", t)
+    if not m:
+        return dau_tep(p)["ky"]
+    return (m.group(1), int(m.group(2)) if m.group(2) else 0, int(m.group(3)))
+
+
+def loai_tep(p):
+    """Ten theo quy uoc 'KH-…'/'BC-…' truoc; khong thi lay tieu de trong tep.
+    Phai co dau phan cach: 'KHCB.xlsx' (bao cao Khoa KHCB) tung bi xep nham la ke hoach."""
+    t = os.path.basename(p).upper()
+    if re.match(r"(BC|KQ|PL)[-_ ]", t):
+        return "KQ"
+    if re.match(r"KH[-_ ]", t):
+        return "KH"
+    return dau_tep(p)["loai"]
+
+
+def gom_tep(ds):
+    kq = []
+    for p in ds or []:
+        if os.path.isdir(p):
+            for rr, _, fs in os.walk(p):
+                kq += [os.path.join(rr, f) for f in fs if not f.startswith("~$") and f != "desktop.ini"]
+        else:
+            kq.append(p)
+    return sorted(kq)
+
+
+def doc(p):
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        try:
+            return r.read_appendix(p)
+        except Exception as e:  # tep hong/khong dung mau
+            return {"kind": None, "truc": {}, "truc_tong": {}, "canh_bao": [f"[KHÔNG ĐỌC ĐƯỢC] {e}"]}
+
+
+def tong_theo_truc(ap):
+    t = {n: {"so_nv": 0, "sl_qd": 0.0, "kpi_sl_qd": 0.0, "kpi_cl_qd": 0.0, "kpi_td_qd": 0.0} for n in TRUC}
+    for n, ds in (ap.get("truc") or {}).items():
+        for x in ds:
+            t[n]["so_nv"] += 1
+            for src, dst in (("so_luong_quy_doi", "sl_qd"), ("kpi_so_luong_qd", "kpi_sl_qd"),
+                             ("kpi_chat_luong_qd", "kpi_cl_qd"), ("kpi_tien_do_qd", "kpi_td_qd")):
+                v = r._num(x.get(src))
+                if v is not None:
+                    t[n][dst] += v
+    return t
+
+
+def doi_soat(kq_files, kh_files=(), tong_hop=None):
+    """Tra ve dict ket qua co cau truc (de agent/test dung) — khong in."""
+    out = {"loi": [], "don_vi": {}, "ds02": [], "ds03": [], "ds04": [], "ds05": {}, "ds06": []}
+    chuan = ma_chuan()
+    theo_dv = {}
+    khac = {}
+    for p in gom_tep(kq_files) + gom_tep(kh_files):
+        ma = ma_don_vi(p)
+        if not p.lower().endswith(".xlsx"):
+            # Don vi nop kem bao cao thuyet minh .docx — binh thuong; chi ghi lai de xet "thieu .xlsx" o duoi
+            khac.setdefault(ma, []).append((loai_tep(p), os.path.basename(p)))
+            continue
+        lt = loai_tep(p)
+        ap = doc(p)
+        lt = ap.get("kind") or lt
+        theo_dv.setdefault(ma, {}).setdefault(lt, []).append((p, ap, ky_tep(p)))
+        out["don_vi"].setdefault(ma, {"so_canh_bao": 0, "canh_bao": []})
+        out["don_vi"][ma]["so_canh_bao"] += len(ap.get("canh_bao") or [])
+        out["don_vi"][ma]["canh_bao"] += [f"{os.path.basename(p)}: {c}" for c in ap.get("canh_bao") or []]
+    for ma, ds in sorted(khac.items()):
+        for lt, ten in ds:
+            if lt and not theo_dv.get(ma, {}).get(lt):
+                out["ds06"].append((ma, ten, f"chỉ có tệp {os.path.splitext(ten)[1]}, thiếu Phụ lục Excel TB 736 "
+                                             f"({'kết quả' if lt == 'KQ' else 'kế hoạch'}) — không đối soát được"))
+            elif not lt and ma not in theo_dv:
+                # Ten tep khong cho biet KH/KQ (bo cuc 21/9/2026) — van phai bao don vi khong co Excel nao.
+                # Ma '?…' = khong xac dinh duoc don vi: co the Excel cua don vi nam duoi ten khac -> khong khang dinh.
+                out["ds06"].append((ma, ten, "không xác định được đơn vị từ tên tệp — kiểm tay đơn vị này đã có "
+                                             "Phụ lục Excel chưa" if ma.startswith("?") else
+                                             f"chỉ có tệp {os.path.splitext(ten)[1]}, đơn vị không nộp "
+                                             "Phụ lục Excel TB 736 nào — không đối soát được"))
+    for ma in sorted(set(theo_dv) | set(khac)):
+        if chuan and ma not in chuan:
+            out["ds06"].append((ma, "", "mã đơn vị chưa có trong 20-Chuan-Chung/13-Bang-Ma-Don-Vi.md"))
+
+    # DS04 — Task_ID trung (trong cung mot ky ket qua)
+    gap = {}
+    for ma, d in theo_dv.items():
+        for p, ap, ky in d.get("KQ", []):
+            for n, ds in ap["truc"].items():
+                for x in ds:
+                    tid = x.get("task_id")
+                    if tid:
+                        gap.setdefault((ky, str(tid).strip()), []).append((ma, n, (x.get("noi_dung") or "")[:60]))
+    for (ky, tid), noi in gap.items():
+        if len(noi) > 1:
+            out["ds04"].append((tid, noi))
+
+    # DS05 — % KPI theo Truc tinh lai. % > 100 la dau hieu TRON HAI THANG (KI-014):
+    # khong quy doi, danh dau "khong tinh duoc" (loi thu that 19/9/2026: 300-850%).
+    tong_dv = {n: {"so_nv": 0, "sl_qd": 0.0, "kpi_sl_qd": 0.0, "kpi_cl_qd": 0.0, "kpi_td_qd": 0.0} for n in TRUC}
+    for d in theo_dv.values():
+        for p, ap, ky in d.get("KQ", []):
+            for n, v in tong_theo_truc(ap).items():
+                for k in v:
+                    tong_dv[n][k] += v[k]
+    for n, v in tong_dv.items():
+        b = v["sl_qd"]
+        pct = {k: (round(100 * v["kpi_" + k + "_qd"] / b, 1) if b else None) for k in ("sl", "cl", "td")}
+        lech = any(x is not None and x > 100.5 for x in pct.values())
+        out["ds05"][n] = dict(v, lech_thang=lech,
+                              **{"pct_" + k: (None if lech else x) for k, x in pct.items()})
+
+    # DS02 — TRUY VET tong hop cap Truong ve dong nguon cua don vi. Tong hop chi lay nhiem vu
+    # "Dua vao KH Truong" nen KHONG bang tong don vi — so tung dong, khong so tong (loi thu that 19/9/2026).
+    if tong_hop:
+        th = doc(tong_hop)
+        if th.get("kind") != "KQ":
+            out["ds02"].append(("—", "tệp tổng hợp", "không đọc được như Phụ lục kết quả TB 736", None, None))
+        else:
+            nguon = [x for d in theo_dv.values() for p, ap, ky in d.get("KQ", [])
+                     for ds in ap["truc"].values() for x in ds]
+            for n, ds in th["truc"].items():
+                for x in ds:
+                    goc = tim_nguon(x, nguon)
+                    nd = (x.get("noi_dung") or "")[:70]
+                    if len(_chuan(x.get("noi_dung"))) < 12:
+                        out["ds02"].append((n, nd or "(trống)", "dòng tổng hợp không ghi nội dung nhiệm vụ — không truy vết được", None, None))
+                        continue
+                    if goc is None:
+                        out["ds02"].append((n, nd, "không truy được về dòng nguồn của đơn vị (Nguyên tắc bất biến 3)", None, None))
+                        continue
+                    truong = (("so_luong_quy_doi", "SL quy đổi"), ("kpi_so_luong_qd", "KPI số lượng QĐ"),
+                              ("kpi_chat_luong_qd", "KPI chất lượng QĐ"), ("kpi_tien_do_qd", "KPI tiến độ QĐ"))
+
+                    def lech(y):
+                        kq_ = []
+                        for k, ten in truong:
+                            a_, b_ = r._num(x.get(k)), r._num(y.get(k))
+                            if a_ is not None and b_ is not None and abs(a_ - b_) > SAI_SO:
+                                kq_.append((ten, a_, b_))
+                        return kq_
+                    ung = cac_nguon(x, nguon)
+                    if any(not lech(y) for y in ung):
+                        continue                      # co nguon khop ca so lieu
+                    if len(ung) > 1 and not x.get("task_id"):
+                        out["ds02"].append((n, nd, f"{len(ung)} dòng nguồn giống nội dung, không dòng nào cùng số liệu — "
+                                                   "cần Task_ID để truy vết duy nhất", None, None))
+                        continue
+                    for ten, a_, b_ in lech(goc):
+                        out["ds02"].append((n, nd, ten + ": tổng hợp khác nguồn", a_, b_))
+
+    # DS03 — KH <-> KQ CUNG KY cua moi don vi
+    for ma, d in sorted(theo_dv.items()):
+        for pkh, kh_ap, ky in d.get("KH", []):
+            cung = [ap for p, ap, k in d.get("KQ", []) if ky and k == ky]
+            if not cung:
+                continue
+            kh = [x for ds in kh_ap["truc"].values() for x in ds]
+            kq = [x for ap in cung for ds in ap["truc"].values() for x in ds]
+            for a_ in kh:
+                if tim_nguon(a_, kq) is None:
+                    out["ds03"].append((ma, "KH chưa có kết quả", (a_.get("noi_dung") or "")[:90]))
+            for b_ in kq:
+                if tim_nguon(b_, kh) is None:
+                    out["ds03"].append((ma, "kết quả không có trong KH (phát sinh? cần nguồn)", (b_.get("noi_dung") or "")[:90]))
+    out["so_cap_cung_ky"] = sum(1 for d in theo_dv.values() for _, _, ky in d.get("KH", [])
+                                if ky and any(k == ky for _, _, k in d.get("KQ", [])))
+    return out
+
+
+def _diem_giong(x, ds):
+    """[(diem, y)] cho moi y giong >= NGUONG_GIONG. Loc nhanh real_quick_ratio/quick_ratio truoc ratio():
+    ban dau so thang ratio() cho moi cap mat 56 giay tren 13 don vi (19/9/2026)."""
+    cx = x.get("_chuan") or _chuan(x.get("noi_dung"))
+    if len(cx) < 12:          # dong trong/"…": khong du thong tin de ghep — tranh ghep bua
+        return []
+    sm = difflib.SequenceMatcher(None, autojunk=False)
+    sm.set_seq2(cx)
+    kq = []
+    for y in ds:
+        cy = y.get("_chuan")
+        if cy is None:
+            cy = y["_chuan"] = _chuan(y.get("noi_dung"))
+        sm.set_seq1(cy)
+        if sm.real_quick_ratio() >= NGUONG_GIONG and sm.quick_ratio() >= NGUONG_GIONG:
+            d = sm.ratio()
+            if d >= NGUONG_GIONG:
+                kq.append((d, y))
+    return kq
+
+
+def cac_nguon(x, ds):
+    """Moi dong nguon co the tuong ung (Task_ID trung, hoac noi dung giong >= nguong)."""
+    if x.get("task_id"):
+        cung = [y for y in ds if y.get("task_id") == x["task_id"]]
+        if cung:
+            return cung
+    return [y for _, y in _diem_giong(x, ds)]
+
+
+def tim_nguon(x, ds):
+    """Dong tuong ung tot nhat: uu tien Task_ID, sau do noi dung giong nhat (>= NGUONG_GIONG)."""
+    if x.get("task_id"):
+        for y in ds:
+            if y.get("task_id") == x["task_id"]:
+                return y
+    ung = _diem_giong(x, ds)
+    return max(ung, key=lambda t: t[0])[1] if ung else None
+
+
+def in_md(o, file=sys.stdout):
+    w = lambda s="": print(s, file=file)  # noqa: E731
+    w("# Đối soát số liệu Phụ lục TB 736")
+    w("\n## DS05 — KPI theo Trục tính lại từ các đơn vị (số tham chiếu)")
+    w("| Trục | Số NV | SL quy đổi | % số lượng | % chất lượng | % tiến độ |\n|---|---|---|---|---|---|")
+    for n, v in o["ds05"].items():
+        if v.get("lech_thang"):
+            w(f"| {n} | {v['so_nv']} | {v['sl_qd']:g} | ⚠ không tính được — KPI và SL quy đổi lệch thang (KI-014) | | |")
+        else:
+            w(f"| {n} | {v['so_nv']} | {v['sl_qd']:g} | {v['pct_sl']} | {v['pct_cl']} | {v['pct_td']} |")
+    w("\n## DS02 — Truy vết từng dòng tổng hợp cấp Trường về nguồn đơn vị")
+    if not o["ds02"]:
+        w("Không lệch (hoặc không có tệp tổng hợp để so).")
+    for n, nd, mo_ta, a, b in o["ds02"]:
+        w(f"- Trục {n} “{nd}”: {mo_ta}" + (f" (tổng hợp={a}, nguồn={b})" if a is not None else ""))
+    w("\n## DS04 — Task_ID trùng")
+    w("Không có." if not o["ds04"] else "")
+    for tid, noi in o["ds04"]:
+        w(f"- `{tid}`: " + "; ".join(f"{m} Trục {n} “{nd}”" for m, n, nd in noi))
+    w("\n## DS03 — Kế hoạch ↔ kết quả cùng kỳ")
+    if not o.get("so_cap_cung_ky"):
+        w("Không có cặp KH/KQ **cùng kỳ** để so (thư mục nộp thường có KQ tháng N và KH tháng N+1 — "
+          "đưa KH tháng N bằng --kh).")
+    elif not o["ds03"]:
+        w(f"Không lệch ({o['so_cap_cung_ky']} cặp cùng kỳ).")
+    for ma, loai, nd in o["ds03"]:
+        w(f"- {ma} · {loai}: “{nd}”")
+    w("\n## DS06 — Mã đơn vị và loại tệp")
+    w("Không có." if not o["ds06"] else "")
+    for ma, tep, mo_ta in o["ds06"]:
+        w(f"- {ma} {tep}: {mo_ta}")
+    w("\n## DS01 — Cảnh báo trong từng tệp (read_bc736_excel)")
+    for ma, d in sorted(o["don_vi"].items()):
+        w(f"- **{ma}**: {d['so_canh_bao']} cảnh báo")
+        for c in d["canh_bao"][:5]:
+            w(f"    - {c}")
+    w("\n_Không sửa số liệu; không quy đổi giữa hai thang điểm (KI-014)._")
+
+
+def main(argv):
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--kq", nargs="+", required=True)
+    ap.add_argument("--kh", nargs="*", default=[])
+    ap.add_argument("--tong-hop")
+    ap.add_argument("--md")
+    a = ap.parse_args(argv)
+    # --kq tro vao thu muc ky chua ca KH va KQ: tach theo ten tep
+    tat_ca = gom_tep(a.kq)
+    kq = [p for p in tat_ca if loai_tep(p) != "KH"]
+    kh = [p for p in tat_ca if loai_tep(p) == "KH"] + gom_tep(a.kh)
+    o = doi_soat(kq, kh, a.tong_hop)
+    in_md(o)
+    if a.md:
+        os.makedirs(os.path.dirname(os.path.abspath(a.md)), exist_ok=True)
+        with open(a.md, "w", encoding="utf-8") as f:
+            in_md(o, f)
+    return 1 if (o["ds02"] or o["ds04"]) else 0
+
+
+if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/duong_dan.py` (2614 byte, sha256 `2002e26fc5149e12f9e7e69bb53cc14d03f8408fd4db46ce28cac8f70efdc241`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Tim duong dan du an va kho KTC-Database — KHONG ghi cung o dia (DL-20260918-005, Quy uoc 2).
+
+KTC-Quan-tri chay tai may (ban lam viec cuc bo). KTC-Database chi con BAN GOC tren Google Drive
+(ban chep o may se bi xoa — ban chep da cu: 18/9/2026 thieu 163/1171 tep so voi Drive). Thu tu tim:
+  1. Bien moi truong KTC_DATABASE_DIR.
+  2. O Google Drive for Desktop: <o>:\\My Drive\\KTC-Database (hoac "Drive của tôi", Shared drives\\*\\).
+  3. Thu muc NGANG CAP <cha cua KTC-Quan-tri>/KTC-Database — ban chep cuc bo, CO THE CU (canh bao).
+  4. Khong tim thay -> nem loi ro rang (skill phai DUNG VA HOI, khong suy dien).
+"""
+import glob
+import os
+import string
+import sys
+
+DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEN = "KTC-Database"
+
+
+def _tren_drive(ten=TEN):
+    for o in string.ascii_uppercase:
+        goc = f"{o}:\\"
+        if not os.path.isdir(goc):
+            continue
+        for mau in ("My Drive", "Drive của tôi", os.path.join("Shared drives", "*"),
+                    os.path.join("Bộ nhớ dùng chung", "*")):
+            for p in glob.glob(os.path.join(goc, mau, ten)):
+                if os.path.isdir(p):
+                    yield p
+
+
+def ktc_database(canh_bao_ban_cu: bool = True) -> str:
+    env = os.environ.get("KTC_DATABASE_DIR")
+    if env and os.path.isdir(env):
+        return env
+    for p in _tren_drive():
+        return p
+    p = os.path.join(os.path.dirname(DU_AN), TEN)
+    if os.path.isdir(p):
+        if canh_bao_ban_cu:
+            print(f"⚠ Đang dùng bản chép cục bộ {p} — có thể cũ hơn bản gốc trên Google Drive.",
+                  file=sys.stderr)
+        return p
+    raise FileNotFoundError(
+        "Không tìm thấy KTC-Database. Đặt biến môi trường KTC_DATABASE_DIR trỏ tới thư mục "
+        "KTC-Database trên Google Drive (ví dụ <ổ Drive>\\My Drive\\KTC-Database).")
+
+
+def he_ngoai(ten):
+    """Tim mot he KTC khac (vi du KTC-Ra-Soat-897-Universal-Plugin) — tra ve duong dan hoac None.
+
+    Thu tu: bien moi truong KTC_<TEN> -> thu muc ngang cap voi du an -> moi o Google Drive.
+    Cac he KTC khong nam cung mot o dia: KTC-Quan-tri o D:, kho 897 o Google Drive (I:).
+    Vi vay khong duoc gia dinh "ngang cap" nhu truoc (Nguyen tac 4.2: khong ghi cung o dia).
+    """
+    mt = os.environ.get("KTC_" + ten.upper().replace("-", "_"))
+    if mt and os.path.isdir(mt):
+        return mt
+    ngang = os.path.join(os.path.dirname(DU_AN), ten)
+    if os.path.isdir(ngang):
+        return ngang
+    for p in _tren_drive(ten):
+        return p
+    return None
+`````
+
+## `scripts/kiem_minh_chung.py` (9145 byte, sha256 `0d74703529a6332d72a2c46bf1f04dedd33617c07060a10180aeceeaf0d58a8e`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Kiem so bo minh chung nhiem vu — DL-20260919-006 (dung cho agent ktc-xac-minh-minh-chung).
+
+Doc cot THEO TEN TIEU DE, dung duoc cho:
+  - 24-KTC-Theo-doi-CV/"01. Bo du lieu van hanh...xlsx": sheet "Nhiem vu" + "Minh chung" (+ "Cap nhat tien do")
+  - 21-Master-Task-Register/*.xlsx: cot Task_ID, Trang_Thai, Han_Hoan_Thanh, Minh_Chung
+
+Phep kiem (chi PHAT HIEN — khong ghi "Da xac minh"; trang thai do chi nguoi co tham quyen gan, Skill 43):
+  MC01  Nhiem vu "Hoan thanh" khong co minh chung nao            (Muc 1 — khong duoc dua vao bao cao)
+  MC02  Minh chung khong co lien ket                              (Muc 2)
+  MC03  Lien ket: duong dan may/Drive khong ton tai (Muc 2) · URL Drive -> CAN MO QUA GOOGLE DRIVE · URL khac -> can mo
+  MC04  Ngay phat sinh sau han hien hanh / thieu ngay             (Muc 3)
+  MC05  Ghi "Da xac minh" nhung thieu nguoi hoac ngay xac minh     (Muc 2 — xac minh hinh thuc)
+  MC06  Minh chung tro toi ma nhiem vu khong ton tai              (Muc 2)
+  MC07  Cung mot lien ket dung cho nhieu nhiem vu khac nhau        (Muc 4 — co the hop le, can xem)
+Khong tim thay minh chung KHONG dong nghia chua lam (tien le QD 1923): MC01 ghi "can don vi xac nhan".
+
+Chay:  python 29-Cong-Cu/kiem_minh_chung.py <tep.xlsx> [--md <bao cao.md>]
+Ma thoat: 1 neu co Muc 1-2, nguoc lai 0.
+"""
+import datetime as dt
+import os
+import re
+import sys
+import unicodedata
+import warnings
+
+TEN = {  # khoa noi bo -> cac ten tieu de chap nhan (so khop khong dau, khong phan biet hoa thuong)
+    "ma_nv": ("ma nhiem vu", "task_id"),
+    "trang_thai": ("trang thai", "trang_thai"),
+    "han": ("han hien hanh", "han_hoan_thanh", "han baseline"),
+    "ten_nv": ("ten nhiem vu", "ten_nhiem_vu"),
+    "don_vi": ("don vi chu tri", "don_vi_chu_tri"),
+    "mc_ma": ("ma minh chung",),
+    "lien_ket": ("lien ket drive", "lien ket minh chung", "minh_chung", "minh chung"),
+    "ngay_ps": ("ngay phat sinh",),
+    "tinh_trang": ("tinh trang xac minh",),
+    "nguoi_xm": ("nguoi xac minh",),
+    "ngay_xm": ("ngay xac minh",),
+}
+HOAN_THANH = re.compile(r"^(da )?hoan thanh$")
+URL_DRIVE = re.compile(r"https?://(drive|docs)\.google\.com/\S*?(?:/d/|id=|folders/)([\w-]{20,})")
+
+
+def _k(s):
+    s = unicodedata.normalize("NFD", str(s or "").replace("Đ", "D").replace("đ", "d"))
+    return " ".join("".join(c for c in s if unicodedata.category(c) != "Mn").lower().split())
+
+
+def _cot(tieu_de, khoa):
+    for i, h in enumerate(tieu_de):
+        if _k(h) in TEN[khoa]:
+            return i
+    return None
+
+
+def _bang(ws):
+    """Tra ve (tieu_de, cac dong) — dong tieu de la dong dau co >= 3 o chu."""
+    dong = list(ws.iter_rows(values_only=True))
+    for i, r in enumerate(dong[:10]):
+        if sum(1 for x in r if isinstance(x, str) and x.strip()) >= 3:
+            return list(r), [x for x in dong[i + 1:] if any(v not in (None, "") for v in x)]
+    return [], []
+
+
+def _ngay(v):
+    if isinstance(v, dt.datetime):
+        return v.date()
+    if isinstance(v, dt.date):
+        return v
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})", str(v or ""))
+    return dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1))) if m else None
+
+
+def doc_tep(p):
+    import openpyxl
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        wb = openpyxl.load_workbook(p, data_only=True)
+    nv, mc = {}, []
+    for ws in wb.worksheets:
+        td, rows = _bang(ws)
+        c = {k: _cot(td, k) for k in TEN}
+        g = lambda r, k: (r[c[k]] if c[k] is not None and c[k] < len(r) else None)  # noqa: E731
+        # Sheet nhiem vu / Master Register phai co ten hoac han nhiem vu — sheet "Cap nhat tien do" cung co
+        # Ma nhiem vu + Trang thai nhung la nhat ky cap nhat, doc nhu sheet minh chung (cot Lien ket minh chung).
+        if c["ma_nv"] is not None and c["trang_thai"] is not None and (c["ten_nv"] is not None or c["han"] is not None):
+            for r in rows:
+                ma = g(r, "ma_nv")
+                if not ma or str(ma).startswith("("):
+                    continue
+                nv[str(ma).strip()] = {"trang_thai": g(r, "trang_thai"), "han": _ngay(g(r, "han")),
+                                       "ten": g(r, "ten_nv"), "don_vi": g(r, "don_vi"), "sheet": ws.title}
+                lk = g(r, "lien_ket")                       # Master Register: cot Minh_Chung ngay tren dong
+                if lk:
+                    mc.append({"ma_nv": str(ma).strip(), "lien_ket": str(lk).strip(), "sheet": ws.title})
+        elif c["ma_nv"] is not None and c["lien_ket"] is not None:           # sheet minh chung / cap nhat
+            for r in rows:
+                ma = g(r, "ma_nv")
+                if not ma:
+                    continue
+                mc.append({"ma": g(r, "mc_ma"), "ma_nv": str(ma).strip(), "lien_ket": str(g(r, "lien_ket") or "").strip(),
+                           "ngay_ps": _ngay(g(r, "ngay_ps")), "ngay_ps_tho": g(r, "ngay_ps"),
+                           "tinh_trang": g(r, "tinh_trang"), "nguoi_xm": g(r, "nguoi_xm"), "ngay_xm": g(r, "ngay_xm"),
+                           "sheet": ws.title, "la_mc": c["mc_ma"] is not None})
+    return nv, mc
+
+
+def kiem_lien_ket(lk):
+    """Tra ve (muc, trang_thai) cho mot lien ket."""
+    if not lk:
+        return 2, "trống"
+    m = URL_DRIVE.search(lk)
+    if m:
+        return None, f"URL Google Drive (ID {m.group(2)[:12]}…) — CẦN MỞ QUA GOOGLE DRIVE để xác nhận tồn tại và nội dung"
+    if re.match(r"https?://", lk):
+        return None, "liên kết ngoài — cần mở để xem"
+    if os.path.exists(lk):
+        return None, "tệp tồn tại trên máy/ổ Drive — cần mở xem nội dung"
+    return 2, "đường dẫn KHÔNG tồn tại trên máy (sai đường dẫn, đã đổi tên/xóa, hoặc Drive chưa đồng bộ)"
+
+
+def kiem(nv, mc):
+    kq = []
+    theo_nv = {}
+    for m in mc:
+        theo_nv.setdefault(m["ma_nv"], []).append(m)
+    for ma, x in nv.items():
+        if HOAN_THANH.match(_k(x["trang_thai"])) and not any(m["lien_ket"] for m in theo_nv.get(ma, [])):
+            kq.append((1, "MC01", ma, "Hoàn thành nhưng không có minh chứng — không được đưa vào báo cáo; "
+                                       "chưa chắc là chưa làm, cần đơn vị xác nhận/bổ sung"))
+    dung = {}
+    for m in mc:
+        vt = f"{m['ma_nv']}" + (f" · {m['ma']}" if m.get("ma") else "")
+        if m["ma_nv"] not in nv and nv:
+            kq.append((2, "MC06", vt, "minh chứng trỏ tới mã nhiệm vụ không có trong danh sách nhiệm vụ"))
+        muc, tt = kiem_lien_ket(m["lien_ket"])
+        if muc:
+            kq.append((muc, "MC02" if not m["lien_ket"] else "MC03", vt, f"liên kết {tt}"))
+        elif m["lien_ket"]:
+            kq.append((None, "MC03", vt, tt))
+        if m["lien_ket"]:
+            dung.setdefault(m["lien_ket"], set()).add(m["ma_nv"])
+        if m.get("la_mc"):
+            han = (nv.get(m["ma_nv"]) or {}).get("han")
+            if not m.get("ngay_ps"):
+                kq.append((3, "MC04", vt, "thiếu ngày phát sinh minh chứng"))
+            elif han and m["ngay_ps"] > han:
+                kq.append((3, "MC04", vt, f"minh chứng phát sinh {m['ngay_ps']:%d/%m/%Y} sau hạn {han:%d/%m/%Y}"))
+            if re.match(r"^da xac minh", _k(m.get("tinh_trang"))) and not (m.get("nguoi_xm") and m.get("ngay_xm")):
+                kq.append((2, "MC05", vt, "ghi “Đã xác minh” nhưng thiếu người/ngày xác minh — xác minh hình thức"))
+    for lk, ds in dung.items():
+        if len(ds) > 1:
+            kq.append((4, "MC07", ", ".join(sorted(ds)), f"cùng một liên kết cho {len(ds)} nhiệm vụ: {lk[:80]}"))
+    kq.sort(key=lambda x: (x[0] or 9, x[2]))
+    return kq
+
+
+def in_md(p, nv, mc, kq, file=sys.stdout):
+    w = lambda s="": print(s, file=file)  # noqa: E731
+    ht = sum(1 for x in nv.values() if HOAN_THANH.match(_k(x["trang_thai"])))
+    w(f"# Kiểm sơ bộ minh chứng — {os.path.basename(p)}")
+    w(f"{len(nv)} nhiệm vụ ({ht} hoàn thành) · {len(mc)} minh chứng/liên kết")
+    w("\n| Mức | Mã | Nhiệm vụ · minh chứng | Nội dung |\n|---|---|---|---|")
+    for muc, ma, vt, nd in kq:
+        w(f"| {muc or '—'} | {ma} | {vt} | {nd} |")
+    w("\n_Công cụ chỉ kiểm sơ bộ: “Đã xác minh” chỉ do người có thẩm quyền gán sau khi mở tệp (Skill 43)._")
+
+
+def main(argv):
+    if not argv:
+        print(__doc__)
+        return 2
+    ra = None
+    if "--md" in argv:
+        i = argv.index("--md")
+        ra, argv = argv[i + 1], argv[:i] + argv[i + 2:]
+    xau = False
+    for p in argv:
+        nv, mc = doc_tep(p)
+        kq = kiem(nv, mc)
+        in_md(p, nv, mc, kq)
+        if ra:
+            os.makedirs(os.path.dirname(os.path.abspath(ra)), exist_ok=True)
+            with open(ra, "w", encoding="utf-8") as f:
+                in_md(p, nv, mc, kq, f)
+        xau |= any(x[0] in (1, 2) for x in kq)
+    return 1 if xau else 0
+
+
+if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/kiem_the_thuc.py` (31297 byte, sha256 `1158fd000ef7bf2b1cb0cb06f669af2930666ce2f30f92d2c7bf4aca3c9fdcce`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Kiem the thuc, ky thuat trinh bay san pham .docx/.xlsx — DL-20260919-003.
+
+Chuan: 20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md — so do that cua 16 mau
+KTC-Database/03-Templates(1) (.dotx/.xltx), NĐ 30/2020 Phu luc I, TB 597/TB-CĐKT (qua 897,
+Checklist 05-Hinh-Thuc va 08-Quy-Uoc-Rieng-CDKT muc 4).
+
+Do tren BYTE THAT cua tep (python-docx/openpyxl): phong va co chu duoc giai theo chuoi
+run -> style ky tu -> style doan (ke ca base_style) -> docDefaults -> theme.
+Chi PHAT HIEN va GOI Y muc — khong sua tep. He A (hanh chinh). Khong ap cho van ban Dang (he B).
+
+Chay:  python 29-Cong-Cu/kiem_the_thuc.py <tep .docx|.xlsx> [...]
+       python 29-Cong-Cu/kiem_the_thuc.py --tao <mau .dotx> <dich .docx>   (tao ban lam viec tu mau)
+       python 29-Cong-Cu/kiem_the_thuc.py --khung <dich .docx> [TB|KH|BC|TTr|QĐ|GM|HD|CTr|BB]
+           (khong doc duoc KTC-Database: tao tu khung dung tu mau 03A-Thong-bao — KHONG dung bang tieu de tay)
+Ma thoat: 1 neu co goi y Muc 1 hoac Muc 2, nguoc lai 0.
+"""
+import collections
+import io
+import os
+import re
+import sys
+import zipfile
+
+W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+PHONG = "Times New Roman"
+# (min, max) cm — NĐ 30 Phu luc I; mau 03-Templates(1) dung 2/2/3/2
+LE = {"trên": (2.0, 2.5), "dưới": (2.0, 2.5), "trái": (3.0, 3.5), "phải": (1.5, 2.0)}
+EPS = 0.05
+
+
+# ------------------------------------------------------------------ mo tep mau
+def _doi_kieu(du_lieu: bytes, tu: bytes, sang: bytes) -> bytes:
+    b = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(du_lieu)) as zi, zipfile.ZipFile(b, "w", zipfile.ZIP_DEFLATED) as zo:
+        for it in zi.infolist():
+            data = zi.read(it.filename)
+            if it.filename == "[Content_Types].xml":
+                data = data.replace(tu, sang)
+            zo.writestr(it, data)
+    return b.getvalue()
+
+
+def mo_mau(p):
+    """Mo .dotx (hoac .docx) thanh docx.Document — python-docx khong tu mo .dotx."""
+    import docx
+    raw = open(p, "rb").read()
+    if p.lower().endswith(".dotx"):
+        raw = _doi_kieu(raw, b"wordprocessingml.template.main+xml", b"wordprocessingml.document.main+xml")
+    return docx.Document(io.BytesIO(raw))
+
+
+def tao_tu_mau(mau, dich):
+    """Tao ban lam viec .docx/.xlsx tu mau .dotx/.xltx — giu nguyen style, le, bang the thuc."""
+    raw = open(mau, "rb").read()
+    if mau.lower().endswith(".dotx"):
+        raw = _doi_kieu(raw, b"wordprocessingml.template.main+xml", b"wordprocessingml.document.main+xml")
+    elif mau.lower().endswith(".xltx"):
+        raw = _doi_kieu(raw, b"spreadsheetml.template.main+xml", b"spreadsheetml.sheet.main+xml")
+    os.makedirs(os.path.dirname(os.path.abspath(dich)), exist_ok=True)
+    open(dich, "wb").write(raw)
+    return dich
+
+
+# Khung the thuc VBHC dung tu mau 03A-Thong-bao (28/9/2026; thay khung ghep tu TB 1060 — hien "1" o trang 1,
+# duong ke trich yeu lech) — dung khi KHONG doc duoc KTC-Database (Cowork, Chat,
+# tai khoan thanh vien) thay cho dung bang tieu de bang tay (28/9/2026).
+TEN_KHUNG = "Khung-the-thuc-VBHC.docx"
+LOAI_VB = {"TB": "THÔNG BÁO", "KH": "KẾ HOẠCH", "BC": "BÁO CÁO", "TTr": "TỜ TRÌNH", "QĐ": "QUYẾT ĐỊNH",
+           "GM": "GIẤY MỜI", "HD": "HƯỚNG DẪN", "CTr": "CHƯƠNG TRÌNH", "BB": "BIÊN BẢN"}
+
+
+def tim_khung():
+    g = os.path.dirname(os.path.abspath(__file__))
+    for p in (os.path.join(g, "..", "assets"), os.path.join(g, "..", "skills", "the-thuc", "assets"),
+              os.path.join(g, "..", "27-KTC-The-Thuc", "assets")):
+        f = os.path.join(p, TEN_KHUNG)
+        if os.path.isfile(f):
+            return os.path.normpath(f)
+    raise FileNotFoundError(f"Không thấy {TEN_KHUNG} (skill the-thuc/assets)")
+
+
+def tao_khung(dich, loai="TB", nam=None):
+    """Tao tep lam viec tu khung: dat loai van ban (ten loai, ky hieu Số: /<loai>-CĐKT) va nam."""
+    import datetime
+    import docx
+    if loai not in LOAI_VB:
+        raise ValueError(f"Loại văn bản {loai!r} — chọn một trong {', '.join(LOAI_VB)}")
+    d = docx.Document(tim_khung())
+    nam = nam or datetime.date.today().year
+    for p in list(d.paragraphs) + list(_doan_trong_bang(d)):
+        for r in p.runs:
+            if r.text.strip() == "THÔNG BÁO":
+                r.text = r.text.replace("THÔNG BÁO", LOAI_VB[loai])
+            elif "/TB-CĐKT" in r.text:
+                r.text = r.text.replace("/TB-CĐKT", f"/{loai}-CĐKT")
+            elif "năm 2026" in r.text and "ngày" in p.text:
+                r.text = r.text.replace("năm 2026", f"năm {nam}")
+    os.makedirs(os.path.dirname(os.path.abspath(dich)), exist_ok=True)
+    d.save(dich)
+    return dich
+
+
+# ------------------------------------------------------------------ giai phong/co chu
+class GiaiDocx:
+    def __init__(self, d):
+        self.d = d
+        root = d.styles.element
+        rd = root.find(f"{W}docDefaults/{W}rPrDefault/{W}rPr")
+        self.mac_dinh_phong = self._phong_rpr(rd)
+        sz = rd.find(f"{W}sz") if rd is not None else None
+        self.mac_dinh_co = int(sz.get(f"{W}val")) / 2 if sz is not None else 10.0
+        self.theme = self._doc_theme()
+
+    def _doc_theme(self):
+        """Phong theme ma Word THAT SU hien thi. settings themeFontLang = vi-VN -> Word dung phong
+        script="Viet" cua theme (vd. major Viet = Times New Roman) thay vi <a:latin> (Calibri Light).
+        Bo qua buoc nay tung bao nham hang tram doan “Calibri Light” tren van ban da ban hanh (19/9/2026)."""
+        viet = bool(re.search(r'<w:themeFontLang [^>]*w:val="vi', self.d.settings.element.xml))
+        kq = {"major": None, "minor": None}
+        for rel in self.d.part.rels.values():
+            if rel.reltype.endswith("/theme"):
+                x = rel.target_part.blob.decode("utf-8", "ignore")
+                for loai, the in (("major", "majorFont"), ("minor", "minorFont")):
+                    m = re.search(f"<a:{the}>(.*?)</a:{the}>", x, re.S)
+                    if not m:
+                        continue
+                    khoi = m.group(1)
+                    v = re.search(r'script="Viet" typeface="([^"]*)"', khoi) if viet else None
+                    latin = re.search(r'<a:latin typeface="([^"]*)"', khoi)
+                    kq[loai] = v.group(1) if v else (latin.group(1) if latin else None)
+        return kq
+
+    def _phong_rpr(self, rpr):
+        if rpr is None:
+            return None
+        f = rpr.find(f"{W}rFonts")
+        if f is None:
+            return None
+        if f.get(f"{W}ascii"):
+            return f.get(f"{W}ascii")
+        t = f.get(f"{W}asciiTheme")
+        if t:
+            return "theme:" + ("major" if "major" in t.lower() else "minor")
+        return None
+
+    def _xu_theme(self, v):
+        if v and v.startswith("theme:"):
+            return self.theme.get(v[6:]) or v
+        return v
+
+    def _style_chain(self, st):
+        while st is not None:
+            yield st
+            st = st.base_style
+
+    def phong(self, run, para):
+        v = run.font.name or self._phong_rpr(run._element.rPr)
+        if not v and run.style is not None:
+            for s in self._style_chain(run.style):
+                v = s.font.name or self._phong_rpr(s.element.rPr)
+                if v:
+                    break
+        if not v:
+            for s in self._style_chain(para.style):
+                v = s.font.name or self._phong_rpr(s.element.rPr)
+                if v:
+                    break
+        return self._xu_theme(v or self.mac_dinh_phong)
+
+    def co(self, run, para):
+        if run.font.size:
+            return run.font.size.pt
+        if run.style is not None:
+            for s in self._style_chain(run.style):
+                if s.font.size:
+                    return s.font.size.pt
+        for s in self._style_chain(para.style):
+            if s.font.size:
+                return s.font.size.pt
+        return self.mac_dinh_co
+
+    def can_le(self, para):
+        if para.paragraph_format.alignment is not None:
+            return para.paragraph_format.alignment
+        for s in self._style_chain(para.style):
+            if s.paragraph_format.alignment is not None:
+                return s.paragraph_format.alignment
+        return None
+
+
+def _doan_trong_bang(d):
+    for t in d.tables:
+        for r in t.rows:
+            for c in r.cells:
+                for p in c.paragraphs:
+                    yield p
+
+
+def _co_duong_ke(o):
+    """O bang co duong ke (hinh Draw, VML line hoac vien duoi doan)."""
+    x = o._tc.xml
+    return "<w:drawing" in x or "<v:line" in x or "<v:shape" in x or re.search(r"<w:pBdr>.*?<w:bottom ", x, re.S)
+
+
+def _kiem_bang_tieu_de(d, g):
+    """TT12-TT15: hinh hoc bang tieu de (28/9/2026 — TB do Cowork dung tay: bang 16 cm chia doi, quoc hieu va dia danh
+    xuong dong, thieu duong ke duoi ten Truong; cac phep TT08-TT09 cu van bao 'dat').
+    So do van ban da ban hanh (TB 1060, 1092, TB phuong an A1): bang 17,25-17,5 cm; cot trai 7,0-7,5; cot phai 9,75-10,3."""
+    kq = []
+    if not d.tables:
+        return kq
+    t = d.tables[0]
+    o = [c for r in t.rows for c in r.cells]
+    chu = lambda c: " ".join(p.text for p in c.paragraphs).upper()  # noqa: E731
+    phai = [c for c in o if "CỘNG H" in chu(c) and "VIỆT NAM" in chu(c)]
+    trai = [c for c in o if "TRƯỜNG CAO ĐẲNG KON TUM" in chu(c)]
+    if not phai or not trai:
+        return kq
+    grid = [c.w.cm for c in t._tbl.tblGrid.gridCol_lst if c.w is not None]
+    rong = lambda c: c.width.cm if c.width is not None else None  # noqa: E731
+    w_trai = rong(trai[0]) or (grid[0] if grid else None)
+    w_phai = rong(phai[0]) or (grid[-1] if grid else None)
+    if w_trai and w_phai:
+        # Quet 434 van ban kho 02, 04 (28/9/2026): van ban that co cot phai 9,13-9,28 cm van hien thi dung -> nguong 9,0
+        if w_phai < 9.0 or w_trai > w_phai:
+            kq.append((2, "TT12", f"Bảng tiêu đề chia cột {w_trai:.2f} + {w_phai:.2f} cm — quốc hiệu, dòng địa danh sẽ xuống "
+                       "dòng. Văn bản đã ban hành: cột trái 7–7,5 cm, cột phải 9,75–10,3 cm (dựng bằng --khung)"))
+        elif w_trai + w_phai < 16.0:
+            kq.append((3, "TT12", f"Bảng tiêu đề rộng {w_trai + w_phai:.2f} cm — văn bản đã ban hành: 17,25–17,5 cm"))
+    da_xet, doan_bang = set(), []  # ca bang: dong "Số", "ngày" thuong o hang 2 (khung, TB 1060)
+    for c in o:
+        if c._tc not in da_xet:
+            da_xet.add(c._tc)
+            doan_bang += c.paragraphs
+    for p in doan_bang:
+        t_up = p.text.strip().upper()
+        rs = [r for r in p.runs if r.text.strip()]
+        if not rs:
+            continue
+        if t_up.startswith(("UBND", "ỦY BAN NHÂN DÂN", "UỶ BAN NHÂN DÂN")) and any(r.bold for r in rs):
+            kq.append((2, "TT13", "Tên cơ quan chủ quản “UBND TỈNH QUẢNG NGÃI” in đậm — NĐ 30: in hoa, đứng, không đậm"))
+        if ", NGÀY" in t_up:
+            if any(r.bold for r in rs):
+                kq.append((2, "TT15", "Dòng địa danh, ngày tháng in đậm — NĐ 30: nghiêng, không đậm, cỡ 13–14"))
+            if not all(r.italic or (p.style is not None and p.style.font.italic) for r in rs):
+                kq.append((3, "TT15", "Dòng địa danh, ngày tháng không nghiêng — NĐ 30: chữ nghiêng"))
+    # Duong ke thuong la hinh noi neo o o "Số"/"ngày" cung cot (TB 1092, 1056) — xet ca cot
+    def cot(c):
+        for r in t.rows:
+            for j, x in enumerate(r.cells):
+                if x._tc is c._tc:
+                    return [rr.cells[j] for rr in t.rows if j < len(rr.cells)]
+        return [c]
+    if not any(_co_duong_ke(x) for x in cot(trai[0])):
+        kq.append((2, "TT14", "Thiếu đường kẻ dưới tên cơ quan ban hành “TRƯỜNG CAO ĐẲNG KON TUM” "
+                   "(NĐ 30: đường kẻ ngang, nét liền, bằng 1/3–1/2 dòng chữ)"))
+    if not any(_co_duong_ke(x) for x in cot(phai[0])):
+        kq.append((2, "TT14", "Thiếu đường kẻ dưới tiêu ngữ “Độc lập - Tự do - Hạnh phúc”"))
+    return kq
+
+
+# ------------------------------------------------------------------ anh xa bo quy tac 897
+# Nguon (KHONG chep, chi anh xa ma kiem): KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/
+#   01-The-Thuc.md muc 1 (9 thanh phan, quy dinh chung NĐ 30) · 08-Quy-Uoc-Rieng-CDKT.md muc 4 (TB 597 so cung),
+#   muc 5.1 (KT./TL./TUQ.), muc 5.4 (khong hoc ham, hoc vi). 01 muc 6: sai co chu, kieu chu, vi tri -> Muc 2.
+HOC_HAM = re.compile(r"^(GS|PGS|TS|ThS|BS|BSCKI+|CKI+|DS|KS|CN|NCS|TTƯT|NGƯT|NGND)\.?\s", re.I)
+
+
+def _thuoc_tinh(r, p, ten):
+    """bold/italic that: run -> style ky tu -> style doan (ca base_style)."""
+    v = getattr(r.font, ten)
+    if v is not None:
+        return v
+    for st in ([r.style] if r.style is not None else []) + [p.style]:
+        while st is not None:
+            x = getattr(st.font, ten)
+            if x is not None:
+                return x
+            st = st.base_style
+    return False
+
+
+def _kieu(g, p):
+    rs = [r for r in p.runs if r.text.strip()]
+    if not rs:
+        return None
+    return ({g.co(r, p) for r in rs}, all(_thuoc_tinh(r, p, "bold") for r in rs),
+            any(_thuoc_tinh(r, p, "bold") for r in rs), all(_thuoc_tinh(r, p, "italic") for r in rs))
+
+
+def _kiem_thanh_phan_897(d, g):
+    """TT17 (co, kieu chu tung thanh phan), TT18 (duong ke duoi trich yeu), TT19 (ky thay, hoc ham)."""
+    kq = []
+
+    def sai(ten, p, co=None, dam=None, nghieng=None, nguon="01 mục 1 · 08 mục 4"):
+        k = _kieu(g, p)
+        if k is None:
+            return
+        cs, dam_het, dam_co, ngh = k
+        loi = []
+        if co is not None and cs != {float(co)}:
+            loi.append(f"cỡ {'/'.join(f'{c:g}' for c in sorted(cs))} (chuẩn {co})")
+        if dam is True and not dam_het:
+            loi.append("chưa đậm")
+        if dam is False and dam_co:
+            loi.append("không được đậm")
+        if nghieng is True and not ngh:
+            loi.append("chưa nghiêng")
+        if loi:
+            kq.append((2, "TT17", f"{ten}: {', '.join(loi)} — 897 Checklist {nguon}"))
+
+    # Phan dau (bang dau tien). Vai tro theo VI TRI dong o cot trai (08 muc 7): dong 1 = co quan chu quan (13, KHONG dam),
+    # dong 2 = don vi ban hanh (13, dam). Mau 2.1: UBND TINH QUANG NGAI / TRUONG CAO DANG KON TUM; mau 2.2 (van ban
+    # cua don vi): TRUONG CAO DANG KON TUM / PHONG, KHOA... — o mau 2.2 ten Truong la chu quan (29/9/2026: phep do cu
+    # coi ten Truong luon la don vi ban hanh, bao nham BC cua Phong).
+    if d.tables:
+        for r_ in d.tables[0].rows:
+            for c in r_.cells:
+                dong = [p for p in c.paragraphs if p.text.strip() and p.text.strip().isupper()
+                        and not re.match(r"Số\s*:", p.text.strip())]
+                if dong and "CỘNG H" not in dong[0].text.upper() and "ĐẢNG" not in dong[0].text.upper():
+                    if len(dong) >= 2:
+                        sai("Tên cơ quan chủ quản", dong[0], co=13, dam=False)
+                        sai("Tên đơn vị ban hành", dong[1], co=13, dam=True)
+                    elif dong[0].text.strip().upper() == "TRƯỜNG CAO ĐẲNG KON TUM":
+                        sai("Tên đơn vị ban hành", dong[0], co=13, dam=True)
+                    break
+            else:
+                continue
+            break
+        for p in _doan_trong_bang_dau(d):
+            t = p.text.strip()
+            tu = t.upper()
+            if re.match(r"Số\s*:", t):
+                sai("Số, ký hiệu", p, co=13, dam=False)
+                m = re.match(r"Số\s*:(\s*)/", t)
+                if m and len(m.group(1)) < 6:
+                    kq.append((3, "TT17", f"Sau “Số:” chỉ để trống {len(m.group(1))} ký tự — tối thiểu 6 (897 Checklist 01 mục 1.4)"))
+                if re.match(r"Số\s*:\s*[1-9]/", t):
+                    kq.append((3, "TT17", "Số nhỏ hơn 10 phải thêm số 0 phía trước (897 Checklist 01 mục 1.4)"))
+            elif ", ngày" in t:
+                sai("Địa danh, ngày tháng", p, co=14)
+
+    # Ten loai, trich yeu, can cu (ngoai bang)
+    ps = [p for p in d.paragraphs]
+    i_loai = next((i for i, p in enumerate(ps[:12]) if p.text.strip() in LOAI_VB.values()), None)
+    if i_loai is not None:
+        sai("Tên loại văn bản", ps[i_loai], co=14, dam=True)
+        ty, co_ke = [], False
+        for p in ps[i_loai + 1:i_loai + 6]:
+            t = p.text.strip()
+            x = p._p.xml
+            co_ke |= "<w:drawing" in x or "<w:pict" in x or bool(re.search(r"<w:pBdr>.*?<w:bottom ", x, re.S))
+            if not t:
+                if ty:
+                    break
+                continue
+            if t.startswith("Căn cứ") or (p.paragraph_format.first_line_indent or 0) > 0:
+                break
+            ty.append(p)
+        for p in ty:
+            sai("Trích yếu", p, co=14, dam=True)
+        if ty and not co_ke:
+            kq.append((2, "TT18", "Thiếu đường kẻ ngang dưới trích yếu (dài 1/3–1/2 dòng chữ) — 897 Checklist 01 mục 1.6"))
+    for p in ps:
+        if p.text.strip().startswith("Căn cứ"):
+            sai("Căn cứ", p, co=14, nghieng=True)
+
+    # Nguoi ky, noi nhan (bang co "Nơi nhận")
+    for t in d.tables[1:]:
+        o = [c for r in t.rows for c in r.cells]
+        if not any(p.text.strip().startswith("Nơi nhận") for c in o for p in c.paragraphs):
+            continue
+        # khoi chu ky co the chia 2 hang (mau 03A: chuc vu hang 1, ho ten hang 2) -> gom moi o khong phai "Noi nhan"
+        ky, da = [], set()
+        for c in o:
+            if c._tc in da:
+                continue
+            da.add(c._tc)
+            dps = [p for p in c.paragraphs if p.text.strip()]
+            if dps and not dps[0].text.strip().startswith("Nơi nhận"):
+                ky += dps
+        for c in [c for c in o if c.paragraphs and c.paragraphs[0].text.strip().startswith("Nơi nhận")][:1] + [None]:
+            if c is None:
+                dps = ky
+            else:
+                dps = [p for p in c.paragraphs if p.text.strip()]
+            if not dps:
+                continue
+            if dps[0].text.strip().startswith("Nơi nhận"):
+                sai("Từ “Nơi nhận”", dps[0], co=12, dam=True, nghieng=True)
+                for p in dps[1:]:
+                    sai("Danh sách nơi nhận", p, co=11)  # khong xet dam: mau 09 dam rieng dau "-" dong Luu
+                if not re.match(r"-\s*Lưu\s*:\s*VT", dps[-1].text.strip()):
+                    kq.append((3, "TT17", "Dòng cuối nơi nhận phải là “- Lưu: VT, <đơn vị soạn thảo>.” (897 Checklist 01 mục 1.9)"))
+                continue
+            chuc = [p for p in dps if p.text.strip().isupper()]
+            for p in chuc:
+                sai("Quyền hạn, chức vụ người ký", p, co=14, dam=True)
+                if re.match(r"(K/T|T/L|TU/Q)", p.text.strip()):
+                    kq.append((2, "TT19", f"“{p.text.strip()[:12]}” — hệ hành chính dùng KT./TL./TUQ. có dấu chấm (897 Checklist 08 mục 5.1)"))
+            if chuc and dps[-1] not in chuc:
+                ten = dps[-1]
+                sai("Họ tên người ký", ten, co=14, dam=True)
+                if HOC_HAM.match(ten.text.strip()):
+                    kq.append((2, "TT19", f"Ghi học hàm, học vị trước họ tên người ký “{ten.text.strip()}” (897 Checklist 01 mục 1.8)"))
+    return kq
+
+
+def _doan_trong_bang_dau(d):
+    da, kq = set(), []
+    for r in d.tables[0].rows:
+        for c in r.cells:
+            if c._tc not in da:
+                da.add(c._tc)
+                kq += c.paragraphs
+    return kq
+
+
+# ------------------------------------------------------------------ kiem docx
+def kiem_docx(d):
+    """Tra ve list[(muc, ma, mo_ta)]."""
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    import unicodedata
+    # Mau 03-Templates(1)/03A luu chu dang NFD ("â" + dau nang to hop) -> moi phep so chu ("Nơi nhận", "Căn cứ"...)
+    # truot va phep kiem im lang bo qua (28/9/2026). Chuan hoa NFC trong bo nho truoc khi do (khong ghi tep).
+    for t in d.element.body.iter(f"{W}t"):
+        if t.text:
+            t.text = unicodedata.normalize("NFC", t.text)
+    kq = []
+    g = GiaiDocx(d)
+
+    # TT01 kho giay, TT02 le — moi section
+    for i, s in enumerate(d.sections, 1):
+        w, h = s.page_width.cm, s.page_height.cm
+        ngang = w > h
+        a4 = abs(min(w, h) - 21.0) <= 0.1 and abs(max(w, h) - 29.7) <= 0.1
+        if not a4:
+            kq.append((2, "TT01", f"Section {i}: khổ {w:.1f}×{h:.1f} cm — phải A4 (21×29,7)"))
+        le = {"trên": s.top_margin.cm, "dưới": s.bottom_margin.cm,
+              "trái": s.left_margin.cm, "phải": s.right_margin.cm}
+        if not ngang:  # trang ngang (phu luc bang) khong ap le doc
+            sai = [f"{k} {round(v, 2)}" for k, v in le.items()
+                   if not (LE[k][0] - EPS <= round(v, 2) <= LE[k][1] + EPS)]
+            if sai:
+                kq.append((2, "TT02", f"Section {i}: lề ngoài khoảng NĐ 30 ({', '.join(sai)} cm). "
+                           "Mẫu 03-Templates(1): trên 2 · dưới 2 · trái 3 · phải 2 cm"))
+
+    doan = list(d.paragraphs)
+    tat_ca = doan + list(_doan_trong_bang(d))
+
+    # TT03 phong chu, TT05 mau chu
+    sai_phong = collections.Counter()
+    mau_chu = 0
+    for p in tat_ca:
+        for r in p.runs:
+            if not r.text.strip():
+                continue
+            f = g.phong(r, p)
+            if f != PHONG:
+                sai_phong[f or "(không xác định)"] += 1
+            c = r.font.color
+            if c is not None and c.type is not None and c.rgb is not None and str(c.rgb) not in ("000000",):
+                mau_chu += 1
+    # Bien the ten cua chinh TNR ("Times New Roman Bold", "TimesNewRomanPSMT" — thuong do chep tu PDF):
+    # hien thi van la TNR tren may co phong chuan, nhung may khac co the thay phong -> Muc 3.
+    bien_the = {k: v for k, v in sai_phong.items() if re.sub(r"[\s\-]", "", k or "").lower().startswith("timesnewroman")}
+    khac = {k: v for k, v in sai_phong.items() if k not in bien_the}
+    if khac:
+        kq.append((2, "TT03", f"{sum(khac.values())} đoạn chữ không phải {PHONG}: "
+                   + ", ".join(f"{k}×{v}" for k, v in collections.Counter(khac).most_common(4))
+                   + (" — .VnTime là phông TCVN3 cũ, phải chuyển Unicode" if any(".Vn" in (k or "") for k in khac) else "")))
+    if bien_the:
+        kq.append((3, "TT03b", f"{sum(bien_the.values())} đoạn chữ dùng biến thể tên phông "
+                   + ", ".join(bien_the) + f" — đặt lại đúng tên “{PHONG}”"))
+    if mau_chu:
+        kq.append((3, "TT05", f"{mau_chu} đoạn chữ có màu khác đen (NĐ 30: màu đen)"))
+
+    # Doan noi dung: ngoai bang, dai >= 60 ky tu
+    noi_dung = [p for p in doan if len(p.text.strip()) >= 60]
+    co = collections.Counter()
+    for p in noi_dung:
+        for r in p.runs:
+            if r.text.strip():
+                co[g.co(r, p)] += len(r.text)
+    if co:
+        chinh = co.most_common(1)[0][0]
+        if chinh != 14:
+            kq.append((2, "TT04", f"Cỡ chữ phần nội dung chủ yếu là {chinh:g} — TB 597: cỡ 14"))
+        lech = {k: v for k, v in co.items() if k != chinh and v > 0.05 * sum(co.values())}
+        if lech:
+            kq.append((3, "TT04b", "Cỡ chữ lời văn không thống nhất: "
+                       + ", ".join(f"cỡ {k:g} ({v} ký tự)" for k, v in lech.items())))
+        khong_deu = sum(1 for p in noi_dung if g.can_le(p) not in (WD_ALIGN_PARAGRAPH.JUSTIFY, None)
+                        and g.can_le(p) != WD_ALIGN_PARAGRAPH.CENTER)
+        if khong_deu > 0.2 * len(noi_dung):
+            kq.append((3, "TT06", f"{khong_deu}/{len(noi_dung)} đoạn nội dung không dàn đều hai lề"))
+        gian = [p.paragraph_format.line_spacing for p in noi_dung]
+        qua = sum(1 for x in gian if isinstance(x, float) and x > 1.5 + 1e-6)
+        hep = sum(1 for x in gian if x is not None and not isinstance(x, float) and x.pt < 15 - 0.1)
+        if qua or hep:
+            kq.append((3, "TT07", f"Cách dòng ngoài khoảng single/15pt → 1,5 lines: {qua} đoạn >1,5; "
+                       f"{hep} đoạn exactly <15pt"))
+
+    # TT08 phan dau the thuc (bang dau tien)
+    dau = "\n".join(p.text for p in (list(_doan_trong_bang(d))[:12] if d.tables else doan[:8]))
+    dau_up = dau.upper()
+    la_vb_hanh_chinh = "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM" in dau_up or "CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM" in dau_up
+    if la_vb_hanh_chinh:
+        if "TRƯỜNG CAO ĐẲNG KON TUM" not in dau_up:
+            kq.append((2, "TT08", "Phần đầu thiếu tên đơn vị ban hành “TRƯỜNG CAO ĐẲNG KON TUM”"))
+        if "UBND TỈNH KON TUM" in dau_up or "ỦY BAN NHÂN DÂN TỈNH KON TUM" in dau_up:
+            kq.append((2, "TT08", "Cơ quan chủ quản ghi “UBND TỈNH KON TUM” — văn bản mới dùng “UBND TỈNH QUẢNG NGÃI”"))
+        elif "QUẢNG NGÃI" not in dau_up:
+            kq.append((2, "TT08", "Phần đầu thiếu cơ quan chủ quản “UBND TỈNH QUẢNG NGÃI”"))
+        for p in _doan_trong_bang(d):
+            t = p.text.strip().upper()
+            rs = [r for r in p.runs if r.text.strip()]
+            if not rs:
+                continue
+            if t.startswith("CỘNG H") and "VIỆT NAM" in t:
+                cs = {g.co(r, p) for r in rs}
+                if cs != {13.0}:
+                    kq.append((2, "TT09", f"Quốc hiệu cỡ {sorted(cs)} — TB 597: cỡ 13, đậm"))
+            if t.startswith("ĐỘC LẬP"):
+                cs = {g.co(r, p) for r in rs}
+                if cs != {14.0}:
+                    kq.append((2, "TT09", f"Tiêu ngữ cỡ {sorted(cs)} — TB 597: cỡ 14, đậm"))
+                if any(r.font.underline for r in rs):
+                    kq.append((3, "TT09", "Tiêu ngữ dùng Underline — TB 597: kẻ đường bằng Draw"))
+        kq += _kiem_bang_tieu_de(d, g)
+        kq += _kiem_thanh_phan_897(d, g)
+
+    # TT16 doan "Can cu" ngoai bang phai thut dau dong nhu doan noi dung (TB 1060, 1092 da ban hanh: 1,25 cm)
+    can_cu = [p for p in doan if p.text.strip().startswith("Căn cứ")]
+    thut = [p for p in noi_dung if not p.text.strip().startswith("Căn cứ")
+            and (p.paragraph_format.first_line_indent or 0) > 0]
+    khong_thut = [p for p in can_cu if not (p.paragraph_format.first_line_indent or 0) > 0]
+    if khong_thut and thut:
+        kq.append((3, "TT16", f"{len(khong_thut)} đoạn “Căn cứ…” không thụt đầu dòng trong khi đoạn nội dung có thụt — "
+                   "văn bản đã ban hành: căn cứ thụt 1,25 cm, nghiêng"))
+
+    # TT10 "Noi nhan"
+    for p in tat_ca:
+        if p.text.strip().startswith("Nơi nhận"):
+            rs = [r for r in p.runs if r.text.strip()]
+            cs = {g.co(r, p) for r in rs}
+            if cs and cs != {12.0}:
+                kq.append((3, "TT10", f"“Nơi nhận” cỡ {sorted(cs)} — TB 597: cỡ 12, nghiêng, đậm"))
+            break
+
+    # TT11b so trang hien o trang 1 (897 Checklist 05 muc 4.3) — ban TB 28/9/2026 dung tu ghep TB 1060 hien "1"
+    #   (ban do la CHU "1" co dinh trong header trang dau, khong phai truong PAGE) -> xet ca truong PAGE lan chu
+    s0 = d.sections[0]
+    tp = s0._sectPr.find(f"{W}titlePg")
+    co_titlepg = tp is not None and tp.get(f"{W}val") not in ("0", "false")
+    dau_trang1 = s0.first_page_header if co_titlepg else s0.header
+    if not dau_trang1.is_linked_to_previous or co_titlepg:
+        x1 = dau_trang1._element.xml
+        chu1 = "".join(re.findall(r"<w:t[^>]*>([^<]*)</w:t>", x1)).strip()
+        if "PAGE" in x1 or re.search(r"\d", chu1):
+            kq.append((2, "TT11b", f"Trang thứ nhất hiện số trang/chữ ở đầu trang (“{chu1 or 'PAGE'}”) — 897 Checklist "
+                       "05 mục 4.3: không hiển thị số trang thứ nhất"))
+
+    # TT11 so trang: co truong PAGE o header
+    if len(noi_dung) > 25:
+        co_page = any("PAGE" in (s.header._element.xml if s.header is not None else "") for s in d.sections)
+        if not co_page:
+            kq.append((3, "TT11", "Văn bản nhiều trang nhưng không có số trang (canh giữa lề trên, ẩn trang 1)"))
+    kq.sort(key=lambda x: x[0])
+    return kq
+
+
+# ------------------------------------------------------------------ kiem xlsx
+def kiem_xlsx(wb):
+    kq = []
+    for ws in wb.worksheets:
+        if ws.sheet_state != "visible" or ws.max_row < 2:
+            continue
+        ps = ws.page_setup
+        if ps.paperSize not in (None, 9, "9"):
+            kq.append((2, "TX01", f"[{ws.title}] khổ giấy in mã {ps.paperSize} — phải A4 (mã 9)"))
+        f = collections.Counter()
+        co = collections.Counter()
+        for row in ws.iter_rows(max_row=min(ws.max_row, 400)):
+            for c in row:
+                if c.value is not None and str(c.value).strip():
+                    f[c.font.name] += 1
+                    co[c.font.sz] += 1
+        sai = {k: v for k, v in f.items() if k != PHONG}
+        if sai:
+            kq.append((2, "TX02", f"[{ws.title}] {sum(sai.values())} ô không phải {PHONG}: "
+                       + ", ".join(f"{k}×{v}" for k, v in list(sai.items())[:4])))
+        if co:
+            chinh = co.most_common(1)[0][0]
+            if chinh is not None and not (12 <= chinh <= 14):
+                kq.append((3, "TX03", f"[{ws.title}] cỡ chữ chủ yếu {chinh:g} — mẫu 05B dùng 12–14"))
+        if ws.max_column > 6 and ps.orientation != "landscape" and not ps.fitToWidth:
+            kq.append((4, "TX04", f"[{ws.title}] bảng {ws.max_column} cột in dọc, không đặt vừa trang — "
+                       "mẫu 05B: A4 ngang"))
+    kq.sort(key=lambda x: x[0])
+    return kq
+
+
+def kiem_tep(p):
+    if p.lower().endswith((".docx", ".dotx")):
+        return kiem_docx(mo_mau(p))
+    if p.lower().endswith((".xlsx", ".xltx")):
+        import warnings
+        import openpyxl
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            return kiem_xlsx(openpyxl.load_workbook(p))
+    raise ValueError(f"Không kiểm được loại tệp: {p}")
+
+
+def main(argv):
+    if not argv:
+        print(__doc__)
+        return 2
+    if argv[0] == "--tao":
+        print("Đã tạo", tao_tu_mau(argv[1], argv[2]))
+        return 0
+    if argv[0] == "--khung":
+        print("Đã tạo", tao_khung(argv[1], argv[2] if len(argv) > 2 else "TB"))
+        return 0
+    xau = False
+    for p in argv:
+        kq = kiem_tep(p)
+        print(f"\n=== {p} — {len(kq)} gợi ý ===")
+        if not kq:
+            print("  ✓ Đạt chuẩn thể thức theo các phép kiểm TT/TX.")
+        for muc, ma, mo_ta in kq:
+            print(f"  [Mức {muc}] {ma}: {mo_ta}")
+        xau |= any(x[0] <= 2 for x in kq)
+    return 1 if xau else 0
+
+
+if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/kiem_vien_dan.py` (9824 byte, sha256 `47ed106a59a60a12d769daf985389f86463f5bc2a28ac62e425197c700c3544f`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Tu kiem phan CAN CU va VIEN DAN cua du thao van ban hanh chinh — DL-20260919-002.
+
+Quy tac: 20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md (NĐ 30/2020 Phu luc I Phan I Muc II khoan 6,
+Phu luc II Muc V khoan 7; Phap lenh 01/2012/UBTVQH13 sua doi 2026 Dieu 4; quy uoc Truong qua 897).
+
+Chi PHAT HIEN va GOI Y muc — khong sua tep. Muc chinh thuc do ra soat KTC-Ra-Soat-897 ket luan.
+Khong tra hieu luc van ban (viec do phai doi chieu kho 01-04).
+
+Chay:  python 29-Cong-Cu/kiem_vien_dan.py <tep .docx|.md|.txt> [...]
+Ma thoat: 1 neu co goi y Muc 1, nguoc lai 0.
+"""
+import os
+import re
+import sys
+
+# Van ban Truong da bi thay the (03-Phap-Ly.md cua 897, muc 3)
+DA_THAY = [
+    (r"\b49/QĐ-CĐKT", "QĐ 49/QĐ-CĐKT", "QĐ 1976/QĐ-CĐKT (14/9/2026)"),
+    (r"\b988/QĐ-CĐKT", "QĐ 988/QĐ-CĐKT", "QĐ 1976/QĐ-CĐKT (14/9/2026)"),
+    (r"\b215/QĐ-CĐKT", "QĐ 215/QĐ-CĐKT", "QĐ 389/QĐ-CĐKT (26/02/2026)"),
+    (r"\b50/QĐ-CĐKT", "QĐ 50/QĐ-CĐKT", "QĐ 1299/QĐ-CĐKT (27/5/2026)"),
+    (r"\b1060/QĐ-CĐKT", "QĐ 1060/QĐ-CĐKT", "QĐ 1400/QĐ-CĐKT (12/6/2026)"),
+    (r"\b340/TB-CĐCĐ", "TB 340/TB-CĐCĐ", "TB 597/TB-CĐKT (19/5/2026)"),
+    (r"\b109/CĐCĐ-HCQT", "CV 109/CĐCĐ-HCQT", "TB 597/TB-CĐKT (19/5/2026)"),
+]
+
+SO_LUAT = r"số\s+\d+/\d{4}/(?:QH|UBTVQH)\d+"
+LA_CAN_CU = re.compile(r"^\s*[-–—•+*]?\s*Căn cứ\b")
+GACH_DAU = re.compile(r"^\s*[-–—•+*]\s*Căn cứ\b")
+LA_XET = re.compile(r"^\s*Xét\b")
+DAU_VB = 60  # so doan dau van ban chua khoi can cu ban hanh
+
+
+def doc_tep(p):
+    """Tra ve danh sach doan van (paragraph) — .docx doc bang python-docx."""
+    if p.lower().endswith(".docx"):
+        import docx
+        d = docx.Document(p)
+        doan = [x.text for x in d.paragraphs]
+        for bang in d.tables:           # tieu de van ban thuong nam trong bang
+            for hang in bang.rows:
+                for o in hang.cells:
+                    doan.extend(x.text for x in o.paragraphs)
+        return doan
+    # 1.3.2 (tham dinh lan 4, Gemini): tep van ban khong phai UTF-8 (xuat tu Word/Notepad cu: UTF-16, cp1258,
+    # cp1252) khong duoc lam script dung giua chung. Thu lan luot; bang ma cuoi cung doc duoc thi bao ra stderr.
+    raw = open(p, "rb").read()
+    for bm in ("utf-8-sig", "utf-16", "cp1258", "cp1252"):
+        if bm == "utf-16" and not raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+            continue
+        try:
+            s = raw.decode(bm)
+        except UnicodeDecodeError:
+            continue
+        if bm not in ("utf-8-sig",):
+            sys.stderr.write(f"Lưu ý: {p} không phải UTF-8 — đã đọc theo bảng mã {bm}; kiểm lại dấu tiếng Việt.\n")
+        import unicodedata
+        # cp1258 luu dau thanh dang to hop -> chuan hoa NFC de mau regex ("Căn cứ") khop
+        return unicodedata.normalize("NFC", s).splitlines()
+    raise SystemExit(f"Không đọc được {p}: không nhận dạng được bảng mã (thử UTF-8, UTF-16, cp1258, cp1252).")
+
+
+def _la_qd_hieu_truong(doan):
+    """Quyet dinh cua Hieu truong: co ten loai QUYẾT ĐỊNH va tham quyen HIỆU TRƯỞNG."""
+    van = "\n".join(doan)
+    return bool(re.search(r"^\s*QUYẾT ĐỊNH\s*$", van, re.M)) and "HIỆU TRƯỞNG" in van
+
+
+def kiem_tra(doan):
+    """doan: list[str]. Tra ve list[(muc, ma, so_dong, trich, mo_ta)] — so_dong tinh tu 1."""
+    kq = []
+
+    def them(muc, ma, i, mo_ta):
+        kq.append((muc, ma, i + 1, doan[i].strip()[:90], mo_ta))
+
+    # Khoi can cu ban hanh: nam o DAU van ban (DAU_VB doan dau). "Căn cứ …" sau do la cau van trong noi
+    # dung (vd. So tay "Căn cứ vào báo cáo…") — khong ap quy tac dong can cu. Thu that 19/9/2026 tren kho 02.
+    khoi = [i for i, s in enumerate(doan[:DAU_VB]) if LA_CAN_CU.match(s) or LA_XET.match(s)]
+    can_cu = [i for i in khoi if LA_CAN_CU.match(doan[i])]
+
+    for i in can_cu:
+        s = doan[i]
+        la_luat = re.search(r"Căn cứ\s+(Bộ luật|Luật|Pháp lệnh)\s+[A-ZĐ]", s)
+        if la_luat and not re.search(r"ngày\s+\d{1,2}(\s+tháng\s+\d{1,2}\s+năm\s+|/)\d", s):
+            them(2, "VD02", i, "Căn cứ Luật/Pháp lệnh ghi tên và ngày ban hành — dòng này thiếu ngày "
+                 "(897, 02-Noi-Dung mục 1 dòng 4)")
+        if re.search(r"Căn cứ\s+(các\s+)?Văn bản hợp nhất", s):
+            them(3, "VD03", i, "VBHN đứng làm căn cứ chính — ghi văn bản gốc trước, VBHN đặt trong ngoặc "
+                 "“(hợp nhất tại Văn bản hợp nhất số …)”")
+        if re.search(r"Luật số\s+\d+/\d{4}/QH\d+", s) and not re.search(r"Luật\s+[A-ZĐ]\w", s):
+            them(2, "VD05", i, "Chỉ dẫn luật sửa đổi, thiếu tên luật gốc được sửa đổi, bổ sung")
+        if GACH_DAU.match(s):
+            them(2, "VD07", i, "Gạch đầu dòng trước “Căn cứ” là quy tắc văn bản Đảng — văn bản hành chính "
+                 "không dùng")
+
+    # VD06 — dau cuoi dong trong khoi can cu
+    if khoi:
+        # chi xet cum lien tiep dau tien (bo qua dong trong giua cac can cu)
+        cum = [khoi[0]]
+        for i in khoi[1:]:
+            if all(not doan[j].strip() for j in range(cum[-1] + 1, i)):
+                cum.append(i)
+            else:
+                break
+        for k, i in enumerate(cum):
+            cuoi = doan[i].rstrip()
+            can = "." if k == len(cum) - 1 else ";"
+            if not cuoi.endswith(can):
+                them(2, "VD06", i, f"Cuối dòng căn cứ phải là “{can}” (dòng giữa “;”, dòng cuối “.”)")
+
+    # VD08 — QD cua Hieu truong: can cu dau tien la QD 1976
+    # Dan doi truoc cua QD 1976 (49, 988) o vi tri dau: dung vi tri, chi co the sai doi -> de VD09 bao
+    if can_cu and _la_qd_hieu_truong(doan) and not re.search(
+            r"\b(1976|988|49)/QĐ-CĐKT", doan[can_cu[0]]):
+        them(1, "VD08", can_cu[0], "Quyết định của Hiệu trưởng: căn cứ đầu tiên phải là Quyết định số "
+             "1976/QĐ-CĐKT ngày 14/9/2026 (897, 08-Quy-Uoc-Rieng-CDKT mục 1) — áp cho dự thảo ban hành "
+             "từ 14/9/2026; văn bản cũ đối chiếu văn bản hiệu lực tại ngày ban hành")
+
+    for i, s in enumerate(doan):
+        if re.search(r"(Bộ luật|Luật|Pháp lệnh)\s+[A-ZĐ][^;\n]{0,120}?" + SO_LUAT, s):
+            them(2, "VD01", i, "Văn bản hành chính: viện dẫn Luật/Pháp lệnh không ghi số hiệu, kể cả khi đã "
+                 "có VBHN — chỉ ghi tên (và ngày ban hành ở phần căn cứ). NĐ 30 PL I, Phần I, Mục II, "
+                 "khoản 6; 897 02-Noi-Dung dòng 4")
+        if re.search(r"Pháp lệnh[^;.\n]{0,160}?của Quốc hội", s) and "Thường vụ" not in s:
+            them(2, "VD04", i, "Pháp lệnh do Ủy ban Thường vụ Quốc hội ban hành, không phải Quốc hội")
+        for mau, cu, moi in DA_THAY:
+            # "…thay thế/bãi bỏ Quyết định số 215/QĐ-CĐKT" la dieu khoan bai bo, khong phai vien dan
+            if re.search(mau, s) and not re.search(
+                    r"(thay thế|bãi bỏ|hết hiệu lực)[^.;]{0,80}?" + mau, s):
+                them(1, "VD09", i, f"{cu} đã bị thay thế bởi {moi} — chỉ hợp lệ nếu dự thảo ban hành "
+                     "trước ngày thay thế")
+        if LA_CAN_CU.match(s) and re.search(r"checklist|Checklist|\.md\b|\.docx\b|biểu mẫu nội bộ|"
+                                           r"KTC-Ra-Soat|Skill-Library", s):
+            them(1, "VD10", i, "Không dẫn mẫu/checklist/tệp nội bộ làm căn cứ pháp lý")
+        for m in re.finditer(r"(?:khoản\s+\d+\s+|điểm\s+[a-zđ]\s+(?:khoản\s+\d+\s+)?)?"
+                             r"\b(điều|chương|tiểu mục)\s+(\d+|[IVXL]+)\b", s):
+            them(3, "VD11", i, f"Viết hoa “{m.group(1).capitalize()} {m.group(2)}” khi viện dẫn "
+                 "(NĐ 30, Phụ lục II, Mục V, khoản 7)")
+            break
+
+    # VD12 — cung so ky hieu xuat hien lai kem trich yeu day du (sau lan dau)
+    da_gap = {}
+    for i, s in enumerate(doan):
+        for m in re.finditer(r"(?:Quyết định|Nghị định|Thông tư|Thông báo|Kế hoạch)\s+số\s+"
+                             r"(\d+/[\w\-/Đ]+)\s+ngày[^;.\n]{0,40}?(?:của|về|ban hành|quy định)", s):
+            so = m.group(1)
+            if so in da_gap and not LA_CAN_CU.match(s):
+                them(4, "VD12", i, f"{so} đã viện dẫn đầy đủ ở dòng {da_gap[so] + 1} — lần sau chỉ ghi tên "
+                     "loại và số, ký hiệu (NĐ 30, Phụ lục I, Phần I, Mục II, khoản 6 điểm b)")
+            else:
+                da_gap.setdefault(so, i)
+    kq.sort(key=lambda x: (x[0], x[2]))
+    return kq
+
+
+def in_bao_cao(ten, kq):
+    print(f"\n=== {ten} — {len(kq)} gợi ý ===")
+    if not kq:
+        print("  ✓ Không phát hiện lỗi viện dẫn theo 12 phép kiểm VD01–VD12.")
+    for muc, ma, dong, trich, mo_ta in kq:
+        print(f"  [Mức {muc}] {ma} dòng {dong}: {mo_ta}\n           “{trich}”")
+    print("  Lưu ý: công cụ không tra hiệu lực văn bản — đối chiếu kho 01-04 và rà soát 897 vẫn bắt buộc.")
+
+
+def main(argv):
+    if not argv:
+        print(__doc__)
+        return 2
+    co_muc_1 = False
+    for p in argv:
+        if not os.path.isfile(p):
+            print(f"✗ không thấy tệp {p}")
+            return 2
+        kq = kiem_tra(doc_tep(p))
+        in_bao_cao(p, kq)
+        co_muc_1 |= any(x[0] == 1 for x in kq)
+    return 1 if co_muc_1 else 0
+
+
+if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/kpi_calc.py` (14203 byte, sha256 `9532b0702bcdcac600762817a052315b3edf790d9b52dfd2795ffd5aea44aacb`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Tinh toan KPI ca nhan theo QD 1923/QD-CDKT (30/8/2026) — ham thuan, co dan Dieu. Skill ktc-kpi-lap-ke-hoach.
+
+Mo hinh KHONG duoc tu nham: moi con so (he so, so luong quy doi, diem, xep loai) di qua day.
+
+HE SO QUY DOI — Cau hoi mo so 1 (28-KTC-KPI/references/Cau-Hoi-Mo.md). KHONG CO MAC DINH; goi thieu phuong an -> loi.
+  muc-do    He so theo 4 muc do (Thap 1,0 · Trung binh 1,2 · Cao 1,5 · Kho va phuc tap 2,0)
+            [QD 1923, Phu luc II — ghi chu muc do cong viec; Phu luc I cot (7)(9)(10)]  -> CO VAN BAN
+  A         He so san pham theo Danh muc QD 2119/QD-CDKT ngay 28/9/2026 (theo tung san pham) -> CO VAN BAN (chinh thuc,
+            thay the danh muc du thao kem TB 1052 — DL-20260928-001)
+  AxB       A (QD 2119) x B (muc do) — quy uoc Phong TH-HC&QT ghi nhan 24/9/2026; QD 2119 CHI quy dinh he so A, phep
+            nhan voi muc do CHUA CO VAN BAN
+  nhap-tay  Nguoi dung nhap he so, tu chiu trach nhiem ve can cu
+
+Chay (JSON vao -> JSON ra):
+  python 29-Cong-Cu/kpi_calc.py he-so     --phuong-an muc-do --muc-do "Cao"
+  python 29-Cong-Cu/kpi_calc.py quy-doi   --json ke_hoach.json --phuong-an muc-do
+  python 29-Cong-Cu/kpi_calc.py diem      --ty-le 105 --diem-toi-da 45
+  python 29-Cong-Cu/kpi_calc.py xep-loai  --tong 89.99
+  python 29-Cong-Cu/kpi_calc.py tim       --tu-khoa "thoi khoa bieu" [--loai "Kế hoạch"]   # goi y STT Danh muc
+"""
+import argparse
+import csv
+import json
+import os
+import sys
+import unicodedata
+
+DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+PHUONG_AN = ("muc-do", "A", "AxB", "nhap-tay")
+TRANG_THAI = {
+    "muc-do": "Có văn bản: QĐ 1923/QĐ-CĐKT, Phụ lục II (ghi chú mức độ công việc)",
+    "A": "Có văn bản: Danh mục sản phẩm, công việc ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026",
+    "AxB": "CHƯA CÓ VĂN BẢN: hệ số A theo QĐ 2119/QĐ-CĐKT, phép nhân với mức độ (B) là quy ước Phòng TH-HC&QT ghi nhận "
+           "24/9/2026, chờ Phòng TCCB&CTHSSV xác nhận",
+    "nhap-tay": "Người dùng nhập — căn cứ do người lập kế hoạch tự chịu trách nhiệm",
+}
+# [QD 1923, Phu luc II, ghi chu] — ten muc theo danh sach chon (data validation) cua Phu luc I
+MUC_DO = {"thap": 1.0, "trung binh": 1.2, "cao": 1.5, "kho va phuc tap": 2.0, "kho, phuc tap": 2.0}
+
+
+class LoiKPI(ValueError):
+    """Loi dau vao — skill phai dung va hoi nguoi dung, khong tu sua."""
+
+
+def _kd(s):
+    t = unicodedata.normalize("NFD", str(s or "").lower())
+    return " ".join("".join(c for c in t if unicodedata.category(c) != "Mn").replace("đ", "d").split())
+
+
+def muc_do_tu_chu(s):
+    """'Khó và phức tạp', '... (mức độ cao)' -> khoa MUC_DO. Khong nhan ra -> None (khong doan)."""
+    t = _kd(s)
+    for k in sorted(MUC_DO, key=len, reverse=True):
+        if t == k or f"muc do {k}" in t or t.endswith(f"({k})"):
+            return k
+    return None
+
+
+# ------------------------------------------------------------------ danh muc QD 2119 (chinh thuc)
+# QD 2119/QD-CDKT ngay 28/9/2026 thay the danh muc du thao kem TB 1052 (DL-20260928-001). CSV trich bang
+# 29-Cong-Cu/trich_danh_muc_qd2119.py tu phu luc PL-2119 trong KTC-Database (kem sha256 nguon).
+TEN_CSV = "he-so-san-pham-QD2119.csv"
+_DM = None
+
+
+def danh_muc(p=None):
+    """{khoa: dong} tu CSV — khoa: 'ma:<ma san pham>', 'stt:<STT>', ten san pham chuan hoa."""
+    global _DM
+    if _DM is None or p:
+        if not p:
+            # du an · trong goi skill (scripts/../references) · ban chep o scripts/ goc cua plugin (../skills/...)
+            here = os.path.dirname(os.path.abspath(__file__))
+            ung = [os.path.join(DU_AN, "28-KTC-KPI", "references", "data"),
+                   os.path.join(here, "..", "references", "data"),
+                   os.path.join(here, "..", "skills", "kpi-lap-ke-hoach", "references", "data")]
+            p = next((os.path.join(d, TEN_CSV) for d in ung if os.path.exists(os.path.join(d, TEN_CSV))), None)
+            if not p:
+                raise LoiKPI(f"Không thấy {TEN_CSV} (Danh mục QĐ 2119) — dừng, hỏi người dùng.")
+        with open(p, encoding="utf-8-sig", newline="") as f:
+            _DM = {}
+            for h in csv.DictReader(f):
+                _DM.setdefault("ma:" + h["ma_san_pham"].strip().upper(), h)
+                _DM.setdefault("stt:" + str(h["stt"]).strip(), h)
+                _DM.setdefault(_kd(h["ten_san_pham"]), h)
+    return _DM
+
+
+def tra_A(ma_hoac_ten):
+    """Tra he so A theo MA SAN PHAM QD 2119 ('1.1.DA01.01'), STT phu luc ('1.1') hoac TEN SAN PHAM KHOP CHINH XAC
+    (chuan hoa). Khong co -> LoiKPI: dung hoi, KHONG tu gan A [Cau hoi mo so 2]."""
+    dm = danh_muc()
+    k = str(ma_hoac_ten or "").strip()
+    h = dm.get("ma:" + k.upper()) or dm.get("stt:" + k) or dm.get(_kd(k))
+    if not h:
+        raise LoiKPI(f"Sản phẩm '{ma_hoac_ten}' không có trong Danh mục ban hành kèm QĐ 2119/QĐ-CĐKT — dừng, hỏi người "
+                     "dùng (THIEU_DU_LIEU; không tự gán hệ số A).")
+    return float(h["he_so"]), h
+
+
+def tim_danh_muc(tu_khoa, loai=None, toi_da=15):
+    """GOI Y dong Danh muc chua DU MOI tu khoa — so TU NGUYEN VEN (khong dau, khong phan biet hoa thuong) trong
+    ten/mo ta; 'thi' khong khop 'thien'. Chi liet ke de nguoi dung CHON — khong tu gan, khong cham diem giong
+    (KI-001: khop gan dung de nham)."""
+    import re
+    tk = re.findall(r"\w+", _kd(tu_khoa))
+    ra = []
+    for k, h in danh_muc().items():
+        if not k.startswith("stt:"):
+            continue
+        tu = set(re.findall(r"\w+", _kd(f"{h['ten_san_pham']} {h['mo_ta']}")))
+        if tk and all(t in tu for t in tk) and (not loai or _kd(loai) == _kd(h["loai_san_pham"])):
+            ra.append({"ma_san_pham": h["ma_san_pham"], "stt": h["stt"], "ten": h["ten_san_pham"],
+                       "loai": h["loai_san_pham"], "nhom": h["nhom"], "he_so": float(h["he_so"]),
+                       "lech_nhom": h["lech_nhom"]})
+    return ra[:toi_da]
+
+
+# ------------------------------------------------------------------ he so
+def he_so(phuong_an, muc_do=None, san_pham=None, nhap=None):
+    """He so quy doi 1 dau viec. Tra ve dict {he_so, phuong_an, trang_thai, canh_bao[]}."""
+    if phuong_an not in PHUONG_AN:
+        raise LoiKPI(f"Chưa chọn phương án hệ số (một trong {', '.join(PHUONG_AN)}) — Câu hỏi mở số 1, "
+                     "không có mặc định.")
+    cb = []
+    B = None
+    if phuong_an in ("muc-do", "AxB"):
+        k = muc_do_tu_chu(muc_do)
+        if k is None:
+            raise LoiKPI(f"Mức độ '{muc_do}' không thuộc 4 mức của QĐ 1923 Phụ lục II "
+                         "(Thấp · Trung bình · Cao · Khó và phức tạp).")
+        B = MUC_DO[k]
+    if phuong_an == "muc-do":
+        hs = B
+    elif phuong_an == "nhap-tay":
+        if nhap is None or float(nhap) <= 0:
+            raise LoiKPI("Phương án nhập tay nhưng chưa có hệ số > 0.")
+        hs = float(nhap)
+    else:
+        A, dong = tra_A(san_pham)
+        # 28/9/2026: A theo QD 2119/QD-CDKT (chinh thuc) -> KHONG con canh bao THANG_DIEM_CHUA_PHAN_DINH cho phuong an A.
+        # A x B: QD 2119 chi quy dinh he so A; phep nhan voi muc do van chua co van ban -> giu ma canh bao.
+        if phuong_an == "AxB":
+            cb.append("THANG_DIEM_CHUA_PHAN_DINH: hệ số A theo QĐ 2119/QĐ-CĐKT, nhưng phép nhân A × mức độ chưa có văn bản "
+                      "(quy ước Phòng TH-HC&QT, chờ Phòng TCCB&CTHSSV xác nhận) — không dùng làm số chính thức")
+        if dong.get("lech_nhom"):
+            cb.append(f"Hệ số A sản phẩm {dong['ma_san_pham']} ngoài tập hệ số của {dong['nhom']}: {dong['lech_nhom']}")
+        if A > 10:
+            cb.append(f"Hệ số A = {A} bất thường (sản phẩm {dong['ma_san_pham']}) — kiểm lại phụ lục QĐ 2119")
+        hs = A if phuong_an == "A" else round(A * B, 4)
+    return {"he_so": hs, "phuong_an": phuong_an, "trang_thai": TRANG_THAI[phuong_an], "canh_bao": cb}
+
+
+def so_luong_quy_doi(so_luong, hs):
+    """So luong quy doi = So luong x He so [mau Ke hoach Quy III, sheet KPI cot J = G*I]."""
+    if so_luong is None or float(so_luong) < 0:
+        raise LoiKPI("Số lượng phải là số ≥ 0 (Đ12.4 QĐ 1923: chỉ tiêu phải đo lường được).")
+    return round(float(so_luong) * float(hs), 4)
+
+
+# ------------------------------------------------------------------ diem
+def diem_chi_tieu(ty_le, diem_toi_da):
+    """Diem chi tieu = % hoan thanh x diem toi da; vuot 100% chi tinh tran, phan vuot ghi nhan dinh tinh
+    [QD 1923, D11.6]."""
+    if diem_toi_da < 0 or ty_le < 0:
+        raise LoiKPI("Tỷ lệ và điểm tối đa phải ≥ 0.")
+    tinh = min(float(ty_le), 100.0)
+    return {"diem": round(tinh / 100 * diem_toi_da, 4), "vuot_muc": max(0.0, float(ty_le) - 100),
+            "can_cu": "QĐ 1923, Đ11.6"}
+
+
+def kiem_trong_so_truc(diem_toi_da_theo_truc, truc_chinh):
+    """Tong = 70 diem (100%) [D11.3]; truc chinh >= 40% tong trong so [D12.3]. Tra ve danh sach loi."""
+    loi = []
+    tong = sum(diem_toi_da_theo_truc.values())
+    if abs(tong - 70) > 1e-9:
+        loi.append(("KP01", f"Tổng điểm tối đa các Trục = {tong:g}, phải = 70 (100%)", "QĐ 1923, Đ11.3"))
+    ts = diem_toi_da_theo_truc.get(truc_chinh, 0) / tong * 100 if tong else 0
+    if ts < 40 - 1e-9:
+        loi.append(("KP02", f"Trục chính ({truc_chinh}) chiếm {ts:.2f}% < 40%", "QĐ 1923, Đ12.3"))
+    return loi
+
+
+def kiem_tieu_chi_chung(diem_toi_da_nhom):
+    """3 nhom, moi nhom >= 5 diem, tong khong vuot 30 [D10.4]."""
+    loi = []
+    if len(diem_toi_da_nhom) != 3:
+        loi.append(("KP03", f"Có {len(diem_toi_da_nhom)} nhóm tiêu chí chung, phải đúng 3", "QĐ 1923, Đ10"))
+    for i, d in enumerate(diem_toi_da_nhom, 1):
+        if d < 5 - 1e-9:
+            loi.append(("KP04", f"Nhóm {i} tối đa {d:g} điểm < 05 điểm", "QĐ 1923, Đ10.4"))
+    if sum(diem_toi_da_nhom) > 30 + 1e-9:
+        loi.append(("KP05", f"Tổng 3 nhóm = {sum(diem_toi_da_nhom):g} > 30 điểm", "QĐ 1923, Đ10.4"))
+    return loi
+
+
+def muc_tieu_chi_chung(ty_le):
+    """Muc dap ung tieu chi chung theo % diem toi da cua nhom [D10.5]."""
+    t = float(ty_le)
+    return 1 if t >= 90 else 2 if t >= 70 else 3 if t >= 50 else 4
+
+
+def muc_trong_tam(ty_le):
+    """Nhiem vu trong tam, then chot: 3 muc [D18]: >=90 · 60-<90 · <60."""
+    t = float(ty_le)
+    return 1 if t >= 90 else 2 if t >= 60 else 3
+
+
+def xep_loai_theo_diem(tong):
+    """Chi theo DIEM [D19.1 (ca nhan) / D7 (don vi)]: >=90 · 70-<90 · 50-<70 · <50.
+    Dieu kien kem theo (100% nhiem vu, 30% vuot muc, bang kiem si so, gio giang...) CHUA kiem o day —
+    du diem chua chac du muc [D7.5, D19.1]; quyet dinh thuoc Hieu truong [D14.3]."""
+    t = float(tong)
+    if not 0 <= t <= 100:
+        raise LoiKPI(f"Tổng điểm {t:g} ngoài thang 0–100.")
+    muc = ("Hoàn thành xuất sắc nhiệm vụ" if t >= 90 else "Hoàn thành tốt nhiệm vụ" if t >= 70 else
+           "Hoàn thành nhiệm vụ" if t >= 50 else "Không hoàn thành nhiệm vụ")
+    return {"muc_theo_diem": muc, "luu_y": "Chỉ theo điểm; điều kiện kèm theo chưa kiểm — không phải kết luận xếp loại",
+            "can_cu": "QĐ 1923, Đ19.1"}
+
+
+# ------------------------------------------------------------------ ke hoach (JSON)
+def quy_doi_ke_hoach(kh, phuong_an):
+    """kh = {"dau_viec":[{"truc":1,"noi_dung":..,"san_pham":..,"so_luong":..,"muc_do":..,"he_so":..}]}
+    Tra ve cung cau truc, them he_so, so_luong_quy_doi; loi tung dong khong lam dung ca bang."""
+    ra, loi = [], []
+    for i, d in enumerate(kh.get("dau_viec", []), 1):
+        try:
+            h = he_so(phuong_an, d.get("muc_do"), d.get("ma_danh_muc") or d.get("san_pham"), d.get("he_so"))
+            ra.append(dict(d, he_so=h["he_so"], so_luong_quy_doi=so_luong_quy_doi(d.get("so_luong"), h["he_so"]),
+                           canh_bao=h["canh_bao"]))
+        except LoiKPI as e:
+            loi.append({"dong": i, "noi_dung": d.get("noi_dung", "")[:80], "loi": str(e)})
+            ra.append(dict(d, he_so=None, so_luong_quy_doi=None))
+    return {"phuong_an": phuong_an, "trang_thai": TRANG_THAI.get(phuong_an), "dau_viec": ra, "loi": loi}
+
+
+def main(argv):
+    sys.stdout.reconfigure(encoding="utf-8")
+    ap = argparse.ArgumentParser()
+    sp = ap.add_subparsers(dest="lenh", required=True)
+    p = sp.add_parser("he-so"); p.add_argument("--phuong-an"); p.add_argument("--muc-do")
+    p.add_argument("--san-pham"); p.add_argument("--nhap", type=float)
+    p = sp.add_parser("quy-doi"); p.add_argument("--json", required=True); p.add_argument("--phuong-an")
+    p = sp.add_parser("diem"); p.add_argument("--ty-le", type=float, required=True)
+    p.add_argument("--diem-toi-da", type=float, required=True)
+    p = sp.add_parser("xep-loai"); p.add_argument("--tong", type=float, required=True)
+    p = sp.add_parser("tim"); p.add_argument("--tu-khoa", required=True); p.add_argument("--loai")
+    a = ap.parse_args(argv)
+    try:
+        if a.lenh == "he-so":
+            out = he_so(a.phuong_an, a.muc_do, a.san_pham, a.nhap)
+        elif a.lenh == "quy-doi":
+            if a.phuong_an not in PHUONG_AN:
+                raise LoiKPI(f"Chưa chọn phương án hệ số ({', '.join(PHUONG_AN)}) — Câu hỏi mở số 1.")
+            out = quy_doi_ke_hoach(json.load(open(a.json, encoding="utf-8")), a.phuong_an)
+        elif a.lenh == "tim":
+            out = {"goi_y": tim_danh_muc(a.tu_khoa, a.loai),
+                   "luu_y": "Chỉ là gợi ý — người dùng chọn mã sản phẩm; Danh mục chính thức theo QĐ 2119/QĐ-CĐKT"}
+        elif a.lenh == "diem":
+            out = diem_chi_tieu(a.ty_le, a.diem_toi_da)
+        else:
+            out = xep_loai_theo_diem(a.tong)
+    except LoiKPI as e:
+        print(json.dumps({"loi": str(e)}, ensure_ascii=False))
+        return 2
+    print(json.dumps(out, ensure_ascii=False, indent=1))
+    return 1 if out.get("loi") else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/kpi_danh_gia.py` (37320 byte, sha256 `dd93e0a7460226476115909f964b9f0e660d0072a039f251f9a8c5e4cc369867`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Tu danh gia, de xuat xep loai ca nhan theo quy — skill ktc-kpi-tu-danh-gia (lenh 25/9/2026, giai doan 2).
+
+Ba buoc, moi buoc mot lenh:
+  1. sinh-bang-hoi : doc ke hoach KPI da duyet (.xlsx, 1 trong 6 mau Quy) -> bang hoi .xlsx (o vang de dien)
+  2. (nguoi dung dien bang hoi)
+  3. danh-gia      : doc ke hoach + bang hoi da dien -> tinh diem, doi chieu nguong + dieu kien -> TDG-KPI-....xlsx
+
+KHONG tu cham thay nguoi dung (muc A, % hoan thanh, dieu kien deu do nguoi dung khai). KHONG tu quyet dinh muc xep
+loai: chi in "muc theo nguong diem thuan tuy" va bang dieu kien (du / khong dat / thieu du lieu) — quyet dinh thuoc
+Truong don vi va Hieu truong [QD 1923, D14.3c]. KHONG doi chieu tran ty le HTXS [D19.2] (giai doan 3).
+
+Tinh diem (QD 1923):
+  A = tong diem tu cham 3 nhom tieu chi chung (moi tieu chi con <= diem toi da cua mau); muc nhom theo D10.5.
+  B = sum_Truc (% Truc x diem toi da Truc); % Truc = sum min(TB3chieu, SLqd) / sum SLqd — CHAN TRAN tung chi tieu
+      [D11.6] (mau Quy III khong chan: Known-Issues-Bieu-Mau #7, Cau hoi mo so 9). TB3chieu theo cong thuc mau:
+      (MIN(L,G)*I + I*L*N/100 + I*L*P/100) / 3.
+  So sanh nguong tren gia tri chinh xac (chi khu nhieu dau phay dong 1e-6); hien thi cat (khong lam tron len).
+
+  python kpi_danh_gia.py sinh-bang-hoi --ke-hoach KH.xlsx [--nhom ...] --ra Bang-hoi.xlsx
+  python kpi_danh_gia.py danh-gia --ke-hoach KH.xlsx --bang-hoi Bang-hoi.xlsx [--nhom ...] --ra TDG.xlsx [--json]
+Ma thoat: 2 = thieu du lieu / dung (hoi nguoi dung) · 1 = da xuat, co dieu kien khong dat hoac canh bao can xem · 0.
+"""
+import math
+import os
+import re
+import shutil
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import kpi_calc as kc  # noqa: E402
+import kpi_mau as km   # noqa: E402
+
+MUC = ("Hoàn thành xuất sắc nhiệm vụ", "Hoàn thành tốt nhiệm vụ", "Hoàn thành nhiệm vụ", "Không hoàn thành nhiệm vụ")
+KET_QUA_VIEC = ("Vượt mức", "Hoàn thành đúng hạn", "Hoàn thành chậm tiến độ", "Không hoàn thành")
+TRONG_TAM = ("Không", "Mức 1", "Mức 2", "Mức 3")
+CO_KHONG = ("Có", "Không")
+NHOM_THIEU_PL = {"bo-mon": "XXIV", "giao-vu": "XXVI", "hanh-chinh": "XXVII", "ho-tro": "XXVIII"}
+NHOM_CO_PL = {"truong-pho-don-vi": "XXIII", "nha-giao": "XXV"}
+DONG_CUOI = ("Đề xuất của cá nhân — chưa phải kết luận của Trưởng đơn vị và Hiệu trưởng [QĐ 1923, Đ14.3c]. "
+             "Trần tỷ lệ Hoàn thành xuất sắc theo nhóm tương đồng chưa được đối chiếu ở bước này [Đ19.2].")
+VANG, XANH = "FFFFF2CC", "FFD9E1F2"
+EPS = 1e-6
+
+
+class Dung(Exception):
+    """Dung, hoi nguoi dung (ma thoat 2)."""
+
+
+def cat2(x):
+    """Hien thi 2 chu so, CAT (khong lam tron len) — 89,996 hien 89,99, khong thanh 90,00."""
+    return f"{math.floor(round(x, 6) * 100) / 100:.2f}".replace(".", ",")
+
+
+def _so(v, ten):
+    if v in (None, ""):
+        return None
+    try:
+        return float(str(v).replace(",", ".").replace("%", "").strip())
+    except ValueError:
+        raise Dung(f"{ten}: '{v}' không phải số")
+
+
+# ------------------------------------------------------------------ doc ke hoach
+def doc_ke_hoach(p, nhom=None):
+    wb = km.mo(p)
+    nhom = nhom or km.nhan_nhom(wb)
+    if nhom not in km.NHOM:
+        raise Dung("Không xác định được nhóm vị trí từ tệp — chỉ rõ --nhom (một trong: " + ", ".join(km.NHOM) + ")")
+    ct = km.cau_truc(wb)
+    dg = km.cau_truc_danh_gia(wb)
+    kh, kp = wb["Ke Hoach"], wb["KPI"]
+    viec = []
+    for n, (d, c) in sorted(ct["truc"].items()):
+        for r in range(d, c + 1):
+            nd = kh[f"B{r}"].value
+            if nd in (None, ""):
+                continue
+            rk = ct["kpi_dong"][r]
+            viec.append({"ma": f"B{r}", "truc": n, "dong_kh": r, "dong_kpi": rk, "noi_dung": str(nd).strip(),
+                         "san_pham": kh[f"E{r}"].value, "so_luong": kh[f"F{r}"].value, "thoi_han": kh[f"G{r}"].value,
+                         "muc_do": kh[f"D{r}"].value, "he_so": kh[f"I{r}"].value,
+                         "cu": {c_: kp[f"{c_}{rk}"].value for c_ in km.O_THUC_TE}})
+    ca_nhan = {}
+    for r in range(4, 9):
+        for m in re.finditer(r"(Họ và tên|Ngày sinh|Chức vụ Đảng|Chức vụ chính quyền|Chức vụ đoàn thể|"
+                             r"Đơn vị công tác):\s*(.*?)(?=\s{2,}\S+.*?:|$)", str(kh[f"B{r}"].value or "")):
+            v = m.group(2).strip()
+            if v and not re.fullmatch(r"[.…\s]*", v):
+                ca_nhan[m.group(1)] = v
+    return {"tep": p, "nhom": nhom, "ct": ct, "dg": dg, "viec": viec, "ca_nhan": ca_nhan,
+            "quan_ly": km.NHOM[nhom][2]}
+
+
+# ------------------------------------------------------------------ cau hoi (muc C)
+def cau_hoi_c(khd):
+    """[(ma, cau hoi, lua chon | None (so), bat buoc, can cu)] — theo nhom vi tri va khoi II cua mau."""
+    q = [("C01", "Trong quý, có tham gia đào tạo, bồi dưỡng TẬP TRUNG từ 02 tháng trở lên?", CO_KHONG, True,
+          "QĐ 1923, Đ21.6a"),
+         ("C02", "Lần đầu được bổ nhiệm chức danh lãnh đạo, quản lý, thời gian giữ chức vụ dưới 01 tháng trong quý?",
+          CO_KHONG, True, "QĐ 1923, Đ21.6b"),
+         ("C03", "Nghỉ ốm hoặc nghỉ thai sản từ 02 tháng trở lên trong quý?", CO_KHONG, True, "QĐ 1923, Đ21.6c"),
+         ("C04", "Đang trong thời gian kiểm tra dấu hiệu vi phạm?", CO_KHONG, True, "QĐ 1923, Đ21.6d"),
+         ("C05", "Đào tạo, bồi dưỡng tập trung, biệt phái, nghỉ ốm, thai sản chiếm từ 1/2 thời gian làm việc của quý "
+          "trở lên?", CO_KHONG, True, "QĐ 1923, Đ21.4"),
+         ("C06", "Trong kỳ, bị cấp có thẩm quyền kết luận suy thoái tư tưởng chính trị, đạo đức, lối sống, hoặc bị kỷ "
+          "luật từ khiển trách trở lên do vi phạm liên quan thực hiện nhiệm vụ?", CO_KHONG, True,
+          "QĐ 1923, Đ19.1d"),
+         ("C07", "Đã khắc phục 100% hạn chế, khuyết điểm được chỉ ra ở kỳ kiểm điểm trước?",
+          ("Có", "Không", "Kỳ trước không có hạn chế"), True, "QĐ 1923, Đ19.1a")]
+    if khd["quan_ly"]:
+        q += [("C08", "Đơn vị, bộ phận, lĩnh vực do mình trực tiếp lãnh đạo, quản lý đã hoàn thành 100% nhiệm vụ được "
+               "giao trong quý?", ("Có", "Không", "Chưa có kết quả"), True, "QĐ 1923, Đ19.1a–c"),
+              ("C09", "Đơn vị, bộ phận do mình trực tiếp quản lý hoàn thành DƯỚI 70% nhiệm vụ, hoặc trên 50% lĩnh vực "
+               "mình phụ trách bị xếp loại Không hoàn thành?", ("Có", "Không", "Chưa có kết quả"), True,
+               "QĐ 1923, Đ19.1d"),
+              ("C10", "Có trên 50% phiếu tín nhiệm thấp tại kỳ lấy phiếu trong năm?",
+               ("Có", "Không", "Không lấy phiếu"), True, "QĐ 1923, Đ19.1d"),
+              ("C11", "Có đơn vị thuộc thẩm quyền phụ trách trực tiếp liên quan tham ô, tham nhũng, lãng phí và bị xử "
+               "lý theo quy định?", CO_KHONG, True, "QĐ 1923, Đ19.1d"),
+              ("C12", "Là NGƯỜI ĐỨNG ĐẦU đơn vị (Trưởng phòng, khoa, bộ môn, PKĐK)?", CO_KHONG, True,
+               "QĐ 1923, Đ14.4, Đ19.4"),
+              ("C13", "Kết quả xếp loại TẬP THỂ đơn vị mình kỳ này (nếu đã có)?", MUC + ("Chưa có",), True,
+               "QĐ 1923, Đ14.4, Đ19.4")]
+    for r, tt, nd, goi_y, gc in khd["dg"]["dieu_kien"]["muc"]:
+        k = km._kd(nd)
+        if "bang kiem" in k:
+            lc = ("Đạt", "Không đạt", "Không áp dụng", "Chưa có kết quả")
+        elif "gio giang" in k:
+            lc = None
+        else:
+            lc = ("Có", "Không", "Không áp dụng", "Chưa có kết quả")
+        q.append((f"D{tt}", f"{nd}" + (f" ({gc})" if gc else ""), lc, True, "QĐ 1923, Đ19.1 — mẫu Đánh giá mục II"))
+    q += [("C14", "Có quý nào trước đó trong năm bị đánh giá dưới mức tối thiểu / Không hoàn thành nhiệm vụ?",
+           ("Có", "Không", "Chưa có quý nào"), True, "QĐ 1923, Đ19.1a (lưu ý), Đ19.5 — Câu hỏi mở số 8"),
+          ("C15", "TỰ ĐỀ XUẤT mức xếp loại chất lượng quý này (mục III của mẫu)", MUC, True, "mẫu Đánh giá mục III")]
+    return q
+
+
+# ------------------------------------------------------------------ bang hoi
+def sinh_bang_hoi(khd, ra, quy=None, nam=None):
+    from openpyxl import Workbook
+    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+    from openpyxl.worksheet.datavalidation import DataValidation
+    if os.path.abspath(os.path.dirname(ra)) == km.thu_muc_mau():
+        raise Dung("Không ghi vào thư mục mẫu assets/")
+    f = Font(name=km.PHONG, size=12)
+    fb = Font(name=km.PHONG, size=12, bold=True)
+    vien = Border(*(Side(style="thin"),) * 4)
+    vang = PatternFill("solid", fgColor=VANG)
+    xanh = PatternFill("solid", fgColor=XANH)
+    wrap = Alignment(wrap_text=True, vertical="top")
+    wb = Workbook()
+    ky = f"QUÝ {quy} NĂM {nam}" if quy and nam else "QUÝ …"
+    ten = khd["ca_nhan"].get("Họ và tên", "…")
+
+    def bang(ws, tieu_de, cot, rong):
+        ws["A1"], ws["A2"] = tieu_de, (f"{ten} — {km.NHOM[khd['nhom']][0]} — {ky}. Chỉ điền ô nền vàng. "
+                                       "Để trống ô bắt buộc thì công cụ dừng lại và hỏi, không tự chấm.")
+        ws["A1"].font, ws["A2"].font = fb, f
+        for i, (t, w) in enumerate(zip(cot, rong), 1):
+            c = ws.cell(4, i, t)
+            c.font, c.fill, c.border, c.alignment = fb, xanh, vien, Alignment(wrap_text=True, vertical="center")
+            ws.column_dimensions[c.column_letter].width = w
+        ws.freeze_panes = "A5"
+
+    def o(ws, r, c, v, dien=False, dam=False):
+        x = ws.cell(r, c, v)
+        x.font, x.border, x.alignment = (fb if dam else f), vien, wrap
+        if dien:
+            x.fill = vang
+        return x
+
+    # --- A. Tieu chi chung
+    ws = wb.active
+    ws.title = "A-Tieu-chi-chung"
+    bang(ws, "BẢNG HỎI TỰ ĐÁNH GIÁ — A. NHÓM TIÊU CHÍ CHUNG (30 ĐIỂM) [QĐ 1923, Đ10]",
+         ("Mã", "Tiêu chí", "Điểm tối đa", "Điểm tự chấm", "Mức nhóm (tùy chọn)", "Khung mức Đ10.5 (theo nhóm)"),
+         (7, 70, 10, 12, 14, 34))
+    r = 5
+    dv_muc = DataValidation(type="list", formula1='"Mức 1,Mức 2,Mức 3,Mức 4"', allow_blank=True)
+    ws.add_data_validation(dv_muc)
+    for g in khd["dg"]["a"]:
+        m = g["diem_max"]
+        khung = (f"Mức 1: {cat2(m * .9)}–{cat2(m)} · Mức 2: {cat2(m * .7)}–<{cat2(m * .9)} · "
+                 f"Mức 3: {cat2(m * .5)}–<{cat2(m * .7)} · Mức 4: <{cat2(m * .5)}")
+        o(ws, r, 1, f"A{g['so']}", dam=True)
+        o(ws, r, 2, f"Nhóm {g['so']} — {g['ten']}", dam=True)
+        o(ws, r, 3, m, dam=True)
+        o(ws, r, 4, None)
+        o(ws, r, 5, None, dien=True)
+        dv_muc.add(ws.cell(r, 5))
+        o(ws, r, 6, khung)
+        r += 1
+        for dong, ky_hieu, nd, dmax in g["tieu_chi"]:
+            o(ws, r, 1, f"A{g['so']}{ky_hieu.rstrip(')')}")
+            o(ws, r, 2, nd)
+            o(ws, r, 3, dmax)
+            x = o(ws, r, 4, None, dien=True)
+            dv = DataValidation(type="decimal", operator="between", formula1="0", formula2=str(dmax),
+                                allow_blank=True, error=f"Điểm từ 0 đến {dmax:g}", showErrorMessage=True)
+            ws.add_data_validation(dv)
+            dv.add(x)
+            o(ws, r, 5, None)
+            o(ws, r, 6, None)
+            r += 1
+    o(ws, r + 1, 2, "Mức nhóm: để trống thì công cụ tự tính từ tổng điểm nhóm; nếu chọn, tổng điểm nhóm phải nằm đúng "
+                    "khung của mức đã chọn (Đ10.5 áp theo NHÓM, không theo từng tiêu chí con).")
+
+    # --- B. KPI
+    ws = wb.create_sheet("B-KPI")
+    bang(ws, "B. KẾT QUẢ THỰC HIỆN NHIỆM VỤ (70 ĐIỂM) — số liệu thực tế từng chỉ tiêu [QĐ 1923, Đ11]",
+         ("Mã", "Trục", "Nội dung công việc (kế hoạch đã duyệt)", "Sản phẩm", "SL kế hoạch", "Hệ số",
+          "Thời hạn", "Sản phẩm thực tế", "SL thực tế hoàn thành", "% chất lượng", "% tiến độ",
+          "Kết quả nhiệm vụ", "Trọng tâm, then chốt (Đ18)", "Nguồn minh chứng"),
+         (7, 6, 48, 18, 9, 7, 12, 28, 11, 10, 10, 20, 14, 28))
+    dv_kq = DataValidation(type="list", formula1='"' + ",".join(KET_QUA_VIEC) + '"', allow_blank=True)
+    dv_tt = DataValidation(type="list", formula1='"' + ",".join(TRONG_TAM) + '"', allow_blank=True)
+    dv_so = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True)
+    for d in (dv_kq, dv_tt, dv_so):
+        ws.add_data_validation(d)
+    r = 5
+    for v in khd["viec"]:
+        cu = v["cu"]
+        for i, x in enumerate((v["ma"], v["truc"], v["noi_dung"], v["san_pham"], v["so_luong"], v["he_so"],
+                               v["thoi_han"]), 1):
+            o(ws, r, i, x)
+        for i, x in ((8, cu.get("K")), (9, cu.get("L")), (10, cu.get("N")), (11, cu.get("P")), (12, None),
+                     (13, "Không"), (14, None)):
+            o(ws, r, i, x if not str(x or "").startswith("=") else None, dien=True)
+        for i in (9, 10, 11):
+            dv_so.add(ws.cell(r, i))
+        dv_kq.add(ws.cell(r, 12))
+        dv_tt.add(ws.cell(r, 13))
+        r += 1
+    o(ws, r + 1, 3, "SL thực tế: số sản phẩm đã hoàn thành. % chất lượng, % tiến độ: mức độ đáp ứng (0–100; nhập trên "
+                    "100 vẫn được ghi nhận nhưng điểm chỉ tiêu chặn trần 100% — Đ11.6). Trọng tâm, then chốt: chọn "
+                    "Mức 1/2/3 theo Đ18 thì % hoàn thành của chỉ tiêu phải nằm đúng khung (≥90 · 60–<90 · <60).")
+
+    # --- C. Dieu kien
+    ws = wb.create_sheet("C-Dieu-kien")
+    bang(ws, "C. TRƯỜNG HỢP ĐẶC THÙ, ĐIỀU KIỆN KÈM THEO MỨC XẾP LOẠI, TỰ ĐỀ XUẤT",
+         ("Mã", "Câu hỏi", "Trả lời", "Căn cứ"), (7, 80, 24, 30))
+    r = 5
+    for ma, ch, lc, _bb, cc in cau_hoi_c(khd):
+        o(ws, r, 1, ma)
+        o(ws, r, 2, ch)
+        x = o(ws, r, 3, None, dien=True)
+        if lc:
+            d = DataValidation(type="list", formula1='"' + ",".join(lc) + '"', allow_blank=True)
+            ws.add_data_validation(d)
+            d.add(x)
+        else:
+            ws.cell(r, 2).value = ch + " — nhập số % (vd 85), hoặc 'Không áp dụng' / 'Chưa có kết quả'"
+        o(ws, r, 4, cc)
+        r += 1
+    wb.save(ra)
+    return ra
+
+
+# ------------------------------------------------------------------ doc bang hoi
+def doc_bang_hoi(p):
+    wb = km.mo(p)
+    tl = {"A": {}, "A_muc": {}, "B": {}, "C": {}}
+    ws = wb["A-Tieu-chi-chung"]
+    for row in ws.iter_rows(min_row=5):
+        ma = str(row[0].value or "").strip()
+        if re.fullmatch(r"A[123]", ma):
+            tl["A_muc"][ma] = row[4].value
+        elif re.fullmatch(r"A[123]\w+", ma):
+            tl["A"][ma] = row[3].value
+    ws = wb["B-KPI"]
+    for row in ws.iter_rows(min_row=5):
+        ma = str(row[0].value or "").strip()
+        if re.fullmatch(r"B\d+", ma):
+            tl["B"][ma] = {"K": row[7].value, "L": row[8].value, "N": row[9].value, "P": row[10].value,
+                           "ket_qua": row[11].value, "trong_tam": row[12].value, "minh_chung": row[13].value}
+    ws = wb["C-Dieu-kien"]
+    for row in ws.iter_rows(min_row=5):
+        ma = str(row[0].value or "").strip()
+        if re.fullmatch(r"[CD]\d+", ma):
+            tl["C"][ma] = row[2].value
+    return tl
+
+
+# ------------------------------------------------------------------ tinh
+def tinh(khd, tl):
+    """Tra ve ket qua day du; raise Dung neu thieu/sai du lieu can nguoi dung sua."""
+    thieu, sai = [], []
+    cq = {ma: (ch, lc, cc) for ma, ch, lc, _b, cc in cau_hoi_c(khd)}
+    for ma in cq:
+        if tl["C"].get(ma) in (None, ""):
+            thieu.append(f"C-Dieu-kien {ma}: {cq[ma][0][:70]}")
+    # --- Truong hop dac thu -> dung truoc khi cham [D21.6, D21.4]
+    dac_thu = [ma for ma in ("C01", "C02", "C03", "C04", "C05") if str(tl["C"].get(ma) or "") == "Có"]
+    if dac_thu:
+        raise Dung("Thuộc trường hợp đặc thù (" + ", ".join(f"{m}: {cq[m][2]}" for m in dac_thu) + ") — chưa đánh "
+                   "giá, xếp loại quý này; kết quả thời gian công tác còn lại xem xét sang quý tiếp theo, không tính "
+                   "là dưới mức tối thiểu vì lý do này [QĐ 1923, Đ21.4, Đ21.6]. Không tự chấm.")
+    # --- A
+    a_nhom = []
+    for g in khd["dg"]["a"]:
+        diem = []
+        for dong, ky_hieu, nd, dmax in g["tieu_chi"]:
+            ma = f"A{g['so']}{ky_hieu.rstrip(')')}"
+            try:
+                x = _so(tl["A"].get(ma), ma)
+            except Dung as e:
+                sai.append(str(e))
+                continue
+            if x is None:
+                thieu.append(f"A-Tieu-chi-chung {ma}: điểm tự chấm")
+                continue
+            if x < 0 or x > dmax + EPS:
+                sai.append(f"{ma}: {x:g} ngoài khoảng 0–{dmax:g}")
+            diem.append((dong, x))
+        tong = sum(x for _, x in diem)
+        ty_le = tong / g["diem_max"] * 100 if g["diem_max"] else 0
+        muc = kc.muc_tieu_chi_chung(round(ty_le, 6))
+        chon = str(tl["A_muc"].get(f"A{g['so']}") or "").strip()
+        if chon and diem and len(diem) == len(g["tieu_chi"]) and chon != f"Mức {muc}":
+            sai.append(f"Nhóm A{g['so']}: tổng {cat2(tong)}/{g['diem_max']:g} điểm ({cat2(ty_le)}%) thuộc Mức {muc}, "
+                       f"không khớp '{chon}' đã chọn [Đ10.5]")
+        a_nhom.append({"so": g["so"], "diem": diem, "tong": tong, "max": g["diem_max"], "ty_le": ty_le, "muc": muc})
+    # --- B
+    viec = []
+    for v in khd["viec"]:
+        t = tl["B"].get(v["ma"])
+        if t is None:
+            thieu.append(f"B-KPI {v['ma']}: dòng việc không có trong bảng hỏi")
+            continue
+        try:
+            G = _so(v["so_luong"], f"{v['ma']} SL kế hoạch")
+            I_ = _so(v["he_so"], f"{v['ma']} hệ số")
+            L, N, P = (_so(t[k], f"{v['ma']} {k}") for k in ("L", "N", "P"))
+        except Dung as e:
+            sai.append(str(e))
+            continue
+        if G is None or I_ is None:
+            sai.append(f"{v['ma']} '{v['noi_dung'][:40]}': kế hoạch thiếu số lượng hoặc hệ số — sửa kế hoạch trước")
+            continue
+        for k, x in (("SL thực tế", L), ("% chất lượng", N), ("% tiến độ", P)):
+            if x is None:
+                thieu.append(f"B-KPI {v['ma']} '{v['noi_dung'][:40]}': {k}")
+        kq = str(t.get("ket_qua") or "").strip()
+        if not kq:
+            thieu.append(f"B-KPI {v['ma']} '{v['noi_dung'][:40]}': Kết quả nhiệm vụ")
+        elif kq not in KET_QUA_VIEC:
+            sai.append(f"{v['ma']}: kết quả '{kq}' không thuộc {KET_QUA_VIEC}")
+        if None in (L, N, P):
+            continue
+        J = G * I_
+        M = (min(L, G) * I_) if G else 0.0          # cong thuc mau: =IF(G=0,0,MIN(L,G)*I)
+        O = I_ * L * N / 100                          # =I*L*N/100 (mau khong chan)
+        Q = I_ * L * P / 100
+        tb = (M + O + Q) / 3
+        gop = min(tb, J)                               # chan tran tung chi tieu [D11.6]
+        ty_le = tb / J * 100 if J else 0.0
+        tt = str(t.get("trong_tam") or "Không").strip()
+        if tt in ("Mức 1", "Mức 2", "Mức 3"):
+            m_ = kc.muc_trong_tam(round(min(ty_le, 100), 6))
+            if f"Mức {m_}" != tt:
+                sai.append(f"{v['ma']} '{v['noi_dung'][:40]}': % hoàn thành {cat2(min(ty_le, 100))}% thuộc Mức {m_} "
+                           f"của Đ18, không khớp '{tt}' — sửa % hoặc mức [QĐ 1923, Đ11.5, Đ18]")
+        viec.append(dict(v, L=L, N=N, P=P, K=t.get("K"), minh_chung=t.get("minh_chung"), ket_qua=kq, trong_tam=tt,
+                         J=J, tb=tb, gop=gop, ty_le=ty_le))
+    if thieu or sai:
+        raise Dung("Bảng hỏi chưa đủ hoặc có số sai — không tự chấm:\n  " + "\n  ".join(sai + thieu))
+    truc = {}
+    for n, b in sorted(khd["dg"]["b"].items()):
+        vs = [x for x in viec if x["truc"] == n]
+        sj = sum(x["J"] for x in vs)
+        pt = sum(x["gop"] for x in vs) / sj * 100 if sj else 0.0
+        pt_mau = sum(x["tb"] for x in vs) / sj * 100 if sj else 0.0
+        truc[n] = {"so_viec": len(vs), "max": b["diem_max"], "pt": pt, "pt_mau": pt_mau,
+                   "diem": pt / 100 * b["diem_max"], "diem_mau": pt_mau / 100 * b["diem_max"]}
+    diem_a = sum(g["tong"] for g in a_nhom)
+    diem_b = sum(t["diem"] for t in truc.values())
+    tong = round(diem_a + diem_b, 6)
+    muc_diem = kc.xep_loai_theo_diem(tong)["muc_theo_diem"]
+    dk = dieu_kien(khd, tl, viec, muc_diem)
+    return {"nhom": khd["nhom"], "a": a_nhom, "diem_a": diem_a, "truc": truc, "diem_b": diem_b, "tong": tong,
+            "muc_theo_diem": muc_diem, "viec": viec, "dieu_kien": dk, "tu_de_xuat": tl["C"].get("C15"),
+            "canh_bao": canh_bao(khd, tl, viec, truc, muc_diem, dk)}
+
+
+def dieu_kien(khd, tl, viec, muc_diem):
+    """Bang dieu kien kem theo muc theo diem (va cac muc thap hon) — Dat / Khong dat / Thieu du lieu / Khong ap dung.
+    KHONG ket luan muc cuoi cung."""
+    C = tl["C"]
+    n = len(viec)
+    khong_ht = sum(1 for x in viec if x["ket_qua"] == "Không hoàn thành")
+    cham = sum(1 for x in viec if x["ket_qua"] == "Hoàn thành chậm tiến độ")
+    vuot = sum(1 for x in viec if x["ket_qua"] == "Vượt mức")
+
+    def tl_(ma):
+        return str(C.get(ma) or "").strip()
+
+    def dat(b):
+        return "Đạt" if b else "Không đạt"
+
+    def tu_khai(ma, dat_khi=("Có", "Đạt")):
+        v = tl_(ma)
+        if v in ("Chưa có kết quả", "Chưa có", ""):
+            return "Thiếu dữ liệu — người dùng tự xác nhận"
+        if v.startswith("Không áp dụng") or v == "Kỳ trước không có hạn chế":
+            return "Không áp dụng"
+        return dat(v in dat_khi)
+
+    ql = khd["quan_ly"]
+    rows = {m: [] for m in MUC[:3]}
+    # 100% nhiem vu
+    if ql:
+        rows[MUC[0]].append(("Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ", tu_khai("C08"), "Đ19.1a"))
+        rows[MUC[1]].append(("Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ, đúng hạn, bảo đảm chất "
+                             "lượng", tu_khai("C08"), "Đ19.1b"))
+        rows[MUC[2]].append(("Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ", tu_khai("C08"), "Đ19.1c"))
+    else:
+        rows[MUC[0]].append((f"Hoàn thành 100% nhiệm vụ, đúng hạn ({n - khong_ht - cham}/{n} đúng hạn)",
+                             dat(khong_ht == 0 and cham == 0), "Đ19.1a"))
+        rows[MUC[1]].append((f"Hoàn thành 100% nhiệm vụ, đúng hạn ({n - khong_ht - cham}/{n})",
+                             dat(khong_ht == 0 and cham == 0), "Đ19.1b"))
+        rows[MUC[2]].append((f"Hoàn thành 100% nhiệm vụ ({n - khong_ht}/{n})", dat(khong_ht == 0), "Đ19.1c"))
+    rows[MUC[0]].append((f"Ít nhất 30% nhiệm vụ vượt mức ({vuot}/{n} = {cat2(vuot / n * 100 if n else 0)}%, theo kết "
+                         "quả người dùng khai)", dat(n and vuot / n >= 0.3 - EPS), "Đ19.1a"))
+    rows[MUC[0]].append(("Khắc phục 100% hạn chế, khuyết điểm kỳ trước", tu_khai("C07"), "Đ19.1a"))
+    rows[MUC[2]].append((f"Nhiệm vụ chậm tiến độ không quá 20% ({cham}/{n})", dat(n and cham / n <= 0.2 + EPS),
+                         "Đ19.1c"))
+    # Dieu kien khoi II cua mau
+    for r, tt, nd, goi_y, gc in khd["dg"]["dieu_kien"]["muc"]:
+        k, ma, v = km._kd(nd), f"D{tt}", tl_(f"D{tt}")
+        if "bang kiem" in k:
+            for m in MUC[:3]:
+                rows[m].append(("Bảng kiểm bảo đảm sĩ số HSSV: Đạt", tu_khai(ma, ("Đạt",)), "Đ19.1a–c"))
+        elif "gio giang" in k:
+            if v in ("", "Chưa có kết quả"):
+                s = [("Thiếu dữ liệu — người dùng tự xác nhận",) * 2]
+            elif v.startswith("Không áp dụng"):
+                s = [("Không áp dụng",) * 2]
+            else:
+                x = _so(v, ma)
+                s = [(dat(x >= 100 - EPS), dat(x >= 50 - EPS))]
+            rows[MUC[0]].append(("Tỷ lệ giờ giảng trực tiếp đạt 100% định mức", s[0][0], "Đ19.1a"))
+            rows[MUC[1]].append(("Tỷ lệ giờ giảng trực tiếp đạt 100% định mức", s[0][0], "Đ19.1b"))
+            rows[MUC[2]].append(("Tỷ lệ giờ giảng trực tiếp đạt ít nhất 50% định mức", s[0][1], "Đ19.1c"))
+        else:
+            for m in MUC[:2]:
+                rows[m].append((nd[:90], tu_khai(ma), "Đ19.1a–b"))
+    # Truong hop Khong hoan thanh du du diem [D19.1d]
+    kht = []
+    if tl_("C06") == "Có":
+        kht.append("Bị kết luận suy thoái hoặc kỷ luật từ khiển trách trở lên (C06)")
+    if ql and tl_("C09") == "Có":
+        kht.append("Đơn vị trực tiếp quản lý hoàn thành dưới 70% nhiệm vụ / >50% lĩnh vực Không hoàn thành (C09)")
+    if ql and tl_("C10") == "Có":
+        kht.append("Trên 50% phiếu tín nhiệm thấp (C10)")
+    if ql and tl_("C11") == "Có":
+        kht.append("Đơn vị thuộc thẩm quyền liên quan tham ô, tham nhũng, lãng phí bị xử lý (C11)")
+    if not ql and n and khong_ht / n > 0.5:
+        kht.append(f"Trên 50% nhiệm vụ không hoàn thành ({khong_ht}/{n})")
+    for r, tt, nd, goi_y, gc in khd["dg"]["dieu_kien"]["muc"]:
+        if "bang kiem" in km._kd(nd) and tl_(f"D{tt}") == "Không đạt":
+            kht.append(f"Bảng kiểm bảo đảm sĩ số HSSV 'Không đạt' (D{tt})")
+    tong_hop = {}
+    for m in MUC[:3]:
+        tt = [s for _, s, _ in rows[m]]
+        tong_hop[m] = ("Không đạt" if "Không đạt" in tt else
+                       "Thiếu dữ liệu — người dùng tự xác nhận" if any(s.startswith("Thiếu") for s in tt) else "Đạt")
+    return {"theo_muc": rows, "tong_hop": tong_hop, "khong_hoan_thanh": kht,
+            "tu_diem_tro_xuong": [m for m in MUC[MUC.index(muc_diem):3]] if muc_diem in MUC[:3] else []}
+
+
+def canh_bao(khd, tl, viec, truc, muc_diem, dk):
+    cb = []
+    for loi in kc.kiem_tieu_chi_chung([g["diem_max"] for g in khd["dg"]["a"]]):
+        cb.append(f"Cấu trúc mẫu sai — {loi[1]} [{loi[2]}] (lỗi của biểu mẫu, không phải của người dùng)")
+    for n, t in truc.items():
+        if t["pt_mau"] > 100 + EPS:
+            cb.append(f"Trục {n}: công thức gốc của mẫu cho {cat2(t['pt_mau'])}% (> 100%); đã chặn trần theo chỉ tiêu "
+                      f"còn {cat2(t['pt'])}% [QĐ 1923, Đ11.6; Known-Issues-Bieu-Mau #7]")
+        if not t["so_viec"] and t["max"]:
+            cb.append(f"Trục {n} không có chỉ tiêu — {t['max']:g} điểm tối đa tính 0")
+    for x in viec:
+        if x["ty_le"] > 100 + EPS:
+            cb.append(f"{x['ma']} '{x['noi_dung'][:40]}': hoàn thành {cat2(x['ty_le'])}% — chỉ tính 100%, phần vượt "
+                      "ghi nhận định tính, xét khen thưởng [Đ11.6]")
+        if x["ket_qua"] == "Vượt mức" and x["ty_le"] <= 100 + EPS:
+            cb.append(f"{x['ma']}: khai 'Vượt mức' nhưng số liệu 3 chiều chỉ {cat2(x['ty_le'])}% — kiểm lại")
+    de = str(tl["C"].get("C15") or "")
+    if de in MUC and muc_diem in MUC and MUC.index(de) < MUC.index(muc_diem):
+        cb.append(f"Tự đề xuất '{de}' CAO HƠN mức theo ngưỡng điểm '{muc_diem}'")
+    if de in MUC[:3] and dk["tong_hop"].get(de) == "Không đạt":
+        cb.append(f"Tự đề xuất '{de}' nhưng điều kiện kèm theo mức này có mục 'Không đạt'")
+    if dk["khong_hoan_thanh"]:
+        cb.append("Thuộc trường hợp 'Không hoàn thành nhiệm vụ' dù đủ điểm [Đ19.1d]: " + "; ".join(dk["khong_hoan_thanh"]))
+    if khd["quan_ly"] and str(tl["C"].get("C12")) == "Có":
+        tt = str(tl["C"].get("C13") or "")
+        if tt in MUC and muc_diem in MUC and MUC.index(muc_diem) < MUC.index(tt):
+            cb.append(f"Người đứng đầu: mức theo điểm '{muc_diem}' cao hơn xếp loại tập thể '{tt}' — không được cao hơn "
+                      "[QĐ 1923, Đ14.4, Đ19.4]")
+        elif tt == "Chưa có":
+            cb.append("Người đứng đầu: chưa có xếp loại tập thể kỳ này — chưa đối chiếu quy tắc 'không cao hơn tập thể' "
+                      "[Đ14.4, Đ19.4]")
+    if str(tl["C"].get("C14")) == "Có":
+        cb.append("Đã có quý dưới mức tối thiểu trong năm: viên chức quản lý không xếp HTXS cả năm [Đ19.5]; người không "
+                  "giữ chức vụ — Đ19.1a (lưu ý) ghi cho mọi cá nhân, Đ19.5 ghi 'khuyến khích, không bắt buộc' — Câu hỏi "
+                  "mở số 8, không tự chọn")
+    return cb
+
+
+# ------------------------------------------------------------------ xuat Excel
+def ghi_ket_qua(khd, tl, kq, ra, quy=None, nam=None):
+    from copy import copy
+    if os.path.abspath(ra) == os.path.abspath(khd["tep"]):
+        raise Dung("Không ghi đè tệp kế hoạch đã duyệt — chọn tên tệp ra khác")
+    if os.path.abspath(os.path.dirname(ra)) == km.thu_muc_mau():
+        raise Dung("Không ghi vào thư mục mẫu assets/")
+    os.makedirs(os.path.dirname(os.path.abspath(ra)), exist_ok=True)
+    shutil.copyfile(khd["tep"], ra)
+    wb = km.mo(ra)
+    ct, dg_ct = khd["ct"], khd["dg"]
+    kp, dg = wb["KPI"], wb[dg_ct["sheet"]]
+    # KPI: so thuc te tung viec; dong khong co viec -> xoa o nhap (so vi du cua mau)
+    co = {x["dong_kpi"]: x for x in kq["viec"]}
+    for r_kh, rk in ct["kpi_dong"].items():
+        if rk in co:
+            x = co[rk]
+            kp[f"K{rk}"].value = x.get("K") or kp[f"K{rk}"].value
+            kp[f"L{rk}"].value, kp[f"N{rk}"].value, kp[f"P{rk}"].value = x["L"], x["N"], x["P"]
+            if ct["cot_minh_chung"] and x.get("minh_chung"):
+                kp[f"{ct['cot_minh_chung']}{rk}"].value = x["minh_chung"]
+        else:
+            km.xoa_thuc_te(kp, rk)
+    # Chan tran tung chi tieu trong cong thuc % Truc (cot R dong Truc) [D11.6] — thay =(M+O+Q)/3
+    for n, (d, c) in ct["truc"].items():
+        rt = ct["kpi_truc"][n]
+        a, b = ct["kpi_dong"][d], ct["kpi_dong"][c]
+        tb = f"(M{a}:M{b}+O{a}:O{b}+Q{a}:Q{b})/3"
+        kp[f"R{rt}"].value = f"=SUMPRODUCT({tb}-({tb}>J{a}:J{b})*({tb}-J{a}:J{b}))"
+    # Danh gia: thong tin ca nhan, ky, muc A, dieu kien, muc III
+    for nhan, r in dg_ct["ca_nhan"].items():
+        if khd["ca_nhan"].get(nhan):
+            dg.cell(r, 1).value = f"{nhan}: {khd['ca_nhan'][nhan]}"
+    if quy and nam:
+        for r in range(1, 12):
+            for c_ in dg[r]:
+                if isinstance(c_.value, str):
+                    c_.value = re.sub(r"(QUÝ|Quý)\s*[….]+\s*(NĂM|năm)", lambda m: f"{m.group(1)} {quy} {m.group(2)}",
+                                      c_.value)
+    for g in kq["a"]:
+        cot = next(x["cot_diem"] for x in dg_ct["a"] if x["so"] == g["so"])
+        for dong, x in g["diem"]:
+            dg[f"{cot}{dong}"].value = x
+    ck = dg_ct["dieu_kien"]["cot_kq"]
+    for r, tt, nd, goi_y, gc in dg_ct["dieu_kien"]["muc"]:
+        v = tl["C"].get(f"D{tt}")
+        if v not in (None, ""):
+            dg[f"{ck}{r}"].value = (f"{v}%" if isinstance(v, (int, float)) else v)
+    r3 = dg_ct["de_xuat"]
+    dg.cell(r3, 1).value = f"III. Tự đề xuất mức xếp loại chất lượng: {kq['tu_de_xuat']}"
+    # Ghi chu chan tran ngay duoi tong diem
+    cot_dat = dg_ct["b"][1]["cot_dat"]
+    col_gc = chr(ord(cot_dat) + 1)
+    dg[f"{col_gc}{dg_ct['tong']}"].value = ("Điểm KPI Trục chặn trần 100% theo từng chỉ tiêu [QĐ 1923, Đ11.6] — "
+                                           "sheet KPI cột R dòng Trục")
+    # The thuc: Times New Roman
+    for sh in wb.worksheets:
+        for row in sh.iter_rows():
+            for cell in row:
+                if cell.value is not None and cell.font is not None and cell.font.name != km.PHONG:
+                    f = copy(cell.font)
+                    f.name = km.PHONG
+                    cell.font = f
+    # Do lai chieu cao dong SAU khi ghi so thuc te: san pham thuc te (K — danh sach so ky hieu), minh chung (S) lam dong
+    # cao hon luc lap ke hoach (lenh sua 25/9/2026, L1). Vuot 409 pt -> canh bao KH19.
+
+=== HẾT TỆP GOP-3-PLUGIN-COT-LOI_phan-2-tren-5.txt — MÃ KIỂM: FC35F1 ===

@@ -89,3 +89,5 @@ Lưu ý: kỹ năng được nạp tự động theo mô tả không luôn hiệ
 - Nhật ký chỉ ghi khi làm việc trong thư mục dự án; phiên trên Claude (trò chuyện), Cowork không có ở đây.
 - Hook `loi` chỉ bắt lỗi công cụ mà ứng dụng báo về; lỗi nghiệp vụ (số liệu sai) phát hiện qua rà soát, kiểm thử.
 - Chưa đo token thực tế theo tác vụ (ứng dụng không trả số token cho hook) — thí điểm cần ghi theo phiếu.
+
+=== HẾT TỆP N18-THONG-KE-VAN-HANH-THUC-TE-18-28-9-2026.md — MÃ KIỂM: 3DD782 ===

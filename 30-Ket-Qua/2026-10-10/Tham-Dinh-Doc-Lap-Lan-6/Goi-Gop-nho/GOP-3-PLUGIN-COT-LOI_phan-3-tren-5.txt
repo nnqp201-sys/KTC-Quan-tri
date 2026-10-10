@@ -1,0 +1,2705 @@
+[PHẦN 3/5 của GOP-3-PLUGIN-COT-LOI.txt — đọc đủ 5 phần theo thứ tự]
+
+    kq["canh_bao"] += km.chinh_chieu_cao(wb, ct)
+    wb.save(ra)
+    return ra
+
+
+# ------------------------------------------------------------------ in
+def in_ket_qua(khd, kq):
+    L = []
+    L.append(f"Nhóm vị trí: {km.NHOM[khd['nhom']][0]}")
+    L.append("")
+    L.append("| Khối | Điểm tối đa | Điểm tự đánh giá |")
+    L.append("|---|---|---|")
+    for g in kq["a"]:
+        L.append(f"| A{g['so']} (Mức {g['muc']} — {cat2(g['ty_le'])}%) | {g['max']:g} | {cat2(g['tong'])} |")
+    for n, t in kq["truc"].items():
+        L.append(f"| Trục ({n}) — {t['so_viec']} chỉ tiêu, {cat2(t['pt'])}% | {t['max']:g} | {cat2(t['diem'])} |")
+    L.append(f"| **Tổng A + B** | 100 | **{cat2(kq['tong'])}** |")
+    L.append("")
+    L.append(f"Mức theo ngưỡng điểm thuần túy [Đ19.1]: **{kq['muc_theo_diem']}**")
+    L.append(f"Cá nhân tự đề xuất: **{kq['tu_de_xuat']}**")
+    L.append("")
+    L.append("| Mức | Điều kiện | Kết quả | Căn cứ |")
+    L.append("|---|---|---|---|")
+    for m in kq["dieu_kien"]["tu_diem_tro_xuong"]:
+        for nd, s, cc in kq["dieu_kien"]["theo_muc"][m]:
+            L.append(f"| {m} | {nd} | {s} | QĐ 1923, {cc} |")
+    for m in kq["dieu_kien"]["tu_diem_tro_xuong"]:
+        L.append(f"- Điều kiện kèm theo '{m}': {kq['dieu_kien']['tong_hop'][m]}")
+    if kq["canh_bao"]:
+        L.append("")
+        L.append("Cảnh báo:")
+        L += [f"- {x}" for x in kq["canh_bao"]]
+    L.append("")
+    L.append("Nguồn chưa có trong kho — điều kiện liên quan do người dùng tự xác nhận: Bảng kiểm bảo đảm sĩ số HSSV; "
+             "Hướng dẫn đánh giá hằng quý/năm của Hiệu trưởng [Đ10.5, Đ24.2] (đang dùng khung mức của Quy chế); Tiêu "
+             "chí đánh giá chuyển đổi số.")
+    if khd["nhom"] in NHOM_THIEU_PL:
+        L.append(f"Đối chiếu qua mẫu Kế hoạch+KPI Quý III/2026, chưa đối chiếu trực tiếp QĐ 2078 (Phụ lục "
+                 f"{NHOM_THIEU_PL[khd['nhom']]} chưa có trong kho).")
+    L.append("Trần tỷ lệ HTXS tính ở cấp đơn vị/Trường — giai đoạn 3, chưa áp dụng ở đây [Đ19.2].")
+    L.append("")
+    L.append(f"*{DONG_CUOI}*")
+    return "\n".join(L)
+
+
+def main(argv):
+    import argparse
+    import json
+    sys.stdout.reconfigure(encoding="utf-8")
+    ap = argparse.ArgumentParser()
+    sp = ap.add_subparsers(dest="lenh", required=True)
+    s1 = sp.add_parser("sinh-bang-hoi")
+    s2 = sp.add_parser("danh-gia")
+    for s in (s1, s2):
+        s.add_argument("--ke-hoach", required=True)
+        s.add_argument("--nhom", choices=list(km.NHOM))
+        s.add_argument("--quy")
+        s.add_argument("--nam")
+        s.add_argument("--ra", required=True)
+    s2.add_argument("--bang-hoi", required=True)
+    s2.add_argument("--json", action="store_true")
+    a = ap.parse_args(argv)
+    try:
+        khd = doc_ke_hoach(a.ke_hoach, a.nhom)
+        if a.lenh == "sinh-bang-hoi":
+            sinh_bang_hoi(khd, a.ra, a.quy, a.nam)
+            print(f"✓ Đã sinh bảng hỏi {a.ra} — {len(khd['viec'])} chỉ tiêu, "
+                  f"{sum(len(g['tieu_chi']) for g in khd['dg']['a'])} tiêu chí chung, {len(cau_hoi_c(khd))} câu mục C."
+                  " Người dùng điền ô vàng rồi chạy 'danh-gia'.")
+            return 0
+        kq = tinh(khd, doc_bang_hoi(a.bang_hoi))
+        ghi_ket_qua(khd, doc_bang_hoi(a.bang_hoi), kq, a.ra, a.quy, a.nam)
+    except PermissionError:
+        print(f"✗ Không ghi được {a.ra}: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.")
+        return 2
+    except (km.LoiCauTruc, Dung, kc.LoiKPI) as e:
+        print(f"✗ {e}")
+        return 2
+    if a.json:
+        print(json.dumps({k: v for k, v in kq.items() if k != "viec"}, ensure_ascii=False, indent=1, default=str))
+    print(f"✓ Đã xuất {a.ra}")
+    print(in_ket_qua(khd, kq))
+    return 1 if kq["canh_bao"] or any(v == "Không đạt" for v in kq["dieu_kien"]["tong_hop"].values()) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/kpi_mau.py` (26541 byte, sha256 `faabd3618bdc70a399475ba2405b0cc0ea8b94ae0814ed07c33950a34b130db4`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Cau truc 6 mau Ke hoach + KPI Quy (03-Templates/03-12) va dien ke hoach vao BAN SAO cua mau.
+
+Mau (6 nhom vi tri, CV 694/CĐKT-TCCB muc I.2; QD 1923 D15.1b):
+  truong-pho-don-vi   Truong/Pho phong, khoa                     (vien chuc quan ly)
+  bo-mon              Truong/Pho bo mon, Phong Kham da khoa      (vien chuc quan ly)
+  nha-giao            Nhom 1 — Nha giao truc tiep giang day cac Khoa
+  giao-vu             Nhom 2 — Giao vu khoa
+  hanh-chinh          Nhom 3 — Vien chuc, NLD lam viec theo che do hanh chinh
+  ho-tro              Nhom 4 — Nhan vien ho tro, phuc vu
+
+Moi mau: sheet "Ke Hoach" (6 Truc x 20 dong, noi cong thuc sang sheet "KPI"), "KPI" (so luong quy doi, KPI 3 chieu),
+"Danh gia"/"Danh Gia" (diem toi da tung Truc, nhom tieu chi chung). Cau truc DOC TU MAU, khong ghi cung dong.
+
+KHONG ghi de mau: luon chep sang tep ra roi moi dien. Tep ra chuan hoa phong chu ve Times New Roman (mau goc co o
+Calibri — the thuc Muc 2, skill the-thuc); co, dam, can le giu nguyen.
+"""
+import glob
+import os
+import re
+import shutil
+import unicodedata
+import warnings
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+DU_AN = os.path.dirname(HERE)
+
+NHOM = {
+    "truong-pho-don-vi": ("Trưởng/Phó phòng, khoa", "Truong-Pho-Truong-Cac-Don-Vi", True),
+    "bo-mon": ("Trưởng/Phó bộ môn, Phòng Khám đa khoa", "VCQL-Bo-Mon-Va-Tuong-Duong", True),
+    "nha-giao": ("Nhóm 1 — Nhà giáo trực tiếp giảng dạy", "Nha-Giao-Giang-Day-Cac-Khoa", False),
+    "giao-vu": ("Nhóm 2 — Giáo vụ khoa", "Giao-Vu-Khoa", False),
+    "hanh-chinh": ("Nhóm 3 — Viên chức hành chính", "VC-Hanh-Chinh", False),
+    "ho-tro": ("Nhóm 4 — Nhân viên hỗ trợ, phục vụ", "NV-Ho-Tro-Phuc-Vu", False),
+}
+LA_MA = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6}
+PHONG = "Times New Roman"
+
+
+def _kd(s):
+    t = unicodedata.normalize("NFD", str(s or "").lower())
+    return " ".join("".join(c for c in t if unicodedata.category(c) != "Mn").replace("đ", "d").split())
+
+
+def thu_muc_mau():
+    """assets/ cua skill (khi chay trong goi) hoac 28-KTC-KPI/assets (du an)."""
+    for d in (os.path.join(HERE, "..", "assets"), os.path.join(DU_AN, "28-KTC-KPI", "assets"),
+              os.path.join(HERE, "..", "skills", "kpi-lap-ke-hoach", "assets")):   # ban chep o scripts/ goc plugin
+        if glob.glob(os.path.join(d, "Mau-KeHoach-DanhGia_*.xlsx")):
+            return os.path.abspath(d)
+    raise FileNotFoundError("Không thấy 6 mẫu Kế hoạch trong assets/ — dừng, hỏi người dùng.")
+
+
+def tep_mau(nhom):
+    if nhom not in NHOM:
+        raise ValueError(f"Nhóm vị trí '{nhom}' không có; chọn một trong: {', '.join(NHOM)}")
+    ds = glob.glob(os.path.join(thu_muc_mau(), f"Mau-KeHoach-DanhGia_{NHOM[nhom][1]}_*.xlsx"))
+    if len(ds) != 1:
+        raise FileNotFoundError(f"Không xác định được đúng 1 mẫu cho nhóm '{nhom}' ({len(ds)} tệp).")
+    return ds[0]
+
+
+def nhan_nhom(wb):
+    """Doan nhom tu tieu de sheet Danh gia (vd 'DOI VOI VIEN CHUC HANH CHINH'). Khong chac -> None."""
+    ws = sheet_danh_gia(wb)
+    t = _kd(" ".join(str(ws.cell(r, 1).value or "") for r in range(1, 6)))
+    for k, dau in (("giao-vu", "giao vu"), ("ho-tro", "ho tro"), ("nha-giao", "nha giao"),
+                   ("hanh-chinh", "hanh chinh"), ("bo-mon", "bo mon"),
+                   ("truong-pho-don-vi", "truong/pho cac don vi")):   # tieu de mau: "TRUONG/PHO CAC DON VI"
+        if dau in t:
+            return k
+    return None
+
+
+def sheet_danh_gia(wb):
+    return next(w for w in wb.worksheets if _kd(w.title).startswith("danh gia"))
+
+
+def cau_truc(wb):
+    """{'truc': {1: (dong_dau, dong_cuoi)} tren 'Ke Hoach', 'diem_truc': {1: 45,...}, 'nhom_a': [13,12,5],
+        'kpi_dong': {dong Ke Hoach: dong KPI}, 'cot_minh_chung': 'S' | None}"""
+    kh, kp, dg = wb["Ke Hoach"], wb["KPI"], sheet_danh_gia(wb)
+    kpi_dong, dau_truc = {}, []
+    for r in kp.iter_rows(min_row=7):
+        a = str(r[0].value or "").strip()
+        if a in LA_MA:
+            dau_truc.append((r[0].row, LA_MA[a]))
+        m = re.match(r"='Ke Hoach'!B(\d+)$", str(r[1].value or ""))
+        if m:
+            kpi_dong[int(m.group(1))] = r[0].row
+    truc = {}
+    for i, (d, n) in enumerate(dau_truc):
+        het = dau_truc[i + 1][0] if i + 1 < len(dau_truc) else 10 ** 6
+        ks = [k for k, v in kpi_dong.items() if d < v < het]
+        if ks:
+            truc[n] = (min(ks), max(ks))
+    diem_truc, nhom_a = {}, []
+    for r in dg.iter_rows():
+        b = str(r[1].value or "")
+        m = re.match(r"Trục \((\d)\)", b)
+        if m and len(r) > 5 and isinstance(r[5].value, (int, float)):
+            diem_truc[int(m.group(1))] = float(r[5].value)
+        if str(r[0].value or "").strip() in ("1", "2", "3") and str(r[3].value or "").startswith("=SUM(D"):
+            a_, b_ = map(int, re.findall(r"D(\d+):D(\d+)", r[3].value)[0])
+            nhom_a.append(sum(float(dg.cell(i, 4).value or 0) for i in range(a_, b_ + 1)))
+    cot_mc = None
+    for c in kp[3]:
+        if "minh chứng" in str(c.value or "").lower():
+            cot_mc = c.column_letter
+    # Cot "Nhiem vu de ra ke hoach" cua sheet KPI (dong tieu de 4) — do theo TIEU DE, mau nao thieu cot thi bo qua
+    kpi_cot = {}
+    for c in kp[4]:
+        t = _kd(c.value)
+        for k, dau in (("chi_dao", "nguoi truc tiep chi dao"), ("phoi_hop", "nguoi phoi hop"),
+                       ("tham_muu", "don vi tham muu"), ("san_pham", "san pham du kien")):
+            if t.startswith(dau):
+                kpi_cot[k] = c.column_letter
+    return {"truc": truc, "diem_truc": diem_truc, "nhom_a": nhom_a, "kpi_dong": kpi_dong, "cot_minh_chung": cot_mc,
+            "kpi_truc": {n: d for d, n in dau_truc}, "kpi_cot": kpi_cot}
+
+
+class LoiCauTruc(ValueError):
+    """Sheet Danh gia khong do duoc cau truc — DUNG, bao nguoi dung; khong doan (lenh 25/9/2026 muc 12)."""
+
+
+def cau_truc_danh_gia(wb):
+    """Do DONG sheet Danh gia/Danh Gia (6 mau lech so dong va cot — khong ghi cung theo mau nao).
+    Tra ve {'sheet', 'a': [{'so','dong','cot_max','cot_diem','tieu_chi':[(dong, ky_hieu, noi_dung, diem_max)]}],
+    'tong_a': dong, 'b': {truc: {'dong','cot_pt','cot_max','cot_dat','diem_max','cong_thuc'}}, 'tong_b', 'tong',
+    'dieu_kien': {'dong', 'cot_kq', 'cot_ghi_chu', 'muc': [(dong, tt, noi_dung, goi_y, ghi_chu)]},
+    'de_xuat': dong muc III, 'ca_nhan': {nhan: dong}}. Thieu khoi nao -> LoiCauTruc."""
+    from openpyxl.utils import get_column_letter
+    dg = sheet_danh_gia(wb)
+    o = lambda r, c: dg.cell(r, c).value  # noqa: E731
+    kq = {"sheet": dg.title, "a": [], "b": {}, "ca_nhan": {}}
+    # --- Muc A: hang tieu de "TT | TIEU CHI DANH GIA | ... Diem toi da | Diem cham"; nhom = dong cot A la 1/2/3
+    #     co o "Diem toi da" = SUM(<cot>a:<cot>b) (cac tieu chi con a, b, c...)
+    hang_a = next((r for r in range(1, dg.max_row + 1) if str(o(r, 1) or "").strip() == "TT"
+                   and _kd(o(r, 2)).startswith("tieu chi danh gia")), None)
+    if hang_a:
+        tde = {_kd(o(hang_a, c)): get_column_letter(c) for c in range(1, dg.max_column + 1) if o(hang_a, c)}
+        cmax = next((v for k, v in tde.items() if k.startswith("diem toi da")), None)
+        cdiem = next((v for k, v in tde.items() if k.startswith("diem cham")), None)
+        for r in range(hang_a + 1, dg.max_row + 1):
+            a = str(o(r, 1) or "").strip()
+            m = re.match(r"=SUM\(([A-Z]+)(\d+):\1(\d+)\)$", str(dg[f"{cmax}{r}"].value or "")) if cmax else None
+            if a == str(len(kq["a"]) + 1) and m and m.group(1) == cmax and len(kq["a"]) < 3:
+                tu, den = int(m.group(2)), int(m.group(3))
+                tc = [(i, str(o(i, 1) or "").strip(), str(o(i, 2) or "").strip(),
+                       float(dg[f"{cmax}{i}"].value or 0)) for i in range(tu, den + 1)]
+                kq["a"].append({"so": int(a), "dong": r, "ten": str(o(r, 2) or "").strip(), "cot_max": cmax,
+                                "cot_diem": cdiem, "tieu_chi": tc,
+                                "diem_max": sum(x[3] for x in tc)})
+    # --- Muc B: dong cot B bat dau "Truc (n)" co diem toi da so (cot co tieu de "Điểm tối đa")
+    hang_b = None
+    for r in range(1, dg.max_row + 1):
+        if str(o(r, 1) or "").strip() == "TT" and "Tiêu chí/Nội dung" in str(o(r, 2) or ""):
+            hang_b = r
+    if hang_b:
+        tieu_de = {_kd(o(hang_b, c)): get_column_letter(c) for c in range(1, dg.max_column + 1) if o(hang_b, c)}
+        cot_pt = next((v for k, v in tieu_de.items() if k.startswith("diem kpi")), None)
+        cot_max = next((v for k, v in tieu_de.items() if k.startswith("diem toi da")), None)
+        cot_dat = next((v for k, v in tieu_de.items() if k.startswith("diem dat")), None)
+        for r in range(hang_b + 1, dg.max_row + 1):
+            m = re.match(r"Trục \((\d)\)", str(o(r, 2) or ""))
+            if m and cot_max and isinstance(dg[f"{cot_max}{r}"].value, (int, float, str)):
+                try:
+                    dmax = float(dg[f"{cot_max}{r}"].value)
+                except (TypeError, ValueError):
+                    continue
+                kq["b"][int(m.group(1))] = {"dong": r, "cot_pt": cot_pt, "cot_max": cot_max, "cot_dat": cot_dat,
+                                            "diem_max": dmax, "cong_thuc": dg[f"{cot_pt}{r}"].value}
+    # --- Dong tong, dieu kien (II), de xuat (III), thong tin ca nhan
+    for r in range(1, dg.max_row + 1):
+        a, b = str(o(r, 1) or "").strip(), _kd(o(r, 2))
+        if b == "tong diem a + b":
+            kq["tong"] = r
+        elif b == "tong diem nhom b":
+            kq["tong_b"] = r
+        elif b in ("tong diem", "tong diem nhom a") and "tong_a" not in kq:
+            kq["tong_a"] = r
+        elif a == "II." and "dieu kien bat buoc" in b:
+            kq["dieu_kien"] = {"dong": r, "muc": []}
+        elif a.startswith("III.") and "tu de xuat" in _kd(a):
+            kq["de_xuat"] = r
+        for nhan in ("Họ và tên", "Chức vụ Đảng", "Chức vụ chính quyền", "Chức vụ đoàn thể", "Đơn vị công tác"):
+            if a.startswith(nhan) and nhan not in kq["ca_nhan"]:
+                kq["ca_nhan"][nhan] = r
+    dk = kq.get("dieu_kien")
+    if dk:
+        tde = dk["dong"] + 1
+        hdr = {_kd(o(tde, c)): get_column_letter(c) for c in range(1, dg.max_column + 1) if o(tde, c)}
+        dk["cot_kq"] = next((v for k, v in hdr.items() if k.startswith("ket qua")), None)
+        dk["cot_ghi_chu"] = next((v for k, v in hdr.items() if k.startswith("ghi chu")), None)
+        het = kq.get("de_xuat", dg.max_row + 1)
+        for r in range(tde + 1, het):
+            tt = str(o(r, 1) or "").strip()
+            if re.fullmatch(r"\d+", tt) and o(r, 2):
+                goi_y = dg[f"{dk['cot_kq']}{r}"].value if dk["cot_kq"] else None
+                gc = dg[f"{dk['cot_ghi_chu']}{r}"].value if dk["cot_ghi_chu"] else None
+                dk["muc"].append((r, tt, str(o(r, 2)).strip(), goi_y, gc))
+    thieu = [t for t, ok in (("mục A (3 nhóm tiêu chí chung)", len(kq["a"]) == 3),
+                             ("mục B (6 Trục có điểm tối đa)", sorted(kq["b"]) == [1, 2, 3, 4, 5, 6]),
+                             ("cột Điểm KPI (%) / Điểm tối đa / Điểm đạt", hang_b and all(
+                                 kq["b"].get(1, {}).get(k) for k in ("cot_pt", "cot_max", "cot_dat"))),
+                             ("dòng Tổng điểm A + B", "tong" in kq),
+                             ("khối II. Điều kiện bắt buộc", dk and dk.get("cot_kq") and dk["muc"]),
+                             ("dòng III. Tự đề xuất mức xếp loại", "de_xuat" in kq)) if not ok]
+    if thieu:
+        raise LoiCauTruc(f"Sheet '{dg.title}': không dò được " + "; ".join(thieu) +
+                         " — dừng, báo người dùng; không đoán cấu trúc.")
+    return kq
+
+
+def mo(p):
+    from openpyxl import load_workbook
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        return load_workbook(p)
+
+
+def dong_vi_du(nhom):
+    """{(sheet, o): gia tri} cua cac o du lieu CO SAN trong mau o vung dau viec — dong vi du chua xoa (known issue 4)."""
+    wb = mo(tep_mau(nhom))
+    ct = cau_truc(wb)
+    kh = wb["Ke Hoach"]
+    vd = {}
+    for d, c in ct["truc"].values():
+        for r in range(d, c + 1):
+            for col in "BCDEFGHIJ":
+                v = kh[f"{col}{r}"].value
+                if v not in (None, ""):
+                    vd[f"{col}{r}"] = v
+    return vd
+
+
+O_THUC_TE = ("K", "L", "N", "P")   # sheet KPI: san pham thuc te, SL thuc te, % chat luong, % tien do (o nhap)
+
+
+def xoa_thuc_te(kp, r):
+    """Xoa o NHAP so thuc te cua mot dong viec tren sheet KPI; giu nguyen o cong thuc."""
+    for col in O_THUC_TE:
+        v = kp[f"{col}{r}"].value
+        if v is not None and not str(v).startswith("="):
+            kp[f"{col}{r}"].value = None
+
+
+CAO_TOI_DA = 409          # pt — gioi han chieu cao dong cua Excel
+RONG_GHI_CHU_KH = 25      # cot J (Ghi chu) sheet Ke Hoach: mau ~6,6 ky tu -> ghi chu dai lam dong cao bat thuong
+
+
+def do_rong_cot(ws):
+    """{chi so cot: do rong}. openpyxl GOP cot lien nhau cung do rong vao MOT khoa (min–max, vd 'C' = C..F) — tra khoa
+    don le se cho cot giua nhom la None (lenh sua 25/9/2026, L1). Cot khong khai bao -> do rong mac dinh cua sheet."""
+    kq = {"_mac_dinh": ws.sheet_format.defaultColWidth or 8.43}
+    for d in ws.column_dimensions.values():
+        if d.min and d.max and d.width:
+            for i in range(d.min, d.max + 1):
+                kq[i] = float(d.width)
+    return kq
+
+
+def gia_tri_hien_thi(wb, cell, sau=0):
+    """Van ban o se HIEN THI: cong thuc tro cheo sheet ='Ten sheet'!B14 -> gia tri o duoc tro (cot B sheet KPI la cong
+    thuc — ban cu bo qua nen dong KPI khong bao gio duoc nang cao). Cong thuc tinh toan khac -> None."""
+    v = cell.value
+    if v is None or not str(v).startswith("="):
+        return v
+    m = re.fullmatch(r"='?([^'!]+)'?!\$?([A-Z]+)\$?(\d+)", str(v).strip())
+    if m and sau < 3 and m.group(1) in wb.sheetnames:
+        return gia_tri_hien_thi(wb, wb[m.group(1)][f"{m.group(2)}{m.group(3)}"], sau + 1)
+    return None
+
+
+def _vung_gop(ws):
+    """{o dau vung gop 1 dong: [chi so cot]}; '_bi_gop': cac o bi che trong vung gop (bo qua khi do)."""
+    kq, bi = {}, set()
+    for g in ws.merged_cells.ranges:
+        if g.min_row == g.max_row:
+            kq[g.start_cell.coordinate] = list(range(g.min_col, g.max_col + 1))
+        for rr in range(g.min_row, g.max_row + 1):
+            for cc in range(g.min_col, g.max_col + 1):
+                if (rr, cc) != (g.min_row, g.min_col):
+                    bi.add(ws.cell(rr, cc).coordinate)
+    kq["_bi_gop"] = bi
+    return kq
+
+
+def uoc_chieu_cao(wb, ws, r, rong=None, gop=None):
+    """(chieu cao can pt, so dong chu) cua dong r — CUC DAI moi o co chu trong dong. So ky tu moi dong = do rong cot
+    (o gop: cong do rong cac cot); chu tieng Viet co dau xuong dong som -> so ky tu x 1,2; cao = dong x co x 1,3 + 6."""
+    import math
+    rong = rong or do_rong_cot(ws)
+    gop = gop if gop is not None else _vung_gop(ws)
+    can, dong_max = 0.0, 1
+    for c in ws[r]:
+        if c.coordinate in gop["_bi_gop"]:
+            continue
+        v = gia_tri_hien_thi(wb, c)
+        if v in (None, "") or isinstance(v, (int, float)):
+            continue
+        w = sum(rong.get(i, rong["_mac_dinh"]) for i in gop.get(c.coordinate, [c.column]))
+        co = float(c.font.sz or 12) if c.font else 12.0
+        dong = sum(max(1, math.ceil(len(p) * 1.2 / max(1.0, w))) for p in str(v).split("\n"))
+        h = dong * co * 1.3 + 6
+        if h > can:
+            can, dong_max = h, dong
+    return can, dong_max
+
+
+def canh_chu(c):
+    from copy import copy
+    al = copy(c.alignment)
+    al.wrap_text = True
+    al.vertical = "top"
+    c.alignment = al
+
+
+def chinh_chieu_cao(wb, ct):
+    """Goi SAU KHI da ghi het du lieu (ke hoach, hoac so thuc te o buoc tu danh gia). Chi dong viec dang hien cua ca
+    'Ke Hoach' lan 'KPI'. Vuot 409 pt -> dat 409 va tra canh bao KH19 (khong cat im lang). Tra ve danh sach canh bao."""
+    cb = []
+    kh, kp = wb["Ke Hoach"], wb["KPI"]
+    rk_, rp_ = do_rong_cot(kh), do_rong_cot(kp)
+    gk, gp = _vung_gop(kh), _vung_gop(kp)
+    for n, (d, c) in ct["truc"].items():
+        for r in range(d, c + 1):
+            if kh[f"B{r}"].value in (None, "") or kh.row_dimensions[r].hidden:
+                continue
+            for sh, rr, rong, gop in ((kh, r, rk_, gk), (kp, ct["kpi_dong"][r], rp_, gp)):
+                can, dong = uoc_chieu_cao(wb, sh, rr, rong, gop)
+                if can > CAO_TOI_DA:
+                    cb.append(f"KH19 {sh.title}!dòng {rr} (Trục {n}): cần ~{dong} dòng chữ ({can:.0f} pt) > "
+                              f"{CAO_TOI_DA} pt — Excel không hiện hết; rút gọn nội dung hoặc nới rộng cột")
+                    can = CAO_TOI_DA
+                sh.row_dimensions[rr].height = round(max(can, 15.0), 1)
+    return cb
+
+
+def thuc_te_vi_du(nhom):
+    """{'dong N': {o: gia tri}} — so thuc te VI DU co san trong mau o sheet KPI (Known-Issues-Bieu-Mau #12)."""
+    wb = mo(tep_mau(nhom))
+    ct = cau_truc(wb)
+    kp = wb["KPI"]
+    kq = {}
+    for r in ct["kpi_dong"].values():
+        o = {f"{col}{r}": kp[f"{col}{r}"].value for col in O_THUC_TE
+             if kp[f"{col}{r}"].value not in (None, "") and not str(kp[f"{col}{r}"].value).startswith("=")}
+        if o:
+            kq[f"dòng {r}"] = o
+    return kq
+
+
+def ghi_ke_hoach(nhom, kh, ra, quy=None, nam=None):
+    """Dien ke hoach vao BAN SAO mau. kh: {"ca_nhan":{ho_ten,ngay_sinh,chuc_vu_dang,chuc_vu_chinh_quyen,
+    chuc_vu_doan_the,don_vi}, "dau_viec":[{truc,noi_dung,cap_trinh,muc_do,san_pham,so_luong,thoi_han,he_so,
+    minh_chung,ghi_chu, nguoi_chi_dao?, nguoi_phoi_hop?, don_vi_tham_muu?}], "phuong_an":..., "trang_thai_he_so":...}
+    (he_so da tinh bang kpi_calc). Sheet KPI cot C–F: nguoi_chi_dao (mac dinh cap_trinh), nguoi_phoi_hop (khong mac
+    dinh — trong thi KH17), don_vi_tham_muu (mac dinh ca_nhan.don_vi), san_pham = cong thuc ='Ke Hoach'!E<dong>.
+    Tra ve danh sach thong bao."""
+    goc = tep_mau(nhom)
+    if os.path.abspath(ra) == os.path.abspath(goc) or os.path.abspath(os.path.dirname(ra)) == thu_muc_mau():
+        raise ValueError("Không ghi vào thư mục mẫu assets/ — chọn nơi lưu khác.")
+    os.makedirs(os.path.dirname(os.path.abspath(ra)), exist_ok=True)
+    shutil.copyfile(goc, ra)
+    wb = mo(ra)
+    ct = cau_truc(wb)
+    ws, kp = wb["Ke Hoach"], wb["KPI"]
+    tb = []
+    # 1. Xoa dong vi du trong vung dau viec (giu cot A = STT). Sheet KPI cung co SO THUC TE vi du o dong viec dau
+    #    (L=4, N=100, P=100 — Known-Issues-Bieu-Mau #12): xoa o nhap lieu, giu cong thuc.
+    for d, c in ct["truc"].values():
+        for r in range(d, c + 1):
+            for col in "BCDEFGHIJ":
+                ws[f"{col}{r}"].value = None
+            xoa_thuc_te(kp, ct["kpi_dong"][r])
+            if ct["cot_minh_chung"]:
+                kp[f"{ct['cot_minh_chung']}{ct['kpi_dong'][r]}"].value = None
+    # 2. Thong tin ca nhan
+    cn = kh.get("ca_nhan", {})
+    nhan = {4: ("Họ và tên", "ho_ten", "Ngày sinh", "ngay_sinh"), 5: ("Chức vụ Đảng", "chuc_vu_dang"),
+            6: ("Chức vụ chính quyền", "chuc_vu_chinh_quyen"), 7: ("Chức vụ đoàn thể", "chuc_vu_doan_the"),
+            8: ("Đơn vị công tác", "don_vi")}
+    for r, t in nhan.items():
+        if len(t) == 4:
+            ws[f"B{r}"].value = f"{t[0]}: {cn.get(t[1]) or '…'}    {t[2]}: {cn.get(t[3]) or '…'}"
+        else:
+            ws[f"B{r}"].value = f"{t[0]}: {cn.get(t[1]) or '…'}"
+    # 3. Ky (quy, nam) trong tieu de
+    if quy and nam:
+        for sh in (ws, kp):
+            for r in range(1, 4):
+                for c in sh[r]:
+                    if isinstance(c.value, str):
+                        c.value = re.sub(r"QUÝ\s+[IVX]+\s+NĂM\s+\d{4}", f"QUÝ {quy} NĂM {nam}", c.value)
+    # 4. Dau viec
+    dem = {n: 0 for n in ct["truc"]}
+    pa = kh.get("phuong_an")
+    for dv in kh.get("dau_viec", []):
+        n = int(dv["truc"])
+        if n not in ct["truc"]:
+            raise ValueError(f"Trục {n} không có trong mẫu.")
+        d, c = ct["truc"][n]
+        r = d + dem[n]
+        if r > c:
+            raise ValueError(f"Trục {n} vượt {c - d + 1} dòng của mẫu — gộp bớt hoặc hỏi Phòng TCCB&CTHSSV "
+                             "(không tự chèn dòng làm lệch công thức sheet KPI).")
+        dem[n] += 1
+        ghi_chu = [dv.get("ghi_chu") or ""]
+        hs = dv.get("he_so")
+        ws[f"B{r}"].value = dv.get("noi_dung")
+        ws[f"C{r}"].value = dv.get("cap_trinh")
+        ws[f"D{r}"].value = dv.get("muc_do")
+        ws[f"E{r}"].value = dv.get("san_pham")
+        ws[f"F{r}"].value = dv.get("so_luong")
+        ws[f"G{r}"].value = dv.get("thoi_han")
+        ws[f"I{r}"].value = hs
+        if pa == "muc-do" and hs is not None:
+            ws[f"H{r}"].value = round(float(hs) * 100)     # Diem cham = He so x 100 [QD 1923 PL I cot (9)(10)]
+        elif hs is not None:
+            ghi_chu.append(f"Hệ số theo phương án {pa}")
+        mc = dv.get("minh_chung")
+        if mc:
+            if ct["cot_minh_chung"]:
+                kp[f"{ct['cot_minh_chung']}{ct['kpi_dong'][r]}"].value = mc
+            else:
+                ghi_chu.append(f"Minh chứng: {mc}")
+        ws[f"J{r}"].value = "; ".join(x for x in ghi_chu if x) or None
+        # Sheet KPI cot C–F "Nhiem vu de ra ke hoach" (lenh sua 25/9/2026, L2). Khong tu bia nguoi phoi hop:
+        # khong truyen thi de trong — validate_plan KH17 canh bao.
+        rk = ct["kpi_dong"][r]
+        kc_ = ct.get("kpi_cot", {})
+        for k, v in (("chi_dao", dv.get("nguoi_chi_dao") or dv.get("cap_trinh")),
+                     ("phoi_hop", dv.get("nguoi_phoi_hop")),
+                     ("tham_muu", dv.get("don_vi_tham_muu") or kh.get("ca_nhan", {}).get("don_vi")),
+                     ("san_pham", f"='Ke Hoach'!E{r}")):
+            if k in kc_:
+                kp[f"{kc_[k]}{rk}"].value = v or None
+        for col in ["B"] + [kc_[k] for k in ("chi_dao", "phoi_hop", "tham_muu", "san_pham") if k in kc_]:
+            canh_chu(kp[f"{col}{rk}"])
+        for col in "BCDEGJ":
+            if ws[f"{col}{r}"].value not in (None, ""):
+                canh_chu(ws[f"{col}{r}"])
+    if pa and pa != "muc-do":
+        tb.append(f"Hệ số theo phương án '{pa}': {kh.get('trang_thai_he_so', '')}")
+    # 4b. Trinh bay (Known-Issues-Bieu-Mau #10, #11 — phien 24–25/9 phai va tay): xuong dong + chieu cao dong
+    #     cho dong da ghi; AN (khong xoa) dong trong trong khoi 20 dong/Truc, ca "Ke Hoach" lan "KPI".
+    an = 0
+    for d, c in ct["truc"].values():
+        for r in range(d, c + 1):
+            if ws[f"B{r}"].value in (None, ""):
+                ws.row_dimensions[r].hidden = True
+                kp.row_dimensions[ct["kpi_dong"][r]].hidden = True
+                an += 1
+    if an:
+        tb.append(f"Đã ẩn {an} dòng trống trong khối đầu việc (không xóa — bỏ ẩn được khi cần thêm việc)")
+    ws.column_dimensions["J"].width = max(ws.column_dimensions["J"].width or 0, RONG_GHI_CHU_KH)
+    # 5. The thuc: phong chu Times New Roman cho moi o co noi dung (mau goc con o Calibri)
+    from copy import copy
+    doi = 0
+    for sh in wb.worksheets:
+        for row in sh.iter_rows():
+            for cell in row:
+                if cell.value is not None and cell.font is not None and cell.font.name != PHONG:
+                    f = copy(cell.font)
+                    f.name = PHONG
+                    cell.font = f
+                    doi += 1
+    if doi:
+        tb.append(f"Đã chuẩn hóa {doi} ô sang {PHONG} (mẫu gốc còn phông khác — Known-Issues-Bieu-Mau.md)")
+    tb += chinh_chieu_cao(wb, ct)
+    wb.save(ra)
+    return tb
+
+
+def main(argv):
+    """Mot lenh tron quy trinh: tinh he so (kpi_calc) -> dien mau -> kiem (validate_plan).
+    python scripts/kpi_mau.py --nhom hanh-chinh --json ke_hoach.json --phuong-an muc-do --quy IV --nam 2026 --ra <tep.xlsx>
+    Ma thoat: 2 = loi dau vao (dung, hoi nguoi dung) · 1 = da xuat nhung con LOI · 0 = sach."""
+    import argparse
+    import json
+    import sys
+    sys.path.insert(0, HERE)
+    import kpi_calc as kc
+    import validate_plan as vp
+    sys.stdout.reconfigure(encoding="utf-8")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--nhom", required=True, choices=list(NHOM))
+    ap.add_argument("--json", required=True)
+    ap.add_argument("--phuong-an")
+    ap.add_argument("--quy")
+    ap.add_argument("--nam")
+    ap.add_argument("--ra", required=True)
+    a = ap.parse_args(argv)
+    if a.phuong_an not in kc.PHUONG_AN:
+        print(f"✗ Chưa chọn phương án hệ số ({', '.join(kc.PHUONG_AN)}) — Câu hỏi mở số 1, không có mặc định. "
+              "Hỏi người dùng.")
+        return 2
+    kh = json.load(open(a.json, encoding="utf-8"))
+    qd = kc.quy_doi_ke_hoach(kh, a.phuong_an)
+    if qd["loi"]:
+        print("✗ Không tính được hệ số — dừng, hỏi người dùng:")
+        for x in qd["loi"]:
+            print(f"  dòng {x['dong']} '{x['noi_dung']}': {x['loi']}")
+        return 2
+    kh = dict(kh, dau_viec=qd["dau_viec"], phuong_an=a.phuong_an, trang_thai_he_so=qd["trang_thai"])
+    try:
+        tb = ghi_ke_hoach(a.nhom, kh, a.ra, a.quy, a.nam)
+    except PermissionError:
+        print(f"✗ Không ghi được {a.ra}: tệp đang mở trong Excel (hoặc bị khóa) — hãy đóng tệp hoặc đặt tên mới.")
+        return 2
+    except (ValueError, FileNotFoundError) as e:
+        print(f"✗ {e}")
+        return 2
+    print(f"✓ Đã xuất {a.ra}")
+    print(f"  Phương án hệ số: {a.phuong_an} — {qd['trang_thai']}")
+    for x in tb:
+        print(f"  {'[CANH_BAO] ' if x.startswith('KH') else '· '}{x}")
+    for d in qd["dau_viec"]:
+        for c in d.get("canh_bao") or []:
+            print(f"  ⚠ {d.get('noi_dung', '')[:50]}: {c}")
+    kq = vp.kiem(a.ra, a.nhom, a.phuong_an)
+    for x in sorted(kq["loi"], key=lambda x: (x["muc"] != "LOI", x["ma"])):
+        print(f"  [{x['muc']:8s}] {x['ma']} {x['vi_tri']}: {x['noi_dung']}  [{x['can_cu']}]")
+    print("  · Số thực tế, KPI, điểm: chưa có — sinh sau khi chạy kpi_danh_gia.py danh-gia")
+    return 1 if any(x["muc"] == "LOI" for x in kq["loi"]) else 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/ktc_guard.py` (16401 byte, sha256 `6c1b3459df1196dd896c375cfe5c738218b9b38fce5bef825fbfd8d28820f69c`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""PreToolUse guard cua plugin ktc-quan-tri — chan GHI/XOA vao kho chuan (tham dinh doc lap lan 1, C-04; lan 2, R2-03).
+
+Vung bao ve (so khop khong phan biet hoa thuong, ca "/" lan "\\"):
+  - KTC-Database        (kho van ban, chi doc — CLAUDE.md)
+  - 03-Templates        (mau .dotx/.xltx, ke ca "03-Templates(1)")
+  - 04-Good-Documents   (van ban tot da ban hanh)
+
+Pham vi kiem:
+  - Write · Edit · MultiEdit · NotebookEdit: duong dan dich (file_path / notebook_path).
+  - Bash · PowerShell: lenh o MUC SHELL co tac dung ghi/xoa ma DICH nam trong vung bao ve
+    (rm, mv, del, rmdir, Remove-Item, Move-Item, Rename-Item, Set-Content, Add-Content, Out-File,
+    New-Item, Clear-Content, chuyen huong > / >>, cp/copy/Copy-Item co DICH trong vung bao ve,
+    tee, sed -i, truncate, touch).
+  - 1.3.1 (tham dinh lan 3, ChatGPT P0-2): hai tang.
+    TANG 1 — CHAN (exit 2) khi xac dinh chac dich ghi nam trong vung bao ve: lenh long trong
+      `powershell -Command`, `pwsh -c`, `cmd /c`, `bash -c`/`sh -c` (kiem de quy); `open('<vung>', 'w')`,
+      `Path('<vung>').write_text/unlink/...` trong ma Python nhung; `cd`/`Set-Location` vao vung roi ghi
+      duong dan tuong doi; `-EncodedCommand` (khong phan tich duoc -> chan).
+    TANG 2 — khi dich KHONG xac dinh duoc: lenh co nhac vung bao ve VA co dau hieu ghi VA co ma nhung
+      (python/node/perl/powershell...) hoac bien tro vao vung bao ve. 1.3.1: hoi nguoi dung ("ask");
+      1.3.2 (tham dinh lan 4, F4-01): CHAN (exit 2) — khong de lua chon "dong y" ghi vao kho chuan.
+  - 1.3.2: chan tao lien ket tuong trung/cung tro vao vung bao ve (ln, mklink, New-Item -ItemType SymbolicLink)
+    — lien ket la duong vong de ghi vao kho qua duong dan "ngoai".
+  - Van KHONG phai lop bao ve tuyet doi: script trong tep (`python x.py`), bien moi truong dat o phien truoc,
+    lien ket tuong trung... khong nhin thay duoc. Lop bao ve CHINH la phan quyen chi doc (Viewer) tren Drive.
+
+Doc tu vung bao ve (cat, ls, python doc tep, cp TU kho RA ngoai) duoc phep.
+
+Fail-closed: loi doc du lieu hook hoac loi noi bo -> CHAN (exit 2). Harness chi chan khi hook tra 2;
+neu may khong co Python thi hook khong chay duoc — doctor dau phien bao "guard CHUA hoat dong".
+Ma thoat: 0 = cho phep · 2 = chan (thong bao ra stderr cho Claude).
+"""
+import json
+import os
+import re
+import shlex
+import sys
+
+# 1.3.1: khop khi ten vung la CA MOT thanh phan duong dan — tep ten "...-vao-KTC-Database.md" hay thu muc
+# "Ban-trung-KTC-Database" khong phai vung bao ve (bao nham that 18-26/9/2026, 3 lenh).
+VUNG_SO = r"(?<![\w.-])(?:ktc-database|03-templates(?:\(\d+\))?|04-good-documents)(?![\w.-])"
+VUNG = re.compile(VUNG_SO, re.I)
+CONG_CU_TEP = {"Write", "Edit", "MultiEdit", "NotebookEdit"}
+CONG_CU_LENH = {"Bash", "PowerShell"}
+
+# dong tu ghi/xoa: moi doi so dang duong dan deu la DICH
+DONG_TU_XOA_GHI = {
+    "rm", "rmdir", "del", "erase", "rd", "unlink", "shred", "truncate", "touch", "mkdir",
+    "remove-item", "ri", "rename-item", "ren", "set-content", "sc", "add-content", "ac",
+    "out-file", "new-item", "ni", "clear-content", "clc", "tee", "tee-object", "set-itemproperty",
+}
+# dong tu sao chep/di chuyen: chi doi so CUOI (dich) bi xet; mv/move con xet ca nguon (xoa nguon)
+DONG_TU_CHEP = {"cp", "copy", "copy-item", "cpi", "xcopy", "robocopy", "install", "rsync"}
+DONG_TU_DOI = {"mv", "move", "move-item", "mi"}
+# 1.3.2: tao lien ket tro vao vung bao ve (bat ke vi tri doi so) — mo duong ghi vong qua duong dan ngoai kho
+DONG_TU_LIEN_KET = {"ln", "mklink", "junction", "linkd"}
+
+
+def _chan(ly_do: str):
+    sys.stderr.write(
+        "KTC-Quan-tri guard: CHẶN — " + ly_do + "\n"
+        "Kho KTC-Database, 03-Templates(1), 04-Good-Documents chỉ được ĐỌC. Ghi sản phẩm vào "
+        "30-Ket-Qua/<ngày>/<loại>/; cần sửa kho thì viết đề xuất để người có thẩm quyền tự áp.\n")
+    raise SystemExit(2)
+
+
+def _tach_cau_lenh(lenh: str):
+    """Tach chuoi lenh thanh cac cau lenh don (theo ; && || | xuong dong)."""
+    return [c.strip() for c in re.split(r"(?:&&|\|\||;|\n|\|)", lenh) if c.strip()]
+
+
+HEREDOC = re.compile(r"<<-?\s*(['\"]?)(\w+)\1")
+SHELL_NHAN_HEREDOC = re.compile(r"(?:^|[\s;&|(])(?:bash|sh|zsh|dash|ksh|pwsh|powershell|cmd)(?:\.exe)?(?=[\s<]|$)", re.I)
+
+
+def _bo_than_heredoc(lenh: str) -> str:
+    """1.3.4 (chan nham that 28/9/2026): than heredoc dua cho trinh thong dich (python - <<'EOF' ... EOF) la MA, khong
+    phai cau lenh shell — `if i > 45:` bi hieu la chuyen huong ghi khi dang dung trong kho. Bo than khoi phan tich cau
+    lenh; than dua cho shell (bash <<EOF) thi giu. Tang 2 (kiem_toan_lenh) van xet TOAN chuoi, ke ca than heredoc."""
+    dong, ra, i = lenh.split("\n"), [], 0
+    while i < len(dong):
+        d = dong[i]
+        ra.append(d)
+        m = HEREDOC.search(d)
+        i += 1
+        if m and not SHELL_NHAN_HEREDOC.search(d[:m.start()]):
+            ket = m.group(2)
+            while i < len(dong) and dong[i].strip() != ket:
+                i += 1
+            if i < len(dong):
+                ra.append(dong[i])
+                i += 1
+    return "\n".join(ra)
+
+
+def _tokens(cau: str):
+    # Co "\" (duong dan Windows) thi tach kieu non-posix: posix coi "\" la ky tu thoat, "Drive\KTC-Database"
+    # thanh "DriveKTC-Database" va lot khoi VUNG (1.3.1); non-posix giu ngoac kep trong token -> bo ngoac.
+    try:
+        if "\\" in cau:
+            return [t[1:-1] if len(t) >= 2 and t[0] == t[-1] and t[0] in "\"'" else t
+                    for t in shlex.split(cau, posix=False)]
+        return shlex.split(cau, posix=True)
+    except ValueError:
+        return cau.split()
+
+
+def _kiem_chuyen_huong(cau: str):
+    # > dich · >> dich · 2> dich (bo qua >&1, > /dev/null, > $null)
+    for m in re.finditer(r"\d?>>?\s*(\"[^\"]+\"|'[^']+'|[^\s;|&]+)", cau):
+        dich = m.group(1).strip("\"'")
+        if dich.startswith("&") or dich.lower() in ("/dev/null", "$null", "nul"):
+            continue
+        if VUNG.search(dich):
+            _chan(f"chuyển hướng ghi vào vùng bảo vệ: {dich}")
+
+
+def _gia_tri_tham_so(tok, ten):
+    """PowerShell: lay gia tri cua -Destination/-Path/-LiteralPath/-FilePath."""
+    ra = []
+    for i, t in enumerate(tok):
+        if t.lower() in ten and i + 1 < len(tok):
+            ra.append(tok[i + 1])
+        else:
+            for n in ten:
+                if t.lower().startswith(n + ":"):
+                    ra.append(t.split(":", 1)[1])
+    return ra
+
+
+
+# Ma Python nhung: open('<vung>...', 'w'|'a'|'x'|'+') va Path('<vung>...').<ghi/xoa>
+OPEN_GHI = re.compile(r"open\s*\(\s*[rbuf]*(['\"])[^'\"]*" + VUNG_SO + r"[^'\"]*\1\s*,\s*(?:mode\s*=\s*)?[rbf]*['\"][^'\"]*[wax+]", re.I)
+PATH_GHI = re.compile(r"Path\s*\(\s*[rbuf]*(['\"])[^'\"]*" + VUNG_SO + r"[^'\"]*\1\s*\)\s*(?:/\s*['\"][^'\"]*['\"]\s*)*\."
+                      r"(?:write_text|write_bytes|unlink|rename|replace|touch|mkdir|rmdir|open\s*\([^)]*['\"][wax+])", re.I)
+# Trinh thong dich / vo lenh co the chay ma nhung
+THONG_DICH = re.compile(r"(?:^|[\s;&|(`$])(?:python[\d.]*|py|node|deno|bun|perl|ruby|php|powershell|pwsh|cmd|bash|sh|zsh|"
+                        r"wscript|cscript|mshta)(?:\.exe)?(?=[\s\"']|$)", re.I)
+# Dau hieu ghi/xoa trong toan lenh (dung cho tang 2 — dich khong xac dinh)
+# 1.3.3: .rename(/.replace( chi tinh la ghi khi lenh co Path(...) (hoac os.rename/os.replace o duoi) — chan nham
+# that 28/9/2026: str.replace() trong python -c doc kho bi coi la ghi.
+GHI = re.compile(r"""(?ix)
+   open\s*\([^)]*,\s*(?:mode\s*=\s*)?[rbf]*['"][^'"]*[wax+]
+ | \.(?:write|write_text|write_bytes|writelines|save|to_excel|to_csv|unlink|touch|mkdir|rmdir)\s*\(
+ | \bpath\s*\([\s\S]*\.(?:rename|replace)\s*\(
+ | \.(?:writefile|appendfile|rm|rmsync|copyfile|createwritestream|unlinksync|renamesync|mkdirsync)\w*\s*\(
+ | \bshutil\.(?:copy\w*|move|rmtree) | \bos\.(?:remove|unlink|rename|replace|rmdir|removedirs|makedirs|mkdir|truncate)
+ | \b(?:set|add|clear)-content\b | \bout-file\b | \b(?:remove|move|copy|rename|new)-item\b
+ | \[(?:system\.)?io\.(?:file|directory)\]:: | \bfs\.(?:write|append|rm|unlink|rename|copy|mkdir|cp)\w*
+ | (?:^|[\s;&|(])(?:rm|rmdir|mv|cp|del|erase|rd|ren|move|copy|xcopy|robocopy|touch|tee|truncate|mkdir|unlink)(?=\s)
+""")
+# Bien gan duong dan vung bao ve: D="..KTC-Database..", $d = '..', set D=..
+BIEN_VUNG = re.compile(r"(?:\$?[\w:]+\s*=\s*|\bset\s+\w+=)(?:\"[^\"]*|'[^']*|[^\"'\s;]*)" + VUNG_SO, re.I)
+DONG_TU_CD = {"cd", "pushd", "chdir", "set-location", "sl", "push-location"}
+VO_LENH = {"powershell", "powershell.exe", "pwsh", "pwsh.exe", "cmd", "cmd.exe", "bash", "sh", "zsh"}
+CO_LENH_LONG = {"-c", "-command", "/c", "/k", "-comm", "-com"}
+CO_MA_HOA = {"-encodedcommand", "-enc", "-ec", "-e", "-en", "-enco", "-encod"}
+
+
+def _tuong_doi(t: str) -> bool:
+    t = t.strip("\"'")
+    # 1.3.2: "[\\/]" — ban 1.3.1 ghi "[\/]" (heredoc nuot dau "\") nen "C:\..." bi coi la duong dan tuong doi
+    return bool(t) and not re.match(r"^(?:[a-z]:[\\/]|[\\/]|~|\$|%)", t, re.I)
+
+
+def kiem_toan_lenh(lenh: str):
+    """Kiem cap toan chuoi lenh (truoc khi tach cau): ma nhung, ma hoa, tang 2."""
+    if OPEN_GHI.search(lenh) or PATH_GHI.search(lenh):
+        _chan("mã nhúng mở/ghi/xóa tệp trong vùng bảo vệ")
+    kiem_lenh(lenh)
+    # 1.3.2 (tham dinh lan 4, ChatGPT F4-01): khong xac dinh duoc dich ma co dau hieu ghi vao vung bao ve -> CHAN
+    # (truoc la "hoi nguoi dung"). Chay lai 1.481 lenh that: 0 lenh roi vao nhanh nay -> khong tang chan nham.
+    if VUNG.search(lenh) and GHI.search(lenh) and (THONG_DICH.search(lenh) or BIEN_VUNG.search(lenh)):
+        _chan("lệnh có nhắc vùng bảo vệ, có dấu hiệu ghi/xóa và có mã nhúng hoặc biến trỏ vào vùng bảo vệ — không "
+              "xác định được đích ghi. Ghi sản phẩm bằng đường dẫn tường minh ngoài kho, hoặc tách bước đọc kho và "
+              "bước ghi thành hai lệnh riêng")
+
+
+def kiem_lenh(lenh: str, sau: int = 0):
+    if sau > 3:
+        _chan("lệnh lồng quá sâu, không phân tích được")
+    trong_vung = False     # da cd/Set-Location vao vung bao ve
+    for cau in _tach_cau_lenh(_bo_than_heredoc(lenh)):
+        _kiem_chuyen_huong(cau)
+        tok = _tokens(cau)
+        if not tok:
+            continue
+        # bo tien to kieu `sudo`, `command`, `&`
+        while tok and tok[0].lower() in ("sudo", "command", "&", "call"):
+            tok = tok[1:]
+        if not tok:
+            continue
+        dt = tok[0].lower().rsplit("/", 1)[-1].rsplit("\\", 1)[-1]
+        doi_so = [t for t in tok[1:] if not t.startswith("-")]
+        if dt in DONG_TU_CD:
+            dich = " ".join(doi_so)
+            trong_vung = bool(VUNG.search(dich)) or (trong_vung and _tuong_doi(dich))
+            continue
+        if dt in VO_LENH:
+            thap = [t.lower() for t in tok[1:]]
+            if any(t in CO_MA_HOA for t in thap) and dt.startswith(("powershell", "pwsh")):
+                _chan("lệnh PowerShell mã hóa (-EncodedCommand) không kiểm được")
+            # cat NGUYEN VAN phan lenh con tu chuoi goc — ghep lai tu token shlex se mat dau "\" cua duong dan Windows
+            m = re.search(r"(?i)(?:^|\s)(?:-c|-command|-comm?|/c|/k)\s+(.+)$", cau, re.S)
+            if m:
+                con = m.group(1).strip()
+                if len(con) >= 2 and con[0] == con[-1] and con[0] in "\"'":
+                    con = con[1:-1]
+                kiem_lenh(con, sau + 1)
+        if trong_vung:
+            # dang dung trong vung bao ve: ghi vao duong dan tuong doi = ghi vao kho
+            for m in re.finditer(r"\d?>>?\s*(\"[^\"]+\"|'[^']+'|[^\s;|&]+)", cau):
+                d = m.group(1).strip("\"'")
+                if not d.startswith("&") and d.lower() not in ("/dev/null", "$null", "nul") and _tuong_doi(d):
+                    _chan(f"chuyển hướng ghi `{d}` khi đang đứng trong vùng bảo vệ")
+            if dt in DONG_TU_XOA_GHI | DONG_TU_DOI | DONG_TU_CHEP and any(_tuong_doi(t) for t in doi_so):
+                _chan(f"lệnh `{dt}` với đường dẫn tương đối khi đang đứng trong vùng bảo vệ")
+        if dt in ("sed", "perl") and any(t.startswith("-i") for t in tok[1:]):
+            # 1.3.2 (chan nham that 27/9/2026 18:4x): chi xet TEP DICH, khong xet bieu thuc sed/perl — bieu thuc
+            # co chu "KTC-Database" (vd thay chu trong mot tep ngoai kho) khong phai duong dan ghi.
+            # Bieu thuc: doi so sau -e/--expression/-f; neu khong co -e thi doi so khong-tuy-chon DAU TIEN.
+            bt, tep, i, co_e = set(), [], 1, False
+            while i < len(tok):
+                t = tok[i]
+                if t in ("-e", "--expression", "-f", "--file") and i + 1 < len(tok):
+                    bt.add(i + 1)
+                    co_e = True
+                    i += 2
+                    continue
+                i += 1
+            khong_tuy_chon = [k for k in range(1, len(tok)) if not tok[k].startswith("-") and k not in bt]
+            if not co_e and khong_tuy_chon:
+                khong_tuy_chon = khong_tuy_chon[1:]          # bo bieu thuc sed dung tran
+            tep = [tok[k] for k in khong_tuy_chon]
+            if any(VUNG.search(t) for t in tep):
+                _chan(f"sửa tại chỗ ({dt} -i) tệp trong vùng bảo vệ")
+            continue
+        if dt in DONG_TU_LIEN_KET or (dt in ("cmd", "cmd.exe") and "mklink" in cau.lower()):
+            if VUNG.search(cau):
+                _chan(f"tạo liên kết (`{dt}`) trỏ vào vùng bảo vệ")
+        if dt in ("new-item", "ni") and re.search(r"-itemtype\s+['\"]?(symboliclink|junction|hardlink)", cau, re.I):
+            if VUNG.search(cau):
+                _chan("tạo liên kết (New-Item -ItemType SymbolicLink/Junction) trỏ vào vùng bảo vệ")
+        if dt in DONG_TU_XOA_GHI:
+            if any(VUNG.search(t) for t in tok[1:]):
+                _chan(f"lệnh `{dt}` tác động vào vùng bảo vệ")
+        elif dt in DONG_TU_DOI:
+            if any(VUNG.search(t) for t in tok[1:]):
+                _chan(f"lệnh `{dt}` di chuyển/đổi tên trong vùng bảo vệ")
+        elif dt in DONG_TU_CHEP:
+            dich = _gia_tri_tham_so(tok, ("-destination", "-dest"))
+            if not dich and doi_so:
+                dich = [doi_so[-1]]
+            if dt == "robocopy" and len(doi_so) >= 2:
+                dich = [doi_so[1]]
+            if any(VUNG.search(d) for d in dich):
+                _chan(f"lệnh `{dt}` chép vào vùng bảo vệ: {dich[0]}")
+
+
+GOC_PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def _trong_plugin(p: str) -> bool:
+    """1.3.6 (chay that 28/9/2026): skill bao-cao ghi 'bo nho qua trinh' vao chinh tep cua plugin da cai. Tep plugin la
+    ban phat hanh — sua o may nguoi dung se mat khi cap nhat va lech giua cac may."""
+    if not p:
+        return False
+    ap = os.path.normcase(os.path.abspath(p))
+    if re.search(r"[\\/]\.claude[\\/]plugins[\\/]", ap):
+        return True
+    goc = os.path.normcase(GOC_PLUGIN)
+    return os.path.isdir(os.path.join(GOC_PLUGIN, ".claude-plugin")) and (ap == goc or ap.startswith(goc + os.sep))
+
+
+def kiem(data: dict):
+    ten = data.get("tool_name") or ""
+    vao = data.get("tool_input") or {}
+    if ten in CONG_CU_TEP:
+        p = vao.get("file_path") or vao.get("notebook_path") or ""
+        if VUNG.search(str(p)):
+            _chan(f"{ten} vào {p}")
+        if _trong_plugin(str(p)):
+            _chan(f"{ten} vào tệp của plugin đã cài ({p}). Không sửa tệp plugin; ghi nhật ký, bộ nhớ quá trình, sản phẩm "
+                  "vào thư mục làm việc (30-Ket-Qua/<ngày>/<loại>/, ghi chú đối soát)")
+    elif ten in CONG_CU_LENH:
+        kiem_toan_lenh(str(vao.get("command") or ""))
+
+
+def main():
+    try:
+        raw = sys.stdin.read()
+        data = json.loads(raw)
+        if not isinstance(data, dict):
+            raise ValueError("dữ liệu hook không phải đối tượng JSON")
+    except Exception as e:  # fail-closed
+        _chan(f"không đọc được dữ liệu hook ({e})")
+    try:
+        kiem(data)
+    except SystemExit:
+        raise
+    except Exception as e:  # fail-closed
+        _chan(f"lỗi nội bộ của guard ({e})")
+    raise SystemExit(0)
+
+
+if __name__ == "__main__":
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    main()
+`````
+
+## `scripts/ktc_nhat_ky.py` (18165 byte, sha256 `f2935b8ee21c6ec17b430a8253387f851e937f282910b3cc85ac90825c387cf1`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Tu ghi nhat ky phien lam viec va nap lai vao context khi mo phien moi.
+
+Goi tu hooks.json voi 1 trong 4 che do:
+  ghi       PostToolUse      — ghi 1 dong JSONL: thoi gian, phien, cong cu, doi tuong (KHONG ghi noi dung tep).
+                               1.3.1 (tham dinh lan 3, ChatGPT P0-1): KHONG luu lenh Bash/PowerShell, mo ta Agent,
+                               mau Grep/Glob tho — chi luu loai hanh dong + chuong trinh; tep: duong dan tuong doi.
+                               Lenh (da che du lieu) chi luu khi chu may chon KTC_NHAT_KY_NOI_DUNG=1.
+  yeu-cau   UserPromptSubmit — MAC DINH chi ghi do dai + nhan tin hieu hoc; noi dung (cat 600 ky tu) chi khi
+                               nguoi dung chon: mo dau "#học" hoac bien KTC_NHAT_KY_NOI_DUNG=1 (1.3.0, R2-02)
+  ket-phien SessionEnd       — ghi dong danh dau ket thuc phien
+  nap       SessionStart     — in tom tat 2 ngay + tri thuc tu hoc + so tin hieu chua hoc -> context
+
+Chi hoat dong khi thu muc du an co `90-Nhat-Ky-Van-Hanh/` (tuc la dang lam viec trong KTC-Quan-tri) —
+plugin bat o cap nguoi dung nen phai tu gioi han pham vi, khong ghi log vao du an khac.
+Moi loi deu nuot va thoat 0: hook ghi log khong bao gio duoc lam hong phien lam viec.
+"""
+import datetime as dt
+import io
+import json
+import os
+import re
+import sys
+
+THU_MUC_LOG = os.path.join("90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
+DAI_TOI_DA = 200          # cat ngan lenh/duong dan dai
+SO_DONG_NAP = 5           # so thao tac gan nhat dua vao context (1.3.1: 15 -> 5, khong in lenh)
+# 1.3.1 (ChatGPT P1-1): ngan sach phan nap dau phien ~1.500 token (~4.500 ky tu tieng Viet). Vuot thi cat
+# danh sach tri thuc, bao so muc con lai. KTC_NAP_DAY_DU=1 -> ban day du (15 thao tac, 12 tep, 160 ky tu/muc).
+NGAN_SACH_NAP = 4500
+CONG_CU_TEP = ("Write", "Edit", "MultiEdit", "Read", "NotebookEdit")
+MAU_GHI_LENH = re.compile(r"(?:>|\b(?:rm|mv|cp|mkdir|touch|tee|del|move|copy|sed\s+-i|set-content|add-content|out-file|"
+                          r"remove-item|copy-item|move-item|new-item|rename-item)\b)", re.I)
+
+
+def doc_stdin() -> dict:
+    try:
+        return json.load(sys.stdin)
+    except Exception:
+        return {}
+
+
+def tim_du_an(data: dict):
+    # Chi lui ve getcwd khi hook KHONG cho biet thu muc nao — neu hook da cho cwd ngoai du an
+    # thi phai bo qua, khong duoc ghi nham vao du an dang chua script (loi 18/9/2026).
+    ung_vien = [os.environ.get("CLAUDE_PROJECT_DIR"), data.get("cwd")]
+    if not any(ung_vien):
+        ung_vien.append(os.getcwd())
+    for p in ung_vien:
+        if not p:
+            continue
+        p = os.path.abspath(p)
+        # di nguoc len toi da 4 cap de tim goc du an
+        for _ in range(5):
+            if os.path.isdir(os.path.join(p, "90-Nhat-Ky-Van-Hanh")):
+                return p
+            cha = os.path.dirname(p)
+            if cha == p:
+                break
+            p = cha
+    return None
+
+
+def _tuong_doi(du_an, p: str) -> str:
+    p = str(p)
+    try:
+        if du_an and os.path.abspath(p).lower().startswith(os.path.abspath(du_an).lower() + os.sep):
+            return os.path.relpath(p, du_an).replace("\\", "/")
+    except (ValueError, OSError):
+        pass
+    return p.replace("\\", "/")
+
+
+def phan_loai_lenh(lenh: str) -> dict:
+    """Mo ta lenh KHONG luu noi dung: chuong trinh dau tien + loai hanh dong."""
+    lenh = str(lenh).strip()
+    m = re.match(r"(?:cd\s+(?:\"[^\"]*\"|'[^']*'|\S+)\s*(?:;|&&)\s*)?(?:\w+=\S*\s+)*([^\s;|&]+)", lenh)
+    ct = (m.group(1) if m else "").strip("\"'&").replace("\\", "/").rsplit("/", 1)[-1][:24]
+    if re.search(r"\bgit\s+(?:commit|push|add|reset|checkout|rm)\b", lenh):
+        hd = "git-ghi"
+    elif MAU_GHI_LENH.search(lenh):
+        hd = "ghi"
+    elif re.search(r"\b(?:python\d*|py|node|powershell|pwsh)\b", lenh, re.I):
+        hd = "chay-script"
+    else:
+        hd = "doc"
+    return {"chuong_trinh": ct, "hanh_dong": hd}
+
+
+def doi_tuong(tool: str, inp: dict, du_an: str = None) -> str:
+    """Doi tuong DUOC PHEP luu mac dinh: duong dan tep (tuong doi), ten skill, loai agent. Lenh, mo ta Agent,
+    mau tim kiem la noi dung tho -> khong tra ve o day (1.3.1, P0-1)."""
+    if tool in CONG_CU_TEP:
+        s = _tuong_doi(du_an, inp.get("file_path") or inp.get("notebook_path") or "")
+    elif tool == "Skill":
+        s = inp.get("skill", "")
+    elif tool == "Agent":
+        s = inp.get("subagent_type", "") or "general"
+    else:
+        s = ""
+    s = che_du_lieu(" ".join(str(s).split()))
+    return s[:DAI_TOI_DA] + ("…" if len(s) > DAI_TOI_DA else "")
+
+
+def chi_tiet_tho(tool: str, inp: dict) -> str:
+    """Noi dung tho — CHI luu khi chu may chon KTC_NHAT_KY_NOI_DUNG=1; luon che du lieu."""
+    if tool in ("Bash", "PowerShell"):
+        s = inp.get("command", "")
+    elif tool in ("Grep", "Glob"):
+        s = inp.get("pattern", "")
+    elif tool == "Agent":
+        s = inp.get("description", "")
+    else:
+        return ""
+    s = che_du_lieu(" ".join(str(s).split()))
+    return s[:DAI_TOI_DA] + ("…" if len(s) > DAI_TOI_DA else "")
+
+
+# Tin hieu hoc trong LOI NGUOI DUNG (DL-20260919-005). Chi danh dau de agent ktc-tu-hoc doc lai;
+# hook KHONG tu rut ket luan. Nhom: sua-sai · quy-uoc · quyet-dinh.
+TIN_HIEU = {
+    "sua-sai": r"\b(sai|nhầm|chưa đúng|không đúng|không phải|sửa lại|làm lại|lỗi|thiếu)\b",
+    "quy-uoc": r"(từ nay|từ giờ|sau này|luôn luôn|\bluôn\b|đừng|không được|phải|quy ước|lưu ý|nhớ|ghi nhớ|mặc định)",
+    "quyet-dinh": r"(đồng ý|thống nhất|chốt|quyết định|phê duyệt|lãnh đạo.{0,20}(đã|thống nhất)|giữ phương án)",
+}
+# 1.3.0 (TT-20260924-08): bo gan bao gia nhieu — bo loi < 5 tu ("ok", "em cu lam luon"), bo "OK" tran,
+# bo so hieu van ban ("Quyet dinh so 1899/QD-CDKT", "QD 1923") truoc khi do tin hieu quyet-dinh.
+SO_TU_TOI_THIEU = 5
+MAU_SO_HIEU_VB = r"(quyết định|thông báo|kế hoạch|công văn|tờ trình|báo cáo|QĐ|TB|KH|CV|BC)\s*(số\s*)?\d+[\w/\-]*"
+# Che du lieu ca nhan truoc khi ghi noi dung (khi nguoi dung da chon ghi)
+CHE = [
+    (r"(?<![0-9A-Za-z])0\d{11}(?![0-9A-Za-z])", "[SỐ ĐỊNH DANH]"),
+    (r"(?<![0-9A-Za-z])(\+84|0)\d{9}(?![0-9A-Za-z])", "[SỐ ĐIỆN THOẠI]"),
+    (r"[\w.+-]+@[\w-]+\.[\w.-]+", "[EMAIL]"),
+]
+
+
+def che_du_lieu(s: str) -> str:
+    for mau, thay in CHE:
+        s = re.sub(mau, thay, s)
+    return s
+TEP_TRI_THUC = os.path.join("90-Nhat-Ky-Van-Hanh", "05-Tri-Thuc-Tu-Hoc")
+DAI_YEU_CAU = 600
+SO_TRI_THUC_NAP = 25
+NGAY_LUU_GIU = 30          # 1.3.0: tep nhat ky cu hon 30 ngay bi xoa khi mo phien (che do nap)
+
+
+def don_nhat_ky_cu(du_an: str, ngay: int = NGAY_LUU_GIU) -> int:
+    """Xoa tep YYYY-MM-DD.jsonl cu hon `ngay` ngay. Tra ve so tep da xoa."""
+    thu_muc = os.path.join(du_an, THU_MUC_LOG)
+    if not os.path.isdir(thu_muc):
+        return 0
+    moc = dt.date.today() - dt.timedelta(days=ngay)
+    xoa = 0
+    for f in os.listdir(thu_muc):
+        m = re.fullmatch(r"(\d{4}-\d{2}-\d{2})\.jsonl", f)
+        if not m:
+            continue
+        try:
+            if dt.date.fromisoformat(m.group(1)) < moc:
+                os.remove(os.path.join(thu_muc, f))
+                xoa += 1
+        except (ValueError, OSError):
+            pass
+    return xoa
+
+
+def tin_hieu(s: str):
+    if len(s.split()) < SO_TU_TOI_THIEU:
+        return []
+    s = re.sub(MAU_SO_HIEU_VB, " ", s, flags=re.I)
+    return [k for k, m in TIN_HIEU.items() if re.search(m, s, re.I)]
+
+
+def ghi_dong(du_an: str, dong: dict):
+    thu_muc = os.path.join(du_an, THU_MUC_LOG)
+    os.makedirs(thu_muc, exist_ok=True)
+    tep = os.path.join(thu_muc, dt.date.today().isoformat() + ".jsonl")
+    with io.open(tep, "a", encoding="utf-8") as f:
+        f.write(json.dumps(dong, ensure_ascii=False) + "\n")
+
+
+def che_do_ghi(data: dict, loai: str):
+    du_an = tim_du_an(data)
+    if not du_an:
+        return
+    tool = data.get("tool_name", "")
+    if loai == "thao-tac" and not tool:
+        return  # du lieu hook hong/thieu — khong ghi dong rong
+    dong = {
+        "t": dt.datetime.now().isoformat(timespec="seconds"),
+        "phien": (data.get("session_id") or "")[:8],
+        "loai": loai,
+    }
+    if loai == "thao-tac":
+        dong["cong_cu"] = tool
+        inp = data.get("tool_input") or {}
+        dt_ = doi_tuong(tool, inp, du_an)
+        if dt_:
+            dong["doi_tuong"] = dt_
+        if tool in ("Bash", "PowerShell"):
+            dong.update(phan_loai_lenh(inp.get("command", "")))
+        if os.environ.get("KTC_NHAT_KY_NOI_DUNG") == "1":
+            ct = chi_tiet_tho(tool, inp)
+            if ct:
+                dong["chi_tiet"] = ct
+        resp = data.get("tool_response")
+        if isinstance(resp, dict) and (resp.get("is_error") or resp.get("error")):
+            dong["loi"] = True
+    elif loai == "yeu-cau":
+        s = " ".join(str(data.get("prompt") or "").split())
+        # Lenh noi bo cua Claude Code (/compact, <command-...>) khong phai loi nguoi dung
+        if not s or s.startswith("<") or s.startswith("/"):
+            return
+        # "#riêng ..." — nguoi dung tu danh dau noi dung rieng tu: chi ghi moc thoi gian (CP-20260924-001, C)
+        if re.match(r"#ri[eê]ng\b", s, re.I):
+            dong["noi_dung"] = "[#riêng — không ghi]"
+            ghi_dong(du_an, dong)
+            return
+        # 1.3.0 (tham dinh lan 2, R2-02): MAC DINH chi ghi thong tin mo ta — do dai + nhan tin hieu.
+        # Noi dung chi ghi khi nguoi dung CHU DONG chon, va luon che du lieu ca nhan truoc khi ghi:
+        #   - loi nhan mo dau "#học": ghi loi nhan do (du co tin hieu hay khong);
+        #   - chu may tu dat KTC_NHAT_KY_NOI_DUNG=1 (vd .claude/settings.local.json cua du an): chi ghi loi
+        #     CO tin hieu hoc — dung nguon ma agent ktc-tu-hoc can, bo qua moi loi nhan con lai.
+        dong["do_dai"] = len(s)
+        chon_hoc = re.match(r"#h[oọ]c\b", s, re.I)
+        if chon_hoc:
+            s = s[chon_hoc.end():].strip()
+        th = tin_hieu(s)
+        if th:
+            dong["tin_hieu"] = th
+        if chon_hoc or (th and os.environ.get("KTC_NHAT_KY_NOI_DUNG") == "1"):
+            dong["chon_ghi"] = "#học" if chon_hoc else "KTC_NHAT_KY_NOI_DUNG"
+            s = che_du_lieu(s)
+            dong["noi_dung"] = s[:DAI_YEU_CAU] + ("…" if len(s) > DAI_YEU_CAU else "")
+    else:
+        dong["ly_do"] = data.get("reason", "")
+    ghi_dong(du_an, dong)
+
+
+def doc_log(du_an: str, so_ngay: int = 2):
+    thu_muc = os.path.join(du_an, THU_MUC_LOG)
+    if not os.path.isdir(thu_muc):
+        return []
+    tep = sorted(f for f in os.listdir(thu_muc) if f.endswith(".jsonl"))[-so_ngay:]
+    dong = []
+    for f in tep:
+        with io.open(os.path.join(thu_muc, f), encoding="utf-8", errors="ignore") as h:
+            for line in h:
+                try:
+                    dong.append(json.loads(line))
+                except Exception:
+                    pass
+    return dong
+
+
+def moi_nhat(thu_muc: str):
+    if not os.path.isdir(thu_muc):
+        return None
+    tep = sorted(f for f in os.listdir(thu_muc) if f.endswith(".md"))
+    return tep[-1] if tep else None
+
+
+def nap_tri_thuc(du_an: str, ra: list, day_du: bool = False):
+    """Tri thuc tu hoc con hieu luc/cho duyet + so tin hieu hoc CHUA xu ly ke tu lan hoc cuoi -> `ra` (danh sach dong)."""
+    thu_muc = os.path.join(du_an, TEP_TRI_THUC)
+    tep = os.path.join(thu_muc, "TRI-THUC.md")
+    muc = []
+    if os.path.isfile(tep):
+        for d in io.open(tep, encoding="utf-8", errors="ignore"):
+            o = [x.strip() for x in d.strip().strip("|").split("|")]
+            if len(o) >= 6 and re.match(r"TT-\d{8}-\d+", o[0]) and re.match(r"(hiệu lực|chờ duyệt)", o[5], re.I):
+                muc.append(o)
+    moc = ""
+    try:
+        moc = io.open(os.path.join(thu_muc, ".lan-hoc-cuoi"), encoding="utf-8").read().strip()
+    except OSError:
+        pass
+    chua = [d for d in doc_log(du_an, so_ngay=14)
+            if d.get("loai") == "yeu-cau" and d.get("tin_hieu") and d.get("t", "") > moc]
+    ra.append(f"--- Tri thức tự học ({len(muc)} mục hiệu lực/chờ duyệt — {TEP_TRI_THUC}/TRI-THUC.md) ---")
+    dai = 160 if day_du else 100
+    for o in muc[-SO_TRI_THUC_NAP:]:
+        dau = "?" if o[5].lower().startswith("chờ") else "•"
+        noi = o[2] if len(o[2]) <= dai else o[2][:dai - 1] + "…"
+        ra.append(f"  {dau} [{o[0]}·{o[1]}] {noi}")
+    if chua:
+        ra.append(f"  ⟳ {len(chua)} tín hiệu học CHƯA xử lý — gọi agent ktc-tu-hoc để rút tri thức.")
+
+
+def lam_sach_nhat_ky_cu(du_an: str) -> int:
+    """1.3.1 (P0-1): go lenh/mo ta/mau tho khoi nhat ky da ghi truoc 1.3.1 — tru khi chu may chon ghi noi dung.
+    Tra ve so dong da lam sach. Ghi lai tep qua tep tam roi thay the (khong de tep do dang)."""
+    if os.environ.get("KTC_NHAT_KY_NOI_DUNG") == "1":
+        return 0
+    thu_muc = os.path.join(du_an, THU_MUC_LOG)
+    if not os.path.isdir(thu_muc):
+        return 0
+    n = 0
+    for f in os.listdir(thu_muc):
+        if not f.endswith(".jsonl"):
+            continue
+        p = os.path.join(thu_muc, f)
+        dong, doi = [], False
+        for line in io.open(p, encoding="utf-8", errors="ignore"):
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            cc = d.get("cong_cu")
+            if d.get("loai") == "thao-tac" and cc not in CONG_CU_TEP and cc != "Skill" and "hanh_dong" not in d \
+                    and d.get("doi_tuong"):
+                tho = d.pop("doi_tuong")
+                if cc in ("Bash", "PowerShell"):
+                    d.update(phan_loai_lenh(tho))
+                elif cc == "Agent":
+                    d["doi_tuong"] = tho.split(":", 1)[0].strip() or "general"
+                d["da_lam_sach"] = "1.3.1"
+                doi, n = True, n + 1
+            d.pop("chi_tiet", None)
+            dong.append(d)
+        if doi:
+            tam = p + ".tam"
+            with io.open(tam, "w", encoding="utf-8") as h:
+                for d in dong:
+                    h.write(json.dumps(d, ensure_ascii=False) + "\n")
+            os.replace(tam, p)
+    return n
+
+
+def che_do_nap(data: dict):
+    du_an = tim_du_an(data)
+    if not du_an:
+        return
+    day_du = os.environ.get("KTC_NAP_DAY_DU") == "1"
+    don_nhat_ky_cu(du_an)
+    lam_sach_nhat_ky_cu(du_an)
+    dong = doc_log(du_an)
+    thao_tac = [d for d in dong if d.get("loai") == "thao-tac"]
+    sua_tat_ca = {_tuong_doi(du_an, d["doi_tuong"]) for d in thao_tac
+                  if d.get("cong_cu") in ("Write", "Edit", "MultiEdit") and d.get("doi_tuong")}
+    # chi in tep TRONG du an (duong dan tuong doi); tep ngoai (thu muc tam...) chi dem
+    sua = sorted(x for x in sua_tat_ca if not (":" in x[:3] or x.startswith("/")))
+    ngoai = len(sua_tat_ca) - len(sua)
+    loi = [d for d in thao_tac if d.get("loi")]
+    phien = sorted({d.get("phien") for d in dong if d.get("phien")})
+
+    dau = ["=== KTC-Quan-tri — nhật ký tự động 2 ngày gần nhất (nạp vào context) ==="]
+    if not dong:
+        dau.append("Chưa có nhật ký tự động. (Ghi bắt đầu từ phiên này.)")
+    else:
+        dau.append(f"{len(phien)} phiên · {len(thao_tac)} thao tác · {len(sua)} tệp dự án đã ghi/sửa"
+                   + (f" (+{ngoai} tệp ngoài dự án)" if ngoai else "") + f" · {len(loi)} thao tác lỗi")
+        so_tep = 12 if day_du else 8
+        if sua:
+            dau.append(f"Tệp dự án đã ghi/sửa ({min(len(sua), so_tep)}/{len(sua)}):")
+            dau += [f"  - {s}" for s in sua[-so_tep:]]
+        so = 15 if day_du else SO_DONG_NAP
+        dau.append(f"{so} thao tác gần nhất (không in lệnh — P0-1):")
+        for d in thao_tac[-so:]:
+            ky = "✗" if d.get("loi") else "·"
+            if d.get("cong_cu") in ("Bash", "PowerShell"):
+                pl = d if "hanh_dong" in d else phan_loai_lenh(d.get("doi_tuong", ""))
+                mo_ta = f"{pl.get('chuong_trinh', '')} ({pl.get('hanh_dong', '')})"
+            elif d.get("cong_cu") in CONG_CU_TEP or d.get("cong_cu") in ("Skill", "Agent"):
+                mo_ta = _tuong_doi(du_an, d.get("doi_tuong", "")).split(":", 1)[0] if d.get("cong_cu") == "Agent"                     else _tuong_doi(du_an, d.get("doi_tuong", ""))
+            else:
+                mo_ta = ""
+            dau.append(f"  {ky} {d['t'][5:16]} {d.get('cong_cu', ''):10s} {mo_ta[:90]}")
+
+    tri = []
+    nap_tri_thuc(du_an, tri, day_du)
+
+    duoi = []
+    pm = moi_nhat(os.path.join(du_an, "90-Nhat-Ky-Van-Hanh", "03-Process-Memory"))
+    cp = moi_nhat(os.path.join(du_an, "92-Kinh-Nghiem", "03-Change-Proposals"))
+    dl = moi_nhat(os.path.join(du_an, "92-Kinh-Nghiem", "06-Decision-Log"))
+    duoi.append("Bản ghi gần nhất:")
+    for nhan, v in (("Process Memory", pm), ("Đề xuất cải tiến", cp), ("Decision Log", dl)):
+        duoi.append(f"  - {nhan}: {v or '(chưa có)'}")
+    duoi.append("Nhắc: đọc MEMORY-INDEX.md và Pending.md trước khi làm việc (CLAUDE.md).")
+    duoi.append("=" * 72)
+
+    # Ngan sach: cat bot muc tri thuc CU NHAT (giu dong tieu de va dong tin hieu) cho toi khi vua
+    if not day_du:
+        def tong():
+            return sum(len(x) + 1 for x in dau + tri + duoi)
+        bo = 0
+        while tong() > NGAN_SACH_NAP - 80 and len(tri) > 2:
+            del tri[1]
+            bo += 1
+        if bo:
+            tri.insert(1, f"  … {bo} mục cũ hơn không nạp (ngân sách context) — đọc TRI-THUC.md khi cần.")
+    print("\n".join(dau + tri + duoi))
+
+
+def main():
+    che_do = sys.argv[1] if len(sys.argv) > 1 else "ghi"
+    data = doc_stdin()
+    try:
+        if che_do == "ghi":
+            che_do_ghi(data, "thao-tac")
+        elif che_do == "ket-phien":
+            che_do_ghi(data, "ket-phien")
+        elif che_do == "yeu-cau":
+            che_do_ghi(data, "yeu-cau")
+        elif che_do == "nap":
+            che_do_nap(data)
+    except Exception:
+        pass   # hook log khong duoc lam hong phien
+
+
+if __name__ == "__main__":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    main()
+    raise SystemExit(0)
+`````
+
+## `scripts/ktc_quan_tri_doctor.py` (5181 byte, sha256 `f02b0f6647f3b1e1b56d14909527448f320fb0c1ac3128772ff92116b2d0d98a`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""SessionStart doctor cho plugin ktc-quan-tri — in phien ban plugin va phien ban tu khai cua moi skill dang bat.
+
+Doc truc tiep tu SKILL.md tu khai (khong suy dien tu ten thu muc/ten file), dung
+bai hoc da ghi 18/9/2026: "Khong suy dien phien ban tu ten tep."
+"""
+import io
+import os
+import re
+
+GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SKILLS_DIR = os.path.join(GOC, "skills")
+
+# Uu tien 1: dong ghi tuong minh "Phien ban: X.Y" (ke-hoach, soan-thao-vb, theo-doi-cv).
+# Uu tien 2: dong tieu de ket thuc bang "vX.Y" (bao-cao dang "# ... KTC-RIS v3.7").
+MAU_TUONG_MINH = re.compile(r"Phi[eê]n b[aả]n:?\s*v?([0-9]+\.[0-9]+(?:\.[0-9]+)?)", re.IGNORECASE)
+MAU_TIEU_DE_CUOI_DONG = re.compile(r"^#.*\bv([0-9]+\.[0-9]+(?:\.[0-9]+)?)\s*$", re.MULTILINE)
+
+
+def doc_phien_ban(skill_md: str) -> str:
+    try:
+        s = io.open(skill_md, encoding="utf-8").read()
+    except OSError:
+        return "?"
+    m = MAU_TUONG_MINH.search(s)
+    if m:
+        return m.group(1)
+    m = MAU_TIEU_DE_CUOI_DONG.search(s)
+    if m:
+        return m.group(1)
+    return "(không tự khai)"
+
+
+def main():
+    print("=" * 60)
+    pb_plugin = "?"
+    try:
+        import json
+        pb_plugin = json.load(io.open(os.path.join(GOC, ".claude-plugin", "plugin.json"), encoding="utf-8"))["version"]
+    except Exception:
+        pass
+    print(f"KTC-Quan-tri Plugin {pb_plugin} — SessionStart doctor")
+    print("=" * 60)
+    if not os.path.isdir(SKILLS_DIR):
+        print("  ✗ Không thấy thư mục skills/ — plugin có thể chưa build đúng.")
+        return
+    for ten in sorted(os.listdir(SKILLS_DIR)):
+        skill_md = os.path.join(SKILLS_DIR, ten, "SKILL.md")
+        if not os.path.exists(skill_md):
+            print(f"  ✗ {ten:14s} thiếu SKILL.md")
+            continue
+        pb = doc_phien_ban(skill_md)
+        print(f"  ✓ {ten:14s} phiên bản tự khai: {pb}")
+    print("-" * 60)
+    kiem_guard()
+    kiem_phu_thuoc()
+    kiem_thu_muc()
+    print("=" * 60)
+
+
+def kiem_thu_muc():
+    """1.3.5: che do thu muc — du an / thu muc lam viec cua don vi / chua ket noi (giao tep trong phien)."""
+    import sys
+    try:
+        sys.path.insert(0, os.path.join(GOC, "scripts"))
+        from ktc_thu_muc import tim_goc
+        che_do, goc, ma = tim_goc()
+    except Exception as e:
+        print(f"  · thư mục làm việc: không kiểm được ({e.__class__.__name__})")
+        return
+    if che_do == "du-an":
+        print(f"  ✓ thư mục: dự án KTC-Quan-tri ({goc})")
+    elif che_do == "don-vi":
+        print(f"  ✓ thư mục làm việc đơn vị {ma}: {goc} — đầu vào 10-Dau-Vao/, kết quả 30-Ket-Qua/")
+    else:
+        print("  · chưa kết nối thư mục làm việc — kết quả giao trong phiên. Muốn đọc 10-Dau-Vao/, lưu 30-Ket-Qua/ tự động:"
+              " chọn một thư mục trong Cowork rồi yêu cầu “kết nối thư mục KTC cho đơn vị <mã>”.")
+
+
+def kiem_guard():
+    """Tu thu guard: mot lenh ghi gia vao KTC-Database PHAI bi chan (ma 2), ghi vao 30-Ket-Qua PHAI qua (ma 0)."""
+    import json
+    import subprocess
+    import sys
+    g = os.path.join(GOC, "scripts", "ktc_guard.py")
+    if not os.path.isfile(g):
+        print("  ✗ guard: THIẾU scripts/ktc_guard.py — KHÔNG có bảo vệ ghi kho chuẩn")
+        return
+    def chay(p):
+        vao = json.dumps({"tool_name": "Write", "tool_input": {"file_path": p}})
+        try:
+            return subprocess.run([sys.executable, g], input=vao, text=True, capture_output=True,
+                                  timeout=20).returncode
+        except Exception:
+            return -1
+    chan = chay("X:/My Drive/KTC-Database/thu.txt")
+    qua = chay("X:/du-an/30-Ket-Qua/thu.txt")
+    if chan == 2 and qua == 0:
+        print("  ✓ guard: HOẠT ĐỘNG (chặn ghi KTC-Database, 03-Templates, 04-Good-Documents)")
+    else:
+        print(f"  ✗ guard: CHƯA HOẠT ĐỘNG (tự thử: chặn={chan}, cho qua={qua}) — không coi là có bảo vệ ghi")
+
+
+def kiem_phu_thuoc():
+    """Bao phu thuoc NGOAI goi (tham dinh lan 1 M-01): co/khong, khong tu ket luan dat."""
+    import sys
+    print(f"  · Python {sys.version.split()[0]} ({sys.executable})")
+    try:
+        sys.path.insert(0, os.path.join(GOC, "scripts"))
+        from duong_dan import ktc_database
+        print(f"  ✓ KTC-Database: {ktc_database(canh_bao_ban_cu=False)}")
+    except FileNotFoundError:
+        print("  ✗ KTC-Database: không tìm thấy — skill trả CAN_BO_SUNG khi cần kho. Kho được chia sẻ qua Google Drive:"
+              " thêm lối tắt “KTC-Database” vào Drive của tôi, hoặc đặt biến KTC_DATABASE_DIR trỏ tới thư mục kho")
+    except Exception as e:
+        print(f"  ✗ KTC-Database: không kiểm được ({e.__class__.__name__})")
+    for mod in ("docx", "openpyxl"):
+        try:
+            __import__(mod)
+            print(f"  ✓ thư viện {mod}")
+        except Exception:
+            print(f"  ✗ thư viện {mod} — phép đo thể thức/Excel sẽ ghi vào 'Kiểm tra chưa chạy'")
+
+
+if __name__ == "__main__":
+    main()
+`````
+
+## `scripts/ktc_the_thuc_hook.py` (4835 byte, sha256 `9ad0a5b2d6605f555b812143cba8c611becc7a31c7e96f06932b99350de0fe70`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""PostToolUse hook — tu do the thuc moi tep .docx/.xlsx vua sinh ra (DL-20260919-003).
+
+Chay trong du an KTC (co 90-Nhat-Ky-Van-Hanh/) HOAC thu muc lam viec cua don vi (co KTC-THU-MUC-LAM-VIEC.json, 1.3.5).
+Con goi y Muc 1-2 -> in stderr + ma thoat 2 de Claude thay va sua truoc khi giao.
+Hook KHONG BAO GIO duoc lam hong phien: moi loi noi bo -> thoat 0 im lang.
+"""
+import json
+import os
+import sys
+import time
+
+GOC_PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BO_QUA = {".git", "node_modules", "__pycache__", "99-Luu-Tru", "92-Kinh-Nghiem", "31-Plugin", "10-Dau-Vao",
+          "KTC-Database", "_trung_gian"}
+MOI = 180          # giay — tep sua trong khoang nay coi la "vua sinh"
+TOI_DA_MUC = 25000
+TRANG_THAI = os.path.join(os.path.expanduser("~"), ".claude", "ktc_the_thuc_da_do.json")
+
+
+def goc_du_an(cwd):
+    # 1.3.5: nhan ca THU MUC LAM VIEC cua don vi (tep KTC-THU-MUC-LAM-VIEC.json, ktc_thu_muc.py) — tai khoan thanh vien
+    # tren Cowork cung duoc do the thuc tu dong, khong chi du an.
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from ktc_thu_muc import tim_goc
+        return tim_goc(cwd)[1]
+    except Exception:
+        pass
+    p = os.path.abspath(cwd)
+    for _ in range(6):
+        if os.path.isdir(os.path.join(p, "90-Nhat-Ky-Van-Hanh")):
+            return p
+        cha = os.path.dirname(p)
+        if cha == p:
+            break
+        p = cha
+    return None
+
+
+def tep_vua_sinh(goc):
+    gio = time.time()
+    dem = 0
+    for r, ds, fs in os.walk(goc):
+        ds[:] = [d for d in ds if d not in BO_QUA and not d.startswith(".")]
+        if r[len(goc):].count(os.sep) >= 5:
+            ds[:] = []
+        for f in fs:
+            dem += 1
+            if dem > TOI_DA_MUC:
+                return
+            if f.lower().endswith((".docx", ".xlsx")) and not f.startswith("~$"):
+                p = os.path.join(r, f)
+                try:
+                    if gio - os.path.getmtime(p) <= MOI:
+                        yield p
+                except OSError:
+                    pass
+
+
+def main():
+    try:
+        vao = json.load(sys.stdin)
+    except Exception:
+        return 0
+    goc = goc_du_an(vao.get("cwd") or os.getcwd())
+    if not goc:
+        return 0
+    ung_vien = set()
+    fp = (vao.get("tool_input") or {}).get("file_path") or ""
+    if fp.lower().endswith((".docx", ".xlsx")) and os.path.isfile(fp):
+        ung_vien.add(os.path.abspath(fp))
+    if vao.get("tool_name") in ("Bash", "PowerShell", "Skill", "Agent"):
+        ung_vien.update(os.path.abspath(p) for p in tep_vua_sinh(goc))
+    if not ung_vien:
+        return 0
+
+    try:
+        da_do = json.load(open(TRANG_THAI, encoding="utf-8"))
+    except Exception:
+        da_do = {}
+    sys.path.insert(0, os.path.join(GOC_PLUGIN, "skills", "the-thuc", "scripts"))
+    import kiem_the_thuc as k  # noqa: E402
+
+    bao = []
+    for p in sorted(ung_vien):
+        dau = f"{os.path.getmtime(p):.0f}"
+        if da_do.get(p) == dau:
+            continue
+        try:
+            kq = k.kiem_tep(p)
+        except Exception:
+            continue
+        da_do[p] = dau
+        nang = [x for x in kq if x[0] <= 2]
+        if nang:
+            bao.append((p, nang))
+    try:
+        json.dump(dict(list(da_do.items())[-500:]), open(TRANG_THAI, "w", encoding="utf-8"))
+    except Exception:
+        pass
+    if not bao:
+        return 0
+    # Ghi bang chung cho agent ktc-tu-hoc (loi the thuc lap lai -> bai hoc) — DL-20260919-005
+    try:
+        import datetime as dt
+        thu = os.path.join(goc, "90-Nhat-Ky-Van-Hanh", "04-Nhat-Ky-Tu-Dong")
+        with open(os.path.join(thu, dt.date.today().isoformat() + ".jsonl"), "a", encoding="utf-8") as f:
+            for p, nang in bao:
+                f.write(json.dumps({"t": dt.datetime.now().isoformat(timespec="seconds"),
+                                    "phien": (vao.get("session_id") or "")[:8], "loai": "canh-bao-the-thuc",
+                                    "tep": os.path.relpath(p, goc), "ma": sorted({x[1] for x in nang})},
+                                   ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+    dong = ["KTC the-thuc: tệp vừa sinh CHƯA đạt chuẩn thể thức (20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md)."
+            " Sửa rồi đo lại bằng kiem_the_thuc.py trước khi giao:"]
+    for p, nang in bao:
+        dong.append(f"- {os.path.relpath(p, goc)}")
+        dong += [f"    [Mức {m}] {ma}: {mt}" for m, ma, mt in nang[:6]]
+    sys.stderr.write("\n".join(dong) + "\n")
+    return 2
+
+
+if __name__ == "__main__":
+    try:
+        if hasattr(sys.stderr, "reconfigure"):
+            sys.stderr.reconfigure(encoding="utf-8")
+        sys.exit(main())
+    except SystemExit:
+        raise
+    except Exception:
+        sys.exit(0)
+`````
+
+## `scripts/ktc_thu_muc.py` (6714 byte, sha256 `898f75a78531a5783fcf20887c1ec49b2dec59da89f403bf3beb500b0b6db34f`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Ket noi THU MUC LAM VIEC cua don vi (Cowork/Claude Code ngoai du an) — dau vao `10-Dau-Vao/`, ket qua `30-Ket-Qua/`.
+
+Tai khoan thanh vien (phong, khoa) khong co thu muc du an KTC-Quan-tri. Tren Cowork, nguoi dung chon mot thu muc tren
+may (hoac thu muc Google Drive dong bo) de cap quyen cho Claude; lenh `khoi-tao` tao trong do:
+    KTC-THU-MUC-LAM-VIEC.json   tep danh dau (ma don vi, ngay tao) — skill, hook nhan ra thu muc nho tep nay
+    10-Dau-Vao/                 tep can xu ly (bao cao, ke hoach cua don vi, van ban lien quan)
+    30-Ket-Qua/<ngay>/<loai>/   san pham Bo cong cu xuat ra
+    00-HUONG-DAN.md             cach dung, cach gui ve Phong TH-HC&QT
+Khong ghi de tep da co; khong tao trong kho chuan (KTC-Database, 03-Templates, 04-Good-Documents) hay trong du an.
+
+    python ktc_thu_muc.py khoi-tao <thu-muc> --ma P-TCCB
+    python ktc_thu_muc.py kiem [<thu-muc>]        # in che do: du-an | don-vi | khong (tim tu thu muc len 6 cap)
+"""
+import argparse
+import datetime as dt
+import io
+import json
+import os
+import re
+import sys
+
+DANH_DAU = "KTC-THU-MUC-LAM-VIEC.json"
+MA_DON_VI = ("P-TCCB", "P-QLDT", "P-THHC", "P-QLKH", "P-TCKT", "K-KHCB", "K-SUPH", "K-KTNL", "K-KTCN", "K-YDUOC",
+             "K-DTSHLX")
+VUNG = re.compile(r"(?:^|[\\/])(?:KTC-Database|03-Templates\(1\)|04-Good-Documents)(?:[\\/]|$)", re.I)
+
+HUONG_DAN = """# Thư mục làm việc KTC-Quan-tri — {ma}
+
+Thư mục này được kết nối với Bộ công cụ KTC-Quan-tri (khởi tạo {ngay}). Tệp `{danh_dau}` là dấu nhận biết — không xóa.
+
+| Thư mục | Dùng để |
+|---|---|
+| `10-Dau-Vao/` | Đặt tệp cần xử lý: kế hoạch, báo cáo của đơn vị, văn bản liên quan. Nên chia theo kỳ, ví dụ `10-Dau-Vao/2026-10/` |
+| `30-Ket-Qua/<ngày>/<loại>/` | Bộ công cụ lưu sản phẩm, tên tệp chuẩn `<mã đơn vị>_<loại>_<kỳ>_v<N>` |
+
+Cách dùng trên Claude Cowork: mở phiên, chọn thư mục này làm thư mục làm việc, rồi yêu cầu như bình thường (ví dụ
+"lập báo cáo tháng 10 từ tệp trong 10-Dau-Vao/2026-10"). Bộ công cụ đọc `10-Dau-Vao/`, lưu kết quả vào `30-Ket-Qua/`.
+
+Lưu ý:
+- Bộ công cụ **không tự gửi** sản phẩm. Kiểm tra phiếu tự kiểm cuối câu trả lời; không còn lỗi thì **người dùng tự gửi**
+  tệp về Phòng TH-HC&QT (`P-THHC`) theo kênh Trường quy định.
+- Không đặt vào đây dữ liệu Thông báo số 924/TB-CĐKT không cho phép đưa lên nền tảng trí tuệ nhân tạo.
+- Sửa văn bản đã có: Bộ công cụ tạo bản mới có Track Changes, không ghi đè tệp gốc trong `10-Dau-Vao/`.
+"""
+
+
+def tim_goc(thu_muc=None, cap=6):
+    """(che_do, goc, ma_don_vi): 'du-an' (co 90-Nhat-Ky-Van-Hanh/), 'don-vi' (co tep danh dau) hoac ('khong', None, None)."""
+    p = os.path.abspath(thu_muc or os.getcwd())
+    for _ in range(cap):
+        if os.path.isdir(os.path.join(p, "90-Nhat-Ky-Van-Hanh")):
+            return "du-an", p, None
+        f = os.path.join(p, DANH_DAU)
+        if os.path.isfile(f):
+            try:
+                ma = json.load(io.open(f, encoding="utf-8")).get("ma_don_vi")
+            except Exception:
+                ma = None
+            return "don-vi", p, ma
+        cha = os.path.dirname(p)
+        if cha == p:
+            break
+        p = cha
+    return "khong", None, None
+
+
+def khoi_tao(thu_muc, ma):
+    ma = (ma or "").strip().upper()
+    if ma not in MA_DON_VI:
+        raise ValueError(f"Mã đơn vị '{ma}' không có trong bảng 11 mã chuẩn: {', '.join(MA_DON_VI)} — hỏi người dùng.")
+    goc = os.path.abspath(thu_muc)
+    if VUNG.search(goc.replace("\\", "/")):
+        raise ValueError("Không khởi tạo trong kho chuẩn (KTC-Database, 03-Templates(1), 04-Good-Documents) — chọn thư mục khác.")
+    if not os.path.isdir(goc):
+        raise ValueError(f"Không thấy thư mục {goc} — chọn thư mục đã cấp quyền cho Claude.")
+    che_do, g, ma_cu = tim_goc(goc)
+    if che_do == "du-an":
+        raise ValueError(f"{goc} nằm trong dự án KTC-Quan-tri ({g}) — dự án đã có 10-Dau-Vao/, 30-Ket-Qua/, không cần khởi tạo.")
+    if che_do == "don-vi" and os.path.normcase(g) != os.path.normcase(goc):
+        raise ValueError(f"{goc} nằm trong thư mục làm việc đã kết nối {g} (đơn vị {ma_cu}) — dùng thư mục đó.")
+    tao = []
+    for d in ("10-Dau-Vao", "30-Ket-Qua"):
+        p = os.path.join(goc, d)
+        if not os.path.isdir(p):
+            os.makedirs(p)
+            tao.append(d + "/")
+    ngay = dt.date.today().strftime("%d/%m/%Y")
+    f = os.path.join(goc, DANH_DAU)
+    if os.path.isfile(f):
+        if ma_cu and ma_cu != ma:
+            raise ValueError(f"Thư mục đã kết nối cho đơn vị {ma_cu}, khác {ma} — không ghi đè; hỏi người dùng.")
+    else:
+        io.open(f, "w", encoding="utf-8").write(json.dumps(
+            {"ma_don_vi": ma, "tao_ngay": dt.date.today().isoformat(), "ban_mau": 1,
+             "dau_vao": "10-Dau-Vao", "ket_qua": "30-Ket-Qua"}, ensure_ascii=False, indent=2) + "\n")
+        tao.append(DANH_DAU)
+    hd = os.path.join(goc, "00-HUONG-DAN.md")
+    if not os.path.isfile(hd):
+        io.open(hd, "w", encoding="utf-8").write(HUONG_DAN.format(ma=ma, ngay=ngay, danh_dau=DANH_DAU))
+        tao.append("00-HUONG-DAN.md")
+    return goc, tao
+
+
+def main(argv):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    ap = argparse.ArgumentParser()
+    sub = ap.add_subparsers(dest="lenh", required=True)
+    a1 = sub.add_parser("khoi-tao")
+    a1.add_argument("thu_muc")
+    a1.add_argument("--ma", required=True)
+    a2 = sub.add_parser("kiem")
+    a2.add_argument("thu_muc", nargs="?")
+    a = ap.parse_args(argv)
+    if a.lenh == "khoi-tao":
+        try:
+            goc, tao = khoi_tao(a.thu_muc, a.ma)
+        except ValueError as e:
+            print("✗ " + str(e))
+            return 2
+        print(f"✓ Đã kết nối thư mục làm việc: {goc}")
+        print("  tạo mới: " + (", ".join(tao) if tao else "không (đã có đủ)"))
+        print("  đầu vào: 10-Dau-Vao/ · kết quả: 30-Ket-Qua/<ngày>/<loại>/ · hướng dẫn: 00-HUONG-DAN.md")
+        return 0
+    che_do, goc, ma = tim_goc(a.thu_muc)
+    print(json.dumps({"che_do": che_do, "goc": goc, "ma_don_vi": ma,
+                      "dau_vao": os.path.join(goc, "10-Dau-Vao") if goc else None,
+                      "ket_qua": os.path.join(goc, "30-Ket-Qua") if goc else None}, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/ktc_trackchanges.py` (21321 byte, sha256 `70b46db89670596a19c1b3100def96cbab2cbf399858f85faedefd5881eb4f56`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""KTC Track Changes — sua .docx co dau vet va xuat nhat ky sua doi.
+
+Kich hoat: nguoi dung noi "Track Changes" HOAC "ghi nhat ky sua doi".
+
+Can cu:
+  - KTC-Quan-tri/20-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md (NT-2)
+  - KTC-Ra-Soat-897-v2-Cai-tien/references/Skill-Library/
+      Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md
+
+Ba nhom API:
+  1. TrackChanges(path)  -> sua co dau vet, .luu(out)
+  2. kiem_tra(path)      -> validator OOXML (thay cho validate.py con thieu, KI-009)
+  3. nhat_ky_sua_doi(p)  -> doc BAT KY .docx co track changes -> bang ke thay doi
+
+Vi du:
+    tc = TrackChanges("BC-375.docx")
+    tc.thay("2.000 hoc sinh", "2.150 hoc sinh")        # dieu chinh
+    tc.them_sau("Muc 3", "3.1. Noi dung bo sung.")     # bo sung
+    tc.xoa_cum("da tham muu cho Lanh dao Truong ")     # bo
+    tc.luu("BC-375_sua.docx")
+    print(tc.bao_cao())
+"""
+from __future__ import annotations
+
+import copy
+import datetime as _dt
+import re
+from typing import Iterable
+
+from docx import Document
+from docx.oxml.ns import qn
+
+# --- Quy uoc ten author: Word to mau theo author, khong ep duoc ma mau qua XML ---
+BO = "Nội dung bỏ (Claude)"
+BO_SUNG = "Nội dung bổ sung (Claude)"
+DIEU_CHINH = "Nội dung điều chỉnh (Claude)"
+
+_W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+
+
+def _now() -> str:
+    return _dt.datetime.now().replace(microsecond=0).isoformat() + "Z"
+
+
+def _el(tag: str):
+    from docx.oxml import OxmlElement
+    return OxmlElement(tag)
+
+
+# ----------------------------------------------------------------------------
+# Tach run sao cho doan text can xu ly chiem tron mot so run
+# ----------------------------------------------------------------------------
+def _runs_text(para) -> str:
+    return "".join(r.text for r in para.runs)
+
+
+def _tach_run(para, dau: int, cuoi: int) -> list:
+    """Tach cac run cua para sao cho [dau, cuoi) trung khop bien run.
+
+    Tra ve danh sach run nam tron trong khoang do, theo dung thu tu.
+    """
+    vi_tri, ket_qua = 0, []
+    for run in list(para.runs):
+        n = len(run.text)
+        d, c = vi_tri, vi_tri + n
+        vi_tri = c
+        if n == 0 or c <= dau or d >= cuoi:
+            continue
+
+        cat_trai = max(dau - d, 0)
+        cat_phai = min(cuoi - d, n)
+
+        # Cat phan duoi cuoi truoc, de offset phan dau khong doi
+        if cat_phai < n:
+            sau = copy.deepcopy(run._element)
+            run._element.addnext(sau)
+            _dat_text(sau, run.text[cat_phai:])
+            _dat_text(run._element, run.text[:cat_phai])
+
+        if cat_trai > 0:
+            truoc = copy.deepcopy(run._element)
+            run._element.addprevious(truoc)
+            _dat_text(truoc, run.text[:cat_trai])
+            _dat_text(run._element, run.text[cat_trai:])
+
+        ket_qua.append(run._element)
+    return ket_qua
+
+
+def _text_day_du(el, chap_nhan: bool = True) -> str:
+    """Text that ra tu MOT phan tu, ke ca run nam trong <w:ins>/<w:del>.
+
+    `paragraph.text` cua python-docx chi doc <w:r> la con TRUC TIEP nen bo sot
+    toan bo noi dung da danh dau — khong dung duoc cho file co track changes.
+
+    chap_nhan=True  -> ban sau khi CHAP NHAN het thay doi (giu ins, bo del)
+    chap_nhan=False -> ban goc truoc khi sua      (bo ins, giu del)
+    """
+    ra = []
+    for t in el.iter(qn("w:t"), qn("w:delText")):
+        trong_del = trong_ins = False
+        cha = t.getparent()
+        while cha is not None:
+            if cha.tag == qn("w:del"):
+                trong_del = True
+            elif cha.tag == qn("w:ins"):
+                trong_ins = True
+            cha = cha.getparent()
+        giu = (not trong_del) if chap_nhan else (not trong_ins)
+        if giu:
+            ra.append(t.text or "")
+    return "".join(ra)
+
+
+def _dat_text(r_el, text: str) -> None:
+    for t in r_el.findall(qn("w:t")) + r_el.findall(qn("w:delText")):
+        r_el.remove(t)
+    t = _el("w:t")
+    t.text = text
+    t.set(qn("xml:space"), "preserve")
+    r_el.append(t)
+
+
+# ----------------------------------------------------------------------------
+class TrackChanges:
+    """Mo .docx GOC va sua co dau vet. Khong bao gio ghi de file goc."""
+
+    def __init__(self, duong_dan: str):
+        self.goc = duong_dan
+        self.doc = Document(duong_dan)
+        self._id = 1000
+        self.thay_doi: list[dict] = []
+
+    # -- ha tang ------------------------------------------------------------
+    def _next_id(self) -> str:
+        self._id += 1
+        return str(self._id)
+
+    def _bao(self, loai: str, cu: str, moi: str, author: str, vi_tri: str) -> None:
+        self.thay_doi.append({
+            "stt": len(self.thay_doi) + 1, "loai": loai, "cu": cu,
+            "moi": moi, "author": author, "vi_tri": vi_tri,
+        })
+
+    def _danh_dau_xoa(self, r_el, author: str) -> None:
+        """Boc run vao <w:del> va doi <w:t> -> <w:delText>."""
+        for t in r_el.findall(qn("w:t")):
+            t.tag = qn("w:delText")
+        d = _el("w:del")
+        d.set(qn("w:id"), self._next_id())
+        d.set(qn("w:author"), author)
+        d.set(qn("w:date"), _now())
+        r_el.addprevious(d)
+        d.append(r_el)
+
+    def _danh_dau_them(self, r_el, author: str) -> None:
+        i = _el("w:ins")
+        i.set(qn("w:id"), self._next_id())
+        i.set(qn("w:author"), author)
+        i.set(qn("w:date"), _now())
+        r_el.addprevious(i)
+        i.append(r_el)
+
+    def _doan(self) -> Iterable:
+        """Duyet MOI doan, ke ca doan trong bang."""
+        for p in self.doc.paragraphs:
+            yield p
+        for tb in self.doc.tables:
+            for row in tb.rows:
+                for cell in row.cells:
+                    for p in cell.paragraphs:
+                        yield p
+
+    def _tim(self, cum: str):
+        for idx, p in enumerate(self._doan()):
+            noi_dung = _runs_text(p)
+            vt = noi_dung.find(cum)
+            if vt >= 0:
+                return p, vt, idx
+        return None, -1, -1
+
+    # -- thao tac -----------------------------------------------------------
+    def xoa_cum(self, cum: str, author: str = BO, tat_ca: bool = False) -> int:
+        """Xoa mot cum tu, danh dau <w:del>. Tra ve so cho da xoa."""
+        n = 0
+        while True:
+            p, vt, idx = self._tim(cum)
+            if p is None:
+                break
+            for r in _tach_run(p, vt, vt + len(cum)):
+                self._danh_dau_xoa(r, author)
+            self._bao("Bỏ", cum, "", author, f"đoạn {idx + 1}")
+            n += 1
+            if not tat_ca:
+                break
+        if n == 0:
+            raise ValueError(f"Không tìm thấy cụm: {cum!r}")
+        return n
+
+    def thay(self, cu: str, moi: str, author: str = DIEU_CHINH,
+             tat_ca: bool = False) -> int:
+        """Thay noi dung: cap <w:del> + <w:ins> lien nhau, CUNG author."""
+        n = 0
+        while True:
+            p, vt, idx = self._tim(cu)
+            if p is None:
+                break
+            runs = _tach_run(p, vt, vt + len(cu))
+            moc = runs[-1]
+            r_moi = copy.deepcopy(runs[0])
+            # go bo boc <w:ins>/<w:del> neu run goc da nam trong do
+            _dat_text(r_moi, moi)
+            moc.addnext(r_moi)
+            for r in runs:
+                self._danh_dau_xoa(r, author)
+            self._danh_dau_them(r_moi, author)
+            self._bao("Điều chỉnh", cu, moi, author, f"đoạn {idx + 1}")
+            n += 1
+            if not tat_ca:
+                break
+        if n == 0:
+            raise ValueError(f"Không tìm thấy cụm: {cu!r}")
+        return n
+
+    def them_sau(self, moc: str, text: str, author: str = BO_SUNG):
+        """Chen mot DOAN moi ngay sau doan chua `moc`."""
+        p, vt, idx = self._tim(moc)
+        if p is None:
+            raise ValueError(f"Không tìm thấy mốc: {moc!r}")
+        p_moi = copy.deepcopy(p._element)
+        for r in p_moi.findall(qn("w:r")):
+            p_moi.remove(r)
+        for ins in p_moi.findall(qn("w:ins")) + p_moi.findall(qn("w:del")):
+            p_moi.remove(ins)
+        p._element.addnext(p_moi)
+
+        mau = p.runs[0]._element if p.runs else _el("w:r")
+        r_moi = copy.deepcopy(mau)
+        _dat_text(r_moi, text)
+        p_moi.append(r_moi)
+        self._danh_dau_them(r_moi, author)
+        self._bao("Bổ sung", "", text, author, f"sau đoạn {idx + 1}")
+        return p_moi
+
+    def xoa_doan(self, cum: str, author: str = BO, so_doan: int = 1) -> int:
+        """Xoa NGUYEN doan (ke ca dau doan), bat dau tu doan chua `cum`.
+
+        Khac `xoa_cum`: `xoa_cum` chi gach text, dau doan van con — chap nhan
+        thay doi xong se con lai hang loat doan rong. Xoa nguyen doan phai danh
+        dau ca DAU DOAN bang <w:rPr><w:del/></w:rPr> trong <w:pPr>.
+
+        Thu tu phan tu trong <w:pPr> theo schema: <w:pStyle>, <w:numPr>, ...,
+        <w:rPr> nam O CUOI. Dat sai cho lam hong tep — Word bao "unreadable".
+
+        so_doan: xoa lien tiep may doan ke tu doan tim duoc (de xoa ca muc).
+        """
+        p, _, idx = self._tim(cum)
+        if p is None:
+            raise ValueError(f"Không tìm thấy cụm: {cum!r}")
+        els = [p._element]
+        cur = p._element
+        for _ in range(so_doan - 1):
+            cur = cur.getnext()
+            while cur is not None and cur.tag != qn("w:p"):
+                cur = cur.getnext()
+            if cur is None:
+                break
+            els.append(cur)
+
+        for el in els:
+            for r in el.findall(qn("w:r")):
+                self._danh_dau_xoa(r, author)
+            # danh dau DAU DOAN la da xoa
+            pPr = el.find(qn("w:pPr"))
+            if pPr is None:
+                pPr = _el("w:pPr")
+                el.insert(0, pPr)
+            rPr = pPr.find(qn("w:rPr"))
+            if rPr is None:
+                rPr = _el("w:rPr")
+                pPr.append(rPr)          # rPr phai o CUOI pPr
+            if rPr.find(qn("w:del")) is None:
+                d = _el("w:del")
+                d.set(qn("w:id"), self._next_id())
+                d.set(qn("w:author"), author)
+                d.set(qn("w:date"), _now())
+                rPr.insert(0, d)         # del la phan tu DAU trong rPr
+        self._bao("Bỏ", f"[{len(els)} đoạn] {cum[:60]}", "", author,
+                  f"đoạn {idx + 1}")
+        return len(els)
+
+    def xoa_tu_den(self, cum_dau: str, cum_cuoi: str, author: str = BO) -> int:
+        """Xoa cac doan TU doan chua `cum_dau` DEN TRUOC doan chua `cum_cuoi`.
+
+        An toan hon `xoa_doan(so_doan=N)`: khong phai dem tay, va khong troi
+        qua moc ket thuc khi giua chung co bang (<w:tbl> khong phai <w:p>).
+        """
+        ds = list(self.doc.paragraphs)
+        i = next((k for k, p in enumerate(ds) if cum_dau in _runs_text(p)), None)
+        if i is None:
+            raise ValueError(f"Không tìm thấy mốc đầu: {cum_dau!r}")
+        j = next((k for k in range(i + 1, len(ds)) if cum_cuoi in _runs_text(ds[k])), None)
+        if j is None:
+            raise ValueError(f"Không tìm thấy mốc cuối: {cum_cuoi!r}")
+
+        n = 0
+        for p in ds[i:j]:
+            el = p._element
+            for r in el.findall(qn("w:r")):
+                self._danh_dau_xoa(r, author)
+            pPr = el.find(qn("w:pPr"))
+            if pPr is None:
+                pPr = _el("w:pPr")
+                el.insert(0, pPr)
+            rPr = pPr.find(qn("w:rPr"))
+            if rPr is None:
+                rPr = _el("w:rPr")
+                pPr.append(rPr)
+            if rPr.find(qn("w:del")) is None:
+                d = _el("w:del")
+                d.set(qn("w:id"), self._next_id())
+                d.set(qn("w:author"), author)
+                d.set(qn("w:date"), _now())
+                rPr.insert(0, d)
+            n += 1
+        self._bao("Bỏ", f"[{n} đoạn] {cum_dau[:50]} … đến trước {cum_cuoi[:40]}",
+                  "", author, f"đoạn {i + 1}–{j}")
+        return n
+
+    def xoa_bang(self, bang: int, author: str = BO) -> int:
+        """Xoa nguyen mot bang: danh dau xoa moi hang."""
+        tb = self.doc.tables[bang]
+        for i in range(len(tb.rows)):
+            self.xoa_hang(bang, i, author)
+        return len(tb.rows)
+
+    def xoa_hang(self, bang: int, hang: int, author: str = BO) -> None:
+        """Xoa hang bang dung co che OOXML.
+
+        <w:del> phai la phan tu CUOI CUNG trong <w:trPr> (sau <w:trHeight>) —
+        sai thu tu lam hong schema. Dong thoi boc text trong hang bang <w:del>
+        de hien gach ngang khi xem truoc.
+        """
+        row = self.doc.tables[bang].rows[hang]
+        tr = row._tr
+        trPr = tr.find(qn("w:trPr"))
+        if trPr is None:
+            trPr = _el("w:trPr")
+            tr.insert(0, trPr)
+        d = _el("w:del")
+        d.set(qn("w:id"), self._next_id())
+        d.set(qn("w:author"), author)
+        d.set(qn("w:date"), _now())
+        trPr.append(d)                      # CUOI CUNG — bat buoc
+
+        noi_dung = " | ".join(c.text.strip() for c in row.cells)
+        for cell in row.cells:
+            for p in cell.paragraphs:
+                for r in list(p.runs):
+                    self._danh_dau_xoa(r._element, author)
+        self._bao("Bỏ hàng bảng", noi_dung, "", author,
+                  f"bảng {bang + 1}, hàng {hang + 1}")
+
+    # -- ket xuat -----------------------------------------------------------
+    def luu(self, duong_dan: str) -> str:
+        if str(duong_dan) == str(self.goc):
+            raise ValueError("Không được ghi đè file gốc — đổi tên đầu ra.")
+        self.doc.save(duong_dan)
+        return duong_dan
+
+    def bao_cao(self) -> str:
+        """Nhat ky sua doi cua chinh phien lam viec nay (Markdown)."""
+        return _bang_md(self.thay_doi, self.goc)
+
+
+# ----------------------------------------------------------------------------
+def _bang_md(rows: list[dict], nguon: str) -> str:
+    if not rows:
+        return f"# Nhật ký sửa đổi — `{nguon}`\n\nKhông có thay đổi nào.\n"
+    out = [f"# Nhật ký sửa đổi — `{nguon}`", "",
+           f"**Tổng số thay đổi:** {len(rows)}", ""]
+    dem: dict[str, int] = {}
+    for r in rows:
+        dem[r["loai"]] = dem.get(r["loai"], 0) + 1
+    out.append(" · ".join(f"{k}: **{v}**" for k, v in sorted(dem.items())))
+    out += ["", "| # | Loại | Vị trí | Nội dung cũ | Nội dung mới |",
+            "|---|---|---|---|---|"]
+    for r in rows:
+        cu = (r["cu"] or "—").replace("|", "\\|")[:120]
+        moi = (r["moi"] or "—").replace("|", "\\|")[:120]
+        out.append(f"| {r['stt']} | {r['loai']} | {r['vi_tri']} | {cu} | {moi} |")
+    return "\n".join(out) + "\n"
+
+
+def nhat_ky_sua_doi(duong_dan: str) -> str:
+    """Doc BAT KY .docx co track changes -> bang ke thay doi (Markdown).
+
+    Dung duoc ca voi file do NGUOI sua trong Word, khong chi file do mo-dun nay
+    sinh ra. Ghep <w:del> + <w:ins> lien ke cung author thanh 1 dong 'Dieu chinh'.
+    """
+    doc = Document(duong_dan)
+    rows: list[dict] = []
+
+    def quet(para, nhan: str):
+        con = list(para._element)
+        i = 0
+        while i < len(con):
+            e = con[i]
+            if e.tag == qn("w:del"):
+                cu = "".join(t.text or "" for t in e.iter(qn("w:delText")))
+                au = e.get(qn("w:author")) or ""
+                ke = con[i + 1] if i + 1 < len(con) else None
+                if (ke is not None and ke.tag == qn("w:ins")
+                        and (ke.get(qn("w:author")) or "") == au):
+                    moi = "".join(t.text or "" for t in ke.iter(qn("w:t")))
+                    rows.append({"stt": len(rows) + 1, "loai": "Điều chỉnh",
+                                 "cu": cu, "moi": moi, "author": au, "vi_tri": nhan})
+                    i += 2
+                    continue
+                rows.append({"stt": len(rows) + 1, "loai": "Bỏ", "cu": cu,
+                             "moi": "", "author": au, "vi_tri": nhan})
+            elif e.tag == qn("w:ins"):
+                moi = "".join(t.text or "" for t in e.iter(qn("w:t")))
+                rows.append({"stt": len(rows) + 1, "loai": "Bổ sung", "cu": "",
+                             "moi": moi, "author": e.get(qn("w:author")) or "",
+                             "vi_tri": nhan})
+            i += 1
+
+    for n, p in enumerate(doc.paragraphs, 1):
+        quet(p, f"đoạn {n}")
+    for tb_i, tb in enumerate(doc.tables, 1):
+        for r_i, row in enumerate(tb.rows, 1):
+            trPr = row._tr.find(qn("w:trPr"))
+            if trPr is not None and trPr.find(qn("w:del")) is not None:
+                rows.append({"stt": len(rows) + 1, "loai": "Bỏ hàng bảng",
+                             "cu": " | ".join(_text_day_du(c._tc, False).strip()
+                                              for c in row.cells),
+                             "moi": "", "author": trPr.find(qn("w:del")).get(qn("w:author")) or "",
+                             "vi_tri": f"bảng {tb_i}, hàng {r_i}"})
+                continue
+            for c_i, cell in enumerate(row.cells, 1):
+                for p in cell.paragraphs:
+                    quet(p, f"bảng {tb_i}, hàng {r_i}, cột {c_i}")
+    return _bang_md(rows, duong_dan)
+
+
+# ----------------------------------------------------------------------------
+def kiem_tra(duong_dan: str) -> dict:
+    """Validator OOXML — chay TRUOC khi giao file. Thay cho validate.py con thieu.
+
+    Tra ve {"dat": bool, "loi": [...], "canh_bao": [...], "thong_ke": {...}}
+    """
+    doc = Document(duong_dan)
+    body = doc.element.body
+    loi, canh_bao = [], []
+
+    # 1. <w:del> phai la phan tu CUOI CUNG trong <w:trPr>
+    for i, trPr in enumerate(body.iter(qn("w:trPr")), 1):
+        con = list(trPr)
+        for j, e in enumerate(con):
+            if e.tag == qn("w:del") and j != len(con) - 1:
+                sau = con[j + 1].tag.split("}")[-1]
+                loi.append(f"<w:del> trong <w:trPr> #{i} không nằm cuối "
+                           f"(còn <w:{sau}> phía sau) — hỏng schema")
+
+    # 2. Run trong <w:del> phai dung <w:delText>, khong duoc con <w:t>
+    for d in body.iter(qn("w:del")):
+        if d.getparent() is not None and d.getparent().tag == qn("w:trPr"):
+            continue
+        for r in d.iter(qn("w:r")):
+            if r.find(qn("w:t")) is not None:
+                loi.append("Run trong <w:del> còn <w:t> — phải là <w:delText>")
+
+    # 3. Run trong <w:ins> khong duoc dung <w:delText>
+    for ins in body.iter(qn("w:ins")):
+        for r in ins.iter(qn("w:r")):
+            if r.find(qn("w:delText")) is not None:
+                loi.append("Run trong <w:ins> có <w:delText> — sai loại")
+
+    # 4. rPr long nhau
+    for rPr in body.iter(qn("w:rPr")):
+        if rPr.find(qn("w:rPr")) is not None:
+            loi.append("<w:rPr> lồng trong <w:rPr>")
+
+    # 5. Run vua co w:t vua co w:delText
+    for r in body.iter(qn("w:r")):
+        if r.find(qn("w:t")) is not None and r.find(qn("w:delText")) is not None:
+            loi.append("Một run chứa cả <w:t> và <w:delText>")
+
+    # 6. Thieu thuoc tinh bat buoc
+    for tag in ("w:ins", "w:del"):
+        for e in body.iter(qn(tag)):
+            for attr in ("w:id", "w:author", "w:date"):
+                if e.get(qn(attr)) is None:
+                    loi.append(f"<{tag}> thiếu thuộc tính {attr}")
+
+    # 7. Trung w:id
+    ids: dict[str, int] = {}
+    for tag in ("w:ins", "w:del"):
+        for e in body.iter(qn(tag)):
+            k = e.get(qn("w:id"))
+            ids[k] = ids.get(k, 0) + 1
+    trung = [k for k, v in ids.items() if v > 1]
+    if trung:
+        canh_bao.append(f"Trùng w:id: {', '.join(sorted(trung)[:10])}")
+
+    # Thong ke theo author
+    theo_author: dict[str, int] = {}
+    for tag in ("w:ins", "w:del"):
+        for e in body.iter(qn(tag)):
+            a = e.get(qn("w:author")) or "(không rõ)"
+            theo_author[a] = theo_author.get(a, 0) + 1
+    if not theo_author:
+        canh_bao.append("File KHÔNG có dấu vết track changes nào")
+
+    return {
+        "dat": not loi,
+        "loi": sorted(set(loi)),
+        "canh_bao": canh_bao,
+        "thong_ke": {"theo_author": theo_author,
+                     "tong_danh_dau": sum(theo_author.values())},
+    }
+
+
+def doi_chieu_goc(goc: str, sua: str) -> dict:
+    """So sanh van ban HIEN THI cua ban sua (da chap nhan het) voi ban goc.
+
+    Muc dich: bat truong hop soan lai tu dau roi trinh bay nhu ban sua —
+    dieu NT-2 cam. Neu so doan lech qua nhieu ma so danh dau lai it, la dau hieu.
+    """
+    d1, d2 = Document(goc), Document(sua)
+    n1 = [t for t in (_text_day_du(p._element).strip() for p in d1.paragraphs) if t]
+    # Ban sua doc theo goc-truoc-khi-sua: bo <w:ins>, giu <w:del>
+    n2 = [t for t in (_text_day_du(p._element, False).strip()
+                      for p in d2.paragraphs) if t]
+    kt = kiem_tra(sua)
+    khop = len(set(n1) & set(n2))
+    ty_le = khop / len(n1) if n1 else 0.0
+    return {
+        "doan_goc": len(n1), "doan_sau_khi_tu_choi_het": len(n2),
+        "doan_khop": khop, "ty_le_khoi_phuc": round(ty_le, 3),
+        "danh_dau": kt["thong_ke"]["tong_danh_dau"],
+        # Tu choi het thay doi PHAI ra dung ban goc. Lech nhieu = da soan lai
+        # tu dau roi trinh bay nhu ban sua — dieu NT-2 cam.
+        "nghi_soan_lai_tu_dau": ty_le < 0.9,
+    }
+`````
+
+## `scripts/tra_hieu_luc.py` (13278 byte, sha256 `1784955be6a6805da2b712b5529ef6f6ddbc9f5b4ec4caa1c80759a337256fe0`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Quet hieu luc phap ly cua van ban DUOC VIEN DAN — DL-20260919-004.
+
+Cho mot du thao/san pham (.docx/.md/.txt) hoac ca thu muc quy tac (.md):
+  1. Trich moi van ban duoc vien dan (Luat, Nghi dinh, Thong tu, Quyet dinh, Thong bao, Ke hoach, VBHN...).
+  2. Tra trong KTC-Database kho 01-02 (chi duyet TEN tep — khong tai ca kho tren Drive; chi doc metadata
+     cua tep khop): co trong kho khong, tep nao, metadata ghi tinh trang gi.
+  3. Doi chieu chuoi van ban Truong DA BI THAY THE (kiem_vien_dan.DA_THAY) va VBHN dang co trong kho.
+  4. Chay kiem_vien_dan (VD01-VD12) cho cach ghi vien dan.
+
+KET LUAN "het hieu luc" KHONG duoc rut tu cong cu nay mot minh: cong cu chi phan loai
+  THAY_THE (co trong chuoi da biet) · KHO_GHI_HET_HIEU_LUC (metadata kho) · CO_TRONG_KHO (+ tinh trang metadata) · KHONG_CO_TRONG_KHO → CAN XAC MINH.
+Viec xac minh ngoai (Internet, nguon chinh thong) do agent ktc-hieu-luc-vien-dan lam va ghi nguon.
+
+Chay:  python 29-Cong-Cu/tra_hieu_luc.py <tep|thu muc> [...] [--md <bao cao .md>]
+Ma thoat: 1 neu co van ban THAY_THE hoac goi y Muc 1 cua kiem_vien_dan; nguoc lai 0.
+"""
+import os
+import re
+import sys
+import unicodedata
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kiem_vien_dan as kvd  # noqa: E402
+
+KHO_CON = ("01-Legal-Database", "02-KTC-Regulations")
+KHOA_TINH_TRANG = re.compile(r"(tình trạng|trạng thái hiệu lực|trạng thái|hiệu lực|tinh_trang|trang_thai|hieu_luc|status)"
+                             r"[^:\n]{0,25}:\s*(.+)", re.I)
+
+# Ma loai van ban -> tu viet tat trong so hieu
+LOAI = r"(Luật|Bộ luật|Pháp lệnh|Nghị quyết|Nghị định|Thông tư liên tịch|Thông tư|Quyết định|Chỉ thị|Thông báo|Kế hoạch|Công văn|Hướng dẫn|Quy định|Kết luận|Văn bản hợp nhất)"
+# So hieu hanh chinh "30/2020/NĐ-CP", "1976/QĐ-CĐKT" va so hieu van ban Dang "366-QĐ/TW", "43-HD/BTCTW",
+# "198-KL/TW" (dau gach ngang sau so — HD 05-HD/VPTW; bo sot khi quet mau cam ket TB 1052, 19/9/2026)
+SO = r"(\d{1,5}[a-z]?(?:/\d{4})?/[A-ZĐa-zđ0-9\-]+(?:/[A-ZĐa-zđ0-9\-]+)?|\d{1,5}-[A-ZĐ]{1,5}/[A-ZĐ]{2,8})"
+RE_SO = re.compile(LOAI + r"\s+(?:số\s+)?" + SO)
+# Viet tat hay gap trong van ban noi bo: "QĐ 988/QĐ-CĐKT", "NĐ 30/2020/NĐ-CP", "TB 597/TB-CĐKT"
+VIET_TAT = {"QĐ": "Quyết định", "NĐ": "Nghị định", "TT": "Thông tư", "TB": "Thông báo", "NQ": "Nghị quyết",
+            "KH": "Kế hoạch", "CV": "Công văn", "CT": "Chỉ thị", "HD": "Hướng dẫn", "PL": "Pháp lệnh"}
+RE_VIET_TAT = re.compile(r"\b(QĐ|NĐ|TT|TB|NQ|KH|CV|CT|HD|PL)\s+(?:số\s+)?" + SO)
+RE_LUAT_TEN = re.compile(r"\b(Bộ luật|Luật)\s+((?:[A-ZĐ][\wÀ-ỹ]*|và|,)(?:\s+(?:[a-zà-ỹđ]+|[A-ZĐ][\wÀ-ỹ]*|và|,)){0,12}?)"
+                         r"(?=\s+(?:ngày|số|năm|\(|;|\.|,\s*được|đã|$))")
+
+
+TU_LOAI = {
+    "Nghị định": ("ND", "NGHI-DINH"), "Thông tư": ("TT", "THONG-TU"), "Thông tư liên tịch": ("TTLT", "THONG-TU"),
+    "Quyết định": ("QD", "QUYET-DINH"), "Nghị quyết": ("NQ", "NGHI-QUYET"), "Luật": ("LUAT", "QH"),
+    "Bộ luật": ("LUAT",), "Pháp lệnh": ("PL", "PHAP-LENH", "UBTVQH"), "Thông báo": ("TB", "THONG-BAO"),
+    "Kế hoạch": ("KH", "KE-HOACH"), "Công văn": ("CV", "CONG-VAN"), "Chỉ thị": ("CT", "CHI-THI"),
+    "Hướng dẫn": ("HD", "HUONG-DAN"), "Quy định": ("QD", "QUY-DINH"), "Kết luận": ("KL", "KET-LUAN"), "Văn bản hợp nhất": ("VBHN",),
+}
+
+
+def khong_dau(s):
+    s = unicodedata.normalize("NFD", s.replace("Đ", "D").replace("đ", "d"))
+    return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+
+def chuan_hoa(s):
+    return re.sub(r"[^A-Z0-9]+", "-", khong_dau(s).upper()).strip("-")
+
+
+def trich(doan):
+    """Tra ve list[dict(loai, so, ten, dong, ngu_canh)] — khong trung lap theo (loai, so|ten)."""
+    kq, da = [], set()
+    for i, s in enumerate(doan):
+        for m in RE_SO.finditer(s):
+            loai, so = m.group(1), m.group(2).rstrip(".,;)")
+            if "/" not in so:
+                continue
+            khoa = (loai, so)
+            if khoa not in da:
+                da.add(khoa)
+                kq.append({"loai": loai, "so": so, "ten": None, "dong": i + 1, "ngu_canh": s.strip()[:120]})
+        for m in RE_VIET_TAT.finditer(s):
+            loai, so = VIET_TAT[m.group(1)], m.group(2).rstrip(".,;)")
+            if "/" in so and (loai, so) not in da:
+                da.add((loai, so))
+                kq.append({"loai": loai, "so": so, "ten": None, "dong": i + 1, "ngu_canh": s.strip()[:120]})
+        for m in RE_LUAT_TEN.finditer(s):
+            ten = m.group(2).strip(" ,")
+            if len(ten) < 4 or re.match(r"(số|sửa đổi, bổ sung)\b", ten):
+                continue
+            khoa = (m.group(1), ten)
+            if khoa not in da:
+                da.add(khoa)
+                kq.append({"loai": m.group(1), "so": None, "ten": ten, "dong": i + 1, "ngu_canh": s.strip()[:120]})
+    return kq
+
+
+class Kho:
+    """Chi muc TEN tep cua kho 01-02 (khong doc noi dung)."""
+
+    def __init__(self, goc):
+        self.goc = goc
+        self.tep = []
+        for con in KHO_CON:
+            for r, ds, fs in os.walk(os.path.join(goc, con)):
+                for f in fs:
+                    if f != "desktop.ini" and not f.endswith((".gdoc", ".gsheet")):
+                        self.tep.append((os.path.join(r, f), chuan_hoa(f)))
+
+    def tim(self, vb):
+        if vb["so"]:
+            phan = [p for p in re.split(r"[/\-]", chuan_hoa(vb["so"])) if p]
+            so, nam = phan[0], next((p for p in phan[1:] if re.fullmatch(r"(19|20)\d\d", p)), None)
+            ma_day_du = "".join(p for p in phan[1:] if not re.fullmatch(r"(19|20)\d\d", p))  # vd TTBXD, QDCDKT
+            tu_loai = TU_LOAI.get(vb["loai"], ())
+
+            def khop(t):
+                # So va nam phai DUNG LIEN NHAU ("85-2025"): tranh khop "275-2025 sua doi ND 85"
+                if nam:
+                    if not re.search(rf"(?<![0-9]){so}-{nam}(?![0-9])|(?<![0-9]){nam}-{so}(?![0-9])", t):
+                        return False
+                elif not re.search(rf"(?<![0-9]){so}(?![0-9])", t):
+                    return False
+                tok = set(t.split("-"))
+                phang = t.replace("-", "")
+                # Loai van ban phai khop: ma day du (TT-BXD) hoac tu loai la TU NGUYEN VEN (khong khop "TT" trong "TTG")
+                if ma_day_du and ma_day_du in phang:
+                    return True
+                return any((w in tok) if "-" not in w else (w in t) for w in tu_loai)
+        else:
+            # Khop NGUYEN CUM "LUAT-<TEN>" — tranh "Luat Giao duc" khop "Luat Pho bien giao duc phap luat" (19/9/2026).
+            # Uu tien cum dung tron (sau la so/VBHN/het ten) de khong khop "Luat Giao duc nghe nghiep".
+            cum = "LUAT-" + chuan_hoa(vb["ten"])
+            tron = [p for p, t in self.tep if re.search(rf"(?:^|-){re.escape(cum)}(?=-(?:\d|VBHN|SO|QH|V\d)|$)", t)]
+            if tron:
+                return tron
+            return [p for p, t in self.tep if re.search(rf"(?:^|-){re.escape(cum)}(?:-|$)", t)]
+        return [p for p, t in self.tep if khop(t)]
+
+    @staticmethod
+    def tinh_trang(p):
+        """Doc metadata canh tep (neu co): dong 'Tinh trang/Hieu luc/Trang thai'."""
+        goc, _ = os.path.splitext(p)
+        ung = [goc + ".metadata.md", goc + ".metadata.yaml", p + ".metadata.md"]
+        thu = os.path.dirname(p)
+        ten = os.path.basename(goc)
+        ung += [os.path.join(thu, f) for f in os.listdir(thu)
+                if f.lower().startswith("metadata") and chuan_hoa(ten)[:18] in chuan_hoa(f)]
+        for m in ung:
+            if os.path.isfile(m):
+                try:
+                    for dong in open(m, encoding="utf-8", errors="ignore"):
+                        k = KHOA_TINH_TRANG.search(dong)
+                        if k:
+                            return k.group(2).strip()[:90]
+                except OSError:
+                    pass
+        return None
+
+
+def phan_loai(vb, kho, vbhn_co):
+    ghi = []
+    so = vb["so"] or ""
+    for mau, cu, moi in kvd.DA_THAY:
+        if so and re.search(mau, so if so.startswith(" ") else " " + so):
+            return "THAY_THE", [], f"{cu} đã bị thay thế bởi {moi} — hợp lệ chỉ khi văn bản đang xét ban hành trước ngày thay thế"
+    tep = kho.tim(vb) if kho else []
+    if vb["ten"] and vb["ten"] in vbhn_co:
+        ghi.append(f"có VBHN {vbhn_co[vb['ten']]} — lấy số điều theo VBHN; VBHC không ghi số hiệu Luật")
+    if not tep:
+        return "KHONG_CO_TRONG_KHO", [], "; ".join(ghi + ["CẦN XÁC MINH hiệu lực từ nguồn chính thống, ghi nguồn + ngày tra"])
+    tt = next((t for t in (Kho.tinh_trang(p) for p in tep[:4]) if t), None)
+    if tt and re.search(r"hết hiệu lực|bị thay thế|bãi bỏ|không còn", tt, re.I):
+        return "KHO_GHI_HET_HIEU_LUC", tep, f"metadata kho ghi: {tt} — đối chiếu ngày hiệu lực với ngày ban hành văn bản đang xét"
+    ghi.append(f"metadata: {tt}" if tt else "metadata không ghi tình trạng — đọc phần hiệu lực của văn bản")
+    return "CO_TRONG_KHO", tep, "; ".join(ghi)
+
+
+def vbhn_trong_quy_tac():
+    """Doc bang VBHN tu 17-Quy-Tac-Vien-Dan.md: ten luat -> so VBHN."""
+    goc = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Du an: 20-Chuan-Chung/; plugin: skills/*/references/(Skill-Library/)
+    import glob
+    ung = [os.path.join(goc, "20-Chuan-Chung", "17-Quy-Tac-Vien-Dan.md")] + \
+        glob.glob(os.path.join(goc, "skills", "*", "references", "**", "17-Quy-Tac-Vien-Dan.md"), recursive=True)
+    p = next((x for x in ung if os.path.isfile(x)), "")
+    kq = {}
+    if os.path.isfile(p):
+        for d in open(p, encoding="utf-8"):
+            m = re.match(r"\|\s*(?:Bộ luật|Luật)\s+(.+?)\s+số\s+\S+\s*\|\s*(\d+/VBHN-\S+)", d)
+            if m:
+                kq[m.group(1).strip()] = m.group(2)
+    return kq
+
+
+def quet(duong_dan_list, goc_kho=None):
+    tep = []
+    for p in duong_dan_list:
+        if os.path.isdir(p):
+            for r, ds, fs in os.walk(p):
+                ds[:] = [d for d in ds if d not in (".git", "__pycache__", "99-Luu-Tru")]
+                tep += [os.path.join(r, f) for f in fs if f.endswith((".md", ".docx"))]
+        else:
+            tep.append(p)
+    if goc_kho is None:
+        try:
+            import duong_dan
+            goc_kho = duong_dan.ktc_database(canh_bao_ban_cu=False)
+        except Exception:
+            goc_kho = None
+    kho = Kho(goc_kho) if goc_kho else None
+    vbhn = vbhn_trong_quy_tac()
+    ket_qua = []
+    for p in tep:
+        doan = kvd.doc_tep(p)
+        # kiem_vien_dan chay cho MOI dinh dang: doc_tep() tra ve danh sach doan van nhu nhau
+        # cho .docx lan .md/.txt. Truoc day chi chay voi .docx nen quet mot tep .md bo QUA TOAN BO
+        # phan kiem vien dan — khong bao gi, va ma thoat cung sai vi Muc 1 khong duoc dem.
+        # Phat hien khi van hanh thu 21/9/2026: cung mot du thao, quet .md ra 0 goi y con chay
+        # kiem_vien_dan truc tiep ra 4 (2 Muc 1). Quet dinh ky quy tac/skill deu la .md.
+        vd = kvd.kiem_tra(doan)
+        dong = [(vb, *phan_loai(vb, kho, vbhn)) for vb in trich(doan)]
+        ket_qua.append((p, dong, vd))
+    return ket_qua, goc_kho
+
+
+def in_bao_cao(ket_qua, goc_kho, file=sys.stdout):
+    w = lambda s="": print(s, file=file)  # noqa: E731
+    w(f"# Quét hiệu lực và viện dẫn — {len(ket_qua)} tệp")
+    w(f"Kho đối chiếu: `{goc_kho or 'KHÔNG ĐỌC ĐƯỢC — mọi văn bản là CẦN XÁC MINH'}` (kho 01, 02; tra theo tên tệp)")
+    for p, dong, vd in ket_qua:
+        if not dong and not vd:
+            continue
+        w(f"\n## {p}")
+        if dong:
+            w("\n| Văn bản viện dẫn | Dòng | Phân loại | Tệp trong kho | Ghi chú |")
+            w("|---|---|---|---|---|")
+            for vb, loai, tep, ghi in sorted(dong, key=lambda x: ("THAY_THE", "KHO_GHI_HET_HIEU_LUC", "KHONG_CO_TRONG_KHO", "CO_TRONG_KHO").index(x[1])):
+                ten = f"{vb['loai']} {vb['so'] or vb['ten']}"
+                t = os.path.basename(tep[0]) if tep else "—"
+                w(f"| {ten} | {vb['dong']} | **{loai}** | {t} | {ghi} |")
+        if vd:
+            w("\nCách ghi viện dẫn (kiem_vien_dan):")
+            for muc, ma, d, trich_, mo_ta in vd:
+                w(f"- [Mức {muc}] {ma} dòng {d}: {mo_ta}")
+
+
+def main(argv):
+    if not argv:
+        print(__doc__)
+        return 2
+    ra_md = None
+    if "--md" in argv:
+        i = argv.index("--md")
+        ra_md = argv[i + 1]
+        argv = argv[:i] + argv[i + 2:]
+    ket_qua, goc = quet(argv)
+    in_bao_cao(ket_qua, goc)
+    if ra_md:
+        os.makedirs(os.path.dirname(os.path.abspath(ra_md)), exist_ok=True)
+        with open(ra_md, "w", encoding="utf-8") as f:
+            in_bao_cao(ket_qua, goc, f)
+    xau = any(x[1] in ("THAY_THE", "KHO_GHI_HET_HIEU_LUC") for _, dong, _ in ket_qua for x in dong) or \
+        any(v[0] == 1 for _, _, vd in ket_qua for v in vd)
+    return 1 if xau else 0
+
+
+if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    sys.exit(main(sys.argv[1:]))
+`````
+
+## `scripts/trich_tuong_thuat.py` (7814 byte, sha256 `d79e86224ef4a4c980fb51cd7a799f57b287b2a68e82d46e53e0030d3aa422fb`)
+
+`````python
+# -*- coding: utf-8 -*-
+"""Trich bao cao TUONG THUAT (Phu luc IIa) cua 13 don vi -> narrative.json
+
+Khac lan chay truoc: lan truoc chi doc .xlsx (Phu luc IIb - bang nhiem vu),
+bo sot hoan toan 13 file .docx chua VAN TUONG THUAT da chia san theo 6 Truc.
+"""
+import glob, json, os, re, sys
+from docx import Document
+
+# Goc du an suy ra tu vi tri tep nay — khong ghi cung duong dan tuyet doi,
+# de doi cho du an la khong phai sua tung tool.
+DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+IN = os.path.join(DU_AN, "10-Dau-Vao", "01-Dau-Moi-Nop", "2026-09")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                   "_trung_gian", "narrative.json")
+
+TRUC = [
+    (1, r"Thực hiện mục tiêu phát triển kinh tế"),
+    (2, r"Hoàn thiện thể chế"),
+    (3, r"(Thúc đẩy phát triển|Phát triển)\s+(KH|khoa học)"),
+    (4, r"Xây dựng Đảng"),
+    (5, r"Phát triển văn hóa, con người"),
+    (6, r"Củng cố quốc phòng"),
+]
+M_KQ = re.compile(r"^(Phần\s+I\b|I\.\s*(THỰC HIỆN|TÌNH HÌNH|KẾT QUẢ))", re.I)
+M_DG = re.compile(r"^(II|III)\.\s*ĐÁNH GIÁ CHUNG", re.I)
+M_KH = re.compile(r"^(Phần\s+II\b|I\.\s*KẾ HOẠCH|III\.\s*NHIỆM VỤ|II\.\s*NHIỆM VỤ)", re.I)
+M_NQ = re.compile(r"Nghị quyết\s+số\s+(\d+)\s*-?\s*NQ/TW", re.I)
+M_DAT = re.compile(r"^\d\.\s*Kết quả đạt được", re.I)
+M_CHUA = re.compile(r"^\d\.\s*(Danh mục các công việc chưa hoàn thành|Các tồn tại, hạn chế|Tồn tại, hạn chế)", re.I)
+M_HEAD = re.compile(r"^(Phần\s+[IVX]+|[IVX]+\.\s|\d+\.\s|\d+\.\d+\.?\s|[a-hk]\)\s|\*)")
+M_LV = re.compile(r"^[a-hk]\)\s*(.+)$")
+
+# Linh vuc -> nhan cap Truong (BC-375 dung dang "* Cong tac X:")
+LINH_VUC = [
+    ("Công tác tuyển sinh", r"tuyển sinh|nhập học|trúng tuyển|xét tuyển|hướng nghiệp"),
+    ("Công tác đào tạo", r"đào tạo|giảng dạy|thời khóa biểu|tốt nghiệp|mở lớp|liên thông|thực tập|năm học"),
+    ("Công tác chương trình, giáo trình", r"chương trình đào tạo|giáo trình|đề cương|chuẩn đầu ra"),
+    ("Công tác khảo thí", r"khảo thí|thi kết thúc|ngân hàng đề|chấm thi|nhập điểm|thi lại|văn bằng|chứng chỉ"),
+    ("Công tác bảo đảm chất lượng", r"bảo đảm chất lượng|kiểm định|tự đánh giá|chuẩn cơ sở"),
+    ("Công tác tổ chức, cán bộ", r"tổ chức cán bộ|bổ nhiệm|tuyển dụng|vị trí việc làm|biên chế|nâng lương|thi đua|khen thưởng|kỷ luật|đánh giá xếp loại"),
+    ("Công tác kế hoạch, tổng hợp", r"tổng hợp|kế hoạch công tác|văn thư|lưu trữ|hành chính|báo cáo định kỳ|quy chế làm việc"),
+    ("Công tác khoa học, công nghệ và chuyển đổi số", r"khoa học|công nghệ|nghiên cứu|sáng kiến|chuyển đổi số|phần mềm|trí tuệ nhân tạo|AI|dữ liệu|hội thảo"),
+    ("Công tác xây dựng Đảng", r"Đảng ủy|chi bộ|đảng viên|nghị quyết Hội nghị|sinh hoạt chính trị"),
+    ("Công tác phòng, chống tham nhũng, tiêu cực", r"tham nhũng|tiêu cực|lãng phí|kê khai tài sản"),
+    ("Công tác Công đoàn, Đoàn Thanh niên", r"Công đoàn|Đoàn Thanh niên|Đoàn viên|Hội Sinh viên|thanh niên"),
+    ("Công tác quản lý cơ sở vật chất", r"cơ sở vật chất|sửa chữa|xây dựng công trình|thiết bị|tài sản|khuôn viên|ký túc xá"),
+    ("Công tác tài chính", r"tài chính|kế toán|thanh toán|dự toán|quyết toán|học phí|lương|chế độ|định mức kinh tế|tự chủ"),
+    ("Công tác học sinh, sinh viên", r"học sinh, sinh viên|HSSV|sĩ số|chủ nhiệm|nội trú|học bổng|an sinh"),
+    ("Công tác truyền thông", r"truyền thông|tin, bài|website|fanpage|video|infographic|banner"),
+    ("Công tác quốc phòng, an ninh", r"quốc phòng|an ninh|trật tự|bí mật nhà nước|phòng cháy|an toàn"),
+    ("Công tác đối ngoại, hợp tác phát triển", r"đối ngoại|hợp tác|doanh nghiệp|quốc tế|Lào|MOU|liên kết"),
+]
+
+
+def linh_vuc(s: str, mac_dinh="Công tác khác") -> str:
+    for ten, pat in LINH_VUC:
+        if re.search(pat, s, re.I):
+            return ten
+    return mac_dinh
+
+
+def doc_mot(path: str) -> dict:
+    doc = Document(path)
+    kq = {i: [] for i in range(1, 7)}
+    kh = {i: [] for i in range(1, 7)}
+    nq_kq, nq_kh = {}, {}
+    dat, chua = [], []
+    pha, truc, nq_hien, muc_dg = "KQ", None, None, None
+    dem_truc = {}
+    lv_hien = None
+
+    for p in doc.paragraphs:
+        t = " ".join(p.text.split())
+        if not t:
+            continue
+
+        if M_KQ.match(t):
+            pha, truc, nq_hien, muc_dg, lv_hien = "KQ", None, None, None, None; continue
+        if M_DG.match(t):
+            pha, truc, nq_hien, lv_hien = "DG", None, None, None; continue
+        if M_KH.match(t):
+            pha, truc, nq_hien, muc_dg, lv_hien = "KH", None, None, None, None; continue
+
+        if pha == "DG":
+            if M_DAT.match(t):   muc_dg = "dat";  continue
+            if M_CHUA.match(t):  muc_dg = "chua"; continue
+            if M_HEAD.match(t):  muc_dg = None;   continue
+            noi = re.sub(r"^[-+•*]\s*", "", t)
+            if muc_dg == "dat" and len(noi) > 15:  dat.append(noi)
+            if muc_dg == "chua" and len(noi) > 15 and noi.lower() != "không": chua.append(noi)
+            continue
+
+        # Tieu de Truc
+        gap = False
+        for so, pat in TRUC:
+            if re.search(pat, t, re.I) and M_HEAD.match(t):
+                dem_truc[so] = dem_truc.get(so, 0) + 1
+                if dem_truc[so] >= 2 and pha == "KQ":
+                    pha = "KH"          # du phong khi thieu moc "Phan II"
+                truc, nq_hien, lv_hien = so, None, None
+                gap = True
+
+=== HẾT TỆP GOP-3-PLUGIN-COT-LOI_phan-3-tren-5.txt — MÃ KIỂM: 4E2252 ===

@@ -2,6 +2,14 @@
 
 **Gửi:** 05 tệp trong `Goi-Gop-Copilot/` (GOP-0 đến GOP-4) tại grok.com, bấm biểu tượng đính kèm để tải lên; chọn chế độ suy luận sâu (**Think** hoặc **Expert**) nếu có. Nếu một lần không gửi đủ 05 tệp: Gửi GOP-0, GOP-1 kèm Câu 1; gửi GOP-2, GOP-3, GOP-4 ở tin nhắn sau với câu “Đây là các nguồn còn lại, đọc hết rồi mới trả lời”.
 
+## Bước 0 — kiểm tra đọc tệp (gửi ngay sau khi tải tệp, trước mọi câu khác)
+
+```text
+Trước khi làm việc khác, với từng tệp tôi vừa đính kèm hãy lập bảng: Tên tệp | Mã kiểm | Tiêu đề dòng đầu tiên. Mã kiểm là 6 ký tự ở dòng cuối cùng của mỗi tệp .txt, dạng “=== HẾT TỆP ... — MÃ KIỂM: xxxxxx ===”. Với tệp PDF, ghi số trang và tên văn bản cuối cùng trong tệp. Tệp nào bạn không đọc được đến dòng cuối thì ghi “không đọc được đến cuối”, tuyệt đối không đoán mã.
+```
+
+Đối chiếu câu trả lời với `MA-KIEM-DOC-TEP.md` (tệp này **không** tải lên). Tệp nào sai mã hoặc “không đọc được”: Xem cách xử lý tại `01-CACH-DOC-TEP-TUNG-HE.md`. Chỉ gửi các câu tiếp theo khi mọi tệp đã đúng mã.
+
 ## Câu 1 (gửi kèm tệp)
 
 ```text

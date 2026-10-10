@@ -447,3 +447,5 @@ vì mã ngoài 11 mã chuẩn (hoặc Claude hỏi lại mã) — không tạo t
 |---|---|---|---|---|
 | Claude (trò chuyện) | / 15 | | | |
 | Claude Cowork | / 18 | | | |
+
+=== HẾT TỆP N16-PHIEU-NGHIEM-THU-CLAUDE-COWORK-1.3.13.md — MÃ KIỂM: 5FC5B8 ===

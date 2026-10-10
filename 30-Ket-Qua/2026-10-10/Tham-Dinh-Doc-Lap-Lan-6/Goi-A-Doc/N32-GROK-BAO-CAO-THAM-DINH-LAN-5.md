@@ -197,3 +197,5 @@ Ngày 29 tháng 9 năm 2026
 - Phòng TH-HC&QT  
 - Phòng QLKHCN&HTPT  
 - Lưu hồ sơ thẩm định độc lập lần 5
+
+=== HẾT TỆP N32-GROK-BAO-CAO-THAM-DINH-LAN-5.md — MÃ KIỂM: 721DDB ===

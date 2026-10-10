@@ -82,3 +82,5 @@ TH-HC&QT khắc phục lỗi, vận hành thí điểm để chuẩn hóa, hoàn
 
 **Ý kiến của Lãnh đạo Trường (ngày 04/10/2026, Hiệu trưởng Lê Trí Khải):** Thống nhất với đề xuất của phòng QLKHCN&HTPT, mặt
 khác đề nghị lấy ý kiến thẩm định thêm qua các hệ thống AI độc lập khác: NotebookLM, Copilot, Work.
+
+=== HẾT TỆP N02-PHIEU-TRINH-QLKHCN-03-10-2026-VA-Y-KIEN-LANH-DAO.md — MÃ KIỂM: 55E64E ===

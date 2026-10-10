@@ -110,3 +110,5 @@ rộng hơn Dự thảo Thông báo — đã sửa. Bố cục khối chữ ký 
 | Nguồn dữ liệu đã dùng | Kho KTC-Database 01 (Nghị định số 334/2026/NĐ-CP), 02 (Phụ lục Quyết định số 2119/QĐ-CĐKT); bộ quy tắc KTC-Ra-Soat-897-v2-Cai-tien (Checklist 01, 02, 04, 05, 08); tệp Track Changes, bản sạch của 3 văn bản và Báo cáo tiếp thu lần 5; tệp kết quả nghiệm thu, bằng chứng dựng lại trong hồ sơ |
 | Người kiểm tra | [Người phụ trách Phòng TH-HC&QT — ký xác nhận] |
 | Trạng thái phê duyệt | Bản nháp — chờ người có thẩm quyền xem xét |
+
+=== HẾT TỆP N09-PHIEU-RA-SOAT-897-VONG-5.md — MÃ KIỂM: DE08A0 ===

@@ -54,6 +54,9 @@ Các hệ thống AI độc lập (NotebookLM, Copilot, ChatGPT Work, Grok, Gemi
 | `Goi-Gop-Copilot/` | GOP-0 nhiệm vụ · GOP-1 văn bản trình, dự thảo (PDF) · GOP-2 bằng chứng · GOP-3 plugin cốt lõi · GOP-4 báo cáo lần 5 |
 | `Goi-day-du-tham-dinh-lan-6.zip` | Gói A + plugin 1.3.13 (.zip, .sha256) + kết quả nghiệm thu gốc (.json) |
 | `Cau-lenh/` | 05 câu lệnh (P1 - P5) |
+| `01-CACH-DOC-TEP-TUNG-HE.md` | Cách từng hệ đọc tệp, cách kiểm, xử lý khi bị cắt — **đọc trước khi gửi** |
+| `MA-KIEM-DOC-TEP.md` | Bảng mã kiểm từng tệp để đối chiếu Bước 0 — **không tải lên hệ AI** |
+| `Goi-Gop-nho/` | Bản gộp chia nhỏ (11 tệp) cho hệ cắt tệp dài |
 | `KIEM-TRA-BAO-MAT.md` · `00-DANH-MUC.md` | Quét dữ liệu cá nhân · SHA-256 từng tệp |
 
 Dựng lại gói: `python 29-Cong-Cu/lap_goi_tham_dinh_doc.py` (cần Microsoft Word để xuất PDF).

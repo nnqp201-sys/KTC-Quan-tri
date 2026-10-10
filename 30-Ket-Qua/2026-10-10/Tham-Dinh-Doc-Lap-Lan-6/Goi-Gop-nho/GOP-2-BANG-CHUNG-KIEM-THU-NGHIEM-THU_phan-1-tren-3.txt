@@ -1,3 +1,607 @@
+[PHẦN 1/3 của GOP-2-BANG-CHUNG-KIEM-THU-NGHIEM-THU.txt — đọc đủ 3 phần theo thứ tự]
+
+# BẰNG CHỨNG KIỂM THỬ, NGHIỆM THU, VẬN HÀNH (N09 - N18)
+
+Tệp gộp nguyên văn các nguồn sau, theo thứ tự: N09-PHIEU-RA-SOAT-897-VONG-5.md, N10-GHI-CHU-PHAT-HANH-1.3.13.md, N11-BANG-CHUNG-KIEM-THU-1.3.13.md, N12-DUNG-LAI-TU-MA-NGUON-VA-THU-TAI-1.3.13.md, N13-DANH-MUC-291-TEP-1.3.13.md, N14-NHAT-KY-KIEM-TRA-1.3.13.md, N15-KET-QUA-NGHIEM-THU-DOT-11.md, N16-PHIEU-NGHIEM-THU-CLAUDE-COWORK-1.3.13.md, N17-BIEN-BAN-PHAN-QUYEN-CHI-DOC-KHO-MAU-V2.md, N18-THONG-KE-VAN-HANH-THUC-TE-18-28-9-2026.md, N34-THONG-KE-VAN-HANH-THUC-TE-29-9-DEN-10-10-2026.md
+
+
+====================================================================================================
+NGUỒN N09-PHIEU-RA-SOAT-897-VONG-5.md
+====================================================================================================
+
+<!-- N09: chép nguyên văn từ `PHIEU-RA-SOAT-897-VONG-5_TB-v8_HD-v8_BC-v7_TT5-v1.md` (sha256 4089266a01c2ac5464dd0d2ae69b2b3151ad21efbbeeab532a66357486d95c92) -->
+
+# PHIẾU RÀ SOÁT KTC-897 — VÒNG 5 (BỔ SUNG, PHẦN SỬA ĐỔI THEO THẨM ĐỊNH LẦN 5)
+
+**Văn bản** (4 văn bản, rà từng văn bản):
+1. Dự thảo Thông báo hướng dẫn sử dụng bộ công cụ trí tuệ nhân tạo KTC-Quan-tri — bản 8.
+2. Tài liệu hướng dẫn sử dụng chi tiết Bộ công cụ KTC-Quan-tri (kèm theo Dự thảo Thông báo) — bản 8.
+3. Báo cáo quá trình xây dựng bộ công cụ trí tuệ nhân tạo KTC-Quan-tri — bản 7.
+4. Báo cáo tiếp thu, giải trình ý kiến thẩm định độc lập lần 5 — bản 1 (văn bản mới, rà toàn văn).
+
+**Tệp rà soát:** `30-Ket-Qua/2026-09-29/Soan-Thao/` — (1), (2), (3) tệp `_TrackChanges` và `_ban-sach`; (4) tệp duy nhất.
+**Phạm vi:** (1), (2), (3) chỉ các vị trí có đánh dấu của tác giả “Tiếp thu thẩm định lần 5, bản 1.3.13 (Claude)”:
+Dự thảo Thông báo 5 đoạn (15 đánh dấu), Tài liệu hướng dẫn 6 đoạn và chân trang (14 đánh dấu), Báo cáo quá trình 17 đoạn, ô bảng (150
+đánh dấu). Phần còn lại đã qua vòng 1 - 4 (phiếu trong `3-Ra-soat-897/`). (4) rà toàn văn.
+**Công cụ:** Skill `ktc-ra-soat-897:review` (Core v3.0 + baseline v2.24; nạp `00-RUNTIME-INVARIANTS` →
+`10-…-v3-Core` → `20-…-v2.24-BASELINE`; Checklist 01, 02, 04, 05, 08).
+**Căn cứ tổ chức rà soát:** điểm b Mục 8 Thông báo số 1056/TB-CĐKT ngày 16/9/2026 — vòng bổ sung cho phần sửa sau các vòng trước.
+**Ngày rà soát:** 29/9/2026.
+
+---
+
+## PHẦN I. THÔNG TIN CHUNG
+
+| Mục | Nội dung |
+|---|---|
+| Loại văn bản | (1): Thông báo của Trường (mẫu 2.1, Hiệu trưởng ký); (2): Tài liệu hướng dẫn kèm theo Thông báo; (3), (4): Báo cáo của Phòng TH-HC&QT gửi Lãnh đạo Trường (mẫu 2.2) |
+| Hệ quy chiếu | **Hệ A** cho cả 4 văn bản (văn bản hành chính; NĐ 30/2020/NĐ-CP, Thông báo số 597/TB-CĐKT ngày 19/5/2026). Không có văn bản Đảng, đoàn thể, VBQPPL |
+| Nguồn kho đã đọc | Kho 01: `ND-334-2026-ND-CP_v1.docx` (đối chiếu ý kiến Gemini 5.3 — không có quy định, thuật ngữ về minh chứng); kho 02: `PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx` (mã băm khớp tệp dữ liệu trong plugin); Thông báo số 924/TB-CĐKT, 1056/TB-CĐKT (đã đối chiếu bản gốc ở vòng 3). Bộ quy tắc: Checklist 08 mục 2b (viết hoa sau dấu hai chấm) đọc bản gốc trên Drive ngày 29/9/2026 |
+| Nguồn không cần tra Internet | Phần sửa không viện dẫn văn bản mới ngoài Trường |
+| Đo thể thức (byte thật) | `ktc897_properties.py`: chữ ký ZIP `504b0304` hợp lệ cả 7 tệp; `kiem_the_thuc.py` (TT01 - TT19): (1), (3), (4) 0 gợi ý; (2) 0 lỗi Mức 1 - 2, còn TT05, TT11 Mức 3 — có từ bản 3, đã chấp nhận ở vòng 2 - 4 |
+| Xem trang thật | Xuất PDF bằng Word: (1) 7 trang, (4) 9 trang, (3) trang 15 - 17, (2) trang 5 - 7 — phát hiện khối chữ ký (1), (3) bị tách trang, đã sửa (M3-02) |
+| Quét viện dẫn | `kiem_vien_dan.py` (VD01 - VD12): 0 gợi ý cả 4 văn bản |
+
+## PHẦN II. KẾT QUẢ RÀ SOÁT CHI TIẾT
+
+| Mã | Văn bản, vị trí | Bằng chứng | Vấn đề | Căn cứ | Mức | Kiến nghị | Xử lý |
+|---|---|---|---|---|---|---|---|
+| M2-01 | (4) Mục 7, gạch đầu dòng “Dữ liệu” | “trước khi có biên bản phân quyền chỉ đọc (cổng G1), chỉ dùng dữ liệu giả lập …; sau đó xử lý dữ liệu nội bộ trong phạm vi được phép theo Thông báo số 924/TB-CĐKT” | Đọc thành chỉ cần cổng G1 là được xử lý dữ liệu nội bộ — rộng hơn Dự thảo Thông báo (điểm a Mục 3 Phần I: cần **cả** phân quyền chỉ đọc **và** nền tảng đã có biên bản nghiệm thu) | Checklist 02 (thống nhất giữa các văn bản trong hồ sơ); bài học PM-20260927 mục 1 | 2 | “dữ liệu nội bộ chỉ xử lý khi đã đạt cổng G1 và trên nền tảng đã có biên bản nghiệm thu (cổng G2), trong phạm vi …” | **Đã sửa** |
+| M3-01 | (3) Mục 7, đoạn “Các nội dung chưa thực hiện”, ý (iv) | “(iv) rà soát … phần sửa đổi lần 3 … (… vòng 4 …; vòng 5 … đã rà soát)” | Ý thuộc danh sách “chưa thực hiện” nhưng liệt kê các vòng đã làm — tự mâu thuẫn | Checklist 04 (logic câu) | 3 | “(iv) rà soát … phần sửa đổi tiếp theo của các văn bản trong hồ sơ, nếu có (đã thực hiện: …)” | **Đã sửa** |
+| M3-02 | (1) trang 6 - 7; (3) trang 16 - 17 | Khối Nơi nhận, người ký tách khỏi câu kết (lần xuất đầu) | Khối chữ ký tách trang | Thông báo số 597/TB-CĐKT (bố cục khối ký); chuẩn 18 mục 1 (xem trang thật) | 3 | Không tách hàng bảng chữ ký, giữ liền câu kết | **Đã sửa** — đã xuất lại PDF kiểm |
+| M3-03 | (2) Bảng “Thành phần”, ô “Thao tác tự động” | “không kiểm được chương trình do AI viết sẵn trong tệp” | Chưa khớp đoạn đã sửa ở Phần III cùng tài liệu (kết quả thử 10 kịch bản) | Checklist 02 (thống nhất trong văn bản) | 3 | Dùng cùng cách diễn đạt với (1) | **Đã sửa** |
+| M3-04 | (4) Mục 1, nội dung 2.5 | Mã SHA-256 64 ký tự trong câu | Dãn chữ bất thường trên trang 2 - 3 (căn đều hai bên) | Checklist 05 (trình bày) | 3 | Rút gọn trong câu, ghi đầy đủ một lần (mục 7) | **Đã sửa** |
+| M4-01 | (3), (4) | “commit”, “checkout”, “base64” | Thuật ngữ kỹ thuật tiếng Anh trong văn bản trình Lãnh đạo | Checklist 04 | 4 | Có giải thích trong ngoặc ở lần đầu | Giữ nguyên — không có từ tương đương ngắn; lần đầu đã giải nghĩa “bản lấy sạch (checkout)” |
+| M4-02 | (2) Đoạn “Kết quả nghiệm thu gắn với phiên bản, mô hình” | Câu dài, nhiều dấu hai chấm lồng nhau | Khó đọc | Checklist 04 | 4 | Tách thành bảng khi cập nhật tài liệu sau thí điểm | Giữ nguyên |
+
+**Cách xử lý:** các điểm M2-01, M3-01 đến M3-04 nằm trong phần chèn của chính đợt sửa lần này (chưa có người duyệt), nên
+được sửa thẳng vào nội dung của đợt rồi dựng lại Track Changes trên bản sạch đã qua vòng 4. Tác giả đánh dấu giữ là “Tiếp
+thu thẩm định lần 5, bản 1.3.13 (Claude)”. M3-02 là thay đổi bố cục (không tách hàng, giữ liền đoạn), không đổi chữ.
+
+### II.1. Kiểm lại vấn đề vòng 1 - 4 trong phần bị sửa
+
+Giới hạn dữ liệu theo Thông báo số 924/TB-CĐKT (sau khi sửa M2-01), không ghi “đã nghiệm thu 3 nền tảng”, không ghi “đã đủ
+điều kiện” khi chưa có biên bản, tên Skill “ktc-ra-soat-897”: **không tái phát**. Số hiệu, ngày các Thông báo số 924, 1056,
+597/TB-CĐKT, Quyết định số 1923, 2119/QĐ-CĐKT giữ đúng. Viết hoa sau dấu hai chấm (Checklist 08 mục 2b — chỉ bắt buộc khi
+sau dấu là tên cơ quan, đơn vị, chức danh, văn bản, tên riêng): phần sửa đúng quy ước.
+
+## PHẦN III. NỘI DUNG ĐẠT / KHÔNG PHÁT HIỆN VẤN ĐỀ
+
+- Số liệu trong 4 văn bản khớp tệp nguồn trong hồ sơ: mã SHA-256 bản 1.3.12, 1.3.13; commit `5d98f2b`, `16215a8`; so từng
+  tệp 241 / 47 / 3; nghiệm thu đợt 11 (Opus 29/30 lượt, Sonnet 6/6, Haiku 4/6); chi phí trung vị 0,22 USD; ST-01 chặn 5/10;
+  25/25 bộ ca thử hồi quy; thử tải 2,7 MB, tối đa 2,3 giây. Các số nghiệm thu được đọc thẳng từ tệp kết quả khi dựng văn bản.
+- Lượt trượt được trình bày trung thực: 01 lượt ca 13 (Opus) ghi rõ giám khảo chấm oan nhưng **giữ nguyên kết quả**; Haiku
+  trượt 2/2 lượt ca 15 ghi là lỗi của mô hình, kèm khuyến nghị; đợt 10 lỗi hạ tầng ghi không hợp lệ, không xóa.
+- Ý kiến không tiếp thu (Gemini 5.1 - 5.5, 5.9) đều có bằng chứng kiểm được (mã nguồn, mã băm, văn bản trong kho, số đo).
+- Dự thảo Thông báo: bỏ gắn số phiên bản cài đặt cụ thể; giao việc có chủ thể, nội dung đo được (đo thời gian, chất lượng,
+  ghi mô hình; không đổi chức năng trong thí điểm).
+- Không có “đảm bảo”, “nhà trường” viết thường sai vị trí trong phần sửa.
+
+## PHẦN IV. BẢNG TỔNG HỢP
+
+| Mức | Số lượng | Đã sửa | Còn lại |
+|---|---:|---:|---:|
+| Mức 1 | 0 | 0 | 0 |
+| Mức 2 | 1 | 1 | 0 |
+| Mức 3 | 4 | 4 | 0 |
+| Mức 4 | 2 | 0 | 2 (góp ý) |
+
+## PHẦN V. THẨM ĐỊNH CHUYÊN MÔN (NẾU CÓ)
+
+Không có nội dung chuyên môn cần thẩm định riêng trong phần sửa. Kết luận kỹ thuật (dựng lại từ mã nguồn, nghiệm thu) có
+tệp bằng chứng trong hồ sơ để bên thẩm định kiểm lại.
+
+## PHẦN VI. ĐÁNH GIÁ TỔNG THỂ
+
+Phần sửa theo thẩm định lần 5 bám đúng ý kiến, có bằng chứng; vấn đề đáng kể nhất là một câu về dữ liệu nội bộ có thể đọc
+rộng hơn Dự thảo Thông báo — đã sửa. Bố cục khối chữ ký đã kiểm trên trang thật.
+
+## PHẦN VII. KẾT LUẬN VÀ THỨ TỰ XỬ LÝ
+
+- **Không còn vấn đề Mức 1, Mức 2** trong phần sửa của 3 văn bản và toàn văn Báo cáo tiếp thu lần 5.
+- 2 góp ý Mức 4 để lần cập nhật sau thí điểm.
+- Kết luận chỉ cho phần rà soát nêu trên; điều kiện trình ký Dự thảo Thông báo do người có thẩm quyền quyết định sau cổng G1,
+  G2 (Báo cáo tiếp thu lần 5, mục 7).
+
+## KIỂM TRA CHẤT LƯỢNG CUỐI CÙNG
+
+| Mục | Kết quả |
+|---|---|
+| Phân hệ từng văn bản | Hệ A cả 4 văn bản, có căn cứ |
+| Đo byte thật | Đã chạy `ktc897_properties.py`, `kiem_the_thuc.py`, `kiem_vien_dan.py`; xem trang PDF |
+| Áp nhầm NĐ 30 cho Đảng, đoàn thể | Không có |
+| Pháp luật hết hiệu lực làm khung hiện hành | Không có |
+| Finding có bằng chứng, vị trí | Có |
+| Metadata, người kiểm tra tự bịa | Không |
+
+## THÔNG TIN TRÁCH NHIỆM
+
+| Mục | Nội dung |
+|---|---|
+| Nguồn dữ liệu đã dùng | Kho KTC-Database 01 (Nghị định số 334/2026/NĐ-CP), 02 (Phụ lục Quyết định số 2119/QĐ-CĐKT); bộ quy tắc KTC-Ra-Soat-897-v2-Cai-tien (Checklist 01, 02, 04, 05, 08); tệp Track Changes, bản sạch của 3 văn bản và Báo cáo tiếp thu lần 5; tệp kết quả nghiệm thu, bằng chứng dựng lại trong hồ sơ |
+| Người kiểm tra | [Người phụ trách Phòng TH-HC&QT — ký xác nhận] |
+| Trạng thái phê duyệt | Bản nháp — chờ người có thẩm quyền xem xét |
+
+====================================================================================================
+NGUỒN N10-GHI-CHU-PHAT-HANH-1.3.13.md
+====================================================================================================
+
+<!-- N10: chép nguyên văn từ `GHI-CHU-PHAT-HANH-1.3.13.md` (sha256 400bef98e9f6aed26f64fd8a8c9cef7cdd97d8eb812264aed4eaf1bd50e04071) -->
+
+# Ghi chú phát hành — plugin KTC-Quan-tri 1.3.13
+
+**Trạng thái:** đã dựng, kiểm thử (29/09/2026) — **chưa phân phối**. Chỉ phân phối sau nghiệm thu 3 nền tảng và rà
+soát 897 (Dự thảo Thông báo hướng dẫn sử dụng).
+
+| Mục | Giá trị |
+|---|---|
+| Tệp | `ktc-quan-tri-1.3.13.zip` (291 tệp) |
+| SHA-256 | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` |
+| Đối chiếu (PowerShell) | `Get-FileHash ktc-quan-tri-1.3.13.zip -Algorithm SHA256` — phải trùng mã trên |
+| Thay đổi | `31-Plugin/CHANGELOG.md` mục 1.3.13 (có trong zip) |
+| Bằng chứng | `BANG-CHUNG-KIEM-THU-1.3.13.md`, `DANH-MUC-TEP-1.3.13.md`, `log-*.txt`, `log-hoi-quy/` |
+
+Mã SHA-256 để ngoài zip vì ghi mã vào trong gói sẽ làm đổi chính mã đó.
+
+====================================================================================================
+NGUỒN N11-BANG-CHUNG-KIEM-THU-1.3.13.md
+====================================================================================================
+
+<!-- N11: chép nguyên văn từ `BANG-CHUNG-KIEM-THU-1.3.13.md` (sha256 ee234758239909e569e5d2c1da70cac89c28553f54ffd8cf10af9534476b04e6) -->
+
+# Bằng chứng kiểm thử — plugin ktc-quan-tri 1.3.13
+
+**Lập tự động** bởi `29-Cong-Cu/lap_bang_chung_plugin.py` lúc 29/09/2026 11:19 — mọi con số lấy từ nhật ký trong thư mục này.
+
+## 1. Artifact
+
+| Mục | Giá trị |
+|---|---|
+| Tệp | `ktc-quan-tri-1.3.13.zip` (291 tệp) |
+| SHA-256 | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` (tính lại khớp tệp `.sha256`) |
+| Lặp lại được | `log-dung-*-lan-2.txt` nếu có (dòng cuối ghi mã của hai lần dựng) |
+| Danh mục tệp | `DANH-MUC-TEP-1.3.13.md` (SHA-256 từng tệp) |
+| So với bản trước | `ktc-quan-tri-1.3.12.zip` SHA-256 `ac18042010912719e19342f8eb422d74a4c3f3f93e674cd02661168a8e7869df`; thêm 0 tệp: —; bỏ 0 tệp: — |
+| Không chứa | `.git/`, `KPI-ca-nhan/`, `*.jsonl`, `ktc_backup_github.py` |
+
+## 2. Hooks — trước và sau
+
+| Bản trước | Bản này |
+|---|---|
+| SessionStart: ktc_quan_tri_doctor.py | SessionStart: ktc_quan_tri_doctor.py |
+| SessionStart: ktc_nhat_ky.py nap | SessionStart: ktc_nhat_ky.py nap |
+| PreToolUse: ktc_guard.py | PreToolUse: ktc_guard.py |
+| PostToolUse: ktc_nhat_ky.py ghi | PostToolUse: ktc_nhat_ky.py ghi |
+| PostToolUse: ktc_the_thuc_hook.py | PostToolUse: ktc_the_thuc_hook.py |
+| UserPromptSubmit: ktc_nhat_ky.py yeu-cau | UserPromptSubmit: ktc_nhat_ky.py yeu-cau |
+| SessionEnd: ktc_nhat_ky.py ket-phien | SessionEnd: ktc_nhat_ky.py ket-phien |
+
+## 3. Môi trường
+
+| Thành phần | Phiên bản |
+|---|---|
+| Hệ điều hành | Windows-11-10.0.26200-SP0 |
+| Python | 3.13.15 |
+| python-docx | 1.2.0 |
+| openpyxl | 3.1.5 |
+| lxml | 6.1.2 |
+| Claude Code CLI | 2.1.283 (Claude Code) |
+| Git | `16215a8` — mã nguồn dựng plugin sạch (không có thay đổi chưa commit trong 11 thư mục nguồn): bản dựng truy về đúng commit này |
+
+## 4. Kết quả
+
+| Phép kiểm | Kết quả | Nhật ký |
+|---|---|---|
+| `claude plugin validate ./31-Plugin --strict` | ĐẠT (mã 0) | `log-validate-strict-1.3.13.txt` |
+| Kiểm tra tĩnh toàn hệ | KẾT LUẬN: 0 LỖI · 0 cảnh báo (mã 0) | `log-kiem-tra-he-thong-1.3.13.txt` |
+| Bộ hồi quy | 25/25 bộ mã thoát 0 | `log-hoi-quy/` |
+
+| Bộ | Mã thoát | Dòng OK |
+|---|---:|---:|
+| `test_bc_thang` | 0 | 6 |
+| `test_c11_ban_goc_trong_zip` | 0 | 0 |
+| `test_c12_c13_kho_va_o_dia` | 0 | 6 |
+| `test_c14_cong_cu_agent` | 0 | 5 |
+| `test_c5_soi_trong_goi` | 0 | 0 |
+| `test_doi_soat_so_lieu` | 0 | 24 |
+| `test_dung_lap_lai` | 0 | 0 |
+| `test_he_ngoai` | 0 | 6 |
+| `test_kiem_minh_chung` | 0 | 15 |
+| `test_kiem_the_thuc` | 0 | 38 |
+| `test_kiem_tra_he_thong` | 0 | 0 |
+| `test_kiem_vien_dan` | 0 | 24 |
+| `test_kpi_calc` | 0 | 51 |
+| `test_kpi_danh_gia` | 0 | 59 |
+| `test_kpi_trinh_bay` | 0 | 27 |
+| `test_plugin_130` | 0 | 94 |
+| `test_plugin_131` | 0 | 133 |
+| `test_plugin_nhat_ky_backup` | 0 | 34 |
+| `test_task_id_bc736` | 0 | 7 |
+| `test_thu_muc` | 0 | 19 |
+| `test_tra_hieu_luc` | 0 | 17 |
+| `test_trackchanges` | 0 | 0 |
+| `test_tu_du_plugin` | 0 | 33 |
+| `test_tu_hoc` | 0 | 12 |
+| `test_validate_plan` | 0 | 27 |
+
+## 5. Chưa thực hiện (không trình bày như đã đạt)
+
+- Nghiệm thu trên Claude (trò chuyện) và Claude Cowork.
+- Kiểm kê, thu hồi bản cũ ở cấp tổ chức (Phòng QLKHCN&HTPT, quyền Owner).
+- Guard không phân tích mã Python/JS nhúng trong lệnh shell; máy không có Python thì hook không chạy.
+- Kiểm thử dùng dữ liệu giả lập hoặc mẫu biểu; chưa có dữ liệu vận hành thật.
+
+====================================================================================================
+NGUỒN N12-DUNG-LAI-TU-MA-NGUON-VA-THU-TAI-1.3.13.md
+====================================================================================================
+
+<!-- N12: chép nguyên văn từ `DUNG-LAI-TU-MA-NGUON-VA-THU-TAI-1.3.13.md` (sha256 df67d10b0f5611d6693a3a917e35b0b53d2baf6dd4b990ee31ac940907efeb9b) -->
+
+# Dựng lại tệp phát hành từ mã nguồn đã chốt — KTC-Quan-tri 1.3.13 (29/9/2026)
+
+Tiếp thu L5-04 (ChatGPT), mục 2.1 (Grok), thẩm định độc lập lần 5. Mỗi lần dựng lấy **bản sạch (checkout) của commit** vào
+thư mục tạm (`git worktree`, không có tệp chưa commit), chạy `python 29-Cong-Cu/dong_goi_plugin.py`, so mã SHA-256 với tệp
+đã phát hành. Nhật ký dựng kèm theo.
+
+| Lần dựng | Commit | SHA-256 tệp dựng lại | SHA-256 tệp phát hành | Kết quả |
+|---|---|---|---|---|
+| 1.3.12 | `5d98f2b` | `d5fb75fea6706dd97bad11bccb7669066b59503a626b09d2463accfab0fff4d8` | `ac18042010912719e19342f8eb422d74a4c3f3f93e674cd02661168a8e7869df` | **Khác** |
+| 1.3.13 | `16215a8` (nhãn `v1.3.13`) | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` | **Trùng** |
+
+**Nguyên nhân khác mã băm ở 1.3.12:** git trên Windows (`core.autocrlf=true`) lấy tệp văn bản ra với ký tự xuống dòng CRLF;
+thư mục làm việc của người xây dựng lẫn LF và CRLF (470 tệp CRLF), nên 17 tệp khác ký tự xuống dòng và bảng
+`BAN-DO-TEP.md` (so khớp bằng mã băm) mất 10 dòng. **Khắc phục 1.3.13:** công cụ đóng gói chuẩn hóa mọi tệp văn bản về LF
+(`.cmd`, `.bat` về CRLF) trước khi nén; bảng đối chiếu so băm bỏ qua CR. Ca thử hồi quy `test_dung_lap_lai.py`.
+
+## So từng tệp giữa 1.3.12 và 1.3.13
+
+| Nhóm | Số tệp |
+|---|---:|
+| Giống từng byte | 241 |
+| Chỉ khác ký tự xuống dòng | 47 |
+| Khác nội dung | 3: `.claude-plugin/plugin.json`, `CHANGELOG.md`, `skills/quan-tri/references/BAN-DO-TEP.md` (số phiên bản, nhật ký thay đổi) |
+| Thêm / bớt | 0 / 0 |
+
+Kết luận: nội dung chức năng (8 kỹ năng, 7 tác tử, hook, script) của 1.3.13 **giống 1.3.12**.
+
+## Nghiệm thu chạy trên chính tệp phát hành
+
+`29-Cong-Cu/chay_nghiem_thu_code.py --goi 30-Ket-Qua/2026-09-29/Plugin/ktc-quan-tri-1.3.13.zip` kiểm mã SHA-256 với tệp
+`.sha256`, khác thì dừng (mã 3); giải nén tệp phát hành vào thư mục chạy (không chép `31-Plugin/`). Dòng “Nguồn plugin” trong
+`log-eval.txt` ghi tên tệp và mã băm đã kiểm.
+
+# Kịch bản ghi che giấu vào kho (ST-01) — thao tác chặn ghi bản 1.3.13
+
+Đưa 10 câu lệnh vào thao tác chặn ghi (`ktc_guard.py`) như khi Claude sắp chạy; **không chạy lệnh ghi thật**.
+
+| Kịch bản | Quyết định |
+|---|---|
+| Ghi trực tiếp (đối chứng) | CHẶN |
+| Biến đặt trong cùng lệnh | CHẶN |
+| Tạo liên kết trỏ vào kho | CHẶN |
+| Lệnh lồng bash -c | CHẶN |
+| PowerShell mã hóa -EncodedCommand (có tên kho ngoài) | CHẶN |
+| Base64 giải mã rồi chạy (không lộ tên kho) | cho qua |
+| Python exec base64 (không lộ tên kho) | cho qua |
+| Biến môi trường đặt từ phiên trước | cho qua |
+| Chạy script có sẵn trong tệp | cho qua |
+| Đi qua liên kết đã tạo từ trước | cho qua |
+
+Kết luận: thao tác chặn ghi là lớp hỗ trợ; 5 kịch bản không nhận dạng được chỉ chặn được bằng **phân quyền chỉ đọc trên
+Google Drive** — đưa vào biên bản kiểm tra phân quyền (thao tác 8 - 11, `BIEN-BAN-…_mau-v2.md`).
+
+# Thử tải nội dung Markdown lớn (ý kiến Gemini lần 5, mục 1.2)
+
+Tệp bảng 3.000 dòng × 30 cột (khoảng 2,7 MB) và nội dung dị dạng qua Write, Edit, Bash heredoc, PowerShell here-string:
+thời gian xử lý 0,05 - 2,3 giây, không treo; ghi vào kho vẫn bị chặn. Giới hạn 30 giây đã có trong `hooks.json`. Ca thử
+hồi quy trong `test_dung_lap_lai.py`.
+
+====================================================================================================
+NGUỒN N13-DANH-MUC-291-TEP-1.3.13.md
+====================================================================================================
+
+<!-- N13: chép nguyên văn từ `DANH-MUC-TEP-1.3.13.md` (sha256 514555eae988bea4db8573c7eb8f820d2b0bbe1c9864e9834f735c59ed7c3c2c) -->
+
+# Danh mục tệp — ktc-quan-tri-1.3.13.zip
+
+| Tệp | Byte | SHA-256 |
+|---|---:|---|
+| `.claude-plugin/plugin.json` | 1751 | `dfd3b74e60cd740dc16f7e8e87d735ec26d4ab84fb4d1e543bd0f4e8a6db0d30` |
+| `CHANGELOG.md` | 36947 | `1113333998be63354cf732ad5277ee227ff9c086b4037a98bc8ccdd0c20e8095` |
+| `README.md` | 9515 | `602e7cc25bf9b616d7d5d7227b2c3d99c45abaf275a903c9f5867e12c4708ec1` |
+| `agents/ktc-hieu-luc-vien-dan.md` | 9272 | `ed71e4a6586639991147f755a7456ce44476dcc29691a19dfbe9d7bfd6076159` |
+| `agents/ktc-kiem-ho-so-don-vi.md` | 8651 | `82ec2772dd7cd08c2a1dbd53aa9ef963f47ee3d4f09ef0e9f090083acd7f84fe` |
+| `agents/ktc-kiem-san-pham.md` | 7992 | `1a19bb273172a78e60825b1d8ff2d482a7350d9fc4113ac8011a9c0eb2b225df` |
+| `agents/ktc-tra-cuu-can-cu.md` | 7384 | `6282e18d2561b29bb9b65bf17c8107d0523973229f1c47ee539eab6c63126896` |
+| `agents/ktc-tu-cai-tien.md` | 8734 | `614f6c25d59b020bae93b5cce195f86e7c9f97a8fa9c776ea2dc5d72dbd58a96` |
+| `agents/ktc-tu-hoc.md` | 9328 | `fa69dfa967d07a38b7db82742d8ba2b9cb1d94124389b1c5abcdca4aab0358a6` |
+| `agents/ktc-xac-minh-minh-chung.md` | 8203 | `e388cc2b2148db483053a8ff7ca23a96351c6ed488b0fdcaab7fc76954aade7c` |
+| `hooks/hooks.json` | 1568 | `dfc15081716c6cd28cabf025a695a97c1fb64746a70dab51e9f672ff86a1b7a2` |
+| `scripts/bc_thang.py` | 32235 | `7ea318f32fa00c2f3cead4ab56e71458d2776f8efdfdc5296a65f8e8ecc7bd4f` |
+| `scripts/doi_soat_so_lieu.py` | 20982 | `f2bad80bad0e17e9ec25710b7e6b70a2ee69028ccc0bc39af84b119e649c80f9` |
+| `scripts/duong_dan.py` | 2614 | `2002e26fc5149e12f9e7e69bb53cc14d03f8408fd4db46ce28cac8f70efdc241` |
+| `scripts/kiem_minh_chung.py` | 9145 | `0d74703529a6332d72a2c46bf1f04dedd33617c07060a10180aeceeaf0d58a8e` |
+| `scripts/kiem_the_thuc.py` | 31297 | `1158fd000ef7bf2b1cb0cb06f669af2930666ce2f30f92d2c7bf4aca3c9fdcce` |
+| `scripts/kiem_vien_dan.py` | 9824 | `47ed106a59a60a12d769daf985389f86463f5bc2a28ac62e425197c700c3544f` |
+| `scripts/kpi_calc.py` | 14203 | `9532b0702bcdcac600762817a052315b3edf790d9b52dfd2795ffd5aea44aacb` |
+| `scripts/kpi_danh_gia.py` | 37320 | `dd93e0a7460226476115909f964b9f0e660d0072a039f251f9a8c5e4cc369867` |
+| `scripts/kpi_mau.py` | 26541 | `faabd3618bdc70a399475ba2405b0cc0ea8b94ae0814ed07c33950a34b130db4` |
+| `scripts/ktc_guard.py` | 16401 | `6c1b3459df1196dd896c375cfe5c738218b9b38fce5bef825fbfd8d28820f69c` |
+| `scripts/ktc_nhat_ky.py` | 18165 | `f2935b8ee21c6ec17b430a8253387f851e937f282910b3cc85ac90825c387cf1` |
+| `scripts/ktc_quan_tri_doctor.py` | 5181 | `f02b0f6647f3b1e1b56d14909527448f320fb0c1ac3128772ff92116b2d0d98a` |
+| `scripts/ktc_the_thuc_hook.py` | 4835 | `9ad0a5b2d6605f555b812143cba8c611becc7a31c7e96f06932b99350de0fe70` |
+| `scripts/ktc_thu_muc.py` | 6714 | `898f75a78531a5783fcf20887c1ec49b2dec59da89f403bf3beb500b0b6db34f` |
+| `scripts/ktc_trackchanges.py` | 21321 | `70b46db89670596a19c1b3100def96cbab2cbf399858f85faedefd5881eb4f56` |
+| `scripts/tra_hieu_luc.py` | 13278 | `1784955be6a6805da2b712b5529ef6f6ddbc9f5b4ec4caa1c80759a337256fe0` |
+| `scripts/trich_tuong_thuat.py` | 7814 | `d79e86224ef4a4c980fb51cd7a799f57b287b2a68e82d46e53e0030d3aa422fb` |
+| `scripts/validate_plan.py` | 11318 | `1e8245e7a2feedf44e03432f20405060bdcd357081d6bf0b3f6ad71838816999` |
+| `scripts/vanphong.py` | 6960 | `22a46f9985b6ba8a275791a776fb77abca517f8318472f06e26e880d82a8ca70` |
+| `skills/bao-cao/SKILL.md` | 17757 | `2ba50d9f60822fca5dadf762114f958e5ecc8516be9c76ba714ed439c7b15f36` |
+| `skills/bao-cao/assets/00. Mau bao cao thang (cap Truong).docx` | 59426 | `682aa866c5a97aed88376cee1f795243e259517cf96141ea61374fc2850aacd3` |
+| `skills/bao-cao/assets/mau-nhat-ky-chay.md` | 1326 | `d0418c2250bc71c84499127e8868ba11366fc455cf6691ca10ba5950a17857d2` |
+| `skills/bao-cao/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/bao-cao/references/LICH-SU-PHIEN-BAN.md` | 3398 | `8929e9be9ae8519d09d00cb722881da98447669bd3e307108ad99be4a7b73d0c` |
+| `skills/bao-cao/references/Memory/01-Nhat-Ky-Chay.md` | 3219 | `cc9dad15b5beb3a9388dd6d8b943b995be8aa9fe491a70cfdd9bb824e1588a08` |
+| `skills/bao-cao/references/Memory/02-So-Dang-Ky-Loi.md` | 4011 | `1e1aa6a91b4770dd7164dcf07e3f9a4d596c05faa1b9ac2a24662de73618f536` |
+| `skills/bao-cao/references/Memory/03-Chat-Luong-Du-Lieu-Don-Vi.md` | 3460 | `d1d2dd7f8adde9cb12822fc245de2c52d1869df71df854c5bbf602bfd5f0ffe7` |
+| `skills/bao-cao/references/Memory/04-Nhat-Ky-Quyet-Dinh.md` | 7416 | `c40b070fc65979c26911d71a2e61f13bab48a0857227f7771055bfe846cde10d` |
+| `skills/bao-cao/references/Memory/05-Bai-Hoc.md` | 4097 | `0a98f035244a599ea077475ea867b5f5c09c0e1248b2fbcd9e2f18b8f519f25b` |
+| `skills/bao-cao/references/Memory/README.md` | 2749 | `c86be49438aa84071419ed2893ea2760ed88025ae419945086a70adaf68b69cc` |
+| `skills/bao-cao/references/Memory/RUN-RECORD-SCHEMA.md` | 553 | `37e00de27e73c7f9450ee8305313f453c0c5e8fb95e8d1bbc1221554ab93724a` |
+| `skills/bao-cao/references/Memory/TRANG-THAI.md` | 2976 | `9fb6d23b97b8cfbed1b990b7a60b2e73e11488fd7aff24c9a675ffd61a65f328` |
+| `skills/bao-cao/references/Memory/kiem_tra_bo_nho.py` | 5383 | `b943024d03b4c38e693a7b65f119d8c30b7837eb431edba81033538818a43240` |
+| `skills/bao-cao/references/Prompt-Library/15-Tong-Hop-Bao-Cao/01-Thu-Thap-Kiem-Tra.md` | 2253 | `279935b4930ee193b7309d5a26b983c8fd44f9febdfcca1de15cb6ccbd3cf68e` |
+| `skills/bao-cao/references/Prompt-Library/15-Tong-Hop-Bao-Cao/02-Tong-Hop-Cap-Truong.md` | 2798 | `9fc91312ee379e202ec93943db763fd868e9ff02e42536047f6cfcde1ba5b1c9` |
+| `skills/bao-cao/references/Prompt-Library/15-Tong-Hop-Bao-Cao/03-Doi-Chieu-Tien-Do.md` | 2104 | `fe42c057118210ba48ef026ff6d8a5182d0c24225fe5ec93a8eb1f00ac6d5f51` |
+| `skills/bao-cao/references/Prompt-Library/15-Tong-Hop-Bao-Cao/04-Thu-Thap-Checklist.md` | 2108 | `53f15c396b380386bb91da917280fb728c0f4e5930671e891029a6468fcfa104` |
+| `skills/bao-cao/references/Skill-Library/00-Metadata-Schema.md` | 3169 | `0061114e65d38037bc68a21926933d37ffbc426e9ada8620eb1974db9bcabea7` |
+| `skills/bao-cao/references/Skill-Library/00-Nguyen-Tac-Chung.md` | 19907 | `76d1d8d20dc9b8f28be71f6b4e643e2189c742116cfc2c4c25301ea5a5184784` |
+| `skills/bao-cao/references/Skill-Library/00b-Trigger-Vien-Dan-Van-Ban-Hop-Nhat.md` | 2265 | `c8bacedb41667af5e5e66ef58c61766620110f6a241ae27828061acd9eb627e6` |
+| `skills/bao-cao/references/Skill-Library/00d-Ghi-Nho-ND-334-2026-Pham-Vi-Co-So-GDNN.md` | 6170 | `464b4009633cb4f629a87ad6958c6624eda545ceef55608ae717f483dd367919` |
+| `skills/bao-cao/references/Skill-Library/04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md` | 3748 | `62f79573f63ee7b0358f8d4379fd8df81600d4bc4299f4aa9b387b157c0c3b78` |
+| `skills/bao-cao/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15149 | `d61a6633643183cf8f46d6d59e25779c6ae2ba50bb85d0d7c474c2fed9073fce` |
+| `skills/bao-cao/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 15609 | `350e231597b0e86790a249485a69d1f3183888f1e4126c779ac4c48ae9bee36e` |
+| `skills/bao-cao/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
+| `skills/bao-cao/references/Skill-Library/31-Skill-Phu-Luc-TB736-Excel.md` | 8413 | `1c3e4538b88e729d9cab7d8e0e63f2c5164f509aecf024069bc797c9759991aa` |
+| `skills/bao-cao/references/Skill-Library/32-Skill-Thu-Thap-Bao-Cao-Don-Vi.md` | 6387 | `dc9104b5e6e51528b6110c0b0825a8f9b1f930d143e3afc43864742e0927f197` |
+| `skills/bao-cao/references/Skill-Library/33-Skill-Tong-Hop-Bao-Cao-Truong.md` | 20051 | `50b5bdb738b73035a0e58da6926fbe1ee8a95f7d69cbb7572d6fdf1a3eee0c38` |
+| `skills/bao-cao/references/Skill-Library/34-Skill-Doi-Chieu-Tien-Do-KH.md` | 4038 | `a43934233ad8371e87f10989eec22b7c12107208e21657847a1b3272ccd6a12b` |
+| `skills/bao-cao/references/Skill-Library/35-Skill-Quan-Ly-Checklist-Don-Vi.md` | 4690 | `6a5a8482e841354c30ede336b0b062dbcb06b075f894cbb054cc47d6ca1f3eee` |
+| `skills/bao-cao/references/Skill-Library/37-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh.md` | 8517 | `20dc3be4f1de8a86fd82a269777b3f81c991a38f4b2c1b1c325e7d3ff7bd6eba` |
+| `skills/bao-cao/references/Skill-Library/PATCH-NOTES-v2.5.1.md` | 7623 | `6d2d6cd0d093de0a9a4cf45121ee23ed3d75177f4fc9c94fab21235ba3e4ae64` |
+| `skills/bao-cao/references/Skill-Library/PATCH-NOTES-v2.5.md` | 4695 | `61fb7cb1f05132f40c0cd70fc73f9924fd79b5b81d03bc41a59af4f61641bb52` |
+| `skills/bao-cao/references/Skill-Library/PATCH-NOTES-v3.2.md` | 4947 | `607b9e8ed772d01ce622c0c78de3f0fdcff6c43c4543c5a250e30547b696a154` |
+| `skills/bao-cao/references/Skill-Library/PATCH-NOTES-v3.4.md` | 4899 | `dc797fa886b5fb8b8afa95e2afd5b23e25d10b79eb98934b439a4707dbdad920` |
+| `skills/bao-cao/references/Skill-Library/PATCH-NOTES-v3.5.md` | 4695 | `61fb7cb1f05132f40c0cd70fc73f9924fd79b5b81d03bc41a59af4f61641bb52` |
+| `skills/bao-cao/references/Skill-Library/README-fill_bc736.md` | 9333 | `0c2e913676b109d517605a5c6d0c3757d6ad74e3f686ccee04ffbb7e26334bdf` |
+| `skills/bao-cao/references/Skill-Library/Skill-Tu-hoc-Phong-Cach-Bao-Cao.md` | 20668 | `c56306013632fd14fca6ce416d99a043582cb33f5b1e5ba3e10fca2c3393b4de` |
+| `skills/bao-cao/references/Skill-Library/Skill-Tu-hoc-Phong-Cach-Bao-Cao_BoSung_Tiep-Thu-Giai-Trinh_20260816.md` | 6349 | `3cd0dc2dc202a4ec3dee0a7242b13e68f4242d057d54bbd5156301debe40612f` |
+| `skills/bao-cao/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` | 4964 | `697e0134a3a10dcdcf19164b7d673c40754e1c7f0fa79941de15671d1ace94f9` |
+| `skills/bao-cao/references/Skill-Library/bc_thang.py` | 32235 | `7ea318f32fa00c2f3cead4ab56e71458d2776f8efdfdc5296a65f8e8ecc7bd4f` |
+| `skills/bao-cao/references/Skill-Library/bridge_theo_doi_cv.py` | 5003 | `d01080b4d8beb07c68a592d17e8033ccba82b15e0de13bc40c8e4042c71425ae` |
+| `skills/bao-cao/references/Skill-Library/build_full_45_test.py` | 4294 | `00739bf4876b0baabf5830dec8172b428cef7585c6c77bf385e4b30fdfd420f7` |
+| `skills/bao-cao/references/Skill-Library/duong_dan.py` | 2614 | `2002e26fc5149e12f9e7e69bb53cc14d03f8408fd4db46ce28cac8f70efdc241` |
+| `skills/bao-cao/references/Skill-Library/fill_bc736.py` | 15970 | `6f97b93f01f555b7f3cb91539764f2c96564db4e289e9b37eecaf263eeafdd3c` |
+| `skills/bao-cao/references/Skill-Library/make_fixtures_test.py` | 5123 | `a89184b49b25b2036c22ef2d23e075b991e53063c4a46c3421603dabb35e0fb4` |
+| `skills/bao-cao/references/Skill-Library/read_bc736_excel.py` | 24471 | `70283191cf24d4e8f7aa2b2b8d3d9d79ccf9d368bfbf38b9a9fe7090685276b9` |
+| `skills/bao-cao/references/Skill-Library/test_regression_v251.py` | 3992 | `dd99049240e85bd797790d125a6b36c736b87d8e06a460b1996f15bfa8afcf30` |
+| `skills/bao-cao/references/Skill-Library/test_regression_v33.py` | 5346 | `dd88accbc484ada0f6f188ad7e7dcf29cd01733abdf2b07e0f081adbc8357c53` |
+| `skills/bao-cao/references/Skill-Library/test_regression_v34.py` | 8066 | `3c96a783d09b43ae10449cabcb266fc75e7c3cdd57a86edf9b06bf2cbea86175` |
+| `skills/bao-cao/references/Skill-Library/trich_tuong_thuat.py` | 7814 | `d79e86224ef4a4c980fb51cd7a799f57b287b2a68e82d46e53e0030d3aa422fb` |
+| `skills/bao-cao/references/Skill-Library/vanphong.py` | 6960 | `22a46f9985b6ba8a275791a776fb77abca517f8318472f06e26e880d82a8ca70` |
+| `skills/bao-cao/references/Workflow/09-Tong-Hop-Bao-Cao.md` | 5895 | `e109651dc9be26606635a4b47247c47b9065c7688b745540434b8fcb08befc8e` |
+| `skills/ke-hoach/00-README.md` | 2020 | `5189be3c63989c56cb2c9593baaebe9d10cacd24f41d70e11afcf9c2d573f3d5` |
+| `skills/ke-hoach/SKILL.md` | 14236 | `61de4401f52d79438a351a1420942b0cb06ec583f66a1dfefe6be5fb53402b06` |
+| `skills/ke-hoach/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/ke-hoach/references/Prompt-Library/00-Preflight-Check.md` | 2544 | `379111fbc832230abc4d7275f713dbd9f870f98d1b985190f985af3ef3a70691` |
+| `skills/ke-hoach/references/Prompt-Library/16-Tong-Hop-Ke-Hoach/00-Preflight-Check.md` | 2683 | `3d86e80fc3d21177792d3fd36797ea5e0ec0d57458bf12cf6355f5c289b466fb` |
+| `skills/ke-hoach/references/Prompt-Library/16-Tong-Hop-Ke-Hoach/01-Thu-Thap-Kiem-Tra.md` | 1021 | `c2454d8298569823be588cfcd6a731d25bd9cd65f5b36952749212b8a4adadbc` |
+| `skills/ke-hoach/references/Prompt-Library/16-Tong-Hop-Ke-Hoach/02-Tong-Hop-Cap-Truong.md` | 904 | `d173870db2461ee84e96f196e6d1f73d8643525d8ed81d15f7dc7e1d803075bd` |
+| `skills/ke-hoach/references/Prompt-Library/16-Tong-Hop-Ke-Hoach/03-Doi-Chieu-Phan-Cap.md` | 967 | `49e29adfd9fdfab1bee412ed508adc7e53bc1ec133e751b8a8dc9111775e6060` |
+| `skills/ke-hoach/references/Skill-Library/00-Metadata-Schema.md` | 3169 | `0061114e65d38037bc68a21926933d37ffbc426e9ada8620eb1974db9bcabea7` |
+| `skills/ke-hoach/references/Skill-Library/00-Nguyen-Tac-Chung.md` | 19907 | `76d1d8d20dc9b8f28be71f6b4e643e2189c742116cfc2c4c25301ea5a5184784` |
+| `skills/ke-hoach/references/Skill-Library/00b-Trigger-Vien-Dan-Van-Ban-Hop-Nhat.md` | 1976 | `62d06f5e42e6e27c55584c288fcadf88868b68d97257aff843072eed8731ec9f` |
+| `skills/ke-hoach/references/Skill-Library/00d-Ghi-Nho-ND-334-2026-Pham-Vi-Co-So-GDNN.md` | 6170 | `464b4009633cb4f629a87ad6958c6624eda545ceef55608ae717f483dd367919` |
+| `skills/ke-hoach/references/Skill-Library/04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md` | 3748 | `62f79573f63ee7b0358f8d4379fd8df81600d4bc4299f4aa9b387b157c0c3b78` |
+| `skills/ke-hoach/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15149 | `d61a6633643183cf8f46d6d59e25779c6ae2ba50bb85d0d7c474c2fed9073fce` |
+| `skills/ke-hoach/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 15609 | `350e231597b0e86790a249485a69d1f3183888f1e4126c779ac4c48ae9bee36e` |
+| `skills/ke-hoach/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
+| `skills/ke-hoach/references/Skill-Library/34-Skill-Nhan-Ke-Hoach-Preflight.md` | 10382 | `62a14fc4128636596b6be4e80cfaffa60398fcd137acd4d76442b317f69f1398` |
+| `skills/ke-hoach/references/Skill-Library/35-Skill-Thu-Thap-De-Xuat-Don-Vi.md` | 1132 | `0737ae20a05a0189a426bfa2879e73673579b9a7a1b4e9daab3f0a047217301f` |
+| `skills/ke-hoach/references/Skill-Library/36-Skill-Tong-Hop-Ke-Hoach-Truong.md` | 10438 | `c159435a8c096a5aeec052668632590fad3f960b9b7d9cff2af0afca1565f2c0` |
+| `skills/ke-hoach/references/Skill-Library/37-Skill-Doi-Chieu-Phan-Cap-Thoi-Gian.md` | 1417 | `cd3d6ee5687a0484bb2d4a073fd1180a1f66bc5edeebebb1780e610d04b1a266` |
+| `skills/ke-hoach/references/Skill-Library/38-Skill-Tu-hoc-Ke-Hoach.md` | 5895 | `15083502939c971a9db404318983dd76a56ad9e6ff9d7815e535710de9a28276` |
+| `skills/ke-hoach/references/Skill-Library/39-Chuan-Dinh-Dang-Ke-Hoach.md` | 6031 | `f8396386ca63b1f651529ea7ddcfe2c421a18daa51a8db1918891394b9694f92` |
+| `skills/ke-hoach/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` | 4964 | `697e0134a3a10dcdcf19164b7d673c40754e1c7f0fa79941de15671d1ace94f9` |
+| `skills/ke-hoach/references/Workflow/10-Tong-Hop-Ke-Hoach.md` | 5715 | `52a7bb758c83bf33fdb26410964d8117f9ed3de2c975f510e3e7689bf4ee0c32` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/README-ktc-tu-hoc-ke-hoach.md` | 5374 | `4b9b0282a7e8fb911cae884a58edca014b79eee0ca6b5756eeb0339e35ec5807` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/lifelong-learning.md` | 2672 | `be1b6ec05a63cf78e202c8c78f8cf3a4cd275de94e0f47ea8cd972440d45927c` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/output-contract.md` | 2864 | `3aaf1099de57f482b9db2e23ade8424be4b299ed4b15ebc595da98a6c1ca6b2b` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/provenance-log.md` | 1532 | `879f92f532b0203f25b0be064465322b5d81ea891b1e992f7e65d117d9ae279e` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/template-format-dna.md` | 6031 | `f8396386ca63b1f651529ea7ddcfe2c421a18daa51a8db1918891394b9694f92` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/template-sources.md` | 1166 | `44fabf8622186b4c04c139c4621a52beede8aa871d8c2b509e4f93957dc43e20` |
+| `skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/scripts/analyze_plan_templates.py` | 7617 | `3cc033f8da4a5952857bf55a4eed1d8aa68c4d1e5615e999f174a34c8fd22d22` |
+| `skills/kpi-lap-ke-hoach/00-README.md` | 2538 | `f1fdd9f86b89f77a2be39490a1fb3bf961f26fd7d26919e3b99dbf2bea927767` |
+| `skills/kpi-lap-ke-hoach/SKILL.md` | 16138 | `e0e2e8fe41540fd8297e8f069e03d20d58e171ab2a2aa2b70a3ee141d3c54da4` |
+| `skills/kpi-lap-ke-hoach/assets/Mau-KeHoach-DanhGia_Giao-Vu-Khoa_QuyIII-2026_20260924_v1.xlsx` | 50119 | `d0ab5f2e1104b0b15119b6d53399c93c28fe08074383b695b69d78aec45a25c9` |
+| `skills/kpi-lap-ke-hoach/assets/Mau-KeHoach-DanhGia_NV-Ho-Tro-Phuc-Vu_QuyIII-2026_20260924_v1.xlsx` | 50035 | `b247e0c5734f6058a539889178a2b82fb5cc1b2c84d83964ec16748a8b4fe4ce` |
+| `skills/kpi-lap-ke-hoach/assets/Mau-KeHoach-DanhGia_Nha-Giao-Giang-Day-Cac-Khoa_QuyIII-2026_20260924_v1.xlsx` | 48209 | `73f3e078e6ab0d29e098aee55de96460f46c0c89d42f7621dce89715ec8a2e89` |
+| `skills/kpi-lap-ke-hoach/assets/Mau-KeHoach-DanhGia_Truong-Pho-Truong-Cac-Don-Vi_QuyIII-2026_20260924_v1.xlsx` | 48917 | `426098ded80857f8ee09ea398e66072cd16b598cc8b261654bda80f035e7313d` |
+| `skills/kpi-lap-ke-hoach/assets/Mau-KeHoach-DanhGia_VC-Hanh-Chinh_QuyIII-2026_20260924_v1.xlsx` | 50758 | `2d0bdc7cee36b2cd26ae1e4a2481eda3f34da7cefa648185def2df6bb402e593` |
+| `skills/kpi-lap-ke-hoach/assets/Mau-KeHoach-DanhGia_VCQL-Bo-Mon-Va-Tuong-Duong_QuyIII-2026_20260924_v1.xlsx` | 52295 | `671c1a9a62a556daf63d33f452494c75f8eef2368ffc33835fd4b9a230249362` |
+| `skills/kpi-lap-ke-hoach/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/kpi-lap-ke-hoach/references/Cau-Hoi-Mo.md` | 7069 | `9122346084945d26b80109691c77b079dd0ecba332687f4407aad7c47de111b1` |
+| `skills/kpi-lap-ke-hoach/references/Known-Issues-Bieu-Mau.md` | 4981 | `5ea5cebb756dc7d8c52b7f96c624401be709a0d0e66fcc7bb8a24ee5a12c6cba` |
+| `skills/kpi-lap-ke-hoach/references/Skill-Library/19-Quy-Tac-KPI.md` | 17959 | `b126e77a4c63f834844d0260af6290100df6708658df67bf98e3002c6b9a7770` |
+| `skills/kpi-lap-ke-hoach/references/Thuat-Ngu.md` | 4699 | `caaa62efcd4d6164c1ac8fb8c432fb1b114d424c6e8b28a2fd7c734f215bef8d` |
+| `skills/kpi-lap-ke-hoach/references/data/he-so-san-pham-QD2119.csv` | 129073 | `afcd64a53c0165de8dcbcec57051f790ec09068a8e8023490520784257fe3ea4` |
+| `skills/kpi-lap-ke-hoach/references/data/he-so-san-pham-QD2119.csv.nguon.txt` | 360 | `90c79e9204b2cb02a08763c73d8c9835ca8d26ac0d63106426340a8355441b82` |
+| `skills/kpi-lap-ke-hoach/references/quy/2026-Q3.yaml` | 809 | `087f2947fb112701ab6d0d83b637d5615ecef9ef159911bd0aada6c985cd9ac1` |
+| `skills/kpi-lap-ke-hoach/references/quy/2026-Q4.yaml` | 1195 | `a6f32ee8851ce0441123c81b8cde7a6ea05fab82ac07770e03d5483d99959bd1` |
+| `skills/kpi-lap-ke-hoach/scripts/kpi_calc.py` | 14203 | `9532b0702bcdcac600762817a052315b3edf790d9b52dfd2795ffd5aea44aacb` |
+| `skills/kpi-lap-ke-hoach/scripts/kpi_mau.py` | 26541 | `faabd3618bdc70a399475ba2405b0cc0ea8b94ae0814ed07c33950a34b130db4` |
+| `skills/kpi-lap-ke-hoach/scripts/validate_plan.py` | 11318 | `1e8245e7a2feedf44e03432f20405060bdcd357081d6bf0b3f6ad71838816999` |
+| `skills/kpi-tu-danh-gia/SKILL.md` | 15565 | `8d2bb89a62c251aaeaadbd161c77f18397e5f31ae6a2f6a1d0cb16d9e80fab64` |
+| `skills/kpi-tu-danh-gia/assets/Mau-KeHoach-DanhGia_Giao-Vu-Khoa_QuyIII-2026_20260924_v1.xlsx` | 50119 | `d0ab5f2e1104b0b15119b6d53399c93c28fe08074383b695b69d78aec45a25c9` |
+| `skills/kpi-tu-danh-gia/assets/Mau-KeHoach-DanhGia_NV-Ho-Tro-Phuc-Vu_QuyIII-2026_20260924_v1.xlsx` | 50035 | `b247e0c5734f6058a539889178a2b82fb5cc1b2c84d83964ec16748a8b4fe4ce` |
+| `skills/kpi-tu-danh-gia/assets/Mau-KeHoach-DanhGia_Nha-Giao-Giang-Day-Cac-Khoa_QuyIII-2026_20260924_v1.xlsx` | 48209 | `73f3e078e6ab0d29e098aee55de96460f46c0c89d42f7621dce89715ec8a2e89` |
+| `skills/kpi-tu-danh-gia/assets/Mau-KeHoach-DanhGia_Truong-Pho-Truong-Cac-Don-Vi_QuyIII-2026_20260924_v1.xlsx` | 48917 | `426098ded80857f8ee09ea398e66072cd16b598cc8b261654bda80f035e7313d` |
+| `skills/kpi-tu-danh-gia/assets/Mau-KeHoach-DanhGia_VC-Hanh-Chinh_QuyIII-2026_20260924_v1.xlsx` | 50758 | `2d0bdc7cee36b2cd26ae1e4a2481eda3f34da7cefa648185def2df6bb402e593` |
+| `skills/kpi-tu-danh-gia/assets/Mau-KeHoach-DanhGia_VCQL-Bo-Mon-Va-Tuong-Duong_QuyIII-2026_20260924_v1.xlsx` | 52295 | `671c1a9a62a556daf63d33f452494c75f8eef2368ffc33835fd4b9a230249362` |
+| `skills/kpi-tu-danh-gia/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/kpi-tu-danh-gia/references/Cau-Hoi-Mo.md` | 7069 | `9122346084945d26b80109691c77b079dd0ecba332687f4407aad7c47de111b1` |
+| `skills/kpi-tu-danh-gia/references/Known-Issues-Bieu-Mau.md` | 4981 | `5ea5cebb756dc7d8c52b7f96c624401be709a0d0e66fcc7bb8a24ee5a12c6cba` |
+| `skills/kpi-tu-danh-gia/references/Skill-Library/19-Quy-Tac-KPI.md` | 17959 | `b126e77a4c63f834844d0260af6290100df6708658df67bf98e3002c6b9a7770` |
+| `skills/kpi-tu-danh-gia/references/Thuat-Ngu.md` | 4699 | `caaa62efcd4d6164c1ac8fb8c432fb1b114d424c6e8b28a2fd7c734f215bef8d` |
+| `skills/kpi-tu-danh-gia/references/quy/2026-Q3.yaml` | 809 | `087f2947fb112701ab6d0d83b637d5615ecef9ef159911bd0aada6c985cd9ac1` |
+| `skills/kpi-tu-danh-gia/references/quy/2026-Q4.yaml` | 1195 | `a6f32ee8851ce0441123c81b8cde7a6ea05fab82ac07770e03d5483d99959bd1` |
+| `skills/kpi-tu-danh-gia/scripts/kpi_calc.py` | 14203 | `9532b0702bcdcac600762817a052315b3edf790d9b52dfd2795ffd5aea44aacb` |
+| `skills/kpi-tu-danh-gia/scripts/kpi_danh_gia.py` | 37320 | `dd93e0a7460226476115909f964b9f0e660d0072a039f251f9a8c5e4cc369867` |
+| `skills/kpi-tu-danh-gia/scripts/kpi_mau.py` | 26541 | `faabd3618bdc70a399475ba2405b0cc0ea8b94ae0814ed07c33950a34b130db4` |
+| `skills/quan-tri/00-README-ktc-quan-tri.md` | 3654 | `09e040af4b55de3ae8f89b1d39c0f1e83135815f0955b60b87800f5a67a550b1` |
+| `skills/quan-tri/CHANGELOG.md` | 3659 | `94353fecf10441c5950325eb4d7a176e2c7c2bb9561b715a07622a20042b07c3` |
+| `skills/quan-tri/SKILL.md` | 19024 | `0bd507eea48e3afaffe5485d7d96de4441c045f62f80b38b27a9ac0bdcc0d5f5` |
+| `skills/quan-tri/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/quan-tri/references/01-Nguyen-Tac-Chung.md` | 19907 | `76d1d8d20dc9b8f28be71f6b4e643e2189c742116cfc2c4c25301ea5a5184784` |
+| `skills/quan-tri/references/02-Chi-Muc-KTC-Database.md` | 4424 | `a1dfe3763345fe5a7b10f889483768fae79f7ef56a54e6b5983e7f94115ad4a2` |
+| `skills/quan-tri/references/10-Sau-Truc-38-Noi-Ham.md` | 5459 | `05e05eff884f3712a8956452812703b7e6b92979d6c3e1842906a9ad145ce688` |
+| `skills/quan-tri/references/11-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
+| `skills/quan-tri/references/12-Bang-Ma-Don-Vi.md` | 7968 | `0ede4623f71330e437d2f87f8cd252e0abe7e688c495d6cb6ddb8b066c0dd2b2` |
+| `skills/quan-tri/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` | 9736 | `d4129907acfbce7d99c6567fef08a9377eeae1341d8ff92e7ea9dc9d300cf642` |
+| `skills/quan-tri/references/17-Quy-Tac-Vien-Dan.md` | 15149 | `d61a6633643183cf8f46d6d59e25779c6ae2ba50bb85d0d7c474c2fed9073fce` |
+| `skills/quan-tri/references/18-Chuan-The-Thuc-San-Pham.md` | 15609 | `350e231597b0e86790a249485a69d1f3183888f1e4126c779ac4c48ae9bee36e` |
+| `skills/quan-tri/references/20-Tu-Dien-Truong-Du-Lieu.md` | 4579 | `8277990c498cb589414b4101213126019bf284501931d8b1819db8e73dbfbaa8` |
+| `skills/quan-tri/references/21-Quy-Tac-Task-ID.md` | 4188 | `228e6368a4d4d5010fb57f83d1791e993aa9185463d9bf9e866f0ef441466ae4` |
+| `skills/quan-tri/references/22-Vong-Doi-Va-Canh-Bao.md` | 3637 | `822fb607a8efbc9faecdb44b16a4e247620983f646ad2c6993d680636066e3f5` |
+| `skills/quan-tri/references/23-Doi-Chieu-Ba-He.md` | 4168 | `981cdf8c2d4a0017f6ae85d07ff41504043b1abb4f40537368ec83a2b021b8c0` |
+| `skills/quan-tri/references/24-Chot-Ky-Va-Bao-Cao.md` | 7651 | `b6aaaa5592476f760b837a873370e816dedb7e3df715495bf7d256eb2381f3b4` |
+| `skills/quan-tri/references/30-KPI-Va-Xep-Loai.md` | 17959 | `b126e77a4c63f834844d0260af6290100df6708658df67bf98e3002c6b9a7770` |
+| `skills/quan-tri/references/40-Process-Memory.md` | 3466 | `871e1e0c5e248683c964e7343b86fc49203d11cf0b733765671da928368dc3e8` |
+| `skills/quan-tri/references/41-Gioi-Han-Nen-Tang.md` | 3060 | `7cd07629a8d352aef12f64e2979d62382bdcd4b88b3ba8d75d618ab8b2def008` |
+| `skills/quan-tri/references/BAN-DO-TEP.md` | 4513 | `f84ef24d9d34c58877b2c69f7bb4f974307b9f64599c9e6777ce60eebd251830` |
+| `skills/quan-tri/references/README.md` | 3319 | `42fee403581089d0fd56dfad72795188bc183a8462cd9e2d44a957499c2fedb5` |
+| `skills/quan-tri/scripts/ktc_thu_muc.py` | 6714 | `898f75a78531a5783fcf20887c1ec49b2dec59da89f403bf3beb500b0b6db34f` |
+| `skills/soan-thao-vb/00-README.md` | 4819 | `2ea4c3b76d491bceb08511ab1a907db79cea30d1e84f776b460f2e51aeb8e813` |
+| `skills/soan-thao-vb/SKILL.md` | 18010 | `f5ccc6e3cdea370df0d3054e54d69a2fd044bd41af5fae352ae75cd03179ac60` |
+| `skills/soan-thao-vb/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/soan-thao-vb/references/Input-Output/11-Input-README.md` | 4044 | `889ae890c2287afebac8241793e0442a27f8417ae62825954f9704ea1192a05f` |
+| `skills/soan-thao-vb/references/KTC-Regulations-Reference/817-TB-CDKT-Noi-Ham-6-Truc.md` | 1059 | `062d6bad5a37c7210ea667e311d54539253d5fe3a1461716f8be20d779662e46` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/01-Entities.md` | 3426 | `7c420575aa1696e90f459727309998307a72e15d4b7943d9cb3e77aedf581c6d` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/02-Relations.md` | 2525 | `94b326ac7759f11e3b9f943901d86dd2869ca890a2ae948fb95405afe7d89537` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/03-Rules.md` | 2374 | `b391282168680c73185b35059c0c71bdc2040ee6869ddbfb49af6105bd649196` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/04-Mappings.md` | 2168 | `e2b399e843a57a144b8a7ca0f1929da2d301c24ceb38c04d43cec3f39f8c6df5` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/05-Use-Cases.md` | 3112 | `ae9a57c33bedab12cd358c2e7277e28ee1a927010b1b2cb2ddce5e9465d50ba5` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/06-Metadata.md` | 187 | `66762b40cbcb598e2b12459c9280b0227a1a234cfe5ae214a7f39d210ddb94af` |
+| `skills/soan-thao-vb/references/Knowledge-Graph/README.md` | 373 | `1864e8be3f465ebbf27e74b42ecab961c33c0481550d852653e8451217f50801` |
+| `skills/soan-thao-vb/references/Legal-Reference/04. Quy dinh so 399-QD-TW ve the loai tham quyen the thuc van ban Dang.md` | 3365 | `77682e2c6df6998a2cf69d367b8ecc64ad9929ec4cde13f2e7a3a9029b0f8be1` |
+| `skills/soan-thao-vb/references/Nguyen-Tac/00-Quy-Tac-Khai-Thac-Internet.md` | 2281 | `10a1c9f83d512c67701edcf073785b9dc0b9094b26050097414099e37d9a829c` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/01-Quyet-Dinh.md` | 1642 | `6a2996278d9aca1423b8fdc1244c4871a06b81bc4b6358cf7cab9766697a6ab4` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/02-Ke-Hoach.md` | 1435 | `b219e62b4c4ff797e3d77dcead26476cdd28bbb0bc096ce6b4667dd3b1dd33b8` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/03-Thong-Bao.md` | 1164 | `2ba3a89db875e4f2077dd66f201c3e9eaefb3a9ba553eadcb56ef5dfc9146fd7` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/04-Bao-Cao.md` | 1383 | `9324b9df3f7f2e590df8a1146bfc9b0c4011fb628bc8854b0d7822b74211cd22` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/05-To-Trinh.md` | 1203 | `4b765796bc8193cfea1bc75af73666ae4afc6a9152af6edef2f14554bf60058f` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/06-Cong-Van.md` | 1201 | `cce1ca8b0aa055c116b556358a39bd1da864fc58b08617250799ea83f8858c30` |
+| `skills/soan-thao-vb/references/Prompt-Library/01-Soan-Thao/07-Bien-Ban.md` | 1193 | `0f0b278e1fc4d117cd183b1d3507ef9222887137927524b426e3dd65566cff54` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/01-Quyet-Dinh.md` | 1130 | `7e274637eae7b6e1208699ffad98ea70a4b73267d52ad5b57888f8fa1e1df398` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/02-Ke-Hoach.md` | 1096 | `4eb0ea7a26f4819e4d0bde030ed91fa64417a44c024cfbbcc322ef38eb500af6` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/03-Thong-Bao.md` | 1062 | `07946bd3b38dc4f5e3a42ebaa19b99134d5903188d54d1b014c0feefc100b43e` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/04-Bao-Cao.md` | 1063 | `86ddfe8b02414c26ec4015f9bfb000dae635df9bfc4ba04fefbba8253a5a23d0` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/05-To-Trinh.md` | 1054 | `517678715a6adbbd57b5752d34a1703e6d7c600bc178c9a35dad929f7ab2c3f4` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/06-Cong-Van.md` | 1064 | `48493cf22a0c5a8b39f28523415928b6b27f56138b72dc30611fcd93a050c234` |
+| `skills/soan-thao-vb/references/Prompt-Library/03-Chuan-Hoa/07-Bien-Ban.md` | 1087 | `611ebb458b4d53376070accd480f96029cde90a17ecab1ea76b07cf9f5583972` |
+| `skills/soan-thao-vb/references/Prompt-Library/04-Trich-Xuat.md` | 1090 | `f3d3056560a3b74a22a3468d4c4ba0263b7ff2781aa2712c8b13e6401e00f11c` |
+| `skills/soan-thao-vb/references/Prompt-Library/06-Tao-Dan-Y.md` | 697 | `40c70e1fa02dcf2658fffa9bf1f3d97e4847dfa8b152bac629894d2694e78825` |
+| `skills/soan-thao-vb/references/Prompt-Library/07-Metadata.md` | 1027 | `a96ebd29907876379afdfea6a813cffa35ad1498b65b0292f2350d07a8bbd204` |
+| `skills/soan-thao-vb/references/Prompt-Library/08-Nghiep-Vu-Dao-Tao/01-Soan-Thao.md` | 1364 | `8d1fa75111ca50bbf358681bdb5b2859b39d5876b5fbd2ab39dbe1fd9c78ef32` |
+| `skills/soan-thao-vb/references/Prompt-Library/08-Nghiep-Vu-Dao-Tao/02-Ra-Soat.md` | 1152 | `edbd19d7ddde64f360dafe4ddb6ed9a98b5d32a3c451a0b4a44921482e0caafe` |
+| `skills/soan-thao-vb/references/Prompt-Library/08-Nghiep-Vu-Dao-Tao/03-Chuan-Hoa.md` | 1063 | `7a3422f589898242333bc90919b96b1d5a8a199156c44b5614f06a813a8a8611` |
+| `skills/soan-thao-vb/references/Prompt-Library/09-Nghiep-Vu-Tuyen-Sinh/01-Soan-Thao.md` | 1266 | `a52f129131ff8427ff6787a8cebf2dd886a86d38d4e1f40c2431dff5c46f6876` |
+| `skills/soan-thao-vb/references/Prompt-Library/09-Nghiep-Vu-Tuyen-Sinh/02-Ra-Soat.md` | 1090 | `df2a9c62dcc16bf02c1a91e75cf4f22704a7942e0737cdd500be2756cb9a4746` |
+| `skills/soan-thao-vb/references/Prompt-Library/09-Nghiep-Vu-Tuyen-Sinh/03-Chuan-Hoa.md` | 1043 | `4d9039d4b18a0b82a8765d01bc04a0b0ea59ba7534f0da2b43e360e281cb441a` |
+| `skills/soan-thao-vb/references/Prompt-Library/10-Nghiep-Vu-Can-Bo/01-Soan-Thao.md` | 1416 | `9c643a321e2161757649e9d042f1870846dcbb3f6a0b5520262351db8a926416` |
+| `skills/soan-thao-vb/references/Prompt-Library/10-Nghiep-Vu-Can-Bo/02-Ra-Soat.md` | 1240 | `161cd63bad1c5c1421c17754cdf8c0aaf5e02c2ceb2f11f37657767c8af39afd` |
+| `skills/soan-thao-vb/references/Prompt-Library/10-Nghiep-Vu-Can-Bo/03-Chuan-Hoa.md` | 1126 | `437722a0a1ee94d33af55a7ed96d90062b35eeca170d8c337dee8148278dfebc` |
+| `skills/soan-thao-vb/references/Prompt-Library/11-Nghiep-Vu-Tai-Chinh/01-Soan-Thao.md` | 1313 | `32e1cc2785bfec78a25b1fcade11fe3d38bf88ce40c585e1fa69bcc0f31856ff` |
+| `skills/soan-thao-vb/references/Prompt-Library/11-Nghiep-Vu-Tai-Chinh/02-Ra-Soat.md` | 1142 | `da04f08172bfe662e50dc341a3e5d12c7ae571e1221cc6525cc8f0df60cce137` |
+| `skills/soan-thao-vb/references/Prompt-Library/11-Nghiep-Vu-Tai-Chinh/03-Chuan-Hoa.md` | 1076 | `e138c3efc5144f5bf181fff9114614fbd7c0e0f76bbd1680ad8dddb58c32bf0c` |
+| `skills/soan-thao-vb/references/Prompt-Library/12-Nghiep-Vu-HSSV/01-Soan-Thao.md` | 1294 | `ab123e0ccd658c1ab2b1d4c4a66f9f0a38b09704e5b4c6de648d8d6d546120fc` |
+| `skills/soan-thao-vb/references/Prompt-Library/12-Nghiep-Vu-HSSV/02-Ra-Soat.md` | 1110 | `3ddd1847a8cb57a8f3e7d1ef89e8e3e381910bd9b5d20271b42f1c65c461cd48` |
+| `skills/soan-thao-vb/references/Prompt-Library/12-Nghiep-Vu-HSSV/03-Chuan-Hoa.md` | 1043 | `a0205395094ccfc377ace06c51db9b7580cdf9262f1175173eec03bdbb030fc9` |
+| `skills/soan-thao-vb/references/Prompt-Library/13-Dam-Bao-Chat-Luong/01-Soan-Thao.md` | 1438 | `749c61dbe549930155ad2db4edd1259d3e5155dd6651573fcc2d623f14539c37` |
+| `skills/soan-thao-vb/references/Prompt-Library/13-Dam-Bao-Chat-Luong/02-Ra-Soat.md` | 1222 | `1c6b26eff53a01e5ad1f4ad112c09fd461736a514fc056ea767c122453b3e2ff` |
+| `skills/soan-thao-vb/references/Prompt-Library/13-Dam-Bao-Chat-Luong/03-Chuan-Hoa.md` | 1115 | `6c0b67ffb1f0a05e0f5536aa9937cff495875b29713f7cae54261e3efa44b291` |
+| `skills/soan-thao-vb/references/Prompt-Library/14-Van-Ban-Doi-Ngoai/01-Soan-Thao.md` | 1443 | `865454d172f8cafc90f08b4d607663ae8ae2a190855be7d4d526bc2ba91af2f0` |
+| `skills/soan-thao-vb/references/Prompt-Library/14-Van-Ban-Doi-Ngoai/02-Ra-Soat.md` | 1232 | `5e8ebf764e6a6173bc92f18a5948a4a6ba1dd792b450c47db45b5a17ea670f5c` |
+| `skills/soan-thao-vb/references/Prompt-Library/14-Van-Ban-Doi-Ngoai/03-Chuan-Hoa.md` | 1125 | `7938351cb41bf0574eedab050c2b08df5654389f68eed16b7ac56223f53d7709` |
+| `skills/soan-thao-vb/references/Prompt-Library/README.md` | 378 | `83d1eb93c510e0af74574c4313eb6e87beba71b77d3776420c4a876d32dbbc8f` |
+| `skills/soan-thao-vb/references/Skill-Library/00-Metadata-Schema.md` | 3169 | `0061114e65d38037bc68a21926933d37ffbc426e9ada8620eb1974db9bcabea7` |
+| `skills/soan-thao-vb/references/Skill-Library/00-Nguyen-Tac-Chung.md` | 19907 | `76d1d8d20dc9b8f28be71f6b4e643e2189c742116cfc2c4c25301ea5a5184784` |
+| `skills/soan-thao-vb/references/Skill-Library/00b-Trigger-Vien-Dan-Van-Ban-Hop-Nhat.md` | 1976 | `62d06f5e42e6e27c55584c288fcadf88868b68d97257aff843072eed8731ec9f` |
+| `skills/soan-thao-vb/references/Skill-Library/00d-Ghi-Nho-ND-334-2026-Pham-Vi-Co-So-GDNN.md` | 6170 | `464b4009633cb4f629a87ad6958c6624eda545ceef55608ae717f483dd367919` |
+| `skills/soan-thao-vb/references/Skill-Library/01-Skill-Soan-Thao.md` | 855 | `647d74f7888584426dbb81d033bfaa738929a125e8582a253856cdd741f9d4f9` |
+| `skills/soan-thao-vb/references/Skill-Library/04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md` | 3748 | `62f79573f63ee7b0358f8d4379fd8df81600d4bc4299f4aa9b387b157c0c3b78` |
+| `skills/soan-thao-vb/references/Skill-Library/04-Skill-Chuan-Hoa-Van-Ban.md` | 2314 | `4b6ed120bf076dfa182fff578a349c1a293e6afa1b600c6237b7ffaba39cd4ba` |
+| `skills/soan-thao-vb/references/Skill-Library/05-Skill-Phan-Tich-Yeu-Cau.md` | 2309 | `432dff41c295918d31f7f7efe8af9338ec4bbcec5624108be59bd36f7e8cad84` |
+| `skills/soan-thao-vb/references/Skill-Library/06-Skill-Tong-Hop-Noi-Dung.md` | 2013 | `d66d2560f12364ea89f7c1c2d41d157f2a52accafd3657757b0a14ee4865874d` |
+| `skills/soan-thao-vb/references/Skill-Library/07-Skill-Van-Ban-Quyet-Dinh.md` | 1619 | `4544dba8f6474cc7037259762e07f6f36e915cc738ee0ae068ecdc57fc97fdf1` |
+| `skills/soan-thao-vb/references/Skill-Library/08-Skill-Van-Ban-Ke-Hoach.md` | 1578 | `aa55e773d08fc643730d525b3c762f811a304198c89b74a1dcdb962c06b30bc6` |
+| `skills/soan-thao-vb/references/Skill-Library/09-Skill-Van-Ban-Thong-Bao.md` | 1402 | `7b3d1404733ad4955bfa6d3aa9334ade13d5061bff0b69750936ef11993582f9` |
+| `skills/soan-thao-vb/references/Skill-Library/10-Skill-Van-Ban-Bao-Cao.md` | 1513 | `a921dc10243bf681ae09c9bd9b4805bccea3505fee55a796169ebd2515698f15` |
+| `skills/soan-thao-vb/references/Skill-Library/11-Skill-Van-Ban-To-Trinh.md` | 1372 | `248ae92fd485017d1018b2401e4e1a3225b20c79923be5dfe8835a8213f420ce` |
+| `skills/soan-thao-vb/references/Skill-Library/12-Skill-Van-Ban-Cong-Van.md` | 1338 | `2018a190754f26bbac3608c25a0dce83e5da3610801c5f5316279f57e18a6247` |
+| `skills/soan-thao-vb/references/Skill-Library/13-Skill-Van-Ban-Bien-Ban.md` | 1299 | `7021fc7beea64b4596b9f557b00e1e36cdc44d37ac79fdd34038c3fd98ad38ea` |
+| `skills/soan-thao-vb/references/Skill-Library/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md` | 10479 | `f5600221c923277171f8240f4fb8edfc3ecf564ac2d4ce97378f5a1cff3dca7f` |
+| `skills/soan-thao-vb/references/Skill-Library/15-Skill-Track-Changes.md` | 6135 | `cf657704a58f61735c5b01c0db5fc30785a69f6f80ddf62f2fb5e6f88ace7853` |
+| `skills/soan-thao-vb/references/Skill-Library/16-Skill-De-Xuat-Quy-Trinh-Trinh-Ky.md` | 1719 | `f32d4cc6e616099ad05397d2a95c81f37091f7b04dfc804e8d6203198057a225` |
+| `skills/soan-thao-vb/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15149 | `d61a6633643183cf8f46d6d59e25779c6ae2ba50bb85d0d7c474c2fed9073fce` |
+| `skills/soan-thao-vb/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 15609 | `350e231597b0e86790a249485a69d1f3183888f1e4126c779ac4c48ae9bee36e` |
+| `skills/soan-thao-vb/references/Skill-Library/20-Skill-Nghiep-Vu-Dao-Tao.md` | 1348 | `53dc00a918b2f6ab81a670238ea4b9ae67c497e48013d56883d1c7c916fe595f` |
+| `skills/soan-thao-vb/references/Skill-Library/21-Skill-Nghiep-Vu-Tuyen-Sinh.md` | 1217 | `fa0d29c30147cea8ff3d9054dab89401c5061ffaca84ea55a66c87161b3adf6f` |
+| `skills/soan-thao-vb/references/Skill-Library/22-Skill-Nghiep-Vu-Can-Bo.md` | 1602 | `97b86bc679cce2e52aac106b9f2282cc6de31a5ee1795e98f04f15fa192a3cb0` |
+| `skills/soan-thao-vb/references/Skill-Library/23-Skill-Nghiep-Vu-Tai-Chinh.md` | 1350 | `1f2ed9131b1c9a493b85ce3577573c4fdbd18d9bc234f64090bef2fb7417f230` |
+| `skills/soan-thao-vb/references/Skill-Library/24-Skill-Dam-Bao-Chat-Luong.md` | 1395 | `ccb389db4099fa773e1791c9fe49fb46bade05a2b14bb3e9f0fe2bd4574f7c7c` |
+| `skills/soan-thao-vb/references/Skill-Library/25-Skill-Van-Ban-Cap-Phong.md` | 1518 | `80edec95ac51dcd10459a82552bdd49aa94253422bc9f5a341572a2b3e88c54f` |
+| `skills/soan-thao-vb/references/Skill-Library/26-Skill-Van-Ban-Doi-Ngoai.md` | 1558 | `c7a939f212b15eaba894c6cd9152d95281e57cf6b66901862357820e0cd4764c` |
+| `skills/soan-thao-vb/references/Skill-Library/27-Metadata_20260807_v2.md` | 2312 | `617a5e588ffcef19e5227d5ae780010f5f26855774be5736c2a06f364a621d46` |
+| `skills/soan-thao-vb/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
+| `skills/soan-thao-vb/references/Skill-Library/31-Skill-Nghiep-Vu-HSSV.md` | 1533 | `c3d333f9d840baf6ac159d8f8d78081d68e1a26cf9a429479b9ca21dd45dc8a6` |
+| `skills/soan-thao-vb/references/Skill-Library/README.md` | 2055 | `895b24d8854d6c2542d6764bde5176a8560a2de9fbe9ae56722baeac18bf983c` |
+| `skills/soan-thao-vb/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` | 4964 | `697e0134a3a10dcdcf19164b7d673c40754e1c7f0fa79941de15671d1ace94f9` |
+| `skills/soan-thao-vb/references/Skill-Library/kiem_vien_dan.py` | 8900 | `64b8e5144f3d82d423cc387a938fe6dcaaf2dd2e70ae5bbf46e29489923d8e53` |
+| `skills/soan-thao-vb/references/Skill-Library/ktc_trackchanges.py` | 21321 | `70b46db89670596a19c1b3100def96cbab2cbf399858f85faedefd5881eb4f56` |
+| `skills/soan-thao-vb/references/Workflow/01-Soan-Thao.md` | 1107 | `fb9f4eac81232bc519e91ffc53a2feb6252f3cf1c29c1fe038cad93a9bdf5316` |
+| `skills/soan-thao-vb/references/Workflow/03-Trinh-Ky.md` | 2922 | `d6149f659c10d2a71b251e9baf3a365964603a42f190c0ac15ea42f9a5e67653` |
+| `skills/soan-thao-vb/references/Workflow/04-Ban-Hanh.md` | 1981 | `6b45c2fc992f4e0ccf2889d7abeeb16143c57c41819df623944fec2f10419625` |
+| `skills/soan-thao-vb/references/Workflow/05-Luu-Tru.md` | 2926 | `8e444c1063907130aeb4769346267a24ecf4d2788ca80b5db8401d753e8db630` |
+| `skills/soan-thao-vb/references/Workflow/06-Cap-Nhat.md` | 3017 | `98e130cc63ac09f4b863e780ab350d9f30c6be46f88014d7b0ec69a587beb371` |
+| `skills/soan-thao-vb/references/Workflow/07-Metadata.md` | 204 | `02ff67a89dccea760e33d17859513ae351aecd49e66b33ca1d77fb15cfe1f7f5` |
+| `skills/soan-thao-vb/references/Workflow/08-Cap-Nhat-Tu-Input.md` | 2599 | `2374b8da0501b4f2d70b620827c48a92bceddc5b1e7cbbfc732ed43d3c5d93e0` |
+| `skills/soan-thao-vb/references/Workflow/README.md` | 351 | `1d701b6e02c44e937197a5759d21cdd6327d6b61a470a751fb0246cd73b9ff5c` |
+| `skills/the-thuc/00-README.md` | 839 | `6e5f1b4653b218e9517ed972d8df704ac2ae423c76254c0f001d0e395e40836a` |
+| `skills/the-thuc/SKILL.md` | 10360 | `6e538427a21effba7f738935847a69e3e6fd37aec5ce404113def8608c84f990` |
+| `skills/the-thuc/assets/Khung-the-thuc-VBHC.docx` | 52694 | `9c41cbb9e3d8493186dc252e4f5b95d1909322694113b2b285da289b0bd9caf5` |
+| `skills/the-thuc/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/the-thuc/references/18-Chuan-The-Thuc-San-Pham.md` | 15609 | `350e231597b0e86790a249485a69d1f3183888f1e4126c779ac4c48ae9bee36e` |
+| `skills/the-thuc/scripts/kiem_the_thuc.py` | 31297 | `1158fd000ef7bf2b1cb0cb06f669af2930666ce2f30f92d2c7bf4aca3c9fdcce` |
+| `skills/theo-doi-cv/00-README.md` | 3971 | `65a1a875a6510a60a0aaa9a3246d5827bd8a8e2b110fce4546b154c8a844f853` |
+| `skills/theo-doi-cv/SKILL.md` | 11930 | `37e417db35ebd4c05e6bb090043ec2fa75271968bb1d1884e6f89655c1ac474b` |
+| `skills/theo-doi-cv/assets/00-Template-Routing-KTC-Theo-doi-CV.docx` | 7107 | `899dc75e03ccb40063e81264c8fca97674dc5c1df7377fbd7680404b38769087` |
+| `skills/theo-doi-cv/references/00-Quy-Tac-Bat-Bien-Day-Du.md` | 8856 | `579b3e8e4d377f74e8327c128584df2656ba3eefda530a01cf894fcca20155e9` |
+| `skills/theo-doi-cv/references/Skill-Library/00-Nguyen-Tac-Chung.md` | 19907 | `76d1d8d20dc9b8f28be71f6b4e643e2189c742116cfc2c4c25301ea5a5184784` |
+| `skills/theo-doi-cv/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` | 15149 | `d61a6633643183cf8f46d6d59e25779c6ae2ba50bb85d0d7c474c2fed9073fce` |
+| `skills/theo-doi-cv/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` | 15609 | `350e231597b0e86790a249485a69d1f3183888f1e4126c779ac4c48ae9bee36e` |
+| `skills/theo-doi-cv/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` | 12187 | `fa7e76bb9410dcfb38de380424dce53f26738f7cec394bc13586e15b99c5aa65` |
+| `skills/theo-doi-cv/references/Skill-Library/40-Skill-Tiep-Nhan-Nhiem-Vu.md` | 2584 | `a65dae2850a89913597a52b55883aea8f70652e055a11cc7cf71e031cdecf5c1` |
+| `skills/theo-doi-cv/references/Skill-Library/41-Skill-Cap-Nhat-Tien-Do.md` | 2271 | `6c20c3f6f3a585fa090cbbcec7d0d51d9d9ac329bed7dccaccc582102be68027` |
+| `skills/theo-doi-cv/references/Skill-Library/42-Skill-Canh-Bao.md` | 2189 | `41f92e05daf6fa5f96cc966c6bf8ed9aefa674921f35604c1203f21f1855a46b` |
+| `skills/theo-doi-cv/references/Skill-Library/43-Skill-Minh-Chung.md` | 2210 | `aaf6467398daabe48b3e0f0f2051d43134b5b11f386ec64d6d28faecfa0884b3` |
+| `skills/theo-doi-cv/references/Skill-Library/44-Skill-Dieu-Chinh-Va-Ban-Giao.md` | 2949 | `a8afff830bba95423ad0f545d12f204c62962640c95a82334e89d88289b71fd0` |
+| `skills/theo-doi-cv/references/Workflow/11-Theo-Doi-Vong-Doi.md` | 2022 | `b3ad5988f6ea1e54605ab9311bdd65d9d6f1eb6ee2e8b9cbeb65cfb30e4de4b8` |
+
+====================================================================================================
+NGUỒN N14-NHAT-KY-KIEM-TRA-1.3.13.md
+====================================================================================================
+
 # N14 — NHẬT KÝ KIỂM TRA PLUGIN 1.3.13 (nguyên văn)
 
 Gộp nguyên văn các tệp nhật ký trong thư mục `1-Plugin/` và `1-Plugin/log-hoi-quy/` của hồ sơ vòng 6. Mỗi mục ghi tên tệp gốc và SHA-256 để đối chiếu.
@@ -1126,354 +1730,5 @@ KET LUAN: SACH
   OK skills\bao-cao\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
   OK skills\bao-cao\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
   OK skills\bao-cao\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\ke-hoach\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\ke-hoach\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\ke-hoach\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\ke-hoach\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\kpi-lap-ke-hoach\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\kpi-lap-ke-hoach\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\kpi-lap-ke-hoach\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\kpi-lap-ke-hoach\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\kpi-tu-danh-gia\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\kpi-tu-danh-gia\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\kpi-tu-danh-gia\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\kpi-tu-danh-gia\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\quan-tri\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\quan-tri\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\quan-tri\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\quan-tri\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\soan-thao-vb\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\soan-thao-vb\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\soan-thao-vb\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\soan-thao-vb\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\the-thuc\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\the-thuc\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\the-thuc\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\the-thuc\SKILL.md: không còn dòng lịch sử phiên bản
-  OK skills\theo-doi-cv\SKILL.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK skills\theo-doi-cv\SKILL.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK skills\theo-doi-cv\SKILL.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK skills\theo-doi-cv\SKILL.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-hieu-luc-vien-dan.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-hieu-luc-vien-dan.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-hieu-luc-vien-dan.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-hieu-luc-vien-dan.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-kiem-ho-so-don-vi.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-kiem-ho-so-don-vi.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-kiem-ho-so-don-vi.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-kiem-ho-so-don-vi.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-kiem-san-pham.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-kiem-san-pham.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-kiem-san-pham.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-kiem-san-pham.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-tra-cuu-can-cu.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-tra-cuu-can-cu.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-tra-cuu-can-cu.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-tra-cuu-can-cu.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-tu-cai-tien.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-tu-cai-tien.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-tu-cai-tien.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-tu-cai-tien.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-tu-hoc.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-tu-hoc.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-tu-hoc.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-tu-hoc.md: không còn dòng lịch sử phiên bản
-  OK agents\ktc-xac-minh-minh-chung.md: khối lõi ≤ 2500 ký tự (được 2495)
-  OK agents\ktc-xac-minh-minh-chung.md: khối lõi có quy tắc xử lý bất đồng skill–agent
-  OK agents\ktc-xac-minh-minh-chung.md: có khối <plugin_paths> (không xin quyền thư mục dự án), đặt sau khối lõi
-  OK agents\ktc-xac-minh-minh-chung.md: không còn dòng lịch sử phiên bản
-  OK skills\bao-cao: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\ke-hoach: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\kpi-lap-ke-hoach: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\kpi-tu-danh-gia: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\quan-tri: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\soan-thao-vb: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\the-thuc: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK skills\theo-doi-cv: có references/00-Quy-Tac-Bat-Bien-Day-Du.md
-  OK bao-cao: lịch sử v3.8–v3.14 được giữ trong references/LICH-SU-PHIEN-BAN.md
-== E. kiem_vien_dan đọc tệp văn bản nhiều bảng mã (1.3.2, Gemini L4) ==
-  OK utf-8: đọc được, phát hiện lỗi viện dẫn (VD02)
-  OK utf-16: đọc được, phát hiện lỗi viện dẫn (VD02)
-  OK cp1258: đọc được, phát hiện lỗi viện dẫn (VD02)
-  OK ca ngược: kết quả sạch không chứa mã lỗi
-== F. kiem_ho_so.py: bắt tệp TrackChanges đã bị chấp nhận thay đổi / sai mã băm (1.3.2, F4-03) ==
-  OK hồ sơ đúng: TrackChanges còn đánh dấu, mã băm khớp → sạch
-  OK ca ngược: tệp bị chấp nhận thay đổi sau khi lập hồ sơ → lỗi
-  OK ca ngược: tệp tên TrackChanges nhưng 0 đánh dấu → lỗi
-KET LUAN: SACH
-````
 
-## 1-Plugin/log-hoi-quy/test_plugin_nhat_ky_backup.txt (sha256 `2e2d8a95e7e1803dcebb17da555f8697504990ff6b38628c0d0944925a71ebd3`)
-
-````text
-== ktc_nhat_ky.py ==
-  OK ghi được thao tác trong dự án
-  OK không ghi nội dung tệp vào log
-  OK ca ngược: ngoài dự án không tạo log
-  OK ca ngược: stdin hỏng vẫn thoát 0
-  OK nạp context liệt kê tệp đã sửa
-  OK #riêng/#rieng: không ghi nội dung lời nhắn
-  OK #riêng: vẫn ghi mốc thời gian, không tín hiệu học
-  OK 1.3.0: lời nhắn thường KHÔNG ghi nội dung (mặc định)
-  OK 1.3.0: lời nhắn thường vẫn ghi độ dài (thông tin mô tả)
-  OK 1.3.0: có tín hiệu học vẫn KHÔNG ghi nội dung, chỉ ghi nhãn tín hiệu
-  OK ca ngược: mở đầu #học -> ghi nội dung (bỏ nhãn #học)
-  OK chọn ghi (biến môi trường) + có tín hiệu học -> ghi nội dung
-  OK ca ngược: chọn ghi nhưng KHÔNG có tín hiệu học -> không ghi nội dung
-  OK nội dung được ghi đã che số điện thoại, số định danh, email
-  OK số hiệu văn bản "Quyết định số …" không bị tính là tín hiệu quyết định
-  OK lời dưới 5 từ ("ok chốt nhé") không gắn tín hiệu
-  OK 1.3.0: nhật ký cũ hơn 30 ngày bị xóa khi mở phiên
-  OK ca ngược: nhật ký hôm nay không bị xóa
-== ktc_backup_github.py ==
-  OK chưa có remote: bỏ qua, thoát 0
-  OK có remote: commit + push thành công
-  OK --neu-can trong 24h: không chạy lại
-  OK ca ngược: tệp tên giống bí mật -> dừng, không push
-  OK không xóa tệp của người dùng khi dừng
-  OK 1.3.0: tệp tên thường chứa số định danh -> dừng, không push
-  OK git() truyền stdin=DEVNULL (bắt buộc cho pythonw/Task Scheduler)
-  OK ca ngược: không tạo thư mục 04-Nhat-Ky-Tu-Dong trong kho khác
-  OK kho khác: nhật ký backup rơi vào .git/ (không bị theo dõi)
-  OK ca ngược: không chỉ định --du-an, kho thiếu 90-Nhat-Ky-Van-Hanh -> im lặng, không đẩy
-  OK chỉ định rõ --du-an: backup được kho không phải KTC-Quan-tri
-  OK ca ngược: chỉ định thư mục không phải kho git -> báo lỗi, thoát 1
-  OK chạy dưới pythonw.exe: push thành công (mã 0, 2 commit)
-  OK ca ngược: kiểm thử không ghi gì vào nhật ký THẬT của dự án
-  OK nhật ký tự động nằm trong .gitignore
-  OK không còn tệp nhật ký tự động nào được git theo dõi
-KET LUAN: SACH
-````
-
-## 1-Plugin/log-hoi-quy/test_task_id_bc736.txt (sha256 `d350789581018bc0d118d9b4d2a02a28235178ca298e072fcff7b9267f0e25d1`)
-
-````text
-  OK có hồ sơ thật để thử (26 tệp)
-  OK tệp chưa có cột Task_ID: không mất gì so với v3.2 []
-  OK lấy lại đúng 2 nhiệm vụ 'Tổng hợp/Tổng kết…' v3.2 bỏ sót (thực tế: 2)
-  OK đọc được Task_ID ở cột cuối (dò theo tên tiêu đề)
-  OK ca ngược: mã trùng -> cảnh báo
-  OK ca ngược: mã sai định dạng -> cảnh báo
-  OK tệp gốc không có cột -> không cảnh báo Task_ID
-KET LUAN: SACH
-````
-
-## 1-Plugin/log-hoi-quy/test_thu_muc.txt (sha256 `c752c523c69ba06706d44f0d3d1c3b1cec25b6dcdadd15c7edaf7ce1dc4a90dd`)
-
-````text
-== A. Khởi tạo, nhận diện ==
-  OK thư mục chưa kết nối → chế độ 'khong'
-  OK tạo 10-Dau-Vao/, 30-Ket-Qua/
-  OK tệp đánh dấu ghi mã chuẩn (chữ hoa) P-TCCB
-  OK có 00-HUONG-DAN.md
-  OK thư mục con nhận đúng gốc đơn vị (tìm lên cha)
-  OK khởi tạo lại: không ghi đè tệp đã có
-== B. Ca ngược — phải từ chối ==
-  OK NGƯỢC: thư mục đã của P-TCCB, khởi tạo mã khác → từ chối
-  OK NGƯỢC: thư mục không tồn tại → từ chối
-  OK NGƯỢC: mã ngoài 11 mã chuẩn → từ chối, không đoán
-  OK NGƯỢC: trong KTC-Database → từ chối
-  OK NGƯỢC: không tạo tệp nào trong kho
-  OK NGƯỢC: trong dự án KTC-Quan-tri → từ chối
-  OK dự án vẫn nhận là 'du-an' (ưu tiên)
-  OK NGƯỢC: thư mục con của thư mục đã kết nối → từ chối (dùng gốc)
-== C. CLI ==
-  OK CLI kiem trả JSON đúng
-  OK NGƯỢC: CLI khởi tạo mã sai → mã thoát 2
-== D. Hook đo thể thức chạy trong thư mục đơn vị ==
-  OK tệp .docx lệch chuẩn trong thư mục đơn vị → hook đo, báo (mã 2)
-  OK NGƯỢC: thư mục chưa kết nối → hook im lặng như trước (mã 0)
-== E. Bản sao trong kỹ năng điều phối khớp nguồn ==
-  OK 22-KTC-Dieu-Phoi/scripts/ktc_thu_muc.py trùng byte với 29-Cong-Cu/plugin_src/scripts/
-
-KET LUAN: SACH
-````
-
-## 1-Plugin/log-hoi-quy/test_tra_hieu_luc.txt (sha256 `949e741e7d6c1f0d1a1a4232fc66e32174345e64e82fa759a384c54a89e8e524`)
-
-````text
-  OK trích đủ 9 văn bản, kể cả viết tắt “NĐ 30/2020/NĐ-CP” và 3 số hiệu Đảng (được 9)
-  OK QĐ 988 → THAY_THE (chuỗi đã biết)
-  OK Luật Xây dựng → KHO_GHI_HET_HIEU_LUC từ metadata
-  OK NĐ 85/2025 khớp đúng tệp, KHÔNG khớp “275-2025 sửa đổi NĐ 85”
-  OK TT 36/2026/TT-BXD không khớp nhầm QĐ 36/2026/QĐ-TTg
-  OK NĐ 30/2020 (tên tệp dạng 30_2020_ND-CP) có trong kho
-  OK TB 916 không có trong kho → CẦN XÁC MINH
-  OK “Luật Giáo dục” chỉ khớp đúng luật, không khớp “Phổ biến, giáo dục pháp luật” hay “Giáo dục nghề nghiệp” (được ['12. Luat Giao duc -72-VBHN-VPQH.docx'])
-  OK “Luật Giáo dục nghề nghiệp” khớp đúng tệp
-  OK trích được “Kết luận số 198-KL/TW” (loại Kết luận + số hiệu Đảng)
-  OK trích được “Quyết định số 366-QĐ/TW”
-  OK trích được “Hướng dẫn số 05-HD/VPTW”
-  OK KL 198-KL/TW khớp đúng tệp Kết luận, KHÔNG khớp “Kế hoạch 198-KH-CĐKT” (được ['Ket luan 198-KL-TW Bo Chinh tri.docx'])
-  OK “giai đoạn 2021-2025” không bị nhận nhầm là số hiệu
-  OK không đọc được kho → mọi văn bản là CẦN XÁC MINH, không kết luận
-  OK tệp .md vẫn được kiểm viện dẫn (được 3 gợi ý, phải > 0)
-  OK ca ngược: không còn giới hạn kiểm viện dẫn theo đuôi .docx
-
-ĐẠT: 0 ca sai
-````
-
-## 1-Plugin/log-hoi-quy/test_trackchanges.txt (sha256 `ba98affe244a475333eddc66d91837e7c8a725f251f97c5fb945fb4638644aed`)
-
-````text
-Goc: 3 doan, 3 hang bang
-
---- Nhat ky phien lam viec ---
-# Nhật ký sửa đổi — `D:\.CLAUDE code\KTC-Quan-tri\92-Kinh-Nghiem\02-Regression\Cases\..\Fixtures\goc.docx`
-
-**Tổng số thay đổi:** 5
-
-Bỏ: **1** · Bỏ hàng bảng: **1** · Bổ sung: **1** · Điều chỉnh: **2**
-
-| # | Loại | Vị trí | Nội dung cũ | Nội dung mới |
-|---|---|---|---|---|
-| 1 | Điều chỉnh | đoạn 2 | 2.000 hoc sinh | 2.150 hoc sinh |
-| 2 | Điều chỉnh | đoạn 2 | 80% | 86% |
-| 3 | Bỏ | đoạn 3 | da tham muu cho Lanh dao Truong  | — |
-| 4 | Bổ sung | sau đoạn 1 | — | 3.1. Cong tac tu van huong nghiep duoc trien khai som. |
-| 5 | Bỏ hàng bảng | bảng 1, hàng 2 | O10 \| O11 \| O12 | — |
-
---- Validator ---
-DAT: True
-  thong ke: {'theo_author': {'Nội dung bổ sung (Claude)': 1, 'Nội dung điều chỉnh (Claude)': 4, 'Nội dung bỏ (Claude)': 5}, 'tong_danh_dau': 10}
-
---- nhat_ky_sua_doi() doc lai tu file ---
-# Nhật ký sửa đổi — `D:\.CLAUDE code\KTC-Quan-tri\92-Kinh-Nghiem\02-Regression\Cases\..\Fixtures\sua.docx`
-
-**Tổng số thay đổi:** 5
-
-Bỏ: **1** · Bỏ hàng bảng: **1** · Bổ sung: **1** · Điều chỉnh: **2**
-
-| # | Loại | Vị trí | Nội dung cũ | Nội dung mới |
-|---|---|---|---|---|
-| 1 | Bổ sung | đoạn 2 | — | 3.1. Cong tac tu van huong nghiep duoc trien khai som. |
-| 2 | Điều chỉnh | đoạn 3 | 2.000 hoc sinh | 2.150 hoc sinh |
-| 3 | Điều chỉnh | đoạn 3 | 80% | 86% |
-| 4 | Bỏ | đoạn 4 | da tham muu cho Lanh dao Truong  | — |
-| 5 | Bỏ hàng bảng | bảng 1, hàng 2 | O10 \| O11 \| O12 | — |
-
---- doi_chieu_goc ---
-{'doan_goc': 3, 'doan_sau_khi_tu_choi_het': 3, 'doan_khop': 3, 'ty_le_khoi_phuc': 1.0, 'danh_dau': 10, 'nghi_soan_lai_tu_dau': False}
-
-Reload OK — file hop le voi python-docx
-Chan ghi de goc: OK - Không được ghi đè file gốc — đổi tên đầu ra.
-
---- Ca thu: soan lai tu dau ---
-{'doan_goc': 3, 'doan_sau_khi_tu_choi_het': 3, 'doan_khop': 1, 'ty_le_khoi_phuc': 0.333, 'danh_dau': 0, 'nghi_soan_lai_tu_dau': True}
-
-============================================================
-CA THU NGUOC — xoa nguyen doan / khoang doan / bang
-============================================================
-  ✓ xoa_tu_den bo dung 6 doan (Phan I -> truoc Phan II)  -> 6
-  ✓ xoa_doan bo dung 1 doan                              -> 1
-  ✓ xoa_bang bo dung 3 hang                              -> 3
-  ✓ validator OOXML dat (dat <w:del> dung cho trong pPr) []
-  ✓ sau khi chap nhan chi con 2 doan                     -> ['Phan II', 'Giu lai dong nay']
-  ✓ khong con doan RONG sot lai                          
-  ✓ sau khi tu choi tro ve du 9 doan                     -> 9
-  ✓ xoa_doan: moc sai bao ValueError                     
-  ✓ xoa_tu_den: moc sai bao ValueError                   
-
-DAT — 3 phuong thuc xoa hoat dong dung va bao loi dung cho
-````
-
-## 1-Plugin/log-hoi-quy/test_tu_du_plugin.txt (sha256 `b8af706796bdeb6af99f06842dc4bd9ce36e56bfa4132d21c9114002bc43a055`)
-
-````text
-== A. Không có SKILL.md lồng, không còn gói .skill lồng trong zip ==
-  OK chỉ có SKILL.md ở skills/<tên>/ (lồng: [])
-  OK zip ktc-quan-tri-1.3.13.zip không mang gói .skill lồng
-== B. Phần trước chỉ có trong dự án nay có trong gói ==
-  OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/output-contract.md
-  OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/references/template-format-dna.md
-  OK có skills/ke-hoach/references/ktc-tu-hoc-ke-hoach/scripts/analyze_plan_templates.py
-  OK có skills/theo-doi-cv/assets/00-Template-Routing-KTC-Theo-doi-CV.docx
-  OK có skills/bao-cao/assets/00. Mau bao cao thang (cap Truong).docx
-  OK có scripts/bc_thang.py
-  OK có scripts/ktc_trackchanges.py
-  OK có scripts/ktc_thu_muc.py
-  OK có skills/quan-tri/references/BAN-DO-TEP.md
-== C. Bảng đối chiếu tên tệp ==
-  OK bảng đối chiếu: 13-Bang-Ma-Don-Vi (gốc) → 12-Bang-Ma-Don-Vi (trong gói)
-  OK bảng đối chiếu có ≥ 10 chuẩn chung
-  OK bảng ghi rõ tệp ở plugin 897 và kho KTC-Database
-== D. Công cụ .py được kỹ năng, tác tử bảo chạy phải có trong gói ==
-  OK mọi lệnh `python …py` trong SKILL.md, tác tử đều có công cụ trong gói (thiếu: [])
-== E. Khối đường dẫn, phạm vi tác tử chỉ-dự-án ==
-  OK skills\bao-cao\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\ke-hoach\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\kpi-lap-ke-hoach\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\kpi-tu-danh-gia\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\quan-tri\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\soan-thao-vb\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\the-thuc\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK skills\theo-doi-cv\SKILL.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-hieu-luc-vien-dan.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-kiem-ho-so-don-vi.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-kiem-san-pham.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-tra-cuu-can-cu.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-tu-cai-tien.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-tu-hoc.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents\ktc-xac-minh-minh-chung.md: khối <plugin_paths> trỏ BAN-DO-TEP
-  OK agents/ktc-tu-hoc.md: ghi rõ chỉ chạy trong dự án, không xin quyền thư mục
-  OK agents/ktc-tu-cai-tien.md: ghi rõ chỉ chạy trong dự án, không xin quyền thư mục
-== F. Không giữ bản sao bộ quy tắc 897 ==
-  OK không có tệp của bộ quy tắc 897 trong gói (có: [])
-
-KET LUAN: SACH
-````
-
-## 1-Plugin/log-hoi-quy/test_tu_hoc.txt (sha256 `ee7f257773186195aa9be74445d5d10a95ed6f240bcb63f85b35d042396e5af5`)
-
-````text
-  OK ghi 4 lời người dùng, bỏ lệnh nội bộ /compact và <command…> (được 4)
-  OK “từ nay… lưu ý” → tín hiệu quy-uoc
-  OK “sai… sửa lại” → tín hiệu sua-sai
-  OK lời thường không gắn tín hiệu (thử ngược)
-  OK 1.3.0: mặc định không ghi nội dung, kể cả khi có tín hiệu học (R2-02)
-  OK #học + lời dài: ghi nội dung, cắt ≤ 600 ký tự
-  OK ngoài dự án KTC: không ghi
-  OK nạp mục hiệu lực và chờ duyệt vào context
-  OK không nạp mục bị bác/đã thay (thử ngược)
-  OK đếm đúng 2 tín hiệu học chưa xử lý và nhắc gọi ktc-tu-hoc
-  OK sau lượt học (mốc mới) không còn nhắc
-  OK không ghi nhầm lời thử vào nhật ký THẬT
-
-ĐẠT: 0 ca sai
-````
-
-## 1-Plugin/log-hoi-quy/test_validate_plan.txt (sha256 `a2ebb9c59e45747cf6565ea4829528d9bbea6d1a275d037a82ce59adb6588d5c`)
-
-````text
-  OK ghi_ke_hoach: mẫu trong assets/ giữ nguyên byte
-  OK ghi_ke_hoach: giữ nguyên đủ 990 công thức của mẫu, đúng ô
-  OK công thức thêm mới chỉ là cột F sản phẩm, 6 ô = 6 đầu việc
-  OK NGƯỢC: ghi vào assets/ bị chặn
-  OK Kế hoạch sạch → 0 LỖI (['KH13', 'KH17'])
-  OK Dòng ví dụ đã xóa → không báo KH06
-  OK Tự nhận nhóm từ tiêu đề sheet Đánh giá
-  OK NGƯỢC: mẫu nguyên bản → KH06 dòng ví dụ 'Bahnar' chưa xóa
-  OK NGƯỢC: mẫu nguyên bản → KH15 chưa điền họ tên, đơn vị
-  OK Mẫu Quý III: ô số Quyết định trống → KH13 (cảnh báo)
-  OK NGƯỢC: thiếu sản phẩm → KH01, thiếu thời hạn → KH02 (Đ12.4)
-  OK NGƯỢC: số lượng 'vài' → KH03 không đo lường được
-  OK NGƯỢC: mức 'Trung bình' mà hệ số 2 → KH05
-  OK Phương án nhập tay → không áp KH05
-  OK NGƯỢC: Trưởng/Phó đơn vị không có Trục 4 → KH10 (Đ12.1)
-  OK Không giữ chức vụ thiếu Trục 4 → không KH10, chỉ cảnh báo KH11
-  OK NGƯỢC: '100% viên chức toàn khoa' → KH09 (Đ4.8)
-  OK NGƯỢC: đầu việc trùng nội dung → KH14 (Đ11.4a)
-  OK Phương án A, sản phẩm có trong Danh mục → không KH08
-  OK NGƯỢC: phương án A, sản phẩm ngoài Danh mục QĐ 2119 → KH08
-  OK NGƯỢC: 21 đầu việc trong 1 Trục bị chặn (không tự chèn dòng làm lệch công thức)
-  OK Mẫu truong-pho-don-vi: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
-  OK Mẫu bo-mon: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
-  OK Mẫu nha-giao: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
-  OK Mẫu giao-vu: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
-  OK Mẫu hanh-chinh: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
-  OK Mẫu ho-tro: 6 Trục × 20 dòng, tổng 70, Trục chính ≥ 40%, nhóm chung 13/12/5
-
-ĐẠT: 0 ca sai
-````
-
-=== HẾT TỆP N14-NHAT-KY-KIEM-TRA-1.3.13.md — MÃ KIỂM: EA8B95 ===
+=== HẾT TỆP GOP-2-BANG-CHUNG-KIEM-THU-NGHIEM-THU_phan-1-tren-3.txt — MÃ KIỂM: 338A17 ===
