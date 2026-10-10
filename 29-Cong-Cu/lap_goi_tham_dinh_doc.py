@@ -70,6 +70,12 @@ def sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def che_may(s):
+    """Che ten tai khoan may tinh trong duong dan tuyet doi (tham dinh lan 6, Codex L6-01)."""
+    s = re.sub(r"(?i)([A-Z]:[\\/]+Users[\\/]+)[^\\/\s\"'`]+", lambda m: m.group(1) + '<người dùng>', s)
+    return re.sub(r"/home/[^/\s\"'`]+", '/home/<người dùng>', s)
+
+
 def vn(x, n):
     """So thap phan kieu Viet Nam (dau phay)."""
     return f'{x:.{n}f}'.replace('.', ',')
@@ -118,7 +124,7 @@ def n14_nhat_ky():
         b = open(t, 'rb').read()
         L += [f'## {os.path.relpath(t, V6).replace(os.sep, "/")} (sha256 `{sha(b)}`)', '', '````text',
               b.decode('utf-8', 'replace').rstrip(), '````', '']
-    ghi(os.path.join(A, 'N14-NHAT-KY-KIEM-TRA-1.3.13.md'), '\n'.join(L))
+    ghi(os.path.join(A, 'N14-NHAT-KY-KIEM-TRA-1.3.13.md'), che_may('\n'.join(L)))
 
 
 def n15_nghiem_thu():
@@ -158,7 +164,7 @@ def n15_nghiem_thu():
                     L.append(f'  - `{g["name"]}`: {"đạt" if g.get("passed") else "không đạt"} — {g.get("explanation", "")}'
                              + (f'. Trích: “{ev}”' if ev else ''))
             L.append('')
-    ghi(os.path.join(A, 'N15-KET-QUA-NGHIEM-THU-DOT-11.md'), '\n'.join(L))
+    ghi(os.path.join(A, 'N15-KET-QUA-NGHIEM-THU-DOT-11.md'), che_may('\n'.join(L)))
 
 
 def plugin_doc():
@@ -203,7 +209,8 @@ def plugin_doc():
 
 def quet_bao_mat(thu_muc):
     mau = {'thư điện tử': r'[\w.+-]+@[\w-]+\.[\w.]+', 'số điện thoại': r'(?<!\d)0\d{9}(?!\d)',
-           'dãy 12 số (CCCD)': r'(?<!\d)\d{12}(?!\d)', 'mã thông báo, khóa': r'(?:sk-|ghp_|AKIA)[A-Za-z0-9]{12,}'}
+           'dãy 12 số (CCCD)': r'(?<!\d)\d{12}(?!\d)', 'mã thông báo, khóa': r'(?:sk-|ghp_|AKIA)[A-Za-z0-9]{12,}',
+           'đường dẫn chứa tên tài khoản máy': r"(?i)[A-Z]:[\\/]+Users[\\/]+(?!<người dùng>)[^\\/\s\"']+"}
     L = ['# Kiểm tra bảo mật hồ sơ trước khi gửi (Mục 7 Thông báo số 1056/TB-CĐKT)', '',
          'Quét tự động mọi tệp văn bản (.md, .txt) và văn bản trích từ PDF trong gói. Kết quả **cần người phụ trách xem lại** — công '
          'cụ không thay việc tự rà soát.', '', '| Tệp | Loại | Số lần | Ví dụ (che bớt) |', '|---|---|---:|---|']

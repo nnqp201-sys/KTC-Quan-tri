@@ -1,18 +1,24 @@
 # Hồ sơ trình thẩm định lần 2 — Bộ công cụ KTC-Quan-tri 1.3.13 (10/10/2026)
 
-Gửi Phòng QLKHCN&HTPT. Hồ sơ lần 1 (29/9/2026, 91 tệp) giữ nguyên; hồ sơ này gồm phần khắc phục 05 tồn tại theo Phiếu trình ngày 03/10/2026, Dự thảo Thông báo, Tài liệu hướng dẫn bản 9 (Track Changes và bản sạch), Báo cáo rà soát KTC-Ra-Soat-897 ngày 10/10/2026.
+Gửi Phòng QLKHCN&HTPT. Hồ sơ lần 1 (29/9/2026, 91 tệp) giữ nguyên. Hồ sơ này gồm: Báo cáo tiếp thu, giải trình thẩm định độc lập lần 6; Báo cáo kết quả khắc phục 05 nội dung còn tồn tại (bản 2); Dự thảo Thông báo, Tài liệu hướng dẫn bản 9 (Track Changes và bản sạch); Báo cáo rà soát KTC-Ra-Soat-897 ngày 10/10/2026; 05 báo cáo thẩm định lần 6 của các hệ thống AI; ý kiến Phòng TCCB&CTHSSV; tệp plugin.
 
-| Tệp | Byte | SHA-256 |
-|---|---:|---|
-| `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx` | 44160 | `9217e82e00b31f78d1d837989ae1751f311b4e27e6a01422e464cadb543c97af` |
-| `BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v1.docx` | 38818 | `df955a0dd937c58f489f7f9852ee61deb987dce3d2fa1a44fe3dc15a50d2b4b0` |
-| `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 67243 | `816c3da6704b32fd2083766dbb689f60b0b0ce20ade4961dba910f190879553d` |
-| `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 66512 | `882ae8af79d2fd58fe47fac9cb4d456ea55bc47a0b87c630ef82f15cdd5abce5` |
-| `PXYK_Y-kien-Phong-TCCB-CTHSSV_20261006.docx` | 58453 | `aa00d584df77d8d6e0b04cc1209a0d777345ec67443233292fba952b628608fe` |
-| `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 76857 | `84333b332ddb65a849b6237d9f03ee8be60dd62c9828d5d9d059a8cc79363466` |
-| `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 80298 | `dfefa75b06f030902db0caeadc3881ad9a513c23b47bba48ff4a057ab3ccb0d0` |
-| `THONG-KE-VAN-HANH-THUC-TE-20260929-20261010.md` | 3017 | `8739987397940b527c05d20cbc00eeae4a88acff1c5c55c44c9a9fc825212493` |
-| `ktc-quan-tri-1.3.13.zip` | 1468987 | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` |
-| `ktc-quan-tri-1.3.13.zip.sha256` | 91 | `91001ed65839bd42aa51051eece78ae44e3df0591ac50951d6a47063a6ca765d` |
+**Còn 01 việc trước khi trình ký:** Chuyển 02 tài khoản còn quyền chỉnh sửa kho về quyền xem.
 
-Bổ sung sau: Báo cáo thẩm định lần 6 của NotebookLM, Copilot, ChatGPT Work, Grok, Gemini và Báo cáo tiếp thu, giải trình lần 6.
+| Thư mục | Tệp | Byte | SHA-256 |
+|---|---|---:|---|
+| . | `BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx` | 44316 | `6f75805b81f5f0bf2fc1510dc66c8796bfd594c1a2ea5ac58c350bb04e3a07f3` |
+| . | `BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v2.docx` | 39038 | `2671a5ece9fc536ae49d9a600c01df5e4d245bc2546e3beb56e187622853a559` |
+| . | `BC_Tiep-thu-giai-trinh-tham-dinh-lan-6-KTC-Quan-tri_20261010_v1.docx` | 42300 | `9b751bf611abde7acbf89d388da6294d6140c76dc807d8e372ba1065eaeffa5b` |
+| . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 67378 | `7dfd109dd4ac479f5f1d612da566bc73181c86aaa9a865499ee76acdb22ff32c` |
+| . | `HD_Huong-dan-chi-tiet-su-dung-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 67002 | `bdd712b2966a8a426d6ca1abdfdc659e9146e52d2589c07208a7c7d3ca099f96` |
+| . | `PXYK_Y-kien-Phong-TCCB-CTHSSV_20261006.docx` | 58453 | `aa00d584df77d8d6e0b04cc1209a0d777345ec67443233292fba952b628608fe` |
+| . | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_TrackChanges.docx` | 77189 | `a6f32bbb387f7c6b129fe58a02bc12d3fa611966145a99f023849af6e3350942` |
+| . | `TB_Huong-dan-su-dung-cong-cu-AI-KTC-Quan-tri_20261010_v9_ban-sach.docx` | 80405 | `1d45594776725b63a93098c62f520eb355e467f8a364b9a3544f5596db767524` |
+| . | `THONG-KE-VAN-HANH-THUC-TE-20260929-20261010.md` | 3017 | `8739987397940b527c05d20cbc00eeae4a88acff1c5c55c44c9a9fc825212493` |
+| . | `ktc-quan-tri-1.3.13.zip` | 1468987 | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` |
+| . | `ktc-quan-tri-1.3.13.zip.sha256` | 91 | `91001ed65839bd42aa51051eece78ae44e3df0591ac50951d6a47063a6ca765d` |
+| Bao-cao-tham-dinh-lan-6-cua-5-he-thong-AI | `Codex.L6. Bao-cao-tham-dinh-lan-6-KTC-Quan-tri-20261010.docx` | 24090 | `8f1acc68f744ec841ee20b794a89dd06f1978c9dde30e74ebd18729babe32b22` |
+| Bao-cao-tham-dinh-lan-6-cua-5-he-thong-AI | `Copilot. BC tham đinh Lan 6.docx` | 25529 | `142f2fa399ffd327efcca509194377a94689f11021c636d2a16871a84d66fb67` |
+| Bao-cao-tham-dinh-lan-6-cua-5-he-thong-AI | `Gemini. L6. Bao_cao_tham_dinh_doc_lap_lan_6_KTC_Quan_tri_v1.3.13.docx` | 43384 | `9ba9c2f8e7ff1bae79a4e35f6e5230108338803190fa7f188a44691cfdc3bd53` |
+| Bao-cao-tham-dinh-lan-6-cua-5-he-thong-AI | `Grok.L6.Bao-cao-tham-dinh-lan-6-KTC-Quan-tri-20261010.docx` | 18677 | `fab69baed00be90d7a07c0c79efbcfdcc3107496ec754108bbbf8be21e2df134` |
+| Bao-cao-tham-dinh-lan-6-cua-5-he-thong-AI | `Notebook. bao-cao-tham-dinh-lan-6-ktc-quan-tri.docx` | 48617 | `dc1f2e80163c4d3ef9de5341d9a6ef22ee302bb71eeb72b0302adfb637dbcc2c` |

@@ -1,0 +1,201 @@
+<!-- N32: chép nguyên văn từ `Grok.L5, Bao_cao_tham_dinh_doc_lap_lan_5_KTC-Quan-tri_20260929.md` (sha256 f8ee7d00c90b8c9d72aff386e18a5052faadfb2bec6e68a28cbbce27a1518373) -->
+
+# BÁO CÁO THẨM ĐỊNH ĐỘC LẬP LẦN 5
+
+**Đối tượng:** Hồ sơ thẩm định vòng 5 — Plugin **KTC-Quan-tri 1.3.12**  
+(SHA-256: `ac18042010912719e19342f8eb422d74a4c3f3f93e674cd02661168a8e7869df`), bằng chứng kiểm thử, nghiệm thu, phiếu rà soát 897, Báo cáo tiếp thu lần 4, TB/HD/BC cập nhật, số liệu vận hành thực tế.
+
+**Người thẩm định:** Principal AI Agent Architect & Evaluation Engineer (độc lập)  
+**Ngày:** 29/9/2026  
+**Nguyên tắc:** Đánh giá lại toàn bộ từ artifact và hồ sơ vòng 5. **Không mặc định** phát hiện các lần trước là đúng. Kiểm chứng hash, log, phiếu, changelog và số liệu vận hành trước khi kết luận.
+
+---
+
+## 1. TỔNG QUAN VÀ KẾT LUẬN CHUNG
+
+### 1.1. Artifact đã kiểm chứng trực tiếp
+
+| Hạng mục | Kết quả kiểm chứng |
+|----------|-------------------|
+| Tệp plugin 1.3.12 | Hash khớp (`ac180420…7869df`) |
+| `claude plugin validate --strict` | Đạt (mã thoát 0) |
+| Kiểm tra tĩnh toàn hệ | **0 lỗi · 0 cảnh báo** (cải thiện rõ so với vòng trước còn 28 lỗi đầu vào) |
+| Bộ hồi quy | **24/24** bộ mã thoát 0 |
+| Claude Code eval (dot9, bản 1.3.12) | **14/15** ca đạt (pass rate 0,933); ca 15 chạy lại riêng đạt |
+| Phiếu nghiệm thu Chat / Cowork | **Còn trống** — đơn vị ghi rõ “Chưa thực hiện” |
+| Biên bản phân quyền chỉ đọc KTC-Database | Chỉ có **mẫu**, chưa thực hiện |
+| Kiểm kê / thu hồi bản cũ cấp tổ chức | **Chưa có** biên bản |
+| Vận hành thực tế (Claude Code, P-THHC) | 11 ngày, 38 phiên, 2.274 thao tác công cụ, **0** lỗi hook ghi nhận |
+| Rà soát 897 vòng 4 | Mức 1 = 0 còn lại trên phần cập nhật văn bản |
+
+### 1.2. Kết luận tổng quát lần 5
+
+| Hạng mục | Đánh giá |
+|----------|----------|
+| Chất lượng kỹ thuật plugin 1.3.12 trên **Claude Code** | **Đạt mức thí điểm có kiểm soát** — bằng chứng mạnh hơn vòng 4 |
+| Nghiệm thu **Claude (Chat)** và **Cowork** | **Chưa hoàn tất** (phiếu trống; tự thừa nhận trong bằng chứng) |
+| Kiểm soát tổ chức (thu hồi bản cũ, phân quyền kho) | **Chưa hoàn tất** |
+| **Khuyến nghị** | **Đồng ý thí điểm hẹp** trên Claude Code với bản 1.3.12; **chưa đồng ý** trình ký Thông báo phân phối rộng / “Installed by default” |
+
+**Điểm Evaluation Matrix ước tính (1.3.12, trọng tâm Code):** khoảng **84–88/100**.  
+**Điểm sẵn sàng vận hành toàn Trường:** thấp hơn, vì thiếu nghiệm thu Chat/Cowork và kiểm soát tổ chức.
+
+---
+
+## 2. ĐÁNH GIÁ LẠI CÁC VẤN ĐỀ THEN CHỐT (KHÔNG MẶC ĐỊNH LẦN TRƯỚC)
+
+### 2.1. Toàn vẹn artifact và quy trình dựng
+
+- Hash tệp khớp danh mục và `.sha256`.
+- Ghi chú phát hành ghi rõ **chưa phân phối** cho đến khi nghiệm thu 3 nền tảng và rà soát 897.
+- Lưu ý kỹ thuật: tại thời điểm dựng, git còn 34 tệp nguồn chưa commit — **không truy về được một commit duy nhất**. Đây không phải lỗi bảo mật, nhưng giảm tính lặp lại tuyệt đối của bản dựng. Khuyến nghị lần sau gắn tag/commit sạch trước khi đóng gói.
+
+**Kết luận:** Artifact 1.3.12 hợp lệ để thí điểm; cần cải thiện truy vết commit khi phát hành chính thức.
+
+### 2.2. Bảo mật: guard, nhật ký, side-effect
+
+Từ changelog và bằng chứng hồi quy (`test_plugin_nhat_ky_backup`, `test_c12_c13_kho_va_o_dia`, `test_thu_muc`…):
+
+- Không còn backup GitHub trong plugin.
+- Guard PreToolUse vẫn fail-closed; có xử lý lệnh lồng.
+- Nhật ký mặc định metadata (chương trình + loại hành động); opt-in `#học` / biến môi trường.
+- Đã chặn tạo liên kết trỏ vào kho (có ca thử).
+
+**Giới hạn vẫn đúng như đơn vị tự ghi trong BANG-CHUNG:**
+
+- Guard không phân tích mọi mã Python/JS nhúng trong shell.
+- Máy không có Python thì hook không chạy.
+- Lớp bảo vệ cuối vẫn là **phân quyền chỉ đọc** trên KTC-Database — nhưng biên bản kiểm tra bằng tài khoản thử **chưa thực hiện** (chỉ có mẫu).
+
+**Kết luận lần 5:** Cơ chế kỹ thuật **đủ cho thí điểm hẹp** trên máy có hook. **Chưa đủ** để tuyên bố “đã kiểm soát triệt để” khi chưa có biên bản phân quyền chỉ đọc thật.
+
+### 2.3. Nghiệm thu Claude Code
+
+Chuỗi eval có diễn giải hợp lý:
+
+| Đợt | Bản | Kết quả | Ghi chú |
+|-----|-----|---------|---------|
+| dot1 | sớm | 4/15 (0,27) | Đơn vị giải thích dừng do giới hạn phiên; 11 ca hạ tầng |
+| dot4 | 1.3.1 | 15/15 | Bộ ca chuẩn |
+| dot5 | 1.3.2 | 11/15 | Có ca lỗi thể thức / soạn thảo |
+| dot6–8 | trung gian | 2–4 ca chuyên đề KPI / thể thức | Phục vụ sửa lỗi |
+| **dot9** | **1.3.12** | **14/15 (0,933)** | Ca 15 chạy lại riêng đạt |
+
+Việc dùng kết quả eval để **sửa lỗi thật** (thể thức phần đầu, đường kẻ, số trang, NFD/NFC, khung mẫu 03A, thứ tự ráp nội dung từ Template) là dấu hiệu vòng lặp cải tiến lành mạnh, không chỉ “đạt cho có”.
+
+**Kết luận:** Trên Claude Code, bản 1.3.12 **đủ tin cậy** để thí điểm nghiệp vụ có giám sát.
+
+### 2.4. Nghiệm thu Chat và Cowork — điểm quyết định còn mở
+
+- Phiếu `PHIEU-NGHIEM-THU-CHAT-COWORK-1.3.12.md` **không có** cột Đạt/Không đạt, trích đáp án, chữ ký.
+- BANG-CHUNG mục 5 ghi rõ: *“Chưa thực hiện (không trình bày như đã đạt) — Nghiệm thu trên Claude (trò chuyện) và Claude Cowork.”*
+- Vận hành thực tế 18–28/9 **chỉ** trên Claude Code của Phòng TH-HC&QT; không có log Chat/Cowork.
+
+Đây là điều kiện còn lại **cùng trọng lượng** với vòng 4. Không thể công nhận “đã nghiệm thu 3 nền tảng”.
+
+**Kết luận lần 5:** **Chưa đạt** điều kiện mở thí điểm cho đơn vị dùng Chat hàng ngày.
+
+### 2.5. Kiểm soát tổ chức
+
+| Việc | Trạng thái trong hồ sơ |
+|------|------------------------|
+| Kiểm kê / thu hồi bản cũ (Owner Team) | Chưa có biên bản |
+| Biên bản phân quyền chỉ đọc KTC-Database | Chỉ mẫu |
+| Danh mục 28 tệp đầu vào trùng kho | Đã có; người phụ trách quyết định giữ (27/9) |
+
+**Kết luận:** Vẫn là điều kiện vận hành bắt buộc trước khi nhiều tài khoản Team nhìn thấy plugin.
+
+### 2.6. Văn bản và rà soát 897
+
+- Có phiếu vòng 1–4; vòng 4 trên BC v6 / HD v7 / TT v2: **Mức 1 = 0**, Mức 2–3 đã sửa trong đợt cập nhật.
+- Đơn vị phân biệt rõ việc đã làm / chưa làm trong văn bản — đúng yêu cầu không “tự khai đủ điều kiện”.
+- Changelog 1.3.8–1.3.12 cho thấy sửa thể thức dựa trên lỗi thật khi soạn trên Cowork (bảng tiêu đề dựng tay, số trang, đường kẻ) — phù hợp mục tiêu nghiệp vụ.
+
+**Kết luận:** Hồ sơ văn bản **đủ để đi tiếp** nếu khi trình ký đính kèm phiếu 897 và không tuyên bố đã nghiệm thu Chat/Cowork.
+
+### 2.7. Vận hành thực tế (điểm cộng mới của vòng 5)
+
+Số liệu 18–28/9 trên Claude Code:
+
+- 38 phiên, 2.274 thao tác, 0 lỗi hook;
+- Sản phẩm nghiệp vụ thật (báo cáo tháng 9, kế hoạch tháng 10, KPI, rà soát…);
+- Có chạy độc lập đối soát báo cáo tháng 9 (thư mục `chay-doc-lap-bao-cao-thang-9/`).
+
+Đây là bằng chứng **sử dụng thật**, không chỉ test. Tuy nhiên phạm vi chỉ 1 đơn vị soạn thảo trên 1 nền tảng — chưa thay thế nghiệm thu đa nền tảng.
+
+---
+
+## 3. ĐÁNH GIÁ CHẤT LƯỢNG HỒ SƠ VÀ QUY TRÌNH
+
+### Điểm mạnh
+1. Minh bạch: tự ghi rõ việc **chưa làm** (Chat/Cowork, phân quyền, thu hồi bản cũ).
+2. Chuỗi eval → sửa lỗi thể thức/soạn thảo → eval lại thể hiện vòng cải tiến thực.
+3. Hồi quy 24/24, validate strict, hash đầy đủ.
+4. Plugin ngày càng “tự đủ” (1.3.9) — giảm phụ thuộc thư mục dự án khi chạy ngoài máy quản trị.
+5. Số liệu vận hành 11 ngày có giá trị tham chiếu cho thí điểm.
+
+### Điểm yếu / rủi ro còn lại
+1. **Phiếu Chat/Cowork trống** — điều kiện mở rộng chưa thỏa.
+2. **Biên bản phân quyền chỉ đọc chưa chạy** — lớp bảo vệ cuối cùng chưa được chứng minh bằng tài khoản thử.
+3. **Kiểm kê phiên bản tổ chức chưa có.**
+4. Bản dựng gắn với working tree chưa commit sạch — cần tag sạch khi phát hành chính thức.
+5. Một số đợt eval trung gian (dot5 11/15, dot8 3/4) cho thấy còn biến thiên; cần giữ bộ ca ổn định và ghi rõ bộ ca “cổng nghiệm thu” hiện hành là dot9 + ca15.
+
+---
+
+## 4. ĐIỂM EVALUATION MATRIX ƯỚC TÍNH (1.3.12)
+
+| Tiêu chí | Điểm tối đa | Điểm lần 5 | Ghi chú |
+|----------|-------------|------------|---------|
+| Cấu trúc & chuẩn form | 25 | 20 | Policy, output contract, tự đủ plugin |
+| Mục tiêu & success criteria | 25 | 21 | Rõ; còn thiếu biên bản Chat/Cowork |
+| Bảo mật & ràng buộc | 15 | 13 | Guard + logging ổn; thiếu biên bản phân quyền |
+| Tương thích 3 nền tảng | 20 | 15 | Code mạnh + vận hành thật; Chat/Cowork chưa |
+| Few-shot / eval | 15 | 14 | Eval Code dày; vòng sửa thể thức tốt |
+| **Tổng** | **100** | **~83–88** | Đủ thí điểm hẹp Code; chưa đủ triển khai rộng |
+
+---
+
+## 5. KẾT LUẬN VÀ KHUYẾN NGHỊ LẦN 5
+
+### 5.1. Đồng ý
+
+1. **Đồng ý** plugin **1.3.12** là bản thí điểm kỹ thuật hiện hành trên **Claude Code**.
+2. **Đồng ý thí điểm hẹp:**
+   - Phạm vi: Phòng TH-HC&QT + tối đa 1–2 đơn vị do Hiệu trưởng chỉ định;
+   - Nền tảng ưu tiên: Claude Code;
+   - Chỉ cài `ktc-quan-tri-1.3.12.zip` sau đối chiếu SHA-256;
+   - Dữ liệu đánh dấu “thí điểm”; không bật `#học` với dữ liệu cá nhân nhạy cảm;
+   - Giám sát hàng tuần trong kỳ thí điểm.
+3. **Đồng ý** hướng cải tiến thể thức / soạn thảo dựa trên lỗi thật (1.3.10–1.3.12).
+
+### 5.2. Chưa đồng ý / điều kiện bắt buộc còn lại
+
+1. **Chưa đồng ý** trình ký Thông báo để phân phối rộng hoặc chuyển “Installed by default”.
+2. Trước khi mở thí điểm cho đơn vị dùng **Chat/Cowork** hàng ngày, phải hoàn thành:
+   - Phiếu nghiệm thu Chat + Cowork (cột kết quả, trích đáp án, ký xác nhận) cho các ca cốt lõi;
+   - Biên bản kiểm tra phân quyền chỉ đọc KTC-Database bằng tài khoản không phải người quản lý kho;
+   - Biên bản kiểm kê / chuyển phiên bản cũ sang “Not available” ở cấp tổ chức;
+   - Đóng gói từ commit/tag sạch (không working tree bẩn) khi phát hành chính thức.
+3. Không tuyên bố “đã nghiệm thu 3 nền tảng” cho đến khi phiếu Chat/Cowork có kết quả thực.
+
+### 5.3. Đề xuất với Lãnh đạo Trường
+
+1. Chấp thuận **1.3.12** làm bản thí điểm Claude Code hiện hành.
+2. Giao Phòng QLKHCN&HTPT: nạp 1.3.12, kiểm kê và vô hiệu hóa bản cũ, lập biên bản.
+3. Giao Phòng TH-HC&QT: (a) hoàn thành phiếu nghiệm thu Chat + Cowork; (b) chạy biên bản phân quyền chỉ đọc theo mẫu đã có; (c) báo cáo sau 01 kỳ thí điểm (sự cố, token, tỷ lệ chọn đúng kỹ năng).
+4. Chỉ sau khi đủ (2)–(3) và không phát sinh sự cố Mức 1 mới xem xét trình ký Thông báo và nâng chế độ phân phối.
+
+---
+
+**Người thẩm định độc lập**  
+Principal AI Agent Architect & Evaluation Engineer  
+Ngày 29 tháng 9 năm 2026
+
+**Nơi nhận:**  
+- Lãnh đạo Trường  
+- Phòng TH-HC&QT  
+- Phòng QLKHCN&HTPT  
+- Lưu hồ sơ thẩm định độc lập lần 5
+
+=== HẾT TỆP N32-GROK-BAO-CAO-THAM-DINH-LAN-5.md — MÃ KIỂM: 721DDB ===
