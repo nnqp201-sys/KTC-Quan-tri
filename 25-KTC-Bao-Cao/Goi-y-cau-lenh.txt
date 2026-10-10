@@ -57,6 +57,19 @@ Sau khi kết nối Google Drive và thư mục KTC-Bao-Cao, chọn tác vụ:
 [F]  Xem toàn bộ cấu trúc thư mục KTC-Bao-Cao
      → "List cấu trúc thư mục KTC-Bao-Cao trên Drive"
 
+──────────────────────────────────────────
+ NHÓM 7 — BÁO CÁO CÁ NHÂN: NGUỒN TỪ HỆ THỐNG QLVB&ĐH (Skill 38)
+──────────────────────────────────────────
+[G]  Claude Cowork tự đọc trên trang (người dùng đã đăng nhập sẵn)
+     → "Tôi đã đăng nhập https://office.quangngai.gov.vn/. Tra cứu văn bản đã xử lý
+        và công việc được giao của [Họ tên], từ ngày [...] đến ngày [...],
+        vai trò [xử lý chính / phối hợp / cả hai]. Chỉ đọc. Lập bảng kết quả .xlsx
+        để làm báo cáo cá nhân [tháng / Quý ...]"
+
+[H]  Có tệp Excel xuất từ hệ thống
+     → "[Đính kèm tệp] Lập bảng kết quả cá nhân của [Họ tên] từ ngày [...] đến
+        ngày [...], vai trò [...] để làm báo cáo cá nhân"
+
 ========================================
  LƯU Ý VẬN HÀNH
 ========================================

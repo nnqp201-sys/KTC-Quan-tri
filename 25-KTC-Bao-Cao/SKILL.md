@@ -1,9 +1,11 @@
 ---
 name: ktc-bao-cao
-description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
+description: "Tổng hợp, viết và kiểm tra báo cáo kết quả công tác tháng, quý, 6 tháng, năm của Trường Cao đẳng Kon Tum và các đơn vị (mẫu Phụ lục TB 736, 6 Trục kết quả trọng tâm theo TB 817, KPI số lượng - chất lượng - tiến độ). Dùng khi người dùng viết hoặc sửa đoạn đánh giá, nhận xét kết quả thực hiện nhiệm vụ; nêu tỷ lệ hoàn thành của đơn vị; tổng hợp bảng kết quả, tiến độ do đơn vị nộp (tệp Excel hoặc bảng dán trong khung chat); kiểm tra công thức KPI; đối chiếu kết quả với kế hoạch cùng kỳ; dựng báo cáo cấp Trường; tra cứu kết quả công việc, văn bản đã xử lý của cá nhân trên Hệ thống quản lý văn bản và điều hành (office.quangngai.gov.vn) theo thời gian, vai trò xử lý chính hoặc phối hợp để làm báo cáo cá nhân. Không dùng để soạn văn bản hành chính khác (dùng ktc-soan-thao-vb) hoặc rà soát trước trình ký (dùng ktc-ra-soat-897)."
 ---
 
-# KTC-Bao-Cao / KTC-RIS v3.20
+# KTC-Bao-Cao / KTC-RIS v3.21
+
+> **v3.21** (10/10/2026) — **Skill 38**: tra cứu kết quả công việc, văn bản đã xử lý của cá nhân trên Hệ thống QLVB&ĐH (`office.quangngai.gov.vn`) theo khoảng thời gian, vai trò xử lý chính/phối hợp — một nguồn của báo cáo cá nhân; công cụ `office_ca_nhan.py`. *Nguồn rời, chưa đóng gói: plugin 1.3.13 đang thẩm định, đưa vào gói ở bản 1.3.14 (DL-20261010-003).*
 
 > **v3.20** (28/9/2026) — Tự đủ trong plugin (rà soát 28/9/2026): mẫu trắng báo cáo tháng (dự phòng, đã sửa 3 lỗi) vào `assets/`.
 
@@ -156,7 +158,25 @@ Xem `references/Workflow/09-Tong-Hop-Bao-Cao.md`:
 | **34**-Skill-Doi-Chieu-Tien-Do-KH | `03-Doi-Chieu-Tien-Do.md` | Đối chiếu KH — fallback A/B/C, dùng % KPI làm chỉ số khách quan |
 | **37**-Quy-Trinh-Bao-Cao-Thang-Tu-Ban-Da-Ban-Hanh | — | **Quy trình chính báo cáo tháng cấp Trường** — 4 sản phẩm từ bản đã ban hành, công cụ `bc_thang.py` |
 
+| **38**-Skill-Tra-Cuu-Ket-Qua-Ca-Nhan-Office | `05-Tra-Cuu-Ket-Qua-Ca-Nhan-Office.md` | [MỚI v3.21] Tra cứu văn bản đã xử lý, công việc được giao của **cá nhân** trên Hệ thống QLVB&ĐH — nguồn cho báo cáo cá nhân |
+
 Cả 4 Skill nghiệp vụ dùng `30-Skill-Phan-Loai-6-Truc.md` (38 nội hàm, TB 817).
+
+## [MỚI v3.21] Báo cáo cá nhân — nguồn từ Hệ thống QLVB&ĐH (Skill 38)
+
+Khi người dùng muốn Claude (Cowork) vào `https://office.quangngai.gov.vn/` tra cứu **kết quả công việc, văn bản đã xử lý
+của cá nhân** theo **khoảng thời gian** và **vai trò xử lý chính / phối hợp**, hoặc đính kèm tệp xuất từ hệ thống đó:
+**đọc `references/Skill-Library/38-Skill-Tra-Cuu-Ket-Qua-Ca-Nhan-Office.md` trước khi làm.** Tóm tắt:
+
+- **Tùy chọn, không bắt buộc**; đọc trang bằng tiện ích Claude trong Chrome hoặc Browser của Claude Desktop.
+- **Chỉ đọc, trong phiên người dùng đã tự đăng nhập.** Không nhập mật khẩu, không bấm nút xử lý, không mở tệp đính kèm,
+  không đọc văn bản có độ mật. Trang về màn hình đăng nhập → dừng, đề nghị đăng nhập lại hoặc gửi tệp xuất.
+- Hỏi đủ **người – kỳ – vai trò – phạm vi**. Ba đường lấy dữ liệu (đọc trên trang · tệp xuất · dán bảng) đều qua công cụ
+  `office_ca_nhan.py` → bảng .xlsx 4 sheet (`Van-ban-da-xu-ly`, `Cong-viec`, `Tong-hop`, `Nguon`).
+- Trục, Nội hàm, sản phẩm chuẩn và hệ số theo Quyết định số 2119/QĐ-CĐKT, nhiệm vụ liên quan: Claude **đề xuất**, người báo
+  cáo **xác nhận**. Khớp theo số hiệu mới là chắc; khớp theo chủ đề chỉ là gợi ý.
+- Kết quả là **một nguồn** của báo cáo cá nhân (tháng, quý) và danh mục minh chứng cho `kpi-tu-danh-gia`; việc không qua hệ
+  thống phải bổ sung từ nguồn khác. Không chấm điểm, không xếp loại, không cấp Task_ID.
 
 ## [MỚI v3.4] Công cụ Python — tự động hóa xuất báo cáo Word
 
@@ -166,6 +186,7 @@ Cả 4 Skill nghiệp vụ dùng `30-Skill-Phan-Loai-6-Truc.md` (38 nội hàm, 
 | `read_bc736_excel.py` | Đọc Excel Phụ lục, kiểm KPI cascade, lọc "Đưa vào KH Trường", tổng hợp % theo Trục, dựng khung `content_map` nháp |
 | `fill_bc736.py` | **Dự phòng** — chỉ khi kho không có báo cáo tháng đã ban hành: điền mẫu trắng TB736 từ `content_map` |
 | `README-fill_bc736.md` | 22 khóa nội dung Phần I/III của báo cáo Word theo 6 Trục |
+| `office_ca_nhan.py` | [v3.21] Chuẩn hóa tệp xuất / bản chụp trang của Hệ thống QLVB&ĐH: lọc theo người, kỳ, vai trò; loại trùng; xuất bảng kết quả cá nhân 4 sheet (Skill 38) |
 
 Quy trình dùng: `bc_thang.py nguon` → `trich` → soạn nội dung JSON (văn phong cấp Trường, Skill-Tu-hoc) → `bc_thang.py word`, `phu-luc`, `ke-hoach` → `kiem_the_thuc.py` → rà soát 897. `read_bc736_excel.py` dùng để kiểm KPI cascade, tính % theo Trục cho phụ lục.
 
