@@ -41,6 +41,11 @@ Mục 1 Phần I), HD v9 (Mục 1 Phần II), báo cáo 897 (dòng 2). Nội dun
 7 tiếp thu, 5 một phần, 1 ghi nhận, 2 không. Lưu ý: Hồ sơ không kèm kết quả kiểm thử trên hai nền tảng này (BC tiếp thu ghi rõ
 "không lập hồ sơ kết quả riêng"); mục 3 ở trên (câu Grok L6-02) đã được thay bằng câu mới.
 
+## Đã gửi thẩm định lần 2 (10/10/2026, tối)
+Người phụ trách **tự điều chỉnh thêm rồi đã gửi** báo cáo đề nghị thẩm định lần 2 tới Phòng QLKHCN&HTPT. **Bản đã gửi là bản chính
+thức**; các tệp trong `30-Ket-Qua/2026-10-10/` có thể khác bản đã gửi (chưa nhận lại bản đã gửi để đối chiếu). Không dựng lại, không
+sửa tiếp các tệp này nếu chưa có bản đã gửi làm gốc.
+
 ## Sản phẩm
 `30-Ket-Qua/2026-10-10/Soan-Thao/`: BC tiếp thu, giải trình lần 6 v1 (6 trang) · BC khắc phục v2 · TB v9, HD v9 (Track Changes 3 tác
 giả: "Khắc phục tồn tại…", "Sửa theo rà soát 897…", "Tiếp thu thẩm định lần 6") + bản sạch. Hồ sơ lần 2:
