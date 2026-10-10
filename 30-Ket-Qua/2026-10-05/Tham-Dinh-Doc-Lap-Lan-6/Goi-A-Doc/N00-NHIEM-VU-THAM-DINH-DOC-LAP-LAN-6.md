@@ -1,7 +1,7 @@
 # N00 — NHIỆM VỤ THẨM ĐỊNH ĐỘC LẬP LẦN 6: BỘ CÔNG CỤ TRÍ TUỆ NHÂN TẠO KTC-QUAN-TRI BẢN 1.3.13
 
 Tài liệu này là **yêu cầu thẩm định** dùng chung cho mọi hệ thống AI tham gia lần 6. Đọc tài liệu này trước, rồi đọc các
-nguồn N01 đến N33 theo danh mục tại mục 7.
+nguồn N01 đến N35 theo danh mục tại mục 7.
 
 ## 1. Bối cảnh và mục đích
 
@@ -181,4 +181,5 @@ không thì .md).
 | N22 đến N28 | Plugin: Toàn văn 08 kỹ năng (SKILL.md và tài liệu tham chiếu) | md |
 | N29 | Phiếu xin ý kiến Phòng TCCB&CTHSSV về quy ước nhân hệ số, có ý kiến trả lời ngày 06/10/2026 | pdf |
 | N34 | Thống kê vận hành thực tế bản 1.3.13 tại Phòng TH-HC&QT, 29/9 - 10/10/2026 | md |
+| N35 | Báo cáo rà soát KTC-Ra-Soat-897 ngày 10/10/2026 đối với N06, N07, N19 | pdf |
 | N30 đến N33 | Báo cáo thẩm định lần 5 của ChatGPT, Copilot, Grok, Gemini (nguyên văn) | pdf, md |

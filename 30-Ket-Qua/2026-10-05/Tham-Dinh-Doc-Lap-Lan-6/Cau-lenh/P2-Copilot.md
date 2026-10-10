@@ -1,7 +1,7 @@
 # Câu lệnh thẩm định lần 6 — Copilot (Microsoft)
 
 **Gửi:** 05 tệp trong `Goi-Gop-Copilot/` (GOP-0 đến GOP-4). Copilot giới hạn số tệp, độ dài mỗi lần gửi nên dùng bản gộp thay cho
-35 tệp rời.
+36 tệp rời.
 
 Copilot bản cá nhân (copilot.microsoft.com) và Microsoft 365 Copilot (tài khoản Trường, thẻ **Work**) **cùng một nhà cung cấp**
 — theo điểm b Mục 8 Thông báo số 1056/TB-CĐKT chỉ tính là **một** hệ thống độc lập. Chọn **một** trong hai cách:

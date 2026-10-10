@@ -38,7 +38,9 @@ PDF = [  # (ma, ten dich, nguon .docx)
      os.path.join(V6, '3-Ra-soat-897', 'BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-KTC-Quan-tri-gui-tham-dinh_20260929.docx')),
     ('N19', 'N19-BAO-CAO-KHAC-PHUC-NOI-DUNG-CON-TON-TAI.pdf',
      os.path.join(ST10, 'BC_Khac-phuc-noi-dung-con-ton-tai-KTC-Quan-tri_trinh-tham-dinh-lan-2_20261010_v1.docx')),
-    ('N29', 'N29-DU-THAO-PHIEU-XIN-Y-KIEN-PHONG-TCCB-CTHSSV.pdf',
+    ('N35', 'N35-BAO-CAO-RA-SOAT-KTC-RA-SOAT-897-10-10-2026.pdf',
+     os.path.join(DU_AN, '30-Ket-Qua', '2026-10-10', 'Ra-Soat', 'BAO-CAO-RA-SOAT-897-CHINH-THUC_Ho-so-trinh-ban-hanh-KTC-Quan-tri_20261010.docx')),
+    ('N29', 'N29-PHIEU-XIN-Y-KIEN-PHONG-TCCB-CTHSSV-DA-CO-Y-KIEN.pdf',
      os.path.join(ST, 'PXYK_Quy-uoc-tinh-diem-san-pham-KTC-Quan-tri_gui-Phong-TCCB-CTHSSV_20261005_v1.docx')),
     ('N30', 'N30-CHATGPT-BAO-CAO-THAM-DINH-LAN-5.pdf', os.path.join(L5, 'ChatGPT. L5. Bao-cao-tham-dinh-lan-5-KTC-Quan-tri-20260929.docx')),
     ('N31', 'N31-COPILOT-BAO-CAO-THAM-DINH-LAN-5.pdf', os.path.join(L5, 'Copilot. L5. Bao_cao_tham_dinh_lan_5_KTC_Quan_tri.docx')),
@@ -240,7 +242,7 @@ def gop():
     os.makedirs(G, exist_ok=True)
     w = pypdf.PdfWriter()
     for ma, ten, _ in PDF:
-        if ma in ('N03', 'N04', 'N05', 'N06', 'N07', 'N08', 'N19', 'N29'):
+        if ma in ('N03', 'N04', 'N05', 'N06', 'N07', 'N08', 'N19', 'N29', 'N35'):
             w.append(os.path.join(A, ten), outline_item=ten[:-4])
     w.write(os.path.join(G, 'GOP-1-VAN-BAN-TRINH-VA-DU-THAO.pdf'))
 

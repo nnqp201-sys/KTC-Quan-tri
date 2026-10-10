@@ -1,11 +1,11 @@
 # Câu lệnh thẩm định lần 6 — NotebookLM (Google)
 
-**Gửi:** Toàn bộ 35 tệp trong `Goi-A-Doc/` (N00 đến N34). **Không** gửi tệp .zip (NotebookLM không mở được).
+**Gửi:** Toàn bộ 36 tệp trong `Goi-A-Doc/` (N00 đến N35). **Không** gửi tệp .zip (NotebookLM không mở được).
 
 ## Bước 1 — Tạo sổ tay, nạp nguồn
 
 1. Vào notebooklm.google.com bằng tài khoản Google của Trường → **Tạo mới** (New notebook).
-2. **Thêm nguồn** (Add sources) → tải lên 35 tệp trong `Goi-A-Doc/`. Chờ tất cả nguồn xử lý xong (dấu tích).
+2. **Thêm nguồn** (Add sources) → tải lên 36 tệp trong `Goi-A-Doc/`. Chờ tất cả nguồn xử lý xong (dấu tích).
 3. Nếu có mục **Định cấu hình cuộc trò chuyện** (Configure chat) → chọn **Tùy chỉnh** (Custom) → dán đoạn sau:
 
 ```text

@@ -20,4 +20,13 @@ trình thẩm định lần 2, trình ban hành chậm nhất đầu tuần sau 
   thêm theo dõi, cập nhật trong vận hành, báo cáo hằng quý; HD thêm ý kiến P-TCCB 06/10) + bản sạch.
 - `30-Ket-Qua/2026-10-10/Tham-Dinh-Lan-2/`: hồ sơ gửi P-QLKHCN (9 tệp + danh mục). Gói AI lần 6 dựng lại: 35 nguồn, N06/N07 bản 9,
   N19 = BC khắc phục, N34 thống kê mới; đã đồng bộ OneDrive.
-- **Chưa làm:** rà soát 897 chính thức cho BC khắc phục, TB v9, HD v9 (mới qua kiem_the_thuc, kiem_vien_dan, quét Checklist 08).
+- **Rà soát 897 chính thức (10/10, chiều):** `30-Ket-Qua/2026-10-10/Ra-Soat/BAO-CAO-RA-SOAT-897-CHINH-THUC_…_20261010.docx` (8 phần,
+  7 trang). 0 Mức 1; 3 Mức 2, 7 Mức 3 **đã sửa** (Track Changes, tác giả "Sửa theo rà soát 897 ngày 10/10 (Claude)"): TB sót câu
+  thí điểm; HD sót nghiệm thu/thí điểm, lệch BC về Cowork; viện dẫn "phạm vi được phép theo TB 924" (TB 924 chỉ có điều cấm); TB
+  viện dẫn lần đầu thiếu cơ quan, trích yếu (5 VB); thứ tự căn cứ 917 - 848 - 1056; HD 3 chỗ viết thường sau hai chấm, 28 đoạn
+  chữ màu, số trang ở chân trang (chuyển lên lề trên, bỏ chân trang), ngày bìa; BC câu "áp dụng từ Quý IV/2026". 5 Mức 4 còn mở.
+- **Người phụ trách xác nhận (10/10):** kho do 2 tài khoản quản lý (`truong.cdkontum`, `phongthhcqt`); 2 tài khoản `nnqp201`,
+  `phucdaotaotcnkt` còn quyền chỉnh sửa — BC ghi "chuyển về quyền xem trước khi ban hành"; **AI không tự đổi quyền Drive**.
+- **Gói AI lần 6:** 36 nguồn (thêm N35 báo cáo 897 mới), 5 câu lệnh (NotebookLM, Copilot, ChatGPT Work, Grok, Gemini).
+- Bài học: bộ quét viết hoa sau hai chấm bỏ sót trường hợp đứng sau chữ số ("2026: chặn", "Bước 1: từ") — đã sửa điều kiện loại trừ
+  chỉ còn giờ phút; hồ sơ HD có số trang ở chân trang nên phép TT11 (tìm ở lề trên) báo thiếu là đúng theo chuẩn Trường.
