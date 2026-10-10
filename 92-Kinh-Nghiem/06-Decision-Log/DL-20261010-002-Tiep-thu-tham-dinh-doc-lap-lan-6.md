@@ -33,6 +33,14 @@ khoản người dùng chỉ xem. Điều kiện "chuyển 2 tài khoản về q
 người quản lý chịu trách nhiệm, khôi phục bằng lịch sử phiên bản Drive. **Không còn việc chặn ban hành.** Không nhắc lại đề nghị hạ
 quyền 2 tài khoản này. Trình Phòng QLKHCN&HTPT: Thứ Hai 12/10/2026.
 
+## Điều chỉnh của người phụ trách (10/10/2026, tối) — trạng thái tồn tại (2)
+Thay mọi chỗ ghi "đã dùng thử; kiểm thử đầy đủ bổ sung trong vận hành" / "mới dùng thử, chưa kiểm thử theo bộ ca" bằng **"Đã kiểm
+thử trên 02 tài khoản (cá nhân và phòng TH-HC&QT)"** — theo khẳng định của người phụ trách xây dựng (người trực tiếp kiểm thử trên
+Claude trò chuyện, Cowork). Đã sửa: BC khắc phục v2 (dòng 2), BC tiếp thu lần 6 (3.2, 4.1, 6.1, 6.2, mục 7, mục 8), TB v9 (điểm c
+Mục 1 Phần I), HD v9 (Mục 1 Phần II), báo cáo 897 (dòng 2). Nội dung 3.2 (Codex) chuyển thành **tiếp thu một phần** → tổng hợp:
+7 tiếp thu, 5 một phần, 1 ghi nhận, 2 không. Lưu ý: Hồ sơ không kèm kết quả kiểm thử trên hai nền tảng này (BC tiếp thu ghi rõ
+"không lập hồ sơ kết quả riêng"); mục 3 ở trên (câu Grok L6-02) đã được thay bằng câu mới.
+
 ## Sản phẩm
 `30-Ket-Qua/2026-10-10/Soan-Thao/`: BC tiếp thu, giải trình lần 6 v1 (6 trang) · BC khắc phục v2 · TB v9, HD v9 (Track Changes 3 tác
 giả: "Khắc phục tồn tại…", "Sửa theo rà soát 897…", "Tiếp thu thẩm định lần 6") + bản sạch. Hồ sơ lần 2:
