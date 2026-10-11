@@ -1,6 +1,6 @@
 # Kịch bản video minh họa — buổi làm việc ngày 17/10/2026
 
-Hai video, khớp Phương án bản 2 (mục 3 và mục 5). Khung hình 1920×1080, chữ tối thiểu cỡ 32 để đọc được trên máy chiếu
+Hai video, khớp Phương án bản 3 (mục 3 và mục 5). Quan điểm: Chỉ quay những việc công cụ làm tốt, có sản phẩm thật. Khung hình 1920×1080, chữ tối thiểu cỡ 32 để đọc được trên máy chiếu
 hội trường; mọi màn hình có dòng nhỏ góc dưới: **"Dữ liệu giả định phục vụ trình diễn"** (trừ cảnh giới thiệu kho, chỉ
 quay cây thư mục và 01 tệp mô tả văn bản đã công khai).
 
@@ -30,8 +30,8 @@ tiếng Việt `vi-VN-HoaiMyNeural` của Microsoft — **lời đọc được 
 | 1.3 | 1:00 | Cây thư mục 05 kho + số văn bản từng kho (557 · 582 · 41 · 130 · 49) | Kho KTC-Database lưu trên Google Drive, gồm năm kho: văn bản pháp luật; quy chế, kế hoạch, báo cáo của Trường; mẫu văn bản; văn bản tốt làm mẫu văn phong; đề án. Tổng cộng khoảng một nghìn ba trăm văn bản, mỗi văn bản có tệp mô tả số hiệu, ngày, hiệu lực và văn bản thay thế. |
 | 1.4 | 0:30 | Một câu hỏi tra cứu căn cứ → câu trả lời dẫn đúng văn bản trong kho | Khi soạn một kế hoạch, công cụ tìm căn cứ trong kho, dẫn đúng số hiệu, ngày ban hành, và cảnh báo văn bản đã hết hiệu lực. Kho chỉ cho phép đọc; công cụ còn có cơ chế chặn ghi. |
 | 1.5 | 0:20 | Gợi ý cấu trúc kho cho cơ quan Đảng: văn bản cấp trên · quy chế làm việc · chương trình công tác · văn bản tốt · mẫu văn bản của Đảng · danh mục đơn vị, đầu mối | Đối với Đảng ủy Ủy ban nhân dân tỉnh, chúng tôi đề xuất thiết lập kho tương tự trước khi triển khai công cụ, không đưa tài liệu thuộc bí mật nhà nước vào kho. |
-| 1.6 | 1:00 | Thư mục hệ KTC-Ra-Soat-897 bản 2.25: 09 bảng kiểm tra, thư viện kỹ năng, câu lệnh, bộ kiểm thử, mẫu báo cáo 08 phần | Hệ rà soát KTC-Ra-Soat-897 là bộ quy tắc rà soát dự thảo trước khi trình ký theo Thông báo 897 của Trường: bốn hệ quy chiếu, trong đó có riêng văn bản của Đảng; chín bảng kiểm tra; báo cáo tám phần, xếp vấn đề theo bốn mức. Còn vấn đề mức một thì không trình ký. |
-| 1.7 | 0:20 | Bảng kiểm thử 10/10/2026: 24/30 đúng hoàn toàn · 02 sai mức · 04 bỏ sót | Hệ được kiểm thử định kỳ trên một tệp cài sẵn ba mươi lỗi: lần gần nhất phát hiện đúng hai mươi bốn lỗi. Chúng tôi công khai cả phần chưa đạt, vì vậy luôn cần người kiểm tra. |
+| 1.6 | 0:30 | Thư mục hệ KTC-Ra-Soat-897 bản 2.25: 09 bảng kiểm tra, thư viện kỹ năng, câu lệnh, bộ kiểm thử, mẫu báo cáo 08 phần | Hệ rà soát KTC-Ra-Soat-897 là bộ quy tắc rà soát dự thảo trước khi trình ký theo Thông báo 897 của Trường: bốn hệ quy chiếu, trong đó có riêng văn bản của Đảng; chín bảng kiểm tra; báo cáo tám phần, xếp vấn đề theo bốn mức. Còn vấn đề mức một thì không trình ký. |
+| 1.7 | (chuyển sang Phần 3) | Bảng kiểm thử 10/10/2026: 24/30 đúng hoàn toàn · 02 sai mức · 04 bỏ sót | Hệ được kiểm thử định kỳ trên một tệp cài sẵn ba mươi lỗi: lần gần nhất phát hiện đúng hai mươi bốn lỗi. Chúng tôi công khai cả phần chưa đạt, vì vậy luôn cần người kiểm tra. |
 | 1.8 | 1:00 | Sơ đồ chu trình: Kế hoạch → Giao việc → Theo dõi → Báo cáo → Rà soát → Trình ký; 08 kỹ năng, 07 tác tử | Bộ công cụ KTC-Quan-tri khép kín chu trình quản trị nhiệm vụ: tám kỹ năng, bảy tác tử kiểm tra độc lập. Trong mười ngày làm việc gần đây, phòng đã dùng thật cho hai mươi sáu phiên, chín trăm hai mươi bốn thao tác, hỗ trợ dựng ba mươi lăm văn bản. |
 | 1.9 | 0:20 | 01 trang kinh nghiệm thực chiến (từ kết quả lệnh tại `01-LENH-…`) | (Lời đọc viết sau khi có kết quả tổng hợp kinh nghiệm thực chiến.) |
 
@@ -41,13 +41,15 @@ Mỗi cảnh: anh quay màn hình khi chạy lệnh trên Cowork; em lồng lờ
 
 | Cảnh | Nội dung quay | Lệnh gõ trong Cowork (dự kiến) | Điểm phải thấy rõ trên hình |
 |---|---|---|---|
-| 2.1 | Đưa tệp D1, trích nhiệm vụ | "Lập danh mục nhiệm vụ từ thông báo kết luận này: chủ trì, phối hợp, sản phẩm, thời hạn, căn cứ; kiểm tra trùng với bảng theo dõi" | Cột căn cứ; danh sách "cần hỏi lại" |
-| 2.2 | Cảnh báo thời hạn trên D2 | "Rà bảng theo dõi theo ngày hôm nay: quá hạn, sắp đến hạn trong 03 ngày làm việc, hoàn thành chưa có minh chứng" | Bảng xếp theo đơn vị |
-| 2.3 | Dự thảo công văn đôn đốc | "Dự thảo công văn đôn đốc các đơn vị có nhiệm vụ quá hạn" | Lời văn nhắc, không kết luận vi phạm |
-| 2.4 | Tra cứu nhanh giao ban | "Đơn vị nào còn nhiệm vụ tồn đọng, vướng mắc gì?" | Câu trả lời dẫn dòng dữ liệu |
-| 2.5 | Đối chiếu D3 | "Đối chiếu 03 báo cáo này, chỉ ra số liệu không thống nhất, trùng lặp, thiếu" | Đúng 03 điểm cài sẵn |
-| 2.6 | Báo cáo định kỳ | Mở báo cáo đã dựng + tệp ghi chú đối soát | Mỗi ý có nguồn |
-| 2.7 | Rà soát D4 | "Rà soát dự thảo công văn này theo KTC-Ra-Soat-897" | Báo cáo 4 mức; các lỗi cài sẵn |
+| 2.1 **(trọng tâm Phần 1)** | Tổng hợp dự thảo kế hoạch quý của 06 đơn vị (D1) thành kế hoạch của cơ quan | "Kiểm tra hồ sơ kế hoạch quý của các đơn vị trong thư mục này, rồi tổng hợp thành dự thảo Kế hoạch công tác quý của cơ quan" | Bảng kiểm từng đơn vị; nhiệm vụ trùng; dự thảo kế hoạch xếp theo lĩnh vực, giữ nguồn đơn vị |
+| 2.2 | Tra cứu Hệ thống quản lý văn bản và điều hành (D2), đối chiếu với D1 | "Từ danh mục văn bản này, liệt kê văn bản chỉ đạo, kế hoạch năm, quý, thông báo kết luận, kế hoạch chuyên đề trong kỳ; nhiệm vụ nào đã giao mà chưa đơn vị nào đưa vào kế hoạch?" | Nhiệm vụ còn thiếu kèm số, ký hiệu văn bản giao |
+| 2.3 (nói nhanh) | Trích nhiệm vụ từ 01 văn bản chỉ đạo; cảnh báo hạn; công văn đôn đốc | Mở 03 kết quả đã chạy | Cột căn cứ; danh sách "cần hỏi lại" |
+| 2.4 **(trọng tâm Phần 2)** | Xây dựng báo cáo tháng từ báo cáo 06 đơn vị (D3) | "Lập báo cáo kết quả công tác tháng của cơ quan từ báo cáo các đơn vị, phát triển từ báo cáo tháng trước" | Bộ 04 sản phẩm; tệp ghi chú đối soát nguồn |
+| 2.5 | Đối chiếu kế hoạch với kết quả, gợi ý minh chứng từ D2 | "Đối chiếu kế hoạch tháng với báo cáo; nhiệm vụ nào chưa có thông tin; văn bản nào có thể là minh chứng" | Ghi "chưa có thông tin", không kết luận "chưa làm" |
+| 2.6 (nói nhanh) | Hỏi nhanh phục vụ giao ban | "Đơn vị nào còn nhiệm vụ tồn đọng, vướng mắc gì?" | Câu trả lời dẫn dòng dữ liệu |
+| 2.7 (nói nhanh) | Hai sản phẩm soạn thảo thực tế đã lược thông tin | Mở tệp | Dựng từ văn bản đã ban hành |
+| 2.8 **(trọng tâm Phần 3)** | Rà soát D4 bằng KTC-Ra-Soat-897 bản 2.25; mở thư mục hệ | "Rà soát chính thức dự thảo này theo KTC-Ra-Soat-897" | Chọn hệ quy chiếu; đo thể thức; quét hiệu lực căn cứ; báo cáo 08 phần, 04 mức |
+| 2.9 | Văn bản có dấu vết thay đổi; bảng kiểm thử 24/30 | Mở tệp | Người duyệt thấy từng chỗ sửa |
 
 Lời đọc Video 2 em viết sau khi có bộ dữ liệu giả định và bản quay thật, để lời khớp đúng hình.
 
