@@ -7,7 +7,9 @@
 | Tệp | Mã SHA-256 |
 |---|---|
 | `ktc-quan-tri-1.3.13.zip` (plugin) | `d7c34a51e85f02278ec0e5a38c02089c0d7ae58280c8f59af6d0f673f9fbdd7e` |
-| Bộ 8 kỹ năng rời (`Bộ-skills-rời.zip`) | Trùng byte 8/8 tệp SKILL.md với plugin (xác nhận tại Báo cáo thẩm định lần 2) |
+| Bộ 8 kỹ năng rời (`Bộ-skills-rời.zip`) | `04747e4f44fb6e25115210efb9cbd1b91254170194f735bc289865b41eb8a3ef` (8/8 tệp SKILL.md trùng byte với plugin, xác nhận tại Báo cáo thẩm định lần 2) |
+
+Hai tệp trên **trùng byte** với bản đã gửi thẩm định lần 2 ngày 10/10/2026 (đối chiếu mã SHA-256 ngày 12/10/2026); không dựng lại.
 
 Tệp plugin **giữ nguyên** bản đã qua thẩm định độc lập lần 6 và thẩm định lần 2 của Phòng QLKHCN&HTPT; mã SHA-256 không đổi.
 Đối chiếu mã trước khi cài (PowerShell): `Get-FileHash .\ktc-quan-tri-1.3.13.zip -Algorithm SHA256`. Không trùng thì không cài, báo Phòng TH-HC&QT.
