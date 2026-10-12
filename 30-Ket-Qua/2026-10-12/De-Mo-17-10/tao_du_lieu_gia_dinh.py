@@ -554,7 +554,7 @@ Lưu ý thêm: Phòng Tổ chức cán bộ báo cáo "Trình ban hành Kế ho�
 
 ## D4 — Tệp chính: Dự thảo Chương trình công tác tháng 10/2026 (văn bản Đảng, đã ẩn danh)
 
-Tệp `Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` ẩn danh từ một dự thảo thật: Tên tỉnh đổi thành "tỉnh A",
+Tệp `Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` ẩn danh từ một dự thảo thật: Tên cơ quan ban hành đổi thành "Đảng ủy Ủy ban nhân dân phường XYZ" (UBND tỉnh thành UBND phường), tên tỉnh đổi thành "tỉnh A",
 tên người ký thành "Nguyễn Văn A", số ký hiệu văn bản của địa phương đã đổi (giữ nguyên kiểu ký hiệu), thuộc tính tệp đã thay; định dạng
 giữ nguyên từng thông số. Số ký hiệu văn bản của Trung ương giữ nguyên. **Không cài thêm lỗi** — mọi phát hiện là của chính dự thảo.
 

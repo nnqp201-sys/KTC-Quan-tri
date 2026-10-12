@@ -10,6 +10,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 D = os.path.dirname(os.path.abspath(__file__))
 GOC = os.path.join(D, 'Du-lieu-gia-dinh')
 CHUNG = [  # (cũ, mới) — thứ tự: cụm dài trước
+ ('ĐẢNG ỦY ỦY BAN NHÂN DÂN TỈNH', 'ĐẢNG ỦY ỦY BAN NHÂN DÂN PHƯỜNG XYZ'), ('Đảng ủy Ủy ban nhân dân tỉnh', 'Đảng ủy Ủy ban nhân dân phường XYZ'),
+ ('Đảng ủy UBND tỉnh', 'Đảng ủy UBND phường XYZ'), ('Đảng bộ UBND tỉnh', 'Đảng bộ UBND phường XYZ'), ('DU-UBND-tinh', 'DU-UBND-phuong-XYZ'),
+ ('UBND tỉnh', 'UBND phường'),
  ('ĐẢNG BỘ TỈNH QUẢNG NGÃI', 'ĐẢNG BỘ TỈNH A'), ('TỈNH ỦY QUẢNG NGÃI', 'TỈNH ỦY A'), ('Quảng Ngãi, ngày', 'Tỉnh A, ngày'),
  ('tỉnh Quảng Ngãi', 'tỉnh A'), ('(Quảng Ngãi)', '(tỉnh A)'), ('Quảng Ngãi', 'tỉnh A'),
  ('Phạm Xuân Duệ', 'Nguyễn Văn A'), ('PhongKinhTe7', 'ChuyenVien7'),
@@ -58,14 +61,31 @@ def an_danh(vao, ra, them=()):
         for cu, moi in CHUNG:
             v = v.replace(cu, moi)
         setattr(cp, th, v)
+    if cp.last_modified_by and 'python' not in (cp.author or '') and 'BaoCao' not in os.path.basename(ra):
+        cp.last_modified_by = 'ChuyenVien7'
     os.makedirs(os.path.dirname(ra), exist_ok=True); d.save(ra)
+    import zipfile                                   # thuộc tính ẩn trong docProps/app.xml
+    tam = ra + '.tmp'
+    with zipfile.ZipFile(ra) as zi, zipfile.ZipFile(tam, 'w', zipfile.ZIP_DEFLATED) as zo:
+        for it in zi.infolist():
+            b = zi.read(it.filename)
+            if it.filename == 'docProps/app.xml':
+                x = b.decode('utf-8')
+                for cu, moi in CHUNG:
+                    x = x.replace(cu, moi)
+                b = x.encode('utf-8')
+            zo.writestr(it, b)
+    os.replace(tam, ra)
     con = ''.join(t.text or '' for g in goc for t in g.iter(qn('w:t')))
-    sot = [x for x in ('Quảng Ngãi', 'QUẢNG NGÃI', 'Xuân Duệ', '1394', '06-CTr', '08-CTr', '27-CTr', '13-CTr', '98-KH', '12-QC', 'KH-532', 'PhongKinhTe') if x in con]
+    sot = [x for x in ('Quảng Ngãi', 'QUẢNG NGÃI', 'Xuân Duệ', '1394', '06-CTr', '08-CTr', '27-CTr', '13-CTr', '98-KH', '12-QC', 'KH-532', 'PhongKinhTe', 'UBND tỉnh', 'nhân dân tỉnh', 'NHÂN DÂN TỈNH', 'phường XYZ XYZ', 'phường phường') if x in con]
     print(os.path.basename(ra), '| đã thay', sum(dem.values()), 'chỗ | còn sót:', sot or 'không', '| thuộc tính:', cp.title, '/', cp.author, '/', cp.last_modified_by)
 
 
-an_danh(os.path.join(GOC, '4. Chương trình công tác tháng 10.2026.docx'),
-        os.path.join(GOC, 'D4-Du-thao-can-ra-soat', 'Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx'),
-        them=[('Lệ', 'Th')])
-an_danh(os.path.join(GOC, 'BaoCao_RaSoat_CTr-Thang-10-2026-BTV-DU-UBND-tinh_20261011_v1.docx'),
-        os.path.join(D, 'Ket-qua-chay-truoc', 'BaoCao_RaSoat-897-v2.25_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx'))
+# Tệp gốc (chưa ẩn danh) do người phụ trách giữ ngoài thư mục dữ liệu. Có tệp gốc thì ẩn danh từ gốc; không có thì áp tiếp
+# bảng thay thế lên bản đã ẩn danh (các phép thay đều không đổi kết quả khi chạy lại).
+CT = os.path.join(GOC, 'D4-Du-thao-can-ra-soat', 'Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx')
+BC = os.path.join(D, 'Ket-qua-chay-truoc', 'BaoCao_RaSoat-897-v2.25_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx')
+G1 = os.path.join(GOC, '4. Chương trình công tác tháng 10.2026.docx')
+G2 = os.path.join(GOC, 'BaoCao_RaSoat_CTr-Thang-10-2026-BTV-DU-UBND-tinh_20261011_v1.docx')
+an_danh(G1 if os.path.exists(G1) else CT, CT, them=[('Lệ', 'Th')] if os.path.exists(G1) else ())
+an_danh(G2 if os.path.exists(G2) else BC, BC)
