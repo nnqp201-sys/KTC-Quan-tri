@@ -552,23 +552,26 @@ Không cài lỗi. Dùng để: (a) liệt kê văn bản chỉ đạo, kế ho�
 
 Lưu ý thêm: Phòng Tổ chức cán bộ báo cáo "Trình ban hành Kế hoạch tuyển dụng" là đã trình, chưa ban hành (tỷ lệ chất lượng, tiến độ 75%); Phòng Nghiệp vụ 1 thẩm định 12/14 hồ sơ; chữ ký số 10/12.
 
-## D4 — Tệp chính: Dự thảo Chương trình công tác tháng 10/2026 (văn bản Đảng, đã ẩn danh)
+## D4 — Tệp chính: Dự thảo Chương trình công tác tháng 10/2026 (văn bản Đảng, đã ẩn danh và hạ xuống cấp phường)
 
-Tệp `Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` ẩn danh từ một dự thảo thật: Tên cơ quan ban hành đổi thành "Đảng ủy Ủy ban nhân dân phường XYZ" (UBND tỉnh thành UBND phường), tên tỉnh đổi thành "tỉnh A",
-tên người ký thành "Nguyễn Văn A", số ký hiệu văn bản của địa phương đã đổi (giữ nguyên kiểu ký hiệu), thuộc tính tệp đã thay; định dạng
-giữ nguyên từng thông số. Số ký hiệu văn bản của Trung ương giữ nguyên. **Không cài thêm lỗi** — mọi phát hiện là của chính dự thảo.
+Tệp `Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` ẩn danh từ một dự thảo thật: Cơ quan ban hành đổi thành
+"Đảng ủy Ủy ban nhân dân phường XYZ" thuộc "Đảng bộ phường XYZ"; cấp nhận trình là Ban Thường vụ Đảng ủy phường; các sở đổi thành phòng
+chuyên môn của UBND phường; 02 nội dung trình mang tính cấp tỉnh được thay bằng nội dung cấp phường; tên người ký thành "Nguyễn Văn A";
+số ký hiệu văn bản của địa phương đã đổi (giữ nguyên kiểu ký hiệu); thuộc tính tệp đã thay. Định dạng giữ nguyên từng thông số; văn bản
+của Trung ương và Kế hoạch của Tỉnh ủy giữ nguyên. **Không cài thêm lỗi.**
 
-Kết quả chạy trước (Hệ KTC-Ra-Soat-897 v2.25, hệ quy chiếu B — văn bản Đảng, ngày 11/10/2026, đã ẩn danh tương ứng):
-`../Ket-qua-chay-truoc/BaoCao_RaSoat-897-v2.25_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` — **26 phát hiện: 0 Mức 1,
-06 Mức 2, 15 Mức 3, 05 Mức 4**; kết luận "Cần chỉnh sửa trước khi trình ký". Sáu phát hiện Mức 2 nên nêu khi trình diễn:
-(1) Chương trình của Đảng ủy nhưng mang ký hiệu "/TU"; (2) số Kết luận bất thường so với chuỗi số của Đảng ủy; (3) Quy chế viện dẫn
-thiếu tên, ngày, cơ quan ban hành; (4) câu Mục I.1 dài, nhiều chủ thể; (5) Mục II thiếu "Thời gian trình"; (6) căn cứ cuối kết thúc
-bằng dấu chấm phẩy. Đã đo lại trên bản ẩn danh ngày 12/10/2026: 08 phát hiện thể thức đều khớp (lề 20/20/30/15 mm; tên loại cỡ 14;
-thụt đầu dòng 12,5 - 12,7 - 10,39 mm; số trang cách mép 12,7 mm; ký tự thừa sau dòng "Lưu"; mục Nơi nhận bị ngắt đoạn; kiểu Heading 1 ở
-"T/M BAN THƯỜNG VỤ"; dấu chấm phẩy ở căn cứ cuối).
+Kết quả chạy trước (rà soát lại ngày 12/10/2026 trên bản cấp phường, Hệ KTC-Ra-Soat-897 v2.25, hệ quy chiếu B — văn bản Đảng):
+`../Ket-qua-chay-truoc/BaoCao_RaSoat-897-v2.25_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` — **25 phát hiện: 0 Mức 1,
+07 Mức 2, 13 Mức 3, 05 Mức 4**; kết luận "Cần chỉnh sửa trước khi trình ký". Bảy phát hiện Mức 2 nên nêu khi trình diễn:
+(1) Chương trình của Đảng ủy UBND phường nhưng mang ký hiệu "/TU"; (2) số Kết luận 1286 bất thường so với chuỗi số của cùng cơ quan;
+(3) Quy chế số 10-QC/ĐU viện dẫn thiếu ngày, cơ quan ban hành, trích yếu; (4) câu Mục I.1 dài, nhiều chủ thể; (5) Mục II thiếu "Thời gian
+trình"; (6) căn cứ cuối kết thúc bằng dấu chấm phẩy, hai căn cứ gộp một đoạn; (7) cụm "Ban Thường vụ Đảng ủy" không rõ là của Đảng ủy
+phường hay Đảng ủy UBND phường. Phát hiện thể thức đều có số đo: Tên loại cỡ 14 (quy định 15 - 16); không đặt cách dòng chính xác; thụt
+đầu dòng 12,5 - 12,7 - 10,39 mm; số trang cách mép 12,7 mm; ký tự thừa sau dòng "Lưu"; nơi nhận bị ngắt đoạn; kiểu Heading 1 khai phông VNI-Times.
 
-Lưu ý khi trình diễn: Hệ rà soát áp Hướng dẫn về thể thức văn bản của Đảng, **không áp Nghị định số 30/2020/NĐ-CP** và không áp quy ước
-riêng của Trường cho văn bản này; các viện dẫn văn bản của địa phương được ghi "chưa xác minh" vì không có trong kho của Trường.
+Lưu ý khi trình diễn: Hệ rà soát áp Hướng dẫn số 05-HD/VPTW về thể thức văn bản của Đảng, **không áp Nghị định số 30/2020/NĐ-CP** và không
+áp quy ước riêng của Trường; văn bản của Trung ương được đối chiếu với kho và nguồn chính thống; văn bản của địa phương ghi "chưa xác minh".
+Nên nói rõ với người dự: Văn bản đã đổi tên cơ quan và đổi cấp để ẩn danh, nên tên các cơ quan tham mưu chỉ là giả định.
 
 ## D4 — Dự phòng: Hai dự thảo văn bản hành chính cài 10 lỗi
 
@@ -607,7 +610,7 @@ Phòng Thông tin - Chuyển đổi số) là giả định; mọi tên người
 | `D1-Ke-hoach-quy-IV-2026/` | 06 tệp dự thảo kế hoạch quý IV/2026 của các đơn vị (khuôn Phụ lục Ia) | Phần 1 |
 | `D2-He-thong-QLVB/` | 01 tệp xuất danh mục văn bản từ Hệ thống quản lý văn bản và điều hành | Phần 1, Phần 2 |
 | `D3-Bao-cao-thang-9-2026/` | Kế hoạch tháng 9 của cơ quan; 06 báo cáo tháng 9 của đơn vị (khuôn Phụ lục IIb); báo cáo tháng 8 của cơ quan | Phần 2 |
-| `D4-Du-thao-can-ra-soat/` | **Tệp chính của Phần 3:** 01 dự thảo Chương trình công tác tháng 10/2026 của Ban Thường vụ Đảng ủy (văn bản Đảng, hệ quy chiếu B, đã ẩn danh từ một dự thảo thật). Dự phòng: 01 dự thảo công văn, 01 dự thảo kế hoạch chuyên đề (văn bản hành chính, cài 10 lỗi) | Phần 3 |
+| `D4-Du-thao-can-ra-soat/` | **Tệp chính của Phần 3:** 01 dự thảo Chương trình công tác tháng 10/2026 của Ban Thường vụ Đảng ủy UBND phường XYZ (văn bản Đảng, hệ quy chiếu B, đã ẩn danh và hạ xuống cấp phường từ một dự thảo thật). Dự phòng: 01 dự thảo công văn, 01 dự thảo kế hoạch chuyên đề (văn bản hành chính, cài 10 lỗi) | Phần 3 |
 | `_Dap-an-KHONG-dua-vao-cong-cu/` | Danh sách chi tiết cài sẵn — chỉ người trình bày xem | — |
 
 Cột Ghi chú giữ giá trị chuẩn của khuôn mẫu (“Đưa vào KH Trường” = đưa vào kế hoạch của cơ quan) để công cụ lọc đúng.

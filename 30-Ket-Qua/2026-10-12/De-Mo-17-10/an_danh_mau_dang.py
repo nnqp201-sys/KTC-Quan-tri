@@ -77,9 +77,25 @@ def an_danh(vao, ra, them=()):
             zo.writestr(it, b)
     os.replace(tam, ra)
     con = ''.join(t.text or '' for g in goc for t in g.iter(qn('w:t')))
-    sot = [x for x in ('Quảng Ngãi', 'QUẢNG NGÃI', 'Xuân Duệ', '1394', '06-CTr', '08-CTr', '27-CTr', '13-CTr', '98-KH', '12-QC', 'KH-532', 'PhongKinhTe', 'UBND tỉnh', 'nhân dân tỉnh', 'NHÂN DÂN TỈNH', 'phường XYZ XYZ', 'phường phường') if x in con]
+    sot = [x for x in ('Quảng Ngãi', 'QUẢNG NGÃI', 'Xuân Duệ', '1394', '06-CTr', '08-CTr', '27-CTr', '13-CTr', '98-KH', '12-QC', 'KH-532', 'PhongKinhTe', 'UBND tỉnh', 'nhân dân tỉnh', 'NHÂN DÂN TỈNH', 'phường XYZ XYZ', 'phường phường', 'TỈNH A', 'Tỉnh A', 'tỉnh A', 'Sở ', 'đối ngoại') if x in con]
     print(os.path.basename(ra), '| đã thay', sum(dem.values()), 'chỗ | còn sót:', sot or 'không', '| thuộc tính:', cp.title, '/', cp.author, '/', cp.last_modified_by)
 
+
+# Hạ văn bản xuống cấp phường (12/10/2026): Cấp trên trực tiếp là Đảng ủy phường; cơ quan phối hợp là phòng chuyên môn của UBND phường.
+# Văn bản của Tỉnh ủy (87-KH/TU) và của Trung ương giữ nguyên vì cấp phường vẫn phải thực hiện.
+CAP_PHUONG = [
+ ('ĐẢNG BỘ TỈNH A', 'ĐẢNG BỘ PHƯỜNG XYZ'), ('Tỉnh A, ngày', 'Phường XYZ, ngày'), ('TỈNH ỦY A', 'ĐẢNG ỦY PHƯỜNG XYZ'),
+ ('BAN THƯỜNG VỤ TỈNH ỦY', 'BAN THƯỜNG VỤ ĐẢNG ỦY PHƯỜNG'), ('Ban Thường vụ Tỉnh ủy', 'Ban Thường vụ Đảng ủy phường'),
+ ('căn cứ chỉ đạo của Tỉnh ủy', 'căn cứ chỉ đạo của Đảng ủy phường'),
+ ('Kế hoạch hoạt động đối ngoại của tỉnh năm 2027', 'Kế hoạch tổ chức đối thoại với Nhân dân trên địa bàn phường năm 2027'),
+ ('Cho ý kiến chính sách thu hút bác sĩ và đãi ngộ đối với công chức, viên chức ngành y tế tỉnh A giai đoạn 2026 - 2030',
+  'Cho ý kiến phương án bố trí, sử dụng trụ sở, tài sản công trên địa bàn phường giai đoạn 2026 - 2030'),
+ ('Sở Văn hóa, Thể thao và Du lịch', 'Phòng Văn hóa - Xã hội'), ('Sở Tài chính', 'Phòng Kinh tế, Hạ tầng và Đô thị'),
+ ('Sở Ngoại vụ', 'Phòng Văn hóa - Xã hội'), ('Sở Y tế', 'Phòng Kinh tế, Hạ tầng và Đô thị'),
+ ('Sở Nội vụ', 'Văn phòng Hội đồng nhân dân và Ủy ban nhân dân phường'),
+ ('các sở, ban, ngành', 'các phòng chuyên môn'), ('Các chi bộ, đảng bộ trực thuộc cơ sở', 'Các chi bộ trực thuộc'),
+]
+CHUNG += CAP_PHUONG
 
 # Tệp gốc (chưa ẩn danh) do người phụ trách giữ ngoài thư mục dữ liệu. Có tệp gốc thì ẩn danh từ gốc; không có thì áp tiếp
 # bảng thay thế lên bản đã ẩn danh (các phép thay đều không đổi kết quả khi chạy lại).
