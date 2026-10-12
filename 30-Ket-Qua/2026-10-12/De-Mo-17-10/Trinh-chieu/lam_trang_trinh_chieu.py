@@ -41,7 +41,11 @@ TRANG = [
  ('Đề xuất để bắt đầu',
   ['Lập kho dữ liệu nền trước: Văn bản chỉ đạo còn hiệu lực, quy chế, chương trình công tác, văn bản tốt, mẫu văn bản của Đảng',
    'Chọn 01 – 02 việc lặp lại hằng tháng để làm trước: Tổng hợp kế hoạch, báo cáo; rà soát thể thức', 'Quy định rõ loại dữ liệu không đưa vào công cụ; ai là người kiểm tra',
-   '!Trường Cao đẳng Kon Tum sẵn sàng chia sẻ bộ quy tắc rà soát văn bản của Đảng và cách tổ chức kho']),
+   '!Bắt đầu nhỏ, làm thật, có người kiểm tra']),
+ ('Trường Cao đẳng Kon Tum sẵn sàng chia sẻ, hỗ trợ mọi công cụ khi nhận được:',
+  ['(1) Thông tin, dữ liệu đầu vào: Nghị quyết, quy định, quy chế, chương trình, kế hoạch, quy trình…',
+   '(2) Yêu cầu sản phẩm đầu ra: Biểu mẫu, dữ liệu, thể thức, sản phẩm TỐT đã có…',
+   '(3) Phần xử lý (kỹ thuật, công cụ, phương pháp…): Đã có AI và con người hỗ trợ']),
  ('Trân trọng cảm ơn', ['Phần thảo luận: Đoàn công tác có thể đề nghị chạy trực tiếp 01 thao tác', '!Dữ liệu trình diễn là dữ liệu giả định; văn bản rà soát đã ẩn danh']),
 ]
 
@@ -50,6 +54,6 @@ ra = os.path.join(D, 'trang'); os.makedirs(ra, exist_ok=True)
 anh = []
 for i, (td, dong) in enumerate(TRANG, 1):
     p = os.path.join(ra, f'trang-{i:02d}.png'); V.ve(i, td, dong, p); anh.append(Image.open(p).convert('RGB'))
-pdf = os.path.join(D, 'Trinh-chieu_Ung-dung-AI-tham-muu-tong-hop_17.10.2026_v1.pdf')
+pdf = os.path.join(D, 'Trinh-chieu_Ung-dung-AI-tham-muu-tong-hop_17.10.2026_v2.pdf')
 anh[0].save(pdf, save_all=True, append_images=anh[1:], resolution=150)
 print(len(anh), 'trang ->', pdf)
