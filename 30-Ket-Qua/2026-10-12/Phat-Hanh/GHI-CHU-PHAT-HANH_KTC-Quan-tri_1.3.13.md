@@ -27,7 +27,7 @@ soan-thao-vb 1.15 · the-thuc 1.3. 7 tác tử kiểm tra. Thao tác tự độn
 
 1. **Task_ID chưa áp dụng.** Nhiệm vụ đối chiếu theo mã sản phẩm QĐ 2119/QĐ-CĐKT và tên nhiệm vụ (mã cảnh báo `DOI_CHIEU_GAN_DUNG`
    — đơn vị đối chiếu thủ công trước khi ký). Quy tắc Task_ID trong gói là dự thảo, chờ Trường ban hành quy định mã nhiệm vụ phù hợp
-   phần mềm quản lý KPI của tỉnh.
+   phần mềm KPI của tỉnh (Hệ thống quản lý đánh giá, xếp loại chất lượng CBCCVC VNPT-ĐGCB, kpi.quangngai.dcs.vn).
 2. **Không chứa Skill `ktc-ra-soat-897`.** Rà soát trước trình ký dùng Skill riêng theo TB 948/TB-CĐKT.
 3. **Thao tác chặn ghi (guard) chỉ là lớp hỗ trợ** cho một số thao tác ghi trên máy; không áp dụng qua kết nối Google Drive. Phân quyền chỉ đọc trên Drive là biện pháp bảo vệ chính.
 4. **Kết quả kiểm thử là thử nghiệm sơ bộ** trên Claude Code (Opus 5.5: 29/30 lượt; Sonnet 5: 6/6; Haiku 4.5: 4/6 — không dùng Haiku 4.5 để soạn văn bản, phần căn cứ).
