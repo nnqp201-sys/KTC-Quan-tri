@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 sys.stdout.reconfigure(encoding='utf-8')
 THU_MUC = os.path.dirname(os.path.abspath(__file__))
 TAM = os.path.join(THU_MUC, '_tam')
-RA = os.path.join(THU_MUC, 'Video-1_Gioi-thieu-nhanh-03-he_v1.mp4')
+RA = os.path.join(THU_MUC, 'Video-1_Gioi-thieu-nhanh-03-he_v2.mp4')
 GIONG = 'vi-VN-HoaiMyNeural'
 TOC_DO = '-4%'
 W, H = 1920, 1080
@@ -54,11 +54,27 @@ CANH = [
   'Hệ thứ hai là hệ rà soát văn bản, dùng chung cho toàn Trường. Hệ có bốn hệ quy chiếu, trong đó có riêng văn bản của Đảng; chín bảng kiểm tra; '
   'và báo cáo rà soát tám phần. Còn vấn đề mức một thì không trình ký. Hệ này sẽ được trình diễn kỹ ở phần ba.'),
  ('3. Bộ công cụ KTC-Quan-tri (bản 1.3.13)',
-  ['Kế hoạch → Giao việc → Theo dõi → Báo cáo → Rà soát → Trình ký', '08 kỹ năng  ·  07 tác tử kiểm tra độc lập  ·  cơ chế chặn ghi kho',
+  ['Kế hoạch → Giao việc → Theo dõi → Báo cáo → Rà soát → Trình ký', '08 kỹ năng  ·  07 trợ lý AI kiểm tra độc lập  ·  cơ chế chặn ghi kho',
    '#10 ngày làm việc  ·  26 phiên  ·  924 thao tác', '#35 văn bản, 04 bảng tính được hỗ trợ dựng', '!Đã qua 06 vòng thẩm định độc lập; đang trình thẩm định lần 2 tại Trường'],
   'Hệ thứ ba là bộ công cụ quản trị nhiệm vụ, khép kín chu trình từ kế hoạch, giao việc, theo dõi, báo cáo, đến rà soát và trình ký. '
-  'Bộ công cụ gồm tám kỹ năng và bảy tác tử kiểm tra độc lập. Trong mười ngày làm việc gần đây, phòng đã dùng thật hai mươi sáu phiên, '
+  'Bộ công cụ gồm tám kỹ năng và bảy trợ lý trí tuệ nhân tạo kiểm tra độc lập. Trong mười ngày làm việc gần đây, phòng đã dùng thật hai mươi sáu phiên, '
   'chín trăm hai mươi bốn thao tác, hỗ trợ dựng ba mươi lăm văn bản.'),
+ ('08 kỹ năng: Mỗi kỹ năng là một quy trình nghiệp vụ đã viết sẵn',
+  ['Kế hoạch: Tổng hợp kế hoạch công tác năm, quý, tháng', 'Theo dõi công việc: Tiến độ, minh chứng, cảnh báo quá hạn',
+   'Báo cáo: Tổng hợp, kiểm tra báo cáo tháng, quý, năm', 'Quản trị: Chuẩn hóa nhiệm vụ, đối chiếu kế hoạch với kết quả',
+   'Soạn thảo văn bản: Dựng từ văn bản tương tự đã ban hành', 'Thể thức: Chuẩn trình bày mọi tệp Word, Excel',
+   'Lập KPI cá nhân: Kế hoạch, chỉ tiêu KPI theo quý', 'Tự đánh giá KPI: Chấm điểm, đề xuất mức xếp loại'],
+  'Tám kỹ năng là tám quy trình nghiệp vụ đã được viết sẵn, người dùng chỉ cần gọi tên. Bốn kỹ năng cho chu trình nhiệm vụ: kế hoạch, theo dõi công việc, '
+  'báo cáo, và quản trị. Hai kỹ năng cho văn bản: soạn thảo từ văn bản tương tự đã ban hành, và chuẩn thể thức mọi tệp Word, Excel. '
+  'Hai kỹ năng cho cá nhân: lập kế hoạch chỉ tiêu theo quý, và tự đánh giá, chấm điểm cuối quý.'),
+ ('07 trợ lý AI: Người kiểm tra thứ hai, chạy độc lập với người soạn',
+  ['Kiểm hồ sơ đơn vị: Đúng mẫu, đủ cột, đúng công thức', 'Tra cứu căn cứ: Tìm sâu trong kho văn bản, kèm hiệu lực',
+   'Quét hiệu lực, viện dẫn: Văn bản được dẫn còn hiệu lực không', 'Kiểm sản phẩm: Kiểm tra cuối trước khi giao',
+   'Xác minh minh chứng: Việc “hoàn thành” có minh chứng thật không', 'Tự học: Ghi lại điều người dùng đã sửa',
+   'Tự cải tiến: Đề xuất sửa quy tắc, chờ người duyệt', '!Trợ lý không tự sửa sản phẩm, không tự phê duyệt'],
+  'Bảy trợ lý trí tuệ nhân tạo đóng vai người kiểm tra thứ hai, chạy độc lập với người soạn. Trợ lý kiểm hồ sơ đơn vị nộp. Trợ lý tra cứu căn cứ trong kho. '
+  'Trợ lý quét hiệu lực các văn bản được viện dẫn. Trợ lý kiểm sản phẩm trước khi giao. Trợ lý xác minh minh chứng. '
+  'Và hai trợ lý tự học, tự cải tiến: ghi lại điều người dùng đã sửa, rồi đề xuất cải tiến để con người duyệt. Trợ lý không tự sửa sản phẩm, và không tự phê duyệt.'),
  ('Tiếp theo: Trình diễn trên tình huống cụ thể',
   ['Phần 1.  Tổng hợp kế hoạch công tác quý, tháng', 'Phần 2.  Xây dựng báo cáo tháng, quý', 'Phần 3.  Rà soát văn bản bằng KTC-Ra-Soat-897',
    '!Dữ liệu trình diễn là dữ liệu giả định'],
@@ -119,6 +135,20 @@ async def doc(loi, tep):
     await edge_tts.Communicate(loi, GIONG, rate=TOC_DO).save(tep)
 
 
+def doc_lai(loi, tep, lan=8):
+    """Dịch vụ giọng đọc đôi khi không trả âm thanh — thử lại; cảnh đã có tệp tiếng cùng lời thì dùng lại."""
+    import time
+    dau = tep + '.txt'
+    if os.path.exists(tep) and os.path.getsize(tep) > 1000 and os.path.exists(dau) and open(dau, encoding='utf-8').read() == loi:
+        return
+    for i in range(lan):
+        try:
+            asyncio.run(doc(loi, tep)); open(dau, 'w', encoding='utf-8').write(loi); return
+        except Exception as e:
+            print('   thử lại giọng đọc', i + 1, type(e).__name__); time.sleep(3)
+    raise SystemExit('Không tạo được giọng đọc: ' + tep)
+
+
 def main():
     os.makedirs(TAM, exist_ok=True)
     ff = imageio_ffmpeg.get_ffmpeg_exe()
@@ -126,7 +156,7 @@ def main():
     for i, (td, dong, loi) in enumerate(CANH, 1):
         png, mp3, mp4 = (os.path.join(TAM, f'c{i:02d}.{x}') for x in ('png', 'mp3', 'mp4'))
         ve(i, td, dong, png)
-        asyncio.run(doc(loi, mp3))
+        doc_lai(loi, mp3)
         # hình tĩnh + lời đọc, thêm 0,7 giây lặng cuối cảnh
         subprocess.run([ff, '-y', '-loglevel', 'error', '-loop', '1', '-i', png, '-i', mp3, '-af', 'apad=pad_dur=0.7', '-shortest',
                         '-c:v', 'libx264', '-tune', 'stillimage', '-pix_fmt', 'yuv420p', '-r', '25', '-c:a', 'aac', '-b:a', '160k',
