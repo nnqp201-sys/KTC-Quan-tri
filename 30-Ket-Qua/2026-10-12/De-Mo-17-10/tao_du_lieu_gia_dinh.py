@@ -552,7 +552,25 @@ Không cài lỗi. Dùng để: (a) liệt kê văn bản chỉ đạo, kế ho�
 
 Lưu ý thêm: Phòng Tổ chức cán bộ báo cáo "Trình ban hành Kế hoạch tuyển dụng" là đã trình, chưa ban hành (tỷ lệ chất lượng, tiến độ 75%); Phòng Nghiệp vụ 1 thẩm định 12/14 hồ sơ; chữ ký số 10/12.
 
-## D4 — Hai dự thảo cài 10 lỗi
+## D4 — Tệp chính: Dự thảo Chương trình công tác tháng 10/2026 (văn bản Đảng, đã ẩn danh)
+
+Tệp `Du-thao_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` ẩn danh từ một dự thảo thật: Tên tỉnh đổi thành "tỉnh A",
+tên người ký thành "Nguyễn Văn A", số ký hiệu văn bản của địa phương đã đổi (giữ nguyên kiểu ký hiệu), thuộc tính tệp đã thay; định dạng
+giữ nguyên từng thông số. Số ký hiệu văn bản của Trung ương giữ nguyên. **Không cài thêm lỗi** — mọi phát hiện là của chính dự thảo.
+
+Kết quả chạy trước (Hệ KTC-Ra-Soat-897 v2.25, hệ quy chiếu B — văn bản Đảng, ngày 11/10/2026, đã ẩn danh tương ứng):
+`../Ket-qua-chay-truoc/BaoCao_RaSoat-897-v2.25_Chuong-trinh-cong-tac-thang-10-2026_van-ban-Dang_an-danh.docx` — **26 phát hiện: 0 Mức 1,
+06 Mức 2, 15 Mức 3, 05 Mức 4**; kết luận "Cần chỉnh sửa trước khi trình ký". Sáu phát hiện Mức 2 nên nêu khi trình diễn:
+(1) Chương trình của Đảng ủy nhưng mang ký hiệu "/TU"; (2) số Kết luận bất thường so với chuỗi số của Đảng ủy; (3) Quy chế viện dẫn
+thiếu tên, ngày, cơ quan ban hành; (4) câu Mục I.1 dài, nhiều chủ thể; (5) Mục II thiếu "Thời gian trình"; (6) căn cứ cuối kết thúc
+bằng dấu chấm phẩy. Đã đo lại trên bản ẩn danh ngày 12/10/2026: 08 phát hiện thể thức đều khớp (lề 20/20/30/15 mm; tên loại cỡ 14;
+thụt đầu dòng 12,5 - 12,7 - 10,39 mm; số trang cách mép 12,7 mm; ký tự thừa sau dòng "Lưu"; mục Nơi nhận bị ngắt đoạn; kiểu Heading 1 ở
+"T/M BAN THƯỜNG VỤ"; dấu chấm phẩy ở căn cứ cuối).
+
+Lưu ý khi trình diễn: Hệ rà soát áp Hướng dẫn về thể thức văn bản của Đảng, **không áp Nghị định số 30/2020/NĐ-CP** và không áp quy ước
+riêng của Trường cho văn bản này; các viện dẫn văn bản của địa phương được ghi "chưa xác minh" vì không có trong kho của Trường.
+
+## D4 — Dự phòng: Hai dự thảo văn bản hành chính cài 10 lỗi
 
 **Dự thảo Công văn đôn đốc (05 lỗi)**
 
@@ -589,7 +607,7 @@ Phòng Thông tin - Chuyển đổi số) là giả định; mọi tên người
 | `D1-Ke-hoach-quy-IV-2026/` | 06 tệp dự thảo kế hoạch quý IV/2026 của các đơn vị (khuôn Phụ lục Ia) | Phần 1 |
 | `D2-He-thong-QLVB/` | 01 tệp xuất danh mục văn bản từ Hệ thống quản lý văn bản và điều hành | Phần 1, Phần 2 |
 | `D3-Bao-cao-thang-9-2026/` | Kế hoạch tháng 9 của cơ quan; 06 báo cáo tháng 9 của đơn vị (khuôn Phụ lục IIb); báo cáo tháng 8 của cơ quan | Phần 2 |
-| `D4-Du-thao-can-ra-soat/` | 01 dự thảo công văn, 01 dự thảo kế hoạch chuyên đề | Phần 3 |
+| `D4-Du-thao-can-ra-soat/` | **Tệp chính của Phần 3:** 01 dự thảo Chương trình công tác tháng 10/2026 của Ban Thường vụ Đảng ủy (văn bản Đảng, hệ quy chiếu B, đã ẩn danh từ một dự thảo thật). Dự phòng: 01 dự thảo công văn, 01 dự thảo kế hoạch chuyên đề (văn bản hành chính, cài 10 lỗi) | Phần 3 |
 | `_Dap-an-KHONG-dua-vao-cong-cu/` | Danh sách chi tiết cài sẵn — chỉ người trình bày xem | — |
 
 Cột Ghi chú giữ giá trị chuẩn của khuôn mẫu (“Đưa vào KH Trường” = đưa vào kế hoạch của cơ quan) để công cụ lọc đúng.
