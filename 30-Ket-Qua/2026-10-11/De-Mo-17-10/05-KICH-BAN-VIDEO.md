@@ -1,6 +1,6 @@
 # Kịch bản video minh họa — buổi làm việc ngày 17/10/2026
 
-Hai video, khớp Phương án bản 3 (mục 3 và mục 5). Quan điểm: Chỉ quay những việc công cụ làm tốt, có sản phẩm thật. Khung hình 1920×1080, chữ tối thiểu cỡ 32 để đọc được trên máy chiếu
+Hai video, khớp Phương án bản 5 (mục 3 và mục 5). Quan điểm: Chỉ quay những việc công cụ làm tốt, có sản phẩm thật. Khung hình 1920×1080, chữ tối thiểu cỡ 32 để đọc được trên máy chiếu
 hội trường; mọi màn hình có dòng nhỏ góc dưới: **"Dữ liệu giả định phục vụ trình diễn"** (trừ cảnh giới thiệu kho, chỉ
 quay cây thư mục và 01 tệp mô tả văn bản đã công khai).
 
@@ -48,12 +48,12 @@ Mỗi cảnh: anh quay màn hình khi chạy lệnh trên Cowork; em lồng lờ
 | 2.5 | Đối chiếu kế hoạch với kết quả, gợi ý minh chứng từ D2 | "Đối chiếu kế hoạch tháng với báo cáo; nhiệm vụ nào chưa có thông tin; văn bản nào có thể là minh chứng" | Ghi "chưa có thông tin", không kết luận "chưa làm" |
 | 2.6 (nói nhanh) | Hỏi nhanh phục vụ giao ban | "Đơn vị nào còn nhiệm vụ tồn đọng, vướng mắc gì?" | Câu trả lời dẫn dòng dữ liệu |
 | 2.7 (nói nhanh) | Hai sản phẩm soạn thảo thực tế đã lược thông tin | Mở tệp | Dựng từ văn bản đã ban hành |
-| 2.8 **(trọng tâm Phần 3)** | Rà soát D4 bằng KTC-Ra-Soat-897 bản 2.25; mở thư mục hệ | "Rà soát chính thức dự thảo này theo KTC-Ra-Soat-897" | Chọn hệ quy chiếu; đo thể thức; quét hiệu lực căn cứ; báo cáo 08 phần, 04 mức |
+| 2.8 **(trọng tâm Phần 3)** | Rà soát dự thảo **văn bản của Đảng** trong D4 (Chương trình công tác tháng 10 của Ban Thường vụ Đảng ủy UBND phường XYZ, đã ẩn danh) bằng KTC-Ra-Soat-897 bản 2.25; mở thư mục hệ | "Rà soát chính thức dự thảo này theo KTC-Ra-Soat-897. Đây là văn bản của cơ quan khác, không áp quy ước riêng của Trường" | Công cụ tự nhận ra văn bản của Đảng, áp Hướng dẫn 05-HD/VPTW, không áp Nghị định 30; đo thể thức trên tệp; báo cáo 08 phần: 25 phát hiện, 0 Mức 1, 07 Mức 2 (kết quả chạy trước ở `Ket-qua-chay-truoc/`) |
 | 2.9 | Văn bản có dấu vết thay đổi; bảng kiểm thử 24/30 | Mở tệp | Người duyệt thấy từng chỗ sửa |
 
 Lời đọc Video 2 em viết sau khi có bộ dữ liệu giả định và bản quay thật, để lời khớp đúng hình.
 
 ## Lịch
 
-13/10 bộ dữ liệu giả định · 14/10 anh quay Video 2 (khoảng 60 phút) · 14/10 em dựng Video 1 · 15/10 em ghép Video 2, anh duyệt
+12/10 bộ dữ liệu giả định, văn bản Đảng ẩn danh, báo cáo rà soát chạy trước (đã xong, tại `30-Ket-Qua/2026-10-12/De-Mo-17-10/`) · 13/10 chạy thử trên Cowork · 14/10 anh quay phần đầu 04 thao tác · Video 1 đã dựng bản 1 · 15/10 em ghép Video 2, anh duyệt
 · 16/10 chiếu thử trên máy chiếu Hội trường 24-10.
