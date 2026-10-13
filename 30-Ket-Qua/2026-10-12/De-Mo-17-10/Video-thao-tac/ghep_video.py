@@ -20,13 +20,13 @@ def do_dai(tep):
 # Đoạn giữ lại của từng tệp quay: [bắt đầu (giây), kết thúc (giây), tốc độ]. Không khai thì lấy từ đầu, tối đa 45 giây.
 # Bản quay ngày 12/10/2026: Bỏ hộp thoại chọn thư mục (lộ tên tài khoản, thư mục cá nhân), bỏ cửa sổ Word hướng dẫn,
 # bỏ đoạn mở trình đơn ở cuối; tua nhanh đoạn gõ phím.
-# Phần tử thứ tư: Tỷ lệ chiều rộng bên trái cần làm mờ khung hình (khung điều hướng của hộp thoại chọn thư mục có tên tài khoản Drive).
-# Bản 13/10/2026: Thêm lại đoạn trỏ thư mục trong D:\.00. DE MO 17-10 (đã làm mờ) và nối ảnh tệp kết quả (anh_kq/, do anh_ket_qua.py tạo).
+# Phần tử thứ tư (nếu có): Tỷ lệ chiều rộng bên trái cần làm mờ. Bản 13/10/2026 (lần 2): Không làm mờ (người dùng cho phép
+# hiện địa chỉ thư); thêm lại đoạn trỏ thư mục và ảnh tệp kết quả (anh_kq/); tốc độ đặt cho hình khớp lời thuyết minh.
 CAT = {
-    'T1': [[12.0, 22.0, 1.6, 0.22], [34.0, 46.0, 1.6, 0.22], [48.5, 93.0, 4.0], [93.0, 126.8, 1.0]],  # trỏ 2 thư mục -> gõ lệnh -> làm việc
-    'T2': [[8.0, 18.0, 1.4, 0.34], [26.0, 85.4, 1.4]],                         # trỏ thư mục D2 -> dán lệnh -> đọc tệp
-    'T3': [[6.0, 15.0, 1.3, 0.34], [19.0, 62.0, 1.0]],                         # trỏ thư mục D3 -> dán lệnh -> làm việc
-    'T4': [[6.0, 12.0, 1.0, 0.34], [26.0, 88.2, 1.45]],                        # trỏ thư mục D4 -> gọi kỹ năng rà soát -> làm việc
+    'T1': [[12.0, 22.0, 2.5], [34.0, 46.0, 2.5], [48.5, 93.0, 6.0], [93.0, 126.8, 1.6]],  # trỏ 2 thư mục -> gõ lệnh -> làm việc
+    'T2': [[8.0, 18.0, 2.0], [26.0, 85.4, 2.1]],                          # trỏ thư mục D2 -> dán lệnh -> đọc tệp
+    'T3': [[6.0, 15.0, 1.8], [19.0, 62.0, 1.45]],                         # trỏ thư mục D3 -> dán lệnh -> làm việc
+    'T4': [[6.0, 12.0, 1.5], [26.0, 88.2, 2.4]],                          # trỏ thư mục D4 -> gọi kỹ năng rà soát -> làm việc
 }
 GIAY_ANH = 6.0   # mỗi ảnh kết quả hiện 6 giây
 
@@ -44,7 +44,7 @@ def main():
         doan = CAT.get(ma) or [[0.0, min(do_dai(quay[0]), 45.0), 1.0]]
         anh = sorted(glob.glob(os.path.join(D, 'anh_kq', ma + '_*.png')))
         hinh = sum((x[1] - x[0]) / x[2] for x in doan)
-        dai = max(loi + 1.0, hinh) + GIAY_ANH * len(anh)
+        dai = max(loi + 1.0, hinh + GIAY_ANH * len(anh))
         ra = os.path.join(D, 'xuat', os.path.basename(mp3)[:-4] + '.mp4')
         chuan = "fps=25,scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:white,setsar=1"
         cat = ''
@@ -52,12 +52,11 @@ def main():
             a, b, v = x[:3]
             cat += f"[0:v]trim=start={a}:end={b},setpts=(PTS-STARTPTS)/{v},{chuan}"
             cat += (f",split[g{k}][h{k}];[h{k}]crop=iw*{x[3]}:ih:0:0,boxblur=30:5[m{k}];[g{k}][m{k}]overlay=0:0[s{k}];" if len(x) > 3 and x[3] else f"[s{k}];")
-        # Đoạn quay ngắn hơn lời đọc: Giữ khung hình cuối cho hết lời, rồi mới tới ảnh kết quả.
-        thua = max(loi + 1.0 - hinh, 0)
-        cat += ''.join(f'[s{k}]' for k in range(len(doan))) + f'concat=n={len(doan)}:v=1:a=0,tpad=stop_mode=clone:stop_duration={thua:.2f}[q];'
+        # Lời dài hơn hình: Giữ khung cuối của ảnh kết quả (tpad ở cuối chuỗi lọc).
+        cat += ''.join(f'[s{k}]' for k in range(len(doan))) + f'concat=n={len(doan)}:v=1:a=0[q];'
         cat += ''.join(f"[{j + 2}:v]{chuan},trim=duration={GIAY_ANH}[r{j}];" for j in range(len(anh)))
         noi = '[q]' + ''.join(f'[r{j}]' for j in range(len(anh))) + f'concat=n={len(anh) + 1}:v=1:a=0[c];'
-        loc = (cat + noi + "[c]tpad=stop_mode=clone:stop_duration=5,"
+        loc = (cat + noi + "[c]tpad=stop_mode=clone:stop_duration=60,"
                r"drawtext=fontfile='C\:/Windows/Fonts/arial.ttf':textfile='_chu.txt':fontsize=30:fontcolor=white:"
                "box=1:boxcolor=black@0.55:boxborderw=12:x=w-tw-40:y=h-th-36[v]")
         vao = sum((['-loop', '1', '-framerate', '25', '-t', str(GIAY_ANH), '-i', x] for x in anh), [])
