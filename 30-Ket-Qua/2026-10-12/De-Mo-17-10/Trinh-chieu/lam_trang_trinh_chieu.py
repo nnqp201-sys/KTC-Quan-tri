@@ -46,7 +46,7 @@ TRANG = [
   ['(1) Thông tin, dữ liệu đầu vào: Nghị quyết, quy định, quy chế, chương trình, kế hoạch, quy trình…',
    '(2) Yêu cầu sản phẩm đầu ra: Biểu mẫu, dữ liệu, thể thức, sản phẩm TỐT đã có…',
    '(3) Phần xử lý (kỹ thuật, công cụ, phương pháp…): Đã có AI và con người hỗ trợ']),
- ('Trân trọng cảm ơn', ['Phần thảo luận: Đoàn công tác có thể đề nghị chạy trực tiếp 01 thao tác', '!Dữ liệu trình diễn là dữ liệu giả định; văn bản rà soát đã ẩn danh']),
+ ('Trân trọng cảm ơn', ['Xin trân trọng cảm ơn các đồng chí đã quan tâm theo dõi', '!Kính chúc các đồng chí sức khỏe, hạnh phúc và thành công']),
 ]
 
 V.CANH = TRANG      # để đánh số trang i/n

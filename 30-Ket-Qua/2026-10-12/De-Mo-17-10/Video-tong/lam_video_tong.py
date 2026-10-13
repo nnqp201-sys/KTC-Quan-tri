@@ -13,6 +13,7 @@ BAN = os.path.abspath(sys.argv[1])
 TAM = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(BAN, '..', 'Video-tong', '_tam')
 os.makedirs(TAM, exist_ok=True)
 TRANG = os.path.join(D, '..', 'Trinh-chieu', 'trang')
+QUAY = os.path.join(BAN, '..', 'Video-thao-tac', 'quay')   # đoạn quay kết quả thật T5.* (không đưa vào git)
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 GIONG = {'nu': ('vi-VN-HoaiMyNeural', '-4%'), 'nam': ('vi-VN-NamMinhNeural', '+0%')}
 XANH, VANG, NHAT = (13, 59, 102), (255, 213, 74), (232, 240, 249)
@@ -25,8 +26,8 @@ MO = 0.4   # giây mờ dần đầu, cuối mỗi cảnh
 KB = [
  ('the', '17/10/2026', 'Ứng dụng trí tuệ nhân tạo trong công tác tham mưu, tổng hợp', 'Trường Cao đẳng Kon Tum  ·  Phòng Tổng hợp - Hành chính và Quản trị',
   [('nam', 'Kính thưa các đồng chí. Đây là phần trình bày của Phòng Tổng hợp, Hành chính và Quản trị, Trường Cao đẳng Kon Tum, về ứng dụng trí tuệ nhân tạo trong công tác tham mưu, tổng hợp.'),
-   ('nu', 'Toàn bộ dữ liệu trong phần trình diễn là dữ liệu giả định; văn bản đưa ra rà soát đã được ẩn danh.')]),
- ('trang', 1, [('nu', 'Phần trình bày gồm ba nội dung, theo đề nghị của Đoàn công tác. Một, quản lý, theo dõi, đôn đốc nhiệm vụ, qua việc tổng hợp kế hoạch công tác quý. '
+   ('nu', 'Ba phần đầu dùng dữ liệu giả định để trình diễn thao tác. Phần thứ tư là kết quả thật, đã thực hiện tại Trường trong thời gian qua.')]),
+ ('trang', 1, [('nu', 'Phần trình bày gồm ba nội dung theo đề nghị của Đoàn công tác, và một phần kết quả thực tế tại Trường. Một, quản lý, theo dõi, đôn đốc nhiệm vụ, qua việc tổng hợp kế hoạch công tác quý. '
                       'Hai, tổng hợp số liệu, xây dựng báo cáo tháng. Ba, soạn thảo và rà soát văn bản.')]),
  ('trang', 2, [('nam', 'Trước khi vào từng phần, xin nêu ba nguyên tắc sử dụng.'),
                ('nu', 'Thứ nhất, công cụ chỉ đọc, đối chiếu và dự thảo; người có thẩm quyền mới là người quyết định. Thứ hai, mọi kết quả phải truy được về văn bản nguồn, dữ liệu nguồn. '
@@ -62,9 +63,6 @@ KB = [
          'Có. Công cụ chưa nhận ra hai đơn vị cùng báo cáo một kết quả. Lượt chạy đầy đủ, có thêm dữ liệu đối chiếu, mới bắt được điểm này.'),
  ('the', 'PHẦN 3', 'Soạn thảo, rà soát văn bản trước khi trình ký', 'Hệ rà soát dùng chung KTC-Ra-Soat-897',
   [('nam', 'Phần ba: soạn thảo và rà soát văn bản trước khi trình ký.')]),
- ('trang', 8, [('nu', 'Trước hết là vài kinh nghiệm thực tế tại phòng. Thông báo kết luận được ráp ngay khi cuộc họp đang diễn ra. '
-                      'Một quyết định đi từ tra cứu đến khi ký khoảng mười ngày, và chính người có nghiệp vụ đã bắt được hai lỗi căn cứ của công cụ. '
-                      'Có đợt sửa một trăm ba mươi hai vị trí trong bốn văn bản, đều để lại dấu vết cho người duyệt xem từng chỗ.')]),
  ('trang', 6, [('nam', 'Bây giờ là rà soát văn bản trước khi trình ký.'),
                ('nu', 'Văn bản đưa vào rà soát là một dự thảo văn bản của Đảng, đã đổi tên cơ quan để ẩn danh. Công cụ tự nhận ra đây là văn bản của Đảng, '
                       'nên áp Hướng dẫn số 05 của Văn phòng Trung ương, không áp Nghị định 30.')]),
@@ -75,6 +73,52 @@ KB = [
  ('trang', 7, [('nu', 'Bộ công cụ công khai cả giới hạn của mình. Kiểm thử định kỳ trên tệp cài sẵn ba mươi lỗi: phát hiện đúng hai mươi bốn, sai mức hai, bỏ sót bốn. '
                       'Ô người kiểm tra luôn là người thật; công cụ không tự phê duyệt.'),
                ('nam', 'Và còn vấn đề mức một thì không trình ký.')]),
+ ('the', 'PHẦN 4', 'Kết quả thực tế tại Trường trong thời gian qua', 'Sản phẩm thật  ·  Văn bản thật  ·  Người thật kiểm tra',
+  [('nam', 'Phần bốn: kết quả thực tế tại Trường trong thời gian qua.')]),
+ ('trang', 8, [('nu', 'Trước hết là vài kinh nghiệm thực tế tại phòng. Thông báo kết luận được ráp ngay khi cuộc họp đang diễn ra. '
+                      'Một quyết định đi từ tra cứu đến khi ký khoảng mười ngày, và chính người có nghiệp vụ đã bắt được hai lỗi căn cứ của công cụ.'),
+               ('nam', 'Có đợt sửa một trăm ba mươi hai vị trí trong bốn văn bản, đều để lại dấu vết cho người duyệt xem từng chỗ. Sau đây là từng việc cụ thể.')]),
+ ('thucte', 'T5.0-Plus-Thuc-chien-thoi-gian-qua.mp4',
+  [('nam', 'Từ đây là kết quả thật, không còn là dữ liệu giả định.'),
+   ('nu', 'Trên màn hình là các phiên làm việc của Phòng trong bộ công cụ: báo cáo và kế hoạch tháng, kế hoạch quý, rà soát văn bản, các đề án, đánh giá KPI cá nhân.'),
+   ('nam', 'Mỗi phiên là một việc thật, có sản phẩm cụ thể.')]),
+ ('thucte', 'T5.1-Plus-Bao-cao-ke-hoach-thang.mp4',
+  [('nam', 'Việc thứ nhất: báo cáo kết quả công tác tháng chín và kế hoạch công tác tháng mười của Trường.'),
+   ('nu', 'Người dùng chỉ giao một câu: từ báo cáo các đơn vị đã nộp, hoàn thiện hai sản phẩm theo mẫu của Thông báo 736, gồm tệp Word và tệp Excel.'),
+   ('nam', 'Công cụ đọc ghi nhớ của các phiên trước, đọc dữ liệu tháng chín của từng đơn vị, và tra kho dữ liệu nền để tìm kế hoạch đã ban hành.'),
+   ('nu', 'Sản phẩm thứ nhất là dự thảo báo cáo gửi Ủy ban nhân dân tỉnh, đúng thể thức, viết theo sáu trục, có số và ngày của từng văn bản làm minh chứng.'),
+   ('nam', 'Sản phẩm thứ hai là phụ lục kết quả tháng chín. Cột bên phải là ghi chú đối soát: chỗ nào đơn vị nộp thiếu, chỗ nào cần xác nhận lại.'),
+   ('nu', 'Sản phẩm thứ ba là kế hoạch tháng mười. Mỗi nhiệm vụ đều ghi nguồn: lấy từ chương trình công tác năm, hay từ đề xuất của phòng nào.')]),
+ ('thucte', 'T5.2-Plus-ra-soat-ke-hoach-co-san.mp4',
+  [('nu', 'Việc thứ hai: rà soát một kế hoạch đã có sẵn, là kế hoạch công tác quý bốn của Trường.'),
+   ('nam', 'Người dùng đưa tệp Excel và yêu cầu: kiểm tra, rà soát, đề xuất chỉnh sửa, ghi chú ngay trong tệp để người dùng tự kiểm soát.'),
+   ('nu', 'Công cụ đối chiếu với kho dữ liệu nền, và phát hiện phần căn cứ ghi sai số hiệu một quyết định: ghi một hai chín chín, trong khi văn bản gốc là một hai hai chín.'),
+   ('nam', 'Ghi chú nằm ở cột bên phải, tô màu theo mức độ. Công cụ không sửa trực tiếp vào dữ liệu gốc của người dùng.')]),
+ ('thucte', 'T5.3-Plus-Soan-thao-van-ban.mp4',
+  [('nam', 'Việc thứ ba: soạn thảo văn bản. Lãnh đạo Trường yêu cầu xây dựng kế hoạch tổ chức cuộc họp bàn biện pháp nâng cao hiệu quả hoạt động của Phòng khám Đa khoa và Nhà thuốc.'),
+   ('nu', 'Người dùng đưa thông báo giao việc và vài văn bản cũ để tham khảo. Công cụ tìm thông báo đó trong kho, rồi dựng kế hoạch từ một kế hoạch tương tự đã ban hành.'),
+   ('nam', 'Khi người dùng bổ sung mục tiêu và thành phần họp, công cụ đối chiếu từng ý với dự thảo; ý nào đã có thì không chép trùng.'),
+   ('nu', 'Dự thảo được rà soát ngay bằng hệ rà soát 897, chỉ ra những điểm cần sửa trước khi trình ký.'),
+   ('nam', 'Đến ngày họp, ngay khi cuộc họp đang diễn ra, người dùng nhập các ý chỉ đạo, kết luận. Công cụ dựng luôn thông báo kết luận, theo mẫu thông báo đã ban hành.'),
+   ('nu', 'Những chỗ còn chờ ý kiến kết luận của Hiệu trưởng được tô vàng, để không ai nhầm là đã chốt. Khi cần sửa, công cụ sửa có ghi dấu vết, người duyệt xem được từng chỗ thay đổi.')]),
+ ('thucte', 'T5.4-plus-Soan-bao-cao-tiep-thu-giai-trinh.mp4',
+  [('nu', 'Việc thứ tư: báo cáo tiếp thu, giải trình ý kiến của các sở, ngành về Đề án thành lập Trung tâm Đăng kiểm xe cơ giới.'),
+   ('nam', 'Công cụ đọc từng ý kiến, đối chiếu căn cứ pháp lý trong kho dữ liệu nền, và tra thêm nguồn chính thống trên mạng để kiểm tra văn bản mới ban hành.'),
+   ('nu', 'Kết quả là dự thảo báo cáo mười một trang, dạng bảng hai cột: một bên là ý kiến của sở, ngành; một bên là nội dung tiếp thu, giải trình của Trường.'),
+   ('nam', 'Chỗ nào cần người phụ trách xác nhận, hoặc số liệu chưa có nguồn, công cụ đánh dấu và để trống, không tự đặt số.'),
+   ('nu', 'Cuối cùng, công cụ tự liệt kê những gì đã kiểm, những gì chưa kiểm, và việc nào phải do người có thẩm quyền quyết định.')]),
+ ('thucte', 'T5.5.1-Plus-trich-cong-viec-da-thuc-hien-tren-OFFICE.mp4',
+  [('nam', 'Việc thứ năm: trích công việc đã thực hiện trên Hệ thống quản lý văn bản và điều hành.'),
+   ('nu', 'Công cụ làm việc ngay trong trình duyệt, ở phiên người dùng đã đăng nhập. Yêu cầu là: trích danh mục văn bản do hai viên chức của Phòng soạn thảo, từ ngày hai mươi hai tháng sáu đến ngày hai mươi lăm tháng chín.'),
+   ('nam', 'Công cụ mở mục văn bản đã xử lý, dùng tìm kiếm nâng cao để lọc theo thời gian. Công cụ chỉ đọc, không bấm nút xử lý văn bản.'),
+   ('nu', 'Kết quả là một bảng tính sáu mươi văn bản, có số ký hiệu, loại văn bản, trích yếu, ngày ban hành và người soạn.'),
+   ('nam', 'Trang tổng hợp đếm theo người soạn và theo loại văn bản: mười lăm báo cáo, mười ba quyết định, mười kế hoạch, mười công văn.')]),
+ ('thucte', 'T5.5.2-plus-danh-gia-kpi-ca-nhan.mp4',
+  [('nu', 'Việc cuối cùng: tự đánh giá KPI cá nhân quý ba, dùng chính bảng sáu mươi văn bản vừa trích.'),
+   ('nam', 'Công cụ xếp từng văn bản vào các trục kết quả. Gặp một chỉ tiêu chưa có sản phẩm đầu ra, công cụ dừng lại hỏi người dùng, không tự điền.'),
+   ('nu', 'Sau đó công cụ lập bảng hỏi tự đánh giá; người dùng chỉ điền vào các ô nền vàng. Phần A là nhóm tiêu chí chung, ba mươi điểm.'),
+   ('nam', 'Phần B là từng chỉ tiêu: số lượng, chất lượng, tiến độ, kèm nguồn minh chứng là số văn bản trên hệ thống. Phần C là các điều kiện xếp loại, mỗi câu ghi rõ căn cứ trong quy chế.'),
+   ('nu', 'Từ bảng hỏi, công cụ điền vào bản tự đánh giá, xếp loại cá nhân đúng mẫu. Kết quả chỉ là đề xuất của cá nhân; người quyết định vẫn là Trưởng đơn vị và Hiệu trưởng.')]),
  ('the', 'KẾT THÚC', 'Đề xuất để bắt đầu', 'Bắt đầu nhỏ  ·  Làm thật  ·  Có người kiểm tra',
   [('nam', 'Phần cuối: đề xuất để bắt đầu.')]),
  ('trang', 9, [('nu', 'Thứ nhất, lập kho dữ liệu nền trước: văn bản chỉ đạo còn hiệu lực, quy chế, chương trình công tác, văn bản tốt, mẫu văn bản của Đảng. '
@@ -84,8 +128,8 @@ KB = [
                 ('nu', 'Một, thông tin, dữ liệu đầu vào: nghị quyết, quy định, quy chế, chương trình, kế hoạch, quy trình. '
                        'Hai, yêu cầu sản phẩm đầu ra: biểu mẫu, dữ liệu, thể thức, sản phẩm tốt đã có. '
                        'Ba, phần xử lý về kỹ thuật, công cụ, phương pháp: đã có trí tuệ nhân tạo và con người hỗ trợ.')]),
- ('trang', 11, [('nam', 'Xin trân trọng cảm ơn các đồng chí đã theo dõi.'),
-                ('nu', 'Ở phần thảo luận, Đoàn công tác có thể đề nghị chạy trực tiếp một thao tác.')]),
+ ('trang', 11, [('nam', 'Phần trình bày của Trường Cao đẳng Kon Tum xin được kết thúc tại đây. Xin trân trọng cảm ơn các đồng chí đã quan tâm theo dõi.'),
+                ('nu', 'Kính chúc các đồng chí sức khỏe, hạnh phúc và thành công. Xin trân trọng kính chào.')]),
 ]
 
 
@@ -176,6 +220,29 @@ def canh_video(so, tep):
     return ra
 
 
+def canh_thuc_te(so, tep, loi):
+    """Đoạn quay kết quả thật + lời hai giọng đọc xen kẽ. Hình chạy trọn đoạn quay (không cắt); các câu đọc giãn đều theo hình,
+    nghỉ giữa hai câu tối đa NGHI giây; tốc độ hình tự tính, không chậm hơn 1,2 lần."""
+    NGHI = 4.0
+    ra = os.path.join(TAM, f'c{so:03d}.mp3'.replace('.mp3', '.mp4'))
+    mp3 = [doc(g, l) for g, l in loi]
+    S, n, goc = sum(do_dai(m) for m in mp3), len(mp3), do_dai(tep)
+    T = min(goc / 1.2, S + n * NGHI + 0.8)
+    nghi = max((T - 0.8 - S) / n, 0.4)
+    T = S + n * nghi + 0.8
+    v = goc / (T - 0.3)
+    vao, am = [], ''
+    for i, m in enumerate(mp3):
+        vao += ['-i', m]
+        am += f"[{i + 1}:a]aresample=44100,{'adelay=500|500,' if i == 0 else ''}apad=pad_dur={nghi:.2f}[a{i}];"
+    am += ''.join(f'[a{i}]' for i in range(len(mp3))) + f"concat=n={len(mp3)}:v=0:a=1,apad=pad_dur=2,afade=t=in:d=0.2,afade=t=out:st={T - MO:.2f}:d={MO}[a];"
+    hinh = (f"[0:v]setpts=PTS/{v:.3f},fps=25,scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:white,setsar=1,"
+            f"tpad=stop_mode=clone:stop_duration=30,fade=t=in:d={MO},fade=t=out:st={T - MO:.2f}:d={MO},format=yuv420p[v]")
+    subprocess.run([FF, '-y', '-loglevel', 'error', '-i', tep] + vao + ['-filter_complex', am + hinh, '-map', '[v]', '-map', '[a]', '-t', f'{T:.2f}'] + MA + [ra], check=True)
+    print(f'      tốc độ hình {v:.2f} lần, dài {T:.0f} giây')
+    return ra
+
+
 def main():
     ds, so, moc, t = [], 0, [], 0.0
     for muc in KB:
@@ -184,6 +251,8 @@ def main():
             p = os.path.join(TAM, f'the{so:03d}.png'); the(muc[1], muc[2], muc[3], p); c = [canh_tinh(so, p, muc[4], phong=True)]; ten = f'{muc[1]}: {muc[2]}'
         elif muc[0] == 'trang':
             c = [canh_tinh(so, os.path.join(TRANG, f'trang-{muc[1]:02d}.png'), muc[2])]; ten = f'Trang trình chiếu {muc[1]}'
+        elif muc[0] == 'thucte':
+            c = [canh_thuc_te(so, os.path.join(QUAY, muc[1]), muc[2])]; ten = 'Kết quả thực tế: ' + muc[1]
         elif muc[0] == 'video':
             c = [canh_video(so, os.path.join(BAN, muc[1]))]; ten = muc[1]
         else:   # hỏi - đáp: Hiện câu hỏi (giọng nam), rồi hiện thêm câu đáp (giọng nữ)
