@@ -1,3 +1,5 @@
+> **KHÔNG DÙNG NỮA (13/10/2026):** Người phụ trách quyết định không dùng Veo 3. Toàn bộ video do Claude Code dựng (Video 1 bản 2; 04 video thao tác ghép từ bản quay thật). Tệp giữ lại để tra cứu.
+
 # Nguyên liệu giao Veo 3 — và phần nào không nên giao
 
 ## Khuyến nghị: dùng Veo 3 cho cảnh dẫn, không dùng cho nội dung

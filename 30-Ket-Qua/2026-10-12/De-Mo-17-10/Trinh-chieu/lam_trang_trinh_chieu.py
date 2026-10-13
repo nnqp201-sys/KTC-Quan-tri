@@ -29,11 +29,11 @@ TRANG = [
    '!Công cụ ghi “chưa có thông tin”, không tự kết luận “chưa làm”; báo cáo phát triển từ báo cáo kỳ trước đã ban hành']),
  ('Phần 3. Rà soát văn bản của Đảng trước khi trình ký',
   ['Tự nhận ra văn bản của Đảng: Áp Hướng dẫn số 05-HD/VPTW, không áp Nghị định số 30/2020/NĐ-CP', 'Đo thể thức trên tệp thật: Cỡ chữ, lề, thụt đầu dòng, số trang',
-   'Đối chiếu từng văn bản viện dẫn; ghi rõ phần chưa xác minh', '#25 phát hiện:  0 Mức 1  ·  07 Mức 2  ·  13 Mức 3  ·  05 Mức 4',
+   'Đối chiếu từng văn bản viện dẫn; ghi rõ phần chưa xác minh', '#Rà soát đầy đủ: 25 phát hiện  ·  chạy nhanh: 06 phát hiện',
    '!Còn vấn đề Mức 1 thì không trình ký']),
- ('Hệ rà soát công khai cả giới hạn của mình',
+ ('Công cụ công khai cả giới hạn của mình',
   ['Kiểm thử định kỳ trên tệp cài sẵn 30 lỗi', '#24 lỗi phát hiện đúng  ·  02 sai mức  ·  04 bỏ sót',
-   'Ngay trong buổi này: 01 cặp nhiệm vụ bị nghi trùng nhầm, 01 gợi ý minh chứng không đúng', '!Ô “Người kiểm tra” luôn là người thật; công cụ không tự phê duyệt']),
+   'Lượt chạy thật: 06 dòng bảng tính mất dữ liệu; 01 phát hiện rà soát sai; thiếu hồ sơ thì kết luận lệch', '!Ô “Người kiểm tra” luôn là người thật; công cụ không tự phê duyệt']),
  ('Kinh nghiệm thực tế tại phòng',
   ['Thông báo kết luận được ráp ngay trong khi cuộc họp đang diễn ra', 'Một quyết định: Từ tra cứu đến khi ký khoảng 10 ngày; người có nghiệp vụ bắt được 02 lỗi căn cứ',
    'Sửa 132 vị trí trong 04 văn bản, có dấu vết để người duyệt xem từng chỗ', 'Đọc 40 tệp của 13 đơn vị, hơn 300 nhiệm vụ, chỉ ra tệp nộp nhầm mẫu',
@@ -54,6 +54,6 @@ ra = os.path.join(D, 'trang'); os.makedirs(ra, exist_ok=True)
 anh = []
 for i, (td, dong) in enumerate(TRANG, 1):
     p = os.path.join(ra, f'trang-{i:02d}.png'); V.ve(i, td, dong, p); anh.append(Image.open(p).convert('RGB'))
-pdf = os.path.join(D, 'Trinh-chieu_Ung-dung-AI-tham-muu-tong-hop_17.10.2026_v2.pdf')
+pdf = os.path.join(D, 'Trinh-chieu_Ung-dung-AI-tham-muu-tong-hop_17.10.2026_v3.pdf')
 anh[0].save(pdf, save_all=True, append_images=anh[1:], resolution=150)
 print(len(anh), 'trang ->', pdf)
