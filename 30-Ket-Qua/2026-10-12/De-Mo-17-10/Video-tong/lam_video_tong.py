@@ -266,7 +266,9 @@ def main():
     ra = os.path.join(BAN, 'A_VIDEO-TOAN-BO_Trinh-dien-AI_17.10.2026.mp4')
     kn = os.path.join(TAM, '_khong-nhac.mp4')   # bản chưa có nhạc nền; nhạc trộn nhỏ dưới giọng đọc ở bước cuối
     subprocess.run([FF, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', kn], check=True, cwd=TAM)
-    import nhac_nen; nhac_nen.tron(kn, ra)
+    import nhac_nen
+    rieng = os.path.join(BAN, 'Nhac-nen-tai.mp3')   # nhạc không lời do người dùng cung cấp; không có thì dùng nhạc tự tổng hợp
+    nhac_nen.tron(kn, ra, 0.19, rieng) if os.path.exists(rieng) else nhac_nen.tron(kn, ra)
     open(os.path.join(BAN, 'A_VIDEO-TOAN-BO_moc-thoi-gian.txt'), 'w', encoding='utf-8').write(
         'Mốc thời gian video toàn bộ\n' + ''.join(f'{int(a) // 60:02d}:{int(a) % 60:02d}  {b}\n' for a, b in moc))
     T = do_dai(ra); print(f'→ {ra} | {int(T) // 60} phút {int(T) % 60} giây')
