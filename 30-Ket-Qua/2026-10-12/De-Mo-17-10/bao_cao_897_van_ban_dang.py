@@ -18,7 +18,7 @@ b.bang_2cot(('MỤC', 'NỘI DUNG'), [
  ('Loại văn bản, thẩm quyền', 'Chương trình (CTr). Ban thường vụ đảng ủy được ban hành chương trình theo Quy định số 399-QĐ/TW'),
  ('Quy ước riêng của Trường', 'KHÔNG áp dụng (Checklist 08, Thông báo số 597/TB-CĐKT), vì đây là văn bản của cơ quan khác'),
  ('Đo thể thức', 'Đo trực tiếp trên tệp .docx (lề, cỡ chữ từng thành phần, thụt đầu dòng, cách dòng, cách đoạn, số trang, kiểu chữ) và xem bản in thử 04 trang'),
- ('Nguồn đã đọc', 'Kho 01: Quy định số 399-QĐ/TW, Hướng dẫn số 05-HD/VPTW, Quy định số 208-QĐ/TW, Hướng dẫn số 02-HD/TW. Kho 02: Nghị quyết số 27-NQ/TW ngày 28/8/2026 (đã mở bản gốc, khớp số, ngày, cơ quan ban hành, trích yếu). Tra cứu Internet ngày 12/10/2026 (báo chí chính thống đăng lại văn bản): Nghị quyết số 26-NQ/TW ngày 22/8/2026, Kết luận số 76-KL/TW ngày 28/7/2026, Kết luận số 226-KL/TW ngày 11/12/2025 - khớp số, ngày, cơ quan ban hành, trích yếu; chưa đối chiếu toàn văn'),
+ ('Nguồn đã đọc', 'Kho 01: Quy định số 399-QĐ/TW, Hướng dẫn số 05-HD/VPTW, Quy định số 208-QĐ/TW, Hướng dẫn số 02-HD/TW. Kho 02: Nghị quyết số 26-NQ/TW ngày 22/8/2026, Nghị quyết số 27-NQ/TW ngày 28/8/2026 (đã mở bản gốc, khớp số, ngày, cơ quan ban hành, trích yếu). Tra cứu Internet ngày 12/10/2026 (báo chí chính thống đăng lại văn bản): Kết luận số 76-KL/TW ngày 28/7/2026, Kết luận số 226-KL/TW ngày 11/12/2025 - khớp số, ngày, cơ quan ban hành, trích yếu; chưa đối chiếu toàn văn'),
  ('Chưa xác minh', 'Văn bản của địa phương được viện dẫn (05-CTr/ĐU, 09-CTr/TU, 25-CTr/ĐU, 11-CTr/ĐU, 1286-KL/ĐU, 10-QC/ĐU, 87-KH/TU): Không có trong kho, số ký hiệu đã được thay khi ẩn danh nên không tra cứu được - chỉ đánh giá tính nhất quán nội tại'),
  ('Giới hạn', 'Văn bản đã ẩn danh và đổi cấp ban hành (tên cơ quan, cơ quan phối hợp là giả định) nên không đánh giá sự phù hợp của tên các cơ quan tham mưu với cơ cấu tổ chức thực tế, không thẩm định chuyên môn nội dung. Dự thảo chưa có số, ngày nên không nêu thiếu số, ngày là lỗi'),
  ('Kết quả', '0 vấn đề Mức 1; 07 Mức 2; 13 Mức 3; 05 Mức 4. Cần chỉnh sửa trước khi trình ký'),
@@ -62,7 +62,7 @@ for t in [
  'Tên loại, trích yếu: Trích yếu cỡ 14 đậm; có 05 dấu gạch nối phía dưới; phần căn cứ có gạch ngang đầu dòng.',
  'Trình bày: Khổ A4; lề trên 20 - dưới 20 - trái 30 - phải 15 mm đúng con số cố định; nội dung cỡ 14, phông Times New Roman, dàn đều hai lề; cách đoạn 6 pt; trang đầu không hiện số trang; nội dung kết thúc bằng dấu chấm.',
  'Nơi nhận: Từ “Nơi nhận” cỡ 14 có gạch chân; tên cơ quan nhận cỡ 12.',
- 'Viện dẫn văn bản của Trung ương: Nghị quyết số 27-NQ/TW khớp bản gốc trong kho; Nghị quyết số 26-NQ/TW, Kết luận số 76-KL/TW, Kết luận số 226-KL/TW khớp số, ngày, cơ quan ban hành, trích yếu theo nguồn báo chí chính thống.',
+ 'Viện dẫn văn bản của Trung ương: Nghị quyết số 26-NQ/TW, 27-NQ/TW khớp bản gốc trong kho; Kết luận số 76-KL/TW, Kết luận số 226-KL/TW khớp số, ngày, cơ quan ban hành, trích yếu theo nguồn báo chí chính thống.',
  'Bố cục 04 phần (nhiệm vụ trọng tâm; nội dung trình cấp trên; nội dung trình theo quy chế; tổ chức thực hiện) hợp lý; mỗi nội dung trình có phân công chỉ đạo, cơ quan chủ trì, cơ quan phối hợp.',
 ]:
     b.para('- ' + t)
@@ -89,7 +89,7 @@ b.para('Thứ tự xử lý: (1) Xác minh ký hiệu, số, ngày các văn b�
 b.h1('KIỂM TRA CHẤT LƯỢNG CUỐI CÙNG')
 b.para('Đã kiểm: Số phát hiện ở Phần II khớp bảng Phần IV (25 = 07 + 13 + 05); mọi phát hiện thể thức đều có số đo trên tệp; không áp Nghị định số 30/2020/NĐ-CP và quy ước riêng của Trường; không nêu thiếu số, ngày của dự thảo là lỗi; ghi rõ các viện dẫn chưa xác minh; không kết luận về loại hình tổ chức đảng của cơ quan ban hành.')
 b.thong_tin_trach_nhiem(
- 'Tệp dự thảo .docx (đọc nội dung, đo định dạng); kho KTC-Database 01, 02 (Quy định số 399-QĐ/TW, Hướng dẫn số 05-HD/VPTW, Quy định số 208-QĐ/TW, Hướng dẫn số 02-HD/TW, Nghị quyết số 27-NQ/TW); báo chí chính thống tra cứu ngày 12/10/2026 (Nghị quyết số 26-NQ/TW, Kết luận số 76-KL/TW, Kết luận số 226-KL/TW - chỉ đối chiếu số, ngày, cơ quan ban hành, trích yếu); Skill 29 và Phụ lục 2, 3, Checklist 02, 03, 04, 06 của Bộ quy tắc KTC-Ra-Soat-897 ' + ver + '.',
+ 'Tệp dự thảo .docx (đọc nội dung, đo định dạng); kho KTC-Database 01, 02 (Quy định số 399-QĐ/TW, Hướng dẫn số 05-HD/VPTW, Quy định số 208-QĐ/TW, Hướng dẫn số 02-HD/TW, Nghị quyết số 26-NQ/TW, 27-NQ/TW); báo chí chính thống tra cứu ngày 12/10/2026 (Kết luận số 76-KL/TW, Kết luận số 226-KL/TW - chỉ đối chiếu số, ngày, cơ quan ban hành, trích yếu); Skill 29 và Phụ lục 2, 3, Checklist 02, 03, 04, 06 của Bộ quy tắc KTC-Ra-Soat-897 ' + ver + '.',
  'Nguyễn Ngọc Quang Phục, Phó Trưởng phòng TH-HC&QT')
 b.footer_pages()
 b.save(RA)
