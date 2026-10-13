@@ -9,6 +9,7 @@ import edge_tts, imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFont
 sys.stdout.reconfigure(encoding='utf-8')
 D = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, D)
 BAN = os.path.abspath(sys.argv[1])
 TAM = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(BAN, '..', 'Video-tong', '_tam')
 os.makedirs(TAM, exist_ok=True)
@@ -263,7 +264,9 @@ def main():
         print(f'  {int(moc[-1][0]) // 60:02d}:{int(moc[-1][0]) % 60:02d}  {ten}')
     lst = os.path.join(TAM, 'ds.txt'); open(lst, 'w', encoding='utf-8').write(''.join(f"file '{os.path.basename(x)}'\n" for x in ds))
     ra = os.path.join(BAN, 'A_VIDEO-TOAN-BO_Trinh-dien-AI_17.10.2026.mp4')
-    subprocess.run([FF, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', ra], check=True, cwd=TAM)
+    kn = os.path.join(TAM, '_khong-nhac.mp4')   # bản chưa có nhạc nền; nhạc trộn nhỏ dưới giọng đọc ở bước cuối
+    subprocess.run([FF, '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', kn], check=True, cwd=TAM)
+    import nhac_nen; nhac_nen.tron(kn, ra)
     open(os.path.join(BAN, 'A_VIDEO-TOAN-BO_moc-thoi-gian.txt'), 'w', encoding='utf-8').write(
         'Mốc thời gian video toàn bộ\n' + ''.join(f'{int(a) // 60:02d}:{int(a) % 60:02d}  {b}\n' for a, b in moc))
     T = do_dai(ra); print(f'→ {ra} | {int(T) // 60} phút {int(T) % 60} giây')
