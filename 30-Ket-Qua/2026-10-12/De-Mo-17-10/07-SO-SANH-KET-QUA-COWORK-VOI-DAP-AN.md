@@ -15,10 +15,15 @@ và `Ket-qua-chay-truoc/`. Ký hiệu: ✓ bắt đúng · ✗ bỏ sót · ⚠ 
 | Gợi ý Kế hoạch số 330/KH-CQA cho nhiệm vụ kiểm tra chuyên môn quý IV | ✓ (đúng ngữ cảnh) | Cowork đã đọc cả D2 |
 | **Lỗi của Cowork** | ⚠ | **06 dòng bị mất dữ liệu** (1.4, 1.7, 1.10, 1.12, 2.1, 2.3): Ô nội dung bị gộp sang hết các cột, mất người chỉ đạo, đơn vị chủ trì, sản phẩm, thời hạn. Lỗi trình bày bảng tính của công cụ |
 
-## Phần 1 — Đối chiếu văn bản chỉ đạo (T2)
+## Phần 1 — Đối chiếu văn bản chỉ đạo (T2) · kết quả trong khung trò chuyện
 
-Cowork không ghi tệp; kết quả nằm trong khung trò chuyện. **Cần anh xem lại**: Có nêu 02 văn bản cấp trên giao chưa ai đăng ký không
-(Công văn số 1482/CQCT-VP — tiết kiệm, chống lãng phí, hạn 15/11; Kế hoạch số 96/KH-CQCT — sắp xếp trụ sở, hạn 30/11). Bản chạy trước bắt đủ cả 02.
+| Nội dung | Cowork | Ghi chú |
+|---|---|---|
+| Phân loại 28 văn bản: Chỉ đạo, kế hoạch năm, quý, thông báo kết luận, chuyên đề | ✓ Đầy đủ, đúng | Tự tính “hạn 20/10 chỉ còn 8 ngày”; nhận ra Công văn 341/CQA-VP là đôn đốc nộp kế hoạch quý IV — điểm hay |
+| 02 nhiệm vụ cấp trên giao chưa ai đăng ký (1482 tiết kiệm, chống lãng phí; 96 sắp xếp trụ sở) | ✓ Có trong danh sách | |
+| **⚠ Nêu thêm 07 nhiệm vụ “chưa ai nhận” nhưng thực tế ĐÃ có trong dự thảo kế hoạch D1** | ⚠ | Dự toán 2027 (1391), vị trí việc làm (1260), Chương trình công tác 2027 (1590), đối thoại (88), đánh giá cán bộ (1533), tập huấn AI (74, 102), đăng ký nhiệm vụ 6 tháng (1105) |
+| Nguyên nhân | | T2 chạy ở **cuộc hội thoại riêng**, công cụ chỉ thấy danh mục văn bản, không thấy dự thảo kế hoạch D1 — nên đối chiếu với văn bản của Cơ quan A thay vì với dự thảo kế hoạch. Công cụ đã nói rõ phạm vi (“chỉ phản ánh đúng những gì có trong danh mục”) |
+| Cách khắc phục | | Chạy T2 **trong cùng cuộc hội thoại T1** (như hướng dẫn), hoặc đưa cả thư mục D1 kèm D2. Bản chạy trước (có cả D1, D2) chỉ ra đúng 02 nhiệm vụ |
 
 ## Phần 2 — Báo cáo tháng 9 (T3) · `00_Bao-cao-thang-9-2026_Co-quan-A_du-thao.docx` + `00_Phu-luc-doi-chieu-KH-KQ-thang-9-2026.xlsx`
 
