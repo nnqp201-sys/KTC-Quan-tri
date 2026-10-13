@@ -3,7 +3,7 @@
 Cách dùng: đặt tệp quay vào thư mục quay/ với tên T1.mp4, T2.mp4, T3.mp4, T4.mp4 (hoặc .mkv, .mov) rồi chạy:  python ghep_video.py
 Kết quả: xuat/T1_...mp4 …  Video ngắn hơn lời đọc thì giữ khung hình cuối đến hết lời; dài hơn thì giữ tối đa 45 giây.
 Tiếng gốc của đoạn quay bị bỏ. Khung hình đưa về 1920x1080."""
-import glob, os, subprocess, sys
+import glob, json, os, subprocess, sys
 import imageio_ffmpeg
 sys.stdout.reconfigure(encoding='utf-8')
 D = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +34,7 @@ GIAY_ANH = 6.0   # mỗi ảnh kết quả hiện 6 giây
 def main():
     os.makedirs(os.path.join(D, 'xuat'), exist_ok=True)
     chu = os.path.join(D, 'xuat', '_chu.txt'); open(chu, 'w', encoding='utf-8').write(CHU)
-    n = 0
+    n = 0; moc = {}
     for mp3 in sorted(glob.glob(os.path.join(D, 'T?_*.mp3'))):
         ma = os.path.basename(mp3)[:2]
         quay = [x for x in glob.glob(os.path.join(D, 'quay', ma + '.*')) if x.lower().endswith(('.mp4', '.mkv', '.mov', '.webm'))]
@@ -62,7 +62,7 @@ def main():
         cat += ''.join(f'[s{k}]' for k in range(len(doan))) + f'concat=n={len(doan)}:v=1:a=0,tpad=stop_mode=clone:stop_duration={max(hinh - hq, 0):.2f}[q];'
         for j, t in enumerate(t_anh):
             if loi_anh[j]:
-                cat += (f"[{j + 2}:v]fps=25,scale=1920:-2,crop=1920:1080:0:'(ih-1080)*min(t/{t:.2f},1)',setsar=1,trim=duration={t:.2f}[r{j}];")
+                cat += (f"[{j + 2}:v]fps=25,scale=1660:-2,pad=1920:'max(ih,1080)':0:0:white,crop=1920:1080:0:'(ih-1080)*min(t/{t:.2f},1)',setsar=1,trim=duration={t:.2f}[r{j}];")
             else:
                 cat += f"[{j + 2}:v]{chuan},trim=duration={t:.2f}[r{j}];"
         noi = '[q]' + ''.join(f'[r{j}]' for j in range(len(anh))) + f'concat=n={len(anh) + 1}:v=1:a=0[c];'
@@ -84,7 +84,9 @@ def main():
         subprocess.run([FF, '-y', '-loglevel', 'error', '-i', quay[0], '-i', mp3] + vao + ['-filter_complex', am + loc, '-map', '[v]', '-map', '[am]' if am else '1:a']
                        + ([] if am else ['-af', 'apad=pad_dur=200']) + ['-t', f'{dai:.2f}', '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k', ra],
                        check=True, cwd=os.path.join(D, 'xuat'))
+        moc[ma] = round(hinh, 2) if any(loi_anh) else None   # giây bắt đầu phần trang kết quả
         print(f'{ma}: giữ {len(doan)} đoạn = {hinh:.0f} giây hình, lời đọc {loi:.0f} giây -> {os.path.basename(ra)} ({do_dai(ra):.0f} giây)'); n += 1
+    json.dump(moc, open(os.path.join(D, 'xuat', 'moc.json'), 'w'))
     print(f'Đã ghép {n} đoạn. Chiếu thử trước khi dùng.')
 
 

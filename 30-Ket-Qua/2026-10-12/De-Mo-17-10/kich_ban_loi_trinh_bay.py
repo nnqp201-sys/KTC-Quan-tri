@@ -37,7 +37,7 @@ PHAN = [
  ('MỞ ĐẦU (05 phút: 08 giờ 40 - 08 giờ 45)', [
   ['00:00', 'Trang trình chiếu 1', 'Kính thưa các đồng chí. Phòng TH-HC&QT xin trình bày 03 nội dung theo đề nghị của Đoàn: Tổng hợp kế hoạch; xây dựng báo cáo; soạn thảo, rà soát văn bản.'],
   ['00:30', 'Trang trình chiếu 2', 'Ba nguyên tắc: Công cụ đọc, đối chiếu, dự thảo - người có thẩm quyền quyết định; mọi kết quả truy được về nguồn; không đưa tài liệu mật vào công cụ.'],
-  ['01:00', 'Video 1 (03 phút 42 giây)', 'Không nói - để video chạy. Video giới thiệu kho dữ liệu nền, hệ rà soát 897, bộ công cụ KTC-Quan-tri với 08 kỹ năng, 07 trợ lý AI.'],
+  ['01:00', 'Video 1 (03 phút 44 giây)', 'Không nói - để video chạy. Video giới thiệu kho dữ liệu nền, hệ rà soát 897, bộ công cụ KTC-Quan-tri với 08 kỹ năng, 07 trợ lý AI.'],
  ]),
  ('PHẦN 1. TỔNG HỢP KẾ HOẠCH CÔNG TÁC QUÝ (08 phút: 08 giờ 45 - 08 giờ 53)', [
   ['00:00', 'Trang trình chiếu 3', 'Tình huống: Bộ phận tổng hợp nhận dự thảo kế hoạch quý IV của 06 đơn vị, 60 nhiệm vụ. Dữ liệu là giả định.'],
@@ -58,7 +58,7 @@ PHAN = [
  ]),
  ('PHẦN 3. SOẠN THẢO, RÀ SOÁT VĂN BẢN (08 phút: 09 giờ 00 - 09 giờ 08)', [
   ['00:00', 'Trang trình chiếu 8', 'Nói nhanh: Soạn từ văn bản tương tự đã ban hành, không từ mẫu trống; một quyết định đi từ tra cứu đến khi ký khoảng 10 ngày, người có nghiệp vụ bắt được 02 lỗi căn cứ của công cụ.'],
-  ['02:00', 'Trang trình chiếu 6, Video T4 (02 phút 17 giây)', 'Giới thiệu trước khi bấm chạy: Văn bản rà soát là một dự thảo văn bản của Đảng đã đổi tên cơ quan, đổi cấp để ẩn danh. Công cụ tự nhận ra văn bản của Đảng, áp Hướng dẫn số 05-HD/VPTW, không áp Nghị định số 30/2020/NĐ-CP. Sau đó không nói - video chiếu lần lượt 08 trang báo cáo rà soát của lượt chạy trên Cowork, có lời mô tả từng trang, tự nêu phát hiện số 5 là chưa chính xác.'],
+  ['02:00', 'Trang trình chiếu 6, Video T4 (02 phút 15 giây)', 'Giới thiệu trước khi bấm chạy: Văn bản rà soát là một dự thảo văn bản của Đảng đã đổi tên cơ quan, đổi cấp để ẩn danh. Công cụ tự nhận ra văn bản của Đảng, áp Hướng dẫn số 05-HD/VPTW, không áp Nghị định số 30/2020/NĐ-CP. Sau đó không nói - video chiếu lần lượt 08 trang báo cáo rà soát của lượt chạy trên Cowork, có lời mô tả từng trang, tự nêu phát hiện số 5 là chưa chính xác.'],
   ['04:30', 'Mở tệp 31 (báo cáo rà soát đầy đủ)', 'So với lượt rà soát đầy đủ: 25 phát hiện, 0 Mức 1, 07 Mức 2. Chỉ 03 điểm: Chương trình của đảng ủy nhưng ký hiệu “/TU”; tên loại cỡ 14, quy định 15 - 16 (đo trên tệp thật); cụm “Ban Thường vụ Đảng ủy” không rõ là cấp nào.'],
   ['06:00', 'Nói, không mở tệp', 'Cùng văn bản, lượt chạy nhanh vừa xem chỉ ra 06 phát hiện, trong đó 01 phát hiện sai (tệp 32 để dự phòng). Mỗi lượt có điểm mạnh, điểm sai - vì vậy rà soát chính thức phải chạy đủ quy trình và luôn có người kiểm tra.'],
   ['07:00', 'Trang trình chiếu 7', 'Hệ rà soát công khai giới hạn: Kiểm thử trên tệp cài sẵn 30 lỗi - đúng 24, sai mức 02, bỏ sót 04. Ô “Người kiểm tra” luôn là người thật.'],

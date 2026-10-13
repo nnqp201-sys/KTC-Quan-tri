@@ -12,8 +12,8 @@ from PIL import Image, ImageDraw, ImageFont
 sys.stdout.reconfigure(encoding='utf-8')
 THU_MUC = os.path.dirname(os.path.abspath(__file__))
 TAM = os.path.join(THU_MUC, '_tam')
-RA = os.path.join(THU_MUC, 'Video-1_Gioi-thieu-nhanh-03-he_v3.mp4')
-GIONG = 'vi-VN-NamMinhNeural'
+RA = os.path.join(THU_MUC, 'Video-1_Gioi-thieu-nhanh-03-he_v4.mp4')
+GIONG = 'vi-VN-HoaiMyNeural'
 TOC_DO = '-4%'
 W, H = 1920, 1080
 XANH, XANH_NHAT, DEN, XAM, DO = (13, 59, 102), (232, 240, 249), (25, 25, 25), (95, 95, 95), (170, 30, 30)

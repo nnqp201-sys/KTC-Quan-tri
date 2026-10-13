@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tạo giọng thuyết minh (AI, tiếng Việt) cho 04 đoạn video thao tác T1–T4. Chạy: python tao_giong_thuyet_minh.py
-Giọng: Microsoft Edge TTS vi-VN-NamMinhNeural (lời đọc gửi lên máy chủ Microsoft — chỉ nội dung công khai, không có dữ liệu nội bộ)."""
+Giọng: Microsoft Edge TTS vi-VN-HoaiMyNeural (lời đọc gửi lên máy chủ Microsoft — chỉ nội dung công khai, không có dữ liệu nội bộ)."""
 import asyncio, os, sys, time
 import edge_tts
 sys.stdout.reconfigure(encoding='utf-8')
@@ -33,7 +33,7 @@ for ten, loi in LOI.items():
         print('đã có', ten); continue
     for lan in range(8):   # dịch vụ đôi khi không trả âm thanh — thử lại
         try:
-            asyncio.run(edge_tts.Communicate(loi, 'vi-VN-NamMinhNeural', rate='-4%').save(os.path.join(D, ten + '.mp3')))
+            asyncio.run(edge_tts.Communicate(loi, 'vi-VN-HoaiMyNeural', rate='-4%').save(os.path.join(D, ten + '.mp3')))
             print('OK', ten); break
         except Exception as e:
             print('lỗi lần', lan + 1, ten, type(e).__name__); time.sleep(3)

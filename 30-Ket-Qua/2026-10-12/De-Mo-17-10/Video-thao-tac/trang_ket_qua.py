@@ -57,7 +57,7 @@ for ma, ds in DS.items():
         if not (os.path.exists(m) and os.path.getsize(m) > 1000):
             for lan in range(8):
                 try:
-                    asyncio.run(edge_tts.Communicate(loi, 'vi-VN-NamMinhNeural', rate='-4%').save(m)); break
+                    asyncio.run(edge_tts.Communicate(loi, 'vi-VN-HoaiMyNeural', rate='-4%').save(m)); break
                 except Exception as e:
                     print('lỗi', ma, i + 1, type(e).__name__); time.sleep(3)
         print(ma, 'trang', i + 1, a.size)
