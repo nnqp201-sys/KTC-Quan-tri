@@ -23,10 +23,10 @@ def do_dai(tep):
 # Phần tử thứ tư (nếu có): Tỷ lệ chiều rộng bên trái cần làm mờ. Bản 13/10/2026 (lần 2): Không làm mờ (người dùng cho phép
 # hiện địa chỉ thư); thêm lại đoạn trỏ thư mục và ảnh tệp kết quả (anh_kq/); tốc độ đặt cho hình khớp lời thuyết minh.
 CAT = {
-    'T1': [[12.0, 22.0, 2.5], [34.0, 46.0, 2.5], [48.5, 93.0, 6.0], [93.0, 126.8, 1.6]],  # trỏ 2 thư mục -> gõ lệnh -> làm việc
+    'T1': [[12.0, 22.0, 2.5], [34.0, 46.0, 2.5], [48.5, 93.0, 6.0], [93.0, 126.8, 2.0]],  # trỏ 2 thư mục -> gõ lệnh -> làm việc
     'T2': [[8.0, 18.0, 2.0], [26.0, 85.4, 2.1]],                          # trỏ thư mục D2 -> dán lệnh -> đọc tệp
     'T3': [[6.0, 15.0, 1.8], [19.0, 62.0, 1.45]],                         # trỏ thư mục D3 -> dán lệnh -> làm việc
-    'T4': [[6.0, 12.0, 1.5], [26.0, 88.2, 2.4]],                          # trỏ thư mục D4 -> gọi kỹ năng rà soát -> làm việc
+    'T4': [[6.0, 12.0, 1.5], [26.0, 88.2, 2.7]],                          # trỏ thư mục D4 -> gọi kỹ năng rà soát -> làm việc
 }
 GIAY_ANH = 6.0   # mỗi ảnh kết quả hiện 6 giây
 
