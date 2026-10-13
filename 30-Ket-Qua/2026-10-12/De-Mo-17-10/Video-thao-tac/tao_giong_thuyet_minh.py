@@ -27,8 +27,7 @@ LOI = {
  'T4_Ra-soat-van-ban-Dang': 'Phần cuối là rà soát văn bản trước khi trình ký. Người dùng chọn thư mục chứa dự thảo, rồi gọi kỹ năng rà soát '
     'của hệ rà soát dùng chung của Trường. Công cụ nhận ra đây là văn bản của Đảng, nên áp hướng dẫn về thể thức văn bản của Đảng, '
     'không áp quy định của văn bản hành chính. Công cụ đo thể thức trên tệp thật: lề, cỡ chữ, phông chữ; đối chiếu từng văn bản được viện dẫn '
-    'với kho dữ liệu, và ghi rõ phần chưa xác minh được. Kết quả là báo cáo rà soát tám phần: mỗi phát hiện có vị trí, nhận xét, kiến nghị sửa, '
-    'căn cứ và mức độ, từ mức một bắt buộc sửa đến mức bốn góp ý. Ô người kiểm tra luôn để người thật ký; công cụ không tự phê duyệt.',
+    'với kho dữ liệu, và ghi rõ phần chưa xác minh được. Phần kết quả: Xem trang_t4.py (lời riêng cho từng trang báo cáo).',
 }
 for ten, loi in LOI.items():
     tep = os.path.join(D, ten + '.mp3')
