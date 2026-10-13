@@ -7,7 +7,7 @@ DUAN = os.path.abspath(os.path.join(D, '..', '..', '..'))
 RA = os.path.join(DUAN, '30-Ket-Qua', '2026-10-13', 'Gui-QLKHCN')
 os.makedirs(RA, exist_ok=True)
 z = os.path.join(RA, 'Kich-ban-va-du-lieu-mau_Trinh-dien-AI_17.10.2026_P-THHC.zip')
-TEP = [(sorted(glob.glob(os.path.join(DUAN, '30-Ket-Qua', '2026-10-13', 'Soan-Thao', 'PA_*v6.docx')))[-1], '01_Phuong-an-trinh-dien_v6.docx'),
+TEP = [(sorted(glob.glob(os.path.join(DUAN, '30-Ket-Qua', '2026-10-13', 'Soan-Thao', 'PA_*v7.docx')))[-1], '01_Phuong-an-trinh-dien_v7.docx'),
        (os.path.join(D, 'KICH-BAN-LOI-TRINH-BAY_17.10.2026.docx'), '02_Kich-ban-loi-trinh-bay.docx'),
        (sorted(glob.glob(os.path.join(D, 'Trinh-chieu', '*_v3.pdf')))[-1], '03_Trang-trinh-chieu.pdf')]
 n = 0
