@@ -32,6 +32,7 @@ G.doan(d, 'KỊCH BẢN LỜI TRÌNH BÀY', dam=True, can='giua', sau=0)
 G.doan(d, 'Trình diễn ứng dụng trí tuệ nhân tạo, 08 giờ 40 - 09 giờ 10 ngày 17/10/2026', dam=True, can='giua', sau=0); G.ke(d)
 G.doan(d, 'Người trình bày: Đồng chí Nguyễn Ngọc Quang Phục. Người thao tác máy: Đồng chí Đỗ Thành Công. Mọi tệp nằm trong thư mục '
           'BAN-TRINH-DIEN-17-10, đánh số theo thứ tự mở. Lời nói dưới đây là gợi ý, người trình bày nói theo cách của mình.')
+G.doan(d, 'Phương án tự chạy: Tệp A_VIDEO-TOAN-BO trong cùng thư mục (17 phút 11 giây) đã ghép toàn bộ trang trình chiếu có lời đọc, Video 1, 04 video thao tác, các thẻ chuyển phần và 06 đoạn hỏi - đáp, hai giọng nam, nữ. Mở tệp này thì người trình bày không cần đọc; mốc thời gian từng phần ghi tại tệp A_VIDEO-TOAN-BO_moc-thoi-gian.txt. Kịch bản theo từng phút dưới đây dùng khi trình bày trực tiếp.')
 
 PHAN = [
  ('MỞ ĐẦU (05 phút: 08 giờ 40 - 08 giờ 45)', [
