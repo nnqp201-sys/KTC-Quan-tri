@@ -11,8 +11,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.stdout.reconfigure(encoding='utf-8')
 THU_MUC = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(THU_MUC, '..', '..', '..', '2026-10-12', 'De-Mo-17-10', 'Video-tong'))
+import phong_nen as PN   # phông nền, bảng màu dùng chung
 TAM = os.path.join(THU_MUC, '_tam')
-RA = os.path.join(THU_MUC, 'Video-1_Gioi-thieu-nhanh-03-he_v4.mp4')
+RA = os.path.join(THU_MUC, 'Video-1_Gioi-thieu-nhanh-03-he_v5.mp4')
 GIONG = 'vi-VN-HoaiMyNeural'
 TOC_DO = '-4%'
 W, H = 1920, 1080
@@ -95,39 +97,43 @@ def ngat(d, chu, font, rong):
 
 
 def ve(i, tieu_de, dong, tep):
+    """Trang trình chiếu: Thanh tiêu đề xanh có họa tiết mạng nơ-ron, vạch cam; màu theo trang cdkontum.edu.vn (phong_nen.py)."""
     im = Image.new('RGB', (W, H), 'white')
-    d = ImageDraw.Draw(im)
-    d.rectangle([0, 0, W, 190], fill=XANH)
-    ft = F(64, True)
-    td = ngat(d, tieu_de, ft, W - 200)
+    im = PN.hoa_van_goc(im, hat=11 + i)
+    d = PN.thanh_tieu_de(im, 190, hat=3 + i)
+    F = PN.F
+    ft = F(62, True)
+    td = ngat(d, tieu_de, ft, W - 420)
     if len(td) > 1:
-        ft = F(52, True); td = ngat(d, tieu_de, ft, W - 200)
-    y = 95 - len(td) * (ft.size + 8) // 2
+        ft = F(50, True); td = ngat(d, tieu_de, ft, W - 420)
+    y = 92 - len(td) * (ft.size + 10) // 2
     for t in td:
-        d.text((100, y), t, font=ft, fill='white'); y += ft.size + 8
-    y = 250
+        d.text((100, y), t, font=ft, fill='white'); y += ft.size + 10
+    y = 258
     for x in dong:
         if x.startswith('!'):
-            f = F(42, True); ds = ngat(d, x[1:], f, W - 280)
-            cao = len(ds) * 56 + 36
-            d.rounded_rectangle([100, y + 6, W - 100, y + 6 + cao], 18, fill=XANH_NHAT)
-            yy = y + 24
+            f = F(42, True); ds = ngat(d, x[1:], f, W - 300)
+            cao = len(ds) * 58 + 36
+            d.rounded_rectangle([100, y + 6, W - 100, y + 6 + cao], 16, fill=PN.XANH_NHAT)
+            d.rounded_rectangle([100, y + 6, 112, y + 6 + cao], 6, fill=PN.CAM)
+            yy = y + 20
             for t in ds:
-                d.text((140, yy), t, font=f, fill=XANH); yy += 56
+                d.text((146, yy), t, font=f, fill=PN.XANH); yy += 58
             y += cao + 30
         elif x.startswith('#'):
             f = F(50, True)
-            d.text((140, y), x[1:], font=f, fill=DO); y += 82
+            d.text((140, y), x[1:], font=f, fill=PN.CAM_DAM); y += 84
         else:
-            f = F(46)
-            d.ellipse([112, y + 20, 130, y + 38], fill=XANH)
+            f = F(45)
+            d.ellipse([112, y + 24, 130, y + 42], fill=PN.CAM)
             for t in ngat(d, x, f, W - 300):
-                d.text((160, y), t, font=f, fill=DEN); y += 62
+                d.text((160, y), t, font=f, fill=PN.DEN); y += 62
             y += 24
-    d.line([100, H - 84, W - 100, H - 84], fill=(200, 200, 200), width=2)
-    d.text((100, H - 66), 'Trường Cao đẳng Kon Tum  ·  Phòng TH-HC&QT', font=F(28), fill=XAM)
+    d.rectangle([100, H - 86, W - 100, H - 84], fill=PN.XANH)
+    d.rectangle([100, H - 86, 300, H - 84], fill=PN.CAM)
+    d.text((100, H - 68), 'Trường Cao đẳng Kon Tum  ·  Phòng TH-HC&QT', font=F(28), fill=PN.XAM)
     so = f'{i}/{len(CANH)}'
-    d.text((W - 100 - d.textlength(so, font=F(28)), H - 66), so, font=F(28), fill=XAM)
+    d.text((W - 100 - d.textlength(so, font=F(28)), H - 68), so, font=F(28), fill=PN.XAM)
     im.save(tep)
 
 

@@ -62,7 +62,7 @@ def main():
         cat += ''.join(f'[s{k}]' for k in range(len(doan))) + f'concat=n={len(doan)}:v=1:a=0,tpad=stop_mode=clone:stop_duration={max(hinh - hq, 0):.2f}[q];'
         for j, t in enumerate(t_anh):
             if loi_anh[j]:
-                cat += (f"[{j + 2}:v]fps=25,scale=1660:-2,pad=1920:'max(ih,1080)':0:0:white,crop=1920:1080:0:'(ih-1080)*min(t/{t:.2f},1)',setsar=1,trim=duration={t:.2f}[r{j}];")
+                cat += (f"[{j + 2}:v]fps=25,scale=1660:-2,pad=1660:'max(ih,1080)':0:0:white,pad=1920:ih:0:0:0x0A3F7D,crop=1920:1080:0:'(ih-1080)*min(t/{t:.2f},1)',setsar=1,trim=duration={t:.2f}[r{j}];")
             else:
                 cat += f"[{j + 2}:v]{chuan},trim=duration={t:.2f}[r{j}];"
         noi = '[q]' + ''.join(f'[r{j}]' for j in range(len(anh))) + f'concat=n={len(anh) + 1}:v=1:a=0[c];'

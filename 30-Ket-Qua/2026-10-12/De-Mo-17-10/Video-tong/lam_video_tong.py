@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 sys.stdout.reconfigure(encoding='utf-8')
 D = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, D)
+import phong_nen as PN   # phông nền, bảng màu dùng chung
 BAN = os.path.abspath(sys.argv[1])
 TAM = os.path.abspath(sys.argv[2]) if len(sys.argv) > 2 else os.path.join(BAN, '..', 'Video-tong', '_tam')
 os.makedirs(TAM, exist_ok=True)
@@ -163,35 +164,41 @@ def ngat(d, chu, font, rong):
     return dong + [hien]
 
 
-def the(nhan, td, phu, tep):
-    a = Image.new('RGB', (1920, 1080), XANH); d = ImageDraw.Draw(a)
-    for i in range(1080):   # nền chuyển sắc nhẹ
-        d.line([(0, i), (1920, i)], fill=(13 + i // 60, 59 + i // 40, 102 + i // 22))
-    d.rectangle([150, 330, 162, 760], fill=VANG)
-    d.text((200, 330), nhan, font=F(52, True), fill=VANG)
-    y = 420
-    for x in ngat(d, td, F(78, True), 1500):
-        d.text((200, y), x, font=F(78, True), fill='white'); y += 100
-    d.text((200, y + 30), phu, font=F(40), fill=(205, 222, 240))
+def the(nhan, td, phu, tep, hat=7):
+    """Thẻ mở đầu, chuyển phần: Nền xanh có mạng nơ-ron (phong_nen.py), nhãn và vạch nhấn màu cam."""
+    a = PN.nen_toan_man(1920, 1080, hat); d = ImageDraw.Draw(a)
+    dong = ngat(d, td, PN.F(76, True), 1180)
+    cao = 80 + len(dong) * 100 + 70
+    y = (1080 - cao) // 2
+    d.rounded_rectangle([150, y, 164, y + cao], 7, fill=PN.CAM)
+    d.text((200, y - 6), nhan, font=PN.F(50, True), fill=PN.CAM)
+    y += 80
+    for x in dong:
+        d.text((200, y), x, font=PN.F(76, True), fill='white'); y += 100
+    d.text((200, y + 22), phu, font=PN.F(38), fill=(205, 224, 245))
     a.save(tep)
 
 
 def the_hoi(hoi, dap, tep):
-    a = Image.new('RGB', (1920, 1080), 'white'); d = ImageDraw.Draw(a)
-    d.rectangle([0, 0, 1920, 150], fill=XANH); d.text((90, 42), 'Hỏi - đáp', font=F(64, True), fill='white')
-    d.rounded_rectangle([90, 220, 1500, 220 + 70 + 70 * len(ngat(d, hoi, F(50, True), 1180))], radius=30, fill=NHAT)
-    d.ellipse([120, 245, 230, 355], fill=XANH); d.text((140, 272), 'HỎI', font=F(36, True), fill='white')
-    y = 255
-    for x in ngat(d, hoi, F(50, True), 1180):
-        d.text((270, y), x, font=F(50, True), fill=XANH); y += 70
+    """Thẻ hỏi - đáp: Thanh tiêu đề như trang trình chiếu; câu hỏi nền xanh nhạt, câu đáp nền cam nhạt."""
+    a = PN.hoa_van_goc(Image.new('RGB', (1920, 1080), 'white'), hat=23)
+    d = PN.thanh_tieu_de(a, 150, hat=5)
+    d.text((100, 30), 'Hỏi - đáp', font=PN.F(62, True), fill='white')
+    fh, fd = PN.F(50, True), PN.F(45)
+    dh = ngat(d, hoi, fh, 1180)
+    d.rounded_rectangle([90, 230, 1520, 230 + 70 + 72 * len(dh)], radius=30, fill=PN.XANH_NHAT)
+    d.ellipse([120, 255, 230, 365], fill=PN.XANH); d.text((137, 283), 'HỎI', font=PN.F(36, True), fill='white')
+    y = 262
+    for x in dh:
+        d.text((270, y), x, font=fh, fill=PN.XANH); y += 72
     if dap:
-        y0 = y + 90; dg = ngat(d, dap, F(46), 1280)
-        d.rounded_rectangle([330, y0, 1830, y0 + 70 + 64 * len(dg)], radius=30, fill=(255, 246, 214))
-        d.ellipse([1690, y0 + 25 + 64 * len(dg) - 90, 1800, y0 + 25 + 64 * len(dg) + 20], fill=(190, 120, 0))
-        d.text((1708, y0 + 25 + 64 * len(dg) - 62), 'ĐÁP', font=F(34, True), fill='white')
-        y = y0 + 35
+        y0 = y + 90; dg = ngat(d, dap, fd, 1270)
+        d.rounded_rectangle([330, y0, 1830, y0 + 70 + 64 * len(dg)], radius=30, fill=(255, 241, 222))
+        cy = y0 + 35 + 32 * len(dg)
+        d.ellipse([1690, cy - 55, 1800, cy + 55], fill=PN.CAM_DAM); d.text((1708, cy - 26), 'ĐÁP', font=PN.F(34, True), fill='white')
+        y = y0 + 33
         for x in dg:
-            d.text((370, y), x, font=F(46), fill=(40, 40, 40)); y += 64
+            d.text((370, y), x, font=fd, fill=PN.DEN); y += 64
     a.save(tep)
 
 
@@ -237,7 +244,7 @@ def canh_thuc_te(so, tep, loi):
         vao += ['-i', m]
         am += f"[{i + 1}:a]aresample=44100,{'adelay=500|500,' if i == 0 else ''}apad=pad_dur={nghi:.2f}[a{i}];"
     am += ''.join(f'[a{i}]' for i in range(len(mp3))) + f"concat=n={len(mp3)}:v=0:a=1,apad=pad_dur=2,afade=t=in:d=0.2,afade=t=out:st={T - MO:.2f}:d={MO}[a];"
-    hinh = (f"[0:v]setpts=PTS/{v:.3f},fps=25,scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:white,setsar=1,"
+    hinh = (f"[0:v]setpts=PTS/{v:.3f},fps=25,scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:0x082D5C,setsar=1,"
             f"tpad=stop_mode=clone:stop_duration=30,fade=t=in:d={MO},fade=t=out:st={T - MO:.2f}:d={MO},format=yuv420p[v]")
     subprocess.run([FF, '-y', '-loglevel', 'error', '-i', tep] + vao + ['-filter_complex', am + hinh, '-map', '[v]', '-map', '[a]', '-t', f'{T:.2f}'] + MA + [ra], check=True)
     print(f'      tốc độ hình {v:.2f} lần, dài {T:.0f} giây')
@@ -249,7 +256,7 @@ def main():
     for muc in KB:
         so += 1
         if muc[0] == 'the':
-            p = os.path.join(TAM, f'the{so:03d}.png'); the(muc[1], muc[2], muc[3], p); c = [canh_tinh(so, p, muc[4], phong=True)]; ten = f'{muc[1]}: {muc[2]}'
+            p = os.path.join(TAM, f'the{so:03d}.png'); the(muc[1], muc[2], muc[3], p, hat=7 + so); c = [canh_tinh(so, p, muc[4], phong=True)]; ten = f'{muc[1]}: {muc[2]}'
         elif muc[0] == 'trang':
             c = [canh_tinh(so, os.path.join(TRANG, f'trang-{muc[1]:02d}.png'), muc[2])]; ten = f'Trang trình chiếu {muc[1]}'
         elif muc[0] == 'thucte':
