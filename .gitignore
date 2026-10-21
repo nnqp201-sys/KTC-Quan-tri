@@ -45,3 +45,8 @@ Claude outputs/
 
 # Bản quay màn hình gốc (demo 17/10) — nặng, có thông tin tài khoản; không đưa lên git
 30-Ket-Qua/**/Video-thao-tac/quay/
+
+# Bản chép kết quả thẩm định độc lập (người phụ trách chép vào; có kho git lồng, đường dẫn quá dài) — lưu trên OneDrive, không lên git
+30-Ket-Qua/2026-09-29/Ho-So-Tham-Dinh-Vong-6/Ket-qua-Tham-dinh-doc-lap-AI-plugin/
+# Tệp nén hồ sơ > 100 MB (giới hạn GitHub) — thư mục gốc đã có trong git
+30-Ket-Qua/2026-09-29/Ho-So-Tham-Dinh-Vong-6.zip

@@ -1,15 +1,25 @@
 # Tri thức chuyên đề — CTMTQG hiện đại hóa, nâng cao chất lượng giáo dục và đào tạo giai đoạn 2026–2035, giai đoạn I (2026–2030) — phần của Trường Cao đẳng Kon Tum
 
-**Cập nhật:** 20/9/2026 · **Phạm vi dữ liệu:** các văn bản có trong KTC-Database đến ngày 8/9/2026 (văn bản mới nhất: CV 642, 643/CĐKT-THHCQT).
+**Cập nhật:** 20/9/2026; bổ sung 19/10/2026 (CV 749, VB 9521, thông tin hợp nhất chương trình — xem khung dưới) · **Phạm vi dữ liệu:** các văn bản có trong KTC-Database đến ngày 8/9/2026 (văn bản mới nhất: CV 642, 643/CĐKT-THHCQT), cộng CV 749/CĐKT-THHCQT (19/10/2026) và VB 9521/STC-THQH (14/10/2026) đọc từ thư mục làm việc của P-THHC, **chưa nạp vào kho**.
+
+> **THAY ĐỔI CẤU TRÚC CHƯƠNG TRÌNH — đã kiểm văn bản gốc (NĐ 387/2026/NĐ-CP ngày 12/10/2026, Điều 52, 53, Phụ lục VIII, X, XIV; đọc 19/10/2026; chưa nạp vào kho):**
+> - **Hợp nhất:** NĐ 387 hợp nhất **04 CTMTQG** — phát triển văn hóa 2025–2035; **hiện đại hóa, nâng cao chất lượng giáo dục và đào tạo 2026–2035**; xây dựng NTM, giảm nghèo bền vững, phát triển KT-XH vùng DTTS&MN 2026–2035; chăm sóc sức khỏe, dân số và phát triển 2026–2035 — thành **CTMTQG phát triển văn hóa – xã hội, nông thôn, dân tộc và miền núi giai đoạn 2026–2035** (chủ trương đầu tư: NQ 46/2026/QH16 ngày 24/8/2026; giai đoạn 2026–2030 là giai đoạn đầu, năm 2030 tổng kết, Quốc hội quyết định 2031–2035). Có hiệu lực **12/10/2026**. Tức là **A (hiện đại hóa GD&ĐT) và B (NTM–GNBV–DTTS) nay cùng một chương trình**; CV 642 (8/9) còn ghi NQ 46 "giai đoạn 2026–2030" — tên đúng là 2026–2035.
+> - **Văn bản bị bãi bỏ (Phụ lục XIV, Điều 52 khoản 2a):** QĐ 1888/QĐ-BGDĐT, QĐ 36/2026/QĐ-TTg, TT 112/2026/TT-BTC của chương trình hiện đại hóa; QĐ 417/QĐ-BNNMT, QĐ 16/2026/QĐ-TTg (chương trình NTM); và **NĐ 358/2025/NĐ-CP**. **NQ 249/2025/QH15 và NQ 103/NQ-CP không có trong Phụ lục XIV**; số phận NQ 249 theo Điều 2 NQ 46/2026/QH16 **chưa đọc** (NQ 46 chưa có trong kho).
+> - **Chuyển tiếp (Điều 53):** kế hoạch, dự toán, nhiệm vụ, dự án được cấp có thẩm quyền phê duyệt **trong năm 2026 trước 12/10/2026** tiếp tục theo cơ chế cũ (NĐ 358 và hướng dẫn của từng chương trình) đến khi hoàn thành; kế hoạch NSTW 2026 giao bổ sung sau 12/10 được chọn cơ chế cũ hoặc mới (một cơ chế cho trọn nhiệm vụ); **kế hoạch, dự toán 2027 từ trung ương về địa phương vẫn theo cơ chế cũ**, sau khi giao thì phân bổ theo NĐ 387; trong **90 ngày làm việc** kể từ 12/10/2026 các Bộ, địa phương rà soát, phân loại nhiệm vụ, danh mục dự án; trong **120 ngày làm việc** Bộ Tài chính tổng hợp, báo cáo điều chỉnh kế hoạch ĐTC trung hạn NSTW 2026–2030.
+> - **Bộ GD&ĐT** quản lý nội dung Điều 9, Phụ lục IV, VIII và chỉ tiêu giáo dục ở Phụ lục I; chủ trì rà soát, đề xuất điều chỉnh Danh mục trường (Điều 48). Ban Chỉ đạo Trung ương do Bộ NN&MT chủ trì rà soát, trình Thủ tướng.
+> - **Trường Cao đẳng Kon Tum có tên trong Phụ lục VIII, Phần A, mục II.2: STT 21/30 — "Trường đào tạo ngành, nghề trọng điểm, mũi nhọn"** (cơ quan chủ quản: UBND tỉnh Quảng Ngãi; vùng Duyên hải Nam Trung Bộ và Tây Nguyên). Mục II.1 có 18 trường trung tâm quốc gia/vùng; 18 + 30 = **48 trường** — khớp danh sách nhận CV 5903. Đây là văn bản gốc xác nhận Trường thuộc danh mục tham gia (điều mà trước đây kho chưa có).
+> - **Hệ quả:** các mục 2, 7 và phần lớn mục 9 dưới đây mô tả cơ chế **QĐ 1888/QĐ 36/TT 112** — nay là cơ chế **trước hợp nhất**, còn áp dụng theo Điều 53 cho phần đã duyệt trong 2026 và cho kế hoạch 2027; cơ chế từ NĐ 387 ở **mục 2A**. Chưa có văn bản hướng dẫn của Bộ GD&ĐT hay UBND tỉnh về cách chuyển.
 **Dùng để:** đính kèm vào Project KTC-Bao-Cao (tài khoản Claude Phòng) khi cần lập kế hoạch, theo dõi, báo cáo hoặc soạn văn bản về Chương trình. Đây là tri thức vận hành, **không phải căn cứ pháp lý**; khi viện dẫn phải trích văn bản gốc ở mục 10.
 
 **Lưu ý về cách hiểu đề bài "do Trường đề xuất":** Chương trình do **Quốc hội** phê duyệt chủ trương (NQ 249/2025/QH15), **Bộ GD&ĐT** phê duyệt (QĐ 1888/QĐ-BGDĐT). Điều **Trường đề xuất** là: (1) tham gia **Dự án thành phần 2**, (2) nhu cầu vốn của dự án riêng của Trường, (3) đề xuất tham gia **Dự án thành phần 4** (bồi dưỡng đội ngũ, học liệu số). Mọi số "của Trường" dưới đây là **đề xuất**, chưa phải vốn được giao.
 
-**Độ tin cậy:** số liệu và ngày tháng đọc trực tiếp từ văn bản gốc. Ba văn bản chỉ biết qua metadata do kho lập, **chưa đọc toàn văn**: CV 6095/UBND-KGVX (PDF), CV 3850/BGDĐT-GDNNGDTX, NQ 46/2026/QH16 (chỉ được Trường viện dẫn tại CV 642). Hiệu lực pháp lý **chưa quét** bằng `tra_hieu_luc.py` — chạy agent `ktc-hieu-luc-vien-dan` trước khi dùng làm căn cứ trong văn bản trình ký.
+**Độ tin cậy:** số liệu và ngày tháng đọc trực tiếp từ văn bản gốc. Ba văn bản chỉ biết qua metadata hoặc qua văn bản khác, **chưa đọc toàn văn**: CV 6095/UBND-KGVX (PDF), CV 3850/BGDĐT-GDNNGDTX, NQ 46/2026/QH16 (chỉ biết qua NĐ 387 và CV 642). **NĐ 387/2026/NĐ-CP và 11 phụ lục đã đọc** (19/10/2026), nhưng đọc có chọn lọc: Điều 1–6, 9, 16–17, 44–54, Phụ lục VIII, X, XIV; các điều về dự án xây dựng đặc thù, phát triển sản xuất (Chương IV) và Phụ lục I–VII, IX, XI–XIII không liên quan trực tiếp tới Trường nên chưa đọc kỹ. Hiệu lực pháp lý **chưa quét** bằng `tra_hieu_luc.py` — chạy agent `ktc-hieu-luc-vien-dan` trước khi dùng làm căn cứ trong văn bản trình ký.
 
 ---
 
 ## 1. Ba hồ sơ dễ nhầm — phân biệt trước khi làm bất cứ việc gì
+
+*Tình trạng đến 8/9/2026. Từ 12/10/2026 **A (hiện đại hóa GD&ĐT) và B (NTM–GNBV–DTTS) cùng thuộc một chương trình hợp nhất** theo NĐ 387/2026/NĐ-CP (xem khung đầu tệp). Hai hồ sơ vẫn là hai dự án/hai số vốn khác nhau của Trường; ranh giới hạng mục và rủi ro trùng lặp (NĐ 387 Điều 4 khoản 4, Điều 16 khoản 3b cấm trùng lặp) vẫn phải kiểm.*
 
 Trường đang có **ba** dòng hồ sơ cùng nói về đầu tư 2026–2030, nguồn vốn từ CTMTQG. Nhầm chương trình là lỗi Mức 1.
 
@@ -24,7 +34,9 @@ Trường đang có **ba** dòng hồ sơ cùng nói về đầu tư 2026–2030
 
 **Rủi ro trùng lặp (cần người có thẩm quyền quyết):** khung chi phí cơ sở vật chất **117.525 triệu** xuất hiện ở BC 48 (2025) và Đề án 07 (2026); dự án ở QĐ 1899 (B) và ở QĐ 1951 (A) đều gồm cải tạo cơ sở vật chất + mua sắm thiết bị đào tạo tại các cơ sở của Trường. NQ 249 (khoản 6b), QĐ 36 (Điều 3 khoản 3c), TT 112 (Điều 2 khoản 3b–c) đều cấm trùng lặp đối tượng, nội dung, nhiệm vụ chi. Chưa có văn bản nào trong kho phân định ranh giới hạng mục giữa A và B.
 
-## 2. Khung của Chương trình (văn bản Trung ương)
+## 2. Khung của Chương trình (văn bản Trung ương) — cơ chế TRƯỚC hợp nhất
+
+*QĐ 1888, QĐ 36, TT 112 và NĐ 358 bị NĐ 387/2026/NĐ-CP bãi bỏ từ 12/10/2026 (Phụ lục XIV); vẫn áp dụng cho phần đã được duyệt trong 2026 trước ngày đó và cho kế hoạch 2027 (Điều 53). Cơ chế mới: mục 2A.*
 
 **Chương trình:** NQ 249/2025/QH15 (Quốc hội khóa XV, kỳ họp thứ 10, thông qua 10/12/2025) phê duyệt **chủ trương đầu tư**; QĐ 1888/QĐ-BGDĐT ngày 30/6/2026 phê duyệt **Chương trình giai đoạn I** (thẩm định: Báo cáo 38/BCTĐ-BGDĐT ngày 30/6/2026). Phạm vi cả nước, thời gian 2026–2035; giai đoạn I: 2026–2030. Bộ GD&ĐT là cơ quan chủ Chương trình; Bộ trưởng Bộ GD&ĐT quyết định đầu tư Chương trình.
 
@@ -62,6 +74,17 @@ Toàn Chương trình 2026–2035 dự kiến ~580.133 tỷ; giai đoạn 2031�
 
 **Cơ chế quản lý chung:** NĐ 358/2025/NĐ-CP (31/12/2025) về cơ chế quản lý, tổ chức thực hiện các CTMTQG. **Cấp tỉnh:** NQ 72/2026/NQ-HĐND (17/7/2026, hiệu lực 27/7/2026) phân cấp cho **HĐND cấp xã** quyết định phân bổ kế hoạch đầu tư công trung hạn, hằng năm nguồn NSNN các CTMTQG trên địa bàn (áp dụng chung mọi CTMTQG). NQ 67/2026/NQ-HĐND (30/6/2026) và NQ 55, 56/NQ-HĐND (28/8/2026) thuộc **chương trình B (NTM)**, không phải A.
 
+## 2A. Cơ chế theo NĐ 387/2026/NĐ-CP (từ 12/10/2026) — phần liên quan Trường
+
+*Đã đọc văn bản gốc. Đối chiếu với mục 2 (cơ chế QĐ 1888/QĐ 36 trước hợp nhất). Chưa có hướng dẫn của Bộ GD&ĐT hay UBND tỉnh về chuyển đổi.*
+
+- **Nội dung đầu tư (Điều 9, Phụ lục IV):** đầu tư đồng bộ, trọng điểm, trọn gói hiện đại hóa hạ tầng kỹ thuật, nâng cao năng lực đào tạo thực hành tại các trường cao đẳng thuộc Phần A Phụ lục VIII (khoản 2a); xây mới, cải tạo, nâng cấp cơ sở vật chất và thiết bị cho các cơ sở GDNN (khoản 2b); phát triển đội ngũ, đào tạo bồi dưỡng nhà giáo, cán bộ quản lý GDNN, năng lực quản trị (khoản 4h, 4k), phát triển tài năng, khởi nghiệp, đổi mới sáng tạo (khoản 4d).
+- **Chọn trường (Phụ lục VIII, Phần A):** trường công lập; mỗi tỉnh tối thiểu 01 trường; xếp hạng theo tổng điểm trong từng tỉnh; **cơ quan chủ quản phải cam kết ưu tiên phát triển trường và bố trí vốn đối ứng** (khoản 1g). Nhóm "ngành, nghề trọng điểm, mũi nhọn": khoảng **30 trường**, đào tạo ít nhất 01 trong 20 ngành, nghề trọng điểm, mũi nhọn; ưu tiên trường thuộc địa phương quản lý, trường có chương trình chất lượng cao hoặc đã kiểm định. **Trường Cao đẳng Kon Tum: STT 21/30.**
+- **Điểm của trường cao đẳng (Phụ lục X, Phần A, mục II khoản 2) — cộng điểm, không nhân hệ số như QĐ 36:** phân tầng chiến lược (trung tâm quốc gia 90; trung tâm vùng 60; **trọng điểm, mũi nhọn 30**) + quy mô đào tạo cao đẳng 03 năm gần nhất (≥3.000: 25; 2.000–<3.000: 20; 1.000–<2.000: 15; <1.000: 10) + cơ sở vật chất (chưa đạt chuẩn 25; đạt chuẩn 15; vượt chuẩn 10) + số ngành, nghề trọng điểm (≥7: 15; 5–<7: 12; 3–<5: 10; <3: 5).
+- **Đối ứng tối thiểu của trường (Phụ lục X, Phần E):** tổng điểm ≥120 → 20%; 90–<120 → 11,5%; <90 → 5% (tính trên vốn đầu tư công NSTW hỗ trợ), từ **nguồn thu hợp pháp** của trường (Điều 16 khoản 2c). Đối ứng **của tỉnh** (Phần D): địa phương nhận bổ sung cân đối NSTW tối thiểu 30% / 20% / 10% / 5% theo tỷ lệ số bổ sung cân đối <40% / 40–<60% / 60–<80% / ≥80% tổng chi cân đối NSĐP (tỉnh Quảng Ngãi thuộc mức nào: **chưa xác định**).
+- **Thẩm quyền địa phương:** HĐND cấp tỉnh quy định nguyên tắc, tiêu chí, định mức phân bổ NSTW cho địa phương và ngân sách tự cân đối (Điều 16 khoản 1c); HĐND tỉnh quyết định hoặc phân cấp HĐND cấp xã phân bổ chi tiết, danh mục dự án đầu tư công (Điều 17 khoản 2b).
+- **Phép tính minh họa của người tổng hợp (chưa kiểm, theo số Trường tự khai ở CV 642):** quy mô 2.666 SV → 20; đạt chuẩn cơ sở vật chất → 15; trọng điểm → 30; 3 ngành trọng điểm → 10: **tổng 75 điểm** (<90) → đối ứng tối thiểu **5%** × 150 tỷ = **7,5 tỷ**. Nếu quy mô ≥3.000 (+5) và ≥7 ngành (+5) thì 85; chỉ khi chuyển sang "chưa đạt chuẩn" (+10) và hai điều kiện kia mới tới **95 → 11,5% = 17,25 tỷ**. Trường đề xuất nguồn của Trường 21,428571 tỷ = 14,29% NSTW — cao hơn mọi mức tối thiểu trên. Khái niệm "NSĐP đối ứng 21,428571 tỷ" trong đề xuất của Trường **không có tên gọi tương ứng** trong Phần E (đối ứng của trường); Phần D là đối ứng của tỉnh, tính cho cả tỉnh. Số liệu đầu vào, hệ số quy đổi và chốt số liệu theo Phụ lục X mục III.10 phải do cấp có thẩm quyền xác nhận.
+
 ## 3. Diễn tiến tham gia của Trường (theo thứ tự thời gian)
 
 | Ngày | Sự kiện | Văn bản |
@@ -89,7 +112,16 @@ Toàn Chương trình 2026–2035 dự kiến ~580.133 tỷ; giai đoạn 2031�
 | 07/9/2026 | Hiệu trưởng phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư DA của Trường | QĐ 1951/QĐ-CĐKT |
 | 08/9/2026 | **Trường gửi thuyết minh Dự án TP 2 + số liệu DA 1, 2, 4, 5** (Sở GD&ĐT nhận CV 642; Vụ KHTC nhận CV 643 — nội dung giống nhau, khác nơi nhận) | CV 642 · 643/CĐKT-THHCQT, Phụ lục I–III |
 
-**Chưa thấy trong kho sau ngày 08/9/2026:** quyết định giao kế hoạch vốn trung hạn hoặc dự toán 2026 cho Trường, quyết định thành lập Ban Chỉ đạo cấp Trung ương/tỉnh, kế hoạch thực hiện Chương trình của UBND tỉnh Quảng Ngãi, nghị quyết HĐND tỉnh về nguyên tắc, tiêu chí, định mức của **chương trình A** (NQ 103 hẹn Q3/2026). Nếu người dùng có, nạp vào kho rồi cập nhật tệp này.
+**Sau ngày 08/9/2026 (đọc từ thư mục làm việc của P-THHC, chưa nạp vào kho):**
+
+| Ngày | Sự kiện | Văn bản |
+|---|---|---|
+| 12/10/2026 | Chính phủ quy định nội dung, cơ chế, chính sách CTMTQG phát triển văn hóa – xã hội, nông thôn, dân tộc và miền núi giai đoạn 2026–2035 (chương trình nay bao gồm phần hiện đại hóa GD&ĐT theo thông tin người dùng 19/10) | NĐ 387/2026/NĐ-CP (**đã đọc** 19/10/2026; xem khung đầu tệp và mục 2A) |
+| 14/10/2026 | Sở Tài chính yêu cầu các sở, đơn vị trực thuộc UBND tỉnh đề xuất điều chỉnh kế hoạch vốn ĐTC 2026 nguồn NSĐP và đăng ký nhu cầu 2027; **hạn gửi 19/10/2026**; mẫu Phụ lục 1.1–1.4 (đối ứng ODA; đối ứng NSTW; NSĐP chuyển tiếp; NSĐP khởi công mới) và 2.1–2.2 (tăng thu theo QĐ 273/QĐ-UBND 23/4/2026) | VB 9521/STC-THQH |
+| 16/10/2026 | Trường đăng ký vốn đối ứng NSĐP 2026, 2027 (bản đầu) | CV 747/CĐKT-THHCQT (**đã bị thay thế**) |
+| 19/10/2026 | Trường đăng ký vốn đối ứng NSĐP DA2 (Hiệu trưởng ký), kèm Phụ lục 1.2; **thay thế CV 747** | CV 749/CĐKT-THHCQT |
+
+**Chưa thấy sau ngày 08/9/2026:** quyết định giao kế hoạch vốn trung hạn hoặc dự toán 2026 cho Trường, quyết định thành lập Ban Chỉ đạo cấp Trung ương/tỉnh, kế hoạch thực hiện Chương trình của UBND tỉnh Quảng Ngãi, nghị quyết HĐND tỉnh về nguyên tắc, tiêu chí, định mức (NQ 103 hẹn Q3/2026 cho chương trình hiện đại hóa; chương trình hợp nhất có thể có văn bản riêng), **NĐ 387/2026/NĐ-CP**, và văn bản chấp nhận số đăng ký đối ứng của Sở Tài chính/UBND tỉnh. Nếu người dùng có, nạp vào kho rồi cập nhật tệp này.
 
 ## 4. Số liệu đề xuất hiện hành (CV 642/643, Phụ lục I–III, ngày 08/9/2026)
 
@@ -115,6 +147,8 @@ Cơ cấu đúng 77,78% NSTW – 11,11% NSĐP – 11,11% Trường (khác cơ c�
 **Tổng đề nghị của Trường (DA2 + DA4): 207,982 tỷ**, trong đó NSTW 162,1 (đầu tư 150 + thường xuyên 12,1). **Năm 2026:** 1,2679 tỷ (NSTW 1,0). **Năm 2027:** 28,027 tỷ (NSTW 21,85: 20 + 1,85).
 
 **Điều chỉnh đã kiến nghị:** CV 545 đề nghị Sở GD&ĐT **giảm vốn thường xuyên năm 2026 của DA4 từ 2.313 triệu xuống 625 triệu** (bảng của UBND tỉnh ở CV 7415 ghi 2.312,5 triệu cho Trường), phần chênh chuyển sang **năm 2027**; lý do: năm 2026 chỉ còn 4 tháng, khả năng giải ngân không bảo đảm. Đồng thời đề nghị **bổ sung dòng riêng của Trường vào Phụ lục I** vì Trường là đơn vị thụ hưởng vốn đầu tư công DA2 và chuyển phần chênh lệch sang 2027.
+
+**Đăng ký vốn đối ứng NSĐP gửi Sở Tài chính — CV 749/CĐKT-THHCQT (19/10/2026, đã ký), theo VB 9521/STC-THQH:** vốn đầu tư công NSĐP đối ứng của DA2: **năm 2026 = 71,429 triệu đồng; năm 2027 = 2.857,143 triệu đồng**; cả giai đoạn 2026–2030 = 21.428,571 triệu đồng (cùng số với bảng trên, đổi sang triệu đồng). Phụ lục 1.2 đặt dự án ở mục "B. Chưa giao đợt này", "I. Đối ứng dự án sử dụng vốn NSTW của tỉnh", "I.2 Khởi công mới"; nhóm dự án "Chưa xác định"; cơ cấu nguồn (XDCB tập trung/thu tiền sử dụng đất/XSKT) để Sở cân đối. Công văn nêu dự án "chưa được bố trí vốn đầu tư công năm 2026 (kể cả NSTW và địa phương)". Công văn **không** đăng ký phần đối ứng kinh phí thường xuyên DA4 (3,025 tỷ; 2026: 125 triệu; 2027: 462,5 triệu) vì ngoài phạm vi vốn đầu tư công của VB 9521. Đừng nhầm 642,857 (tổng 2026 DA2) hay 625 (tổng 2026 DA4) với số đối ứng NSĐP. Chưa có văn bản của Sở Tài chính/UBND tỉnh chấp nhận số này.
 
 **Số liệu đầu vào Phụ lục I (PL-543/642):** Hdt "trọng điểm, mũi nhọn" · Hcl "đạt chuẩn (đầu tư bổ sung nâng cấp)" · quy mô cao đẳng 2023–2025 kê **2.666 SV** (867 / 728 / 1.701) · **162** nhà giáo thuộc đối tượng bồi dưỡng · **41** cán bộ quản lý · 2.666 người học thụ hưởng trực tiếp · 1 cơ sở thí điểm mô hình. Ngành nghề kê: 3 ngành trọng điểm 2016–2020 (Trồng trọt; Công nghệ kỹ thuật điện, điện tử; Kỹ thuật sửa chữa và lắp ráp máy tính) và 11 ngành mũi nhọn (Công nghệ ô tô; CNTT; Công tác xã hội; Chăn nuôi; Nông nghiệp công nghệ cao; Lâm sinh; Dược; Điều dưỡng; Hộ sinh; Y sỹ đa khoa; Giáo dục Mầm non).
 
@@ -145,6 +179,8 @@ Cơ cấu đúng 77,78% NSTW – 11,11% NSĐP – 11,11% Trường (khác cơ c�
 
 ## 7. Vị thế của Trường theo QĐ 36 (phân tích của người tổng hợp — **chưa kiểm chứng**)
 
+*QĐ 36 đã bị bãi bỏ từ 12/10/2026; cách tính theo NĐ 387 (cộng điểm, đối ứng tối thiểu 5%/11,5%/20%) ở mục 2A. Phần dưới giữ để đối chiếu số liệu đầu vào đã chốt 30/6/2026.*
+
 - Nhóm: Trường tự khai **"ngành nghề trọng điểm, mũi nhọn"** (Hdt = **1,0**, thấp nhất). CV 5903 gửi 48 trường cao đẳng; mục tiêu Chương trình là 18 trường trọng điểm + ~30 trường ngành nghề mũi nhọn (cộng 48) — **tiêu chí chọn 18 trường trung tâm quốc gia/vùng không có trong kho**, nên không kết luận được Trường thuộc nhóm nào ngoài phần tự khai.
 - Hcl = 2,0 (đạt chuẩn — đầu tư bổ sung) là mức tự khai. Đây là hệ số lớn; nếu Trường tự khai "chưa đạt chuẩn" thì hệ số 3,0. TB 916 mục 1 ghi nhận "một số tiêu chí, tiêu chuẩn trường cao đẳng chất lượng cao chưa đạt" — không mâu thuẫn trực tiếp (chuẩn cơ sở GDNN ≠ chuẩn trường CLC) nhưng nên thống nhất cách dùng chữ.
 - **Hqm** phụ thuộc "quy mô đào tạo trình độ cao đẳng trong 03 năm gần nhất". Số 2.666 nằm ở khoảng 2.000–<3.000 (Hqm 3,0), nhưng **hai cách cộng khác trong chính hồ sơ đều vượt 3.000** (mục 8, điểm 1). Nếu quy mô đúng ≥3.000 thì Hqm = 4,0, tức điểm Pi tăng 33% so với 3,0. Hqm là hệ số nhạy nhất trong hồ sơ; **phải đối chiếu số liệu gốc** (Giấy chứng nhận đăng ký hoạt động GDNN, báo cáo tuyển sinh) trước khi khẳng định.
@@ -162,7 +198,8 @@ Cơ cấu đúng 77,78% NSTW – 11,11% NSĐP – 11,11% Trường (khác cơ c�
 5. **Vốn đầu tư GDNN 2021–2025:** BC 405 ghi NSTW **71,69** tỷ; NSTW + NSĐP = 78,92 chỉ khớp khi NSTW là **71,609** (BC 326 ghi 71.609). Còn "vốn sự nghiệp có tính chất đầu tư 17,737 tỷ" gồm NSTW 16,574 + đối ứng 725 = 17,299, không bằng 17,737; BC 326 ghi vốn sự nghiệp NSTW 10.572 + đối ứng 1.056. Chưa rõ hai bộ số đo cùng một khái niệm không.
 6. **Số nhà giáo:** 160 cơ hữu (BC 405) · 162 (PL I, CV 642) · 160 + 13 thỉnh giảng = 173. PL I ghi "162 nhà giáo thuộc đối tượng bồi dưỡng" — cần biết cơ sở tính.
 7. **QĐ 1951 sai đơn vị tổng mức đầu tư:** Điều 1 khoản 6 ghi "**192.857.143 triệu đồng**" nhưng phần bằng chữ là "một trăm chín mươi hai tỷ… bốn mươi ba **nghìn** đồng" và khoản 11 dùng 192.857.143.000 đồng. Đúng là 192.857,143 triệu (192,857 tỷ) — đây là lỗi Mức 1 nếu quyết định được dùng làm căn cứ ở văn bản khác. Ngoài ra QĐ 1951 ghi tên NQ 249 kèm cụm "giai đoạn I: từ năm 2026 đến năm 2030", trong khi tên NQ 249 chỉ ghi 2026–2035 (cụm "giai đoạn I" là của QĐ 1888 và QĐ 36).
-8. **Cam kết đối ứng:** cơ cấu 21,428571 tỷ NSĐP là đề xuất của Trường; **chưa có văn bản của UBND tỉnh hoặc Sở Tài chính chấp nhận** bố trí số này. CV 5903 (mục 1) yêu cầu làm rõ khả năng bố trí vốn đối ứng.
+8. **Cam kết đối ứng:** cơ cấu 21,428571 tỷ NSĐP là đề xuất của Trường; **chưa có văn bản của UBND tỉnh hoặc Sở Tài chính chấp nhận** bố trí số này. CV 5903 (mục 1) yêu cầu làm rõ khả năng bố trí vốn đối ứng. Cập nhật 19/10/2026: Trường đã đăng ký bằng số tại CV 749 gửi Sở Tài chính (mục 4); vẫn chưa có phản hồi chấp nhận.
+15. **CV 749 (19/10/2026) — điểm cần kiểm:** (a) viện dẫn NĐ 387/2026/NĐ-CP để nói Trường là "1 trong 30 trường cao đẳng của cả nước" ngành nghề trọng điểm, mũi nhọn — **đúng**: Phụ lục VIII, Phần A, mục II.2, STT 21/30 (đã kiểm văn bản gốc); nghị định này bãi bỏ QĐ 1888, QĐ 36, TT 112 nên công văn đã đổi căn cứ đúng hướng, nhưng công văn vẫn gọi "Chương trình mục tiêu quốc gia hiện đại hóa…" và tổng mức "theo QĐ 1951"; (b) làm tròn lệch 0,001: công văn ghi tổng 192.857,142 và năm 2026 tổng 642,858, trong khi phụ lục và QĐ 1951 là 192.857,143 / 642,857; (c) tên năm của chương trình: CV 642 ghi NQ 46/2026/QH16 là "giai đoạn 2026–2030", văn bản gốc (NĐ 387) ghi **2026–2035** (CV 749 ghi đúng 2026–2035). Đơn vị tổng mức trong CV 749 là triệu đồng, đúng (khác lỗi đơn vị ở QĐ 1951, điểm 7).
 9. **Kinh phí thường xuyên năm 2026 (DA4):** hai bảng khác nhau — Sở/UBND (2.312,5 triệu) và Trường (625 triệu). Chưa có văn bản cho biết bên nào được chấp nhận.
 10. **Trùng lặp giữa các chương trình** (mục 1): rủi ro thực; TB 916 mục 3b đã dặn.
 11. **Điều kiện đất đai** (QĐ 1888 mục VI.4a): đơn vị phải chuẩn bị điều kiện đất đai để tiếp nhận dự án; TB 916 ghi việc **lấn chiếm đất tại Cơ sở 5** (UBND phường Đăk Cấm xử lý trong tháng 9/2026) và đường Trương Vĩnh Ký vào Cơ sở 4 hư hỏng — có thể bị hỏi khi thẩm định dự án.
@@ -185,6 +222,10 @@ Việc dưới đây rút từ văn bản; **người quyết là lãnh đạo T
 | Chuẩn bị bộ chỉ số đánh giá của Bộ | NQ 103, Phụ lục I, mục 9, 11 | Q4/2026 |
 | Báo cáo định kỳ và đột xuất cho Bộ GD&ĐT | QĐ 1888 mục VI.4đ | Theo yêu cầu |
 | Đề nghị quét hiệu lực cho các căn cứ dùng trong văn bản trình ký | Quy tắc viện dẫn | Trước khi trình |
+| **Cập nhật căn cứ pháp lý của mọi văn bản về Chương trình:** thay QĐ 1888/QĐ 36/TT 112/NĐ 358 bằng NĐ 387/2026/NĐ-CP (và NQ 46/2026/QH16) cho phần phát sinh sau 12/10/2026; QĐ 1951 và các văn bản đã ký trước 12/10 giữ nguyên căn cứ cũ theo Điều 53 | NĐ 387 Điều 52, 53 | Từ nay |
+| Theo dõi hướng dẫn của Bộ GD&ĐT/UBND tỉnh về chuyển đổi; rà soát danh mục dự án của Trường trong chương trình hợp nhất (gồm ranh giới với hồ sơ NTM) | NĐ 387 Điều 53 khoản 6 | Trong 90 ngày làm việc kể từ 12/10/2026 |
+| Xin UBND tỉnh văn bản **cam kết ưu tiên phát triển Trường và bố trí vốn đối ứng** (điều kiện chọn trường) | NĐ 387 Phụ lục VIII A.I.1g | Khi lập hồ sơ dự án |
+| Đối chiếu lại điểm của Trường theo công thức cộng điểm (mục 2A) và xác định tỷ lệ đối ứng tối thiểu | NĐ 387 Phụ lục X | Khi Bộ GD&ĐT/UBND tỉnh hướng dẫn |
 
 **Gợi ý khi lập nhiệm vụ trong hệ KTC-Bao-Cao/Kế hoạch:** ghi rõ nguồn gốc nhiệm vụ = "CTMTQG hiện đại hóa GD&ĐT — DA thành phần 2 (hoặc 4)"; phân loại vào Trục theo TB 817, không dùng số nội hàm đứng một mình; đơn vị ghi bằng mã chuẩn (`P-THHC`, `P-TCKT` — đối chiếu `20-Chuan-Chung/13-Bang-Ma-Don-Vi.md`); minh chứng là văn bản đã ký (số hiệu, ngày). **Không** đưa số đề xuất vào báo cáo kết quả như thể là vốn được giao.
 
@@ -204,4 +245,6 @@ Việc dưới đây rút từ văn bản; **người quyết là lãnh đạo T
 
 **Thuộc chương trình B (không dùng cho chuyên đề này):** `QD-542_Ban-hanh-ke-hoach-CTMTQG_2026_v1.docx` · NQ 67, 70 (nguyên tắc tiêu chí), NQ 55, 56/NQ-HĐND · `CV_De-nghi-ra-soat-von-dau-tu-cong-CTMTQG-giai-doan-2026-2030_2026_v1.docx` (CV 10965/SNNMT-PTNT) · `QD_Phe-duyet-nhiem-vu-…-Du-an-CLC-2026-2030_2026_v1.docx` (**QĐ 1899**, dù tên tệp ghi "CLC") · BC 326.
 
-**Không có trong kho (phải xin nếu cần trích):** CV 4559/BGDĐT-KHTC (5/8/2025) · CV 1112/GDNNGDTX-TCKT · CV 3850/BGDĐT-GDNNGDTX · CV 4871/BGDĐT-KHTC · CV 5050/BGDĐT-KHTC · CV 13060/BTC-PTHT · CV 3669/SGDĐT-TC · NQ 46/2026/QH16 · QĐ 2249/QĐ-BGDĐT · Báo cáo 374/BC-CĐKT (20/8/2026) · CV 2303/UBND-KGVX (9/9/2025) · CV 972/SGDĐT-GDNNQLĐT.
+**Thư mục làm việc P-THHC, chưa nạp kho** (`.../Bao cao chuyen de/2026/De xuat du an hien dai hoa/2026/`): `Dang ky von doi ung/` — VB 9521/STC-THQH (PDF + phụ lục xlsx mẫu 1.1–1.4, 2.1–2.2) và `Dang-ky-lan-2/` — CV 749/CĐKT-THHCQT bản đã ký (docx, PDF) + Phụ lục 1.2 (xlsx, PDF) + **`Nghị-định-387-2026-NĐ-CP.docx` và `Nghị-định-387-2026-NĐ-CP_Phụ lục.zip`** (11 phụ lục + 5 mẫu + Phụ lục XIII, XIV).
+
+**Không có trong kho (phải xin nếu cần trích):** NQ 46/2026/QH16 (24/8/2026) · CV 4559/BGDĐT-KHTC (5/8/2025) · CV 1112/GDNNGDTX-TCKT · CV 3850/BGDĐT-GDNNGDTX · CV 4871/BGDĐT-KHTC · CV 5050/BGDĐT-KHTC · CV 13060/BTC-PTHT · CV 3669/SGDĐT-TC · QĐ 2249/QĐ-BGDĐT · Báo cáo 374/BC-CĐKT (20/8/2026) · CV 2303/UBND-KGVX (9/9/2025) · CV 972/SGDĐT-GDNNQLĐT.

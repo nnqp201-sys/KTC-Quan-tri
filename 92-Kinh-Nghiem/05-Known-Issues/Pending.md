@@ -1,5 +1,7 @@
 # Known Issues — KTC-Quan-tri
 
+> **ĐÃ BAN HÀNH: TB 1153/TB-CĐKT ngày 12/10/2026** (ghi nhận 20/10) hướng dẫn sử dụng bộ công cụ KTC-Quan-tri (kèm Tài liệu HD chi tiết), Hiệu trưởng đã ký; bản ký lưu `30-Ket-Qua/2026-10-12/Ban-Hanh/`. Phiên bản hiện hành theo TB: **1.3.13**; phân phối qua Team — **thực tế (20/10/2026): người phụ trách cài bằng tài khoản `phongthhcqt` và đã chia sẻ cho thành viên Team** (TB ghi P-QLKHCN nạp; cập nhật phiên bản cũng qua tài khoản này, giữ một bản duy nhất), tệp cài qua thư mục Drive dùng chung của P-THHC. Task_ID **chưa áp dụng** (đối chiếu theo mã sản phẩm QĐ 2119 + tên nhiệm vụ) đến khi Trường ban hành quy định mã nhiệm vụ khớp VNPT-ĐGCB. Mở đường cho 1.3.14 (các việc hoãn “sau ban hành” ở mục dưới). Chia sẻ toàn thư mục dự án (GitHub) chỉ cho nhóm vận hành nòng cốt — ngoài phạm vi TB, người phụ trách quyết.
+
 > **10/10/2026 — Skill 38 KTC-Bao-Cao v3.21 (`DL-20261010-003`):** tra cứu kết quả cá nhân trên Hệ thống QLVB&ĐH (`office.quangngai.gov.vn`) làm nguồn báo cáo cá nhân. Công cụ `office_ca_nhan.py` đã thử trên 2 tệp xuất thật + ca thử `test_office_ca_nhan.py`. **Còn mở:** (1) **chưa chạy thật Đường A** (Cowork đọc trên trang — C-15 trang về màn hình đăng nhập); lần chạy đầu phải ghi tên mục, bộ lọc thật vào mục 9 của Skill 38; (2) **chưa đóng gói** — `.skill` vẫn v3.20, plugin 1.3.13 đang thẩm định; đưa vào 1.3.14 (C4 sẽ cảnh báo nguồn rời mới hơn gói — đúng dự kiến); (3) chờ Quyết định danh mục tài liệu được phép / không được phép dùng với AI (TB 1118 mục II.3, P-QLKH, hạn 16/10/2026) để đối chiếu lại mục 2 của Skill 38.
 
 > **CHỜ LỆNH (28/9/2026) — Tiếp nhận VNPT Office:** kế hoạch đã duyệt `91-Tai-Lieu-Thiet-Ke/Ke-hoach-Tiep-nhan-VNPT-Office_20260928_v1.md` (lệnh gốc `GOAL-tiep-nhan-office_v1.1.md`). **Chỉ thực hiện khi người phụ trách yêu cầu**, theo thứ tự Bước 0 → Giai đoạn 1 → 1b (OAuth do anh tạo) → 2. Bước 0 (commit ngoại lệ 28 tệp + gom bản cũ vào `99-Luu-Tru/Can-Xoa/`) đã làm trên đĩa, chưa commit.
@@ -119,7 +121,9 @@ lệch (Quốc hiệu "CỘNG HOÀ", cụm "góp vốn bằng tài sản đượ
 
 ## KI-017 — Hồ sơ CTMTQG hiện đại hóa GD&ĐT: số liệu đầu vào lệch, QĐ 1951 sai đơn vị, metadata kho sai
 
-**Status:** Mở · **Cập nhật:** 20/9/2026 · **Priority:** Cao với điểm 1 (số liệu đã chốt 30/6/2026, ảnh hưởng hệ số Hqm theo QĐ 36)
+**Status:** Mở · **Cập nhật:** 19/10/2026 · **Priority:** Cao với điểm 1 (số liệu đã chốt 30/6/2026, ảnh hưởng hệ số Hqm theo QĐ 36)
+
+*19/10/2026:* NĐ 387/2026/NĐ-CP (12/10/2026, đã đọc) hợp nhất 04 CTMTQG, **bãi bỏ QĐ 1888, QĐ 36, TT 112, NĐ 358** (Phụ lục XIV) trừ phần chuyển tiếp Điều 53; điểm 7 (QĐ 1951 sai đơn vị) vẫn là lỗi của văn bản đã ký 7/9. CV 749 nêu đúng Trường là STT 21/30 Phụ lục VIII; còn lệch làm tròn 0,001 (192.857,142 / 642,858) và chưa có văn bản UBND tỉnh cam kết đối ứng (điều kiện chọn trường, Phụ lục VIII A.I.1g). Việc cần làm: đổi căn cứ pháp lý văn bản mới, đối chiếu điểm/đối ứng theo Phụ lục X (tệp tri thức mục 2A).
 
 Tri thức và 14 điểm lệch: `90-Nhat-Ky-Van-Hanh/07-Tri-Thuc-Chuyen-De/CTMTQG-Hien-dai-hoa-GDDT-2026-2030.md` (mục 8). Nổi bật: (1) quy mô đào tạo cao đẳng
 2.666 ≠ 3.296 ≠ 3.147; (2) QĐ 1951 ghi tổng mức "192.857.143 **triệu** đồng" (đúng: nghìn); (3) metadata kho ghi CV 5903 "chưa rõ số/ngày" và BC 48 "ngày không

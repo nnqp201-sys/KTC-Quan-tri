@@ -1,7 +1,6 @@
 # Tri thức chuyên đề — Đề án thành lập Trung tâm Đăng kiểm xe cơ giới trực thuộc Trường Cao đẳng Kon Tum
 
-**Cập nhật:** 20/9/2026 · **Trạng thái:** hồ sơ đã ký ngày 25/8/2026 và **đã trình UBND tỉnh Quảng Ngãi, đang chờ thẩm định**
-(người dùng xác nhận 20/9/2026; **ngày gửi thực tế chưa có trong tệp nào đã đọc**).
+**Cập nhật:** 07/10/2026 · **Trạng thái:** hồ sơ đã ký 25/8/2026, đã trình UBND tỉnh; **UBND tỉnh đã có CV 10316/UBND-NC (05/10/2026) yêu cầu Trường tiếp thu, hoàn thiện hồ sơ, trình lại qua Sở Tài chính** (mục 12). **Ngày gửi thực tế chưa có trong tệp nào đã đọc**.
 **Dùng để:** đính kèm vào Project/khung chat của phòng (Claude Chat/Cowork) khi cần trả lời thẩm định, chỉnh hồ sơ hoặc soạn
 văn bản liên quan. Đây là tri thức vận hành, **không phải căn cứ pháp lý**.
 
@@ -138,9 +137,66 @@ CS4: đường Trương Vĩnh Ký, Tổ 5, P. Đăk Bla · CS5: đường Nguy�
 - Không bịa số hiệu, số liệu: mọi con số phải có nguồn (kho 01–04, hoặc người chốt số xác nhận). Chưa rõ thì dừng và hỏi.
 - Thể thức: `29-Cong-Cu/kiem_the_thuc.py` 0 lỗi Mức 1–2; rà soát 897 trước trình ký, còn Mức 1 thì không trình.
 
-## 11. Việc tiếp theo khi UBND tỉnh thẩm định
+## 11. Việc tiếp theo khi UBND tỉnh thẩm định (đọc cùng mục 12 — đã có phản hồi 05/10/2026)
 
 - Chuẩn bị trả lời câu hỏi thẩm định (Sở Tài chính thẩm định cơ chế tài chính, vốn góp; Sở NN&MT về đất). Mọi giải trình phải khớp BC 382 và mục 5 ở trên.
 - Nếu có yêu cầu chỉnh hồ sơ: xử lý mục 9 (1–3 ưu tiên), sửa cả Đề án, Tờ trình, dự thảo Quyết định **đồng bộ một lượt**, rồi rà soát 897 nhanh.
 - Điền số/ngày Quyết định khi UBND ban hành (dự thảo để trống).
 - Lập kế hoạch các giai đoạn 2–3 (Đề án sử dụng tài sản công; lựa chọn nhà đầu tư) — nhiệm vụ mới của Trường sau phê duyệt; khi có phải cấp Task_ID qua `KTC-Ke-Hoach`, không tự tạo ở hệ khác.
+
+## 12. Thẩm định lần 5 và phản hồi của UBND tỉnh (07/10/2026) — **hồ sơ bị yêu cầu hoàn thiện, trình lại**
+
+Các văn bản đã nạp vào kho ngày 07/10/2026 tại `05-De-an-De-tai/13-01-De-an-thanh-lap-Trung-tam-Dang-kiem-xe-co-gioi/05-Lan-5-va-UBND-tinh-phan-hoi/`
+(kèm `00-METADATA-TONG-HOP`, trạng thái bản nháp). Sở Tài chính chủ trì lấy ý kiến theo **CV 7927/STC-HCSN (04/9/2026)** — văn bản này **chưa có trong kho**.
+Mạch: UBND tỉnh giao Sở TC tham mưu (CV 8866/UBND-NC, 28/8) → các sở trả lời Sở TC → **CV 8766/STC-HCSN (24/9)** báo cáo UBND → **CV 10316/UBND-NC (05/10)** chỉ đạo Trường.
+Đã đọc trực tiếp toàn văn: CV 8766, CV 10316, CV 2533, CV 4478. CV 7173, 10668, 7399 (kèm 6060) lấy theo metadata tổng hợp của kho, chưa đọc lại.
+
+| Văn bản | Ngày | Nội dung chính |
+|---|---|---|
+| Sở Tư pháp 2533/STP-XD&TCTHPL | 09/9 | Chưa tìm thấy quy định cụ thể cho đơn vị sự nghiệp công lập góp vốn với nhà đầu tư lập Công ty TNHH (trực thuộc đơn vị); đất ~8.500 m² do Nhà nước giao không thu tiền, không đưa vào vốn điều lệ, sử dụng theo pháp luật tài sản công; nêu Công điện 52/CĐ-TTg (07/8/2026) về cơ cấu lại vốn nhà nước tại doanh nghiệp; đề nghị Sở TC cân nhắc thận trọng và có thể xin hướng dẫn Bộ TC, Bộ Nội vụ |
+| Sở Nội vụ 4478/SNV-TCBM | 11/9 | Mô hình doanh nghiệp **không thuộc thẩm quyền thẩm định** của Sở; nhân sự Công ty theo pháp luật quản lý vốn nhà nước và doanh nghiệp; viên chức Trường tham gia phải đúng luật viên chức và không ảnh hưởng nhiệm vụ của Trường |
+| Sở Xây dựng 7173/SXD-VTPT | 11/9 | Vị trí phù hợp quy hoạch (QĐ 69/QĐ-UBND, 08/02/2024); **đã có Cty TNHH TM-DV An Phú Đăk Hà xin đầu tư trung tâm đăng kiểm 02 dây chuyền tại Km1541+700 đường Hồ Chí Minh, xã Đăk Hà** (CV 6298/SXD-QHKT, 14/8) → điều chỉnh quy mô; lưu ý Điều 23 NĐ 89/2026/NĐ-CP (vận hành thử tối thiểu 1 tháng), QCVN 103:2024/BGTVT đang sửa |
+| Sở NN&MT 10668/SNNMT-QLĐĐ | 07/9 | Ý kiến quy hoạch sử dụng đất (dẫn NQ 254/2025/QH15, NQ 66.3/2025/NQ-CP, QĐ 788/QĐ-UBND 27/02/2026); dẫn lại CV 10002/SNNMT-TCCB (22/8) |
+| Thuế tỉnh 7399/QNG-QLDN2 (kèm CV 6060, 14/7) | 08/9 | Nghĩa vụ thuế GTGT, TNDN, TNCN, phí/lệ phí của Công ty. Bản scan **OCR nhiễu** — đối chiếu bản gốc trước khi trích số liệu |
+| **Sở Tài chính 8766/STC-HCSN** | **24/9** | **Văn bản then chốt**, báo cáo UBND tỉnh 3 vướng mắc (bên dưới) |
+| **UBND tỉnh 10316/UBND-NC** (KT. Chủ tịch, Phó Chủ tịch Y Ngọc ký) | **05/10** | Xét Tờ trình 22 và đề xuất của Sở TC: **Trường nghiên cứu, tiếp thu đầy đủ ý kiến các Sở Tư pháp, Xây dựng, Tài chính và cơ quan liên quan; rà soát kỹ căn cứ pháp lý, sự cần thiết, chức năng nhiệm vụ, cơ cấu tổ chức, phương án tài chính; hoàn thiện hồ sơ, trình lại UBND tỉnh qua Sở Tài chính.** Không nêu thời hạn |
+
+**Ba vướng mắc của Sở TC (CV 8766)** — việc Trường phải trả lời:
+1. **Căn cứ pháp lý:** chưa có quy định cụ thể cho đơn vị sự nghiệp công lập góp vốn lập Công ty TNHH; hồ sơ chưa làm rõ căn cứ, cơ chế thực hiện, **thẩm quyền quyết định**, trách nhiệm quản lý vốn nhà nước tại doanh nghiệp. Đề nghị **tham vấn cơ quan có thẩm quyền ở Trung ương**.
+2. **Sự cần thiết, quy mô:** phía Tây chỉ có 1 trung tâm 82.01.S; nay thêm dự án tư nhân An Phú Đăk Hà → điều chỉnh quy mô, tránh lãng phí.
+3. **Phương án tài chính:** vốn góp 51% = **11.571,19 triệu**. Khoản 3 Điều 24 NĐ 60/2021/NĐ-CP (sửa bởi khoản 16 Điều 1 NĐ 111/2025/NĐ-CP) cho phép vay, huy động vốn **để đầu tư cơ sở vật chất, mua sắm thiết bị, mở rộng hoạt động của đơn vị**; chưa có hướng dẫn dùng cho **góp vốn**. **Quỹ PTHĐSN dư 0 đồng tại 01/6/2026** (BC 270/BC-CĐKT, 05/6/2026) → "chưa đủ cơ sở xác định tính hợp pháp và tính khả thi". Cơ chế quản lý đất và tài sản công cũng chưa rõ.
+
+**Nhận định để xử lý (AI đề xuất, người có thẩm quyền quyết):**
+- Đây là lần đầu có văn bản **chặn** từ cấp tỉnh, trúng vào chính **mô hình Trường góp vốn** (điểm 1 và 3), không còn là điểm lệch hình thức. Câu hỏi nhạy cảm nhất: **nguồn 11.571,19 triệu từ đâu** khi Quỹ PTHĐSN = 0. Số liệu tài chính do Phó Trưởng phòng TH-HC&QT chốt, AI không suy diễn.
+- Sở TC và Sở Tư pháp cùng nhắc xin hướng dẫn Trung ương (Bộ Tài chính, Bộ Nội vụ) — có thể phải soạn công văn xin hướng dẫn trước khi trình lại.
+- Điểm 2 mục 9 (Tờ trình, dự thảo QĐ vẫn viết góp vốn bằng "tài sản được phép sử dụng") **đã thành vấn đề thật**: Sở Nội vụ (4478) mô tả Trường góp vốn "bằng tài sản thuộc phạm vi quản lý, sử dụng của Trường". Khi hoàn thiện phải thống nhất với Bảng 5 (100% tiền), sửa đồng bộ Đề án, Tờ trình, dự thảo QĐ.
+- Thời hạn theo QĐ 30/QĐ-UBND (gia hạn đến tháng 8/2026) **đã qua**; CV 10316 không nêu hạn mới — cần xin mốc để ghi vào `Moc-Han.md`.
+- Trình tự gợi ý: (1) bảng tiếp thu–giải trình lần 5 theo 3 vướng mắc và ý kiến Tư pháp, Xây dựng, Thuế; (2) chốt phương án nguồn vốn với người chốt số; (3) xin hướng dẫn Trung ương nếu giữ mô hình; (4) sửa hồ sơ đồng bộ, xử lý mục 9; (5) rà soát 897; (6) trình lại **qua Sở Tài chính**, không trình thẳng UBND.
+- Văn bản **chưa có trong kho**: CV 7927/STC-HCSN, CV 8866/UBND-NC, BC 270/BC-CĐKT, CV 6298/SXD-QHKT — chỉ biết qua dẫn chiếu.
+- CV 10316 có cả `.docx` và `.pdf` ở thư mục nhận; bản PDF có chữ ký là bản chính thức.
+
+## 13. Dự thảo BC tiếp thu lần 5 và căn cứ mới (07/10/2026)
+
+- Dự thảo: `30-Ket-Qua/2026-10-07/Bao-cao/BC_Tiep-thu-giai-trinh-lan-5-De-an-Dang-kiem_20261007_v1_du-thao.docx`, kèm phiếu phân tích `00-Phieu-phan-tich-…md` (ma trận sửa hồ sơ, thông tin cần thu thập).
+- Căn cứ mới các sở chưa xét: **NĐ 334/2026/NĐ-CP** (tự chủ cơ sở GDĐH, GDNN; hiệu lực 05/10/2026): khoản 5, 6, 7 Điều 7; điểm a khoản 1 Điều 6.
+- Thẩm quyền phê duyệt Đề án sử dụng tài sản công vào liên doanh, liên kết: **Hiệu trưởng** (QĐ 46/2025/QĐ-CTUBND Điều 14 khoản 2; NĐ 334 điểm a khoản 7 Điều 7; QĐ 1710/QĐ-CĐKT khoản 3 Điều 8).
+- Người đại diện phần vốn: NĐ 181/2026; QĐ 31/2025/QĐ-UBND (sửa bởi QĐ 42/2026); QĐ 836/QĐ-UBND (17/9/2026) **chỉ cho công ty cổ phần**. Sở TC là đầu mối vốn nhà nước tại doanh nghiệp.
+- Phương án dự phòng: Trung tâm trực thuộc Trường (tiền lệ 50-08D, CĐ GTVT TW III). Lãnh đạo chưa quyết.
+
+## 14. Quyết định đã chốt khi hoàn thiện BC tiếp thu lần 5 (21/10/2026)
+
+- **Bản hiện hành:** `30-Ket-Qua/2026-10-21/Bao-cao/BC_..._v4_du-thao.docx`. Lãnh đạo Trường đã thống nhất nội dung, người dùng đã tự chỉnh v3. Chữ **xanh lá** đánh dấu nội dung phải điều chỉnh vào Đề án, Tờ trình, Quyết định; phải chuyển về màu đen trước khi trình.
+- **Giai đoạn 1 đầu tư 01 dây chuyền kiểm định tổng hợp** (loại I + loại II; thiết bị phanh tổng hợp kiểm tra được xe dẫn động bốn bánh toàn thời gian). Lý do: Đề án lần 5 chỉ có phanh loại II, không kiểm định đúng quy chuẩn được xe con, bán tải, tải van, xe điện đến 3,5 tấn.
+- **Mọi yêu cầu khác của dự thảo QCVN thay thế QCVN 103:2024** (cân trục đơn, cân cụm trục; dụng cụ đo độ truyền sáng kính; bảo hộ cách điện xe điện; khí thải xe máy kèm camera AI; ISO/IEC 17020 và chứng nhận phù hợp; hố móng cân) được **tính đủ vào dự phòng khoảng 2.980 triệu đồng**. Đây là số ước tính, sẽ chuẩn xác bằng báo giá. Chi tiết: `00-Doi-chieu-du-thao-QCVN-thay-the-103-voi-De-an_du-phong_20261021.md`.
+- **Giá dịch vụ kiểm định do Bộ Tài chính quy định:** không lập luận "bình ổn giá" hay cạnh tranh giá.
+- **Trường không thuộc diện sắp xếp** theo NQ 42/2026/NQ-CP: không đưa CV 15801/BTC-HCSN, CV 9567/STC-HCSN vào hồ sơ Đề án.
+- QCVN 103:2024/BGTVT còn hiệu lực. Dự thảo QCVN thay thế dự kiến có hiệu lực 01/01/2027, trước khi đầu tư (Quý II/2027). Mặt bằng, xưởng, đường nội bộ không đổi; Đề án đáp ứng.
+- **Còn mở:** ngưỡng đầu tư dây chuyền 2 trong mục 1.2 b ghi "29.952 lượt/năm". Đây là công suất của 2 dây chuyền (1 dây chuyền là 14.976 lượt/năm). Đã nêu với người dùng, chưa sửa.
+
+## 15. Hồ sơ trình lại lần 6 (21/10/2026)
+
+- Ngưỡng đầu tư dây chuyền 2 đã chốt: **khi dây chuyền giai đoạn 1 vượt 15.000 lượt/năm** (đã sửa trong BC v4).
+- Dự thảo có Track Changes, xuất phát từ bộ hồ sơ ngày 25/8: `30-Ket-Qua/2026-10-21/Soan-Thao/` gồm DA lần 6, TTr, DT-QĐ lần 5, CV UBND xin ý kiến Bộ Tài chính, Bộ Nội vụ (5 câu hỏi). Phiếu tổng hợp: `00-Phieu-tong-hop-ho-so-trinh-lai-lan-6_20261021.md`.
+- Bảng kinh phí: thiết bị giai đoạn 1 là 2.820 triệu (bằng 5.798,76 trừ thiết bị dây chuyền 2 có VAT 2.979,7), dự phòng 2.980 triệu; **tổng 22.688,6 triệu không đổi**.
+- **Rủi ro chưa xử lý:** 1 dây chuyền (14.976 lượt/năm) với chi phí hiện tại thì lỗ 1,4–2,4 tỷ/năm; điểm hòa vốn khoảng 17.910 lượt. Phải tính lại Bảng 18–21 (phân kỳ hạ tầng hoặc thêm doanh thu) trước khi trình. Mốc hoạt động đề xuất từ Quý III/2028.
+- `kiem_the_thuc.py` báo nhầm TT08, TT17 với văn bản do UBND tỉnh ban hành; `kiem_vien_dan.py` VD06 đọc lẫn chữ đã xóa (delText) của Track Changes.
