@@ -200,3 +200,15 @@ Mạch: UBND tỉnh giao Sở TC tham mưu (CV 8866/UBND-NC, 28/8) → các sở
 - Bảng kinh phí: thiết bị giai đoạn 1 là 2.820 triệu (bằng 5.798,76 trừ thiết bị dây chuyền 2 có VAT 2.979,7), dự phòng 2.980 triệu; **tổng 22.688,6 triệu không đổi**.
 - **Rủi ro chưa xử lý:** 1 dây chuyền (14.976 lượt/năm) với chi phí hiện tại thì lỗ 1,4–2,4 tỷ/năm; điểm hòa vốn khoảng 17.910 lượt. Phải tính lại Bảng 18–21 (phân kỳ hạ tầng hoặc thêm doanh thu) trước khi trình. Mốc hoạt động đề xuất từ Quý III/2028.
 - `kiem_the_thuc.py` báo nhầm TT08, TT17 với văn bản do UBND tỉnh ban hành; `kiem_vien_dan.py` VD06 đọc lẫn chữ đã xóa (delText) của Track Changes.
+
+## 16. Thẩm định độc lập bằng AI và bản v3 (22/10/2026)
+
+- 4 báo cáo AI: ChatGPT (34 vấn đề, chi tiết nhất), Copilot (10), KTC-897 Claude (6), Gemini (nông, kết luận sai "đủ điều kiện", ghi sai "trích từ Quỹ").
+- **Lỗi tệp:** Đề án `..._TrackChanges_v2.docx` trên OneDrive có 0 dấu vết, nội dung trùng bản tháng 8 (giống "Reject All"). Bản đúng nằm ở `30-Ket-Qua/2026-10-21/Soan-Thao/`. Nhiều phát hiện của ChatGPT (2 dây chuyền, Quỹ, Bảng 20 sai thuế, lộ trình cũ) xuất phát từ tệp sai. **Trước khi gửi thẩm định hay trình, phải kiểm số w:ins/w:del và số liệu chính của từng tệp.**
+- Bản v3/v6 (Track Changes, nền là bản v2 đã chấp nhận): `30-Ket-Qua/2026-10-22/Soan-Thao/` (kèm báo cáo rà soát tiếp thu) và bản chép trong OneDrive `.../Trình lại tháng 10.2026/Sau tham dinh AI 22.10/`.
+- **Quyết định đã áp dụng:**
+  - Điều kiện tiên quyết: chỉ góp vốn, đăng ký doanh nghiệp, sử dụng tài sản công sau khi có ý kiến Bộ Tài chính, Bộ Nội vụ; không dùng NSNN chi thường xuyên để góp vốn. Tờ trình đề nghị UBND xin ý kiến Bộ, rồi phê duyệt sau.
+  - Thuế suất 17% đúng theo khoản 3 Điều 10 Luật Thuế TNDN, nhưng bảng tạm tính 20% để thận trọng. Miễn thuế tính từ năm đăng ký (2027); năm thứ 3 vẫn không phải nộp nhờ chuyển lỗ.
+  - TT 40/2025/TT-BXD: giá do cơ sở tự định, không vượt giá tối đa của Bộ trưởng Bộ Xây dựng, **chưa gồm VAT**. Dòng "Nộp thuế GTGT" đổi thành "Chi phí vận hành khác ~5% doanh thu".
+  - Giám đốc không bắt buộc là ĐKV; lãnh đạo cơ sở đăng kiểm là Phó Giám đốc chuyên môn. Bỏ "tạm hoãn hợp đồng viên chức". Bảng 11 tổng đúng là 247.626.261.360 đồng. Bảng 17 dòng 7.1: đơn vị phê duyệt là Sở Xây dựng.
+- Độ nhạy hoàn vốn theo doanh thu: 100% → 8,5 năm; 110% → 7,4; 90% → 9,9; 80% → trên 10 năm.
