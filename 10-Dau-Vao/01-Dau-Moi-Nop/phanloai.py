@@ -29,7 +29,7 @@ KH_LOAI_RA = [
  (r'ke hoach tham du|tham du le|tham du phien hop','Tham dự sự kiện'),
 ]
 KH_GIU_LAI = [
- (r'trien khai thuc hien (nghi quyet|quyet dinh|thong tu|cong van|thong bao|ke hoach|chi thi)','Triển khai VB cấp trên'),
+ (r'trien khai thuc hien (nghi quyet|nghi dinh|quyet dinh|thong tu|cong van|thong bao|ke hoach|chi thi)','Triển khai VB cấp trên'),
  (r'xay dung chuong trinh|bien soan giao trinh|tham dinh','Xây dựng CT/GT, thẩm định'),
  (r'hoi giang|hoi nghi so ket|hoi thao|toa dam|so ket|tong ket','Hội nghị, hội giảng'),
  (r'khoa hoc, cong nghe|doi moi sang tao|nghien cuu khoa hoc|de tai','KHCN, đổi mới sáng tạo'),
@@ -37,7 +37,10 @@ KH_GIU_LAI = [
  (r'kiem dinh|bao dam chat luong|chat luong cao|tu danh gia','Đảm bảo chất lượng'),
  (r'truyen thong|tu van huong nghiep|quang ba','Truyền thông, hướng nghiệp'),
  (r'lien ket dao tao voi doanh nghiep nam hoc|cu nha gia?o .*doanh nghiep','Gắn kết doanh nghiệp'),
- (r'an toan thong tin|an ninh mang|bi mat nha nuoc|phong, chong tham nhung|chuyen doi so|lms|co so du lieu','CĐS, ATTT, nội chính'),
+ (r'an toan thong tin|an ninh mang|bi mat nha nuoc|phong, chong tham nhung|chuyen doi so|lms|co so du lieu|so hoa|tri tue nhan tao|\bskill\b','CĐS, ATTT, nội chính'),
+ (r'^ke hoach cong tac (thang|quy|nam)','Kế hoạch công tác định kỳ'),
+ (r'luu tru','Văn thư, lưu trữ'),
+ (r'cap phep|dieu kien hoat dong|dang ky hoat dong','Cấp phép, điều kiện hoạt động'),
  (r'khao thi nam hoc','Khảo thí năm học'),
  (r'giai the thao|van nghe|tuan le|ngay hoi|le tot nghiep|le khai giang nam hoc','Hoạt động, sự kiện Trường'),
  (r'phat quang|don dep|sua chua|cai tao|dau tu|co so vat chat','Cơ sở vật chất'),
