@@ -13,4 +13,7 @@ echo Tep dau vao: %CSV%
 echo Hay DONG tep CSDL trong Excel truoc khi tiep tuc.
 pause
 python "%~dp0cap_nhat_csdl.py" %1 "%DL%\%CSV%" --nhan-file "%DL%"
+echo.
+echo === Trich nhiem vu chi tiet tu noi dung van ban ===
+python "%~dp0trich_nhiem_vu.py" %1
 pause
