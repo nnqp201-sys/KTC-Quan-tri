@@ -75,28 +75,56 @@ def mo_csdl(thu_muc):
     return [dict(zip(ten, h)) for h in hang[r0 + 1:] if h[ten.index('Số ký hiệu')]]
 
 
-def toan_van(thu_muc, so, tep_chinh=None):
-    """Dong toan van: tep chinh truoc, phu luc .xlsx sau. Tra (dong, ten tep chinh, loi)."""
+def tu_khoa(s):
+    return {t for t in re.findall(r'[a-z0-9]+', khong_dau(s)) if len(t) > 2}
+
+
+def khop_trich_yeu(dong, trich_yeu):
+    """Ty le tu khoa cua trich yeu (CSDL) co mat trong 30 dong dau van ban — nhan dien van ban chinh."""
+    ty = tu_khoa(trich_yeu) - {'hoach', 'thong', 'bao', 'nam', 'cua', 'cac', 'truong'}
+    if not ty:
+        return 1.0
+    return len(ty & tu_khoa(' '.join(dong[:30]))) / len(ty)
+
+
+def toan_van(thu_muc, so, tep_chinh=None, trich_yeu=''):
+    """Dong toan van: tep CHINH (khop trich yeu) truoc, phu luc .xlsx sau. Tra (dong, ten tep chinh, loi).
+    Tep tai ve co the lech (bao cao kem theo, phieu...) -> thu lan luot theo uu tien, chi nhan tep ma
+    trich yeu xuat hien o phan dau; khong tep nao khop -> bao LECH TEP, khong de AI trich nham."""
     tm = os.path.join(thu_muc, THU_MUC_FILE)
     cac = tim_file(tm, so)
     if tep_chinh and tep_chinh not in cac and os.path.isfile(os.path.join(tm, tep_chinh)):
         cac.append(tep_chinh)
+    phu_luc = [os.path.join(tm, t) for t in cac if t.lower().endswith(('.xlsx', '.xls'))] + \
+              [os.path.join(thu_muc, t) for t in tim_file(thu_muc, so) if t.lower().endswith(('.xlsx', '.xls'))]
     doc_duoc = [t for t in cac if t.lower().endswith(('.docx', '.pdf'))]
     if not doc_duoc:
         return [], '', 'không có tệp .docx/.pdf'
-    chinh = chon_chinh(doc_duoc)
-    try:
-        dong = doc_toan_van(os.path.join(tm, chinh))
-    except Exception as e:
-        return [], chinh, 'không đọc được %s (%s)' % (chinh, e)
-    if not dong:
-        return [], chinh, '%s là PDF ảnh quét, không có lớp chữ' % chinh
-    for t in cac:
-        if t.lower().endswith(('.xlsx', '.xls')):
-            try:
-                dong += ['=== Phụ lục: %s ===' % t] + doc_toan_van(os.path.join(tm, t))
-            except Exception as e:
-                dong.append('=== Phụ lục %s: không đọc được (%s) ===' % (t, e))
+    thu, chinh, dong = [], '', []
+    con = list(doc_duoc)
+    while con:
+        t = chon_chinh(con)
+        con.remove(t)
+        try:
+            d = doc_toan_van(os.path.join(tm, t))
+        except Exception as e:
+            thu.append('%s: không đọc được (%s)' % (t, e))
+            continue
+        if not d:
+            thu.append('%s: PDF ảnh quét' % t)
+            continue
+        diem = khop_trich_yeu(d, trich_yeu)
+        if diem >= 0.5:
+            chinh, dong = t, d
+            break
+        thu.append('%s: không khớp trích yếu (%.0f%%)' % (t, diem * 100))
+    if not chinh:
+        return [], '', 'LỆCH TỆP — không tệp nào là văn bản chính: ' + '; '.join(thu)
+    for p in phu_luc:
+        try:
+            dong += ['=== Phụ lục: %s ===' % os.path.basename(p)] + doc_toan_van(p)
+        except Exception as e:
+            dong.append('=== Phụ lục %s: không đọc được (%s) ===' % (os.path.basename(p), e))
     return dong, chinh, ''
 
 
@@ -114,7 +142,7 @@ def chuan_bi(thu_muc):
         so = r['Số ký hiệu']
         if r.get('Nhóm') != 'Nhiệm vụ' or slug(so) + '.json' in da_co:
             continue
-        dong, chinh, ly_do = toan_van(thu_muc, so, r.get('File đã tải'))
+        dong, chinh, ly_do = toan_van(thu_muc, so, r.get('File đã tải'), r.get('Trích yếu'))
         if ly_do:
             loi.append('%s: %s' % (so, ly_do))
             continue
@@ -250,7 +278,8 @@ def kiem(thu_muc, thu_muc_json, ra=MASTER_DIR):
             tong_vb.append([os.path.basename(p), 'ĐỎ', 'JSON hỏng: %s' % e, 0, 0])
             continue
         so = d.get('So_Ky_Hieu', '')
-        dong, _, ly_do = toan_van(thu_muc, so, (theo_so.get(so) or {}).get('File đã tải'))
+        r_csdl = theo_so.get(so) or {}
+        dong, _, ly_do = toan_van(thu_muc, so, r_csdl.get('File đã tải'), r_csdl.get('Trích yếu'))
         if ly_do:
             tong_vb.append([so, 'ĐỎ', 'không đọc lại được văn bản gốc: ' + ly_do, 0, 0])
             continue
@@ -286,6 +315,7 @@ def kiem(thu_muc, thu_muc_json, ra=MASTER_DIR):
             o = ws.cell(ws.max_row, c)
             o.fill = PatternFill('solid', fgColor=MAU[muc])
             o.alignment = Alignment(wrap_text=True, vertical='top')
+            o.font = Font(name='Times New Roman', size=12)
     for sh, tieu_de, hang in (('Văn bản', ['Số ký hiệu', 'Mức', 'Cờ văn bản', 'Số nhiệm vụ', 'Số loại trừ'], tong_vb),
                               ('Loại trừ', ['Số ký hiệu', 'Dòng', 'Nội dung', 'Lý do'], loai_tru)):
         w2 = wb.create_sheet(sh)
@@ -294,7 +324,11 @@ def kiem(thu_muc, thu_muc_json, ra=MASTER_DIR):
             w2.append(h)
     for w in wb.worksheets:
         for j, t in enumerate([c.value for c in w[1]], 1):
-            w.cell(1, j).font = Font(bold=True)
+            w.cell(1, j).font = Font(name='Times New Roman', size=12, bold=True)
+        for hang in w.iter_rows(min_row=2):
+            for o in hang:
+                if not o.font.bold:
+                    o.font = Font(name='Times New Roman', size=12)
             w.column_dimensions[openpyxl.utils.get_column_letter(j)].width = RONG.get(t, 14)
         w.freeze_panes = 'A2'
     ws.auto_filter.ref = ws.dimensions
