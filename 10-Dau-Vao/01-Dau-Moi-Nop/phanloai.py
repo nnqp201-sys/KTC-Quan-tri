@@ -6,8 +6,10 @@ KH-CĐKT : lấy kế hoạch THỰC HIỆN (có nhiệm vụ/sản phẩm theo 
           Loại ra kế hoạch vận hành đào tạo: giảng dạy, khai/bế giảng, mở lớp,
           tổ chức lớp, lớp lái xe, vật tư, tham dự sự kiện — và MỌI kế hoạch
           nhắc tới mã lớp cụ thể (K7C, K8T, K9N...).
-TB-CĐKT : CHỈ lấy Thông báo KẾT LUẬN (giao ban, cuộc họp, hội đồng) — loại
-          thông báo có giao nhiệm vụ. Mọi thông báo khác đều bỏ.
+TB-CĐKT : CHỈ lấy Thông báo KẾT LUẬN (giao ban, cuộc họp, hội đồng, kết luận
+          triển khai công việc) — loại thông báo có giao nhiệm vụ. Mọi thông báo
+          khác vào nhóm 'Chờ phân loại': vẫn ghi CSDL và tải file, phân loại,
+          trích công việc sau (sửa theo yêu cầu người dùng 25/10/2026).
 """
 import re, unicodedata
 
@@ -48,6 +50,7 @@ TB_GIU_LAI = [
  (r'ket luan cua (bi thu|hieu truong|chu tich|pho hieu truong)','Kết luận của lãnh đạo'),
  (r'ket luan .*(cuoc hop|hoi nghi|hoi dong|toa dam|buoi lam viec)','Kết luận cuộc họp / hội đồng'),
  (r'\bket luan\b.*(giao|phan cong) (nhiem vu|cong viec)','Kết luận có giao nhiệm vụ'),
+ (r'\bket luan\b.*trien khai (cong viec|nhiem vu)','Kết luận triển khai công việc'),
 ]
 
 def phan_loai(trich_yeu, so_ky_hieu=''):
@@ -57,11 +60,11 @@ def phan_loai(trich_yeu, so_ky_hieu=''):
     if la_tb:
         # Thông báo điều chỉnh/bổ sung một kết luận đã có thì không phải kết luận mới
         if re.search(r'dieu chinh|bo sung thanh phan|gia han|dung cuoc hop', s):
-            return 'Không theo dõi', 'Thông báo điều chỉnh hành chính'
+            return 'Chờ phân loại', 'Thông báo điều chỉnh hành chính'
         for rx, ly in TB_GIU_LAI:
             if re.search(rx, s):
                 return 'Nhiệm vụ', ly
-        return 'Không theo dõi', 'Thông báo không phải kết luận giao nhiệm vụ'
+        return 'Chờ phân loại', 'Thông báo không phải kết luận giao nhiệm vụ'
 
     # Kế hoạch
     if re.search(MA_LOP, s):

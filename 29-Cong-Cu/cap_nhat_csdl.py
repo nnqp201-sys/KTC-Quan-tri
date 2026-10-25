@@ -42,7 +42,8 @@ COT_CSDL = ['STT', 'Số ký hiệu', 'Loại', 'Ngày ban hành', 'Trích yếu
             'Sản phẩm', 'Tình trạng', 'File đã tải', 'Doc ID', 'Ngày ghi nhận']
 COT_NHAT_KY = ['Thời điểm chạy', 'Số VB quét', 'VB mới', 'Nhiệm vụ', 'Vận hành', 'Cần xem lại',
                'File đã tải', 'Ghi chú']
-MAU = {'Nhiệm vụ': 'E2EFDA', 'Vận hành đào tạo': 'F2F2F2', 'Cần xem lại': 'FFF2CC'}
+MAU = {'Nhiệm vụ': 'E2EFDA', 'Vận hành đào tạo': 'F2F2F2', 'Cần xem lại': 'FFF2CC',
+       'Chờ phân loại': 'DDEBF7'}
 VANG = 'FFF2CC'
 # Nguong khop bieu mau — co y dat cao: thieu con hon khop sai
 DIEM_KHOP = 0.55
@@ -348,10 +349,11 @@ def main():
         if not b.get('doc_id'):
             can_xu_ly.append('%s: thiếu Doc ID (tệp đầu vào không có cột này)' % b['so_ky_hieu'])
 
-    # Buoc 4: doi chieu file — file san co trong 2026-09, file moi tai trong --nhan-file
+    # Buoc 4: doi chieu file cho MOI dong da ghi CSDL (25/10/2026: moi VB deu tai ve de trich cong
+    # viec sau) — file san co trong 2026-09, file moi tai trong --nhan-file
     da_tai = []
     for r in cac_dong(ws, r0, cot):
-        if ws.cell(r, cot['Nhóm']).value != 'Nhiệm vụ' or ws.cell(r, cot['File đã tải']).value:
+        if ws.cell(r, cot['File đã tải']).value:
             continue
         so = ws.cell(r, cot['Số ký hiệu']).value
         trich = ws.cell(r, cot['Trích yếu']).value
@@ -415,7 +417,7 @@ def main():
     nk = wb['Nhật ký chạy']
     nk.append([bay_gio.strftime('%d/%m/%Y %H:%M'), so_quet, len(moi), dem['Nhiệm vụ'],
                dem['Vận hành đào tạo'], dem['Cần xem lại'], len(da_tai),
-               '; '.join(ghi_chu) or 'cap_nhat_csdl.py'])
+               '; '.join(['Chờ phân loại %d' % dem['Chờ phân loại']] + ghi_chu) or 'cap_nhat_csdl.py'])
     if not a.thu:
         sao_luu = os.path.join(a.thu_muc, '_sao-luu')
         os.makedirs(sao_luu, exist_ok=True)
@@ -430,6 +432,7 @@ def main():
         return 0
     print('Quét %d VB · mới %d (Nhiệm vụ %d · Vận hành đào tạo %d · Cần xem lại %d)' %
           (so_quet, len(moi), dem['Nhiệm vụ'], dem['Vận hành đào tạo'], dem['Cần xem lại']))
+    print('  (Chờ phân loại %d — thông báo khác, tải về để trích công việc sau)' % dem['Chờ phân loại'])
     for b in moi:
         print('  + %-14s %-17s %s' % (b['so_ky_hieu'], b['nhom'], b['trich_yeu'][:70]))
     for tieu_de, ds in (('File đã ghi nhận', da_tai), ('Đã điền vào biểu mẫu (bản sao)', da_khop),
