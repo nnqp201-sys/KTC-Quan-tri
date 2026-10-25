@@ -233,6 +233,17 @@ def tim_file(thu_muc, so):
                   and not f.startswith('~$') and mau.search(khong_dau(f)))
 
 
+UU_TIEN = {'.docx': 0, '.doc': 1, '.pdf': 2}
+
+
+def chon_chinh(ds):
+    """Tep chinh de trich noi dung: .docx truoc, roi .doc, .pdf; tep phu (bao cao ra soat 897, phieu,
+    to trinh, phu luc) xep sau; cung loai thi ten ngan nhat."""
+    phu = re.compile(r'ra.?soat|897|phieu|to.?trinh|phu.?luc|^bc[-_ ]')
+    return min(ds, key=lambda f: (UU_TIEN.get(os.path.splitext(f)[1].lower(), 9),
+                                  bool(phu.search(khong_dau(f.split('__')[-1]))), len(f), f))
+
+
 # ---------- Khop bieu mau QLDT ----------
 
 def tu_khoa(s):
@@ -380,31 +391,35 @@ def main():
         so = ws.cell(r, cot['Số ký hiệu']).value
         trich = ws.cell(r, cot['Trích yếu']).value
         san = tim_file(thu_muc_file, so)
-        if len(san) == 1:
-            ws.cell(r, cot['File đã tải']).value = san[0]
-            da_tai.append(san[0] + ' (đã có sẵn)')
+        if san:  # da co trong 2026-09 (lan truoc hoac bo sung tay) -> ghi nhan tep uu tien
+            ws.cell(r, cot['File đã tải']).value = chon_chinh(san)
+            da_tai.append(chon_chinh(san) + ' (đã có sẵn)')
             continue
         tai = tim_file(a.nhan_file, so) if a.nhan_file else []
         if not tai and a.nhan_file:  # ten tep goc do skill ktc-ioffice ghi trong CSV
             tai = [t for t in ten_goc.get(khoa_so(so), [])
-                   if os.path.isfile(os.path.join(a.nhan_file, t))][:1]
-        if len(tai) == 1:
-            nguon = os.path.join(a.nhan_file, tai[0])
-            dich_ten = ten_file_chuan(so, trich, os.path.splitext(tai[0])[1].lower())
+                   if os.path.isfile(os.path.join(a.nhan_file, t))]
+        if not tai:
+            can_xu_ly.append('%s: chưa có tệp — mở showDocDetail(%s,\'\',\'2\') để tải' %
+                             (so, ws.cell(r, cot['Doc ID']).value))
+            ghi_chu.append('Chưa tải %s' % so)
+            continue
+        # Chuyen TAT CA tep dinh kem cua van ban; tep chinh (.docx uu tien) mang ten chuan,
+        # tep phu them hau to _2, _3... Khong de tep co san (tuong duong mv -n).
+        chinh = chon_chinh(tai)
+        goc_ten = os.path.splitext(ten_file_chuan(so, trich, ''))[0]
+        thu_tu = [chinh] + [t for t in tai if t != chinh]
+        for i, t in enumerate(thu_tu, 1):
+            dich_ten = goc_ten + ('' if i == 1 else '_%d' % i) + os.path.splitext(t)[1].lower()
             dich = os.path.join(thu_muc_file, dich_ten)
-            if os.path.exists(dich):  # tuong duong mv -n: khong de
-                can_xu_ly.append('%s: không chuyển, đích đã tồn tại %s' % (so, dich_ten))
+            if os.path.exists(dich):
+                can_xu_ly.append('%s: không chuyển %s, đích đã tồn tại %s' % (so, t, dich_ten))
                 continue
             if not a.thu:
-                shutil.move(nguon, dich)
-            ws.cell(r, cot['File đã tải']).value = dich_ten
+                shutil.move(os.path.join(a.nhan_file, t), dich)
+            if i == 1:
+                ws.cell(r, cot['File đã tải']).value = dich_ten
             da_tai.append(dich_ten)
-        else:
-            ly_do = ('nhiều tệp ứng viên: ' + ', '.join(san or tai)) if len(san or tai) > 1 \
-                else 'chưa có tệp — mở showDocDetail(%s,\'\',\'2\') để tải' % \
-                ws.cell(r, cot['Doc ID']).value
-            can_xu_ly.append('%s: %s' % (so, ly_do))
-            ghi_chu.append('Chưa tải %s' % so)
 
     # Buoc 6: khop bieu mau QLDT tren BAN SAO
     duong_bm = os.path.join(a.thu_muc, BIEU_MAU)

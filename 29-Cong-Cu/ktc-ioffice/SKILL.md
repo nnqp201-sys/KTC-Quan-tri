@@ -27,7 +27,7 @@ không bỏ văn bản nào theo nội dung.**
 | Tham số | Mặc định |
 |---|---|
 | Từ ngày | 28/09/2026 |
-| Tải tệp đính kèm cho văn bản ban hành trong | 7 ngày gần nhất (người dùng có thể nói "tải hết" hoặc "không tải") |
+| Tải tệp đính kèm | Mọi văn bản chưa từng tải (tự nhớ trong trình duyệt); "không tải" để bỏ qua |
 
 ## Bước 1 — Mở Tra cứu văn bản
 
@@ -62,12 +62,45 @@ Với mỗi từ khóa `KH-CĐKT`, rồi `TB-CĐKT`:
 
 ## Bước 3 — Tải tệp đính kèm
 
-Với mỗi dòng trong cửa sổ "tải tệp" (mặc định 7 ngày):
-1. Mở chi tiết: `showDocDetail(<doc_id>,'','2')`.
-2. Ở mục **"File đính kèm"**, bấm từng liên kết tệp (hàm trang `filedownload(path, name, type)`).
-   Ghi lại **tên tệp hiển thị** của từng liên kết.
-3. Quay lại kết quả tra cứu (không bấm nút xử lý nào trên trang chi tiết).
-4. Tệp không tải được → ghi lý do vào cột `loi`.
+**Tự động, tăng dần**: tải cho MỌI văn bản đọc được ở bước 2 mà **chưa từng tải** — không giới hạn
+7 ngày. Trình duyệt tự nhớ văn bản đã tải trong `localStorage` của trang iOffice, nên lần sau chỉ tải
+văn bản mới; không cần người dùng chọn.
+
+```javascript
+// Danh sach Doc ID can tai = doc trong window.__kq nhung chua co trong so nho
+(() => { const da = new Set(JSON.parse(localStorage.getItem('ktc_da_tai') || '[]'));
+  return window.__kq.filter(r => !da.has(r.doc_id)).map(r => r.doc_id); })()
+```
+
+**Đặt tên khi tải** — mọi tệp tải về phải mang tiền tố số văn bản: `<số>-<KH|TB>__<tên gốc>`
+(vd `1073-KH__Ke hoach xet ho so.docx`). Script trên máy nhận tệp theo tiền tố này.
+
+**Cách A — ưu tiên (nhanh, không mở từng trang):**
+1. Chạy `showDocDetail.toString()` và `filedownload.toString()` để biết trang gọi địa chỉ nào khi mở chi
+   tiết và khi tải tệp.
+2. Với mỗi Doc ID: `fetch(<địa chỉ chi tiết>, {credentials:'include'})`, tìm các lời gọi
+   `filedownload('<path>','<name>',...)` trong HTML trả về.
+3. Với mỗi tệp: `fetch(<địa chỉ tải tạo từ path>, {credentials:'include'})` → `blob` → tạo thẻ `<a>`
+   với `download = '<số>-<KH|TB>__<name>'` rồi `click()`. Nghỉ ~1 giây giữa các tệp.
+4. Kiểm tra blob: kích thước > 0 và không phải trang HTML đăng nhập (`blob.type` không là `text/html`).
+   Sai → coi là lỗi, ghi `loi`, KHÔNG lưu tệp.
+
+**Cách B — dự phòng** (khi cách A không xác định được địa chỉ): mở `showDocDetail(<doc_id>,'','2')`,
+bấm từng liên kết ở mục "File đính kèm", ghi tên tệp hiển thị vào `ten_file`, quay lại kết quả.
+
+Sau mỗi văn bản tải **đủ** tệp (không lỗi):
+```javascript
+((id) => { const k = 'ktc_da_tai', s = new Set(JSON.parse(localStorage.getItem(k) || '[]'));
+  s.add(id); localStorage.setItem(k, JSON.stringify([...s])); })('<doc_id>')
+```
+Văn bản lỗi KHÔNG ghi vào sổ nhớ → lần chạy sau tự tải lại.
+
+Lần đầu Chrome có thể hỏi "Cho phép tải nhiều tệp" → báo người dùng bấm **Cho phép** (chỉ một lần).
+Người dùng nói "tải lại hết" → xóa sổ nhớ: `localStorage.removeItem('ktc_da_tai')`.
+Người dùng nói "không tải" → bỏ qua bước này.
+
+Chỉ đọc: chỉ dùng hàm/địa chỉ XEM và TẢI; không gọi hàm hay địa chỉ nào có tên gợi ý xử lý, chuyển,
+duyệt, trả lại, cập nhật trạng thái.
 
 ## Bước 4 — Xuất CSV về Downloads
 
