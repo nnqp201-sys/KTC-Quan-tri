@@ -14,6 +14,5 @@ echo Hay DONG tep CSDL trong Excel truoc khi tiep tuc.
 pause
 python "%~dp0cap_nhat_csdl.py" %1 "%DL%\%CSV%" --nhan-file "%DL%"
 echo.
-echo === Trich nhiem vu chi tiet tu noi dung van ban ===
-python "%~dp0trich_nhiem_vu.py" %1
+echo Buoc tiep: trich nhiem vu chi tiet bang skill ktc-trich-nhiem-vu (Claude Code tren may).
 pause
