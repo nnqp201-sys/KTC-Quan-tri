@@ -240,7 +240,7 @@ def chon_chinh(ds):
     """Tep chinh de trich noi dung: .docx truoc, roi .doc, .pdf; tep phu (bao cao ra soat 897, phieu,
     to trinh, phu luc) xep sau; cung loai thi ten ngan nhat."""
     phu = re.compile(r'ra.?soat|897|phieu|to.?trinh|phu.?luc|^bc[-_ ]')
-    return min(ds, key=lambda f: (UU_TIEN.get(os.path.splitext(f)[1].lower(), 9),
+    return min(ds, key=lambda f: (not re.search(r'__chinh__|_chinh\.', khong_dau(f)), UU_TIEN.get(os.path.splitext(f)[1].lower(), 9),
                                   bool(phu.search(khong_dau(f.split('__')[-1]))), len(f), f))
 
 
@@ -386,10 +386,22 @@ def main():
     # viec sau) — file san co trong 2026-09, file moi tai trong --nhan-file
     da_tai = []
     for r in cac_dong(ws, r0, cot):
-        if ws.cell(r, cot['File đã tải']).value:
-            continue
         so = ws.cell(r, cot['Số ký hiệu']).value
         trich = ws.cell(r, cot['Trích yếu']).value
+        # VAN BAN CHINH (tep __CHINH__ tu skill ktc-ioffice) luon duoc nhan, ke ca dong da ghi tep phu truoc do
+        chinh = [t for t in (tim_file(a.nhan_file, so) if a.nhan_file else []) if '__chinh__' in khong_dau(t)]
+        if chinh or ws.cell(r, cot['File đã tải']).value:
+            if chinh:
+                t = chon_chinh(chinh)
+                dich_ten = os.path.splitext(ten_file_chuan(so, trich, ''))[0] + '_chinh' + os.path.splitext(t)[1].lower()
+                if os.path.exists(os.path.join(thu_muc_file, dich_ten)):
+                    can_xu_ly.append('%s: không chuyển %s, đích đã tồn tại %s' % (so, t, dich_ten))
+                    continue
+                if not a.thu:
+                    shutil.move(os.path.join(a.nhan_file, t), os.path.join(thu_muc_file, dich_ten))
+                ws.cell(r, cot['File đã tải']).value = dich_ten
+                da_tai.append(dich_ten + ' (văn bản chính, tải bù)')
+            continue
         san = tim_file(thu_muc_file, so)
         if san:  # da co trong 2026-09 (lan truoc hoac bo sung tay) -> ghi nhan tep uu tien
             ws.cell(r, cot['File đã tải']).value = chon_chinh(san)

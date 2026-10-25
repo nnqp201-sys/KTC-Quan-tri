@@ -87,6 +87,35 @@ def khop_trich_yeu(dong, trich_yeu):
     return len(ty & tu_khoa(' '.join(dong[:30]))) / len(ty)
 
 
+LOAI_VB = ['ke hoach', 'thong bao', 'bao cao', 'phieu', 'bien ban', 'thong tu', 'nghi dinh', 'quyet dinh',
+           'to trinh', 'giay moi', 'cong van', 'mau', 'danh sach', 'chuong trinh', 'de an']
+
+
+def la_van_ban_chinh(dong, so, trich_yeu):
+    """Tra '' neu dung la van ban chinh cua Truong, nguoc lai ly do. Bon dieu kien:
+    co quan ban hanh la Truong; tieu de loai dung (KH -> KẾ HOẠCH, TB -> THÔNG BÁO); so ky hieu o dong
+    'Số:' (neu co ghi so) dung so; trich yeu khop >= 50%. Bao cao ra soat 897 nhac lai ten ke hoach nhung
+    tieu de la BÁO CÁO va so BC -> bi loai."""
+    dau = [khong_dau(x) for x in dong[:25]]
+    if not any('truong cao dang kon tum' in x for x in dau[:6]):
+        return 'cơ quan ban hành không phải Trường'
+    ky = '/KH-' if '/KH-' in so else '/TB-'
+    so_dong = next((x for x in dau if re.search(r'\bso\s*:', x)), '')
+    if so_dong and not re.search(r'/%s-' % ky.strip('/-').lower(), so_dong):
+        return 'dòng "Số:" là loại khác (%s)' % so_dong.split('|')[0].strip()[:40]
+    m = re.search(r'\bso\s*:\s*(\d+)\s*/', so_dong)
+    if m and m.group(1) != re.match(r'\s*(\d+)', so).group(1):
+        return 'số văn bản trong tệp là %s' % m.group(1)
+    tieu_de = next((x.strip() for x in dau if not x.startswith('[') and
+                    any(re.match(r'^%s\b' % l, x.strip()) for l in LOAI_VB) and len(x) < 60 and
+                    dong[dau.index(x)].upper() == dong[dau.index(x)]), '')
+    can = 'ke hoach' if ky == '/KH-' else 'thong bao'
+    if not tieu_de.startswith(can) and not (ky == '/TB-' and tieu_de.startswith('ket luan')):
+        return 'tiêu đề văn bản là "%s"' % (tieu_de.upper() or 'không xác định')
+    diem = khop_trich_yeu(dong, trich_yeu)
+    return '' if diem >= 0.5 else 'không khớp trích yếu (%.0f%%)' % (diem * 100)
+
+
 def toan_van(thu_muc, so, tep_chinh=None, trich_yeu=''):
     """Dong toan van: tep CHINH (khop trich yeu) truoc, phu luc .xlsx sau. Tra (dong, ten tep chinh, loi).
     Tep tai ve co the lech (bao cao kem theo, phieu...) -> thu lan luot theo uu tien, chi nhan tep ma
@@ -113,11 +142,11 @@ def toan_van(thu_muc, so, tep_chinh=None, trich_yeu=''):
         if not d:
             thu.append('%s: PDF ảnh quét' % t)
             continue
-        diem = khop_trich_yeu(d, trich_yeu)
-        if diem >= 0.5:
+        ly_do = la_van_ban_chinh(d, so, trich_yeu)
+        if not ly_do:
             chinh, dong = t, d
             break
-        thu.append('%s: không khớp trích yếu (%.0f%%)' % (t, diem * 100))
+        thu.append('%s: %s' % (t, ly_do))
     if not chinh:
         return [], '', 'LỆCH TỆP — không tệp nào là văn bản chính: ' + '; '.join(thu)
     for p in phu_luc:

@@ -72,8 +72,19 @@ văn bản mới; không cần người dùng chọn.
   return window.__kq.filter(r => !da.has(r.doc_id)).map(r => r.doc_id); })()
 ```
 
-**Đặt tên khi tải** — mọi tệp tải về phải mang tiền tố số văn bản: `<số>-<KH|TB>__<tên gốc>`
-(vd `1073-KH__Ke hoach xet ho so.docx`). Script trên máy nhận tệp theo tiền tố này.
+**Lấy ĐỦ mọi mục tệp, không chỉ "File đính kèm".** Trang chi tiết thường có **tệp văn bản chính** (văn
+bản ký số / "Tệp văn bản" / "File văn bản" / "Nội dung văn bản") tách khỏi **tệp đính kèm** (báo cáo rà soát
+897, phiếu, biểu mẫu, văn bản cấp trên làm căn cứ). Lần chạy 25/10/2026 chỉ lấy mục "File đính kèm" nên
+26 văn bản thiếu bản chính và 18 văn bản chỉ có tệp phụ. Trước khi tải văn bản đầu tiên: liệt kê **tên mọi
+mục có liên kết tệp** trên trang chi tiết (javascript: tìm mọi phần tử gọi `filedownload` hoặc thẻ `<a>`
+trỏ tới tệp, kèm nhãn mục gần nhất) và báo người dùng danh sách mục tìm được.
+
+**Đặt tên khi tải** — mọi tệp tải về phải mang tiền tố số văn bản:
+- tệp thuộc mục **văn bản chính**: `<số>-<KH|TB>__CHINH__<tên gốc>`
+- tệp thuộc mục **đính kèm**: `<số>-<KH|TB>__<tên gốc>`
+(vd `1073-KH__CHINH__Ke hoach xet ho so.pdf`, `1073-KH__BC ra soat.docx`). Script trên máy nhận tệp theo
+tiền tố, ưu tiên tệp `__CHINH__` làm văn bản chính. Không xác định được mục nào là văn bản chính → **không
+gắn** `__CHINH__` (script sẽ tự kiểm nội dung), ghi vào `loi`: "không rõ mục văn bản chính".
 
 **Cách A — ưu tiên (nhanh, không mở từng trang):**
 1. Chạy `showDocDetail.toString()` và `filedownload.toString()` để biết trang gọi địa chỉ nào khi mở chi
@@ -97,6 +108,7 @@ Văn bản lỗi KHÔNG ghi vào sổ nhớ → lần chạy sau tự tải lạ
 
 Lần đầu Chrome có thể hỏi "Cho phép tải nhiều tệp" → báo người dùng bấm **Cho phép** (chỉ một lần).
 Người dùng nói "tải lại hết" → xóa sổ nhớ: `localStorage.removeItem('ktc_da_tai')`.
+Người dùng nói "tải bù văn bản chính" → với Doc ID người dùng đưa (hoặc mọi văn bản), chỉ tải mục văn bản chính, bỏ qua sổ nhớ.
 Người dùng nói "không tải" → bỏ qua bước này.
 
 Chỉ đọc: chỉ dùng hàm/địa chỉ XEM và TẢI; không gọi hàm hay địa chỉ nào có tên gợi ý xử lý, chuyển,
