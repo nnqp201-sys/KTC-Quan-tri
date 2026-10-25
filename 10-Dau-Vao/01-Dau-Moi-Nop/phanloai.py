@@ -29,7 +29,8 @@ KH_LOAI_RA = [
  (r'ke hoach tham du|tham du le|tham du phien hop','Tham dự sự kiện'),
 ]
 KH_GIU_LAI = [
- (r'trien khai thuc hien (nghi quyet|nghi dinh|quyet dinh|thong tu|cong van|thong bao|ke hoach|chi thi)','Triển khai VB cấp trên'),
+ (r'(trien khai|thuc hien)( thuc hien)? (luat|nghi quyet|nghi dinh|quyet dinh|thong tu|cong van|thong bao|ke hoach|chi thi|ket luan|chuong trinh)\b','Triển khai VB cấp trên'),
+ (r'ubnd tinh|[/-]ubnd\b|uy ban nhan dan tinh|tinh uy|chu tich tinh|chi dao cua (tinh|ubnd|chu tich)','Triển khai chỉ đạo của tỉnh'),
  (r'xay dung chuong trinh|bien soan giao trinh|tham dinh','Xây dựng CT/GT, thẩm định'),
  (r'hoi giang|hoi nghi so ket|hoi thao|toa dam|so ket|tong ket','Hội nghị, hội giảng'),
  (r'khoa hoc, cong nghe|doi moi sang tao|nghien cuu khoa hoc|de tai','KHCN, đổi mới sáng tạo'),
