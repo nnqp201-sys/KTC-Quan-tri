@@ -87,6 +87,7 @@ TRUONG = {  # ten truong -> cac dau hieu ten cot (khong dau)
     'dv_ban_hanh': ['don vi ban hanh', 'co quan ban hanh'],
     'xu_ly': ['xu ly chinh', 'nguoi xu ly'],
     'doc_id': ['doc id', 'docid', 'ma van ban'],
+    'ten_file': ['ten file', 'file dinh kem'],  # ten tep goc, nhieu tep cach nhau bang ' | '
 }
 BAT_BUOC = ['trich_yeu', 'so_ky_hieu', 'ngay']
 
@@ -307,7 +308,7 @@ def main():
     da_co = {khoa_so(ws.cell(r, cot['Số ký hiệu']).value) for r in cac_dong(ws, r0, cot)}
 
     # Buoc 2-3: doc, loc, chong trung, phan loai
-    so_quet, moi = 0, []
+    so_quet, moi, ten_goc = 0, [], {}
     for p in a.dau_vao:
         try:
             ban_ghi = doc_dau_vao(p)
@@ -316,6 +317,9 @@ def main():
             return 1
         so_quet += len(ban_ghi)
         for b in ban_ghi:
+            if b.get('ten_file'):
+                ten_goc[khoa_so(b['so_ky_hieu'])] = [t.strip() for t in str(b['ten_file']).split('|')
+                                                   if t.strip()]
             ngay = doc_ngay(b.get('ngay'))
             k = khoa_so(b['so_ky_hieu'])
             if not ngay or ngay < NGAY_TU or k in da_co or not loai_vb(b['so_ky_hieu']):
@@ -363,6 +367,9 @@ def main():
             da_tai.append(san[0] + ' (đã có sẵn)')
             continue
         tai = tim_file(a.nhan_file, so) if a.nhan_file else []
+        if not tai and a.nhan_file:  # ten tep goc do skill ktc-ioffice ghi trong CSV
+            tai = [t for t in ten_goc.get(khoa_so(so), [])
+                   if os.path.isfile(os.path.join(a.nhan_file, t))][:1]
         if len(tai) == 1:
             nguon = os.path.join(a.nhan_file, tai[0])
             dich_ten = ten_file_chuan(so, trich, os.path.splitext(tai[0])[1].lower())
