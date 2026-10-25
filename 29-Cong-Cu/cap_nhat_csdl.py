@@ -332,6 +332,24 @@ def main():
             moi.append(b)
     moi.sort(key=lambda b: (b['ngay'], b['so_ky_hieu']))
 
+    # Phan loai lai dong 'Can xem lai' theo luat hien hanh (luat duoc bo sung dan). Chi dong may
+    # dat 'Can xem lai' — dong nguoi da doi nhom thi khong con o nhom nay nen khong bi dong toi.
+    phan_lai = []
+    for r in cac_dong(ws, r0, cot):
+        if ws.cell(r, cot['Nhóm']).value != 'Cần xem lại':
+            continue
+        so = ws.cell(r, cot['Số ký hiệu']).value
+        nhom, ly_do = phan_loai(ws.cell(r, cot['Trích yếu']).value, so)
+        if nhom in ('Cần xem lại', 'Không theo dõi'):
+            continue
+        ws.cell(r, cot['Nhóm']).value = nhom
+        ws.cell(r, cot['Lý do phân loại']).value = ly_do + ' (phân loại lại %s)' % bay_gio.strftime('%d/%m/%Y')
+        for c in cot.values():
+            ws.cell(r, c).fill = PatternFill('solid', fgColor=MAU[nhom])
+        phan_lai.append('%s: Cần xem lại → %s (%s)' % (so, nhom, ly_do))
+    if phan_lai:
+        ghi_chu.append('Phân loại lại %d dòng' % len(phan_lai))
+
     # Buoc 5: ghi dong moi
     stt = sum(1 for _ in cac_dong(ws, r0, cot))
     mau_o = {c: ws.cell(r0 + 1, c)._style for c in cot.values()} if stt else {}
@@ -434,7 +452,7 @@ def main():
     # Buoc 7: bao cao
     print('=== %sKẾT QUẢ CẬP NHẬT CSDL — %s ===' % ('[CHẠY THỬ, KHÔNG GHI] ' if a.thu else '',
                                                    bay_gio.strftime('%d/%m/%Y %H:%M')))
-    if not moi and not da_tai and not da_khop and not can_xu_ly:
+    if not moi and not da_tai and not da_khop and not can_xu_ly and not phan_lai:
         print('Không có văn bản mới.')
         return 0
     print('Quét %d VB · mới %d (Nhiệm vụ %d · Vận hành đào tạo %d · Cần xem lại %d)' %
@@ -442,7 +460,7 @@ def main():
     print('  (Chờ phân loại %d — thông báo khác, tải về để trích công việc sau)' % dem['Chờ phân loại'])
     for b in moi:
         print('  + %-14s %-17s %s' % (b['so_ky_hieu'], b['nhom'], b['trich_yeu'][:70]))
-    for tieu_de, ds in (('File đã ghi nhận', da_tai), ('Đã điền vào biểu mẫu (bản sao)', da_khop),
+    for tieu_de, ds in (('Phân loại lại theo luật mới', phan_lai), ('File đã ghi nhận', da_tai), ('Đã điền vào biểu mẫu (bản sao)', da_khop),
                         ('Chưa khớp biểu mẫu QLĐT (bình thường với VB ngoài Phòng QLĐT)', chua_khop),
                         ('Cần người xử lý', can_xu_ly +
                          ['%s: nhóm Cần xem lại — %s' % (b['so_ky_hieu'], b['ly_do'])
