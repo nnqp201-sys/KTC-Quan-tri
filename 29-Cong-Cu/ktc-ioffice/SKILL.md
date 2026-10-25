@@ -53,6 +53,10 @@ Với mỗi từ khóa `KH-CĐKT`, rồi `TB-CĐKT`:
    Kiểm tra trước khi sang bước 3: số ký hiệu nhỏ nhất đọc được phải có ngày < hoặc = "Từ ngày"
    (tức đã chạm mốc). Nếu chưa chạm mốc mà hết trang → ghi rõ trong báo cáo "Chưa quét đủ:
    <KH|TB> mới đọc tới số …, ngày …".
+4. **Cổng có thể chỉ trả tối đa 100 dòng/lượt tra.** Nếu một lượt đọc được đúng 100 dòng (hoặc bội số
+   của 50) mà chưa chạm mốc ngày → tra lại **chia khoảng ngày** bằng các ô ngày văn bản "Từ ngày /
+   Đến ngày" của form (đọc id thật của ô bằng javascript trước khi điền), ví dụ 28/09–10/10 rồi
+   11/10–hôm nay, sao cho mỗi lượt < 100 dòng. Gộp kết quả, bỏ dòng trùng Doc ID.
 4. Giữ các dòng có `ngay` ≥ "Từ ngày". Nếu cột không đúng thứ tự (trích yếu rỗng, ngày không dạng
    dd/mm/yyyy) → dừng, báo người dùng thứ tự tiêu đề cột thật, không đoán.
 
