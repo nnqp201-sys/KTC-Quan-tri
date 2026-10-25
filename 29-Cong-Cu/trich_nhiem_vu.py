@@ -89,7 +89,7 @@ def tach_chu_the(cau):
 
 def phoi_hop(cau):
     k = khong_dau(cau)
-    m = re.search(r'phoi hop (?:voi )?(.+?)(?= tham muu| thuc hien| to chuc| xay dung| trien khai|[;.]|$)', k)
+    m = re.search(r'phoi hop (?:voi )?(.+?)(?= tham muu| thuc hien| to chuc| xay dung| trien khai| chuan bi| bao cao| du thao| lap| ra soat| hoan thanh| rà|,? vao|[;.(]|$)', k)
     return cau[m.start(1):m.end(1)].strip(' ,') if m else ''
 
 
