@@ -392,15 +392,19 @@ def main():
         chinh = [t for t in (tim_file(a.nhan_file, so) if a.nhan_file else []) if '__chinh__' in khong_dau(t)]
         if chinh or ws.cell(r, cot['File đã tải']).value:
             if chinh:
-                t = chon_chinh(chinh)
-                dich_ten = os.path.splitext(ten_file_chuan(so, trich, ''))[0] + '_chinh' + os.path.splitext(t)[1].lower()
-                if os.path.exists(os.path.join(thu_muc_file, dich_ten)):
-                    can_xu_ly.append('%s: không chuyển %s, đích đã tồn tại %s' % (so, t, dich_ten))
-                    continue
-                if not a.thu:
-                    shutil.move(os.path.join(a.nhan_file, t), os.path.join(thu_muc_file, dich_ten))
-                ws.cell(r, cot['File đã tải']).value = dich_ten
-                da_tai.append(dich_ten + ' (văn bản chính, tải bù)')
+                # Ca .docx va .pdf ky so cua hang "File dinh kem": tep uu tien -> _chinh, tep con lai -> _chinh_2...
+                goc_ten = os.path.splitext(ten_file_chuan(so, trich, ''))[0] + '_chinh'
+                thu_tu = [chon_chinh(chinh)] + [t for t in chinh if t != chon_chinh(chinh)]
+                for i, t in enumerate(thu_tu, 1):
+                    dich_ten = goc_ten + ('' if i == 1 else '_%d' % i) + os.path.splitext(t)[1].lower()
+                    if os.path.exists(os.path.join(thu_muc_file, dich_ten)):
+                        can_xu_ly.append('%s: không chuyển %s, đích đã tồn tại %s' % (so, t, dich_ten))
+                        continue
+                    if not a.thu:
+                        shutil.move(os.path.join(a.nhan_file, t), os.path.join(thu_muc_file, dich_ten))
+                    if i == 1:
+                        ws.cell(r, cot['File đã tải']).value = dich_ten
+                    da_tai.append(dich_ten + ' (văn bản chính)')
             continue
         san = tim_file(thu_muc_file, so)
         if san:  # da co trong 2026-09 (lan truoc hoac bo sung tay) -> ghi nhan tep uu tien

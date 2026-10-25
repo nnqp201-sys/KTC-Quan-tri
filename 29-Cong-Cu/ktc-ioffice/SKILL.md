@@ -27,7 +27,7 @@ không bỏ văn bản nào theo nội dung.**
 | Tham số | Mặc định |
 |---|---|
 | Từ ngày | 28/09/2026 |
-| Tải tệp đính kèm | Mọi văn bản chưa từng tải (tự nhớ trong trình duyệt); "không tải" để bỏ qua |
+| Tải tệp | Chỉ **văn bản chính** (hàng "File đính kèm") của mọi văn bản chưa tải (sổ nhớ `ktc_da_tai_v2`); "không tải" để bỏ qua |
 
 ## Bước 1 — Mở Tra cứu văn bản
 
@@ -60,56 +60,78 @@ Với mỗi từ khóa `KH-CĐKT`, rồi `TB-CĐKT`:
 4. Giữ các dòng có `ngay` ≥ "Từ ngày". Nếu cột không đúng thứ tự (trích yếu rỗng, ngày không dạng
    dd/mm/yyyy) → dừng, báo người dùng thứ tự tiêu đề cột thật, không đoán.
 
-## Bước 3 — Tải tệp đính kèm
+## Bước 3 — Tải VĂN BẢN CHÍNH (chỉ hàng "File đính kèm")
 
-**Tự động, tăng dần**: tải cho MỌI văn bản đọc được ở bước 2 mà **chưa từng tải** — không giới hạn
-7 ngày. Trình duyệt tự nhớ văn bản đã tải trong `localStorage` của trang iOffice, nên lần sau chỉ tải
-văn bản mới; không cần người dùng chọn.
+### Cấu trúc trang chi tiết (đã xác nhận trên KH 1073, 25/10/2026)
+
+| Hàng bảng (cột nhãn bên trái) | Là gì | Tải? |
+|---|---|---|
+| **File đính kèm** | **Văn bản chính**: bản `.docx` (người ký gửi) + bản `.pdf` ký số (Văn thư); kèm "Thông tin ký số" | **CÓ — chỉ hàng này** |
+| Văn bản liên quan | Liên kết sang **văn bản KHÁC** (báo cáo rà soát, quyết định, kế hoạch trước…) | **KHÔNG** — không bấm, không mở, không tải |
+| Tài liệu liên quan | Tài liệu phụ | **KHÔNG** |
+| Nút "Nén và tải tất cả" | Tải gộp | **KHÔNG** |
+
+> Lỗi lần chạy 25/10/2026: skill đã đi theo cả "Văn bản liên quan" và tải tệp của các văn bản đó → 44/45
+> văn bản bị ghi nhận nhầm báo cáo 897, phiếu, Thông tư, công văn UBND làm văn bản chính. Không lặp lại.
+
+### Danh sách cần tải — sổ nhớ v2
+
+Sổ nhớ cũ `ktc_da_tai` ghi nhận cả những lần tải nhầm → **bỏ, dùng `ktc_da_tai_v2`** (lần chạy đầu tiên với
+bản này sẽ tải lại bản chính cho toàn bộ văn bản, đúng ý đồ).
 
 ```javascript
-// Danh sach Doc ID can tai = doc trong window.__kq nhung chua co trong so nho
-(() => { const da = new Set(JSON.parse(localStorage.getItem('ktc_da_tai') || '[]'));
+(() => { const da = new Set(JSON.parse(localStorage.getItem('ktc_da_tai_v2') || '[]'));
   return window.__kq.filter(r => !da.has(r.doc_id)).map(r => r.doc_id); })()
 ```
 
-**Lấy ĐỦ mọi mục tệp, không chỉ "File đính kèm".** Trang chi tiết thường có **tệp văn bản chính** (văn
-bản ký số / "Tệp văn bản" / "File văn bản" / "Nội dung văn bản") tách khỏi **tệp đính kèm** (báo cáo rà soát
-897, phiếu, biểu mẫu, văn bản cấp trên làm căn cứ). Lần chạy 25/10/2026 chỉ lấy mục "File đính kèm" nên
-26 văn bản thiếu bản chính và 18 văn bản chỉ có tệp phụ. Trước khi tải văn bản đầu tiên: liệt kê **tên mọi
-mục có liên kết tệp** trên trang chi tiết (javascript: tìm mọi phần tử gọi `filedownload` hoặc thẻ `<a>`
-trỏ tới tệp, kèm nhãn mục gần nhất) và báo người dùng danh sách mục tìm được.
+### Lấy đúng liên kết trong hàng "File đính kèm"
 
-**Đặt tên khi tải** — mọi tệp tải về phải mang tiền tố số văn bản:
-- tệp thuộc mục **văn bản chính**: `<số>-<KH|TB>__CHINH__<tên gốc>`
-- tệp thuộc mục **đính kèm**: `<số>-<KH|TB>__<tên gốc>`
-(vd `1073-KH__CHINH__Ke hoach xet ho so.pdf`, `1073-KH__BC ra soat.docx`). Script trên máy nhận tệp theo
-tiền tố, ưu tiên tệp `__CHINH__` làm văn bản chính. Không xác định được mục nào là văn bản chính → **không
-gắn** `__CHINH__` (script sẽ tự kiểm nội dung), ghi vào `loi`: "không rõ mục văn bản chính".
+Hàm dùng cho cả trang đang mở (`document`) lẫn HTML chi tiết lấy bằng `fetch` (`new DOMParser().parseFromString(html,'text/html')`):
 
-**Cách A — ưu tiên (nhanh, không mở từng trang):**
-1. Chạy `showDocDetail.toString()` và `filedownload.toString()` để biết trang gọi địa chỉ nào khi mở chi
-   tiết và khi tải tệp.
-2. Với mỗi Doc ID: `fetch(<địa chỉ chi tiết>, {credentials:'include'})`, tìm các lời gọi
-   `filedownload('<path>','<name>',...)` trong HTML trả về.
-3. Với mỗi tệp: `fetch(<địa chỉ tải tạo từ path>, {credentials:'include'})` → `blob` → tạo thẻ `<a>`
-   với `download = '<số>-<KH|TB>__<name>'` rồi `click()`. Nghỉ ~1 giây giữa các tệp.
-4. Kiểm tra blob: kích thước > 0 và không phải trang HTML đăng nhập (`blob.type` không là `text/html`).
-   Sai → coi là lỗi, ghi `loi`, KHÔNG lưu tệp.
-
-**Cách B — dự phòng** (khi cách A không xác định được địa chỉ): mở `showDocDetail(<doc_id>,'','2')`,
-bấm từng liên kết ở mục "File đính kèm", ghi tên tệp hiển thị vào `ten_file`, quay lại kết quả.
-
-Sau mỗi văn bản tải **đủ** tệp (không lỗi):
 ```javascript
-((id) => { const k = 'ktc_da_tai', s = new Set(JSON.parse(localStorage.getItem(k) || '[]'));
+window.__fileChinh = (doc) => {
+  const nhan = [...doc.querySelectorAll('td,th')].find(td =>
+    td.textContent.replace(/\s+/g, ' ').trim().toLowerCase() === 'file đính kèm');
+  if (!nhan) return null;                       // khong thay hang -> bao loi, KHONG tai thay
+  const o = nhan.nextElementSibling;            // o noi dung ben phai nhan
+  return [...o.querySelectorAll('a, [onclick*="filedownload"]')]
+    .map(e => { const m = (e.getAttribute('onclick') || e.getAttribute('href') || '')
+                  .match(/filedownload\(\s*'([^']*)'\s*,\s*'([^']*)'/);
+                return m ? { path: m[1], name: m[2] } : null; })
+    .filter(Boolean)
+    .filter((x, i, a) => a.findIndex(y => y.path === x.path) === i);   // nut "Xem" va ten tep trung nhau
+};
+```
+
+Chạy thử trên **văn bản đầu tiên** và báo người dùng danh sách tệp tìm được (phải là tệp văn bản chính,
+thường 1 `.docx` + 1 `.pdf`). Danh sách chứa tên văn bản khác → DỪNG, báo người dùng.
+
+### Tải và đặt tên
+
+Mọi tệp trong hàng "File đính kèm" đặt tên **`<số>-<KH|TB>__CHINH__<tên gốc>`**
+(vd `1073-KH__CHINH__Ke hoach xet ho so NLTHN_NLSP nguoi day nghe 2026.pdf`).
+
+**Cách A — ưu tiên (không mở từng trang):**
+1. `showDocDetail.toString()`, `filedownload.toString()` → địa chỉ trang chi tiết và địa chỉ tải.
+2. Mỗi Doc ID: `fetch(<địa chỉ chi tiết>, {credentials:'include'})` → `DOMParser` → `__fileChinh(doc)`.
+3. Mỗi tệp: `fetch(<địa chỉ tải từ path>, {credentials:'include'})` → `blob` → thẻ `<a download=...>` → `click()`. Nghỉ ~1 giây.
+4. Kiểm blob: kích thước > 0, `blob.type` không phải `text/html` (trang đăng nhập). Sai → ghi `loi`, KHÔNG lưu.
+
+**Cách B — dự phòng:** mở `showDocDetail(<doc_id>,'','2')`, chạy `__fileChinh(document)`, bấm **chỉ** các liên
+kết đó (đổi tên khi lưu nếu được; không đổi được thì ghi tên gốc vào `ten_file`), quay lại kết quả.
+
+Ghi `ten_file` = các tên gốc trong hàng "File đính kèm", nối bằng `" | "`.
+Hàng "File đính kèm" rỗng/không thấy → `loi` = "không có File đính kèm", không tải gì khác.
+
+Sau mỗi văn bản tải **đủ** tệp của hàng "File đính kèm":
+```javascript
+((id) => { const k = 'ktc_da_tai_v2', s = new Set(JSON.parse(localStorage.getItem(k) || '[]'));
   s.add(id); localStorage.setItem(k, JSON.stringify([...s])); })('<doc_id>')
 ```
-Văn bản lỗi KHÔNG ghi vào sổ nhớ → lần chạy sau tự tải lại.
+Văn bản lỗi KHÔNG ghi vào sổ nhớ → lần sau tự tải lại.
 
-Lần đầu Chrome có thể hỏi "Cho phép tải nhiều tệp" → báo người dùng bấm **Cho phép** (chỉ một lần).
-Người dùng nói "tải lại hết" → xóa sổ nhớ: `localStorage.removeItem('ktc_da_tai')`.
-Người dùng nói "tải bù văn bản chính" → với Doc ID người dùng đưa (hoặc mọi văn bản), chỉ tải mục văn bản chính, bỏ qua sổ nhớ.
-Người dùng nói "không tải" → bỏ qua bước này.
+Lần đầu Chrome có thể hỏi "Cho phép tải nhiều tệp" → báo người dùng bấm **Cho phép**.
+"tải lại hết" → `localStorage.removeItem('ktc_da_tai_v2')`. "không tải" → bỏ qua bước này.
 
 Chỉ đọc: chỉ dùng hàm/địa chỉ XEM và TẢI; không gọi hàm hay địa chỉ nào có tên gợi ý xử lý, chuyển,
 duyệt, trả lại, cập nhật trạng thái.
