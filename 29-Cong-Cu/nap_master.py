@@ -129,7 +129,7 @@ def main():
         da_co.add(khoa)
 
     if not a.thu and nap:
-        sao_luu = os.path.join(MASTER_DIR, '_sao-luu')
+        sao_luu = os.path.join(os.path.dirname(os.path.abspath(a.master)), '_sao-luu')
         os.makedirs(sao_luu, exist_ok=True)
         shutil.copy2(a.master, os.path.join(sao_luu, '%s_%s.xlsx' % (
             os.path.splitext(os.path.basename(a.master))[0], bay_gio.strftime('%Y%m%d-%H%M%S'))))
