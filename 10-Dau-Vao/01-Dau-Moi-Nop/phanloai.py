@@ -6,8 +6,10 @@ KH-CĐKT : lấy kế hoạch THỰC HIỆN (có nhiệm vụ/sản phẩm theo 
           Loại ra kế hoạch vận hành đào tạo: giảng dạy, khai/bế giảng, mở lớp,
           tổ chức lớp, lớp lái xe, vật tư, tham dự sự kiện — và MỌI kế hoạch
           nhắc tới mã lớp cụ thể (K7C, K8T, K9N...).
-TB-CĐKT : CHỈ lấy Thông báo KẾT LUẬN (giao ban, cuộc họp, hội đồng) — loại
-          thông báo có giao nhiệm vụ. Mọi thông báo khác đều bỏ.
+TB-CĐKT : CHỈ lấy Thông báo KẾT LUẬN (giao ban, cuộc họp, hội đồng, kết luận
+          triển khai công việc) — loại thông báo có giao nhiệm vụ. Mọi thông báo
+          khác vào nhóm 'Chờ phân loại': vẫn ghi CSDL và tải file, phân loại,
+          trích công việc sau (sửa theo yêu cầu người dùng 25/10/2026).
 """
 import re, unicodedata
 
@@ -27,7 +29,8 @@ KH_LOAI_RA = [
  (r'ke hoach tham du|tham du le|tham du phien hop','Tham dự sự kiện'),
 ]
 KH_GIU_LAI = [
- (r'trien khai thuc hien (nghi quyet|quyet dinh|thong tu|cong van|thong bao|ke hoach|chi thi)','Triển khai VB cấp trên'),
+ (r'(trien khai|thuc hien)( thuc hien)? (luat|nghi quyet|nghi dinh|quyet dinh|thong tu|cong van|thong bao|ke hoach|chi thi|ket luan|chuong trinh)\b','Triển khai VB cấp trên'),
+ (r'ubnd tinh|[/-]ubnd\b|uy ban nhan dan tinh|tinh uy|chu tich tinh|chi dao cua (tinh|ubnd|chu tich)','Triển khai chỉ đạo của tỉnh'),
  (r'xay dung chuong trinh|bien soan giao trinh|tham dinh','Xây dựng CT/GT, thẩm định'),
  (r'hoi giang|hoi nghi so ket|hoi thao|toa dam|so ket|tong ket','Hội nghị, hội giảng'),
  (r'khoa hoc, cong nghe|doi moi sang tao|nghien cuu khoa hoc|de tai','KHCN, đổi mới sáng tạo'),
@@ -35,7 +38,10 @@ KH_GIU_LAI = [
  (r'kiem dinh|bao dam chat luong|chat luong cao|tu danh gia','Đảm bảo chất lượng'),
  (r'truyen thong|tu van huong nghiep|quang ba','Truyền thông, hướng nghiệp'),
  (r'lien ket dao tao voi doanh nghiep nam hoc|cu nha gia?o .*doanh nghiep','Gắn kết doanh nghiệp'),
- (r'an toan thong tin|an ninh mang|bi mat nha nuoc|phong, chong tham nhung|chuyen doi so|lms|co so du lieu','CĐS, ATTT, nội chính'),
+ (r'an toan thong tin|an ninh mang|bi mat nha nuoc|phong, chong tham nhung|chuyen doi so|lms|co so du lieu|so hoa|tri tue nhan tao|\bskill\b','CĐS, ATTT, nội chính'),
+ (r'^ke hoach cong tac (thang|quy|nam)','Kế hoạch công tác định kỳ'),
+ (r'luu tru','Văn thư, lưu trữ'),
+ (r'cap phep|dieu kien hoat dong|dang ky hoat dong','Cấp phép, điều kiện hoạt động'),
  (r'khao thi nam hoc','Khảo thí năm học'),
  (r'giai the thao|van nghe|tuan le|ngay hoi|le tot nghiep|le khai giang nam hoc','Hoạt động, sự kiện Trường'),
  (r'phat quang|don dep|sua chua|cai tao|dau tu|co so vat chat','Cơ sở vật chất'),
@@ -48,6 +54,7 @@ TB_GIU_LAI = [
  (r'ket luan cua (bi thu|hieu truong|chu tich|pho hieu truong)','Kết luận của lãnh đạo'),
  (r'ket luan .*(cuoc hop|hoi nghi|hoi dong|toa dam|buoi lam viec)','Kết luận cuộc họp / hội đồng'),
  (r'\bket luan\b.*(giao|phan cong) (nhiem vu|cong viec)','Kết luận có giao nhiệm vụ'),
+ (r'\bket luan\b.*trien khai (cong viec|nhiem vu)','Kết luận triển khai công việc'),
 ]
 
 def phan_loai(trich_yeu, so_ky_hieu=''):
@@ -57,11 +64,11 @@ def phan_loai(trich_yeu, so_ky_hieu=''):
     if la_tb:
         # Thông báo điều chỉnh/bổ sung một kết luận đã có thì không phải kết luận mới
         if re.search(r'dieu chinh|bo sung thanh phan|gia han|dung cuoc hop', s):
-            return 'Không theo dõi', 'Thông báo điều chỉnh hành chính'
+            return 'Chờ phân loại', 'Thông báo điều chỉnh hành chính'
         for rx, ly in TB_GIU_LAI:
             if re.search(rx, s):
                 return 'Nhiệm vụ', ly
-        return 'Không theo dõi', 'Thông báo không phải kết luận giao nhiệm vụ'
+        return 'Chờ phân loại', 'Thông báo không phải kết luận giao nhiệm vụ'
 
     # Kế hoạch
     if re.search(MA_LOP, s):
