@@ -48,7 +48,11 @@ Với mỗi từ khóa `KH-CĐKT`, rồi `TB-CĐKT`:
 }))()
 ```
 
-3. Nếu có trang sau và dòng cuối trang vẫn có ngày ≥ "Từ ngày" → sang trang sau, đọc tiếp.
+3. **Đọc HẾT các trang**: chừng nào dòng cuối trang còn có ngày ≥ "Từ ngày" thì bấm trang sau, đọc
+   tiếp. Không dừng ở 2 trang hay 100 dòng.
+   Kiểm tra trước khi sang bước 3: số ký hiệu nhỏ nhất đọc được phải có ngày < hoặc = "Từ ngày"
+   (tức đã chạm mốc). Nếu chưa chạm mốc mà hết trang → ghi rõ trong báo cáo "Chưa quét đủ:
+   <KH|TB> mới đọc tới số …, ngày …".
 4. Giữ các dòng có `ngay` ≥ "Từ ngày". Nếu cột không đúng thứ tự (trích yếu rỗng, ngày không dạng
    dd/mm/yyyy) → dừng, báo người dùng thứ tự tiêu đề cột thật, không đoán.
 
