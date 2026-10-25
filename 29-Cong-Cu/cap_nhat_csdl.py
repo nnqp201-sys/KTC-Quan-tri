@@ -229,11 +229,11 @@ def tim_file(thu_muc, so):
         return []
     mau = re.compile(r'(^|\D)%s\D{0,3}%s' % (m.group(1), loai_vb(so).lower()))
     return sorted(f for f in os.listdir(thu_muc)
-                  if os.path.splitext(f)[1].lower() in ('.docx', '.doc', '.pdf')
+                  if os.path.splitext(f)[1].lower() in ('.docx', '.doc', '.pdf', '.xlsx', '.xls')
                   and not f.startswith('~$') and mau.search(khong_dau(f)))
 
 
-UU_TIEN = {'.docx': 0, '.doc': 1, '.pdf': 2}
+UU_TIEN = {'.docx': 0, '.doc': 1, '.pdf': 2, '.xlsx': 3, '.xls': 4}
 
 
 def chon_chinh(ds):

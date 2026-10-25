@@ -28,6 +28,9 @@ import openpyxl
 from docx import Document
 from openpyxl.styles import Alignment, Font, PatternFill
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cap_nhat_csdl import chon_chinh, tim_file  # noqa: E402  (cung luat nhan tep voi buoc nhan)
+
 GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 THU_MUC = os.path.join(GOC, '10-Dau-Vao', '01-Dau-Moi-Nop')
 TEN_CSDL = 'CSDL-Theo-doi-nhiem-vu_20260929_v1.xlsx'
@@ -63,7 +66,7 @@ DON_VI = [
 # Chu the hay gap o dau cau nhung khong phai don vi cap mot -> giu nguyen van, khong gan ma
 CHU_THE = r'(phong [^,:;.]{2,40}?|khoa [^,:;.]{2,40}?|bo mon [^,:;.]{2,40}?|ban [^,:;.]{2,40}?|' \
           r'to [^,:;.]{2,30}?|bo phan [^,:;.]{2,40}?|van phong [^,:;.]{2,30}?|cac don vi[^,:;.]{0,40}?|' \
-          r'cac chi bo[^,:;.]{0,40}?|doan thanh nien[^,:;.]{0,30}?|cong doan[^,:;.]{0,30}?)'
+          r'cac chi bo[^,:;.]{0,40}?|cac khoa[^,:;.]{0,30}?|cac phong[^,:;.]{0,30}?|doan thanh nien[^,:;.]{0,30}?|cong doan[^,:;.]{0,30}?)'
 DONG_TU = r'(?=\s+(?:chu tri|tham muu|phoi hop|thuc hien|trien khai|to chuc|xay dung|hoan thanh|' \
           r'thong bao|rà|ra soat|bao cao|chuan bi|lap|du thao|theo doi|kiem tra|cap nhat|tiep tuc|' \
           r'khan truong|lam viec|dang ky|gui|nop|phan cong|huong dan|chi dao)\b|\s*[:,])'
@@ -114,27 +117,100 @@ def han(cau, nam_mac_dinh):
                 return datetime(int(y), int(mth), int(d)).strftime('%d/%m/%Y')
             except ValueError:
                 return ''
-    return ''
+    m = re.search(r'(?:trong|truoc|cuoi|hoan thanh (?:trong )?) ?thang (\d{1,2})\s*/\s*(\d{4})', k)
+    return 'Tháng %s/%s' % (int(m.group(1)), m.group(2)) if m else ''
 
 
 # ---------- Doc van ban ----------
 
+def _dinh_dang_so(doc):
+    """numId -> {ilvl: numFmt} tu numbering.xml (decimal, bullet, upperRoman...)."""
+    kq = {}
+    try:
+        goc = doc.part.numbering_part.element
+    except (KeyError, AttributeError, NotImplementedError):
+        return kq
+    ns = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+    tr = {a.get(ns + 'abstractNumId'): {int(l.get(ns + 'ilvl')): (l.find(ns + 'numFmt').get(ns + 'val')
+                                                             if l.find(ns + 'numFmt') is not None else '')
+                                        for l in a.findall(ns + 'lvl')}
+          for a in goc.findall(ns + 'abstractNum')}
+    for n in goc.findall(ns + 'num'):
+        a = n.find(ns + 'abstractNumId')
+        if a is not None:
+            kq[n.get(ns + 'numId')] = tr.get(a.get(ns + 'val'), {})
+    return kq
+
+
 def doan_van(doc):
-    """Doan van theo dung thu tu, gom ca o bang (tru bang tieu de/ky)."""
-    return [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+    """Doan van theo thu tu. Doan danh so TU DONG cua Word (so khong nam trong text) duoc them tien to
+    '1.', '1.1.' hoac '- ' de bo tach nhan dien nhu doan go so tay."""
+    fmt, dem, kq = _dinh_dang_so(doc), {}, []
+    ns = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+    for p in doc.paragraphs:
+        t = p.text.strip()
+        if not t:
+            continue
+        ppr = p._p.pPr
+        num = ppr.find(ns + 'numPr') if ppr is not None else None
+        if num is None and p.style is not None:  # danh so khai bao trong kieu (List Number...)
+            sp = p.style.element.find(ns + 'pPr')
+            num = sp.find(ns + 'numPr') if sp is not None else None
+        if num is not None and not re.match(r'^([ivx]+|\d+(\.\d+)*|[a-z])[.)]\s', t, re.I) \
+                and not re.match(r'^[-–+•*]', t):
+            nid = num.find(ns + 'numId').get(ns + 'val') if num.find(ns + 'numId') is not None else ''
+            lv = int(num.find(ns + 'ilvl').get(ns + 'val')) if num.find(ns + 'ilvl') is not None else 0
+            kieu = fmt.get(nid, {}).get(lv, 'decimal' if lv == 0 else 'bullet')
+            if kieu == 'bullet':
+                t = '- ' + t
+            elif kieu in ('decimal', 'decimalZero'):
+                dem[(nid, lv)] = dem.get((nid, lv), 0) + 1
+                for k in [k for k in dem if k[0] == nid and k[1] > lv]:
+                    del dem[k]
+                t = '.'.join(str(dem.get((nid, i), 1)) for i in range(lv + 1)) + '. ' + t
+            elif kieu in ('upperRoman', 'lowerRoman'):
+                dem[(nid, lv)] = dem.get((nid, lv), 0) + 1
+                t = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'][min(dem[(nid, lv)], 8) - 1] + '. ' + t
+            elif kieu in ('lowerLetter', 'upperLetter'):
+                dem[(nid, lv)] = dem.get((nid, lv), 0) + 1
+                t = 'abcdefgh'[min(dem[(nid, lv)], 8) - 1] + ') ' + t
+        kq.append(t)
+    return kq
+
+
+def doan_pdf(duong):
+    """PDF co lop chu (ky so tu .docx): noi cac dong bi ngat giua cau thanh doan."""
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        return None
+    dong = []
+    for trang in PdfReader(duong).pages:
+        dong += [x.strip() for x in (trang.extract_text() or '').splitlines() if x.strip()]
+    kq = []
+    for x in dong:
+        moi = re.match(r'^([IVX]+\.|\d+(\.\d+)*[.)]|[-–+•*]|[a-z]\)|[A-ZĐ ]{6,}$)', x)
+        if kq and not moi and not re.search(r'[.:;]$', kq[-1]):
+            kq[-1] += ' ' + x
+        else:
+            kq.append(x)
+    return kq
 
 
 TIEU_DE_GIAO = r'^(ii|iii|iv|v|vi)\.\s*(ke hoach|nhiem vu|noi dung|giao nhiem vu|to chuc thuc hien|' \
                r'cong viec|phan cong|y kien chi dao|ket luan|cac nhiem vu)'
+# Tieu de khong co so La Ma go tay (Word danh so tu dong) — chi nhan khi viet hoa toan bo
+TIEU_DE_TEN = r'^(?:[ivx\d]+\.\s*)?(ke hoach cong tac|nhiem vu|noi dung|giao nhiem vu|to chuc thuc hien|phan cong|' \
+              r'y kien chi dao|ket luan|cac nhiem vu)'
 KET_THUC = r'^(truong cao dang kon tum (thong bao|tran trong)|tren day la|noi nhan)'
 
 
-def trich_tb(ps, nam):
+def trich_tb(ps, nam, ca_van_ban=False):
     """Thong bao ket luan: lay muc giao viec (II. KE HOACH/NHIEM VU...), tach tung so muc va gach dau."""
-    ds, trong, chu_the, so_muc = [], False, '', ''
+    ds, trong, chu_the, so_muc = [], ca_van_ban, '', ''
     for p in ps:
         k = khong_dau(p)
-        if re.match(TIEU_DE_GIAO, k):
+        if re.match(TIEU_DE_GIAO, k) or (len(p) < 90 and p.upper() == p and re.match(TIEU_DE_TEN, k)):
             trong = True
             continue
         if not trong:
@@ -157,6 +233,8 @@ def trich_tb(ps, nam):
         if m and so_muc:
             ds.append(('%s.%s' % (so_muc, sum(1 for x in ds if x[0].startswith(so_muc + '.')) + 1),
                        m.group(1).strip(), chu_the))
+    if ca_van_ban:  # lan quet toan van: chi giu muc mo dau bang don vi, tranh lay muc dich/yeu cau
+        ds = [x for x in ds if x[2]]
     return [ban_ghi(v, nd, ct, nam) for v, nd, ct in ds]
 
 
@@ -206,8 +284,8 @@ def trich_bang(doc, nam):
 
 
 def trich_kh(doc, ps, nam):
-    ds = trich_bang(doc, nam)
-    return ds if ds else trich_tb(ps, nam)   # khong co bang -> doc muc so nhu thong bao
+    ds = trich_bang(doc, nam) if doc is not None else []
+    return ds or trich_tb(ps, nam) or trich_tb(ps, nam, ca_van_ban=True)
 
 
 # ---------- Chuong trinh chinh ----------
@@ -257,23 +335,37 @@ def main():
             continue
         if any(k[0] == so for k in da_co):
             continue
-        duong_tep = os.path.join(a.thu_muc, THU_MUC_FILE, tep)
-        if not os.path.isfile(duong_tep):
+        # Moi tep cua van ban trong 2026-09 (chinh + phu); uu tien .docx van ban chinh, roi .pdf
+        thu_muc_tep = os.path.join(a.thu_muc, THU_MUC_FILE)
+        cac_tep = [t for t in tim_file(thu_muc_tep, so) if t.lower().endswith(('.docx', '.pdf'))]
+        if tep in os.listdir(thu_muc_tep) and tep not in cac_tep and tep.lower().endswith(('.docx', '.pdf')):
+            cac_tep.append(tep)
+        if not cac_tep:
             bo_qua.append('%s: không thấy tệp %s' % (so, tep))
             continue
-        if not tep.lower().endswith('.docx'):
-            bo_qua.append('%s: chỉ có %s — cần bản .docx để trích' % (so, os.path.splitext(tep)[1]))
-            continue
+        chon = chon_chinh(cac_tep)
+        duong_tep = os.path.join(thu_muc_tep, chon)
         ngay = str(ws.cell(r, cot['Ngày ban hành']).value or '')
         nam = int(ngay[-4:]) if re.search(r'\d{4}$', ngay) else bay_gio.year
+        doc = None
         try:
-            doc = Document(duong_tep)
-        except Exception as e:  # tep hong, khong phai docx that
-            bo_qua.append('%s: không mở được tệp (%s)' % (so, e.__class__.__name__))
+            if chon.lower().endswith('.docx'):
+                doc = Document(duong_tep)
+                ps = doan_van(doc)
+            else:
+                ps = doan_pdf(duong_tep)
+                if ps is None:
+                    bo_qua.append('%s: chỉ có PDF — cài thư viện pypdf (pip install pypdf) để đọc' % so)
+                    continue
+                if sum(len(x) for x in ps) < 200:
+                    bo_qua.append('%s: PDF là ảnh quét, không có lớp chữ — cần bản .docx' % so)
+                    continue
+        except Exception as e:  # tep hong
+            bo_qua.append('%s: không mở được %s (%s)' % (so, chon, e.__class__.__name__))
             continue
-        ps = doan_van(doc)
         loai = 'TB' if '/TB-' in str(so) else 'KH'
-        ds = trich_tb(ps, nam) if loai == 'TB' else trich_kh(doc, ps, nam)
+        ds = (trich_tb(ps, nam) or trich_tb(ps, nam, ca_van_ban=True)) if loai == 'TB' \
+            else trich_kh(doc, ps, nam)
         so_vb += 1
         if not ds:
             bo_qua.append('%s: không nhận diện được mục giao nhiệm vụ — cần người đọc' % so)
@@ -283,7 +375,8 @@ def main():
             ghi_chu = '; '.join(x for x in (
                 '' if d['chu_tri'] else 'thiếu đơn vị chủ trì',
                 '' if d['ma'] or not d['chu_tri'] else 'đơn vị chưa có mã chuẩn',
-                '' if d['han'] else 'không ghi hạn') if x)
+                '' if d['han'] else 'không ghi hạn',
+                'đọc từ PDF' if chon.lower().endswith('.pdf') else '') if x)
             them.append([stt, so, loai, ngay, d['vi_tri'], d['noi_dung'], d['chu_tri'], d['ma'],
                          d['phoi_hop'], d['han'], d['san_pham'], 'Máy trích — chờ duyệt', None,
                          ghi_chu, bay_gio.strftime('%d/%m/%Y')])
