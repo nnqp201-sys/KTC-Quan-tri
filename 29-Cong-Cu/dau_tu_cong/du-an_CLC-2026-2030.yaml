@@ -1,0 +1,154 @@
+# Nguồn dữ liệu Dự án CLC 2026-2030 (giai đoạn chuẩn bị đầu tư) — dùng cho 29-Cong-Cu/dau_tu_cong/*
+du_an:
+  ten: Đầu tư, cải tạo các công trình phục vụ người học, nhà giáo và mua sắm bổ sung thiết bị đáp ứng mục tiêu xây
+    dựng Trường Cao đẳng Kon Tum trở thành trường cao đẳng chất lượng cao giai đoạn 2026 - 2030
+  tmdt_so_bo_dong: 24894000000
+  nhom: C
+  chu_dau_tu: Trường Cao đẳng Kon Tum
+  tinh_trang: Chuẩn bị đầu tư; chưa được cấp có thẩm quyền phê duyệt dự án
+  thoi_gian_du_an: 2026 - 2030
+  chuong_trinh: 'Chương trình mục tiêu quốc gia xây dựng nông thôn mới, giảm nghèo bền vững và phát triển kinh tế
+    - xã hội vùng đồng bào dân tộc thiểu số và miền núi giai đoạn 2026 - 2035, giai đoạn I: Từ năm 2026 đến năm
+    2030'
+  von_2026_trieu_dong:
+    tong: 260
+    ngan_sach_trung_uong: 200
+    ngan_sach_tinh_doi_ung: 60
+  du_toan_cbdt_dong: 1519778268
+  ma_khlcnt: PL2600341242
+van_ban:
+  qd_1976:
+    so: 1976/QĐ-CĐKT
+    ngay: 14/9/2026
+    noi_dung: Quy chế tổ chức và hoạt động của Trường
+  nq_56:
+    so: 56/NQ-HĐND
+    ngay: 28/8/2026
+    noi_dung: Phân bổ kế hoạch ĐTC và kinh phí thường xuyên 2026 CTMTQG (HĐND tỉnh)
+  qd_805:
+    so: 805/QĐ-UBND
+    ngay: 11/9/2026
+    noi_dung: Phân bổ kế hoạch vốn ĐTC và kinh phí thường xuyên 2026 CTMTQG (UBND tỉnh)
+  qd_2161:
+    so: 2161/QĐ-CĐKT
+    ngay: 29/9/2026
+    noi_dung: Phân bổ chi tiết kế hoạch ĐTC năm 2026 (Trường)
+  qd_2158:
+    so: 2158/QĐ-CĐKT
+    ngay: 29/9/2026
+    noi_dung: Phê duyệt nhiệm vụ và dự toán kinh phí chuẩn bị đầu tư (thay QĐ 1899/QĐ-CĐKT ngày 28/8/2026)
+  qd_2236:
+    so: 2236/QĐ-CĐKT
+    ngay: 07/10/2026
+    noi_dung: Phê duyệt KHLCNT giai đoạn chuẩn bị đầu tư
+  ttr_16:
+    so: 16/TTr-THHCQT
+    ngay: 07/10/2026
+    noi_dung: Tờ trình đề nghị phê duyệt KHLCNT
+  qd_2374:
+    so: 2374/QĐ-CĐKT
+    ngay: 27/10/2026
+    noi_dung: Phê duyệt KQLCNT gói Tư vấn khảo sát xây dựng, lập BCKTKT (Trường Phát Land)
+  qd_2375:
+    so: 2375/QĐ-CĐKT
+    ngay: 27/10/2026
+    noi_dung: Phê duyệt KQLCNT gói Tư vấn quản lý dự án (Thành Vinh)
+  bc_427:
+    so: 427/BC-CĐKT
+    ngay: 24/9/2026
+    noi_dung: Báo cáo triển khai Dự án CLC (gửi Sở NN&MT)
+moc_thoi_gian:
+  hoan_thien_hop_dong: 22/10/2026
+  phe_duyet_kqlcnt: 27/10/2026
+  han_dang_tai_kqlcnt: 03/11/2026
+goi_thau:
+  KS:
+    ma: KS-BCKTKT
+    ten: Tư vấn khảo sát xây dựng, lập Báo cáo kinh tế - kỹ thuật Dự án
+    gia: 852.345.246
+    chu: Tám trăm năm mươi hai triệu, ba trăm bốn mươi lăm nghìn, hai trăm bốn mươi sáu đồng
+    tgian: 120 ngày
+    tgian_dai: 120 ngày kể từ ngày hợp đồng có hiệu lực
+    nt: Công ty TNHH Xây dựng dịch vụ và thương mại Trường Phát Land
+    nt_ngan: Công ty TNHH XD DV & TM Trường Phát Land
+    mst: '6101274368'
+    dc: 60/17 Phùng Hưng, phường Đắk Cấm, tỉnh Quảng Ngãi
+    dd: Ông Trịnh Hoàng Việt - Chủ tịch Hội đồng thành viên kiêm Giám đốc
+    gcn: Giấy chứng nhận đăng ký doanh nghiệp số 6101274368 (đăng ký lần đầu ngày 09/9/2020)
+    don: Đơn xin nhận thầu số 07/ĐNT-TPL ngày 14/10/2026
+    dthao: mã DC2600068227, gửi ngày 20/10/2026
+    cc: gói thầu thuộc khoản 4 Điều 78 (dịch vụ tư vấn thuộc dự án, giá gói thầu 852.345.246 đồng, không quá 03
+      tỷ đồng)
+    nhansu:
+    - - Chủ nhiệm khảo sát
+      - 'Nguyễn Quốc Phương: khảo sát địa chất hạng I, khảo sát địa hình hạng I (08/7/2022 đến 08/7/2027).'
+    - - Chủ nhiệm, chủ trì thiết kế - kết cấu
+      - 'Lê Văn Phong: thiết kế kết cấu công trình dân dụng hạng II (06/10/2023 đến 05/10/2028); Hoàng Đình Sinh:
+        thiết kế kết cấu hạng III (17/7/2023 đến 16/7/2028).'
+    - - Chủ trì thiết kế - cấp, thoát nước
+      - 'Huỳnh Tấn Cao: thiết kế xây dựng công trình cấp thoát nước hạng II (08/8/2022 đến 08/8/2027).'
+    - - Chủ trì thiết kế - điện
+      - 'Nguyễn Minh Toàn: thiết kế cơ - điện công trình (hệ thống điện) hạng III (29/5/2025 đến 29/5/2035).'
+    - - Thiết kế kiến trúc
+      - Không yêu cầu do gói thầu cải tạo, sửa chữa.
+    - - Chứng chỉ năng lực tổ chức
+      - 'Số KOT-00050952 do Sở Xây dựng Kon Tum cấp: thiết kế công trình dân dụng hạng II (đến 14/6/2032), giám
+        sát thi công dân dụng hạng II; theo Luật Xây dựng ngày 10/12/2025 và Nghị định số 212/2026/NĐ-CP, tổ chức
+        không còn bắt buộc có chứng chỉ năng lực nhưng phải có nhân sự chủ chốt đủ điều kiện.'
+    kn: 'Kinh nghiệm: đã thực hiện tư vấn khảo sát, thiết kế, giám sát các công trình giáo dục tại tỉnh Kon Tum
+      (hồ sơ năng lực 2025 - 2026).'
+    luu_y:
+    - Nhà thầu bố trí đúng nhân sự chủ chốt đã nêu trong hồ sơ năng lực (chủ nhiệm khảo sát, chủ nhiệm, chủ trì
+      thiết kế các bộ môn); việc thay đổi nhân sự phải được chủ đầu tư chấp thuận bằng văn bản và bảo đảm điều kiện
+      chứng chỉ hành nghề phù hợp.
+    - Sản phẩm Báo cáo kinh tế - kỹ thuật phải bám nhiệm vụ, quy mô đã được phê duyệt tại Quyết định số 2158/QĐ-CĐKT
+      ngày 29/9/2026; khảo sát xây dựng thực hiện trước khi lập thiết kế bản vẽ thi công.
+    - Việc thanh toán thực hiện theo hợp đồng và trong phạm vi kế hoạch vốn do cấp có thẩm quyền giao.
+    pt_tom_tat: 'Gói thầu số 1: Tư vấn khảo sát xây dựng, lập Báo cáo kinh tế - kỹ thuật Dự án (gồm khảo sát xây
+      dựng 93.995.981 đồng và lập Báo cáo kinh tế - kỹ thuật, gồm thiết kế bản vẽ thi công 758.349.265 đồng).'
+  QLDA:
+    ma: QLDA
+    ten: Tư vấn quản lý dự án
+    gia: 667.433.022
+    chu: Sáu trăm sáu mươi bảy triệu, bốn trăm ba mươi ba nghìn, không trăm hai mươi hai đồng
+    tgian: Không quá 03 năm
+    tgian_dai: không quá 03 năm kể từ ngày hợp đồng có hiệu lực (thực hiện từ giai đoạn chuẩn bị đầu tư đến khi
+      quyết toán hoàn thành dự án)
+    nt: Công ty cổ phần Thành Vinh
+    nt_ngan: Công ty cổ phần Thành Vinh
+    mst: '6100895732'
+    dc: 126 Tô Hiến Thành, phường Đắk Cấm, tỉnh Quảng Ngãi
+    dd: Ông Ngô Thanh Hùng - Chủ tịch Hội đồng quản trị kiêm Giám đốc
+    gcn: Giấy chứng nhận đăng ký doanh nghiệp số 6100895732 (đăng ký lần đầu ngày 23/12/2010, thay đổi lần thứ 3
+      ngày 17/9/2025)
+    don: Đơn xin nhận thầu số 09/ĐNT-QLDA ngày 19/10/2026
+    dthao: mã DC2600069905, gửi ngày 21/10/2026
+    cc: gói thầu thuộc khoản 4 Điều 78 (dịch vụ tư vấn thuộc dự án, giá gói thầu 667.433.022 đồng, không quá 03
+      tỷ đồng)
+    nhansu:
+    - - Giám đốc quản lý dự án (nhóm C)
+      - 'Vương Thanh Hòa: quản lý dự án đầu tư xây dựng công trình dân dụng hạng II (28/6/2023 đến 27/6/2028), cao
+        hơn mức hạng III đối với dự án nhóm C; theo Nghị định số 212/2026/NĐ-CP, giám đốc quản lý dự án không còn
+        phải có chứng chỉ hành nghề quản lý dự án nhưng phải đáp ứng điều kiện năng lực tương ứng.'
+    - - Phụ trách chất lượng, khối lượng, tiến độ, an toàn
+      - 'Phạm Thanh Hiếu: giám sát công tác xây dựng công trình dân dụng hạng III (06/10/2023 đến 05/10/2028); Vương
+        Thanh Hòa: giám sát dân dụng hạng II.'
+    - - Phụ trách chi phí, rủi ro
+      - 'Vương Thanh Hòa và Phạm Thanh Hiếu: định giá xây dựng (hạng II, hạng III).'
+    - - Chứng chỉ năng lực tổ chức
+      - 'Số KOT-00015012 do Sở Xây dựng Kon Tum cấp: tư vấn quản lý dự án đầu tư xây dựng công trình dân dụng và
+        nhà công nghiệp hạng III (đến 24/5/2033); không còn bắt buộc theo Luật Xây dựng ngày 10/12/2025, được nêu
+        để tham khảo.'
+    kn: 'Kinh nghiệm: hợp đồng tư vấn quản lý dự án công trình cải tạo, sửa chữa cơ sở vật chất trường phổ thông
+      dân tộc nội trú (Sở Giáo dục và Đào tạo Kon Tum, 2022), giá trị 272.295.000 đồng.'
+    luu_y:
+    - Nhà thầu bố trí đúng giám đốc quản lý dự án và các nhân sự phụ trách bộ phận chuyên môn đã nêu trong hồ sơ
+      năng lực; việc thay đổi nhân sự phải được chủ đầu tư chấp thuận bằng văn bản.
+    - Hợp đồng thực hiện từ giai đoạn chuẩn bị đầu tư đến khi quyết toán hoàn thành dự án; việc thanh toán theo
+      tiến độ trong hợp đồng và chỉ thực hiện trong phạm vi kế hoạch vốn do cấp có thẩm quyền giao hằng năm; không
+      bảo đảm vốn cho các năm sau thì tạm dừng thanh toán theo thỏa thuận.
+    - Nhà thầu không đồng thời thực hiện tư vấn khảo sát, lập Báo cáo kinh tế - kỹ thuật của Dự án.
+    pt_tom_tat: 'Gói thầu số 2: Tư vấn quản lý dự án, thực hiện từ giai đoạn chuẩn bị đầu tư đến khi quyết toán
+      hoàn thành dự án.'
+ghi_chu: Nguồn sự thật duy nhất cho các script dựng văn bản (Phiếu trình, QĐ KQLCNT). Sửa ở đây rồi dựng lại; không
+  gõ số trực tiếp vào script. Giá trị giá trúng thầu hiện bằng giá gói thầu (đã khớp QĐ 2374, 2375).

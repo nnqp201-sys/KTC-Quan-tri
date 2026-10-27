@@ -85,5 +85,19 @@ kiem("VD12" in ma(["Căn cứ Quyết định số 389/QĐ-CĐKT ngày 26/02/202
                    "Theo Quyết định số 389/QĐ-CĐKT ngày 26/02/2026 của Hiệu trưởng về…"]),
      "VD12 viện dẫn lần sau vẫn ghi đầy đủ")
 
+# Chot 26-27/10/2026: NĐ 214 kem VBHN 36/2026; khong dan rieng NĐ 349; VBHN khong ghi "cua <co quan>"
+DUNG13 = ["Căn cứ Nghị định số 214/2025/NĐ-CP ngày 04/8/2025 của Chính phủ quy định chi tiết một số điều và "
+          "biện pháp thi hành Luật Đấu thầu về lựa chọn nhà thầu (hợp nhất tại Văn bản hợp nhất số "
+          "36/2026/VBHN-NĐ-BTC ngày 23/9/2026);"]
+kiem(not ({"VD13", "VD14", "VD15"} & ma(DUNG13)), "VD13-15 căn cứ NĐ 214 kèm VBHN 36 viết đúng không bị bắt")
+kiem("VD13" in ma(["Căn cứ Nghị định số 214/2025/NĐ-CP ngày 04/8/2025 của Chính phủ về lựa chọn nhà thầu;"]),
+     "VD13 NĐ 214 thiếu VBHN 36/2026")
+kiem("VD14" in ma(DUNG13 + ["Căn cứ Nghị định số 349/2026/NĐ-CP ngày 09/9/2026 của Chính phủ sửa đổi, bổ sung;"]),
+     "VD14 dẫn riêng NĐ 349 khi đã có VBHN 36")
+kiem("VD15" in ma(["Căn cứ Nghị định số 214/2025/NĐ-CP (hợp nhất tại Văn bản hợp nhất số 36/2026/VBHN-NĐ-BTC "
+                   "ngày 23/9/2026 của Bộ Tài chính);"]), "VD15 VBHN ghi 'của Bộ Tài chính'")
+kiem("VD15" in ma(["Căn cứ Luật Đấu thầu ngày 23/6/2023 (hợp nhất tại Văn bản hợp nhất số 74/VBHN-VPQH "
+                   "ngày 25/3/2026 của Văn phòng Quốc hội);"]), "VD15 VBHN ghi 'của Văn phòng Quốc hội'")
+
 print(f"\n{'ĐẠT' if not sai else 'KHÔNG ĐẠT'}: {len(sai)} ca sai")
 sys.exit(1 if sai else 0)

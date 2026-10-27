@@ -184,5 +184,8 @@ Không tự suy ra một số VBHN.
 | VD10 | Căn cứ dẫn mẫu, checklist hoặc tệp nội bộ | Mức 1 |
 | VD11 | Viết thường "điều N", "chương N" khi viện dẫn | Mức 3 |
 | VD12 | Văn bản viện dẫn lần sau vẫn ghi lại đầy đủ trích yếu | Mức 4 |
+| VD13 | Nghị định 214/2025/NĐ-CP thiếu “(hợp nhất tại Văn bản hợp nhất số 36/2026/VBHN-NĐ-BTC …)” (văn bản từ 23/9/2026) | Mức 2 |
+| VD14 | Dẫn riêng Nghị định 349/2026/NĐ-CP khi đã dẫn VBHN 36/2026 | Mức 2 |
+| VD15 | VBHN ghi thêm “của Văn phòng Quốc hội / Bộ …” sau số hiệu và ngày | Mức 3 |
 
 Mức ở bảng là **gợi ý** để người soạn tự sửa sớm. Mức chính thức do rà soát 897 kết luận.
