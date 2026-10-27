@@ -568,6 +568,33 @@ def kiem_docx(d):
         co_page = any("PAGE" in (s.header._element.xml if s.header is not None else "") for s in d.sections)
         if not co_page:
             kq.append((3, "TT11", "Văn bản nhiều trang nhưng không có số trang (canh giữa lề trên, ẩn trang 1)"))
+
+    # TT20 viet hoa sau dau hai cham (quy uoc Truong 10/2026 — bai hoc De an Dang kiem, vong 897 ngay 24/10)
+    #   bo qua gio/ty le "8:30", "1:500", dong Kinh gui/Noi nhan, chu so/ky hieu sau ":"
+    vi_pham = []
+    for p in tat_ca:
+        t = re.sub(r"\[[^\]]*\]", "", p.text)   # bo cho trong khung mau "[van ban lam can cu: loai, so…]"
+        if t.strip().startswith(("Kính gửi", "Nơi nhận")):
+            continue
+        for m in re.finditer(r"(?<!\d):\s+([^\W\d_])", t):
+            if m.group(1).islower():
+                vi_pham.append(t[max(0, m.start() - 25):m.end() + 10].strip())
+    if vi_pham:
+        kq.append((3, "TT20", f"{len(vi_pham)} chỗ chữ đầu sau dấu “:” chưa viết hoa — quy ước Trường; vd: "
+                   + " | ".join(f"“…{v}…”" for v in vi_pham[:3])))
+
+    # TT21 doan trong cuoi van ban (gay trang trang cuoi, tach khoi chu ky)
+    body = d.element.body
+    cuoi = [el for el in body if el.tag in (f"{W}p", f"{W}tbl")]
+    trong = 0
+    for el in reversed(cuoi):
+        if el.tag == f"{W}p" and not "".join(el.itertext()).strip() and el.find(f".//{W}drawing") is None \
+                and el.find(f".//{W}sectPr") is None:
+            trong += 1
+        else:
+            break
+    if trong >= 2:
+        kq.append((3, "TT21", f"{trong} đoạn trống ở cuối văn bản — dễ sinh trang trắng; xem PDF trang cuối"))
     kq.sort(key=lambda x: x[0])
     return kq
 

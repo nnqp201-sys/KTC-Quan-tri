@@ -1,0 +1,18 @@
+# Nguồn sự thật Đề án Trung tâm Đăng kiểm xe cơ giới — anh soát lại trước khi dùng
+ten: "Đề án thành lập Trung tâm Đăng kiểm xe cơ giới trực thuộc Trường Cao đẳng Kon Tum"
+chu_the: {soan: "Tổ xây dựng Đề án", trinh: "Trường Cao đẳng Kon Tum", phe_duyet: "UBND tỉnh"}
+mo_hinh: "Công ty TNHH hai thành viên trở lên; Trường góp 51% bằng tiền; Trường giữ mô hình ĐVSNCL"
+giai_doan_1: {day_chuyen: 1, nhan_su: 11, von_dieu_le_tr: 20456.5, von_truong_tr: 10432.82, bai_do_m2: 2000, khu_dat_m2: 8500, hoan_von_nam: 8.5}
+khau_hao: {nha_xuong_kiem_dinh_nam: 10, can_cu: "TT 45/2013/TT-BTC Phụ lục I (nhà cửa khác)"}
+can_cu_lien_quan:
+  - "QĐ 295/QĐ-UBND ngày 05/5/2026 (nhóm 3, tự bảo đảm 23%)"
+  - "QĐ 224 (không phải 244)"
+  - "VB 10316/UBND-NC ngày 05/10/2026"
+  - "VB 2533/STP-XD&TCTHPL ngày 09/9/2026; VB 8766/STC-HCSN ngày 24/9/2026"
+phien_ban: {de_an: "lan-6 v6", to_trinh: "lan-6 v6", du_thao_qd: "lan-5 v6", bc_tiep_thu: "v8"}
+da_ky:
+  - {so: "498/BC-CĐKT", ngay: "27/10/2026", nguon: "PDF đã ký"}
+  - {so: "775/CĐKT-THHCQT", ngay: "27/10/2026", nguon: "PDF đã ký"}
+trang_thai: "Chờ UBND tỉnh xin ý kiến Bộ Tài chính, Bộ Nội vụ"
+lien_quan_mo:
+  - "CV 10900/UBND-KTTH (NĐ 373): Trường gửi kết quả trước 01/11/2026; dự thảo đã có mục 5 phân định Đề án"

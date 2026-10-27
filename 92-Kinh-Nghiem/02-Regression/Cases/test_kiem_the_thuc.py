@@ -276,5 +276,21 @@ if mau_dir and os.path.isdir(mau_dir):
 else:
     print("  -- bỏ qua ca mẫu thật: không đọc được Drive")
 
+# TT20 viet hoa sau ":" va TT21 doan trong cuoi (27/10/2026 — bai hoc De an Dang kiem)
+def _them(*cau):
+    def f(d):
+        for c in cau:
+            d.add_paragraph(c)
+    return f
+
+
+kiem("TT20" in bien("tt20_sai", _them("Kết quả cụ thể: mức tự bảo đảm chi thường xuyên đạt 23%.")),
+     "TT20: chữ thường sau “:” bị bắt")
+kiem("TT20" not in bien("tt20_dung", _them("Kết quả cụ thể: Mức tự bảo đảm đạt 23%; họp lúc 8:30; tỷ lệ 1:500.",
+                                           "Căn cứ [văn bản làm căn cứ: loại, số, ngày].")),
+     "TT20: viết hoa, giờ, tỷ lệ, chỗ trống khung mẫu không bị báo nhầm")
+kiem("TT21" in bien("tt21_sai", _them("", "", "")), "TT21: 3 đoạn trống cuối văn bản bị bắt")
+kiem("TT21" not in ma(p_dung), "TT21: văn bản chuẩn không bị báo")
+
 print(f"\n{'ĐẠT' if not sai else 'KHÔNG ĐẠT'}: {len(sai)} ca sai")
 sys.exit(1 if sai else 0)
