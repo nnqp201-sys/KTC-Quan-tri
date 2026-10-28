@@ -88,7 +88,18 @@ kiem(h["he_so"] == 9.0 and "CHƯA CÓ VĂN BẢN" in h["trang_thai"], "A×B: 4,5
 kiem(any(c.startswith("THANG_DIEM_CHUA_PHAN_DINH") for c in kc.he_so("AxB", "Cao", "1.1.DA01.01")["canh_bao"]),
      "Phương án A×B → vẫn mã THANG_DIEM_CHUA_PHAN_DINH (phép nhân chưa có văn bản)")
 kiem(not kc.he_so("muc-do", "Cao")["canh_bao"], "ca ngược: phương án mức độ (QĐ 1923 có văn bản) → không cảnh báo thang điểm")
-kiem(len([k for k in kc.danh_muc() if k.startswith("ma:")]) == 416, "Danh mục nạp đủ 416 sản phẩm QĐ 2119")
+kiem(len({h["ma_san_pham"] for k, h in kc.danh_muc().items() if k.startswith("stt:")}) == 416,
+     "Danh mục nạp đủ 416 sản phẩm QĐ 2119")
+# Ma CHINH tu 27/10/2026 la ma phan mem KPI tinh (N1_241); ma QD 2119 thanh ma tham chieu
+kiem(kc.tra_A("N1_241")[0] == kc.tra_A("1.1.KH01.04")[0] == 1.0,
+     "Tra hệ số bằng mã phần mềm KPI N1_241 = bằng mã QĐ 2119 1.1.KH01.04 = 1,0")
+kiem(len([k for k in kc.danh_muc() if k.startswith("ma:N") or k.startswith("ma:T")]) == 416,
+     "416/455 mã phần mềm ánh xạ được sang QĐ 2119")
+_e = bao_loi(kc.tra_A, "T3_398")
+kiem(_e is not None and "THIEU_DU_LIEU" in str(_e),
+     "NGƯỢC: mã T3_398 có trên phần mềm nhưng chưa có trong QĐ 2119 → THIEU_DU_LIEU, không tự gán hệ số")
+kiem(kc.tim_danh_muc("kế hoạch công tác tháng")[0]["ma_spcv"].startswith("N"),
+     "Gợi ý Danh mục trả về kèm mã phần mềm (ma_spcv) để ghi thẳng vào kế hoạch")
 e = bao_loi(kc.he_so, "A", None, "Sản phẩm không có trong danh mục")
 kiem(e is not None and "2119" in str(e), "NGƯỢC: sản phẩm không có trong Danh mục QĐ 2119 → báo lỗi, không tự gán A")
 # ca nguoc canh bao lech Nhom / bat thuong: CSV gia (phu luc chinh thuc khong co dong lech)

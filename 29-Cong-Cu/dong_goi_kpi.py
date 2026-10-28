@@ -9,6 +9,7 @@ Nguon duy nhat -> ban sao trong tung skill (sua o NGUON, khong sua ban sao):
   29-Cong-Cu/kpi_*.py, validate_plan.py     -> <skill>/scripts/   (moi skill chi mang script no dung)
   KTC-Database/03-Templates/03-12-.../Mau-KeHoach-DanhGia_*.xlsx (6 tep) -> <skill>/assets/  (giu nguyen byte)
   Danh muc QD 2119 (kho 02, CHINH THUC)    -> 28-KTC-KPI/references/data/he-so-san-pham-QD2119.csv (trich lai)
+  Danh muc SPCV phan mem KPI tinh (ma chinh tu 27/10/2026) -> .../data/danh-muc-spcv-pm-kpi.csv (trich lai)
   28-KTC-KPI/references/{Cau-Hoi-Mo, Known-Issues-Bieu-Mau, Thuat-Ngu}.md, quy/*.yaml (viet tay o skill lap-ke-hoach)
                                            -> Tu-Danh-Gia/references/ (ban sao — goi .skill phai tu chua)
 Ban sao bi sua tay khac nguon -> BAO LOI, khong ghi de im lang (bai hoc 14/9/2026: goi lech nguon roi).
@@ -76,6 +77,11 @@ def dong_bo(ghi_de=False):
     import trich_danh_muc_qd2119 as t
     if t.main([]) != 0:
         loi.append("Trích Danh mục QĐ 2119 thất bại")
+    # Bang anh xa ma phan mem KPI tinh (N1_241) <-> ma QD 2119 — kpi_calc doc de tra he so theo ma chinh
+    import trich_danh_muc_pm_kpi as tp
+    data = os.path.join(HE, "references", "data")
+    if tp.main([]) != 0 or tp.main(["--ra", data]) != 0:
+        loi.append("Trích danh mục sản phẩm phần mềm KPI thất bại")
     return loi
 
 

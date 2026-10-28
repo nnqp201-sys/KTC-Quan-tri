@@ -78,6 +78,7 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 |---|---|
 | 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-KTC-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
 | **Danh mục sản phẩm, công việc CHÍNH THỨC — QĐ 2119/QĐ-CĐKT ngày 28/9/2026** (416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`, hệ số theo từng sản phẩm) | `KTC-Database/02-KTC-Regulations/02-01-…/QD-2119-QD-CDKT_…_v1.docx` + phụ lục `PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx` (đọc thẳng từ kho, không chép) |
+| **Mã sản phẩm/công việc CHÍNH từ 27/10/2026 — phần mềm KPI tỉnh** (`N1_241`, `T4_461`; `N1`–`N5` = Nhóm 1–5 QĐ 2119, `T1`–`T6` chưa có hệ số) | `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` · dữ liệu `danh-muc-spcv-pm-kpi.csv` · xuất tệp nạp `29-Cong-Cu/xuat_mau_import_kpi.py` |
 | 17 lĩnh vực, mã `A01`–`S04` (nhiệm vụ chuẩn — khác mã sản phẩm QĐ 2119) | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
 | **Bộ chỉ số KPI tập thể, cá nhân CHÍNH THỨC — QĐ 2164/QĐ-CĐKT ngày 30/9/2026** (55 phụ lục; thay các bộ chỉ số dự thảo) | `11-Du-lieu-Cong-Viec/CHI SO KPI/Bo-chi-so-KPIs/` · mục lục `00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md` · dữ liệu `bo-chi-so-kpi-QD2164.csv` |
 | Quy đổi KPI và xếp loại chất lượng (QĐ 1923) | `20-Chuan-Chung/19-Quy-Tac-KPI.md` · lập KPI cá nhân: hệ `28-KTC-KPI/` · tự đánh giá cá nhân quý: `28-KTC-KPI/Tu-Danh-Gia/` |
@@ -94,6 +95,12 @@ Nhóm 3 = 2,5; Nhóm 4 = 3,5; Nhóm 5 = 4,5 (không suy hệ số từ nhãn Nh�
 được hợp nhất trong một bảng hệ số). Sản phẩm không có trong PL-2119 → báo `THIEU_DU_LIEU`, không tự đặt hệ số.
 Danh mục được rà soát hằng năm (Điều 3 QĐ 2119, Phòng TCCB&CTHSSV tổng hợp). Mã sản phẩm QĐ 2119
 (`1.1.DA01.01`) khác mã nhiệm vụ chuẩn `A01`–`S04` và khác Task_ID — không dùng lẫn.
+
+**Từ 27/10/2026, mã ghi trong sản phẩm là mã của phần mềm KPI tỉnh** (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`):
+`N1_241`, `T4_461` — quy tắc "Mã nhóm SPCV_số thứ tự", không sửa được sau khi tạo. QĐ 2119 vẫn là **căn cứ hệ
+số**, mã `1.1.KH01.04` thành **mã tham chiếu**. `N1`–`N5` khớp Nhóm 1–5 (0 mã lệch); 38 mã `T1`–`T6` và `N1_460`
+**chưa có trong QĐ 2119 → `THIEU_DU_LIEU`**, không suy hệ số từ tiền tố. Tra `danh-muc-spcv-pm-kpi.csv`, xuất
+tệp nạp bằng `29-Cong-Cu/xuat_mau_import_kpi.py` (giữ nguyên 4 cột của mẫu — phần mềm bắt buộc).
 
 **Cơ quan chủ quản trong thể thức**: `UBND TỈNH QUẢNG NGÃI` – `TRƯỜNG CAO ĐẲNG KON TUM` (nhất quán trong toàn
 bộ khung đánh giá hiện hành, sau sáp nhập tỉnh). Không dùng "UBND tỉnh Kon Tum" ở văn bản mới.

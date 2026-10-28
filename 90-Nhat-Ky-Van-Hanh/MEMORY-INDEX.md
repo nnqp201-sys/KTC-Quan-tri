@@ -1,6 +1,6 @@
 # MEMORY-INDEX — KTC-Quan-tri
 
-**Cập nhật:** 26/9/2026
+**Cập nhật:** 27/10/2026
 **Phạm vi:** sự thật vận hành hiện hành; không lưu lịch sử chi tiết tại đây.
 **Mô hình kế thừa:** `KTC-Ra-Soat-897-v2-Cai-tien/09-Quan-Tri-He/10-Bo-Nho-He/MEMORY-INDEX.md`
 
@@ -17,6 +17,13 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 ## Sự thật vận hành ổn định
 
 - **KTC-Quan-tri đã ban hành chính thức: TB 1153/TB-CĐKT ngày 12/10/2026** (kèm Tài liệu HD chi tiết; bản ký `30-Ket-Qua/2026-10-12/Ban-Hanh/`). Bản hiện hành **1.3.13**, phân phối qua Team — **thực tế (20/10/2026): người phụ trách cài bằng tài khoản `phongthhcqt` và đã chia sẻ cho thành viên Team** (TB ghi P-QLKHCN nạp; cập nhật phiên bản cũng qua tài khoản này, giữ một bản duy nhất). Theo TB: **Task_ID chưa áp dụng** — đối chiếu theo mã sản phẩm QĐ 2119 + tên nhiệm vụ đến khi có quy định mã khớp VNPT-ĐGCB; 1.3.14 phải chỉnh CLAUDE.md, skill cho khớp.
+
+- **Mã sản phẩm, công việc — từ 27/10/2026 là mã của phần mềm KPI tỉnh** (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`):
+  `N1_241`, `T4_461`, quy tắc "Mã nhóm SPCV_số thứ tự", không sửa được sau khi tạo. **QĐ 2119 vẫn là căn cứ hệ số**;
+  mã `1.1.KH01.04` thành mã tham chiếu. `N1`–`N5` = Nhóm 1–5 (đối chiếu 27/10: khớp 416/455, **0 mã lệch**);
+  38 mã `T1`–`T6` + `N1_460` chưa có trong QĐ 2119 → `THIEU_DU_LIEU`, **không tự đặt hệ số**, chờ P-TCCB.
+  Tra: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`; giải thích + quy trình nạp:
+  `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` cùng thư mục. Xuất tệp nạp: `29-Cong-Cu/xuat_mau_import_kpi.py`.
 
 - Hệ này **điều phối**, không thay thế ba hệ Kế hoạch – Theo dõi – Báo cáo.
 - Một nhiệm vụ – một Task_ID – một dòng dữ liệu gốc; chỉ `KTC-Ke-Hoach` được cấp Task_ID.

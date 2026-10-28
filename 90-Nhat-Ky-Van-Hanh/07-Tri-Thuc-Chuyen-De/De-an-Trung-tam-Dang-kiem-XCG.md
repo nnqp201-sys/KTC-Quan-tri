@@ -269,3 +269,33 @@ Mạch: UBND tỉnh giao Sở TC tham mưu (CV 8866/UBND-NC, 28/8) → các sở
   - Trường **chưa có** nhân sự có chứng chỉ ĐKV hay đủ 60 tháng kinh nghiệm: Phó Giám đốc chuyên môn và Trưởng bộ phận kiểm định phải tuyển mới.
   - Báo cáo rà soát lần 3 ban hành theo thể thức **Tổ xây dựng Đề án** (BC-TXDĐA, TM. Tổ/Tổ trưởng, họ tên để trống). Script: `scratchpad/td3/to_xd.py`.
   - Người phụ trách yêu cầu: dữ liệu thiếu thì **hỏi trực tiếp anh**, không chuyển đơn vị khác.
+
+## 19. Rà soát chính thức KTC-897 trên bản sạch (24/10/2026)
+
+- Báo cáo: `30-Ket-Qua/2026-10-24/Ra-soat-897/BC_Ra-soat-897-chinh-thuc_Ho-so-De-an-Dang-kiem_20261024_v1.docx`. Kết quả: 0 lỗi Mức 1, 2 Mức 2, 8 Mức 3, 4 Mức 4. Kết luận "Đạt có điều kiện", cần chỉnh sửa trước khi trình ký.
+- Hai lỗi Mức 2:
+  - Tờ trình và CV của Trường cùng đề nghị xin ý kiến Bộ nhưng không văn bản nào dẫn chiếu văn bản kia.
+  - Dự thảo QĐ dùng các chữ viết tắt XCG, ĐKV, UBND, ĐVSNCL mà không ghi đầy đủ lần đầu.
+- Khấu hao theo Phụ lục I TT 45/2013/TT-BTC (còn hiệu lực theo QĐ 1760/QĐ-BTC ngày 01/7/2026):
+  - Thiết bị đo lường, thí nghiệm: khung 5–10 năm.
+  - Thiết bị văn phòng: khung 3–8 năm.
+  - Nhà xưởng: 10 năm chỉ hợp lệ nếu xếp nhóm "nhà cửa khác" (6–25 năm). Nhà cửa kiên cố có khung 25–50 năm.
+- Kho: tệp "33. Nghị-định-165-2026 … phòng bệnh" đặt tên không khớp. Theo Chương I NĐ 349/2026, NĐ 165/2026 là văn bản sửa đổi NĐ 214/2025 về đấu thầu.
+- **Đã sửa theo báo cáo 897** (`30-Ket-Qua/2026-10-24/Sau-ra-soat-897/` + `Ban-sach/`; OneDrive `Sau ra soat 897 24.10/`): bản DA/TTr/QĐ v6, BC tiếp thu v8, CV Trường v2.
+  - CV của Trường dẫn chiếu Tờ trình: "tại Tờ trình số …/TTr-CĐKT"; Đề án và BC gửi kèm Tờ trình.
+  - TTr, QĐ viết đầy đủ "xe cơ giới", "đăng kiểm viên", "Ủy ban nhân dân tỉnh".
+  - Nhà xưởng ghi "thuộc nhóm nhà cửa khác theo Phụ lục I TT 45/2013/TT-BTC".
+  - Viết hoa sau dấu hai chấm; thụt dòng căn cứ; lề trang ngang 30 mm.
+  - Người dùng tự sửa trong CV: "Dự thảo Đề án (lần 6)". Đã giữ nguyên.
+
+## 20. Đã trình ký bộ xin ý kiến Bộ (27/10/2026)
+
+- Thư mục OneDrive: `Trình lại tháng 10.2026/Trinh xin y kien thang 10.2026/`.
+- **Báo cáo số 498/BC-CĐKT ngày 27/10/2026** tiếp thu, giải trình theo CV 10316/UBND-NC, 14 trang.
+  - Nơi nhận có thêm Sở Tư pháp, Sở Nội vụ, Sở Xây dựng, Sở NN&MT, Thuế tỉnh.
+  - Tệp .docx trong thư mục **chưa cập nhật** ngày và nơi nhận như bản PDF; bản ký là PDF.
+- **Công văn số 775/CĐKT-THHCQT ngày 27/10/2026** đề nghị UBND tỉnh, Sở TC xin ý kiến BTC, BNV.
+  - Công văn dẫn chiếu **BC 498**, không dẫn Tờ trình: lần này trình bằng BC + CV, **chưa gửi Tờ trình**.
+  - Hồ sơ gửi kèm: (1) dự thảo CV UBND; (2) dự thảo Đề án; (3) BC 498.
+  - Lỗi còn trong bản trình: đoạn kết ghi "Nhà trưởng" (đúng là "Nhà trường"). Câu "trình UBND tỉnh phê duyệt Đề án … tại Báo cáo số 498" chưa chuẩn, vì báo cáo không phải văn bản trình phê duyệt.
+- Tờ trình v6 và dự thảo QĐ v6 giữ lại, dùng khi có ý kiến hướng dẫn của Bộ.

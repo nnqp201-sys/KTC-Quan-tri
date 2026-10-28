@@ -174,7 +174,10 @@ của cá nhân** theo **khoảng thời gian** và **vai trò xử lý chính /
 - Hỏi đủ **người – kỳ – vai trò – phạm vi**. Ba đường lấy dữ liệu (đọc trên trang · tệp xuất · dán bảng) đều qua công cụ
   `office_ca_nhan.py` → bảng .xlsx 4 sheet (`Van-ban-da-xu-ly`, `Cong-viec`, `Tong-hop`, `Nguon`).
 - Trục, Nội hàm, sản phẩm chuẩn và hệ số theo Quyết định số 2119/QĐ-CĐKT, nhiệm vụ liên quan: Claude **đề xuất**, người báo
-  cáo **xác nhận**. Khớp theo số hiệu mới là chắc; khớp theo chủ đề chỉ là gợi ý.
+  cáo **xác nhận**. **Mã sản phẩm ghi trong báo cáo là mã phần mềm KPI tỉnh** (`N1_241`, `T4_461` — mã chính từ
+  27/10/2026); mã QĐ 2119 (`1.1.KH01.04`) chỉ ghi kèm khi cần viện dẫn hệ số. Tra cả hai ở
+  `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`; 39 mã `T1`–`T6` và `N1_460` chưa có
+  hệ số → ghi `THIEU_DU_LIEU`, không tự đặt. Khớp theo số hiệu mới là chắc; khớp theo chủ đề chỉ là gợi ý.
 - Kết quả là **một nguồn** của báo cáo cá nhân (tháng, quý) và danh mục minh chứng cho `kpi-tu-danh-gia`; việc không qua hệ
   thống phải bổ sung từ nguồn khác. Không chấm điểm, không xếp loại, không cấp Task_ID.
 

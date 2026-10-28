@@ -1,5 +1,21 @@
 # Known Issues — KTC-Quan-tri
 
+> **27/10/2026 — MÃ SẢN PHẨM CHUYỂN SANG MÃ PHẦN MỀM KPI TỈNH:** người phụ trách nạp 2 tệp vào
+> `11-Du-lieu-Cong-Viec/`: `27.10.2026.Import kế hoạch moi.xlsx` (sheet `SPCV` 455 mã · sheet `Mẫu import`) và video
+> `27.10.2026.Huong Dan Cau Hinh va Dang Ky Ke Hoach Quy Moi.mp4` (27 MB, **không lên git**, chỉ trên Drive). HDSD
+> phần mềm: `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/` (8 PDF + slide VNPT, `kpi.quangngai.dcs.vn`).
+> **Đã làm:** danh mục + ánh xạ `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`
+> (455 mã, 416 có hệ số QĐ 2119, **0 mã lệch nhóm**) · mục lục `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` · công cụ
+> `29-Cong-Cu/trich_danh_muc_pm_kpi.py`, `29-Cong-Cu/xuat_mau_import_kpi.py` (tệp sinh ra trùng khít mẫu phát hành,
+> 0 ô lệch) · `kpi_calc.py` tra hệ số bằng mã `N1_241` · quy tắc gốc `20-Chuan-Chung/19-Quy-Tac-KPI.md` + CLAUDE.md +
+> SKILL.md của `ke-hoach`, `bao-cao`, `kpi-lap-ke-hoach` · ca thử trong `test_kpi_calc.py` (ĐẠT).
+> **Còn mở:** (1) **nghĩa của nhóm `T1`–`T6` chưa có văn bản** — nội dung khớp 6 Trục TB 817, mới là giả thuyết;
+> 38 mã `T` + `N1_460` **chưa có hệ số** (`THIEU_DU_LIEU`) → đề nghị P-TCCB xác nhận và bổ sung danh mục theo
+> Điều 3 QĐ 2119; (2) **chưa đóng gói 1.3.14** — nguồn rời đã mới hơn gói (`C4`, `C5` cảnh báo đúng dự kiến);
+> (3) chưa đối chiếu Task_ID ↔ mã phần mềm (vẫn theo mốc TB 1153); (4) `.claude/worktrees/fervent-bardeen-97f9ad/`
+> là worktree bỏ quên, làm `C13` báo ~20 lỗi đường dẫn ổ đĩa — **đề nghị người phụ trách xóa thủ công**;
+> (5) `test_bc_thang.py` sai 2 ca (phân loại IIa/IIb, tệp cùng mã đơn vị đè nhau) — **có trước**, không do đợt này.
+
 > **ĐÃ BAN HÀNH: TB 1153/TB-CĐKT ngày 12/10/2026** (ghi nhận 20/10) hướng dẫn sử dụng bộ công cụ KTC-Quan-tri (kèm Tài liệu HD chi tiết), Hiệu trưởng đã ký; bản ký lưu `30-Ket-Qua/2026-10-12/Ban-Hanh/`. Phiên bản hiện hành theo TB: **1.3.13**; phân phối qua Team — **thực tế (20/10/2026): người phụ trách cài bằng tài khoản `phongthhcqt` và đã chia sẻ cho thành viên Team** (TB ghi P-QLKHCN nạp; cập nhật phiên bản cũng qua tài khoản này, giữ một bản duy nhất), tệp cài qua thư mục Drive dùng chung của P-THHC. Task_ID **chưa áp dụng** (đối chiếu theo mã sản phẩm QĐ 2119 + tên nhiệm vụ) đến khi Trường ban hành quy định mã nhiệm vụ khớp VNPT-ĐGCB. Mở đường cho 1.3.14 (các việc hoãn “sau ban hành” ở mục dưới). Chia sẻ toàn thư mục dự án (GitHub) chỉ cho nhóm vận hành nòng cốt — ngoài phạm vi TB, người phụ trách quyết.
 
 > **10/10/2026 — Skill 38 KTC-Bao-Cao v3.21 (`DL-20261010-003`):** tra cứu kết quả cá nhân trên Hệ thống QLVB&ĐH (`office.quangngai.gov.vn`) làm nguồn báo cáo cá nhân. Công cụ `office_ca_nhan.py` đã thử trên 2 tệp xuất thật + ca thử `test_office_ca_nhan.py`. **Còn mở:** (1) **chưa chạy thật Đường A** (Cowork đọc trên trang — C-15 trang về màn hình đăng nhập); lần chạy đầu phải ghi tên mục, bộ lọc thật vào mục 9 của Skill 38; (2) **chưa đóng gói** — `.skill` vẫn v3.20, plugin 1.3.13 đang thẩm định; đưa vào 1.3.14 (C4 sẽ cảnh báo nguồn rời mới hơn gói — đúng dự kiến); (3) chờ Quyết định danh mục tài liệu được phép / không được phép dùng với AI (TB 1118 mục II.3, P-QLKH, hạn 16/10/2026) để đối chiếu lại mục 2 của Skill 38.
