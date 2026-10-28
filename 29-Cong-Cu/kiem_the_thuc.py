@@ -203,6 +203,12 @@ def _co_duong_ke(o):
     return "<w:drawing" in x or "<v:line" in x or "<v:shape" in x or re.search(r"<w:pBdr>.*?<w:bottom ", x, re.S)
 
 
+def _co_hinh_ke(o):
+    """O bang co duong ke dang hinh ve (Draw/VML) — sua duoc trong Word."""
+    x = o._tc.xml
+    return "<w:drawing" in x or "<v:line" in x or "<v:shape" in x
+
+
 def _kiem_bang_tieu_de(d, g):
     """TT12-TT15: hinh hoc bang tieu de (28/9/2026 — TB do Cowork dung tay: bang 16 cm chia doi, quoc hieu va dia danh
     xuong dong, thieu duong ke duoi ten Truong; cac phep TT08-TT09 cu van bao 'dat').
@@ -255,6 +261,10 @@ def _kiem_bang_tieu_de(d, g):
     if not any(_co_duong_ke(x) for x in cot(trai[0])):
         kq.append((2, "TT14", "Thiếu đường kẻ dưới tên cơ quan ban hành “TRƯỜNG CAO ĐẲNG KON TUM” "
                    "(NĐ 30: đường kẻ ngang, nét liền, bằng 1/3–1/2 dòng chữ)"))
+    elif not any(_co_hinh_ke(x) for x in cot(trai[0])):
+        # 28/10/2026: duong ke bang vien duoi doan + thut le — nguoi dung khong chon, keo duoc trong Word (BC To XDDA Hang A)
+        kq.append((3, "TT14", "Đường kẻ dưới tên cơ quan ban hành là viền dưới đoạn — người dùng không sửa được trong Word; "
+                   "dùng hình đường thẳng như mẫu (rap_mau.ke_duoi_doan)"))
     if not any(_co_duong_ke(x) for x in cot(phai[0])):
         kq.append((2, "TT14", "Thiếu đường kẻ dưới tiêu ngữ “Độc lập - Tự do - Hạnh phúc”"))
     return kq

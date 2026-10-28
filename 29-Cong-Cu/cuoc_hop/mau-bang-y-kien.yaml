@@ -1,0 +1,67 @@
+# Bảng ý kiến cuộc họp góp ý — MỘT nguồn cho cả Biên bản và BC tiếp thu (skill ktc-cuoc-hop).
+# Ví dụ thật: họp góp ý Đề án Hạng A ngày 26/10/2026. null = chưa có -> ghi "…" và báo thiếu.
+# Mỗi ý: xu_ly TT (tiếp thu) | GT (giải trình) | KTT (không tiếp thu);
+#        nguon: ghi_am | ghi_chep | tom_tat_ai; doi_chieu: khop | lech | chi_1_nguon (lệch -> hỏi anh trước khi sinh).
+ma: "De-an-Hang-A-lan-1"
+de_an:
+  ten: "Đề án triển khai đào tạo và sát hạch lái xe mô tô Hạng A tại Trường Cao đẳng Kon Tum"
+  ten_dong_1: "Đề án triển khai đào tạo"
+  ten_dong_2: "và sát hạch lái xe mô tô Hạng A tại Trường Cao đẳng Kon Tum"
+  lan: "lần 1"
+to:
+  ten: "Tổ xây dựng Đề án"
+  ten_hoa: "TỔ XÂY DỰNG ĐỀ ÁN"
+  qd: "Quyết định số 1944/QĐ-CĐKT ngày 07/9/2026 của Hiệu trưởng"
+  ky_hieu: "BC-TXDĐA"
+  to_truong: null
+  noi_nhan: ["- Như trên;", "- Thành viên Tổ xây dựng Đề án;", "- Lưu: VT, Tổ XDĐA."]
+kinh_gui: "Hiệu trưởng"
+chu_the_tiep_thu: "Tổ xây dựng Đề án"
+cuoc_hop:
+  ngay: "26/10/2026"
+  gio_bat_dau: null
+  gio_ket_thuc: null
+  dia_diem: null
+  chu_tri: "Ông Lê Trí Khải, Hiệu trưởng"
+  chu_tri_ngan: "Hiệu trưởng"
+  chu_tri_ho_ten: "Lê Trí Khải"
+  thu_ky: null
+  thanh_phan:
+    - "Ông Lê Trí Khải, Hiệu trưởng"
+    - "Các thành viên Tổ xây dựng Đề án (thành lập theo Quyết định số 1944/QĐ-CĐKT ngày 07/9/2026 của Hiệu trưởng)"
+    - "Đại diện lãnh đạo phòng TC-KT, phòng QLĐT&BĐCL, phòng TH-HC&QT, khoa ĐT&SHLX"
+  noi_dung: "Góp ý dự thảo Đề án triển khai đào tạo và sát hạch lái xe mô tô Hạng A tại Trường Cao đẳng Kon Tum (lần 1), dự thảo Tờ trình, Quyết định phê duyệt Đề án và Phụ lục V"
+bao_cao_tom_tat:
+  nguoi: "Tổ xây dựng Đề án"
+  noi_dung:
+    - "Mục tiêu: Bổ sung đào tạo, sát hạch lái xe mô tô Hạng A tại Trường từ năm 2027; quy mô năm 2027 khoảng 220 học viên, năm 2031 khoảng 920 học viên"
+    - "Vốn ban đầu khoảng 1.730,2 triệu đồng (1.669,0 triệu đồng đầu tư tài sản, 61,2 triệu đồng bồi dưỡng nhà giáo, chương trình chi năm 2026); thời gian hoàn vốn giản đơn khoảng 4,5 năm"
+y_kien:
+  - xung_ho: "bà"
+    ten: "Thoa"
+    don_vi: "phòng TC-KT"
+    y:
+      - noi_dung: "Thời gian dự kiến hoàn thành hệ thống (trước ngày 01/01/2028) chưa thống nhất với năm bắt đầu tuyển sinh (năm 2027); cần chọn mốc hợp lý"
+        xu_ly: TT
+        tra_loi: "Điều chỉnh thời gian dự kiến hoàn thành bài sát hạch số 2 là Quý III/2027, ghi chú \"chậm nhất trước ngày 01/01/2028\"; rà soát thống nhất mốc thời gian giữa các phần của Đề án."
+        nguon: [ghi_am, ghi_chep, tom_tat_ai]
+        doi_chieu: khop
+      - noi_dung: "Bỏ phân tích độ nhạy, giữ doanh thu, dòng tiền lũy kế ở mức 100% dự kiến"
+        xu_ly: TT
+        tra_loi: "Bỏ các kịch bản 70%, 50% trong Đề án và sheet \"Độ nhạy\" trong Phụ lục V."
+        nguon: [ghi_am, ghi_chep]
+        doi_chieu: khop
+  - xung_ho: "ông"
+    ten: "Dũng"
+    don_vi: "phòng TH-HC&QT"
+    y:
+      - noi_dung: "Làm rõ nguồn trích dẫn, căn cứ tính toán của tỷ lệ 1,5% (hoặc 15%)"
+        xu_ly: GT
+        tra_loi: "Tỷ lệ tại dự thảo là 51,5%: Quy mô đào tạo lái xe mô tô khu vực phía Tây (12.066 học viên) so với phía Đông (23.412 học viên) năm 2025 theo số liệu Sở Xây dựng."
+        nguon: [ghi_chep, tom_tat_ai]
+        doi_chieu: chi_1_nguon
+ket_luan:
+  - noi_dung: "Bổ sung phương án xã hội hóa, hợp tác huy động nhà đầu tư bên ngoài"
+    tra_loi: "Bổ sung mục Phương án huy động vốn xã hội hóa; phòng TC-KT phối hợp xây dựng."
+    nguon: [tom_tat_ai]
+    doi_chieu: chi_1_nguon
