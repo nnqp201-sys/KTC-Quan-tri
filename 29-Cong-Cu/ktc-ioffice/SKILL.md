@@ -60,81 +60,122 @@ Với mỗi từ khóa `KH-CĐKT`, rồi `TB-CĐKT`:
 4. Giữ các dòng có `ngay` ≥ "Từ ngày". Nếu cột không đúng thứ tự (trích yếu rỗng, ngày không dạng
    dd/mm/yyyy) → dừng, báo người dùng thứ tự tiêu đề cột thật, không đoán.
 
-## Bước 3 — Tải VĂN BẢN CHÍNH (chỉ hàng "File đính kèm")
+## Bước 3 — Tải tệp trong ô "File đính kèm" (ĐOẠN MÃ CỐ ĐỊNH — không tự viết lại)
 
-### Cấu trúc trang chi tiết (đã xác nhận trên KH 1073, 25/10/2026)
+**Chỉ tải các tệp trong ô bên phải nhãn "File đính kèm"** — đó là văn bản của chính văn bản đang xem (bản
+`.docx`/`.xlsx` soạn thảo + bản `.pdf` ký số; một công văn có thể kèm dự thảo đề án, phụ lục). **Không** tải
+"Văn bản liên quan", "Tài liệu liên quan", "Lịch họp liên quan", nút "Nén và tải tất cả".
 
-| Hàng bảng (cột nhãn bên trái) | Là gì | Tải? |
-|---|---|---|
-| **File đính kèm** | **Văn bản chính**: bản `.docx` (người ký gửi) + bản `.pdf` ký số (Văn thư); kèm "Thông tin ký số" | **CÓ — chỉ hàng này** |
-| Văn bản liên quan | Liên kết sang **văn bản KHÁC** (báo cáo rà soát, quyết định, kế hoạch trước…) | **KHÔNG** — không bấm, không mở, không tải |
-| Tài liệu liên quan | Tài liệu phụ | **KHÔNG** |
-| Nút "Nén và tải tất cả" | Tải gộp | **KHÔNG** |
+Bản `.docx`/`.xlsx` **không có số ký hiệu** (soạn trước khi cấp số) — số được gắn vào **tên tệp lúc tải**
+(`<số>-<KH|TB|CV>__CHINH__<tên gốc>`) từ ô "Số ký hiệu" của iOffice. Bản `.pdf` ký số là bản pháp lý có số.
 
-> Lỗi lần chạy 25/10/2026: skill đã đi theo cả "Văn bản liên quan" và tải tệp của các văn bản đó → 44/45
-> văn bản bị ghi nhận nhầm báo cáo 897, phiếu, Thông tư, công văn UBND làm văn bản chính. Không lặp lại.
+**Cách làm — bắt buộc đúng 3 lệnh, không ứng biến:**
 
-### Danh sách cần tải — sổ nhớ v2
+1. Dán **nguyên văn** đoạn mã dưới vào trang iOffice (javascript). Kết quả phải là `ktcTai sẵn sàng`.
+2. Chạy thử **1 văn bản**: `await ktcTai([window.__kq[0]])` → báo người dùng danh sách tệp in ra, đối chiếu
+   với ô "File đính kèm" trên màn hình. Sai (thiếu tệp, có tệp văn bản khác) → DỪNG, báo người dùng.
+3. Người dùng xác nhận → `await ktcTai(window.__kq)`. Đoạn mã tự: mở từng văn bản, chờ đúng số ký hiệu hiện
+   lên, lấy đủ tệp trong ô, tải, kiểm đủ số tệp, ghi sổ nhớ `ktc_da_tai_v2`, ghi tên tệp vào `window.__kq`
+   (cột `ten_file` cho CSV). Văn bản lỗi in `LỖI …` và không ghi sổ nhớ → lần sau tự tải lại.
 
-Sổ nhớ cũ `ktc_da_tai` ghi nhận cả những lần tải nhầm → **bỏ, dùng `ktc_da_tai_v2`** (lần chạy đầu tiên với
-bản này sẽ tải lại bản chính cho toàn bộ văn bản, đúng ý đồ).
-
-```javascript
-(() => { const da = new Set(JSON.parse(localStorage.getItem('ktc_da_tai_v2') || '[]'));
-  return window.__kq.filter(r => !da.has(r.doc_id)).map(r => r.doc_id); })()
-```
-
-### Lấy đúng liên kết trong hàng "File đính kèm"
-
-Hàm dùng cho cả trang đang mở (`document`) lẫn HTML chi tiết lấy bằng `fetch` (`new DOMParser().parseFromString(html,'text/html')`):
+Lần đầu Chrome hỏi "Cho phép tải nhiều tệp" → báo người dùng bấm **Cho phép**.
+"tải lại hết" → `await ktcTai(window.__kq, {tai_lai: true})`. "không tải" → bỏ qua bước này.
 
 ```javascript
-window.__fileChinh = (doc) => {
-  const nhan = [...doc.querySelectorAll('td,th')].find(td =>
-    td.textContent.replace(/\s+/g, ' ').trim().toLowerCase() === 'file đính kèm');
-  if (!nhan) return null;                       // khong thay hang -> bao loi, KHONG tai thay
-  const o = nhan.nextElementSibling;            // o noi dung ben phai nhan
-  return [...o.querySelectorAll('a, [onclick*="filedownload"]')]
-    .map(e => { const m = (e.getAttribute('onclick') || e.getAttribute('href') || '')
-                  .match(/filedownload\(\s*'([^']*)'\s*,\s*'([^']*)'/);
-                return m ? { path: m[1], name: m[2] } : null; })
-    .filter(Boolean)
-    .filter((x, i, a) => a.findIndex(y => y.path === x.path) === i);   // nut "Xem" va ten tep trung nhau
-};
+// ktc-ioffice — tai DUNG o "File đính kèm" cua tung van ban tren iOffice (QLVB&DH Quang Ngai).
+// Dan NGUYEN VAN doan nay vao trang iOffice (javascript_tool), KHONG viet lai, KHONG sua.
+//
+//   await ktcTai([{doc_id:'2326501', so_ky_hieu:'1073/KH-CĐKT'}])   // thu 1 van ban, xem ket qua
+//   await ktcTai(window.__kq)                                        // hang loat (bo qua VB da tai)
+//
+// Chi DOC: chi goi showDocDetail (xem) va filedownload (tai). Khong bam nut xu ly nao.
+// Chi lay lien ket trong O BEN PHAI nhan "File đính kèm"; bo "Văn bản liên quan", "Tài liệu liên quan",
+// "Nén và tải tất cả". Ten tep luu: <so>-<KH|TB|CV>__CHINH__<ten goc> (so ky hieu lay tu iOffice, vi
+// ban .docx/.xlsx chua co so). Tra ve bang ke de ghi cot "Tên file đính kèm" cua CSV.
+(() => {
+  const SO_NHO = 'ktc_da_tai_v2';
+  const ngu = ms => new Promise(r => setTimeout(r, ms));
+  const sach = s => (s || '').replace(/\s+/g, ' ').trim();
+  const loai = so => /\/KH-/i.test(so) ? 'KH' : /\/TB-/i.test(so) ? 'TB' : 'CV';
+  const tien_to = so => `${(so.match(/^\s*(\d+)/) || [, 'x'])[1]}-${loai(so)}__CHINH__`;
+
+  // O noi dung ben phai nhan "File đính kèm" -> [{path,name}] (bo trung nut Xem/ten tep)
+  window.ktcFileChinh = (doc = document) => {
+    const nhan = [...doc.querySelectorAll('td,th')].find(td => sach(td.textContent).toLowerCase() === 'file đính kèm');
+    if (!nhan || !nhan.nextElementSibling) return null;
+    const ds = [];
+    nhan.nextElementSibling.querySelectorAll('[onclick],[href]').forEach(e => {
+      const m = ((e.getAttribute('onclick') || '') + ' ' + (e.getAttribute('href') || ''))
+        .match(/filedownload\(\s*['"]([^'"]*)['"]\s*,\s*['"]([^'"]*)['"]\s*(?:,\s*['"]?([^'")]*)['"]?)?/);
+      if (m && !ds.some(x => x.path === m[1])) ds.push({ path: m[1], name: m[2], type: m[3] || '' });
+    });
+    return ds;
+  };
+
+  // So ky hieu dang hien tren trang chi tiet (de chac chan trang da chuyen sang dung van ban)
+  const so_tren_trang = () => {
+    const nhan = [...document.querySelectorAll('td,th')].find(td => sach(td.textContent).toLowerCase() === 'số ký hiệu');
+    return nhan && nhan.nextElementSibling ? sach(nhan.nextElementSibling.textContent) : '';
+  };
+
+  // Goi filedownload cua trang nhung CHAN lai dia chi tai (window.open / a.click / form.submit) de tu tai
+  // bang fetch va dat ten co tien to. Khong bat duoc -> de trang tu tai voi ten goc (ghi nhan 'ten_goc').
+  async function tai_mot(f, ten_moi) {
+    let bat = null;
+    const goc = { open: window.open, click: HTMLAnchorElement.prototype.click, submit: HTMLFormElement.prototype.submit };
+    window.open = u => { bat = { url: u }; return null; };
+    HTMLAnchorElement.prototype.click = function () { if (this.href && !bat) bat = { url: this.href }; else goc.click.call(this); };
+    HTMLFormElement.prototype.submit = function () { bat = { url: this.action, method: (this.method || 'post').toUpperCase(), body: new FormData(this) }; };
+    try { window.filedownload(f.path, f.name, f.type); await ngu(400); }
+    finally { window.open = goc.open; HTMLAnchorElement.prototype.click = goc.click; HTMLFormElement.prototype.submit = goc.submit; }
+    if (!bat) { window.filedownload(f.path, f.name, f.type); await ngu(800); return { ten: f.name, cach: 'ten_goc' }; }
+    const r = await fetch(bat.url, { credentials: 'include', method: bat.method || 'GET', body: bat.body });
+    const b = await r.blob();
+    if (!r.ok || !b.size || /text\/html/i.test(b.type)) throw new Error(`tải ${f.name}: HTTP ${r.status}, ${b.size} byte, ${b.type || '?'}`);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b); a.download = ten_moi; goc.click.call(a);
+    await ngu(600); URL.revokeObjectURL(a.href);
+    return { ten: ten_moi, cach: 'tien_to' };
+  }
+
+  window.ktcTai = async function (ds, { tai_lai = false } = {}) {
+    const da = new Set(JSON.parse(localStorage.getItem(SO_NHO) || '[]'));
+    const ket_qua = [];
+    for (const vb of ds) {
+      const row = { doc_id: vb.doc_id, so_ky_hieu: vb.so_ky_hieu, tep_trong_o: [], da_tai: [], loi: '' };
+      if (!tai_lai && da.has(vb.doc_id)) { row.loi = 'đã tải trước đó'; ket_qua.push(row); continue; }
+      try {
+        window.showDocDetail(vb.doc_id, '', '2');
+        let tep = null;
+        for (let i = 0; i < 40; i++) {                 // cho toi 20 giay trang chi tiet DUNG van ban nay
+          await ngu(500);
+          const so = so_tren_trang();
+          tep = ktcFileChinh(document);
+          if (tep && so && sach(so) === sach(vb.so_ky_hieu)) break;
+          tep = null;
+        }
+        if (!tep) throw new Error('không mở được trang chi tiết đúng văn bản hoặc không thấy ô "File đính kèm"');
+        if (!tep.length) throw new Error('ô "File đính kèm" rỗng');
+        row.tep_trong_o = tep.map(x => x.name);
+        for (const f of tep) {
+          const kq = await tai_mot(f, tien_to(vb.so_ky_hieu) + f.name);
+          row.da_tai.push(kq.ten);
+          await ngu(500);
+        }
+        if (row.da_tai.length !== tep.length) throw new Error(`tải ${row.da_tai.length}/${tep.length} tệp`);
+        da.add(vb.doc_id); localStorage.setItem(SO_NHO, JSON.stringify([...da]));
+      } catch (e) { row.loi = String(e.message || e); }
+      ket_qua.push(row);
+    }
+    // Ghi ten tep vao ban ghi CSV (window.__kq) de buoc xuat CSV dung luon
+    (window.__kq || []).forEach(r => { const k = ket_qua.find(x => x.doc_id === r.doc_id);
+      if (k && k.da_tai.length) { r.ten_file = k.tep_trong_o.join(' | '); r.loi = k.loi; } });
+    window.__ktc_tai = ket_qua;
+    return ket_qua.map(k => `${k.so_ky_hieu}: ${k.loi ? 'LỖI ' + k.loi : k.da_tai.length + ' tệp'}${k.tep_trong_o.length ? ' — ' + k.tep_trong_o.join(' | ') : ''}`).join('\n');
+  };
+  return 'ktcTai sẵn sàng';
+})();
 ```
-
-Chạy thử trên **văn bản đầu tiên** và báo người dùng danh sách tệp tìm được (phải là tệp văn bản chính,
-thường 1 `.docx` + 1 `.pdf`). Danh sách chứa tên văn bản khác → DỪNG, báo người dùng.
-
-### Tải và đặt tên
-
-Mọi tệp trong hàng "File đính kèm" đặt tên **`<số>-<KH|TB>__CHINH__<tên gốc>`**
-(vd `1073-KH__CHINH__Ke hoach xet ho so NLTHN_NLSP nguoi day nghe 2026.pdf`).
-
-**Cách A — ưu tiên (không mở từng trang):**
-1. `showDocDetail.toString()`, `filedownload.toString()` → địa chỉ trang chi tiết và địa chỉ tải.
-2. Mỗi Doc ID: `fetch(<địa chỉ chi tiết>, {credentials:'include'})` → `DOMParser` → `__fileChinh(doc)`.
-3. Mỗi tệp: `fetch(<địa chỉ tải từ path>, {credentials:'include'})` → `blob` → thẻ `<a download=...>` → `click()`. Nghỉ ~1 giây.
-4. Kiểm blob: kích thước > 0, `blob.type` không phải `text/html` (trang đăng nhập). Sai → ghi `loi`, KHÔNG lưu.
-
-**Cách B — dự phòng:** mở `showDocDetail(<doc_id>,'','2')`, chạy `__fileChinh(document)`, bấm **chỉ** các liên
-kết đó (đổi tên khi lưu nếu được; không đổi được thì ghi tên gốc vào `ten_file`), quay lại kết quả.
-
-Ghi `ten_file` = các tên gốc trong hàng "File đính kèm", nối bằng `" | "`.
-Hàng "File đính kèm" rỗng/không thấy → `loi` = "không có File đính kèm", không tải gì khác.
-
-Sau mỗi văn bản tải **đủ** tệp của hàng "File đính kèm":
-```javascript
-((id) => { const k = 'ktc_da_tai_v2', s = new Set(JSON.parse(localStorage.getItem(k) || '[]'));
-  s.add(id); localStorage.setItem(k, JSON.stringify([...s])); })('<doc_id>')
-```
-Văn bản lỗi KHÔNG ghi vào sổ nhớ → lần sau tự tải lại.
-
-Lần đầu Chrome có thể hỏi "Cho phép tải nhiều tệp" → báo người dùng bấm **Cho phép**.
-"tải lại hết" → `localStorage.removeItem('ktc_da_tai_v2')`. "không tải" → bỏ qua bước này.
-
-Chỉ đọc: chỉ dùng hàm/địa chỉ XEM và TẢI; không gọi hàm hay địa chỉ nào có tên gợi ý xử lý, chuyển,
-duyệt, trả lại, cập nhật trạng thái.
 
 ## Bước 4 — Xuất CSV về Downloads
 

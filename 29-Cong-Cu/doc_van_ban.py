@@ -115,8 +115,8 @@ def doc_pdf(duong):
         dong += [x.strip() for x in (trang.extract_text() or '').splitlines() if x.strip()]
     kq = []
     for x in dong:
-        moi = re.match(r'^([IVX]+\.|\d+(\.\d+)*[.)]|[-–+•*]|[a-zđ]\)|[A-ZĐ ]{6,}$)', x)
-        if kq and not moi and not re.search(r'[.:;]$', kq[-1]):
+        moi = re.match(r'^([IVX]+\.|\d+(\.\d+)*[.)]|[-–+•*]|[a-zđ]\)|Số\s*:)', x) or x.upper() == x
+        if kq and not moi and not re.search(r'[.:;]$', kq[-1]) and kq[-1].upper() != kq[-1]:
             kq[-1] += ' ' + x
         else:
             kq.append(x)
