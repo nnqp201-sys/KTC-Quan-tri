@@ -198,10 +198,16 @@ def chuan_hoa_cau_truc(wb, ghi_chu):
             nk.cell(1, j).value = t
         ghi_chu.append('Chuẩn hóa: đổi tên cột Nhật ký')
     ten = [ws.cell(r0, c).value for c in range(1, ws.max_column + 1)]
+    if 'Bản ký số' not in ten:  # PDF ky so (co so, chu ky) cua van ban — minh chung phap ly, 28/10/2026
+        c = len([t for t in ten if t]) + 1
+        ws.cell(r0, c, 'Bản ký số')._style = ws.cell(r0, c - 1)._style
+        ws.column_dimensions[openpyxl.utils.get_column_letter(c)].width = 30
+        ten = [ws.cell(r0, c).value for c in range(1, ws.max_column + 1)]
+        ghi_chu.append('Chuẩn hóa: thêm cột "Bản ký số"')
     thieu = [t for t in COT_CSDL if t not in ten]
     if thieu:
         raise ValueError('sheet CSDL thiếu cột: ' + ', '.join(thieu))
-    return r0, {t: ten.index(t) + 1 for t in COT_CSDL}
+    return r0, {t: ten.index(t) + 1 for t in COT_CSDL + ['Bản ký số']}
 
 
 def cac_dong(ws, r0, cot):
@@ -240,7 +246,7 @@ def chon_chinh(ds):
     """Tep chinh de trich noi dung: .docx truoc, roi .doc, .pdf; tep phu (bao cao ra soat 897, phieu,
     to trinh, phu luc) xep sau; cung loai thi ten ngan nhat."""
     phu = re.compile(r'ra.?soat|897|phieu|to.?trinh|phu.?luc|^bc[-_ ]')
-    return min(ds, key=lambda f: (UU_TIEN.get(os.path.splitext(f)[1].lower(), 9),
+    return min(ds, key=lambda f: (not re.search(r'__chinh__|_chinh\.', khong_dau(f)), UU_TIEN.get(os.path.splitext(f)[1].lower(), 9),
                                   bool(phu.search(khong_dau(f.split('__')[-1]))), len(f), f))
 
 
@@ -386,10 +392,34 @@ def main():
     # viec sau) — file san co trong 2026-09, file moi tai trong --nhan-file
     da_tai = []
     for r in cac_dong(ws, r0, cot):
-        if ws.cell(r, cot['File đã tải']).value:
-            continue
         so = ws.cell(r, cot['Số ký hiệu']).value
         trich = ws.cell(r, cot['Trích yếu']).value
+        # VAN BAN CHINH = moi tep cua o "File dinh kem" (skill ktc-ioffice): nhan qua tien to __CHINH__ hoac qua
+        # ten goc ghi trong cot CSV "Tên file đính kèm". Luon nhan, ke ca dong da ghi nham tep lien quan truoc do.
+        chinh = []
+        if a.nhan_file:
+            chinh = [t for t in tim_file(a.nhan_file, so) if '__chinh__' in khong_dau(t)]
+            chinh += [t for t in ten_goc.get(khoa_so(so), []) if t not in chinh and
+                      os.path.isfile(os.path.join(a.nhan_file, t))]
+        if chinh or ws.cell(r, cot['File đã tải']).value:
+            if chinh:
+                # Giu TEN GOC (o File dinh kem co the gom nhieu van ban: CV + du thao de an...), them tien to so VB
+                dau = '%s-%s-CĐKT__CHINH__' % (re.match(r'\s*(\d+)', str(so)).group(1), loai_vb(so) or 'CV')
+                da_chuyen = []
+                for t in chinh:
+                    dich_ten = dau + (t.split('__CHINH__', 1)[1] if '__CHINH__' in t else t)
+                    if not os.path.exists(os.path.join(thu_muc_file, dich_ten)) and not a.thu:
+                        shutil.move(os.path.join(a.nhan_file, t), os.path.join(thu_muc_file, dich_ten))
+                    da_chuyen.append(dich_ten)
+                    da_tai.append(dich_ten + ' (File đính kèm)')
+                van_ban = [t for t in da_chuyen if t.lower().endswith(('.docx', '.doc', '.xlsx', '.xls'))]
+                ky_so = [t for t in da_chuyen if t.lower().endswith('.pdf')]
+                tep_chinh = chon_chinh(van_ban or ky_so)
+                ws.cell(r, cot['File đã tải']).value = tep_chinh
+                if 'Bản ký số' in cot and ky_so:
+                    cung_ten = [t for t in ky_so if os.path.splitext(t)[0] == os.path.splitext(tep_chinh)[0]]
+                    ws.cell(r, cot['Bản ký số']).value = (cung_ten or ky_so)[0]
+            continue
         san = tim_file(thu_muc_file, so)
         if san:  # da co trong 2026-09 (lan truoc hoac bo sung tay) -> ghi nhan tep uu tien
             ws.cell(r, cot['File đã tải']).value = chon_chinh(san)

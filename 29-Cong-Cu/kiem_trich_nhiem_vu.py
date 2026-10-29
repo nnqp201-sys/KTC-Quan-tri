@@ -87,6 +87,51 @@ def khop_trich_yeu(dong, trich_yeu):
     return len(ty & tu_khoa(' '.join(dong[:30]))) / len(ty)
 
 
+LOAI_VB = ['ke hoach', 'thong bao', 'bao cao', 'phieu', 'bien ban', 'thong tu', 'nghi dinh', 'quyet dinh',
+           'to trinh', 'giay moi', 'cong van', 'mau', 'danh sach', 'chuong trinh', 'de an']
+
+
+def la_van_ban_chinh(dong, so, trich_yeu):
+    """Tra '' neu dung la van ban chinh cua Truong, nguoc lai ly do. Bon dieu kien:
+    co quan ban hanh la Truong; tieu de loai dung (KH -> KẾ HOẠCH, TB -> THÔNG BÁO); so ky hieu o dong
+    'Số:' (neu co ghi so) dung so; trich yeu khop >= 50%. Bao cao ra soat 897 nhac lai ten ke hoach nhung
+    tieu de la BÁO CÁO va so BC -> bi loai."""
+    dau = [khong_dau(x) for x in dong[:25]]
+    if not any('truong cao dang kon tum' in x for x in dau[:6]):
+        return 'cơ quan ban hành không phải Trường'
+    ky = '/KH-' if '/KH-' in so else '/TB-'
+    so_dong = next((x for x in dau if re.search(r'\bso\s*:', x)), '')
+    if so_dong and not re.search(r'/%s-' % ky.strip('/-').lower(), so_dong):
+        return 'dòng "Số:" là loại khác (%s)' % so_dong.split('|')[0].strip()[:40]
+    m = re.search(r'\bso\s*:\s*(\d+)\s*/', so_dong)
+    if m and m.group(1) != re.match(r'\s*(\d+)', so).group(1):
+        return 'số văn bản trong tệp là %s' % m.group(1)
+    # Tieu de loai VB = cum VIET HOA dau tien (KẾ HOẠCH, BÁO CÁO...) trong phan dau, ke ca khi PDF dinh lien
+    # nhieu dong lam mot; bo phan quoc hieu, ten co quan.
+    van_dau = re.sub(r'CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM|Độc lập - Tự do - Hạnh phúc|UBND TỈNH [A-ZÀ-Ỹ ]+|'
+                     r'ỦY BAN NHÂN DÂN TỈNH [A-ZÀ-Ỹ ]+|TRƯỜNG CAO ĐẲNG KON TUM', ' ',
+                     ' '.join(x for x in dong[:25] if not x.startswith('[Bảng')))
+    m = re.search(r'\b(%s)\b' % '|'.join(l.upper() for l in
+                  ['KẾ HOẠCH', 'THÔNG BÁO', 'KẾT LUẬN', 'BÁO CÁO', 'PHIẾU', 'BIÊN BẢN', 'THÔNG TƯ', 'NGHỊ ĐỊNH',
+                   'QUYẾT ĐỊNH', 'TỜ TRÌNH', 'GIẤY MỜI', 'CÔNG VĂN', 'MẪU', 'DANH SÁCH', 'CHƯƠNG TRÌNH', 'ĐỀ ÁN']), van_dau)
+    tieu_de = khong_dau(m.group(1)) if m else ''
+    can = 'ke hoach' if ky == '/KH-' else 'thong bao'
+    if not tieu_de.startswith(can) and not (ky == '/TB-' and tieu_de.startswith('ket luan')):
+        return 'tiêu đề văn bản là "%s"' % (tieu_de.upper() or 'không xác định')
+    diem = khop_trich_yeu(dong, trich_yeu)
+    return '' if diem >= 0.5 else 'không khớp trích yếu (%.0f%%)' % (diem * 100)
+
+
+CANH_BAO = {}   # so ky hieu -> canh bao cap van ban phat sinh khi doc tep (vd Word lech ban ky so)
+
+
+def trung_noi_dung(a, b):
+    """Ty le tu (bo dau) cua ban a co mat trong ban b — PDF ngat dong/khoang trang khac nen so theo tu."""
+    ta = re.findall(r'[a-z0-9]+', khong_dau(' '.join(x for x in a if not x.startswith('['))))
+    tb = set(re.findall(r'[a-z0-9]+', khong_dau(' '.join(b))))
+    return sum(1 for t in ta if t in tb) / len(ta) if ta else 1.0
+
+
 def toan_van(thu_muc, so, tep_chinh=None, trich_yeu=''):
     """Dong toan van: tep CHINH (khop trich yeu) truoc, phu luc .xlsx sau. Tra (dong, ten tep chinh, loi).
     Tep tai ve co the lech (bao cao kem theo, phieu...) -> thu lan luot theo uu tien, chi nhan tep ma
@@ -113,11 +158,25 @@ def toan_van(thu_muc, so, tep_chinh=None, trich_yeu=''):
         if not d:
             thu.append('%s: PDF ảnh quét' % t)
             continue
-        diem = khop_trich_yeu(d, trich_yeu)
-        if diem >= 0.5:
+        ly_do = la_van_ban_chinh(d, so, trich_yeu)
+        if not ly_do:
             chinh, dong = t, d
             break
-        thu.append('%s: không khớp trích yếu (%.0f%%)' % (t, diem * 100))
+        thu.append('%s: %s' % (t, ly_do))
+    # Doi chieu ban Word voi ban PDF ky so cung o "File dinh kem": Word co the la du thao chua chot.
+    if chinh and not chinh.lower().endswith('.pdf'):
+        for pdf in [t for t in doc_duoc if t.lower().endswith('.pdf') and t != chinh]:
+            try:
+                d_pdf = doc_toan_van(os.path.join(tm, pdf))
+            except Exception:
+                continue
+            if not d_pdf or la_van_ban_chinh(d_pdf, so, trich_yeu):
+                continue
+            ty_le = trung_noi_dung(dong, d_pdf)
+            if ty_le < 0.9:
+                CANH_BAO[so] = 'bản Word khác bản ký số %s (trùng %.0f%%) — trích theo bản ký số' % (pdf, ty_le * 100)
+                chinh, dong = pdf, d_pdf
+            break
     if not chinh:
         return [], '', 'LỆCH TỆP — không tệp nào là văn bản chính: ' + '; '.join(thu)
     for p in phu_luc:
@@ -152,15 +211,40 @@ def chuan_bi(thu_muc):
             for i, x in enumerate(dong, 1):
                 f.write('L%03d %s\n' % (i, x))
         can.append((so, os.path.relpath(duong, GOC), len(dong)))
+        if so in CANH_BAO:
+            loi.append('%s: VÀNG — %s' % (so, CANH_BAO[so]))
     print('=== VĂN BẢN CHỜ AI TRÍCH: %d ===' % len(can))
     for so, p, n in can:
         print('  %-14s %4d dòng  %s' % (so, n, p))
     if loi:
-        print('Không chuẩn bị được (%d):' % len(loi))
+        print('Không chuẩn bị được / cảnh báo (%d):' % len(loi))
         for x in loi:
             print('  - ' + x)
     print('JSON ghi vào: %s' % os.path.relpath(os.path.join(KET_QUA, datetime.now().strftime('%Y-%m-%d'),
                                                             'trich-nhiem-vu'), GOC))
+    return 0
+
+
+def tep_nham(thu_muc):
+    """Liet ke tep trong 2026-09 KHONG phai van ban chinh cua van ban mang so do (tai nham tu 'Văn bản liên
+    quan' truoc 28/10/2026). Chi IN danh sach — nguoi dung tu xoa tren Drive."""
+    tm = os.path.join(thu_muc, THU_MUC_FILE)
+    ds = []
+    for r in mo_csdl(thu_muc):
+        so = r['Số ký hiệu']
+        for t in tim_file(tm, so):
+            if '__chinh__' in khong_dau(t) or not t.lower().endswith(('.docx', '.pdf')):
+                continue
+            try:
+                d = doc_toan_van(os.path.join(tm, t))
+            except Exception:
+                continue
+            ly_do = la_van_ban_chinh(d, so, r.get('Trích yếu')) if d else 'PDF ảnh quét'
+            if ly_do:
+                ds.append((so, t, ly_do))
+    print('=== TỆP NHẦM TRONG %s: %d (tự xóa sau khi đã có bản chính) ===' % (THU_MUC_FILE, len(ds)))
+    for so, t, ly in ds:
+        print('  %-14s %s — %s' % (so, t, ly))
     return 0
 
 
@@ -289,6 +373,8 @@ def kiem(thu_muc, thu_muc_json, ra=MASTER_DIR):
             ds.append((so, n, do, vang))
         for l in d.get('Loai_Tru', []):
             loai_tru.append([so, ', '.join('L%03d' % x for x in l.get('Dong') or []), l.get('Noi_Dung'), l.get('Ly_Do')])
+        if so in CANH_BAO:
+            co_vb.append(CANH_BAO[so])
         tong_vb.append([so, 'ĐỎ' if any(k[1] for k in kq) else ('VÀNG' if co_vb else ''),
                         '; '.join(co_vb), len(kq), len(d.get('Loai_Tru', []))])
     trung_lap(ds, doc_master())
@@ -349,12 +435,15 @@ def kiem(thu_muc, thu_muc_json, ra=MASTER_DIR):
 def main():
     ap = argparse.ArgumentParser(description='Chuẩn bị và kiểm kết quả AI trích nhiệm vụ')
     ap.add_argument('--chuan-bi', action='store_true', help='Xuất toàn văn có số dòng cho AI đọc')
+    ap.add_argument('--tep-nham', action='store_true', help='Liệt kê tệp tải nhầm (không phải văn bản chính)')
     ap.add_argument('--json', help='Thư mục JSON (mặc định 30-Ket-Qua/<hôm nay>/trich-nhiem-vu)')
     ap.add_argument('--thu-muc', default=THU_MUC, help='Thư mục CSDL và tệp văn bản')
     ap.add_argument('--ra', default=MASTER_DIR, help='Nơi ghi sổ chờ duyệt')
     a = ap.parse_args()
     if a.chuan_bi:
         return chuan_bi(a.thu_muc)
+    if a.tep_nham:
+        return tep_nham(a.thu_muc)
     return kiem(a.thu_muc, a.json or os.path.join(KET_QUA, datetime.now().strftime('%Y-%m-%d'), 'trich-nhiem-vu'), a.ra)
 
 

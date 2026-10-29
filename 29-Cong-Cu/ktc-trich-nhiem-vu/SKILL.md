@@ -18,6 +18,7 @@ Chạy trong **Claude Code / Cowork trên máy** có thư mục `KTC-Quan-tri`. 
 3. **Không bỏ im lặng.** Mục nào trong phần giao việc không lấy làm nhiệm vụ → ghi vào `Loai_Tru` kèm lý do.
 4. **Mã đơn vị chỉ dùng 11 mã chuẩn** (`20-Chuan-Chung/13-Bang-Ma-Don-Vi.md`). Không có mã → để trống `Don_Vi_Chu_Tri`, ghi nguyên văn vào `Don_Vi_Chu_Tri_Goc`.
 5. **Không ép phân loại.** `Ma_NV_Chuan` chỉ điền khi khớp rõ `A01`–`S04`; không chắc → trống.
+6. **Dự thảo văn bản cần trình ký phải qua rà soát.** Khi nhiệm vụ trích ra là "dự thảo văn bản cần trình ký", sản phẩm phải qua `ktc-ra-soat-897` v4.5 (`2A-KTC-Ra-Soat-897/`) trước khi đánh dấu hoàn thành.
 
 ## Bước 2 — Chuẩn bị và AI trích
 
