@@ -24,6 +24,11 @@
 - Báo cáo chạy trên bản này phải cho **cùng nhãn, cùng số lỗi theo mức** như bản Trường với cùng hồ sơ.
 - Gặp tình huống buộc phải sửa lõi → **dừng, báo người giao**.
 
+## Ghi phiên bản trong báo cáo (chốt 29/10/2026)
+
+Dòng "Phiên bản Skill" ở Phần I do `tao_bao_cao.py` (lõi) in cố định, không sửa. Câu "v4.5 — lõi khớp mã băm gói TB 1206; có lớp bổ sung cá nhân (ghi chú tham khảo)" ghi ở dòng `[Bổ sung – tham khảo] Phiên bản` trong `kiem_tra_chat_luong`.
+Quy ước viết hoa chữ đầu sau mọi dấu hai chấm **không** đưa vào lớp bổ sung. Mã thư mục `2A-` được giữ.
+
 ## Cấu trúc
 
 ```

@@ -16,7 +16,7 @@ KTC-Quan-tri/
 │
 ├── INPUT     10-Dau-Vao/ · 11-Du-lieu-Cong-Viec/
 ├── PROCESS   20-Chuan-Chung/ · 21-Master-Task-Register/ · 22-KTC-Dieu-Phoi/ (skill ktc-quan-tri)
-│             23-KTC-Ke-Hoach/ · 24-KTC-Theo-doi-CV/ · 25-KTC-Bao-Cao/ · 26-KTC-Soan-Thao-VB/ · 29-Cong-Cu/
+│             23-KTC-Ke-Hoach/ · 24-KTC-Theo-doi-CV/ · 25-KTC-Bao-Cao/ · 26-KTC-Soan-Thao-VB/ · 2A-KTC-Ra-Soat-897/ (ktc-ra-soat-897 v4.5 cá nhân) · 29-Cong-Cu/
 ├── OUTPUT    30-Ket-Qua/YYYY-MM-DD/ · 31-Plugin/
 └── QUẢN TRỊ  90-Nhat-Ky-Van-Hanh/ · 91-Tai-Lieu-Thiet-Ke/ · 92-Kinh-Nghiem/ · 99-Luu-Tru/
 ```

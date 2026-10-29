@@ -45,6 +45,7 @@ KTC-Quan-tri/
 ├── 25-KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
 ├── 26-KTC-Soan-Thao-VB/      Hệ soạn thảo văn bản hành chính (7 loại VB + 6 lĩnh vực nghiệp vụ)
 ├── 27-KTC-The-Thuc/         Skill `the-thuc` — chuẩn thể thức MỌI sản phẩm .docx/.xlsx, chồng lên skill docx/xlsx
+├── 2A-KTC-Ra-Soat-897/       Bản tích hợp cá nhân `ktc-ra-soat-897` v4.5: lõi nguyên bản (khóa `LOI-V45.sha256`) + `Bo-Sung-Ca-Nhan/`; gói `.skill` sinh bởi `29-Cong-Cu/dong_goi_ra_soat_897.py`
 ├── 29-Cong-Cu/               Script Python · `plugin_src/` (nguồn hook/agent) · `_trung_gian/` (xóa được)
 │
 │   ── OUTPUT (3x) ─────────────────────────────────────────────
