@@ -1,13 +1,13 @@
 # Known Issues — KTC-Quan-tri
 
-> **29/10/2026 — Tích hợp ktc-ra-soat-897 v4.5 (`DL-20261029-001`):** xong B1–B7 (`2A-KTC-Ra-Soat-897/`). **Còn mở:** (1) đề xuất **Hệ C (VBQPPL)** và **Hệ D (Công đoàn, Đoàn, Hội SV)** — gửi `Bo-Sung-Ca-Nhan/01`, `02` cho đơn vị quản lý Skill (Phòng QLKHCN&HTPT) xem xét đưa vào bản chính thức kế tiếp; (2) báo cáo lệch kho `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH`, 15 `KHONG_THAY`) — đề xuất người quản lý kho kiểm; NĐ 78, 79, 187/2025 chưa có trong kho; (3) `31-Plugin/` còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien` — dồn cho 1.3.14; (4) quy ước viết hoa sau mọi dấu hai chấm cần văn bản Trường làm nguồn; (5) ~~tên thư mục `2A-` là tạm~~ **đã chốt giữ `2A-`**; (6) khi `kiem_the_thuc.py --v45` và thước dự án lệch cùng chỉ tiêu: lấy v4.5, ghi vào đây.
+> **29/10/2026 — Tích hợp ktc-ra-soat-897 v4.5 (`DL-20261029-001`):** xong B1–B7 (`2A-KTC-Ra-Soat-897/`). **Còn mở:** (1) ~~đề xuất Hệ C, Hệ D cho Phòng QLKHCN&HTPT~~ **không gửi** — người phụ trách chốt 29/10: bản tích hợp phát triển cho **cá nhân**, Hệ C/D chỉ dùng trong `Bo-Sung-Ca-Nhan/`; (2) báo cáo lệch kho `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH`, 15 `KHONG_THAY`) — đề xuất người quản lý kho kiểm; NĐ 78, 79, 187/2025 chưa có trong kho; (3) `31-Plugin/` còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien` — dồn cho 1.3.14; (4) quy ước viết hoa sau mọi dấu hai chấm cần văn bản Trường làm nguồn; (5) ~~tên thư mục `2A-` là tạm~~ **đã chốt giữ `2A-`**; (6) khi `kiem_the_thuc.py --v45` và thước dự án lệch cùng chỉ tiêu: lấy v4.5, ghi vào đây.
 
 > **29/10/2026 — chốt của người giao sau tích hợp 897 v4.5; 4 việc còn mở:**
 > 1. **Rà soát đầy đủ thật** (Bước 0–7, có phần chấm nội dung) một hồ sơ, chạy trên bản Team và bản cá nhân để so kết quả; nghiệm thu #3 mới chạy kỹ thuật, chưa chấm nội dung.
 > 2. **Bổ sung NĐ 78/2025, NĐ 79/2025, NĐ 187/2025 vào KTC-Database** (người quản lý kho nạp; kho chỉ đọc với Claude); khi có thì cập nhật `Bo-Sung-Ca-Nhan/01`.
 > 3. **Đóng gói lại 1.3.14** (plugin còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien`; nguồn rời mới hơn gói — C4 24 cảnh báo; gồm các việc dồn từ 28/10).
 > 4. **Kiểm 17 mục lệch kho** trong `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH` + 15 `KHONG_THAY`).
-> Đã chốt: dòng phiên bản ghi ở `[Bổ sung – tham khảo] Phiên bản`; không đưa quy ước dấu hai chấm; giữ mã `2A-`; **gửi Hệ C, D cho Phòng QLKHCN&HTPT** (`Bo-Sung-Ca-Nhan/01`, `02`).
+> Đã chốt: dòng phiên bản ghi ở `[Bổ sung – tham khảo] Phiên bản`; không đưa quy ước dấu hai chấm; giữ mã `2A-`; Hệ C, D **giữ trong lớp bổ sung cá nhân, không gửi** đơn vị quản lý Skill (chốt lại 29/10).
 
 > **28/10/2026 — `ktc-kpi-tu-danh-gia` v1.4 (lệnh nâng cấp sau hồ sơ Q3, `DL-20261028-001`):** bộ kiểm NQ01–NQ10,
 > bảng hỏi 6 cột mới, C08/C09 tự suy từ sheet B, mẫu Phụ lục II/VII báo rõ; `lap_ho_so_minh_chung.py`,
