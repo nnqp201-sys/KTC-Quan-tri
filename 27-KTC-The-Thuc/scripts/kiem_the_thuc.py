@@ -261,7 +261,7 @@ def _kiem_bang_tieu_de(d, g):
 
 
 # ------------------------------------------------------------------ anh xa bo quy tac 897
-# Nguon (KHONG chep, chi anh xa ma kiem): KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/
+# Nguon (KHONG chep, chi anh xa ma kiem): 2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/ (Quy-Tac-KTC/01, Checklist/)
 #   01-The-Thuc.md muc 1 (9 thanh phan, quy dinh chung NĐ 30) · 08-Quy-Uoc-Rieng-CDKT.md muc 4 (TB 597 so cung),
 #   muc 5.1 (KT./TL./TUQ.), muc 5.4 (khong hoc ham, hoc vi). 01 muc 6: sai co chu, kieu chu, vi tri -> Muc 2.
 HOC_HAM = re.compile(r"^(GS|PGS|TS|ThS|BS|BSCKI+|CKI+|DS|KS|CN|NCS|TTƯT|NGƯT|NGND)\.?\s", re.I)
@@ -615,10 +615,75 @@ def kiem_tep(p):
     raise ValueError(f"Không kiểm được loại tệp: {p}")
 
 
+def _tim_thuoc_do_v45():
+    """Tim tools/kiem_tra_the_thuc.py cua ktc-ra-soat-897 v4.5 (2A-KTC-Ra-Soat-897) di nguoc tu tep nay."""
+    d = os.path.dirname(os.path.abspath(__file__))
+    for _ in range(4):
+        p = os.path.join(d, "2A-KTC-Ra-Soat-897", "ktc-ra-soat-897", "tools", "kiem_tra_the_thuc.py")
+        if os.path.isfile(p):
+            return p
+        d = os.path.dirname(d)
+    return os.environ.get("KTC_897_THUOC_DO") or None
+
+
+def chay_v45(tep_ds):
+    """Che do --v45: thuoc do CHINH cho van ban hanh chinh/Dang la kiem_tra_the_thuc.py cua v4.5
+    (TB 1206). Phep do rieng cua du an chi giu cho phan v4.5 khong do (xlsx) va in PHU de doi chieu.
+    Hai thuoc ra khac nhau cho cung mot chi tieu -> in ca hai, LAY v4.5, ghi vao Pending.md."""
+    import json
+    import subprocess
+    import tempfile
+    thuoc = _tim_thuoc_do_v45()
+    xau = False
+    for p in tep_ds:
+        if not p.lower().endswith((".docx", ".dotx")):
+            print(f"\n=== {p} — v4.5 không đo tệp này; dùng thước đo dự án ===")
+            kq = kiem_tep(p)
+            for muc, ma, mo_ta in kq:
+                print(f"  [Mức {muc}] {ma}: {mo_ta}")
+            xau |= any(x[0] <= 2 for x in kq)
+            continue
+        if not thuoc:
+            print(f"\n=== {p} — KHÔNG tìm thấy thước đo v4.5 (2A-KTC-Ra-Soat-897/…/tools/kiem_tra_the_thuc.py); "
+                  f"đặt biến KTC_897_THUOC_DO hoặc chạy trong dự án. Dùng thước đo dự án (không phải thước chính) ===")
+            kq = kiem_tep(p)
+            for muc, ma, mo_ta in kq:
+                print(f"  [Mức {muc}] {ma}: {mo_ta}")
+            xau |= any(x[0] <= 2 for x in kq)
+            continue
+        with tempfile.TemporaryDirectory() as t:
+            j = os.path.join(t, "tt.json")
+            r = subprocess.run([sys.executable, "-X", "utf8", "-I", thuoc, p, "--json", j],
+                               capture_output=True, text=True, encoding="utf-8")
+            if r.returncode != 0 or not os.path.isfile(j):
+                print(f"\n=== {p} — thước đo v4.5 lỗi (mã {r.returncode}): {r.stderr.strip()[-300:]}")
+                xau = True
+                continue
+            with open(j, encoding="utf-8") as f:
+                d = json.load(f)
+        loi = d.get("loi", [])
+        print(f"\n=== {p} — [THƯỚC CHÍNH v4.5] {len(loi)} phát hiện; chưa kiểm {len(d.get('chua_kiem', []))} ===")
+        for x in loi:
+            print(f"  [{x.get('muc')}] {x.get('ma')}: {x.get('hang_muc')} — {x.get('vi_tri')} — đo: {x.get('do')}; yêu cầu: {x.get('yeu_cau')}")
+        xau |= any(str(x.get("muc", "")).strip() in ("Mức 1", "Mức 2") for x in loi)
+        kq = kiem_tep(p)
+        chuan = lambda m: re.sub(r"[^A-Z0-9]", "", str(m).upper())
+        ma45 = {chuan(x.get("ma")) for x in loi}
+        ma_dan = {chuan(x[1]) for x in kq}
+        print(f"  [thước phụ của dự án] {len(kq)} gợi ý (Mức≤2: {sum(1 for x in kq if x[0] <= 2)})")
+        if ma45 ^ ma_dan:
+            print("  ⚠ Hai thước ra khác nhau theo mã: chỉ v4.5 = " + (", ".join(sorted(ma45 - ma_dan)) or "–")
+                  + " · chỉ dự án = " + (", ".join(sorted(ma_dan - ma45)) or "–"))
+            print("    → LẤY KẾT QUẢ v4.5; nếu cùng một chỉ tiêu mà hai thước lệch, ghi vào 92-Kinh-Nghiem/05-Known-Issues/Pending.md")
+    return 1 if xau else 0
+
+
 def main(argv):
     if not argv:
         print(__doc__)
         return 2
+    if argv[0] == "--v45":
+        return chay_v45(argv[1:])
     if argv[0] == "--tao":
         print("Đã tạo", tao_tu_mau(argv[1], argv[2]))
         return 0

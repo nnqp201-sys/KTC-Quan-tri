@@ -113,6 +113,6 @@ kèm dòng tổng theo loại. Hai `<w:del>` + `<w:ins>` liền kề **cùng aut
 ## Liên quan
 
 - `14-Nguyen-Tac-Soan-Thao-Bat-Bien.md` — NT-2 (nguyên tắc gốc)
-- `KTC-Ra-Soat-897-v2-Cai-tien/references/Skill-Library/Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md`
+- `92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md`
   — chuẩn kỹ thuật gốc do hệ 897 đúc kết 25/8/2026; mô-đun này là bản **thi hành** của chuẩn đó
 - `92-Kinh-Nghiem/05-Known-Issues/Pending.md` — `KI-009` (đã đóng bằng mô-đun này)

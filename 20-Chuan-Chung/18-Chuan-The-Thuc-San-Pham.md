@@ -97,8 +97,8 @@ Cỡ chữ của các thành phần còn lại (số ký hiệu, tên loại, tr
 
 ### 3a. Ánh xạ bộ quy tắc 897 → phép đo (28/9/2026)
 
-Nguồn là bản gốc trên Google Drive: `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/`. Gồm **quy định chung**
-`01-The-Thuc.md` (NĐ 30), `05-Hinh-Thuc.md`, và **quy định riêng của Trường** `08-Quy-Uoc-Rieng-CDKT.md` (TB 597).
+Nguồn là bộ quy tắc ktc-ra-soat-897 v4.5 (TB 1206/TB-CĐKT): `2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/`. Gồm **quy định chung**
+`Checklist/01-The-Thuc.md` (NĐ 30), `Checklist/05-Hinh-Thuc.md`, và **quy định riêng của Trường** `Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md` (TB 597; ở bảng dưới, “08” là tên cũ của bảng này trong 897 v2.x).
 Bảng dưới chỉ ghi mục nào được đo bằng mã nào; số đo xem tại chính mục đó. Khi 897 sửa số, sửa `kiem_the_thuc.py`
 theo, không sửa ở đây. Theo 01 mục 6, sai cỡ chữ, kiểu chữ hay vị trí là **Mức 2**.
 
