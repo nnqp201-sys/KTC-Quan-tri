@@ -54,7 +54,7 @@ Thể thức, số đo và bước kiểm thì theo skill này. Khi hai bên kh�
 | Thứ tự nguồn, bảng chọn mẫu theo loại, số đo .docx/.xlsx, mã kiểm TT/TX, lỗi đã biết của mẫu | `references/18-Chuan-The-Thuc-San-Pham.md` |
 | Công cụ tạo từ mẫu, tạo từ khung và đo thể thức | `scripts/kiem_the_thuc.py` |
 | Khung thể thức văn bản hành chính (khi không đọc được kho) | `assets/Khung-the-thuc-VBHC.docx` |
-| Cỡ chữ từng thành phần (số ký hiệu, trích yếu, chữ ký…) | `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/08-Quy-Uoc-Rieng-CDKT.md` mục 4 (bản gốc, không chép) |
+| Cỡ chữ từng thành phần (số ký hiệu, trích yếu, chữ ký…) | `2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md` (bản gốc, không chép) |
 
 ## Giới hạn
 

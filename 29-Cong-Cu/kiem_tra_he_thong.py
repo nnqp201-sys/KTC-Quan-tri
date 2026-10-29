@@ -420,7 +420,7 @@ def c8_sao_chep_cheo_he():
     """Đã mắc: Tong-Hop-VB chép checklist 897, sau 1 tháng lệch 28/28 tệp."""
     tieu_de("C8. Sao chép chéo hệ — tệp trùng tên khác nội dung")
     kho = {}
-    ngoai = {"ktc-ra-soat-897": os.path.join(NGOAI, "KTC-Ra-Soat-897-v2-Cai-tien", "references")}
+    ngoai = {"ktc-ra-soat-897": os.path.join(DU_AN, "2A-KTC-Ra-Soat-897", "ktc-ra-soat-897", "references")}
     # KTC-Database: ban GOC tren Drive (ban chep ngang cap da cu — CLAUDE.md), tim qua duong_dan
     try:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

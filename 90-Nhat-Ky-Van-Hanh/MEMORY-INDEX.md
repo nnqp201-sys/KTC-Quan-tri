@@ -2,7 +2,7 @@
 
 **Cập nhật:** 27/10/2026
 **Phạm vi:** sự thật vận hành hiện hành; không lưu lịch sử chi tiết tại đây.
-**Mô hình kế thừa:** `KTC-Ra-Soat-897-v2-Cai-tien/09-Quan-Tri-He/10-Bo-Nho-He/MEMORY-INDEX.md`
+**Mô hình kế thừa:** `92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/Bo-Nho-Va-Quan-Tri/10-Bo-Nho-He/MEMORY-INDEX.md`
 
 ## Điểm nạp — đọc theo thứ tự này khi mở phiên làm việc
 
@@ -20,8 +20,11 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 
 - **Mã sản phẩm, công việc — từ 27/10/2026 là mã của phần mềm KPI tỉnh** (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`):
   `N1_241`, `T4_461`, quy tắc "Mã nhóm SPCV_số thứ tự", không sửa được sau khi tạo. **QĐ 2119 vẫn là căn cứ hệ số**;
-  mã `1.1.KH01.04` thành mã tham chiếu. `N1`–`N5` = Nhóm 1–5 (đối chiếu 27/10: khớp 416/455, **0 mã lệch**);
-  38 mã `T1`–`T6` + `N1_460` chưa có trong QĐ 2119 → `THIEU_DU_LIEU`, **không tự đặt hệ số**, chờ P-TCCB.
+  mã `1.1.KH01.04` thành mã tham chiếu. Hai trường riêng: *Nhóm SPCV* `N1`–`N5` = Nhóm 1–5 (điểm tối đa
+  100…500; khớp 416/455, **0 mã lệch**) và *Lĩnh vực SPCV* `T1`–`T6` = **Trục (1)–(6)** — bằng chứng video
+  27/10, ảnh `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/Bang-chung_*.png`. 38 mã `T` **chưa gán Nhóm** +
+  `N1_460` = 39 mã `THIEU_DU_LIEU`: Trục đã chắc, thiếu Nhóm và hệ số, **không tự đặt**, chờ P-TCCB.
+  Hệ số phần mềm = hệ số QĐ 2119 (kiểm chứng số thật: 50 × 1,2 = 60,00; 5 × 1,5 = 7,50).
   Tra: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`; giải thích + quy trình nạp:
   `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` cùng thư mục. Xuất tệp nạp: `29-Cong-Cu/xuat_mau_import_kpi.py`.
 
@@ -79,7 +82,7 @@ Không nạp toàn bộ changelog, decision log hay Process Memory khi chưa có
 - **`paragraph.text` của python-docx bỏ sót nội dung trong `<w:ins>`/`<w:del>`** — đọc file có track
   changes phải dùng `_text_day_du()`, không dùng `.text`, nếu không sẽ kết luận sai là file rỗng/khác gốc.
 - **Không viết lại quy tắc đã có ở hệ khác.** Chuẩn kỹ thuật Track Changes đã thành văn đầy đủ tại
-  `KTC-Ra-Soat-897-v2-Cai-tien/references/Skill-Library/Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md`
+  `92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md`
   — trỏ tới, không chép lại, để khi hệ 897 cập nhật thì hệ này không lệch.
 - **`ktc-bao-cao` và `ktc-ke-hoach` đã chạy thử trên Claude Chat** (tài khoản người phụ trách hệ, trước
   13/9/2026). Hai gói chạy được trên nền Chat, không chỉ trên Code. **Chưa có nhật ký kết quả đợt chạy đó

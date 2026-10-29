@@ -1,6 +1,6 @@
 # 92-Kinh-Nghiem — Lớp tiến hóa tri thức của KTC-Quan-tri
 
-**Ngày lập:** 13/9/2026 · **Mô hình kế thừa:** `KTC-Ra-Soat-897-v2-Cai-tien/92-Kinh-Nghiem/` (lập 30/8/2026)
+**Ngày lập:** 13/9/2026 · **Mô hình kế thừa:** `92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/Kinh-Nghiem/` (lập 30/8/2026, lưu trữ) (lập 30/8/2026)
 
 Nơi lưu **quá trình tư duy dẫn tới thay đổi**: kinh nghiệm thực chiến, quyết định kiến trúc, đề xuất chờ
 duyệt, kết quả hồi quy, lỗi đã biết. Khi phát triển phiên bản sau, đọc thư mục này là đủ để kế thừa có chọn

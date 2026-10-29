@@ -9,8 +9,8 @@ căn cứ hoặc viện dẫn văn bản (kế hoạch, báo cáo, quyết đị
 - Pháp lệnh Hợp nhất văn bản quy phạm pháp luật số 01/2012/UBTVQH13 ngày 22/3/2012 **của Ủy ban Thường vụ
   Quốc hội** (không phải của Quốc hội), được sửa đổi, bổ sung bởi Pháp lệnh số 01/2026/UBTVQH16 ngày 10/6/2026
   (hợp nhất tại Văn bản hợp nhất số 118/VBHN-VPQH ngày 25/6/2026), **Điều 4**.
-- Quy ước riêng của Trường: nguồn gốc nằm tại `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/`
-  (`02-Noi-Dung.md` mục 1, `03-Phap-Ly.md` mục 3–5, `08-Quy-Uoc-Rieng-CDKT.md` mục 1, 4, 5). Tệp này **chỉ tóm tắt
+- Quy ước riêng của Trường: nguồn gốc nằm tại `2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/`
+  (`Checklist/02-Noi-Dung.md`, `Checklist/03-Phap-Ly.md`, `Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md`, `Quy-Tac-KTC/03-Danh-Muc-Don-Vi-Va-Co-So.md` của ktc-ra-soat-897 v4.5). Tệp này **chỉ tóm tắt
   để tra nhanh**. Khi có lệch, **lấy theo 897** và báo để cập nhật lại tệp này.
 
 Công cụ tự kiểm: `29-Cong-Cu/kiem_vien_dan.py` (bản sao `Skill-Library/kiem_vien_dan.py` trong gói

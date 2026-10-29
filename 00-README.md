@@ -51,7 +51,7 @@ Drive tới `KTC-Quan-tri/` và `KTC-Database/`.
 
 - **`../KTC-Database`** — kho nền pháp lý và quy định dùng chung (519 tệp pháp lý, 244 quy định nội bộ).
   **Chỉ đọc**, hook chặn ghi. Điểm vào: `KTC-DIS-Master-Index_20260830_v1.2.xlsx`.
-- **`../KTC-Ra-Soat-897-v2-Cai-tien`** — lớp kiểm soát chất lượng bắt buộc **trước khi trình ký**.
+- **`2A-KTC-Ra-Soat-897/`** (trong dự án) — bản tích hợp cá nhân của `ktc-ra-soat-897` **v4.5** (lõi nguyên bản TB 1206/TB-CĐKT + lớp bổ sung): lớp kiểm soát chất lượng bắt buộc **trước khi trình ký**.
 
 ## Trạng thái hiện tại
 

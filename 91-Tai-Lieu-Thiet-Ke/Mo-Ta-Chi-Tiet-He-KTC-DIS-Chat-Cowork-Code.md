@@ -17,7 +17,7 @@ hệ thống KTC (KTC Digital Intelligence System) là tập hợp **5 hệ AI �
 
 | STT | Tên hệ | Chức năng chính |
 |---|---|---|
-| 1 | KTC-Ra-Soat-897-v2-Cai-tien | Rà soát, so sánh, chuẩn hóa văn bản trước khi trình ký |
+| 1 | ktc-ra-soat-897 v4.5 (`2A-KTC-Ra-Soat-897`; trước 29/10/2026: KTC-Ra-Soat-897-v2-Cai-tien) | Rà soát, so sánh, chuẩn hóa văn bản trước khi trình ký |
 | 2 | KTC-DIS-Tong-Hop-VB | Soạn thảo, rà soát, chuẩn hóa văn bản hành chính (đầy đủ nhất — 30 skill con) |
 | 3 | KTC-Ke-Hoach (KTC-PIS) | Xây dựng kế hoạch công tác năm/quý/tháng theo 6 Trục kết quả |
 | 4 | KTC-Bao-Cao (KTC-RIS) | Tổng hợp báo cáo công tác từ các đơn vị theo 6 Trục và KPI 3 chiều |
@@ -105,7 +105,7 @@ Phân loại mức độ vấn đề (áp dụng thống nhất mọi hệ có c
 
 | Nhánh | Trạng thái |
 |---|---|
-| `KTC-Ra-Soat-897-v2-Cai-tien` | PRODUCTION / STABLE / read-only từ Universal |
+| `KTC-Ra-Soat-897-v2-Cai-tien` (đã thay bằng `2A-KTC-Ra-Soat-897`, 29/10/2026) | PRODUCTION / STABLE / read-only từ Universal (trạng thái lịch sử) |
 | `KTC-Ra-soat-897-v3.0` | RELEASE CANDIDATE / SHADOW / read-only từ Universal |
 | `KTC-Ra-Soat-897-Universal-Plugin` | DEVELOPMENT / ALPHA |
 
