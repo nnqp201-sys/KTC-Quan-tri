@@ -1,0 +1,145 @@
+{
+  "_huong_dan": "Mẫu dữ liệu cho tools/tao_bao_cao.py (v4.5). Không điền nhãn kết luận, Bảng 1, Bảng 2 (script tự tính). Phát hiện do script đo (TT, TB, TD-01..05, CC-01, CC-02, CC-06) được nhập tự động từ kiem_tra_the_thuc.py – chỉ ghi vào 'phat_hien' các phát hiện về nội dung, căn cứ, thẩm quyền, đối chiếu chéo, văn phong. Mã và mức theo references/Quy-Tac-KTC/02-Quy-Tac-Xep-Muc.md. Nguyên văn đặt trong ngoặc kép “…”. Văn bản đã ban hành: thêm \"da_ban_hanh\": true. Chế độ ĐC: điền 'doi_chieu' và 'hoi_quy'. Nội dung dưới đây là VÍ DỤ MINH HỌA với dự thảo giả định; trích QĐ 2307 đúng nguyên văn. v4.2: ghi \"kieu_bao_cao\" = chinh_thuc | nhanh | so_sanh (khớp tác vụ); với so_sanh chạy kèm --so-sanh ss.json và điền so_sanh.ket_luan. Dòng ma trận “Khớp” ghi yeu_to_khop dạng bảng {chu_the, hanh_vi, muc_thoi_han}, mỗi yếu tố nêu cả hai bên. Mục “Đạt” nhóm Nội dung/Điều khoản bắt buộc phải có vi_tri. Hồi quy (chế độ ĐC) mỗi dòng có ma_cu và ket_qua. v4.3: (1) mỗi yếu tố yeu_to_khop trích HAI PHÍA trong ngoặc kép; (2) dòng ma trận Mâu thuẫn/Hẹp hơn/Rộng hơn trỏ đúng DC-01/DC-02/DC-03 Mức 1–2; (3) cổng ghi “PHẢI XEM ẢNH” thì điền “xem_anh” cho từng tệp: {tep, so_anh_da_xem, ket_luan: so_do | van_ban_chup, mo_ta} – có “van_ban_chup” thì hồ sơ CHẶN G1, không lập báo cáo; (4) “bo_qua_the_thuc” chỉ bỏ từng phát hiện: {ma, vi_tri đúng như script ghi, ly_do cụ thể; Mức 1 thêm nguyen_van trong ngoặc kép}; (5) truyền --the-thuc cho MỌI tệp dự thảo và phụ lục/văn bản kèm theo (tệp riêng) – kết quả đo phải thuộc hồ sơ đã qua cổng (khớp mã băm).",
+  "ten_du_thao": "Dự thảo Quyết định ban hành Quy định …",
+  "loai_van_ban": "Quyết định (kèm Quy định)",
+  "don_vi_soan_thao": "phòng Tổng hợp – Hành chính và Quản trị",
+  "he": "chinh_quyen",
+  "tac_vu": "Rà soát chính thức trước khi trình ký",
+  "kieu_bao_cao": "chinh_thuc",
+  "che_do": "ĐL",
+  "lan_ra_soat": 1,
+  "ngay_ra_soat": "26/10/2026",
+  "nguoi_kiem_tra": "Skill ktc-ra-soat-897 v4.5 (mô hình …, ngày …). [Họ tên Trưởng/Phó đơn vị] chịu trách nhiệm xác nhận kết quả.",
+  "tai_lieu_da_dung": [
+    "Dự thảo …docx",
+    "QĐ 2307/QĐ-CĐKT (Kho)",
+    "…"
+  ],
+  "phat_hien": [
+    {
+      "ma": "DC-01",
+      "vi_tri": "Quy định, Điều 7 khoản 2 (dự thảo giả định)",
+      "mo_ta": "Thời hạn báo cáo khi đưa nhầm tài liệu “Không được phép” lên AI công cộng tính bằng giờ, khác cách tính của văn bản đã ban hành cùng chủ đề.",
+      "nguyen_van_du_thao": "“… báo cáo phòng Quản lý khoa học công nghệ và Hợp tác phát triển trong vòng 24 giờ …”",
+      "can_cu": "QĐ 2307/QĐ-CĐKT ngày 16/10/2026, Điều 5 khoản 1",
+      "nguyen_van_can_cu": "“… đồng thời báo ngay cho Trưởng đơn vị và phòng Quản lý khoa học công nghệ và Hợp tác phát triển, chậm nhất trong ngày làm việc kể từ khi phát hiện.”",
+      "kien_nghi": "Thống nhất cách tính thời hạn theo QĐ 2307 Điều 5 khoản 1, hoặc nêu rõ điều khoản sửa đổi QĐ 2307 nếu đúng thẩm quyền.",
+      "muc": 2,
+      "chac_chan": "chắc chắn"
+    }
+  ],
+  "ma_tran": [
+    {
+      "chu_de": "Thời hạn báo cáo sự cố đưa nhầm tài liệu lên AI",
+      "du_thao_vi_tri": "Quy định, Điều 7 khoản 2 (dự thảo giả định)",
+      "du_thao_nguyen_van": "“… trong vòng 24 giờ …”",
+      "vblq": "QĐ 2307/QĐ-CĐKT Điều 5 khoản 1",
+      "vblq_nguyen_van": "“… chậm nhất trong ngày làm việc kể từ khi phát hiện.”",
+      "ket_qua": "Mâu thuẫn",
+      "ma_phat_hien": "DC-01"
+    },
+    {
+      "chu_de": "Đơn vị đầu mối tiếp nhận báo cáo sự cố",
+      "du_thao_vi_tri": "Quy định, Điều 7 khoản 1 (dự thảo giả định)",
+      "du_thao_nguyen_van": "“… báo ngay cho Trưởng đơn vị và phòng Quản lý khoa học công nghệ và Hợp tác phát triển …”",
+      "vblq": "QĐ 2307/QĐ-CĐKT Điều 5 khoản 1",
+      "vblq_nguyen_van": "“… báo ngay cho Trưởng đơn vị và phòng Quản lý khoa học công nghệ và Hợp tác phát triển …”",
+      "ket_qua": "Khớp",
+      "yeu_to_khop": {
+        "chu_the": "Dự thảo “người phát hiện”; QĐ 2307 “người phát hiện” – trùng",
+        "hanh_vi": "Dự thảo “báo ngay cho Trưởng đơn vị và phòng Quản lý khoa học công nghệ và Hợp tác phát triển”; QĐ 2307 “báo ngay cho Trưởng đơn vị và phòng Quản lý khoa học công nghệ và Hợp tác phát triển” – trùng",
+        "muc_thoi_han": "Dự thảo “ngay”; QĐ 2307 “ngay” – trùng"
+      }
+    }
+  ],
+  "dat": [
+    {
+      "nhom": "Nội dung",
+      "noi_dung": "Căn cứ thẩm quyền đứng đầu",
+      "nguyen_van": "“Căn cứ Quyết định số 1976/QĐ-CĐKT ngày 14 tháng 9 năm 2026 …”",
+      "nguon": "QĐ 1976/QĐ-CĐKT; 06-Dieu-Chinh-Mau-Prompt mục 3",
+      "vi_tri": "Căn cứ thứ nhất"
+    }
+  ],
+  "chua_kiem": [],
+  "xem_anh": [],
+  "doi_chieu": [],
+  "hoi_quy": [],
+  "bo_qua_the_thuc": [],
+  "uu_tien": [
+    "Thống nhất thời hạn báo cáo sự cố với QĐ 2307 (DC-01).",
+    "Sửa các lỗi thể thức Mức 2 do script phát hiện.",
+    "Rà lại cách viết tên đơn vị theo TB 597 mục 3.1.c."
+  ],
+  "rui_ro": "…",
+  "kien_nghi_chung": "…",
+  "kiem_tra_chat_luong": [
+    {
+      "hang_muc": "Đã mở đủ mọi văn bản ở bảng I.7",
+      "ket_qua": "Đạt – …"
+    },
+    {
+      "hang_muc": "Phản biện độc lập (Bước 6)",
+      "ket_qua": "…"
+    }
+  ],
+  "_vi_du_doi_chieu_che_do_DC": [
+    {
+      "ma_cu": "M2-3",
+      "noi_dung_cu": "…",
+      "vi_tri_hien_hanh": "Điều 5 khoản 2",
+      "nguyen_van_hien_hanh": "“…”",
+      "trang_thai": "Sửa một phần",
+      "muc_con_lai": "Mức 2",
+      "ma_phat_hien": "DC-01"
+    },
+    {
+      "ma_cu": "M4-9",
+      "noi_dung_cu": "Viết hoa “Phòng” giữa câu",
+      "vi_tri_hien_hanh": "Điều 6",
+      "nguyen_van_hien_hanh": "“… phối hợp với phòng Tài chính – Kế toán …”",
+      "trang_thai": "Kiến nghị lần trước không còn phù hợp",
+      "can_cu_dung": "TB 597/TB-CĐKT mục 3.1.c: “phòng, khoa, bộ môn viết thường…”"
+    }
+  ],
+  "_vi_du_hoi_quy_che_do_DC": [
+    {
+      "ma_cu": "M3-10",
+      "ket_qua": "Đã sửa – đánh số trang Quy định liên tục theo quyết định Hiệu trưởng 26/10/2026"
+    }
+  ],
+  "_vi_du_xem_anh": [
+    {
+      "tep": "Phieu gop y.docx",
+      "so_anh_da_xem": 1,
+      "ket_luan": "so_do",
+      "mo_ta": "Sơ đồ quy trình tiếp nhận góp ý, không phải văn bản chụp."
+    }
+  ],
+  "_vi_du_bo_qua_the_thuc": [
+    {
+      "tep": "Du thao QD.docx (tên tệp như cổng hồ sơ ghi; bắt buộc khi hồ sơ có từ hai tệp đã đo)",
+      "ma": "CC-01",
+      "vi_tri": "Đoạn 12: “…(chép đúng vị trí script ghi)…”",
+      "ly_do": "Câu chỉ nêu việc Nghị định cũ đã được thay thế, không viện dẫn để áp dụng.",
+      "nguyen_van": "“Nghị định số 13/2023/NĐ-CP đã được thay thế bởi Luật Bảo vệ dữ liệu cá nhân” (Mức 1: trích ĐÚNG chữ của đoạn script báo, ≥ 15 ký tự; Mức 1 đã loại được in ở Bảng 2a)"
+    }
+  ],
+  "_vi_du_giai_trinh_khop": {
+    "_ghi_chu": "Quyết định F2 (27/10/2026): chỉ dùng khi script báo dấu hiệu khác nhau ở một yếu tố “Khớp” nhưng đọc nghĩa vẫn khớp; giải trình in ở Bảng 3.",
+    "ket_qua": "Khớp",
+    "yeu_to_khop": {
+      "chu_the": "Dự thảo “người phát hiện”; QĐ 2307 “người phát hiện” – trùng",
+      "hanh_vi": "Dự thảo “báo cáo”; QĐ 2307 “báo cáo” – trùng",
+      "muc_thoi_han": "Dự thảo “trong 3 ngày”; QĐ 2307 “trong 72 giờ” – trùng"
+    },
+    "giai_trinh_khop": {
+      "muc_thoi_han": "72 giờ bằng đúng 3 ngày theo cách tính thời hạn của hai văn bản."
+    }
+  },
+  "_vi_du_khop_co_dieu_khoan_thay_the": {
+    "ket_qua": "Khớp – có điều khoản thay thế",
+    "nguyen_van_thay_the": "“Quyết định này thay thế Điều 5 khoản 1 Quyết định số 2307/QĐ-CĐKT …”"
+  },
+  "_vi_du_so_sanh_vi_tri": "Tác vụ so sánh hai bản: “vi_tri” của phát hiện, “du_thao_vi_tri” của ma trận, “vi_tri” của mục Đạt ghi tên tệp như cổng hồ sơ ghi, ví dụ “Du thao_V2.docx – Quy định, Điều 7 khoản 2”."
+}
