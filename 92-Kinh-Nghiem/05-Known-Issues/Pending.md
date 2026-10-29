@@ -1,5 +1,15 @@
 # Known Issues — KTC-Quan-tri
 
+> **29/10/2026 — Tích hợp ktc-ra-soat-897 v4.5 (`DL-20261029-001`):** xong B1–B7 (`2A-KTC-Ra-Soat-897/`). **Còn mở:** (1) đề xuất **Hệ C (VBQPPL)** và **Hệ D (Công đoàn, Đoàn, Hội SV)** — gửi `Bo-Sung-Ca-Nhan/01`, `02` cho đơn vị quản lý Skill (Phòng QLKHCN&HTPT) xem xét đưa vào bản chính thức kế tiếp; (2) báo cáo lệch kho `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH`, 15 `KHONG_THAY`) — đề xuất người quản lý kho kiểm; NĐ 78, 79, 187/2025 chưa có trong kho; (3) `31-Plugin/` còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien` — dồn cho 1.3.14; (4) quy ước viết hoa sau mọi dấu hai chấm cần văn bản Trường làm nguồn; (5) tên thư mục `2A-` là tạm; (6) khi `kiem_the_thuc.py --v45` và thước dự án lệch cùng chỉ tiêu: lấy v4.5, ghi vào đây.
+
+> **28/10/2026 — `ktc-kpi-tu-danh-gia` v1.4 (lệnh nâng cấp sau hồ sơ Q3, `DL-20261028-001`):** bộ kiểm NQ01–NQ10,
+> bảng hỏi 6 cột mới, C08/C09 tự suy từ sheet B, mẫu Phụ lục II/VII báo rõ; `lap_ho_so_minh_chung.py`,
+> `kpi_doi_chieu_cheo.py`; 3 tác tử mới + mở rộng `ktc-xac-minh-minh-chung`. Gói `.skill` v1.4 đã đóng; ca thử mới đạt.
+> **Còn mở:** (1) plugin chưa dựng lại — dồn cho 1.3.14 (`31-Plugin/CHANGELOG.md` mục "Chưa phát hành"); (2) Câu hỏi
+> mở số 14 (điều kiện 100% Đ19.1 áp cả ba mức hay từng mức) chờ phòng TCCB&CTHSSV; (3) đề xuất nguồn duy nhất + gom minh
+> chứng hằng tháng chờ Trưởng phòng duyệt (`30-Ket-Qua/2026-10-28/De-xuat/DX-Nguon-duy-nhat-…`); (4) chưa làm
+> `doc_mau_phu_luc_vii()` (tùy chọn); (5) TT-20261028-10 chờ người dùng duyệt; TT-06, -08, -10 chờ giao `ktc-tu-cai-tien`.
+
 > **27/10/2026 — MÃ SẢN PHẨM CHUYỂN SANG MÃ PHẦN MỀM KPI TỈNH:** người phụ trách nạp 2 tệp vào
 > `11-Du-lieu-Cong-Viec/`: `27.10.2026.Import kế hoạch moi.xlsx` (sheet `SPCV` 455 mã · sheet `Mẫu import`) và video
 > `27.10.2026.Huong Dan Cau Hinh va Dang Ky Ke Hoach Quy Moi.mp4` (27 MB, **không lên git**, chỉ trên Drive). HDSD
@@ -9,9 +19,17 @@
 > `29-Cong-Cu/trich_danh_muc_pm_kpi.py`, `29-Cong-Cu/xuat_mau_import_kpi.py` (tệp sinh ra trùng khít mẫu phát hành,
 > 0 ô lệch) · `kpi_calc.py` tra hệ số bằng mã `N1_241` · quy tắc gốc `20-Chuan-Chung/19-Quy-Tac-KPI.md` + CLAUDE.md +
 > SKILL.md của `ke-hoach`, `bao-cao`, `kpi-lap-ke-hoach` · ca thử trong `test_kpi_calc.py` (ĐẠT).
-> **Còn mở:** (1) **nghĩa của nhóm `T1`–`T6` chưa có văn bản** — nội dung khớp 6 Trục TB 817, mới là giả thuyết;
-> 38 mã `T` + `N1_460` **chưa có hệ số** (`THIEU_DU_LIEU`) → đề nghị P-TCCB xác nhận và bổ sung danh mục theo
-> Điều 3 QĐ 2119; (2) **chưa đóng gói 1.3.14** — nguồn rời đã mới hơn gói (`C4`, `C5` cảnh báo đúng dự kiến);
+> **Đã làm rõ 28/10/2026 (bằng chứng video + HDSD):** phần mềm có hai trường riêng — *Nhóm SPCV* (`N1`–`N5` =
+> Nhóm 1–5, thang điểm tối đa 100…500) và *Lĩnh vực SPCV* (`T1`–`T6` = **Trục (1)–(6)**). 38 mã `T` là sản phẩm
+> **chưa gán Nhóm** nên mã đặt theo Lĩnh vực. Hệ số phần mềm = hệ số QĐ 2119 (kiểm chứng 50×1,2=60,00; 5×1,5=7,50).
+> Ảnh bằng chứng: `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/Bang-chung_*.png`.
+> **28/10/2026 — đã soạn Công văn đề nghị P-TCCB** (cấp phòng, Trưởng phòng TH-HC&QT ký, không đặt hạn trả lời):
+> `30-Ket-Qua/2026-10-28/Soan-Thao/CV-THHCQT_De-nghi-gan-Nhom-xac-nhan-He-so-39-san-pham_20261028_v1.docx`
+> + phụ lục 39 dòng `PL-CV-THHCQT_…_v1.xlsx` (cột Nhóm, Hệ số tô cam để Quý phòng điền). Thể thức: 0 lỗi
+> Mức 1–2; còn 1 gợi ý Mức 3 "- Lưu: VT, …" — **không áp dụng** vì là văn bản cấp phòng. Chờ người phụ trách
+> rà soát 897 chính thức rồi ký, gửi.
+> **Còn mở:** (1) 39 mã (`T1`–`T6` + `N1_460`) **chưa có Nhóm và hệ số** → đề nghị P-TCCB gán Nhóm, xác nhận hệ số,
+> bổ sung danh mục theo Điều 3 QĐ 2119; (2) **chưa đóng gói 1.3.14** — nguồn rời đã mới hơn gói (`C4`, `C5` cảnh báo đúng dự kiến);
 > (3) chưa đối chiếu Task_ID ↔ mã phần mềm (vẫn theo mốc TB 1153); (4) `.claude/worktrees/fervent-bardeen-97f9ad/`
 > là worktree bỏ quên, làm `C13` báo ~20 lỗi đường dẫn ổ đĩa — **đề nghị người phụ trách xóa thủ công**;
 > (5) `test_bc_thang.py` sai 2 ca (phân loại IIa/IIb, tệp cùng mã đơn vị đè nhau) — **có trước**, không do đợt này.
