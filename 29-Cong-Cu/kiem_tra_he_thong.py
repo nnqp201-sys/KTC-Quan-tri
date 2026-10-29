@@ -32,7 +32,7 @@ HE = {
     "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
     "ktc-the-thuc":     ("27-KTC-The-Thuc", "27-KTC-The-Thuc/ktc-the-thuc-v1.3.skill"),
     "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "28-KTC-KPI/ktc-kpi-lap-ke-hoach-v1.4.skill"),
-    "ktc-kpi-tu-danh-gia": ("28-KTC-KPI/Tu-Danh-Gia", "28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.3.skill"),
+    "ktc-kpi-tu-danh-gia": ("28-KTC-KPI/Tu-Danh-Gia", "28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.4.skill"),
 }
 # He da thay the — bo qua, khong bat loi
 # KTC-DIS-Tong-Hop-VB da chuyen vao 99-Luu-Tru/He-da-thay-the/ ngay 14/9/2026,
@@ -704,6 +704,25 @@ def c14_cong_cu_agent_duoc_dong_goi(du_an=DU_AN):
           f" ({len(NOI_BO)} agent nội bộ được miễn)")
 
 
+def c897_loi_nguyen_ban(du_an=DU_AN):
+    """C-897: loi ktc-ra-soat-897 v4.5 phai NGUYEN BAN (TB 1206/TB-CDKT muc 6).
+
+    Ban tich hop ca nhan 2A-KTC-Ra-Soat-897 = loi v4.5 + lop bo sung. Sua mot byte tep loi
+    (vi du tools/tao_bao_cao.py) la dung vao quy dinh cua Truong -> phai bao loi.
+    Dung chung ham kiem voi dong_goi_ra_soat_897.py. Thu nguoc: test_c897_loi_nguyen_ban.py.
+    """
+    tieu_de("C-897. Lõi ktc-ra-soat-897 v4.5 nguyên bản")
+    if not os.path.isdir(os.path.join(du_an, "2A-KTC-Ra-Soat-897")):
+        print("  – không có 2A-KTC-Ra-Soat-897 (bỏ qua)")
+        return
+    sys.path.insert(0, os.path.join(du_an, "29-Cong-Cu"))
+    import dong_goi_ra_soat_897 as G
+    ds = G.kiem_loi(du_an)
+    for x in ds:
+        loi.append(f"C-897 {x}")
+    print(f"  {'✗' if ds else '✓'} {len(ds)} lỗi lõi v4.5")
+
+
 def main():
     print("=" * 76)
     print("KIỂM TRA TOÀN HỆ hệ thống KTC — Tầng 1 (tĩnh, tất định)")
@@ -713,7 +732,7 @@ def main():
               c5_tep_dung_chung, c6_ten_he_da_bo, c7_cum_cam,
               c8_sao_chep_cheo_he, c9_cong_cu, c11_ban_goc_trong_zip,
               c12_trung_kho, c13_o_dia_tuyet_doi,
-              c14_cong_cu_agent_duoc_dong_goi, c10_regression):
+              c14_cong_cu_agent_duoc_dong_goi, c897_loi_nguyen_ban, c10_regression):
         try:
             f()
         except Exception as e:
