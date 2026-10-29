@@ -45,6 +45,14 @@ Hệ chuyên biệt thứ 3 trong hệ thống KTC, **dùng chung** kho dữ li�
 
 **Bước 0 bắt buộc — có quyền CHẶN toàn bộ:** FAIL → không chạy Bước 2.
 
+**Mã sản phẩm, công việc trong kế hoạch — từ 27/10/2026 dùng mã của phần mềm KPI tỉnh** (VNPT–ĐGCB,
+`kpi.quangngai.dcs.vn`): `N1_241`, `T4_461`. Mã QĐ 2119 (`1.1.KH01.04`) giữ làm mã tham chiếu tra hệ số, Trục,
+Nội hàm. Tra `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv` (455 mã); mã không có
+trong danh mục → **dừng hỏi**, không tự đặt mã. 39 mã `T1`–`T6` và `N1_460` chưa có hệ số → `THIEU_DU_LIEU`.
+Kế hoạch đã chốt thì xuất tệp nạp lên phần mềm:
+`python 29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp.xlsx>` — giữ nguyên
+4 cột của mẫu. Đầy đủ: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md`.
+
 ## 4 Skill của hệ PIS
 | Skill | Prompt tương ứng | Chức năng |
 |---|---|---|

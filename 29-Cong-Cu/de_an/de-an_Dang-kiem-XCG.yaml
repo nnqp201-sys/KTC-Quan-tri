@@ -1,0 +1,27 @@
+# Nguồn sự thật Đề án Trung tâm Đăng kiểm xe cơ giới — anh soát lại trước khi dùng
+ten: "Đề án thành lập Trung tâm Đăng kiểm xe cơ giới trực thuộc Trường Cao đẳng Kon Tum"
+chu_the: {soan: "Tổ xây dựng Đề án", trinh: "Trường Cao đẳng Kon Tum", phe_duyet: "UBND tỉnh"}
+mo_hinh: "Công ty TNHH hai thành viên trở lên; Trường góp 51% bằng tiền; Trường giữ mô hình ĐVSNCL"
+giai_doan_1: {day_chuyen: 1, nhan_su: 11, von_dieu_le_tr: 20456.5, von_truong_tr: 10432.82, bai_do_m2: 2000, khu_dat_m2: 8500, hoan_von_nam: 8.5}
+khau_hao: {nha_xuong_kiem_dinh_nam: 10, can_cu: "TT 45/2013/TT-BTC Phụ lục I (nhà cửa khác)"}
+can_cu_lien_quan:
+  - "QĐ 295/QĐ-UBND ngày 05/5/2026 (nhóm 3, tự bảo đảm 23%)"
+  - "QĐ 224 (không phải 244)"
+  - "VB 10316/UBND-NC ngày 05/10/2026"
+  - "VB 2533/STP-XD&TCTHPL ngày 09/9/2026; VB 8766/STC-HCSN ngày 24/9/2026"
+phien_ban: {de_an: "lan-6 v6", to_trinh: "lan-6 v6", du_thao_qd: "lan-5 v6", bc_tiep_thu: "v8"}
+da_ky:
+  - {so: "498/BC-CĐKT", ngay: "27/10/2026", nguon: "PDF đã ký"}
+  - {so: "775/CĐKT-THHCQT", ngay: "27/10/2026", nguon: "PDF đã ký"}
+trang_thai: "Chờ UBND tỉnh xin ý kiến Bộ Tài chính, Bộ Nội vụ"
+truong:   # số liệu chung của Trường — nguồn: kho KTC-Database và CV phúc đáp CV 10900 (27/10/2026)
+  loai_hinh: "Cơ sở giáo dục nghề nghiệp công lập — thuộc diện không chuyển đổi (khoản 3 Điều 4 NĐ 373/2026)"
+  tu_chu: {qd: "295/QĐ-UBND", ngay: "05/5/2026", giai_doan: "2026-2030", nhom: 3, tu_bao_dam_2026_pt: 23, nsnn_ho_tro_2026_tr: 40085, du_toan_2027_tu_can_doi_pt: 25.1}
+  sap_xep_to_chuc: {qd: "287/QĐ-UBND", ngay: "29/4/2026", ket_qua: "giữ nguyên trạng"}
+  dinh_huong_tinh: {kh: "62/KH-UBND", ngay: null, ghi_chu: "CHƯA CÓ NGÀY — hỏi anh"}
+  gcn_gdnn: {so: "37/2025/GCNĐKHĐ-GDNNGDTX", ngay: "04/6/2025", ma_nganh_nghe: 48, chi_tieu_nam: 2785}
+  quy_mo_2025_quy_doi: 2707
+  hssv_dan_toc_thieu_so: "trên 80%"
+  ty_le_tien_si: "3/201 = 1,49%"
+lien_quan_mo:
+  - "CV 10900/UBND-KTTH (NĐ 373): Trường gửi kết quả trước 01/11/2026; dự thảo đã có mục 5 phân định Đề án"

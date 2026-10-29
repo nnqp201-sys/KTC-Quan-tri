@@ -119,6 +119,39 @@ def can_cu_khong_thut(d):
 
 kiem("TT12" in bien("chia_doi", chia_doi), "TT12 bảng tiêu đề chia đôi 8 + 8 cm bị bắt")
 kiem("TT14" in bien("bo_ke", bo_duong_ke), "TT14 thiếu đường kẻ dưới tên Trường, tiêu ngữ bị bắt")
+
+
+# 28/10/2026: duong ke bang vien duoi doan -> Muc 3 (nguoi dung khong sua duoc); ke bang hinh -> khong bao
+def ke_vien_doan(d):
+    bo_duong_ke(d)
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn as _qn
+    for c in d.tables[0].rows[0].cells:
+        if "TRƯỜNG CAO ĐẲNG KON TUM" in c.text.upper():
+            pPr = c.paragraphs[-1]._p.get_or_add_pPr()
+            b = OxmlElement("w:pBdr"); e = OxmlElement("w:bottom")
+            for kk, vv in (("val", "single"), ("sz", "6"), ("space", "1"), ("color", "000000")):
+                e.set(_qn("w:" + kk), vv)
+            b.append(e); pPr.append(b)
+
+
+def ke_hinh(d):
+    bo_duong_ke(d)
+    import rap_mau
+    for c in d.tables[0].rows[0].cells:
+        if "TRƯỜNG CAO ĐẲNG KON TUM" in c.text.upper():
+            rap_mau.ke_duoi_doan(c.paragraphs[-1], rong_o_cm=7.5)
+
+
+def tt14(ten, sua):
+    d = docx.Document(p_dung); sua(d)
+    p = os.path.join(TMP, ten + ".docx"); d.save(p)
+    return [x for x in k.kiem_tep(p) if x[1] == "TT14" and "cơ quan ban hành" in x[2]]
+
+
+_v = tt14("ke_vien", ke_vien_doan)
+kiem(len(_v) == 1 and _v[0][0] == 3 and "viền dưới đoạn" in _v[0][2], "TT14 đường kẻ là viền đoạn → Mức 3 (không sửa được)")
+kiem(tt14("ke_hinh", ke_hinh) == [], "TT14 đường kẻ hình vẽ của rap_mau.ke_duoi_doan không bị bắt")
 kiem("TT13" in bien("ubnd_dam", dam("UBND")), "TT13 “UBND TỈNH QUẢNG NGÃI” in đậm bị bắt")
 kiem("TT15" in bien("ngay_dam", dam("Quảng Ngãi, ngày")), "TT15 dòng địa danh in đậm bị bắt")
 kiem("TT16" in bien("can_cu", can_cu_khong_thut), "TT16 đoạn căn cứ không thụt đầu dòng bị bắt")
@@ -275,6 +308,22 @@ if mau_dir and os.path.isdir(mau_dir):
          "lỗi đã biết của 02A (thiếu đường kẻ dưới tên Trường) vẫn bị bắt")
 else:
     print("  -- bỏ qua ca mẫu thật: không đọc được Drive")
+
+# TT20 viet hoa sau ":" va TT21 doan trong cuoi (27/10/2026 — bai hoc De an Dang kiem)
+def _them(*cau):
+    def f(d):
+        for c in cau:
+            d.add_paragraph(c)
+    return f
+
+
+kiem("TT20" in bien("tt20_sai", _them("Kết quả cụ thể: mức tự bảo đảm chi thường xuyên đạt 23%.")),
+     "TT20: chữ thường sau “:” bị bắt")
+kiem("TT20" not in bien("tt20_dung", _them("Kết quả cụ thể: Mức tự bảo đảm đạt 23%; họp lúc 8:30; tỷ lệ 1:500.",
+                                           "Căn cứ [văn bản làm căn cứ: loại, số, ngày].")),
+     "TT20: viết hoa, giờ, tỷ lệ, chỗ trống khung mẫu không bị báo nhầm")
+kiem("TT21" in bien("tt21_sai", _them("", "", "")), "TT21: 3 đoạn trống cuối văn bản bị bắt")
+kiem("TT21" not in ma(p_dung), "TT21: văn bản chuẩn không bị báo")
 
 print(f"\n{'ĐẠT' if not sai else 'KHÔNG ĐẠT'}: {len(sai)} ca sai")
 sys.exit(1 if sai else 0)

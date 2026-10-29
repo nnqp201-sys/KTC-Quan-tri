@@ -150,6 +150,19 @@ def kiem_tra(doan):
                      "loại và số, ký hiệu (NĐ 30, Phụ lục I, Phần I, Mục II, khoản 6 điểm b)")
             else:
                 da_gap.setdefault(so, i)
+    # VD13-VD15 — quy tac chot 26-27/10/2026 (QD 2374, 2375): can cu NĐ 214 kem VBHN 36/2026
+    co_vbhn36 = any("VBHN-NĐ-BTC" in s and "36/2026" in s for s in doan)
+    for i, s in enumerate(doan):
+        if LA_CAN_CU.match(s) and re.search(r"Nghị định số\s+214/2025/NĐ-CP", s) and not re.search(
+                r"36/2026/VBHN-NĐ-BTC", s):
+            them(2, "VD13", i, "Nghị định 214/2025/NĐ-CP đã được hợp nhất: ghi “(hợp nhất tại Văn bản hợp "
+                 "nhất số 36/2026/VBHN-NĐ-BTC ngày 23/9/2026)” — áp cho văn bản ban hành từ 23/9/2026")
+        if co_vbhn36 and LA_CAN_CU.match(s) and re.search(r"Nghị định số\s+349/2026/NĐ-CP", s):
+            them(2, "VD14", i, "Nghị định 349/2026/NĐ-CP đã nằm trong VBHN 36/2026/VBHN-NĐ-BTC — không dẫn "
+                 "riêng, chỉ dẫn nghị định gốc kèm VBHN")
+        if re.search(r"hợp nhất tại (?:các )?Văn bản hợp nhất số[^)]*?của\s+(?:Văn phòng|Bộ|Chính phủ)", s):
+            them(3, "VD15", i, "Viện dẫn VBHN không ghi “của Văn phòng Quốc hội / Bộ …” sau số hiệu và ngày "
+                 "(quy tắc người phụ trách chốt 26/10/2026)")
     kq.sort(key=lambda x: (x[0], x[2]))
     return kq
 
@@ -157,7 +170,7 @@ def kiem_tra(doan):
 def in_bao_cao(ten, kq):
     print(f"\n=== {ten} — {len(kq)} gợi ý ===")
     if not kq:
-        print("  ✓ Không phát hiện lỗi viện dẫn theo 12 phép kiểm VD01–VD12.")
+        print("  ✓ Không phát hiện lỗi viện dẫn theo 15 phép kiểm VD01–VD15.")
     for muc, ma, dong, trich, mo_ta in kq:
         print(f"  [Mức {muc}] {ma} dòng {dong}: {mo_ta}\n           “{trich}”")
     print("  Lưu ý: công cụ không tra hiệu lực văn bản — đối chiếu kho 01-04 và rà soát 897 vẫn bắt buộc.")

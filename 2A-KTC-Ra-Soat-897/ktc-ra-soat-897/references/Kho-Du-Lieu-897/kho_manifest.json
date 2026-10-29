@@ -1,0 +1,517 @@
+{
+ "phien_ban_kho": "v4.1 – cập nhật 26/10/2026 (bổ sung Luật 91/2025/QH15, NĐ 356/2025/NĐ-CP)",
+ "ghi_chu": "Danh mục máy đọc được của Kho-Du-Lieu-897. Script tools/kiem_ke_ho_so.py dùng các trường 'so_hieu' và 'tu_khoa' để xác định văn bản được dự thảo viện dẫn đã có sẵn trong kho hay chưa. Toàn văn dạng text: thư mục text/ (cùng tên tệp, đuôi .md).",
+ "van_ban": [
+  {
+   "so_hieu": "30/2020/NĐ-CP",
+   "ngay": "05/3/2020",
+   "co_quan": "Chính phủ",
+   "trich_yeu": "Nghị định về công tác văn thư",
+   "file": "01-Legal-Database/Nghi-dinh-30-2020-ND-CP-Cong-tac-van-thu.docx",
+   "he": "chung",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "30/2020/NĐ-CP",
+    "Nghị định số 30/2020",
+    "công tác văn thư"
+   ]
+  },
+  {
+   "so_hieu": "Phụ lục I – NĐ 30/2020/NĐ-CP",
+   "ngay": "05/3/2020",
+   "co_quan": "Chính phủ",
+   "trich_yeu": "Thể thức, kỹ thuật trình bày văn bản hành chính và bản sao văn bản",
+   "file": "01-Legal-Database/Phu-luc-I-The-thuc-Ky-thuat-trinh-bay-VB-hanh-chinh_kem-ND30.docx",
+   "he": "chinh_quyen",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "Phụ lục I Nghị định 30"
+   ]
+  },
+  {
+   "so_hieu": "91/2025/QH15",
+   "ten_luat": "Luật Bảo vệ dữ liệu cá nhân",
+   "ngay": "26/6/2025",
+   "co_quan": "Quốc hội",
+   "trich_yeu": "Luật Bảo vệ dữ liệu cá nhân",
+   "file": "01-Legal-Database/Luat-91-2025-QH15-Bao-ve-du-lieu-ca-nhan.docx",
+   "he": "chung",
+   "hieu_luc": "Có hiệu lực từ 01/01/2026 (Điều 38 k1)",
+   "tu_khoa": [
+    "91/2025/QH15",
+    "Luật Bảo vệ dữ liệu cá nhân",
+    "dữ liệu cá nhân"
+   ]
+  },
+  {
+   "so_hieu": "356/2025/NĐ-CP",
+   "ngay": "31/12/2025",
+   "co_quan": "Chính phủ",
+   "trich_yeu": "Nghị định quy định chi tiết một số điều và biện pháp thi hành Luật Bảo vệ dữ liệu cá nhân",
+   "file": "01-Legal-Database/ND-356-2025-ND-CP-Thi-hanh-Luat-Bao-ve-du-lieu-ca-nhan.docx",
+   "he": "chung",
+   "hieu_luc": "Có hiệu lực từ 01/01/2026; thay thế NĐ 13/2023/NĐ-CP",
+   "tu_khoa": [
+    "356/2025/NĐ-CP",
+    "Nghị định số 356/2025",
+    "bảo vệ dữ liệu cá nhân"
+   ]
+  },
+  {
+   "so_hieu": "01/2026/UBTVQH16",
+   "ngay": "10/6/2026",
+   "co_quan": "Ủy ban Thường vụ Quốc hội",
+   "trich_yeu": "Pháp lệnh sửa đổi, bổ sung một số điều của Pháp lệnh Hợp nhất văn bản quy phạm pháp luật",
+   "file": "01-Legal-Database/PL-01-2026-UBTVQH16-Sua-doi-Phap-lenh-Hop-nhat-VBQPPL.docx",
+   "he": "chung",
+   "hieu_luc": "Có hiệu lực từ 01/7/2026",
+   "tu_khoa": [
+    "01/2026/UBTVQH16",
+    "Pháp lệnh Hợp nhất văn bản quy phạm pháp luật"
+   ]
+  },
+  {
+   "so_hieu": "63/2026/TT-BGDĐT",
+   "ngay": "30/7/2026",
+   "co_quan": "Bộ Giáo dục và Đào tạo",
+   "trich_yeu": "Thông tư ban hành Điều lệ trường trung cấp, trường cao đẳng",
+   "file": "01-Legal-Database/TT-63-2026-TT-BGDDT-Dieu-le-truong-trung-cap-cao-dang.docx",
+   "he": "chung",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "63/2026/TT-BGDĐT",
+    "Điều lệ trường trung cấp, trường cao đẳng"
+   ]
+  },
+  {
+   "so_hieu": "399-QĐ/TW",
+   "ngay": "09/01/2026",
+   "co_quan": "Ban Bí thư",
+   "trich_yeu": "Quy định về thể loại, thẩm quyền ban hành và thể thức văn bản của Đảng",
+   "file": "01-Legal-Database/QD-399-QD-TW-The-loai-Tham-quyen-The-thuc-VB-Dang.docx",
+   "he": "dang",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "399-QĐ/TW"
+   ]
+  },
+  {
+   "so_hieu": "05-HD/VPTW",
+   "ngay": "27/5/2026",
+   "co_quan": "Văn phòng Trung ương Đảng",
+   "trich_yeu": "Hướng dẫn thể thức và kỹ thuật trình bày văn bản của Đảng",
+   "file": "01-Legal-Database/HD-05-HD-VPTW-The-thuc-Ky-thuat-trinh-bay-VB-Dang.docx",
+   "he": "dang",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "05-HD/VPTW"
+   ]
+  },
+  {
+   "so_hieu": "208-QĐ/TW",
+   "ngay": "26/7/2026",
+   "co_quan": "Ban Chấp hành Trung ương",
+   "trich_yeu": "Quy định thi hành Điều lệ Đảng",
+   "file": "01-Legal-Database/QD-208-QD-TW-Quy-dinh-thi-hanh-Dieu-le-Dang-2026.docx",
+   "he": "dang",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "208-QĐ/TW"
+   ]
+  },
+  {
+   "so_hieu": "02-HD/TW",
+   "ngay": "07/8/2026",
+   "co_quan": "Ban Bí thư",
+   "trich_yeu": "Hướng dẫn một số vấn đề cụ thể thi hành Điều lệ Đảng (bản PDF scan, chỉ tham khảo)",
+   "file": "01-Legal-Database/HD-02-HD-TW-Huong-dan-mot-so-van-de-cu-the-thi-hanh-Dieu-le-Dang.pdf",
+   "he": "dang",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "02-HD/TW"
+   ]
+  },
+  {
+   "so_hieu": "597/TB-CĐKT",
+   "ngay": "19/5/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Thông báo hướng dẫn một số nội dung về thể thức và kỹ thuật trình bày văn bản hành chính",
+   "file": "02-KTC-Regulations/TB-597-TB-CDKT-Huong-dan-the-thuc-ky-thuat-trinh-bay-VB-2026.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "597/TB-CĐKT"
+   ],
+   "dinh_chinh": "Mục 6: Hiệu trưởng đính chính ngày 27/10/2026 – bỏ cụm “hoặc từ 15 pt (exactly line spacing) trở lên”; giãn dòng tối thiểu từ cách dòng đơn (single line spacing), tối đa 1,5 dòng. Tệp gốc giữ nguyên; bản chữ có ghi chú."
+  },
+  {
+   "so_hieu": "1355/QĐ-CĐKT",
+   "ngay": "03/6/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định đặt tên các cơ sở và bố trí các đơn vị, tổ chức, cá nhân làm việc tại các cơ sở của nhà trường",
+   "file": "02-KTC-Regulations/QD-1355-QD-CDKT-Dat-ten-co-so-va-bo-tri-don-vi.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "1355/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "1976/QĐ-CĐKT",
+   "ngay": "14/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế tổ chức và hoạt động của Trường Cao đẳng Kon Tum",
+   "file": "02-KTC-Regulations/QD-1976-QD-CDKT-Quy-che-to-chuc-va-hoat-dong.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực; thay thế QĐ 988/QĐ-CĐKT ngày 12/5/2026",
+   "tu_khoa": [
+    "1976/QĐ-CĐKT",
+    "Quy chế tổ chức và hoạt động"
+   ]
+  },
+  {
+   "so_hieu": "2073/QĐ-CĐKT",
+   "ngay": "23/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế làm việc của Trường Cao đẳng Kon Tum",
+   "file": "02-KTC-Regulations/QD-2073-QD-CDKT-Quy-che-lam-viec.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực; thay thế QĐ 1299/QĐ-CĐKT",
+   "tu_khoa": [
+    "2073/QĐ-CĐKT",
+    "Quy chế làm việc của Trường"
+   ]
+  },
+  {
+   "so_hieu": "389/QĐ-CĐKT",
+   "ngay": "26/02/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế công tác văn thư, lưu trữ",
+   "file": "02-KTC-Regulations/QD-389-QD-CDKT-Quy-che-cong-tac-van-thu-luu-tru.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "389/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2264/QĐ-CĐKT",
+   "ngay": "12/10/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế bảo đảm an ninh mạng trong hoạt động ứng dụng công nghệ thông tin",
+   "file": "02-KTC-Regulations/QD-2264-QD-CDKT-Quy-che-bao-dam-an-ninh-mang.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực; thay thế QĐ 765/QĐ-CĐKT ngày 05/6/2024",
+   "tu_khoa": [
+    "2264/QĐ-CĐKT",
+    "an ninh mạng trong hoạt động ứng dụng công nghệ thông tin"
+   ]
+  },
+  {
+   "so_hieu": "2307/QĐ-CĐKT",
+   "ngay": "16/10/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành danh mục tài liệu được phép và không được phép đưa lên các hệ thống trí tuệ nhân tạo (AI) công cộng",
+   "file": "02-KTC-Regulations/QD-2307-QD-CDKT-Danh-muc-tai-lieu-dua-len-AI-cong-cong.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2307/QĐ-CĐKT",
+    "Danh mục tài liệu được phép và không được phép"
+   ]
+  },
+  {
+   "so_hieu": "2309/QĐ-CĐKT",
+   "ngay": "16/10/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế quản lý, vận hành các kênh mạng xã hội của Trường Cao đẳng Kon Tum",
+   "file": "02-KTC-Regulations/QD-2309-QD-CDKT-Quy-che-quan-ly-van-hanh-MXH.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2309/QĐ-CĐKT",
+    "kênh mạng xã hội"
+   ]
+  },
+  {
+   "so_hieu": "2328/QĐ-CĐKT",
+   "ngay": "21/10/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy định quy tắc ứng xử về sử dụng trí tuệ nhân tạo (AI)",
+   "file": "02-KTC-Regulations/QD-2328-QD-CDKT-Quy-dinh-quy-tac-ung-xu-su-dung-AI.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2328/QĐ-CĐKT",
+    "quy tắc ứng xử về sử dụng trí tuệ nhân tạo"
+   ]
+  },
+  {
+   "so_hieu": "2041/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ, quyền hạn, cơ cấu tổ chức và mối quan hệ công tác của phòng Tổng hợp – Hành chính và Quản trị (Ban Truyền thông thuộc Phòng – Điều 4 k3 Quy định)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2041-QD-CDKT-Phong-TH-HC-QT.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2041/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2042/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của khoa Kinh tế và Nông Lâm",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2042-QD-CDKT-Khoa-KT-NL.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2042/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2046/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của phòng Quản lý khoa học công nghệ và Hợp tác phát triển",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2046-QD-CDKT-Phong-QLKHCN-HTPT.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2046/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2047/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của khoa Đào tạo và Sát hạch lái xe",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2047-QD-CDKT-Khoa-DT-SHLX.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2047/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2048/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của phòng Quản lý Đào tạo và Bảo đảm chất lượng",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2048-QD-CDKT-Phong-QLDT-BDCL.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2048/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2049/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của phòng Tài chính – Kế toán",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2049-QD-CDKT-Phong-TC-KT.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2049/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2050/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của khoa các Khoa học cơ bản",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2050-QD-CDKT-Khoa-CKHCB.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2050/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2051/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của khoa Y – Dược (gồm Phòng khám Đa khoa, Nhà thuốc Phòng khám Đa khoa)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2051-QD-CDKT-Khoa-Y-Duoc.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2051/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2052/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của phòng Tổ chức cán bộ và Công tác học sinh – sinh viên",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2052-QD-CDKT-Phong-TCCB-CTHSSV.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2052/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2053/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của khoa Sư phạm",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2053-QD-CDKT-Khoa-Su-pham.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2053/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "2054/QĐ-CĐKT",
+   "ngay": "21/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quy định vị trí, chức năng, nhiệm vụ… của khoa Kỹ thuật và Công nghệ (bản đã gỡ phông nhúng, nội dung giữ nguyên)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-2054-QD-CDKT-Khoa-KT-CN.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "2054/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "794/QĐ-CĐKT",
+   "ngay": "14/4/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định thành lập Tổ Quản trị hệ thống thông tin",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-794-QD-CDKT-Thanh-lap-To-Quan-tri-HTTT.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "794/QĐ-CĐKT",
+    "Tổ Quản trị hệ thống thông tin"
+   ]
+  },
+  {
+   "so_hieu": "969/QĐ-CĐKT",
+   "ngay": "07/5/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế làm việc của Tổ Quản trị hệ thống thông tin (bản đã gỡ phông nhúng, nội dung giữ nguyên)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-969-QD-CDKT-Quy-che-lam-viec-To-Quan-tri-HTTT.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "969/QĐ-CĐKT"
+   ]
+  },
+  {
+   "so_hieu": "1997/QĐ-CĐKT",
+   "ngay": "16/9/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định kiện toàn Ban Văn – Thể – Mỹ (thay thế QĐ 87/QĐ-CĐKT ngày 10/01/2024)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-1997-QD-CDKT-Kien-toan-Ban-Van-The-My.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực",
+   "tu_khoa": [
+    "1997/QĐ-CĐKT",
+    "Ban Văn – Thể – Mỹ"
+   ]
+  },
+  {
+   "so_hieu": "101/QĐ-CĐKT",
+   "ngay": "25/01/2025",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Quy chế làm việc của Ban Truyền thông (thay thế QĐ 1723/QĐ-CĐKT)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-101-QD-CDKT-Quy-che-lam-viec-Ban-Truyen-thong.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực (vị trí của Ban theo QĐ 2041/QĐ-CĐKT năm 2026)",
+   "tu_khoa": [
+    "101/QĐ-CĐKT",
+    "Quy chế làm việc của Ban Truyền thông"
+   ]
+  },
+  {
+   "so_hieu": "344/QĐ-CĐCĐ",
+   "ngay": "07/4/2021",
+   "co_quan": "Trường Cao đẳng Cộng đồng Kon Tum",
+   "trich_yeu": "Quyết định đổi tên Tổ Truyền thông thành Ban Truyền thông (tư liệu lịch sử; vị trí 'trực thuộc Ban Giám hiệu' đã được thay bằng QĐ 2041/QĐ-CĐKT năm 2026)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-344-QD-CDCD-Doi-ten-Ban-Truyen-thong_2021.docx",
+   "he": "truong",
+   "hieu_luc": "Tham khảo lịch sử",
+   "tu_khoa": [
+    "344/QĐ-CĐCĐ"
+   ]
+  },
+  {
+   "so_hieu": "1387/QĐ-CĐCĐ",
+   "ngay": "11/12/2020",
+   "co_quan": "Trường Cao đẳng Cộng đồng Kon Tum",
+   "trich_yeu": "Quyết định thành lập Tổ Truyền thông (tư liệu lịch sử)",
+   "file": "03-Don-Vi-Truc-Thuoc/QD-1387-QD-CDCD-Thanh-lap-To-Truyen-thong_2020.docx",
+   "he": "truong",
+   "hieu_luc": "Tham khảo lịch sử",
+   "tu_khoa": [
+    "1387/QĐ-CĐCĐ"
+   ]
+  }
+ ],
+ "van_ban_hop_nhat_da_biet": [
+  {
+   "luat": "Luật Sở hữu trí tuệ",
+   "ngay_luat_goc": "29 tháng 11 năm 2005",
+   "vbhn": "67/VBHN-VPQH",
+   "ngay_vbhn": "23 tháng 3 năm 2026",
+   "nguon_xac_nhan": "QĐ 2309/QĐ-CĐKT, QĐ 2328/QĐ-CĐKT (phần căn cứ)"
+  },
+  {
+   "luat": "Luật Giáo dục",
+   "ngay_luat_goc": "14 tháng 6 năm 2019",
+   "vbhn": "72/VBHN-VPQH",
+   "ngay_vbhn": "25 tháng 3 năm 2026",
+   "nguon_xac_nhan": "QĐ 1976/QĐ-CĐKT (phần căn cứ)"
+  },
+  {
+   "luat": "Luật Giáo dục quốc phòng và an ninh",
+   "ngay_luat_goc": "19 tháng 6 năm 2013",
+   "vbhn": "140/VBHN-VPQH",
+   "ngay_vbhn": "05 tháng 9 năm 2025",
+   "nguon_xac_nhan": "QĐ 1976/QĐ-CĐKT (phần căn cứ)"
+  }
+ ],
+ "van_ban_het_hieu_luc_hay_gap": [
+  {
+   "so_hieu": "988/QĐ-CĐKT",
+   "ngay": "12/5/2026",
+   "thay_bang": "1976/QĐ-CĐKT ngày 14/9/2026"
+  },
+  {
+   "so_hieu": "49/QĐ-CĐKT",
+   "ngay": "24/7/2025",
+   "thay_bang": "988/QĐ-CĐKT rồi 1976/QĐ-CĐKT"
+  },
+  {
+   "so_hieu": "1299/QĐ-CĐKT",
+   "ngay": "27/5/2026",
+   "thay_bang": "2073/QĐ-CĐKT ngày 23/9/2026"
+  },
+  {
+   "so_hieu": "765/QĐ-CĐKT",
+   "ngay": "05/6/2024",
+   "thay_bang": "2264/QĐ-CĐKT ngày 12/10/2026"
+  },
+  {
+   "so_hieu": "87/QĐ-CĐKT",
+   "ngay": "10/01/2024",
+   "thay_bang": "1997/QĐ-CĐKT ngày 16/9/2026"
+  },
+  {
+   "so_hieu": "1723/QĐ-CĐKT",
+   "ngay": "18/12/2023",
+   "thay_bang": "101/QĐ-CĐKT ngày 25/01/2025"
+  },
+  {
+   "so_hieu": "13/2023/NĐ-CP",
+   "ngay": "17/4/2023",
+   "thay_bang": "Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 và Nghị định số 356/2025/NĐ-CP ngày 31/12/2025 (hết hiệu lực từ 01/01/2026 theo NĐ 356/2025/NĐ-CP Điều 42 khoản 2)"
+  }
+ ]
+}

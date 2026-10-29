@@ -45,6 +45,7 @@ KTC-Quan-tri/
 ├── 25-KTC-Bao-Cao/           Hệ RIS — tổng hợp kết quả, đối chiếu kế hoạch, dự thảo báo cáo
 ├── 26-KTC-Soan-Thao-VB/      Hệ soạn thảo văn bản hành chính (7 loại VB + 6 lĩnh vực nghiệp vụ)
 ├── 27-KTC-The-Thuc/         Skill `the-thuc` — chuẩn thể thức MỌI sản phẩm .docx/.xlsx, chồng lên skill docx/xlsx
+├── 2A-KTC-Ra-Soat-897/       Bản tích hợp cá nhân `ktc-ra-soat-897` v4.5: lõi nguyên bản (khóa `LOI-V45.sha256`) + `Bo-Sung-Ca-Nhan/`; gói `.skill` sinh bởi `29-Cong-Cu/dong_goi_ra_soat_897.py`
 ├── 29-Cong-Cu/               Script Python · `plugin_src/` (nguồn hook/agent) · `_trung_gian/` (xóa được)
 │
 │   ── OUTPUT (3x) ─────────────────────────────────────────────
@@ -78,6 +79,7 @@ Không nhớ bảng tại đây. Đọc bản gốc rồi mới phân loại hay
 |---|---|
 | 6 Trục / 38 Nội hàm (TB 817) | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` · `22-KTC-Dieu-Phoi/references/10-Sau-Truc-38-Noi-Ham.md` |
 | **Danh mục sản phẩm, công việc CHÍNH THỨC — QĐ 2119/QĐ-CĐKT ngày 28/9/2026** (416 sản phẩm, mã `Trục.Nội hàm.Mã VB.STT`, hệ số theo từng sản phẩm) | `KTC-Database/02-KTC-Regulations/02-01-…/QD-2119-QD-CDKT_…_v1.docx` + phụ lục `PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx` (đọc thẳng từ kho, không chép) |
+| **Mã sản phẩm/công việc CHÍNH từ 27/10/2026 — phần mềm KPI tỉnh** (`N1_241` = Nhóm 1–5 QĐ 2119 · `T4_461` = Lĩnh vực Trục 1–6, chưa gán Nhóm nên chưa có hệ số) | `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` · dữ liệu `danh-muc-spcv-pm-kpi.csv` · xuất tệp nạp `29-Cong-Cu/xuat_mau_import_kpi.py` |
 | 17 lĩnh vực, mã `A01`–`S04` (nhiệm vụ chuẩn — khác mã sản phẩm QĐ 2119) | `22-KTC-Dieu-Phoi/references/13-Danh-Muc-Nhiem-Vu-Va-San-Pham.md` |
 | **Bộ chỉ số KPI tập thể, cá nhân CHÍNH THỨC — QĐ 2164/QĐ-CĐKT ngày 30/9/2026** (55 phụ lục; thay các bộ chỉ số dự thảo) | `11-Du-lieu-Cong-Viec/CHI SO KPI/Bo-chi-so-KPIs/` · mục lục `00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md` · dữ liệu `bo-chi-so-kpi-QD2164.csv` |
 | Quy đổi KPI và xếp loại chất lượng (QĐ 1923) | `20-Chuan-Chung/19-Quy-Tac-KPI.md` · lập KPI cá nhân: hệ `28-KTC-KPI/` · tự đánh giá cá nhân quý: `28-KTC-KPI/Tu-Danh-Gia/` |
@@ -95,17 +97,30 @@ Nhóm 3 = 2,5; Nhóm 4 = 3,5; Nhóm 5 = 4,5 (không suy hệ số từ nhãn Nh�
 Danh mục được rà soát hằng năm (Điều 3 QĐ 2119, Phòng TCCB&CTHSSV tổng hợp). Mã sản phẩm QĐ 2119
 (`1.1.DA01.01`) khác mã nhiệm vụ chuẩn `A01`–`S04` và khác Task_ID — không dùng lẫn.
 
+**Từ 27/10/2026, mã ghi trong sản phẩm là mã của phần mềm KPI tỉnh** (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`):
+`N1_241`, `T4_461` — quy tắc "Mã nhóm SPCV_số thứ tự", không sửa được sau khi tạo. QĐ 2119 vẫn là **căn cứ hệ
+số** (phần mềm tính đúng hệ số QĐ 2119 — đã kiểm chứng số thật), mã `1.1.KH01.04` thành **mã tham chiếu**.
+Phần mềm có **hai trường riêng**: *Nhóm SPCV* `N1`–`N5` = Nhóm 1–5 (thang điểm tối đa 100…500; khớp QĐ 2119,
+0 mã lệch) và *Lĩnh vực SPCV* `T1`–`T6` = **Trục (1)–(6)**. 38 mã `T` là sản phẩm **chưa gán Nhóm** nên mã đặt
+theo Lĩnh vực; cùng `N1_460` thành 39 mã **`THIEU_DU_LIEU`** — Trục đã chắc, còn thiếu Nhóm và hệ số, chờ
+P-TCCB (Điều 3 QĐ 2119). Không suy hệ số từ tiền tố. Tra `danh-muc-spcv-pm-kpi.csv`, xuất tệp nạp bằng
+`29-Cong-Cu/xuat_mau_import_kpi.py` (giữ nguyên 4 cột của mẫu — phần mềm bắt buộc).
+
 **Cơ quan chủ quản trong thể thức**: `UBND TỈNH QUẢNG NGÃI` – `TRƯỜNG CAO ĐẲNG KON TUM` (nhất quán trong toàn
 bộ khung đánh giá hiện hành, sau sáp nhập tỉnh). Không dùng "UBND tỉnh Kon Tum" ở văn bản mới.
 
-Hai hệ liên quan nằm **ngoài** thư mục này (không ghi cứng ổ đĩa — Nguyên tắc 4):
+Hai hệ liên quan: một nằm **ngoài** thư mục này (không ghi cứng ổ đĩa — Nguyên tắc 4), một nằm **trong** dự án:
 - `KTC-Database` — nguồn chính thức của dữ liệu văn bản nội bộ (kho 01–04 + Input/Output). Mọi hệ trong dự án đều dùng chung.
-- `KTC-Ra-Soat-897-v2-Cai-tien` — lớp kiểm soát chất lượng **bắt buộc trước khi trình ký**, và là
+- `2A-KTC-Ra-Soat-897/` — bản tích hợp cá nhân của `ktc-ra-soat-897` **v4.5** (TB 1206/TB-CĐKT): **lõi nguyên bản
+  từng byte** (khóa bằng `LOI-V45.sha256`, kiểm bởi `29-Cong-Cu/dong_goi_ra_soat_897.py` và phép kiểm C-897) + lớp bổ
+  sung `references/Bo-Sung-Ca-Nhan/` chỉ sinh ghi chú tham khảo. Không sửa lõi; cần sửa lõi thì dừng, báo người giao.
+  Là lớp kiểm soát chất lượng **bắt buộc trước khi trình ký**, và là
   **bộ quy tắc soạn thảo dùng ngay từ lúc bắt đầu viết** (nguyên tắc 9). Dùng hai chiều:
-  *khi đang viết* — `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/07-Theo-Loai-Van-Ban.md` (checklist
-  riêng cho Kế hoạch và Báo cáo), `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/08-Quy-Uoc-Rieng-CDKT.md`
-  (tên đơn vị chuẩn, thông số thể thức), `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/04-Ngon-Ngu.md`
-  (chuẩn hóa từ ngữ);
+  *khi đang viết* — `2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/Checklist/07-Theo-Loai-Van-Ban.md` (checklist
+  riêng cho Kế hoạch và Báo cáo), `…/references/Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md` và
+  `…/Quy-Tac-KTC/03-Danh-Muc-Don-Vi-Va-Co-So.md` (tên đơn vị chuẩn, thông số thể thức),
+  `…/references/Checklist/04-Ngon-Ngu.md` (chuẩn hóa từ ngữ), `…/Quy-Tac-KTC/04-Vien-Dan-Van-Ban-Hop-Nhat.md`
+  (viện dẫn văn bản hợp nhất);
   *trước khi trình ký* — toàn bộ quy trình rà soát. Còn vấn đề **Mức 1** thì **không được trình**.
   Không hệ nào được giữ bản sao bộ quy tắc của 897 — trỏ tới bản gốc.
 

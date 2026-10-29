@@ -75,10 +75,17 @@ Cần có (thiếu thì hỏi, **không tự điền**):
      từng sản phẩm; thay thế danh mục dự thảo kèm TB 1052);
    - `AxB` — A × mức độ: **chưa có văn bản** (phép nhân), chờ Phòng TCCB&CTHSSV xác nhận;
    - `nhap-tay` — người dùng tự nhập, tự chịu trách nhiệm căn cứ.
-   Với `A`/`AxB`: sản phẩm phải **khớp chính xác** một dòng trong `references/data/he-so-san-pham-QD2119.csv` (theo mã
-   sản phẩm như `1.1.DA01.01`, STT phụ lục hoặc tên). Liệt kê ứng viên cho người dùng chọn:
-   `python scripts/kpi_calc.py tim --tu-khoa "<từ khóa>"`; ghi **mã sản phẩm** đã chọn vào trường `ma_danh_muc` của
-   đầu việc. Mã sản phẩm ≠ mã nhiệm vụ chuẩn `A01`–`S04` ≠ Task_ID. Không khớp → **dừng hỏi**, không tự gán.
+   Với `A`/`AxB`: sản phẩm phải **khớp chính xác** một dòng trong `references/data/he-so-san-pham-QD2119.csv` — tra
+   được bằng **mã phần mềm KPI** (`N1_241` — mã chính từ 27/10/2026), mã QĐ 2119 (`1.1.DA01.01`), STT phụ lục hoặc
+   tên. Liệt kê ứng viên cho người dùng chọn: `python scripts/kpi_calc.py tim --tu-khoa "<từ khóa>"` (kết quả có cả
+   `ma_spcv` và `ma_san_pham`); ghi **mã phần mềm** đã chọn vào trường `ma_danh_muc` của đầu việc, để kế hoạch nạp
+   thẳng lên phần mềm được. Mã sản phẩm ≠ mã nhiệm vụ chuẩn `A01`–`S04` ≠ Task_ID. Không khớp → **dừng hỏi**, không
+   tự gán. Mã `T1`–`T6` và `N1_460` chưa có trong QĐ 2119 → `THIEU_DU_LIEU`, **không tự đặt hệ số**; đề nghị
+   P-TCCB bổ sung danh mục (Điều 3 QĐ 2119).
+   - **Nạp lên phần mềm KPI tỉnh** (`kpi.quangngai.dcs.vn`, *Đăng ký kế hoạch công tác* → **[Thêm từ file]**):
+     `python 29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp.xlsx>` (CSV 3 cột
+     `ma_spcv,so_luong,mo_ta`). Giữ nguyên 4 cột của mẫu — phần mềm bắt buộc. Chi tiết:
+     `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md`.
 4. **Ghi kế hoạch ra JSON** (cấu trúc tại docstring `scripts/kpi_mau.py` hàm `ghi_ke_hoach`; mỗi đầu việc có thêm 3 trường
    **tùy chọn** cho sheet KPI: `nguoi_chi_dao` — mặc định = `cap_trinh`; `nguoi_phoi_hop` — **không mặc định**, hỏi người
    dùng, trống thì KH17; `don_vi_tham_muu` — mặc định = đơn vị công tác), rồi chạy một lệnh:

@@ -1,0 +1,8 @@
+nguon_phan_mem: 11-Du-lieu-Cong-Viec/27.10.2026.Import kế hoạch moi.xlsx
+sha256: 4feb660a8b84c50e846b0425c9a26185fe41b0e71a7518a885326f286bd980d3
+nguon_he_so: KTC-Database/02-KTC-Regulations/.../PL-2119-QD-CDKT_Danh-muc-san-pham-chuan-hoa_20260928_v1.xlsx
+sha256: 1bf16b3f77a947ebf04d3159bf770c9466d159fcf3ee592a891af511fe6a2b00
+so_dong: 455
+so_dong_co_he_so: 416
+so_dong_thieu_he_so: 39
+trang_thai: ma chinh thuc dung tren phan mem KPI tinh (kpi.quangngai.dcs.vn) tu 27/10/2026; he so lay theo QD 2119/QD-CDKT ngay 28/9/2026

@@ -9,7 +9,7 @@ Tra ở đây trước — **không tự đặt ra thang điểm hay tiêu chí 
 
 | Thư mục | Nội dung |
 |---|---|
-| `DANH MUC SAN PHAM CONG VIEC/` | `Bang tong hop_phan tich_DANH_MUC_NHIEM_VU_CHUAN...xlsx` — **122 nhiệm vụ chuẩn** (mã `A01`–`S04`, 17 lĩnh vực) gộp từ 1.358 dòng nhiệm vụ gốc của 69 tệp Biểu số 1, kèm bảng đối chiếu 100% nhiệm vụ gốc → nhiệm vụ chuẩn và phân loại theo 18 loại tài liệu. `Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx` — **371 sản phẩm** quy đổi, gắn loại văn bản (29 loại) + Nhóm/Điểm/Hệ số + Trục + Nội hàm |
+| `DANH MUC SAN PHAM CONG VIEC/` | **Mã sản phẩm CHÍNH THỨC từ 27/10/2026 — danh mục phần mềm KPI tỉnh** (`N1_241`, `T4_461`): `danh-muc-spcv-pm-kpi.csv` 455 mã kèm ánh xạ sang QĐ 2119, mục lục `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md`. Nền cũ: `Bang tong hop_phan tich_DANH_MUC_NHIEM_VU_CHUAN...xlsx` — **122 nhiệm vụ chuẩn** (mã `A01`–`S04`, 17 lĩnh vực) gộp từ 1.358 dòng nhiệm vụ gốc của 69 tệp Biểu số 1, kèm bảng đối chiếu 100% nhiệm vụ gốc → nhiệm vụ chuẩn và phân loại theo 18 loại tài liệu. `Du thao_Danh_muc_SP_theo_loai_van_ban_va_6_truc.xlsx` — **371 sản phẩm** quy đổi, gắn loại văn bản (29 loại) + Nhóm/Điểm/Hệ số + Trục + Nội hàm |
 | `CHI SO KPI/` | **Bộ chỉ số KPI CHÍNH THỨC — QĐ 2164/QĐ-CĐKT ngày 30/9/2026** (`Bo-chi-so-KPIs/`: Quyết định + 55 phụ lục — I–XI tập thể 11 đơn vị, XII Lãnh đạo Trường, XIII–XXXII cá nhân theo đơn vị, chức danh). Dẫn xuất: `00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md` (mục lục, lỗi tiêu đề phụ lục), `bo-chi-so-kpi-QD2164.csv` (1.972 chỉ số, sinh bằng `29-Cong-Cu/trich_bo_chi_so_kpi.py`). 7 tệp dự thảo 4 - 8/9/2026 đã chuyển `99-Luu-Tru/Chi-so-KPI-du-thao-truoc-QD2164/` — **không dùng** |
 | `KHUNG TIEU CHI DANH GIA...` | Khung đánh giá tập thể 11 đơn vị (mỗi đơn vị 1 `.xlsx` khung + 1 `.docx` phân tích); `Truong_LDT/` — Trường, tập thể Lãnh đạo Trường, Hiệu trưởng, Phó Hiệu trưởng; `Khung cá nhân/` — 6 phụ lục II–VII theo nhóm chức danh |
 
@@ -32,6 +32,10 @@ trực tiếp trên biểu mẫu chính thức.
 
 ## Bộ mã dùng chung
 
+- **Mã sản phẩm/công việc `N1_241`, `T4_461`** — mã **chính** từ 27/10/2026, do **phần mềm KPI tỉnh Quảng Ngãi**
+  (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`) phát hành theo quy tắc "Mã nhóm SPCV_số thứ tự". `N1`–`N5` = Nhóm 1–5 của
+  QĐ 2119 (khớp 100%), `T1`–`T6` = nhóm Trường khai thêm, **chưa có hệ số**. Mã QĐ 2119 (`1.1.KH01.04`) giữ làm
+  **mã tham chiếu** tra hệ số, Trục, Nội hàm. Chi tiết: `DANH MUC SAN PHAM CONG VIEC/00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md`.
 - **6 Trục** kết quả trọng tâm, dưới đó **38 Nội hàm** (số nội hàm đánh lại từ 1 trong từng Trục — luôn ghi
   kèm Trục, không dùng số nội hàm đứng một mình).
 - **5 nhóm, hệ số theo QĐ 2119** (lấy theo từng sản phẩm, không suy từ nhãn Nhóm): Nhóm 1 = 0,3 · 0,5 · 1,0 ·

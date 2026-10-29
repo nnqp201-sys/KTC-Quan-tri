@@ -1,0 +1,58 @@
+# Nguồn sự thật Đề án Hạng A (Đề án NỘI BỘ) — anh soát lại trước khi dùng. null = chưa có, hỏi anh.
+ten: "Đề án triển khai đào tạo và sát hạch lái xe mô tô Hạng A tại Trường Cao đẳng Kon Tum"
+cap: "noi-bo"            # noi-bo: Hiệu trưởng phê duyệt | tinh: UBND tỉnh phê duyệt
+chu_the:
+  soan: "Tổ xây dựng Đề án"
+  to: {qd: "1944/QĐ-CĐKT", ngay: "07/9/2026", to_truong: null}
+  trinh: "Tổ xây dựng Đề án"
+  phe_duyet: "Hiệu trưởng (Lê Trí Khải)"
+  can_cu_tham_quyen:
+    - "điểm a khoản 7 Điều 7 NĐ 334/2026/NĐ-CP — Hiệu trưởng phê duyệt Đề án sử dụng tài sản công, báo cáo cấp trên"
+    - "điểm d khoản 2 Điều 6 NĐ 85/2025/NĐ-CP — Hiệu trưởng quyết định chủ trương đầu tư nhóm C; khoản 4: gửi QĐ chủ trương cho UBND tỉnh"
+van_ban:   # chủ thể ban hành -> mẫu gốc -> người ký
+  de_an:        {ban_hanh: "Tổ xây dựng Đề án", ky: null}
+  to_trinh:     {ban_hanh: "Tổ xây dựng Đề án", ky: "TM. Tổ - Tổ trưởng", mau: "03-Templates(1)/07-To-trinh.dotx"}
+  du_thao_qd:   {ban_hanh: "Trường", ky: "Hiệu trưởng", ky_hieu: "QĐ-CĐKT"}
+  bc_tiep_thu:  {ban_hanh: "Tổ xây dựng Đề án", ky: "TM. Tổ xây dựng Đề án - Tổ trưởng", ky_hieu: "BC-TXDĐA (tạm đặt, chờ anh xác nhận)",
+                 mau: "KTC-Database/05-De-an-De-tai/13-01-.../02-Lan-3-To-trinh/BC tiep thu, giai trinh y kien lan 3 (v4).docx (BC 344/BC-CĐKT, bảng 3 cột)",
+                 noi_nhan: ["- Như trên;", "- Thành viên Tổ xây dựng Đề án;", "- Lưu: VT, Tổ XDĐA."]}
+  bien_ban_hop: {ban_hanh: "Trường", ky: "Thư ký + Chủ trì (Hiệu trưởng)", ky_hieu: "BB-CĐKT", mau: "03-Templates(1)/09-Bien-ban.dotx"}
+  phu_luc_v:    {tep: "xlsx", quy_uoc: "màu sửa Excel (đỏ/vàng sửa, xanh bổ sung, cam chờ quyết)"}
+so_lieu:   # chốt 23/10/2026 (mục 3.2) — Phụ lục V v6
+  quy_mo_hoc_vien: {2027: 220, 2028: 600, 2029: 690, 2030: 800, 2031: 920, nguon: "Bảng 7 (giai đoạn 2027–2031)"}
+  von_ban_dau_tr: 1730.2
+  von_tai_san_tr: 1669.0
+  boi_duong_2026_tr: 61.2
+  hoan_von_nam: 4.47
+  lnst_nam1_tr: -1.05
+  lnst_nam2_5_tr: "169–447"
+  dong_tien_5_nam_tr: 2062.6
+  nguong_hoan_von_5_nam: "84% kế hoạch (chỉ lưu hồ sơ Tổ — đã bỏ độ nhạy khỏi văn bản trình)"
+  tong_muc_dau_tu_tr: "2.500–2.800"
+  ty_le_tay_dong: {gia_tri: "51,5%", tinh: "12.066/23.412 (Sở Xây dựng 2025)"}
+  gia_dich_vu_sat_hach: "68.900 đồng/lượt — giả định, chờ thỏa thuận Phòng CSGT"
+  gia_thiet: {khoan_tuyen_sinh: "5%", thue_xe: "22%", luong_ql: "15% lương trực tiếp", khau_hao_phong: "5%/năm", bao_duong: "trong 10% chi QL chung", luot_sat_hach: "học viên × 1,2"}
+moc:
+  truyen_du_lieu_dinh_danh: "trước 01/01/2027"
+  bai_sat_hach_so_2: "Quý III/2027 (chậm nhất trước 01/01/2028 — TT 107/2026/TT-BCA)"
+phien_ban:
+  de_an: "lan-1, TC-chot-3.2 (30-Ket-Qua/2026-10-23/Hoan-thien-chot-3.2/)"
+  to_trinh: "TC-chot-3.2"
+  du_thao_qd: "TC-chot-3.2"
+  phu_luc_v: "v6_chot-3.2"
+  bc_tiep_thu: "BC-To-XDDA_..._20261026_sua-duong-ke.docx (anh đã sửa tay)"
+  bien_ban: "BB-Hop-gop-y-De-an-Hang-A-lan-1_20261026.docx (còn ô trống)"
+hop_gop_y:
+  - ngay: "26/10/2026"
+    chu_tri: "Hiệu trưởng"
+    nguon: ["ghi chép của anh", "bản tóm tắt Gemini (đã đối chiếu, lệch 6 chỗ)", "ghi âm 4 tệp (nghe được ~30%)"]
+    can_xac_minh: ["xã hội hóa và con số 4.900 triệu đồng trong kết luận HT", "giờ, địa điểm, thư ký, họ tên đầy đủ người góp ý"]
+viec_mo:
+  - "Áp các ý tiếp thu 26/10 vào Đề án, Tờ trình, QĐ, Phụ lục V bằng Track Changes"
+  - "Viết mới: phân kỳ đầu tư, phương án xã hội hóa (phòng TC-KT phối hợp)"
+  - "Khoa ĐT&SHLX xác định diện tích sân"
+  - "Xin số liệu xe mô tô > 125 cm³ phía Tây của Phòng CSGT"
+  - "TC-KT chốt nguồn vốn theo năm khi lập BCKTKT"
+thu_muc:
+  nguoi_dung: "OneDrive …/0. De an dao tao lai xe mo to hang A/4. Đề án làn 1/"
+  ket_qua: ["30-Ket-Qua/2026-10-23/", "30-Ket-Qua/2026-10-26/Tham-dinh/"]

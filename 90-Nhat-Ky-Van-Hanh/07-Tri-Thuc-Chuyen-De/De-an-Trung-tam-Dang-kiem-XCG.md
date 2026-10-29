@@ -212,3 +212,90 @@ Mạch: UBND tỉnh giao Sở TC tham mưu (CV 8866/UBND-NC, 28/8) → các sở
   - TT 40/2025/TT-BXD: giá do cơ sở tự định, không vượt giá tối đa của Bộ trưởng Bộ Xây dựng, **chưa gồm VAT**. Dòng "Nộp thuế GTGT" đổi thành "Chi phí vận hành khác ~5% doanh thu".
   - Giám đốc không bắt buộc là ĐKV; lãnh đạo cơ sở đăng kiểm là Phó Giám đốc chuyên môn. Bỏ "tạm hoãn hợp đồng viên chức". Bảng 11 tổng đúng là 247.626.261.360 đồng. Bảng 17 dòng 7.1: đơn vị phê duyệt là Sở Xây dựng.
 - Độ nhạy hoàn vốn theo doanh thu: 100% → 8,5 năm; 110% → 7,4; 90% → 9,9; 80% → trên 10 năm.
+  - **Đính chính 24/10:** con số 90% → 9,9 năm ở dòng trên là **sai**. Tính lại (chuyển lỗ tối đa 05 năm, chi phí vận hành khác 5% doanh thu, khấu hao văn phòng hết ở năm 9): 90% → chưa hoàn vốn trong 10 năm (lũy kế khoảng 20.367 triệu, thiếu khoảng 89 triệu, hoàn vốn khoảng 10 năm); 80% → lũy kế 15.435 triệu (khoảng 75% vốn).
+
+## 17. Thẩm định độc lập AI lần 2 và bản v4 (24/10/2026)
+
+- 4 báo cáo lần 2 (ChatGPT, Gemini, Grok/KTC-897, Copilot) đều thẩm định đúng bộ v3. ChatGPT vẫn chi tiết nhất (18 phát hiện, kiểm lại cả 29 mục của báo cáo rà soát lần 1). Gemini lại kết luận "thống nhất 100%" nhưng sai; đề xuất của Gemini (câu hỏi c, d của CV; trách nhiệm Hiệu trưởng trong QĐ) đều đã có sẵn.
+- Bản v4/v7 (nền là v3 đã chấp nhận, chỉ hiện dấu vết lần 2): `30-Ket-Qua/2026-10-24/Soan-Thao/`, kèm `BC_Ra-soat-tiep-thu-y-kien-tham-dinh-doc-lap-AI-lan-2_...docx`. Bản chép trong OneDrive `.../Trình lại tháng 10.2026/Sau tham dinh AI lan 2 24.10/`.
+- **Sửa thật lần 2:**
+  - Tờ trình dòng 7.1: Cục Đăng kiểm → Sở Xây dựng (lần 1 sửa sót).
+  - Bảng 7: Chủ tịch HĐTV do HĐTV bầu, không gán Lãnh đạo Trường. Theo **khoản 4 Điều 4 NĐ 181/2026**, nguyên văn: "Người quản lý doanh nghiệp nhà nước, người đại diện phần vốn nhà nước, kiểm soát viên **không là** cán bộ, công chức, viên chức". Không viết "không đồng thời là".
+  - RACI: bỏ "Xử lý tài sản công" khỏi quyền HĐTV.
+  - Mục IV.6: bỏ cụm Trường "quản lý trực tiếp và toàn diện" Công ty.
+  - QĐ điểm e khoản 2 Điều 1: không khẳng định UBND là cơ quan đại diện chủ sở hữu, ghi "theo hướng dẫn của Bộ".
+  - Khấu hao thiết bị văn phòng 8 năm. Năm 9–10: khấu hao 1.986, LNST 767, Trường được chia 313, dòng tiền 2.753. Hoàn vốn vẫn 8,47 năm.
+  - Thuế năm 3 ghi "0 (chuyển lỗ)".
+  - Bỏ câu "hoàn vốn nhà đầu tư đúng bằng hoàn vốn Đề án".
+  - Góp vốn bằng tiền trong 90 ngày kể từ ngày cấp ĐKDN (Điều 47 Luật DN), thay cho cụm "chuyển giao tài sản".
+  - CV thêm câu hỏi đ) về nơi nhận lợi nhuận được chia.
+  - Tỷ lệ thạc sĩ: 118/202 = 58,42%.
+  - Tờ trình: phê duyệt Đề án không thay các quyết định góp vốn, sử dụng tài sản công, vay vốn.
+  - Đề án: thêm đoạn độ nhạy và phương án dừng hoặc liên doanh, liên kết không lập pháp nhân.
+- **TT 40/2025/TT-BXD** có hiệu lực 20/01/2026 và không có điều khoản bãi bỏ TT 238/2016. Vì vậy giữ TT 238 làm biểu giá tham khảo (Phụ lục V).
+- **Còn mở (THIEU_DU_LIEU):**
+  - Excel tài chính chính thức (P-TCKT).
+  - Nguồn tiền thực có và lịch góp vốn của Trường.
+  - Danh sách nhân sự có chứng chỉ ĐKV và 60 tháng kinh nghiệm.
+  - Cơ cấu lượt kiểm định và thị phần.
+  - Diện tích sàn Cơ sở 5 (Phụ lục I).
+  - VBHN 60/VBHN-VPQH, Điều 27, chưa có trong kho.
+- Nhãn "DỰ THẢO" lặp trong XML của QĐ là phần Choice/Fallback của cùng một khung chữ, không phải lỗi.
+- Phông "Times New Roman Bold" nằm trong `styles.xml`, nên phải sửa ở `d.styles.element`, không chỉ ở body.
+
+## 18. Thẩm định độc lập AI lần 3 và bản v5 (24/10/2026)
+
+- Không còn vấn đề Mức 1. ChatGPT nêu 17 nhóm (11 Mức 2); Grok, Gemini, Copilot không có phát hiện mới đáng kể.
+- **Bài học:** Grok báo "đã tuyên bố sửa nhưng không có trên tệp" (TTr 7.1, câu giới hạn phê duyệt, câu hỏi đ) của CV). Thực ra cả 3 đều có, nhưng nằm trong `w:ins`; `python-docx p.text` không đọc phần này. **Từ nay gửi AI thẩm định bằng bản đã chấp nhận thay đổi** (`Ban-sach/`).
+- Sửa ở v5 (`30-Ket-Qua/2026-10-24/Soan-Thao-lan-3/`, OneDrive `Sau tham dinh AI lan 3 24.10/`):
+  - Đề án, Tờ trình: đổi mục "Cơ quan đại diện chủ sở hữu" sang "theo hướng dẫn của Bộ".
+  - Đề án: ghi việc thu, nộp phần lợi nhuận 51% theo cơ chế được Bộ hướng dẫn.
+  - Dòng 4.1: các thành viên cử người đại diện, HĐTV bầu Chủ tịch.
+  - Sở Nội vụ: "cử người đại diện" thay cho "bổ nhiệm HĐTV".
+  - Kiểm soát viên do HĐTV bổ nhiệm.
+  - Bỏ cụm "nhiệm vụ do Hiệu trưởng giao".
+  - Ghi 11 người là lao động tác nghiệp.
+  - Câu về giá theo TT 40/2025: Bộ trưởng BXD quy định giá tối đa.
+  - Bảng 22 tính theo "năm hoạt động thứ nhất".
+- **Chi đào tạo 51,5 triệu bị tính trùng:** đã cộng lại vào dòng tiền năm 1–3 (1.313; 1.808; 2.634). Hoàn vốn 8,45 năm, vẫn làm tròn 8,5. Doanh thu −10%: lũy kế 20.419 triệu, thiếu khoảng 38 triệu. Doanh thu −20%: 15.486 triệu.
+- Còn mở:
+  - Thu 2024, 2025: thân Đề án ghi 20.404 / 28.136, Bảng 4 ghi 20.245 / 31.764. Chờ P-TCKT xác nhận.
+  - Khấu hao theo chế độ doanh nghiệp (TT 45/2013): P-TCKT quyết định.
+  - Đề án còn TT16 Mức 3: 2 đoạn "Căn cứ" chưa thụt dòng.
+- **Chốt 24/10 (người phụ trách):**
+  - Bỏ hẳn câu về giá ở điểm c Phần I (thừa).
+  - Số thu năm 2024, 2025 lấy theo Bảng 4 (20.245 / 31.764 triệu).
+  - Khấu hao: giữ thời gian (10/10/8 năm), đổi căn cứ sang chế độ doanh nghiệp (TT 45/2013). Giải trình: NĐ 178/2026 và TT 151/2026 (cùng ở điểm a khoản 2 Điều 1) không điều chỉnh tài sản giao doanh nghiệp. Hai văn bản này có trong kho 01; TT 45/2013 chưa có.
+  - Trường **chưa có** nhân sự có chứng chỉ ĐKV hay đủ 60 tháng kinh nghiệm: Phó Giám đốc chuyên môn và Trưởng bộ phận kiểm định phải tuyển mới.
+  - Báo cáo rà soát lần 3 ban hành theo thể thức **Tổ xây dựng Đề án** (BC-TXDĐA, TM. Tổ/Tổ trưởng, họ tên để trống). Script: `scratchpad/td3/to_xd.py`.
+  - Người phụ trách yêu cầu: dữ liệu thiếu thì **hỏi trực tiếp anh**, không chuyển đơn vị khác.
+
+## 19. Rà soát chính thức KTC-897 trên bản sạch (24/10/2026)
+
+- Báo cáo: `30-Ket-Qua/2026-10-24/Ra-soat-897/BC_Ra-soat-897-chinh-thuc_Ho-so-De-an-Dang-kiem_20261024_v1.docx`. Kết quả: 0 lỗi Mức 1, 2 Mức 2, 8 Mức 3, 4 Mức 4. Kết luận "Đạt có điều kiện", cần chỉnh sửa trước khi trình ký.
+- Hai lỗi Mức 2:
+  - Tờ trình và CV của Trường cùng đề nghị xin ý kiến Bộ nhưng không văn bản nào dẫn chiếu văn bản kia.
+  - Dự thảo QĐ dùng các chữ viết tắt XCG, ĐKV, UBND, ĐVSNCL mà không ghi đầy đủ lần đầu.
+- Khấu hao theo Phụ lục I TT 45/2013/TT-BTC (còn hiệu lực theo QĐ 1760/QĐ-BTC ngày 01/7/2026):
+  - Thiết bị đo lường, thí nghiệm: khung 5–10 năm.
+  - Thiết bị văn phòng: khung 3–8 năm.
+  - Nhà xưởng: 10 năm chỉ hợp lệ nếu xếp nhóm "nhà cửa khác" (6–25 năm). Nhà cửa kiên cố có khung 25–50 năm.
+- Kho: tệp "33. Nghị-định-165-2026 … phòng bệnh" đặt tên không khớp. Theo Chương I NĐ 349/2026, NĐ 165/2026 là văn bản sửa đổi NĐ 214/2025 về đấu thầu.
+- **Đã sửa theo báo cáo 897** (`30-Ket-Qua/2026-10-24/Sau-ra-soat-897/` + `Ban-sach/`; OneDrive `Sau ra soat 897 24.10/`): bản DA/TTr/QĐ v6, BC tiếp thu v8, CV Trường v2.
+  - CV của Trường dẫn chiếu Tờ trình: "tại Tờ trình số …/TTr-CĐKT"; Đề án và BC gửi kèm Tờ trình.
+  - TTr, QĐ viết đầy đủ "xe cơ giới", "đăng kiểm viên", "Ủy ban nhân dân tỉnh".
+  - Nhà xưởng ghi "thuộc nhóm nhà cửa khác theo Phụ lục I TT 45/2013/TT-BTC".
+  - Viết hoa sau dấu hai chấm; thụt dòng căn cứ; lề trang ngang 30 mm.
+  - Người dùng tự sửa trong CV: "Dự thảo Đề án (lần 6)". Đã giữ nguyên.
+
+## 20. Đã trình ký bộ xin ý kiến Bộ (27/10/2026)
+
+- Thư mục OneDrive: `Trình lại tháng 10.2026/Trinh xin y kien thang 10.2026/`.
+- **Báo cáo số 498/BC-CĐKT ngày 27/10/2026** tiếp thu, giải trình theo CV 10316/UBND-NC, 14 trang.
+  - Nơi nhận có thêm Sở Tư pháp, Sở Nội vụ, Sở Xây dựng, Sở NN&MT, Thuế tỉnh.
+  - Tệp .docx trong thư mục **chưa cập nhật** ngày và nơi nhận như bản PDF; bản ký là PDF.
+- **Công văn số 775/CĐKT-THHCQT ngày 27/10/2026** đề nghị UBND tỉnh, Sở TC xin ý kiến BTC, BNV.
+  - Công văn dẫn chiếu **BC 498**, không dẫn Tờ trình: lần này trình bằng BC + CV, **chưa gửi Tờ trình**.
+  - Hồ sơ gửi kèm: (1) dự thảo CV UBND; (2) dự thảo Đề án; (3) BC 498.
+  - Lỗi còn trong bản trình: đoạn kết ghi "Nhà trưởng" (đúng là "Nhà trường"). Câu "trình UBND tỉnh phê duyệt Đề án … tại Báo cáo số 498" chưa chuẩn, vì báo cáo không phải văn bản trình phê duyệt.
+- Tờ trình v6 và dự thảo QĐ v6 giữ lại, dùng khi có ý kiến hướng dẫn của Bộ.

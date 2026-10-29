@@ -24,6 +24,20 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
 | Bộ chỉ số KPI | **QĐ 2164/QĐ-CĐKT** ngày 30/9/2026, 55 Phụ lục: I–XI tập thể 11 đơn vị; XII Lãnh đạo Trường; XIII–XXXII cá nhân theo đơn vị, chức danh | Danh mục chỉ số KPI (tiêu chí/nhiệm vụ, chỉ số, đơn vị đo) theo 6 Trục — cơ sở lập, ký Bản cam kết KPI, đánh giá quý, năm [QĐ 2164, Điều 1, 2] | **Chính thức** (30/9/2026), thay các bộ chỉ số dự thảo. Phụ lục **không có trọng số, chỉ tiêu** — xác định khi lập Bản cam kết; tổng trọng số mỗi bộ = 100% [QĐ 2164, Điều 3.1]. Bản gốc chờ nạp kho 02 |
 | Hướng dẫn quý | Quý III/2026: **CV 694/CĐKT-TCCB** ngày 24/9/2026 | Thời hạn, kỹ thuật của quý | Mỗi quý một văn bản — thời hạn đặt trong tệp cấu hình quý, không đặt ở đây |
 | Kế hoạch công tác | **QĐ 2073/QĐ-CĐKT** ngày 23/9/2026, Chương III | Quy trình, thời hạn kế hoạch năm/quý/tháng của Trường | Thay QĐ 1299 |
+| Công cụ vận hành | **Phần mềm KPI tỉnh Quảng Ngãi** (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`) | Nơi đăng ký kế hoạch công tác, kê khai kết quả, tự đánh giá và xếp loại trên thực tế | Trường dùng từ **27/10/2026**; HDSD: `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/` |
+
+### Mã sản phẩm, công việc — từ 27/10/2026 lấy mã của phần mềm KPI
+
+- **Mã chính** là mã phần mềm: `N1_241`, `T4_461` — quy tắc "Mã nhóm SPCV_số thứ tự tăng dần", **không sửa được
+  sau khi tạo** (HDSD VNPT–ĐGCB v2.0, mục IV.2.4.2.2). Mã QĐ 2119 (`1.1.KH01.04`) giữ làm **mã tham chiếu** để
+  tra hệ số, Trục, Nội hàm. Mọi kế hoạch, bản cam kết, báo cáo đều ghi mã chính; ghi kèm mã QĐ 2119 khi cần
+  viện dẫn hệ số.
+- `N1`–`N5` = Nhóm 1–5 theo QĐ 2119 (đối chiếu 27/10/2026: khớp 416/455 sản phẩm, **0 mã lệch nhóm**).
+  `T1`–`T6` = 38 sản phẩm Trường khai thêm, **chưa có trong QĐ 2119 → chưa có hệ số**; cùng `N1_460` là
+  39 mã ghi `THIEU_DU_LIEU`. **Không suy hệ số từ tiền tố, không tự đặt hệ số.**
+- Tra: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`; giải thích đầy đủ ở
+  `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` cùng thư mục. Sinh lại: `29-Cong-Cu/trich_danh_muc_pm_kpi.py`.
+  Xuất tệp nạp lên phần mềm: `29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp>`.
 
 - Hướng dẫn đánh giá hằng quý/năm của Hiệu trưởng chỉ quy định biểu mẫu, tiêu chí hành vi và quy trình kỹ thuật
   **trong phạm vi khung mức của Quy chế**; không được thay đổi khung mức làm bất lợi cho viên chức với kỳ đã hoàn thành
