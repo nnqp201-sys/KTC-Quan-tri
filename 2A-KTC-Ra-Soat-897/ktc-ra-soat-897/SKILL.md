@@ -3,7 +3,7 @@ name: "ktc-ra-soat-897"
 description: "Rà soát chính thức hoặc sơ bộ, so sánh hai bản (hai phiên bản) dự thảo, kiểm tra tiếp thu sau báo cáo rà soát, chuẩn hóa văn phong cho văn bản hành chính, văn bản Đảng của Trường CĐ Kon Tum (quyết định, quy chế, quy định, kế hoạch, tờ trình, báo cáo, công văn, thông báo). Không dùng cho chương trình đào tạo, đề cương, giáo trình, giáo án, kế hoạch bài giảng, ngân hàng câu hỏi, soạn văn bản mới."
 ---
 
-# KTC Rà soát 897 — rà soát dự thảo văn bản trước khi trình ký (v4.4, 27/10/2026)
+# KTC Rà soát 897 — v4.5 (lõi nguyên bản, TB 1206/TB-CĐKT) + lớp bổ sung cá nhân 29/10/2026
 
 ## Mục đích
 Kiểm tra dự thảo văn bản của Trường Cao đẳng Kon Tum trước khi trình ký: thể thức, căn cứ, nội dung, thẩm quyền, tính thống nhất với văn bản đã ban hành của Trường. Kết quả **phải giống nhau giữa các lần chạy và giữa các tài khoản** với cùng hồ sơ: thông số cố định, đo bằng script, mức theo bảng mã, nhãn do script tính. Căn cứ có thể thay đổi: kiểm tra hiệu lực tại thời điểm sử dụng. Kết quả AI chỉ để tham khảo, không thay trách nhiệm của người soạn thảo, người kiểm tra, người ký.
@@ -135,3 +135,21 @@ Không chạy được Python → dựng báo cáo thủ công đúng cấu trú
 ## Quan hệ với hệ khác và giới hạn
 - Kho dữ liệu do Phòng TH-HC&QT cập nhật; khi có văn bản mới thay thế văn bản trong Kho hoặc VBHN mới, cập nhật `kho_manifest.json` và bảng 04 (script đọc trực tiếp từ `kho_manifest.json`).
 - Báo cáo .docx cần Trưởng/Phó đơn vị phê duyệt trước khi dùng chính thức.
+
+## Lớp bổ sung cá nhân (không thay đổi kết luận v4.5)
+Mục này và thư mục `references/Bo-Sung-Ca-Nhan/` là phần duy nhất thêm vào lõi v4.5 (TB 1206/TB-CĐKT). Mọi phần ở trên giữ nguyên bản Trường. Nếu mục này mâu thuẫn với phần trên → theo phần trên.
+1. **Vị trí:** áp dụng **sau Bước 6, trước Bước 7**. Không ảnh hưởng cổng hồ sơ (Bước 1), phép đo (Bước 2), bảng mã, mức, nhãn trình ký, cách tính nhãn. Không thêm mã phát hiện, không đổi mức, không nới cổng.
+2. **Bảng kích hoạt** (đọc tệp tương ứng trong `references/Bo-Sung-Ca-Nhan/`; `00-Doi-Chieu.md` là bảng giữ/bỏ và các điểm mâu thuẫn đã loại):
+
+| Điều kiện | Tệp |
+|---|---|
+| Dự thảo là văn bản quy phạm pháp luật, hoặc cần đánh giá tính quy phạm | `01-He-C-VBQPPL.md` |
+| Văn bản của Công đoàn, Đoàn Thanh niên, Hội Sinh viên | `02-He-D-Doan-The.md` |
+| Luôn | `03-Bao-Mat-Tai-Lieu.md` |
+| Dự thảo viện dẫn tự chủ tài chính (NĐ 60/2021, 111/2025, 334/2026) | `04-Thoi-Diem-ND-334-2026.md` |
+| Người dùng yêu cầu sửa trực tiếp tệp .docx | `05-Track-Changes.md` |
+| Luôn | `06-Quy-Uoc-Rieng-CDKT.md` |
+| Dự thảo liên quan doanh nghiệp, góp vốn, vốn nhà nước, đất đai, tài sản công | `07-Doanh-Nghiep-Von-Dat.md` |
+
+3. **Cách ghi kết quả:** mỗi mô-đun đã kích hoạt thêm đúng **một phần tử** vào danh sách `kiem_tra_chat_luong` của dữ liệu báo cáo, dạng `{"hang_muc": "[Bổ sung – tham khảo] <tên mô-đun>", "ket_qua": "<ghi chú>"}`. Không ghi vào `phat_hien`, `ma_tran`, `dat`, `chua_kiem`, `bo_qua_the_thuc`; không dùng mã TT, TD, CC, DC, TQ, ND, VP, GY, DG cho nội dung của lớp này. Mô-đun không có gì để ghi thì không thêm phần tử.
+4. **Phiên bản:** thêm một phần tử `{"hang_muc": "[Bổ sung – tham khảo] Phiên bản", "ket_qua": "v4.5 — lõi khớp mã băm gói TB 1206; có lớp bổ sung cá nhân (ghi chú tham khảo)"}`. Dòng "Phiên bản Skill" ở Phần I do script in ra từ lõi, giữ nguyên.
