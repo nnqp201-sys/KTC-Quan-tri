@@ -1,4 +1,4 @@
-# Chỉ mục Kho dữ liệu 897 (v4.1 – 26/10/2026)
+# Chỉ mục Kho dữ liệu 897 (v4.3 – 03/11/2026)
 
 Kho đóng gói cục bộ của Skill ktc-ra-soat-897: **toàn văn** các văn bản nền tảng, dùng làm nguồn đối chiếu khi rà soát và để cổng hồ sơ (`tools/kiem_ke_ho_so.py`) xác định văn bản nào người dùng không phải cung cấp thêm.
 
@@ -15,6 +15,9 @@ Kho đóng gói cục bộ của Skill ktc-ra-soat-897: **toàn văn** các văn
 | Phụ lục I – NĐ 30/2020/NĐ-CP | 05/3/2020 | Thể thức, kỹ thuật trình bày văn bản hành chính và bản sao văn bản | Đang có hiệu lực | `Phu-luc-I-The-thuc-Ky-thuat-trinh-bay-VB-hanh-chinh_kem-ND30.docx` |
 | 91/2025/QH15 | 26/6/2025 | Luật Bảo vệ dữ liệu cá nhân | Có hiệu lực từ 01/01/2026 (Điều 38 k1) | `Luat-91-2025-QH15-Bao-ve-du-lieu-ca-nhan.docx` |
 | 356/2025/NĐ-CP | 31/12/2025 | Nghị định quy định chi tiết một số điều và biện pháp thi hành Luật Bảo vệ dữ liệu cá nhân | Có hiệu lực từ 01/01/2026; thay thế NĐ 13/2023/NĐ-CP | `ND-356-2025-ND-CP-Thi-hanh-Luat-Bao-ve-du-lieu-ca-nhan.docx` |
+| 116/2025/QH15 | 10/12/2025 | Luật An ninh mạng | Có hiệu lực từ 01/7/2026 (Điều 44 k1); thay Luật 86/2015/QH13 và Luật 24/2018/QH14 | `Luat-116-2025-QH15-An-ninh-mang.docx` |
+| 124/2025/QH15 | 10/12/2025 | Luật Giáo dục nghề nghiệp | Có hiệu lực từ 01/01/2026, một số khoản, điều từ 01/7/2026 (Điều 44); thay Luật 74/2014/QH13 | `Luat-124-2025-QH15-Giao-duc-nghe-nghiep.docx` |
+| 134/2025/QH15 | 10/12/2025 | Luật Trí tuệ nhân tạo | Có hiệu lực từ 01/3/2026, trừ nội dung tại Điều 35 (Điều 34) | `Luat-134-2025-QH15-Tri-tue-nhan-tao.docx` |
 | 01/2026/UBTVQH16 | 10/6/2026 | Pháp lệnh sửa đổi, bổ sung một số điều của Pháp lệnh Hợp nhất văn bản quy phạm pháp luật | Có hiệu lực từ 01/7/2026 | `PL-01-2026-UBTVQH16-Sua-doi-Phap-lenh-Hop-nhat-VBQPPL.docx` |
 | 63/2026/TT-BGDĐT | 30/7/2026 | Thông tư ban hành Điều lệ trường trung cấp, trường cao đẳng | Đang có hiệu lực | `TT-63-2026-TT-BGDDT-Dieu-le-truong-trung-cap-cao-dang.docx` |
 | 399-QĐ/TW | 09/01/2026 | Quy định về thể loại, thẩm quyền ban hành và thể thức văn bản của Đảng | Đang có hiệu lực | `QD-399-QD-TW-The-loai-Tham-quyen-The-thuc-VB-Dang.docx` |
@@ -35,6 +38,7 @@ Kho đóng gói cục bộ của Skill ktc-ra-soat-897: **toàn văn** các văn
 | 2307/QĐ-CĐKT | 16/10/2026 | Quyết định ban hành danh mục tài liệu được phép và không được phép đưa lên các hệ thống trí tuệ nhân tạo (AI) công cộng | Đang có hiệu lực | `QD-2307-QD-CDKT-Danh-muc-tai-lieu-dua-len-AI-cong-cong.docx` |
 | 2309/QĐ-CĐKT | 16/10/2026 | Quyết định ban hành Quy chế quản lý, vận hành các kênh mạng xã hội của Trường Cao đẳng Kon Tum | Đang có hiệu lực | `QD-2309-QD-CDKT-Quy-che-quan-ly-van-hanh-MXH.docx` |
 | 2328/QĐ-CĐKT | 21/10/2026 | Quyết định ban hành Quy định quy tắc ứng xử về sử dụng trí tuệ nhân tạo (AI) | Đang có hiệu lực | `QD-2328-QD-CDKT-Quy-dinh-quy-tac-ung-xu-su-dung-AI.docx` |
+| 2487/QĐ-CĐKT | 03/11/2026 | Quyết định ban hành Danh mục các hệ thống trí tuệ nhân tạo (AI) được phép sử dụng trong hoạt động của nhà trường (Phụ lục: 10 công cụ) | Đang có hiệu lực kể từ ngày ký (Điều 2) | `QD-2487-QD-CDKT-Danh-muc-he-thong-AI-duoc-phep-su-dung.docx` |
 
 ## 03-Don-Vi-Truc-Thuoc – Chức năng, nhiệm vụ đơn vị; ban, tổ
 
@@ -82,7 +86,8 @@ Kho đóng gói cục bộ của Skill ktc-ra-soat-897: **toàn văn** các văn
 - **QĐ 1976/QĐ-CĐKT** (14/9/2026) là căn cứ về cơ cấu tổ chức, thẩm quyền (Điều 21–22); không dùng QĐ 988, QĐ 49.
 - **QĐ 2073/QĐ-CĐKT** (23/9/2026) – Quy chế làm việc: quy trình soạn thảo, góp ý, tiếp thu (Điều 17–18), thẩm quyền ký (Điều 6 k3, Điều 19).
 - **TB 597/TB-CĐKT** và **QĐ 1355/QĐ-CĐKT** là căn cứ thể thức, tên đơn vị, tên cơ sở ưu tiên trước NĐ 30 (xem `references/Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md`, `03-Danh-Muc-Don-Vi-Va-Co-So.md`). TB 597 viện dẫn QĐ 988 vì ký ngày 19/5/2026 – không phải lỗi của TB 597.
-- **QĐ 2264, 2307, 2309, 2328** – nhóm an ninh mạng, AI, mạng xã hội: luôn đưa vào ma trận đối chiếu khi dự thảo cùng chủ đề.
+- **QĐ 2264, 2307, 2309, 2328** – nhóm an ninh mạng, AI, mạng xã hội: luôn đưa vào ma trận đối chiếu khi dự thảo cùng chủ đề; chủ đề AI luôn gồm thêm **QĐ 2487** (v4.6.4 – quyết định Q1). Luật 116/2025/QH15, 134/2025/QH15 là căn cứ thường gặp của nhóm an ninh mạng, AI.
+- **QĐ 2487/QĐ-CĐKT** (03/11/2026) – Danh mục 10 hệ thống AI được phép sử dụng (tên công cụ, nhà cung cấp, mục đích, nhóm người dùng, loại dữ liệu được phép xử lý theo Phụ lục I QĐ 2307, mức độ rủi ro, đơn vị quản lý); văn bản cùng chủ đề AI trong Kho (đối chiếu theo SKILL Bước 4.2 “văn bản cùng chủ đề trong Kho”). Có trong Kho từ v4.6.3: dự thảo dẫn QĐ 2487 không phải cung cấp toàn văn. Căn cứ của QĐ 2487 (Luật An ninh mạng 116/2025/QH15, Luật Giáo dục nghề nghiệp 124/2025/QH15, Luật Trí tuệ nhân tạo 134/2025/QH15 – cùng ngày 10/12/2025) có trong Kho từ v4.6.4 (01-Legal-Database).
 - **Ban Truyền thông** thuộc phòng TH-HC&QT (QĐ 2041 Điều 4 k3; Quy chế làm việc QĐ 101/2025). QĐ 344/2021, QĐ 1387/2020 chỉ là tư liệu lịch sử.
 - **Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15** và **NĐ 356/2025/NĐ-CP** (hiệu lực 01/01/2026) thay NĐ 13/2023/NĐ-CP – văn bản căn cứ thường gặp của nhóm AI, dữ liệu.
 - **Pháp lệnh 01/2026/UBTVQH16** – viện dẫn văn bản hợp nhất (Điều 4 sửa đổi); xem `references/Quy-Tac-KTC/04-Vien-Dan-Van-Ban-Hop-Nhat.md`.

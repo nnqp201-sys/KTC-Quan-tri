@@ -75,7 +75,7 @@ def bien_ban(Y, mau, out):
     for i, n in enumerate(Y["y_kien"], 1):
         ys = [y["noi_dung"].rstrip(".") for y in n["y"]]
         ys = [ys[0]] + [t[:1].lower() + t[1:] for t in ys[1:]]
-        ten = ten_nguoi(n)
+        ten = n.get("ten_bb") or ten_nguoi(n)
         dong(i, ten[:1].upper() + ten[1:] + ": " + "; ".join(ys))
     gt = [(n, y) for n in Y["y_kien"] for y in n["y"] if y["xu_ly"] == "GT"]
     if gt:
@@ -129,7 +129,7 @@ def bc_tiep_thu(Y, mau, out):
     i_md = [i for i, p in enumerate(P) if p.text.startswith("Ngày ")][0]
     dat(P[i_md], [f"Tại cuộc họp ngày {h['ngay']}, các thành viên {to['ten']} (thành lập theo {to['qd']}) đã tham gia ý kiến góp ý "
                   f"dự thảo {de_an['ten']} ({de_an['lan']}); {h['chu_tri_ngan']} kết luận. Trên cơ sở ý kiến góp ý và kết luận của chủ trì, "
-                  f"{to['ten']} báo cáo tiếp thu, giải trình cụ thể như sau:"])
+                  + (Y.get("mo_dau_them") or "") + f"{to['ten']} báo cáo tiếp thu, giải trình cụ thể như sau:"])
     i_kt = [i for i, p in enumerate(P) if p.text.startswith("Trên đây")][0]
     dat(P[i_kt], [f"Trên đây là Báo cáo tiếp thu, giải trình ý kiến góp ý dự thảo {de_an['ten']} ({de_an['lan']}); {to['ten']} tiếp tục "
                   "chỉnh lý, hoàn thiện hồ sơ Đề án theo nội dung Báo cáo này, trình Hiệu trưởng xem xét, phê duyệt./."])
@@ -138,9 +138,11 @@ def bc_tiep_thu(Y, mau, out):
     r_nhom, r_muc = copy.deepcopy(T.rows[1]._tr), copy.deepcopy(T.rows[2]._tr)
     for r in list(T.rows)[1:]:
         T._tbl.remove(r._tr)
-    nhom_list = [(ten_nguoi(n) and f"Ý kiến của {ten_nguoi(n)}", n["y"]) for n in Y["y_kien"]]
+    nhom_list = [(n.get("nhan") or f"Ý kiến của {ten_nguoi(n)}", n["y"]) for n in Y["y_kien"]]
     if Y.get("ket_luan"):
-        nhom_list.append((f"Kết luận của {h['chu_tri_ngan']}", [dict(k, xu_ly="TT") for k in Y["ket_luan"]]))
+        nhom_list.append((f"Kết luận của {h['chu_tri_ngan']}", [dict(k, xu_ly=k.get("xu_ly", "TT")) for k in Y["ket_luan"]]))
+    for g in Y.get("nhom_them") or []:  # y kien bo sung sau cuoc hop (khong ghi vao bien ban)
+        nhom_list.append((g["nhan"], g["y"]))
     for i, (ten, ys) in enumerate(nhom_list, 1):
         cs = nhan_ban_dong(T, r_nhom)
         dat(cs[0].paragraphs[0], [str(i)])

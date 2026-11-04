@@ -48,3 +48,22 @@ Cuối báo cáo:
 - số nhiệm vụ **đủ điều kiện đưa vào báo cáo** (có minh chứng mở được và khớp sơ bộ);
 - danh sách **chưa được đưa vào** kèm lý do;
 - **đoạn nhắn ngắn cho từng đơn vị** cần bổ sung, để P-THHC chép gửi.
+
+## Khớp việc với số hiệu từ "Văn bản đã xử lý" (QLVB&ĐH) — hồ sơ KPI cá nhân
+
+Dùng khi người dùng đưa tệp xuất từ Hệ thống QLVB&ĐH (`office.quangngai.gov.vn`, skill `bao-cao` Skill 38) để
+điền cột minh chứng cho hồ sơ tự đánh giá KPI.
+
+1. Lấy bảng việc từ bảng hỏi (`Bang-hoi-*.xlsx`, sheet `B-KPI`) và bảng văn bản đã xử lý (số hiệu, ngày, trích yếu).
+2. Ghép theo thứ tự ưu tiên, **ghi rõ mức tin cậy cho từng cặp**:
+
+| Mức tin cậy | Khi nào | Được tự điền? |
+|---|---|---|
+| `CHẮC` | Số hiệu do người dùng đã ghi sẵn trong bảng hỏi, hoặc trích yếu chứa đúng tên sản phẩm và đúng kỳ | Có — ghi kèm số hiệu, ngày |
+| `GẦN ĐÚNG` | Trích yếu trùng chủ đề nhưng khác cách diễn đạt, hoặc nhiều văn bản cùng khớp | **Không** — liệt kê ứng viên để người dùng chọn |
+| `KHÔNG THẤY` | Không có văn bản nào khớp | **Không** — ghi `CẦN XÁC NHẬN`, nêu khả năng việc không yêu cầu minh chứng |
+
+3. Kết quả xuất ra CSV đúng ba cột `ma_viec, so_hieu, nguon` để nạp thẳng vào
+   `29-Cong-Cu/lap_ho_so_minh_chung.py --tra-minh-chung`. Khóa `ma_viec` ghi dạng `B<stt>` (chuỗi), không ghi số trần.
+4. **Tuyệt đối không tự điền số hiệu khi chỉ suy từ nội dung gần giống** — đây là nguồn sai nặng nhất của hồ sơ
+   minh chứng: một số hiệu sai làm hỏng cả dòng và khó phát hiện khi rà soát.

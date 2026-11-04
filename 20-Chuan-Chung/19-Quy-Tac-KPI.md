@@ -32,9 +32,16 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
   sau khi tạo** (HDSD VNPT–ĐGCB v2.0, mục IV.2.4.2.2). Mã QĐ 2119 (`1.1.KH01.04`) giữ làm **mã tham chiếu** để
   tra hệ số, Trục, Nội hàm. Mọi kế hoạch, bản cam kết, báo cáo đều ghi mã chính; ghi kèm mã QĐ 2119 khi cần
   viện dẫn hệ số.
-- `N1`–`N5` = Nhóm 1–5 theo QĐ 2119 (đối chiếu 27/10/2026: khớp 416/455 sản phẩm, **0 mã lệch nhóm**).
-  `T1`–`T6` = 38 sản phẩm Trường khai thêm, **chưa có trong QĐ 2119 → chưa có hệ số**; cùng `N1_460` là
-  39 mã ghi `THIEU_DU_LIEU`. **Không suy hệ số từ tiền tố, không tự đặt hệ số.**
+- Phần mềm có **hai trường phân loại riêng** (HDSD VNPT–ĐGCB v2.0, tr. 30–32 và tr. 35):
+  - *Nhóm SPCV* — phân loại **mức độ phức tạp** qua **điểm tối đa** (`N1`=100 … `N5`=500);
+    `N1`–`N5` = **Nhóm 1–5 của QĐ 2119** (đối chiếu 27/10/2026: khớp 416/455, **0 mã lệch nhóm**);
+  - *Lĩnh vực SPCV* — `T1`–`T6` = **Trục (1)–(6)** theo TB 817 (bằng chứng: video HDSD 27/10/2026 phút ~2:16,
+    ảnh lưu `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/Bang-chung_Linh-vuc-SPCV-la-Truc_*.png`).
+- **Hệ số trên phần mềm = hệ số QĐ 2119 theo từng sản phẩm** — kiểm chứng số thật: `N2_219` (1,2) → 50 × 1,2 =
+  60,00; `N2_220` (1,5) → 5 × 1,5 = 7,50; tổng 67,50 đúng như phần mềm.
+- 38 mã `T` là sản phẩm **chưa được gán Nhóm** (nên mã đặt theo Lĩnh vực), cùng `N1_460` thành 39 mã
+  `THIEU_DU_LIEU`: **Trục đã chắc chắn, còn thiếu Nhóm và hệ số**. Đề nghị P-TCCB gán Nhóm, xác nhận hệ số và
+  bổ sung danh mục theo Điều 3 QĐ 2119. **Không suy hệ số từ tiền tố, không lấy hệ số của sản phẩm cùng họ.**
 - Tra: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`; giải thích đầy đủ ở
   `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` cùng thư mục. Sinh lại: `29-Cong-Cu/trich_danh_muc_pm_kpi.py`.
   Xuất tệp nạp lên phần mềm: `29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp>`.

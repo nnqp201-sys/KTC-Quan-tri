@@ -187,7 +187,9 @@ print("== T9. Không số nào đổi: tổng điểm, A, B, từng Trục, mứ
 CHUAN = {"truong-pho-don-vi": (74.282353, 24.0, 50.282353), "bo-mon": (72.54902, 24.0, 48.54902),
          "nha-giao": (72.54902, 24.0, 48.54902), "giao-vu": (78.184314, 24.0, 54.184314),
          "hanh-chinh": (78.184314, 24.0, 54.184314), "ho-tro": (83.521569, 24.0, 59.521569)}
-B = [(4, 100, 90, "Vượt mức"), (1, 80, 100, "Hoàn thành đúng hạn"), (2, 100, 60, "Hoàn thành chậm tiến độ"),
+# 28/10/2026: dong 1 tien do 90% -> nhan "Hoàn thành chậm tiến độ" (khai "Vượt mức" khi tien do < 100 la mau thuan,
+# NQ01 chan). Diem KHONG phu thuoc nhan ket qua nen so ky vong CHUAN giu nguyen.
+B = [(4, 100, 90, "Hoàn thành chậm tiến độ"), (1, 80, 100, "Hoàn thành đúng hạn"), (2, 100, 60, "Hoàn thành chậm tiến độ"),
      (1, 100, 100, "Hoàn thành đúng hạn")]
 for nhom, (tong, a, b) in CHUAN.items():
     p, _ = lap(nhom, [dv(1, "Tổng hợp báo cáo công tác tháng", 3), dv(1, "Xây dựng kế hoạch quý", 1, "Cao"),

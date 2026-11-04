@@ -1,4 +1,4 @@
-# 05 – Cổng hồ sơ bắt buộc (v4.5, 27/10/2026)
+# 05 – Cổng hồ sơ bắt buộc (v4.6, 02/11/2026; bổ sung kỹ thuật v4.6.2 – mục 2c; v4.6.3 – mục 2d; v4.6.4 – mục 2e)
 
 Căn cứ: chỉ đạo của Hiệu trưởng ngày 26/10/2026 (mục “cửa chặn bắt buộc” và trả lời điểm 3); QĐ 2073/QĐ-CĐKT Điều 17 khoản 2, Điều 18 (đơn vị chủ trì phải báo cáo bằng văn bản việc tiếp thu, giải trình); quyết định của Hiệu trưởng ngày 26/10/2026 (điểm 3 – so sánh hai bản; điểm 4 – tài liệu mật do người dùng tự bảo đảm).
 
@@ -10,7 +10,7 @@ Căn cứ: chỉ đạo của Hiệu trưởng ngày 26/10/2026 (mục “cửa 
   ```
   python3 <thư mục skill>/tools/kiem_ke_ho_so.py <thư mục hoặc các tệp người dùng gửi> [--tac-vu ra-soat|so-sanh|chuan-hoa] [--vong 1|2|...] [--du-thao <tệp>] [--vai-tro "<tên tệp>=<vai trò>" …] [--xuat-anh <thư mục>] --json cong.json
   ```
-  Mã thoát 0 = ĐỦ; 2 = CHẶN. Kết quả script đưa nguyên văn vào Phần I.7 của báo cáo (khi ĐỦ) hoặc gửi nguyên văn mục “Thông báo gửi người dùng” (khi CHẶN).
+  Mã thoát 0 = ĐỦ; 2 = CHẶN. v4.6: `--kiem-moi-truong` in tình trạng công cụ phụ thuộc; tệp nêu ở `--vai-tro`, `--du-thao`, `--xac-nhan-kem` và đường dẫn đầu vào phải có thật trong hồ sơ, vai trò phải thuộc danh sách – sai thì script dừng và báo lỗi (KTS-07). Kết quả script đưa nguyên văn vào Phần I.7 của báo cáo (khi ĐỦ) hoặc gửi nguyên văn mục “Thông báo gửi người dùng” (khi CHẶN).
 
 ## 2. Điều kiện chặn
 | Mã | Điều kiện | Xử lý |
@@ -25,7 +25,7 @@ Căn cứ: chỉ đạo của Hiệu trưởng ngày 26/10/2026 (mục “cửa 
 | G8 | Báo cáo tiếp thu, giải trình lập trước ngày của báo cáo rà soát lần trước (không phải báo cáo tiếp thu kết quả rà soát) | CHẶN |
 
 
-Tài liệu mật, tài liệu không được phép đưa lên AI (QĐ 2307/QĐ-CĐKT): **người dùng tự chịu trách nhiệm không đưa lên** (quyết định của Hiệu trưởng 26/10/2026, điểm 4). Cổng không kiểm điều này; Skill không hỏi lại.
+Tài liệu mật, tài liệu không được phép đưa lên AI (QĐ 2307/QĐ-CĐKT): **người dùng tự chịu trách nhiệm không đưa lên** (quyết định của Hiệu trưởng 26/10/2026, điểm 4). Cổng không kiểm điều này; Skill không hỏi lại. Hệ thống AI được phép và loại dữ liệu được xử lý: Danh mục ban hành kèm theo QĐ 2487/QĐ-CĐKT ngày 03/11/2026 (Claude thuộc mục 2; v4.6.4 – Q3).
 
 Áp dụng theo tác vụ:
 | Tác vụ | Điều kiện áp dụng | Lệnh |
@@ -41,6 +41,40 @@ Không chặn:
 - Văn bản có sẵn trong Kho (`kho_manifest.json`): dùng bản trong Kho.
 - Đơn vị, ban, tổ có trong `03-Danh-Muc-Don-Vi-Va-Co-So.md`: không đòi văn bản thành lập.
 - Báo cáo tiếp thu, giải trình ý kiến **góp ý** của các đơn vị ở lần rà soát đầu tiên: là tài liệu liên quan, không làm hồ sơ thành “lần 2”.
+
+## 2a. Bổ sung v4.6 (02/11/2026 – theo báo cáo kiểm toán 01/11/2026)
+- **Nhận diện số, ký hiệu dùng chung** (`tools/nhan_dien_chung.py`, KTS-01): khoảng trắng trình bày (dấu cách, khoảng trắng không ngắt, zero-width, tab, xuống dòng mềm) và dấu gạch tương đương không làm đổi số hiệu; bỏ khoảng trắng quanh “/” và “-” khi hai bên là chữ số/chữ in hoa (“9090 / QĐ - CĐKT” = “9090/QĐ-CĐKT”). Chứng cứ (nguyên văn, đoạn) giữ theo bản gốc. Xử lý Unicode theo thuộc tính ký tự, không theo danh sách cố định.
+- **Một tài liệu – một ứng viên** (KTS-02, KTS-03): Kho chỉ tính là có toàn văn khi tệp có thật và đọc được chữ (.docx hoặc bản text .md); có từ hai tệp **khác nội dung** cùng đáp ứng một viện dẫn (kể cả dạng rút gọn) → “MƠ HỒ”, CHẶN, đề nghị giữ đúng một tệp; tệp trùng từng byte được gộp. Tên luật phải **khớp đúng**: “Luật Giáo dục” không được đáp ứng bằng “Luật Giáo dục nghề nghiệp” và ngược lại (“THIẾU – chỉ có luật tên gần giống”).
+- **Luật có VBHN** (PH-02): theo `04-Vien-Dan-Van-Ban-Hop-Nhat.md` mục 5 – 01 VBHN khớp số, ngày, luật được hợp nhất thì đủ; lệch → CHẶN “không khớp”; nguồn là xác nhận của người phụ trách ngày 02/11/2026, chưa có văn bản.
+- **Tiêu đề văn bản kèm theo** (KTS-26, PH-01): một cách nhận diện cho văn bản kèm theo trong tệp dự thảo và tệp riêng – dòng bắt đầu bằng tên loại (QUY ĐỊNH, QUY CHẾ, DANH MỤC…) và toàn dòng in hoa theo thuộc tính Unicode; không giới hạn độ dài. Tên luật ở tiêu đề tệp luật ghép tối đa 3 dòng in hoa, bỏ qua đoạn trống.
+- **Ghép phụ lục, văn bản kèm theo** (KTS-04, KTS-05): ghép 1:1 tối ưu (không để thứ tự tệp quyết định); tác vụ so sánh: một tệp kèm theo riêng chỉ đáp ứng văn bản kèm theo của **một** bản (hai bản dùng chung thì nộp hai bản sao – chưa có cơ chế khai báo dùng chung); phụ lục được nhắc trong tệp kèm theo riêng cũng phải có trong hồ sơ.
+- **Lần rà soát theo tên tệp** (KTS-06): nhận “lần 2…lần 10…” không phân biệt dấu (“lan 2”), không nhầm “lần 1”, “lần 10” với “lần 1…”.
+- **Ngày của tài liệu** (KTS-22): chỉ lấy ngày ở dòng “<Địa danh>, ngày … tháng … năm …” (≤ 90 ký tự, ngày hợp lệ), không lấy ngày trong câu căn cứ.
+- **PDF khi thiếu công cụ** (KTS-23): thiếu `pdftotext` → CHẶN vì lỗi môi trường, không quy thành PDF scan.
+- **Kết quả cổng** thêm `duong_dan` (đường dẫn tuyệt đối từng tệp), `kho`, `vbhn_thay_luat_goc`, `phien_ban`. `tao_bao_cao.py` dùng `duong_dan` để tính lại mã băm và đối chiếu trích dẫn – kết quả cổng của v4.5 (không có `duong_dan`) phải chạy lại.
+
+## 2b. Bổ sung v4.6.1 (02/11/2026 – theo nghiệm thu độc lập lần 1; quyết định người phụ trách cùng ngày)
+- **Toàn văn phải có thân văn bản (N12)**: tệp nguồn chỉ có phần định danh (quốc hiệu, tiêu ngữ, tên cơ quan, “Số:”, dòng địa danh – ngày, tên loại, trích yếu) không phải toàn văn → CHẶN, kể cả VBHN. Có thân khi phần sau định danh có dấu hiệu cấu trúc (Điều/Chương/Mục/Phần/Phụ lục, khoản – điểm đánh số, “Căn cứ…”, “Thực hiện…”) hoặc đoạn văn xuôi ≥ 15 từ. Điều kiện phụ, **tạm thời**: thân ≥ 30 ký tự chữ (chặn “thân” chỉ có “Điều 1.”) – ngưỡng là vấn đề mở của tác giả. Kho của Skill không áp tiêu chí này (đã tuyển chọn).
+- **Gộp theo phần nội dung (N46)**: hai tệp cùng định danh có mã băm các phần nội dung trùng (.docx: thân, đầu/chân trang, chú thích, đánh số, ghi chú, ảnh và tệp nhúng, liên kết; .xlsx: ô, trang tính) là MỘT văn bản – bỏ metadata (docProps: tác giả, ngày tạo/sửa), settings, styles, theme; cổng ghi đủ tên và đường dẫn các tệp đã gộp (`ghi_chu`, `gop_trung_noi_dung`, I.7). Khác chữ ở bất kỳ phần nội dung nào (kể cả đầu trang) → vẫn “MƠ HỒ”, CHẶN.
+- **Một bộ phân giải tên tệp (N07, N09)**: `--vai-tro`, `--du-thao`, `--xac-nhan-kem` nhận tên như cổng ghi, tên ngắn duy nhất hoặc đường dẫn tuyệt đối, bỏ khoảng trắng ngoài tên; kiểm và áp dụng cùng một kết quả.
+- `--kiem-moi-truong` chạy được không cần đường dẫn hồ sơ (N34).
+- Kết quả cổng có `dinh_danh` (số hiệu, tên luật của từng tệp) để trình dựng gắn trích dẫn với đúng văn bản.
+
+## 2c. Bổ sung v4.6.2 (02/11/2026 – ứng viên kỹ thuật sau nghiệm thu độc lập lần 2; CHƯA nghiệm thu)
+- **Trích yếu nhiều đoạn (F08, thực hiện N12)**: trích yếu sau tên loại có thể xuống 2–4 đoạn; được nhận theo cấu trúc (không dấu hiệu thân, không kết thúc bằng dấu câu của câu văn, không in hoa toàn bộ, không canh đều hai lề) – không theo độ dài. Tệp chỉ có định danh + trích yếu nhiều dòng → CHẶN. Ngưỡng 30 ký tự vẫn là vấn đề mở.
+- **Tham số chạy (F11)**: kết quả cổng ghi `tham_so` (đường dẫn đầu vào tuyệt đối, tác vụ, vòng, `--vai-tro`, `--du-thao`, `--xac-nhan-kem`, Kho, thư mục chạy). `tao_bao_cao.py` chạy lại cổng với đúng tham số này và từ chối JSON cổng không khớp. Ranh giới tin cậy (tham số là đầu vào hợp lệ, in ở I.7) chờ người phụ trách xác nhận.
+
+## 2d. Bổ sung v4.6.3 (03/11/2026 – sửa hoàn thiện sau nghiệm thu độc lập lần 3)
+- **Kho ngoài gói bị TỪ CHỐI (D2 – quyết định 02/11/2026, ưu tiên số 1)**: `--kho` phải trỏ Kho của gói. Script so đường dẫn thực đã chuẩn hóa theo hệ điều hành (giải liên kết tượng trưng, “..”, “.”; hoa thường trên Windows): cách viết tương đương của chính Kho gói được nhận (script dùng đường dẫn chuẩn); bản sao Kho ở nơi khác, thư mục liên kết tới nơi khác, tệp không tồn tại → CHẶN, không nạp Kho đó. Trước v4.6.3 chỉ cảnh báo chữ đỏ ở I.7.
+- **Toàn văn phải có thân – quy tắc cấu trúc (N12, D8 giữ)**: (1) phần định danh: quốc hiệu, tiêu ngữ, tên cơ quan, “Số:”, dòng địa danh – ngày, “V/v …”, tên loại (in hoa, hoặc viết thường đầu đoạn: “Quyết định về việc…”); (2) đoạn ĐẦU sau tên loại luôn là trích yếu; tối đa 4 đoạn liền sau vẫn là trích yếu trừ khi gặp dấu hiệu cấu trúc thân (Điều/Chương/Mục/Phần/Phụ lục, khoản – điểm đánh số, gạch đầu dòng, “Kính gửi”, khối căn cứ, “Nơi nhận”, dòng in hoa) hoặc một câu thân rõ ràng (kết thúc bằng dấu câu VÀ căn lề khác đoạn trích yếu đầu VÀ không mở đầu bằng chữ thường); (3) thân = phần còn lại, bỏ dòng căn cứ/“Thực hiện…”/“Xét đề nghị…”, dòng in hoa, “Kính gửi”, và từ “Nơi nhận” trở đi; có thân khi đủ 30 ký tự. Độ dài, căn lề, dấu câu cuối, in hoa hay MỘT cụm mở đầu không một mình kết luận đã có thân.
+  Giới hạn đã công bố: văn bản rất ngắn chỉ có ≤ 4 đoạn văn xuôi sau tên loại, cùng căn lề với trích yếu, không có dấu hiệu cấu trúc → không xác định được thân → CHẶN (đề nghị cung cấp toàn văn) – không tự nhận ĐỦ. PDF không có thông tin căn lề nên chỉ dựa dấu hiệu cấu trúc. Đối chứng: toàn bộ 36 tệp .docx của Kho được nhận là có thân.
+- **.xlsx** đọc theo từng hàng (ô cách nhau “ | ”): dòng “Số: …” trong ô được nhận làm số hiệu; bảng không bị coi là phần định danh khi ô đầu là “Số:”.
+- **`--json`** không được trùng tệp hồ sơ hoặc Kho; thư mục phải có; ghi qua tệp tạm – lỗi ghi → “LỖI GHI KẾT QUẢ”, mã 2, không để JSON dở dang.
+
+## 2e. Bổ sung v4.6.4 (03/11/2026 – quyết định Q5 của người phụ trách)
+- **Xác nhận thủ công toàn văn cho văn bản nguồn rất ngắn**: `--xac-nhan-toan-van "<tệp>=<lý do ≥ 20 ký tự>"` (lặp lại cho từng tệp), tương tự `--xac-nhan-kem` (quyết định F1). Dùng khi cổng không xác định được thân theo cấu trúc (giới hạn mục 2d) nhưng người rà soát đã MỞ ĐỌC tệp và xác định đó là toàn văn.
+- Điều kiện: tệp có trong hồ sơ (tên như cổng ghi), vai trò văn bản liên quan/kèm theo (không dùng cho dự thảo, báo cáo rà soát, báo cáo tiếp thu); lý do ≥ 20 ký tự sau chuẩn hóa khoảng trắng; tệp phải có nội dung NGOÀI phần định danh và đoạn trích yếu đầu – tệp chỉ có định danh và một đoạn trích yếu vẫn CHẶN (N12, không hạ yêu cầu toàn văn). Tệp cổng đã nhận có thân → ghi chú “không cần xác nhận”, không ghi.
+- Kết quả cổng ghi `xac_nhan_toan_van_thu_cong` (tệp, lý do, số ký tự thân nhận được) và `tham_so.xac_nhan_toan_van`; báo cáo in ở I.7 bằng chữ đỏ để người ký xem lại; trình dựng tính lại cổng với đúng tham số này.
 
 ## 3. Xác định lần rà soát
 - Người dùng nói rõ “rà soát lần 2/3…”, “rà soát lại sau khi sửa”, “kiểm tra việc tiếp thu” → lần ≥ 2 (`--vong 2`).

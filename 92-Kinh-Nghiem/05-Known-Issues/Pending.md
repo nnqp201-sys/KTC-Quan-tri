@@ -1,13 +1,21 @@
 # Known Issues — KTC-Quan-tri
 
-> **29/10/2026 — Tích hợp ktc-ra-soat-897 v4.5 (`DL-20261029-001`):** xong B1–B7 (`2A-KTC-Ra-Soat-897/`). **Còn mở:** (1) ~~đề xuất Hệ C, Hệ D cho Phòng QLKHCN&HTPT~~ **không gửi** — người phụ trách chốt 29/10: bản tích hợp phát triển cho **cá nhân**, Hệ C/D chỉ dùng trong `Bo-Sung-Ca-Nhan/`; (2) báo cáo lệch kho `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH`, 15 `KHONG_THAY`) — đề xuất người quản lý kho kiểm; NĐ 78, 79, 187/2025 chưa có trong kho; (3) `31-Plugin/` còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien` — dồn cho 1.3.14; (4) quy ước viết hoa sau mọi dấu hai chấm cần văn bản Trường làm nguồn; (5) ~~tên thư mục `2A-` là tạm~~ **đã chốt giữ `2A-`**; (6) khi `kiem_the_thuc.py --v45` và thước dự án lệch cùng chỉ tiêu: lấy v4.5, ghi vào đây.
+> **30/10/2026 — KI-021: Cổng hồ sơ 897 (lõi v4.5) — ĐÃ SỬA.** Lệnh `30-Ket-Qua/2026-10-30/Lenh-VSCode/LENH-Sua-cong-ho-so-897_20261030.md`.
+> Sửa N1 (khoảng trắng `key_so()`), N2 (`_ptext()` xử lý `noBreakHyphen`), N3 (`--kho-ngoai` tra KTC-Database), N4 (PDF scan
+> trạng thái riêng), N5 (chỉ dẫn số liệu không đòi toàn văn), N6 (`DON_VI_DEM` loại trừ "phụ lục 06 học sinh"), N8 (văn bản
+> Đảng `số-loại/cơ quan`). Ca thử `test_cong_ho_so_897.py`: 10/10 đạt. Decision Log: `DL-20261030-001-Sua-cong-ho-so-897.md`.
+> Phiên bản lõi: **v4.5-ca-nhan.1** (lệch gói Trường TB 1206). **Còn mở:** (1) cập nhật `LOI-V45.sha256`; (2) chạy T7 golden
+> test với BC v8 + KTC-Database; (3) đề xuất gửi P-QLKHCN đưa vào bản chính thức; (4) N7 (lớp ngoài chèn `noBreakHyphen`)
+> thuộc `29-Cong-Cu/sua_bc_v2.py` — sửa riêng.
+
+> **29/10/2026 — Tích hợp ktc-ra-soat-897 v4.5 (`DL-20261029-001`):** xong B1–B7 (`2A-KTC-Ra-Soat-897/`). **Còn mở:** (1) đề xuất **Hệ C (VBQPPL)** và **Hệ D (Công đoàn, Đoàn, Hội SV)** — gửi `Bo-Sung-Ca-Nhan/01`, `02` cho đơn vị quản lý Skill (Phòng QLKHCN&HTPT) xem xét đưa vào bản chính thức kế tiếp; (2) báo cáo lệch kho `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH`, 15 `KHONG_THAY`) — đề xuất người quản lý kho kiểm; NĐ 78, 79, 187/2025 chưa có trong kho; (3) `31-Plugin/` còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien` — dồn cho 1.3.14; (4) quy ước viết hoa sau mọi dấu hai chấm cần văn bản Trường làm nguồn; (5) ~~tên thư mục `2A-` là tạm~~ **đã chốt giữ `2A-`**; (6) khi `kiem_the_thuc.py --v45` và thước dự án lệch cùng chỉ tiêu: lấy v4.5, ghi vào đây.
 
 > **29/10/2026 — chốt của người giao sau tích hợp 897 v4.5; 4 việc còn mở:**
 > 1. **Rà soát đầy đủ thật** (Bước 0–7, có phần chấm nội dung) một hồ sơ, chạy trên bản Team và bản cá nhân để so kết quả; nghiệm thu #3 mới chạy kỹ thuật, chưa chấm nội dung.
 > 2. **Bổ sung NĐ 78/2025, NĐ 79/2025, NĐ 187/2025 vào KTC-Database** (người quản lý kho nạp; kho chỉ đọc với Claude); khi có thì cập nhật `Bo-Sung-Ca-Nhan/01`.
 > 3. **Đóng gói lại 1.3.14** (plugin còn tham chiếu `KTC-Ra-Soat-897-v2-Cai-tien`; nguồn rời mới hơn gói — C4 24 cảnh báo; gồm các việc dồn từ 28/10).
 > 4. **Kiểm 17 mục lệch kho** trong `30-Ket-Qua/2026-10-29/dong-bo-kho-897/Bao-cao-lech.md` (2 `LECH` + 15 `KHONG_THAY`).
-> Đã chốt: dòng phiên bản ghi ở `[Bổ sung – tham khảo] Phiên bản`; không đưa quy ước dấu hai chấm; giữ mã `2A-`; Hệ C, D **giữ trong lớp bổ sung cá nhân, không gửi** đơn vị quản lý Skill (chốt lại 29/10).
+> Đã chốt: dòng phiên bản ghi ở `[Bổ sung – tham khảo] Phiên bản`; không đưa quy ước dấu hai chấm; giữ mã `2A-`; **gửi Hệ C, D cho Phòng QLKHCN&HTPT** (`Bo-Sung-Ca-Nhan/01`, `02`).
 
 > **28/10/2026 — `ktc-kpi-tu-danh-gia` v1.4 (lệnh nâng cấp sau hồ sơ Q3, `DL-20261028-001`):** bộ kiểm NQ01–NQ10,
 > bảng hỏi 6 cột mới, C08/C09 tự suy từ sheet B, mẫu Phụ lục II/VII báo rõ; `lap_ho_so_minh_chung.py`,
@@ -602,3 +610,5 @@ SKILL.md quan-tri 1.13 và TB v4 (Track Changes). **Chưa sửa nguồn** — ch
 phụ trách tự chạy** theo phiếu `PHIEU-NGHIEM-THU-CHAT-COWORK-1.3.3.md` (hồ sơ vòng 5, nhóm 2-Nghiem-thu).
 
 **Cập nhật 26/9/2026 (tối, sau thẩm định lần 2):** plugin 1.3.0 SHA-256 `2d0c795a…4c87`, mã nguồn commit `c95507e`, hồ sơ bằng chứng tự động (`29-Cong-Cu/lap_bang_chung_plugin.py`). Nghiệm thu Claude Code 6/6 ca (`claude plugin eval`, `29-Cong-Cu/chay_nghiem_thu_code.py`) — ca ghi kho chuẩn chưa kích hoạt guard trong môi trường eval. Máy phát triển đã nâng 1.2.1 → 1.3.0 (bản cũ ở `~/.claude/ktc-marketplace/ktc-quan-tri.bak-1.2.1`). Tự học: chủ máy bật `KTC_NHAT_KY_NOI_DUNG=1` ở `.claude/settings.local.json` (chỉ lời có tín hiệu, đã che dữ liệu). **Còn mở:** nghiệm thu Chat/Cowork theo `30-Ket-Qua/2026-09-26/Nghiem-thu/PHIEU-NGHIEM-THU-CHAT-COWORK.md`; kiểm kê cấp tổ chức (Phòng QLKHCN&HTPT); thẩm định vòng 3; ca eval cho guard cần thư mục giả (scaffold) khi có sandbox.
+
+> 29/10/2026 — Hồ sơ phương án sắp xếp CSGDNN v4: thước chính v4.5 có 0 lỗi Mức 1–2; thước phụ báo TT11B ở phụ lục vì hiện số trang đầu, trong khi v4.5 yêu cầu phụ lục nhiều trang đánh từ 1 và hiện số trang đầu. Lấy v4.5, giữ số trang phụ lục. Nhật ký phép đo: 29-Cong-Cu/_trung_gian/sap-xep-20261029/kiem-the-thuc-final.txt. Không thay thước đo trong tác vụ này.

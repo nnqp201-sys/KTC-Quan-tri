@@ -1,0 +1,120 @@
+# Bảng ý kiến họp góp ý Đề án Hạng A (lần 1), họp 26/10/2026 + ý kiến bổ sung sau họp (29/10/2026).
+# Kế thừa lời văn anh đã sửa tay trong BC-To-XDDA_..._20261026_sua-duong-ke.docx; cập nhật theo hồ sơ lần 2 (29/10).
+ma: "De-an-Hang-A-lan-1"
+de_an:
+  ten: "Đề án triển khai đào tạo và sát hạch lái xe mô tô Hạng A tại Trường Cao đẳng Kon Tum"
+  ten_dong_1: "Đề án triển khai đào tạo và sát hạch lái xe mô tô Hạng A"
+  ten_dong_2: "tại Trường Cao đẳng Kon Tum"
+  lan: "lần 1"
+to:
+  ten: "Tổ xây dựng Đề án"
+  ten_hoa: "TỔ XÂY DỰNG ĐỀ ÁN"
+  qd: "Quyết định số 1944/QĐ-CĐKT ngày 07/9/2026 của Hiệu trưởng"
+  ky_hieu: "BC-TXDĐA"
+  to_truong: "Dương Văn Anh Dũng"
+  noi_nhan: ["- Như trên;", "- Thành viên Tổ xây dựng Đề án;", "- Lưu: VT, Tổ XDĐA."]
+kinh_gui: "Hiệu trưởng nhà trường"
+chu_the_tiep_thu: "Tổ xây dựng Đề án"
+mo_dau_them: "ý kiến chỉ đạo bổ sung của Hiệu trưởng, Phó Hiệu trưởng ngày 29/10/2026 và ý kiến của các thành viên sau cuộc họp, "
+cuoc_hop:
+  ngay: "26/10/2026"
+  gio_bat_dau: null
+  gio_ket_thuc: null
+  dia_diem: null
+  chu_tri: "Ông Lê Trí Khải, Hiệu trưởng"
+  chu_tri_ngan: "Hiệu trưởng"
+  chu_tri_ho_ten: "Lê Trí Khải"
+  thu_ky: null
+  thanh_phan:
+    - "Ông Lê Trí Khải, Hiệu trưởng"
+    - "Các thành viên Tổ xây dựng Đề án (thành lập theo Quyết định số 1944/QĐ-CĐKT ngày 07/9/2026 của Hiệu trưởng)"
+    - "Đại diện lãnh đạo phòng TC-KT, phòng QLĐT&BĐCL, phòng TH-HC&QT, khoa ĐT&SHLX"
+  noi_dung: "Góp ý dự thảo Đề án triển khai đào tạo và sát hạch lái xe mô tô Hạng A tại Trường Cao đẳng Kon Tum (lần 1), dự thảo Tờ trình, Quyết định phê duyệt Đề án và Phụ lục V"
+bao_cao_tom_tat:   # nội dung trình bày tại cuộc họp 26/10 (số liệu dự thảo lần 1)
+  nguoi: "Tổ xây dựng Đề án"
+  noi_dung:
+    - "Mục tiêu: Bổ sung đào tạo, sát hạch lái xe mô tô Hạng A tại Trường từ năm 2027; quy mô năm 2027 khoảng 220 học viên, năm 2031 khoảng 920 học viên"
+    - "Vốn ban đầu khoảng 1.730,2 triệu đồng (1.669,0 triệu đồng đầu tư tài sản, 61,2 triệu đồng bồi dưỡng nhà giáo, chương trình chi năm 2026); thời gian hoàn vốn giản đơn khoảng 4,5 năm"
+    - "Lộ trình: Đáp ứng điều kiện hệ thống truyền dữ liệu, định danh trước ngày 01/01/2027; mở rộng sân, hoàn thành bài sát hạch số 2 trước ngày 01/01/2028; tổ chức thực hiện tại Phụ lục III của Đề án"
+y_kien:
+  - xung_ho: "bà"
+    ten: "Phạm Thị Thoa"
+    don_vi: "phòng TC-KT"
+    nhan: "Ý kiến của phòng TC-KT (bà Phạm Thị Thoa)"
+    ten_bb: "Bà Phạm Thị Thoa, phòng TC-KT"
+    y:
+      - noi_dung: "Lộ trình: Thời gian dự kiến hoàn thành hệ thống (trước ngày 01/01/2028) chưa thống nhất với năm bắt đầu tuyển sinh, đào tạo (năm 2027); cần chọn mốc hợp lý."
+        xu_ly: TT
+        tra_loi: "Điều chỉnh thời gian dự kiến hoàn thành bài sát hạch số 2 là Quý III/2027 (cùng đợt mở rộng sân Giai đoạn 1), ghi chú \"chậm nhất trước ngày 01/01/2028\" (hạn áp dụng theo Thông tư số 107/2026/TT-BCA) tại mục I.2.c Phần III, bảng lộ trình Phần IV, Tờ trình, dự thảo Quyết định."
+      - noi_dung: "Phần V (hiệu quả, tính bền vững, rủi ro): Không tách riêng; nêu cụ thể các dạng rủi ro, cơ chế kiểm soát và giải pháp hạn chế."
+        xu_ly: TT
+        tra_loi: "Bỏ Phần V độc lập; chuyển thành mục III Phần IV (Lộ trình, nhu cầu kinh phí và phương án tài chính), gắn trực tiếp với phương án tài chính; Bảng 13 bổ sung rủi ro lãi suất, khả năng trả nợ và biện pháp kiểm soát (hệ số bảo đảm trả nợ tối thiểu 1,3 lần, báo cáo quý); Phần VI chuyển thành Phần V."
+      - noi_dung: "Phụ lục V: Cột \"Số lượng\" thể hiện thống nhất theo tỷ trọng % trên doanh thu."
+        xu_ly: TT
+        tra_loi: "Phụ lục V (bản v10), sheet phân khai học phí: Cột đơn vị tính ghi thống nhất \"% doanh thu\" đối với các khoản chi khoán theo doanh thu."
+      - noi_dung: "Phụ lục V, chỉ tiêu số 11 (đào tạo, bồi dưỡng): Bỏ tỷ lệ 8% vì là chi phí cố định, không biến động theo doanh thu."
+        xu_ly: TT
+        tra_loi: "Bỏ tỷ lệ 8%; ghi số tuyệt đối: 61,2 triệu đồng hạch toán vào chi phí năm thứ nhất, từ năm thứ hai khoảng 7 triệu đồng/năm."
+      - noi_dung: "Thời gian hoàn vốn khoảng 4–5 năm là phù hợp; giữ doanh thu, dòng tiền lũy kế ở mức 100% dự kiến, bỏ phân tích độ nhạy."
+        xu_ly: TT
+        tra_loi: "Bỏ các kịch bản 70%, 50% trong Đề án và sheet \"Độ nhạy\" trong Phụ lục V; thay bằng cơ chế điều chỉnh theo số học viên thực tế hằng quý (mục III.1.b Phần IV). Sau khi tính lãi vay, chưa hoàn vốn trong 05 năm (vốn đầu tư Hạng A khoảng 1.669,0 triệu đồng; khoảng 5,5 năm nếu giữ quy mô năm 2031)."
+  - xung_ho: "ông"
+    ten: "Võ Đại Nam Anh"
+    don_vi: "phòng QLĐT&BĐCL"
+    nhan: "Ý kiến của phòng QLĐT&BĐCL (ông Võ Đại Nam Anh)"
+    ten_bb: "Ông Võ Đại Nam Anh, phòng QLĐT&BĐCL"
+    y:
+      - noi_dung: "Tờ trình: Thống nhất một đơn vị tính (triệu đồng), không ghi lẫn triệu đồng, tỷ đồng."
+        xu_ly: TT
+        tra_loi: "Thống nhất đơn vị triệu đồng trong Tờ trình, Đề án, dự thảo Quyết định (tổng mức đầu tư ghi \"khoảng 2.500–2.800 triệu đồng\"; gói thầu lớn nhất ghi \"khoảng 1.460 triệu đồng\"; hạn mức vay ghi \"khoảng 1.669 triệu đồng\"); riêng ngưỡng trích dẫn từ văn bản pháp luật giữ nguyên cách ghi của văn bản gốc."
+      - noi_dung: "Quy mô đào tạo Hạng A: Chỉ chốt số liệu năm đầu và năm cuối của giai đoạn."
+        xu_ly: TT
+        tra_loi: "Tờ trình, dự thảo Quyết định ghi: Năm 2027 khoảng 200 học viên (hoạt động khoảng 05 tháng), năm 2028 khoảng 600 học viên, từ năm 2029 tăng 10%/năm (Bảng 7, giai đoạn 2027–2031, Tổ điều chỉnh ngày 02/11/2026); số liệu các năm giữa giữ tại Bảng 7 và Phụ lục V."
+      - noi_dung: "Cơ sở vật chất: Không chỉ nêu mở rộng khoảng 1.000 m²; ghi bảo đảm tổng diện tích sân không nhỏ hơn mức quy chuẩn."
+        xu_ly: TT
+        tra_loi: "Ghi theo hướng \"bảo đảm tổng diện tích sân sát hạch không nhỏ hơn mức tối thiểu đối với trung tâm sát hạch loại 3 (QCVN 15:2026/BCA)\"; bỏ các số ước tính 3.717,5 m², 3.417,5 m²; số liệu diện tích cụ thể giao khoa ĐT&SHLX đo đạc, xác định trước khi lập thiết kế."
+      - noi_dung: "Dự thảo Quyết định: Không nêu công việc quá chi tiết (kiểm tra hệ thống trước ngày 01/01, lập bảng kiểm...); khái quát trong Quyết định, chuyển chi tiết sang kế hoạch triển khai."
+        xu_ly: TT
+        tra_loi: "Điều 2 dự thảo Quyết định chỉ giữ nhiệm vụ chủ trì của từng đơn vị; các mốc công việc chi tiết chuyển sang Đề án (mục Tổ chức thực hiện, Phụ lục III), Quyết định dẫn chiếu \"theo Đề án\"."
+  - xung_ho: "ông"
+    ten: "Trần Đình Dũng"
+    don_vi: "phòng TH-HC&QT"
+    nhan: "Ý kiến của phòng TH-HC&QT (ông Trần Đình Dũng)"
+    ten_bb: "Ông Trần Đình Dũng, phòng TH-HC&QT"
+    y:
+      - noi_dung: "Viết tắt tên phòng, khoa, đơn vị nhưng chưa có bảng chữ viết tắt."
+        xu_ly: TT
+        tra_loi: "Bổ sung Danh mục chữ viết tắt ở đầu Đề án (ĐT&SHLX, TH-HC&QT, TC-KT, TCCB&CTHSSV, QLĐT&BĐCL, QCVN, UBND...); Tờ trình, Quyết định ghi đầy đủ tên đơn vị ở lần đầu."
+      - noi_dung: "Sự cần thiết: Mới nêu nguồn lực của Trường; thiếu số liệu giấy phép lái xe Hạng A, khả năng đáp ứng phương tiện tại khu vực phía Tây tỉnh và khu vực lân cận (Gia Lai)."
+        xu_ly: TT
+        tra_loi: "Bổ sung số xe mô tô trên 125 cm³ đang đăng ký tại khu vực phía Tây và nhu cầu học Hạng A (kể cả Gia Lai) sau khi có số liệu; Tổ đề nghị Trường gửi văn bản xin số liệu của Phòng Cảnh sát giao thông Công an tỉnh, đưa vào phần Sự cần thiết trước khi trình."
+      - noi_dung: "Làm rõ nguồn trích dẫn, căn cứ tính toán của tỷ lệ 1,5% (hoặc 15%)."
+        xu_ly: GT
+        tra_loi: "Tỷ lệ tại dự thảo là 51,5%: Quy mô đào tạo lái xe mô tô khu vực phía Tây so với phía Đông năm 2025 (số liệu Sở Xây dựng). Phía Tây gồm Trung tâm giáo dục nghề nghiệp và sát hạch lái xe KORUCO 4.254, Trung tâm giáo dục nghề nghiệp kỹ thuật vận tải 3.900, Trường Cao đẳng Kon Tum 3.380, Trung tâm giáo dục nghề nghiệp - Giáo dục thường xuyên khu vực Đăk Hà 532, cộng 12.066 học viên; phía Đông 23.412 học viên; 12.066/23.412 ≈ 51,5%. Phép tính đã ghi tại mục I.4 Phần III Đề án."
+      - noi_dung: "Phương án nặng lý thuyết; cần số liệu khảo sát thực tế về phương tiện, nhu cầu học lái xe của người dân."
+        xu_ly: GT
+        tra_loi: "Dự thảo đã sử dụng số liệu thực tế: 70 kỳ sát hạch mô tô trên địa bàn đều là Hạng A1 (26.256 lượt, số liệu Phòng Cảnh sát giao thông Công an tỉnh); 946 học viên Hạng A tại phía Đông trong 09 tháng năm 2026; kết quả khảo sát tại Quảng Ngãi, Gia Lai (Báo cáo số 393/BC-CĐKT ngày 03/9/2026); hiện trạng sân, xe theo Biên bản kiểm tra ngày 10/7/2026 của Sở Xây dựng. Phần còn thiếu là số xe mô tô trên 125 cm³ tại phía Tây, bổ sung theo mục 3.2."
+ket_luan:
+  - noi_dung: "Làm rõ khoản vốn khoảng 1.730 triệu đồng và lộ trình nâng cấp sân (phương án khoảng 4.900 triệu đồng qua 04 giai đoạn); không để việc đầu tư kéo dài nếu chỉ dựa vào tích lũy nguồn thu của Trường."
+    tra_loi: "Bổ sung Bảng 10a (phân loại, phân kỳ đầu tư và nguồn vốn): Vay khoảng 1.669 triệu đồng thực hiện ngay năm 2027 cho các hạng mục Hạng A; phần phục vụ đào tạo lái xe ô tô và Giai đoạn 2, 3, 4 không thuộc khoản vay (mục II.2 Phần IV)."
+  - noi_dung: "Bổ sung phương án xã hội hóa, hợp tác huy động nhà đầu tư bên ngoài; dự thảo hiện mới đề nghị sử dụng nguồn lực của Trường."
+    tra_loi: "Theo chỉ đạo bổ sung của Hiệu trưởng ngày 29/10/2026 (mục 5.1), nguồn vốn đầu tư chuyển sang vay tín dụng ngân hàng; huy động nhà đầu tư áp dụng đối với xe tập lái Hạng A (nhà đầu tư cung cấp xe theo hợp đồng, Bảng 8, Bảng 10a); Quỹ Đầu tư phát triển tỉnh không đầu tư cho đơn vị sự nghiệp công lập nên không đưa vào phương án."
+  - noi_dung: "Phân loại hạng mục Trường tự đầu tư, hạng mục thuê, hạng mục gọi nhà đầu tư; lập phân kỳ đầu tư, xác định hạng mục trọng tâm triển khai ngay và hạng mục có lộ trình dài."
+    tra_loi: "Bảng 10a phân loại từng hạng mục theo hình thức (Trường đầu tư, Trường tự chi, thuê/huy động nhà đầu tư) và thời điểm, nguồn vốn; hạng mục trọng tâm triển khai năm 2027 là các hạng mục Hạng A; hạng mục có lộ trình dài là Giai đoạn 2, 3, 4 Phương án 12/PA-CĐKT, ngoài phạm vi khoản vay."
+  - noi_dung: "Phương án tài chính, phương án kinh doanh là nội dung người thẩm định, nhà đầu tư quan tâm nhất; phải rõ ràng, khả thi."
+    tra_loi: "Phần IV đổi thành \"Lộ trình, nhu cầu kinh phí và phương án tài chính\": Nguồn vốn, điều kiện khoản vay (Bảng 10b), kế hoạch trả nợ (Bảng 10c), hệ số bảo đảm trả nợ (Bảng 10d), quản lý khoản vay; Phụ lục IV, Phụ lục V (sheet \"Vay, trả nợ\") thống nhất số liệu."
+nhom_them:
+  - nhan: "Ý kiến chỉ đạo bổ sung sau cuộc họp (ngày 29/10/2026)"
+    y:
+      - noi_dung: "Hiệu trưởng: Quỹ Đầu tư phát triển tỉnh Quảng Ngãi không đầu tư cho nội dung Hạng A (Quỹ chỉ đầu tư cho doanh nghiệp, không đầu tư cho đơn vị sự nghiệp công lập); đề nghị đi theo hướng vay tín dụng ngân hàng để đầu tư Hạng A, chọn phương án đầu tư dưới 5 tỷ đồng."
+        xu_ly: TT
+        tra_loi: "Xây dựng phương án vay vốn tín dụng tại Ngân hàng TMCP Ngoại thương Việt Nam (Vietcombank), lãi suất tính toán 10%/năm, khoảng 1.669 triệu đồng, chỉ dùng cho Hạng A, thời hạn 60 tháng, ân hạn gốc 06 tháng; căn cứ khoản 3, khoản 4 Điều 24 Nghị định số 60/2021/NĐ-CP (được sửa đổi, bổ sung tại khoản 16 Điều 1 Nghị định số 111/2025/NĐ-CP), điểm a, điểm d khoản 5 Điều 7 Nghị định số 334/2026/NĐ-CP; không đưa Quỹ Đầu tư phát triển tỉnh vào phương án (mục II.2 Phần IV)."
+      - noi_dung: "Phó Hiệu trưởng (ông Dương Văn Anh Dũng): Tổ xây dựng Đề án hoàn thiện phương án tài chính theo hướng vay vốn tín dụng ngân hàng mức dưới 5 tỷ đồng, khẩn trương tham mưu báo cáo Hiệu trưởng trong ngày 29/10/2026."
+        xu_ly: TT
+        tra_loi: "Hoàn thiện toàn bộ hồ sơ (Đề án, Tờ trình, dự thảo Quyết định, Phụ lục V bản v10) theo phương án vay vốn, trình Hiệu trưởng xem xét."
+      - noi_dung: "Ông Nguyễn Khắc Vinh (Trưởng bộ môn ĐT&SHLX mô tô): Chỉ tiêu Hạng A cần tính thận trọng; tính hoàn vốn riêng phần vốn Hạng A, có tính lãi vay; bỏ độ nhạy, thay bằng cơ chế điều chỉnh theo thực tế."
+        xu_ly: GT
+        tra_loi: "Tính hoàn vốn riêng phần vốn Hạng A, có lãi vay, bỏ độ nhạy. Riêng chỉ tiêu, Tổ điều chỉnh ngày 02/11/2026 cao hơn đề xuất thận trọng: Năm 2027 khoảng 200 học viên, năm 2028 khoảng 600, từ năm 2029 tăng 10%/năm (tổng giai đoạn khoảng 2.985 học viên); vốn tính hoàn vốn khoảng 1.669,0 triệu đồng, lãi vay khoảng 466 triệu đồng/05 năm, chưa hoàn vốn trong 05 năm; bổ sung cơ chế điều chỉnh hằng quý (đầu tư xe sát hạch, thiết bị chấm điểm khi tuyển sinh bình quân từ 25 học viên/tháng trong 02 quý liên tiếp)."
+      - noi_dung: "Phòng TC-KT (bà Tuyết): Đăng ký hạn mức dưới 5 tỷ đồng nhưng giải ngân 02 đợt; Đợt 2 chỉ giải ngân khi chênh lệch thu – chi hoạt động lái xe đủ bảo đảm trả nợ."
+        xu_ly: GT
+        tra_loi: "Theo chỉ đạo khoản vay chỉ dùng cho Hạng A, không chia đợt, không có Đợt 2; số liệu 1.667 triệu đồng (năm 2025) đề nghị phòng TC-KT xác nhận trước khi trình."

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-so_sanh_ban.py – So sánh hai bản dự thảo .docx theo đoạn (Skill ktc-ra-soat-897 v4.5)
+so_sanh_ban.py – So sánh hai bản dự thảo .docx theo đoạn (Skill ktc-ra-soat-897 v4.6)
 
 Dùng cho: tác vụ (c) so sánh hai bản; chế độ ĐC (Bước 5) – liệt kê mọi đoạn thay đổi
 giữa bản lần trước và bản hiện hành. Thuật toán cố định (difflib, so theo đoạn đã chuẩn
@@ -12,7 +12,10 @@ Cách dùng:
 Kết quả: bảng các thay đổi – Thêm / Xóa / Sửa – kèm số đoạn hai bản và chi tiết từ ngữ
 thay đổi (dạng [-bỏ-] {+thêm+}); thống kê; danh sách Điều/khoản bị ảnh hưởng.
 """
-import sys, re, json, zipfile, argparse, difflib, unicodedata
+import sys, os, re, json, zipfile, argparse, difflib, unicodedata
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.dont_write_bytecode = True  # v4.6.4: không ghi __pycache__ vào thư mục Skill
+import nhan_dien_chung as ND  # v4.6.3: ghi kết quả an toàn
 from xml.etree import ElementTree as ET
 
 W = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -70,7 +73,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('cu'); ap.add_argument('moi'); ap.add_argument('--json'); ap.add_argument('--md')
     a = ap.parse_args()
-    A, B = doan(a.cu), doan(a.moi)
+    for p_ in (a.cu, a.moi):  # v4.6.3: đầu vào thiếu/hỏng → lỗi có kiểm soát; không ghi đè tệp đầu vào
+        if not os.path.isfile(p_): print('LỖI: không có tệp “%s”.' % p_); sys.exit(2)
+    for o_ in (a.json, a.md):
+        if o_:
+            e_ = ND.kiem_duong_dan_ghi(o_, [a.cu, a.moi])
+            if e_: print('LỖI THAM SỐ: %s.' % e_); sys.exit(2)
+    try:
+        A, B = doan(a.cu), doan(a.moi)
+    except (zipfile.BadZipFile, KeyError, OSError, ET.ParseError) as e:
+        print('LỖI: không đọc được tệp .docx (%s) – tệp hỏng hoặc không phải Word .docx.' % type(e).__name__); sys.exit(2)
     sm = difflib.SequenceMatcher(None, A, B, autojunk=False)
     rows = []
     for op, i1, i2, j1, j2 in sm.get_opcodes():
@@ -117,11 +129,19 @@ def main():
     out.append('Ghi chú: [-…-] là chữ bị bỏ, {+…+} là chữ thêm. Định dạng (cỡ chữ, lề, số trang) không so ở đây – đo bằng kiem_tra_the_thuc.py trên từng bản.')
     md = '\n'.join(out)
     print(md)
-    if a.md: open(a.md, 'w', encoding='utf-8').write(md)
+    if a.md:
+        e_ = ND.ghi_tep_an_toan(a.md, lambda t_: open(t_, 'w', encoding='utf-8').write(md))
+        if e_: print('LỖI GHI KẾT QUẢ: %s.' % e_); sys.exit(2)
     if a.json:  # v4.5 (PB5-WORK-16): ghi mã băm hai tệp để tao_bao_cao.py kiểm đúng cặp đã qua cổng hồ sơ
         import hashlib
         sh_ = lambda p_: hashlib.sha256(open(p_, 'rb').read()).hexdigest()
-        json.dump(dict(cu=a.cu, moi=a.moi, sha256_cu=sh_(a.cu), sha256_moi=sh_(a.moi), thong_ke=tk, vi_tri=vt, thay_doi=rows), open(a.json, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+        # v4.6.3 (F11): ghi đường dẫn TUYỆT ĐỐI hai tệp – tao_bao_cao.py kiểm tên/đường dẫn khớp đúng tệp thật của mã băm
+        kq_ = dict(phien_ban='ktc-ra-soat-897 v4.6.4', cu=os.path.abspath(a.cu), moi=os.path.abspath(a.moi), sha256_cu=sh_(a.cu), sha256_moi=sh_(a.moi),
+                   thong_ke=tk, vi_tri=vt, thay_doi=rows)
+        def _ghi(t_):
+            with open(t_, 'w', encoding='utf-8') as f_: json.dump(kq_, f_, ensure_ascii=False, indent=1)
+        e_ = ND.ghi_tep_an_toan(a.json, _ghi)
+        if e_: print('LỖI GHI KẾT QUẢ: %s.' % e_); sys.exit(2)
 
 
 if __name__ == '__main__':

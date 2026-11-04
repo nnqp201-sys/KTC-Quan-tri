@@ -36,7 +36,7 @@ GOI_NGUON = [
     (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.10.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
     (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.3.skill"), "ktc-the-thuc", "the-thuc"),
     (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.4.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
-    (os.path.join(DU_AN, "28-KTC-KPI", "Tu-Danh-Gia", "ktc-kpi-tu-danh-gia-v1.3.skill"), "ktc-kpi-tu-danh-gia",
+    (os.path.join(DU_AN, "28-KTC-KPI", "Tu-Danh-Gia", "ktc-kpi-tu-danh-gia-v1.4.skill"), "ktc-kpi-tu-danh-gia",
      "kpi-tu-danh-gia"),
 ]
 
@@ -58,6 +58,8 @@ CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
                      "kpi_calc.py", "kpi_mau.py", "validate_plan.py",
                      # 25/9/2026: tu danh gia KPI ca nhan (skill kpi-tu-danh-gia)
                      "kpi_danh_gia.py",
+                     # 28/10/2026: kiem nhat quan, ho so minh chung, doi chieu cheo — 3 agent moi goi
+                     "kpi_nhat_quan.py", "lap_ho_so_minh_chung.py", "kpi_doi_chieu_cheo.py",
                      # 28/9/2026 (1.3.6): bo dung bao cao thang tu ban da ban hanh (skill bao-cao v3.18) va Track Changes
                      # (Nguyen tac 8) — truoc chi co trong du an, plugin phan phoi thieu -> san pham kem (chay thu 28/9)
                      "bc_thang.py", "vanphong.py", "trich_tuong_thuat.py", "ktc_trackchanges.py"]
@@ -153,7 +155,7 @@ def build_manifest():
             "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.20.skill", "ktc-ke-hoach-v3.12.skill",
                               "ktc-soan-thao-vb-v1.15.skill", "ktc-theo-doi-cv-v1.10.skill",
                               "ktc-the-thuc-v1.3.skill", "ktc-kpi-lap-ke-hoach-v1.4.skill",
-                              "ktc-kpi-tu-danh-gia-v1.3.skill"],
+                              "ktc-kpi-tu-danh-gia-v1.4.skill"],
         },
     }
     if len(manifest["description"]) > GIOI_HAN_MO_TA_PLUGIN:

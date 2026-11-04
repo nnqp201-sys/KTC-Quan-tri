@@ -1,0 +1,27 @@
+{
+  "sources": {
+    "chinhsachonline": {
+      "url": "https://chinhsachonline.chinhphu.vn/danh-sach-cau-hoi.htm",
+      "enabled": true
+    },
+    "moet": {
+      "url": "https://moet.gov.vn",
+      "enabled": true
+    },
+    "mof": {
+      "url": "https://mof.gov.vn",
+      "enabled": false,
+      "note": "Chưa triển khai"
+    },
+    "thuvienphapluat": {
+      "url": "https://thuvienphapluat.vn/hoi-dap-phap-luat",
+      "enabled": false,
+      "note": "Cần xác thực"
+    }
+  },
+  "days_back": 365,
+  "max_pages": 5,
+  "output_dir": "output",
+  "output_file": "Co_so_du_lieu_hoi_dap_chinh_sach_Cao_dang_Kon_Tum.xlsx",
+  "ktc_database_export": true
+}

@@ -29,11 +29,14 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-import kpi_calc as kc  # noqa: E402
-import kpi_mau as km   # noqa: E402
+import kpi_calc as kc        # noqa: E402
+import kpi_mau as km         # noqa: E402
+import kpi_nhat_quan as nq   # noqa: E402
 
 MUC = ("Hoàn thành xuất sắc nhiệm vụ", "Hoàn thành tốt nhiệm vụ", "Hoàn thành nhiệm vụ", "Không hoàn thành nhiệm vụ")
 KET_QUA_VIEC = ("Vượt mức", "Hoàn thành đúng hạn", "Hoàn thành chậm tiến độ", "Không hoàn thành")
+LOAI_VUOT = nq.LOAI_VUOT
+XAC_NHAN = ("Xác nhận theo số liệu sheet B", "Có ngoại lệ khách quan — ghi rõ ở cột Ghi chú")
 TRONG_TAM = ("Không", "Mức 1", "Mức 2", "Mức 3")
 CO_KHONG = ("Có", "Không")
 NHOM_THIEU_PL = {"bo-mon": "XXIV", "giao-vu": "XXVI", "hanh-chinh": "XXVII", "ho-tro": "XXVIII"}
@@ -63,6 +66,14 @@ def _so(v, ten):
 
 
 # ------------------------------------------------------------------ doc ke hoach
+MAU_LA = ("Tệp dùng mẫu Phụ lục II/VII đã bị sửa cấu trúc — CHƯA HỖ TRỢ TỰ ĐỘNG.\n"
+          "  Sheet KPI không trỏ 1-1 sang sheet Ke Hoach: {chi_tiet}\n"
+          "  Nguyên nhân thường gặp: người dùng gõ thẳng nội dung việc vào sheet KPI (thay vì để công thức "
+          "='Ke Hoach'!B<dòng>), chèn hoặc xóa dòng sau khi lập kế hoạch nên số dòng mỗi Trục không còn cố định.\n"
+          "  Cách xử lý: (1) khôi phục công thức ở cột B sheet KPI cho các dòng việc, hoặc (2) lập lại kế hoạch bằng "
+          "skill kpi-lap-ke-hoach rồi tự đánh giá trên tệp đó. Công cụ KHÔNG đoán cấu trúc — hỏi người dùng.")
+
+
 def doc_ke_hoach(p, nhom=None):
     wb = km.mo(p)
     nhom = nhom or km.nhan_nhom(wb)
@@ -71,13 +82,16 @@ def doc_ke_hoach(p, nhom=None):
     ct = km.cau_truc(wb)
     dg = km.cau_truc_danh_gia(wb)
     kh, kp = wb["Ke Hoach"], wb["KPI"]
-    viec = []
+    viec, thieu_dong = [], []
     for n, (d, c) in sorted(ct["truc"].items()):
         for r in range(d, c + 1):
             nd = kh[f"B{r}"].value
             if nd in (None, ""):
                 continue
-            rk = ct["kpi_dong"][r]
+            rk = ct["kpi_dong"].get(r)
+            if rk is None:                       # mau la — KHONG doan, dung va bao (lenh 28/10/2026, muc 2.3)
+                thieu_dong.append(f"Trục ({n}) dòng {r} '{str(nd)[:40]}'")
+                continue
             viec.append({"ma": f"B{r}", "truc": n, "dong_kh": r, "dong_kpi": rk, "noi_dung": str(nd).strip(),
                          "san_pham": kh[f"E{r}"].value, "so_luong": kh[f"F{r}"].value, "thoi_han": kh[f"G{r}"].value,
                          "muc_do": kh[f"D{r}"].value, "he_so": kh[f"I{r}"].value,
@@ -89,6 +103,10 @@ def doc_ke_hoach(p, nhom=None):
             v = m.group(2).strip()
             if v and not re.fullmatch(r"[.…\s]*", v):
                 ca_nhan[m.group(1)] = v
+    if thieu_dong:
+        raise Dung(MAU_LA.format(chi_tiet=f"{len(thieu_dong)} dòng việc không có dòng KPI tương ứng — "
+                                          + "; ".join(thieu_dong[:5])
+                                          + (" …" if len(thieu_dong) > 5 else "")))
     return {"tep": p, "nhom": nhom, "ct": ct, "dg": dg, "viec": viec, "ca_nhan": ca_nhan,
             "quan_ly": km.NHOM[nhom][2]}
 
@@ -111,10 +129,11 @@ def cau_hoi_c(khd):
           ("Có", "Không", "Kỳ trước không có hạn chế"), True, "QĐ 1923, Đ19.1a")]
     if khd["quan_ly"]:
         q += [("C08", "Đơn vị, bộ phận, lĩnh vực do mình trực tiếp lãnh đạo, quản lý đã hoàn thành 100% nhiệm vụ được "
-               "giao trong quý?", ("Có", "Không", "Chưa có kết quả"), True, "QĐ 1923, Đ19.1a–c"),
+               "giao trong quý? — công cụ TỰ SUY từ sheet B (số việc trọn 100%/tổng); chỉ xác nhận hoặc nêu ngoại lệ "
+               "khách quan ở cột Ghi chú", XAC_NHAN + ("Chưa có kết quả",), True, "QĐ 1923, Đ19.1a–c"),
               ("C09", "Đơn vị, bộ phận do mình trực tiếp quản lý hoàn thành DƯỚI 70% nhiệm vụ, hoặc trên 50% lĩnh vực "
-               "mình phụ trách bị xếp loại Không hoàn thành?", ("Có", "Không", "Chưa có kết quả"), True,
-               "QĐ 1923, Đ19.1d"),
+               "mình phụ trách bị xếp loại Không hoàn thành? — công cụ TỰ SUY từ sheet B; chỉ xác nhận hoặc nêu "
+               "ngoại lệ", XAC_NHAN + ("Chưa có kết quả",), True, "QĐ 1923, Đ19.1d"),
               ("C10", "Có trên 50% phiếu tín nhiệm thấp tại kỳ lấy phiếu trong năm?",
                ("Có", "Không", "Không lấy phiếu"), True, "QĐ 1923, Đ19.1d"),
               ("C11", "Có đơn vị thuộc thẩm quyền phụ trách trực tiếp liên quan tham ô, tham nhũng, lãng phí và bị xử "
@@ -213,12 +232,16 @@ def sinh_bang_hoi(khd, ra, quy=None, nam=None):
     bang(ws, "B. KẾT QUẢ THỰC HIỆN NHIỆM VỤ (70 ĐIỂM) — số liệu thực tế từng chỉ tiêu [QĐ 1923, Đ11]",
          ("Mã", "Trục", "Nội dung công việc (kế hoạch đã duyệt)", "Sản phẩm", "SL kế hoạch", "Hệ số",
           "Thời hạn", "Sản phẩm thực tế", "SL thực tế hoàn thành", "% chất lượng", "% tiến độ",
-          "Kết quả nhiệm vụ", "Trọng tâm, then chốt (Đ18)", "Nguồn minh chứng"),
-         (7, 6, 48, 18, 9, 7, 12, 28, 11, 10, 10, 20, 14, 28))
+          "Kết quả nhiệm vụ", "Trọng tâm, then chốt (Đ18)", "Nguồn minh chứng",
+          "Ngày hoàn thành thực tế", "Loại vượt", "Căn cứ vượt mức (số liệu cụ thể)",
+          "Lý do chưa đạt 100% (khách quan/chủ quan + mô tả)", "Số hiệu văn bản minh chứng",
+          "Nơi lưu minh chứng"),
+         (7, 6, 48, 18, 9, 7, 12, 28, 11, 10, 10, 20, 14, 28, 16, 12, 34, 34, 22, 22))
     dv_kq = DataValidation(type="list", formula1='"' + ",".join(KET_QUA_VIEC) + '"', allow_blank=True)
     dv_tt = DataValidation(type="list", formula1='"' + ",".join(TRONG_TAM) + '"', allow_blank=True)
     dv_so = DataValidation(type="decimal", operator="greaterThanOrEqual", formula1="0", allow_blank=True)
-    for d in (dv_kq, dv_tt, dv_so):
+    dv_lv = DataValidation(type="list", formula1='"' + ",".join(LOAI_VUOT) + '"', allow_blank=True)
+    for d in (dv_kq, dv_tt, dv_so, dv_lv):
         ws.add_data_validation(d)
     r = 5
     for v in khd["viec"]:
@@ -227,21 +250,27 @@ def sinh_bang_hoi(khd, ra, quy=None, nam=None):
                                v["thoi_han"]), 1):
             o(ws, r, i, x)
         for i, x in ((8, cu.get("K")), (9, cu.get("L")), (10, cu.get("N")), (11, cu.get("P")), (12, None),
-                     (13, "Không"), (14, None)):
+                     (13, "Không"), (14, None), (15, None), (16, None), (17, None), (18, None), (19, None),
+                     (20, None)):
             o(ws, r, i, x if not str(x or "").startswith("=") else None, dien=True)
         for i in (9, 10, 11):
             dv_so.add(ws.cell(r, i))
         dv_kq.add(ws.cell(r, 12))
         dv_tt.add(ws.cell(r, 13))
+        dv_lv.add(ws.cell(r, 16))
         r += 1
     o(ws, r + 1, 3, "SL thực tế: số sản phẩm đã hoàn thành. % chất lượng, % tiến độ: mức độ đáp ứng (0–100; nhập trên "
                     "100 vẫn được ghi nhận nhưng điểm chỉ tiêu chặn trần 100% — Đ11.6). Trọng tâm, then chốt: chọn "
                     "Mức 1/2/3 theo Đ18 thì % hoàn thành của chỉ tiêu phải nằm đúng khung (≥90 · 60–<90 · <60).")
+    o(ws, r + 2, 3, "Sáu cột cuối (bắt buộc từ 28/10/2026): khai “Vượt mức” thì phải có Loại vượt và Căn cứ vượt mức "
+                    "kèm số liệu [TB 1105, mục 2.3]; việc chưa đạt 100% phải ghi Lý do (khách quan hay chủ quan); "
+                    "việc không cần minh chứng thì ghi rõ “không yêu cầu minh chứng” ở cột Lý do hoặc Nơi lưu. "
+                    "Ngày hoàn thành thực tế dùng để đối chiếu với Thời hạn (NQ05).")
 
     # --- C. Dieu kien
     ws = wb.create_sheet("C-Dieu-kien")
     bang(ws, "C. TRƯỜNG HỢP ĐẶC THÙ, ĐIỀU KIỆN KÈM THEO MỨC XẾP LOẠI, TỰ ĐỀ XUẤT",
-         ("Mã", "Câu hỏi", "Trả lời", "Căn cứ"), (7, 80, 24, 30))
+         ("Mã", "Câu hỏi", "Trả lời", "Ghi chú, ngoại lệ (nếu có)", "Căn cứ"), (7, 80, 26, 40, 30))
     r = 5
     for ma, ch, lc, _bb, cc in cau_hoi_c(khd):
         o(ws, r, 1, ma)
@@ -253,16 +282,22 @@ def sinh_bang_hoi(khd, ra, quy=None, nam=None):
             d.add(x)
         else:
             ws.cell(r, 2).value = ch + " — nhập số % (vd 85), hoặc 'Không áp dụng' / 'Chưa có kết quả'"
-        o(ws, r, 4, cc)
+        o(ws, r, 4, None, dien=True)
+        o(ws, r, 5, cc)
         r += 1
+    o(ws, r + 1, 2, "C08, C09: công cụ tự suy từ sheet B rồi in “số việc trọn 100%/tổng” và danh sách việc chưa trọn "
+                    "kèm lý do. Chọn “Có ngoại lệ khách quan” thì phải ghi nguyên văn lý do ở cột Ghi chú — lý do đó "
+                    "được chép vào bảng điều kiện để người có thẩm quyền xem xét; công cụ không tự gỡ điều kiện.")
     wb.save(ra)
     return ra
 
 
 # ------------------------------------------------------------------ doc bang hoi
 def doc_bang_hoi(p):
+    """Doc bang hoi. TUONG THICH NGUOC: bang hoi v1.3 (14 cot sheet B, khong co cot Ghi chu sheet C) van doc duoc —
+    cac truong moi tra ve None va chi sinh CANH_BAO, khong thanh LOI (lenh 28/10/2026, muc 2.2)."""
     wb = km.mo(p)
-    tl = {"A": {}, "A_muc": {}, "B": {}, "C": {}}
+    tl = {"A": {}, "A_muc": {}, "B": {}, "C": {}, "C_ghi_chu": {}, "ban_cu": False}
     ws = wb["A-Tieu-chi-chung"]
     for row in ws.iter_rows(min_row=5):
         ma = str(row[0].value or "").strip()
@@ -271,16 +306,26 @@ def doc_bang_hoi(p):
         elif re.fullmatch(r"A[123]\w+", ma):
             tl["A"][ma] = row[3].value
     ws = wb["B-KPI"]
+    tl["ban_cu"] = str(ws.cell(4, 15).value or "").strip() == ""      # khong co cot "Ngày hoàn thành thực tế"
+
+    def o(row, i):
+        return row[i].value if len(row) > i else None
+
     for row in ws.iter_rows(min_row=5):
         ma = str(row[0].value or "").strip()
         if re.fullmatch(r"B\d+", ma):
-            tl["B"][ma] = {"K": row[7].value, "L": row[8].value, "N": row[9].value, "P": row[10].value,
-                           "ket_qua": row[11].value, "trong_tam": row[12].value, "minh_chung": row[13].value}
+            tl["B"][ma] = {"K": o(row, 7), "L": o(row, 8), "N": o(row, 9), "P": o(row, 10),
+                           "ket_qua": o(row, 11), "trong_tam": o(row, 12), "minh_chung": o(row, 13),
+                           "ngay_hoan_thanh": o(row, 14), "loai_vuot": o(row, 15), "can_cu_vuot": o(row, 16),
+                           "ly_do_chua": o(row, 17), "so_hieu": o(row, 18), "noi_luu": o(row, 19)}
     ws = wb["C-Dieu-kien"]
+    cot_gc = 3 if str(ws.cell(4, 4).value or "").strip().startswith("Ghi chú") else None
     for row in ws.iter_rows(min_row=5):
         ma = str(row[0].value or "").strip()
         if re.fullmatch(r"[CD]\d+", ma):
             tl["C"][ma] = row[2].value
+            if cot_gc is not None:
+                tl["C_ghi_chu"][ma] = o(row, cot_gc)
     return tl
 
 
@@ -363,8 +408,11 @@ def tinh(khd, tl):
             if f"Mức {m_}" != tt:
                 sai.append(f"{v['ma']} '{v['noi_dung'][:40]}': % hoàn thành {cat2(min(ty_le, 100))}% thuộc Mức {m_} "
                            f"của Đ18, không khớp '{tt}' — sửa % hoặc mức [QĐ 1923, Đ11.5, Đ18]")
-        viec.append(dict(v, L=L, N=N, P=P, K=t.get("K"), minh_chung=t.get("minh_chung"), ket_qua=kq, trong_tam=tt,
-                         J=J, tb=tb, gop=gop, ty_le=ty_le))
+        viec.append(dict(v, G=G, L=L, N=N, P=P, K=t.get("K"), minh_chung=t.get("minh_chung"), ket_qua=kq,
+                         trong_tam=tt, J=J, tb=tb, gop=gop, ty_le=ty_le,
+                         ngay_hoan_thanh=t.get("ngay_hoan_thanh"), loai_vuot=t.get("loai_vuot"),
+                         can_cu_vuot=t.get("can_cu_vuot"), ly_do_chua=t.get("ly_do_chua"),
+                         so_hieu=t.get("so_hieu"), noi_luu=t.get("noi_luu")))
     if thieu or sai:
         raise Dung("Bảng hỏi chưa đủ hoặc có số sai — không tự chấm:\n  " + "\n  ".join(sai + thieu))
     truc = {}
@@ -380,9 +428,42 @@ def tinh(khd, tl):
     tong = round(diem_a + diem_b, 6)
     muc_diem = kc.xep_loai_theo_diem(tong)["muc_theo_diem"]
     dk = dieu_kien(khd, tl, viec, muc_diem)
-    return {"nhom": khd["nhom"], "a": a_nhom, "diem_a": diem_a, "truc": truc, "diem_b": diem_b, "tong": tong,
-            "muc_theo_diem": muc_diem, "viec": viec, "dieu_kien": dk, "tu_de_xuat": tl["C"].get("C15"),
-            "canh_bao": canh_bao(khd, tl, viec, truc, muc_diem, dk)}
+    tl["_muc_theo_diem"] = muc_diem                      # cho NQ09
+    nq_ds = nq.kiem(khd, tl, viec, truc=truc, tu_de_xuat=tl["C"].get("C15"), ban_cu=tl.get("ban_cu"))
+    kq = {"nhom": khd["nhom"], "a": a_nhom, "diem_a": diem_a, "truc": truc, "diem_b": diem_b, "tong": tong,
+          "muc_theo_diem": muc_diem, "viec": viec, "dieu_kien": dk, "tu_de_xuat": tl["C"].get("C15"),
+          "nhat_quan": nq_ds, "suy_c08": nq.suy_c08(viec),
+          "canh_bao": canh_bao(khd, tl, viec, truc, muc_diem, dk)}
+    if nq.co_loi(nq_ds):
+        raise Dung("Bộ kiểm nhất quán phát hiện LỖI — không xuất bản chính thức; sửa bảng hỏi rồi chạy lại:\n"
+                   + "\n".join(f"  [{m}] {tin}" for m, muc, tin in nq_ds if muc == nq.LOI))
+    return kq
+
+
+def viec_de(khd, tl):
+    """Dung danh sach viec DE DAI (thieu du lieu -> None) de chay rieng bo kiem nhat quan, khong cham diem."""
+    ds = []
+    for v in khd["viec"]:
+        t = tl["B"].get(v["ma"]) or {}
+        G, I_ = _lenient(v["so_luong"]), _lenient(v["he_so"])
+        L, N, P = (_lenient(t.get(k)) for k in ("L", "N", "P"))
+        d = dict(v, G=G, L=L, N=N, P=P, ket_qua=t.get("ket_qua"), trong_tam=t.get("trong_tam"),
+                 minh_chung=t.get("minh_chung"), K=t.get("K"), ngay_hoan_thanh=t.get("ngay_hoan_thanh"),
+                 loai_vuot=t.get("loai_vuot"), can_cu_vuot=t.get("can_cu_vuot"),
+                 ly_do_chua=t.get("ly_do_chua"), so_hieu=t.get("so_hieu"), noi_luu=t.get("noi_luu"))
+        if None not in (G, I_, L, N, P):
+            d["J"] = G * I_
+            M = (min(L, G) * I_) if G else 0.0
+            d["tb"] = (M + I_ * L * N / 100 + I_ * L * P / 100) / 3
+        ds.append(d)
+    return ds
+
+
+def _lenient(v):
+    try:
+        return _so(v, "")
+    except Dung:
+        return None
 
 
 def dieu_kien(khd, tl, viec, muc_diem):
@@ -410,12 +491,31 @@ def dieu_kien(khd, tl, viec, muc_diem):
 
     ql = khd["quan_ly"]
     rows = {m: [] for m in MUC[:3]}
+
+    def c08_suy():
+        """C08 suy tu sheet B (muc 2.2) — nguoi dung chi xac nhan hoac neu ngoai le khach quan."""
+        sy = nq.suy_c08(viec)
+        v, gc = tl_("C08"), str(tl.get("C_ghi_chu", {}).get("C08") or "").strip()
+        mo_ta = f"{sy['tron']}/{sy['tong']} nhiệm vụ trọn 100% theo sheet B"
+        if sy["thieu"]:
+            return mo_ta + f"; {len(sy['thieu'])} việc thiếu số liệu", "Thiếu dữ liệu — người dùng tự xác nhận"
+        if sy["chua_tron"]:
+            ds_ = "; ".join(f"{m} {(ld or 'chưa ghi lý do')}" for m, _n, ld in sy["chua_tron"][:3])
+            if km._kd(v).startswith("co ngoai le") and gc:
+                return (mo_ta + f". Chưa trọn: {ds_}. Ngoại lệ người dùng nêu: “{gc}”",
+                        "Thiếu dữ liệu — người dùng tự xác nhận")
+            return mo_ta + f". Chưa trọn: {ds_}", "Không đạt"
+        if v in ("", "Chưa có kết quả"):
+            return mo_ta, "Thiếu dữ liệu — người dùng tự xác nhận"
+        return mo_ta, "Đạt"
+
     # 100% nhiem vu
     if ql:
-        rows[MUC[0]].append(("Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ", tu_khai("C08"), "Đ19.1a"))
-        rows[MUC[1]].append(("Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ, đúng hạn, bảo đảm chất "
-                             "lượng", tu_khai("C08"), "Đ19.1b"))
-        rows[MUC[2]].append(("Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ", tu_khai("C08"), "Đ19.1c"))
+        mo_ta, kl = c08_suy()
+        rows[MUC[0]].append((f"Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ ({mo_ta})", kl, "Đ19.1a"))
+        rows[MUC[1]].append((f"Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ, đúng hạn, bảo đảm chất "
+                             f"lượng ({mo_ta})", kl, "Đ19.1b"))
+        rows[MUC[2]].append((f"Đơn vị, lĩnh vực trực tiếp quản lý hoàn thành 100% nhiệm vụ ({mo_ta})", kl, "Đ19.1c"))
     else:
         rows[MUC[0]].append((f"Hoàn thành 100% nhiệm vụ, đúng hạn ({n - khong_ht - cham}/{n} đúng hạn)",
                              dat(khong_ht == 0 and cham == 0), "Đ19.1a"))
@@ -451,8 +551,15 @@ def dieu_kien(khd, tl, viec, muc_diem):
     kht = []
     if tl_("C06") == "Có":
         kht.append("Bị kết luận suy thoái hoặc kỷ luật từ khiển trách trở lên (C06)")
-    if ql and tl_("C09") == "Có":
-        kht.append("Đơn vị trực tiếp quản lý hoàn thành dưới 70% nhiệm vụ / >50% lĩnh vực Không hoàn thành (C09)")
+    if ql:
+        sy9 = nq.suy_c08(viec)
+        duoi70 = sy9["tong"] and not sy9["thieu"] and sy9["tron"] / sy9["tong"] < 0.7 - EPS
+        if duoi70:
+            kht.append(f"Đơn vị trực tiếp quản lý hoàn thành dưới 70% nhiệm vụ theo sheet B "
+                       f"({sy9['tron']}/{sy9['tong']} trọn 100%) [Đ19.1d] — C09")
+        elif tl_("C09") == "Có":
+            kht.append("Người dùng khai C09 'Có' (đơn vị dưới 70% nhiệm vụ / >50% lĩnh vực Không hoàn thành) "
+                       "trong khi sheet B không cho thấy điều đó — nêu cả hai, không tự chọn")
     if ql and tl_("C10") == "Có":
         kht.append("Trên 50% phiếu tín nhiệm thấp (C10)")
     if ql and tl_("C11") == "Có":
@@ -602,6 +709,19 @@ def in_ket_qua(khd, kq):
             L.append(f"| {m} | {nd} | {s} | QĐ 1923, {cc} |")
     for m in kq["dieu_kien"]["tu_diem_tro_xuong"]:
         L.append(f"- Điều kiện kèm theo '{m}': {kq['dieu_kien']['tong_hop'][m]}")
+    sy = kq.get("suy_c08")
+    if sy:
+        L.append("")
+        L.append(f"Suy từ sheet B — nhiệm vụ trọn 100% (SL đủ, chất lượng và tiến độ ≥ 100%): "
+                 f"**{sy['tron']}/{sy['tong']}**"
+                 + (f"; {len(sy['thieu'])} việc thiếu số liệu" if sy["thieu"] else "")
+                 + (("; chưa trọn: " + ", ".join(f"{m} ({ld or 'chưa ghi lý do'})" for m, _n, ld in sy["chua_tron"]))
+                    if sy["chua_tron"] else ""))
+    if kq.get("nhat_quan"):
+        L.append("")
+        L.append("**Bộ kiểm nhất quán NQ01–NQ10:**")
+        L.append("")
+        L.append(nq.bang(kq["nhat_quan"]))
     if kq["canh_bao"]:
         L.append("")
         L.append("Cảnh báo:")
@@ -627,6 +747,7 @@ def main(argv):
     sp = ap.add_subparsers(dest="lenh", required=True)
     s1 = sp.add_parser("sinh-bang-hoi")
     s2 = sp.add_parser("danh-gia")
+    s3 = sp.add_parser("kiem-nhat-quan")
     for s in (s1, s2):
         s.add_argument("--ke-hoach", required=True)
         s.add_argument("--nhom", choices=list(km.NHOM))
@@ -635,9 +756,25 @@ def main(argv):
         s.add_argument("--ra", required=True)
     s2.add_argument("--bang-hoi", required=True)
     s2.add_argument("--json", action="store_true")
+    s3.add_argument("--ke-hoach", required=True)
+    s3.add_argument("--bang-hoi", required=True)
+    s3.add_argument("--nhom", choices=list(km.NHOM))
+    s3.add_argument("--ban-nop", action="store_true", help="bật mức LỖI cho NQ06 (chuỗi cấm) — bản sẽ nộp")
     a = ap.parse_args(argv)
     try:
         khd = doc_ke_hoach(a.ke_hoach, a.nhom)
+        if a.lenh == "kiem-nhat-quan":
+            tl = doc_bang_hoi(a.bang_hoi)
+            ds = nq.kiem(khd, tl, viec_de(khd, tl), tu_de_xuat=tl["C"].get("C15"), ban_nop=a.ban_nop,
+                         ban_cu=tl.get("ban_cu"))
+            sy = nq.suy_c08(viec_de(khd, tl))
+            print(f"Nhiệm vụ trọn 100% theo sheet B: {sy['tron']}/{sy['tong']}"
+                  + (f" · {len(sy['thieu'])} việc thiếu số liệu" if sy["thieu"] else ""))
+            if tl.get("ban_cu"):
+                print("⚠ Bảng hỏi bản cũ (v1.3, thiếu 6 cột mới) — các phép kiểm cần cột mới chỉ cảnh báo, "
+                      "không bắt lỗi. Sinh lại bảng hỏi để kiểm đủ.")
+            print(nq.bang(ds))
+            return 2 if nq.co_loi(ds) else (1 if ds else 0)
         if a.lenh == "sinh-bang-hoi":
             sinh_bang_hoi(khd, a.ra, a.quy, a.nam)
             print(f"✓ Đã sinh bảng hỏi {a.ra} — {len(khd['viec'])} chỉ tiêu, "

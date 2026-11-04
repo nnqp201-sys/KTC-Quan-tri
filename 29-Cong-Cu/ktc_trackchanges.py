@@ -476,6 +476,16 @@ def kiem_tra(duong_dan: str) -> dict:
     for ins in body.iter(qn("w:ins")):
         for r in ins.iter(qn("w:r")):
             if r.find(qn("w:delText")) is not None:
+                # hợp lệ khi người khác xóa chữ do người trước chèn: <w:ins><w:del><w:r><w:delText/>
+                long_trong_del = False
+                for a in r.iterancestors():
+                    if a is ins:
+                        break
+                    if a.tag == qn("w:del"):
+                        long_trong_del = True
+                        break
+                if long_trong_del:
+                    continue
                 loi.append("Run trong <w:ins> có <w:delText> — sai loại")
 
     # 4. rPr long nhau
