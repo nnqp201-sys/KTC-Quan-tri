@@ -106,7 +106,7 @@ Optional:
 
 ## Safety and quality rules
 - Đối chiếu thẩm quyền theo đúng bảng ở mục "Thể loại và thẩm quyền ban hành" (căn cứ Quy định 399-QĐ/TW) — chỉ ghi "cần xác minh thẩm quyền" khi không xác định được cấp ban hành cụ thể (Ban Chấp hành/Ban Thường vụ/Chi bộ), không suy diễn khi đã có căn cứ rõ.
-- Bảo mật: người dùng tự chịu trách nhiệm không đưa tài liệu mật, tài liệu không được phép lên AI (QĐ 2307/QĐ-CĐKT, QĐ 2328/QĐ-CĐKT; quyết định của Hiệu trưởng ngày 26/10/2026, điểm 4); Skill không kiểm, không hỏi lại (v4.2 – thay quy tắc cũ “phát hiện thì dừng”).
+- Bảo mật: người dùng tự chịu trách nhiệm không đưa tài liệu mật, tài liệu không được phép lên AI (QĐ 2307/QĐ-CĐKT, QĐ 2328/QĐ-CĐKT; quyết định của Hiệu trưởng ngày 26/10/2026, điểm 4); Skill không kiểm, không hỏi lại (v4.2 – thay quy tắc cũ “phát hiện thì dừng”). Hệ thống AI được phép và loại dữ liệu được xử lý: Danh mục ban hành kèm theo QĐ 2487/QĐ-CĐKT ngày 03/11/2026 (v4.6.4 – Q3).
 - Kết quả rà soát chỉ có giá trị tham khảo — theo đúng nguyên tắc chung của hệ thống (xem `SKILL.md` mục “Mục đích”), không thay thế trách nhiệm Chánh văn phòng/người phụ trách công tác văn phòng đảng trong việc thẩm định thể thức.
 
 ## Review handoff

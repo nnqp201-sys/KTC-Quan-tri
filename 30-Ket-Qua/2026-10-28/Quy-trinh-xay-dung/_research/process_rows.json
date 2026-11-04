@@ -1,0 +1,1625 @@
+[
+  [
+    "A",
+    "Tiếp nhận nhu cầu và kiểm tra hiện trạng → biên bản hiện trạng, ảnh, danh mục hư hỏng",
+    "–",
+    "–",
+    "P nếu thuê",
+    "C: Đơn vị quản lý, sử dụng công trình",
+    [
+      [
+        "104",
+        "khoản 1 Điều 20"
+      ]
+    ],
+    "Bắt buộc có cơ sở đề xuất; biên bản, ảnh là cách tổ chức hồ sơ nội bộ, không phải mẫu pháp định riêng. Xác định công trình, địa điểm và hồ sơ tài sản hiện có."
+  ],
+  [
+    "A",
+    "Phân loại công việc và nguồn kinh phí → phiếu xác định phạm vi áp dụng",
+    "–",
+    "–",
+    "P",
+    "C: Đơn vị sử dụng ngân sách; P: cơ quan tài chính",
+    [
+      [
+        "NS",
+        "Điều 40"
+      ],
+      [
+        "104",
+        "Điều 1; khoản 1 Điều 20"
+      ]
+    ],
+    "Chỉ dùng quy trình này khi thuộc nhiệm vụ được phép chi thường xuyên. Xây mới phải là hạng mục trong dự án đã đầu tư xây dựng. Không dùng mức dưới 3 tỷ để hợp thức hóa công trình mới ngoài phạm vi."
+  ],
+  [
+    "A",
+    "Xác định chế độ xây dựng và nhánh kinh phí → bản phân loại nhiệm vụ hoặc dự án",
+    "–",
+    "–",
+    "P",
+    "C: Đơn vị quản lý công trình; P: cơ quan xây dựng",
+    [
+      [
+        "104",
+        "điểm a khoản 2 Điều 21"
+      ],
+      [
+        "XD",
+        "điểm c khoản 1 Điều 17; Điều 23"
+      ],
+      [
+        "217",
+        "khoản 4 Điều 27"
+      ]
+    ],
+    "Nhánh I dưới 500 triệu; nhánh II từ 500 triệu đến dưới 3 tỷ. Nhánh I không tự động miễn BCKTKT: kiểm tra có hình thành dự án hay chỉ là bảo trì được miễn lập dự án. Ghi nhận lý do chọn nhánh."
+  ],
+  [
+    "A",
+    "Rà soát tiêu chuẩn, định mức và quyền quản lý tài sản → bảng kiểm điều kiện",
+    "–",
+    "–",
+    "P",
+    "C: Đơn vị quản lý công trình; P: cơ quan quản lý tài sản",
+    [
+      [
+        "104",
+        "khoản 1 Điều 20"
+      ],
+      [
+        "XD",
+        "Điều 7; Điều 18"
+      ]
+    ],
+    "Đối chiếu định mức trụ sở/cơ sở hoạt động sự nghiệp và quy chuẩn chuyên ngành. Cần xác minh: văn bản phân cấp tài sản, đất đai và định mức cụ thể theo loại đơn vị; chưa xác định địa phương."
+  ],
+  [
+    "A",
+    "Lập thuyết minh nhiệm vụ và dự kiến chi phí → hồ sơ đề xuất chủ trương",
+    "–",
+    "–",
+    "P nếu thuê",
+    "C: Đơn vị quản lý công trình hoặc đơn vị tổng hợp được giao",
+    [
+      [
+        "104",
+        "khoản 1 Điều 20"
+      ]
+    ],
+    "Nêu tên, địa điểm, mục tiêu, lý do, tiêu chuẩn/định mức, khối lượng dự kiến và chi phí theo nguồn. Phân biệt dự kiến chi phí với dự toán xây dựng chi tiết lập sau."
+  ],
+  [
+    "A",
+    "Rà soát hồ sơ đề xuất và khả năng cân đối → hồ sơ rà soát trình duyệt",
+    "–",
+    "–",
+    "–",
+    "C: Cơ quan/đơn vị được giao tổng hợp; P: cơ quan tài chính",
+    [
+      [
+        "104",
+        "điểm c khoản 2 Điều 20"
+      ]
+    ],
+    "Không tự đặt thủ tục thẩm định của Sở Xây dựng ở bước chủ trương. Nội dung rà soát phục vụ người có thẩm quyền quyết định, có thể thực hiện trong quy trình trình duyệt nội bộ."
+  ],
+  [
+    "A",
+    "Phê duyệt chủ trương và dự kiến chi phí → quyết định theo Mẫu 02",
+    "–",
+    "–",
+    "–",
+    "D: Bộ trưởng/thủ trưởng CQTW hoặc UBND tỉnh, chủ thể được phân cấp",
+    [
+      [
+        "104",
+        "khoản 2 Điều 20; Mẫu 02 phụ lục"
+      ]
+    ],
+    "Cần xác minh quyết định phân cấp hiện hành của bộ hoặc UBND tỉnh. Không mặc định thủ trưởng đơn vị được duyệt vì kinh phí dưới 3 tỷ. Quyết định này chưa thay thế giao dự toán và phê duyệt BCKTKT."
+  ],
+  [
+    "A",
+    "Lập và tổng hợp dự toán ngân sách năm → dự toán kinh phí nhiệm vụ",
+    "–",
+    "–",
+    "–",
+    "C: Đơn vị sử dụng ngân sách; P: cơ quan quản lý cấp trên",
+    [
+      [
+        "104",
+        "khoản 3 Điều 20"
+      ]
+    ],
+    "Đính kèm quyết định chủ trương và dự kiến chi phí; tổng hợp qua đơn vị dự toán cấp I gửi cơ quan tài chính. Thực hiện theo lịch lập ngân sách, không tự đặt hạn nộp chung cho mọi địa phương."
+  ],
+  [
+    "A",
+    "Tổng hợp, trình và quyết định dự toán ngân sách → quyết định giao dự toán cấp I",
+    "–",
+    "–",
+    "–",
+    "C: Cơ quan tài chính; D: cấp có thẩm quyền giao dự toán",
+    [
+      [
+        "104",
+        "khoản 1 Điều 21"
+      ],
+      [
+        "NS",
+        "Cần xác minh điều khoản và thẩm quyền ngân sách cụ thể của cấp áp dụng"
+      ]
+    ],
+    "Thực hiện chu trình ngân sách theo cấp ngân sách. Trường hợp phát sinh khách quan/bất khả kháng trong năm, thực hiện điểm đ khoản 1 Điều 21 NĐ 104; không cam kết chi trước khi đủ căn cứ."
+  ],
+  [
+    "A",
+    "Điều chỉnh chủ trương khi số phân bổ khác dự kiến → quyết định điều chỉnh",
+    "–",
+    "–",
+    "P nếu cần",
+    "C: Đơn vị quản lý; D: cấp đã có thẩm quyền duyệt chủ trương",
+    [
+      [
+        "104",
+        "điểm b khoản 1 Điều 21"
+      ]
+    ],
+    "Có điều kiện. Rà lại phạm vi, khối lượng và nguồn; bảo đảm nhiệm vụ trong dự toán được giao. Không chỉ sửa bảng tính mà bỏ quyết định điều chỉnh cần thiết."
+  ],
+  [
+    "A",
+    "Phân bổ và giao dự toán cho đơn vị thực hiện → quyết định và thuyết minh phân bổ",
+    "–",
+    "–",
+    "–",
+    "C/D: Đơn vị dự toán cấp I; P: đơn vị sử dụng ngân sách",
+    [
+      [
+        "104",
+        "khoản 1 Điều 21, đặc biệt điểm a, c, đ"
+      ]
+    ],
+    "Trong dự toán được giao, không ảnh hưởng nhiệm vụ chuyên môn khác; kèm thuyết minh công trình, khối lượng, quyết định chủ trương/điều chỉnh. Bố trí cả chi phí chuẩn bị, tư vấn và quyết toán cần thiết."
+  ],
+  [
+    "A",
+    "Kiểm tra phân bổ dự toán → kết quả kiểm tra và xử lý kiến nghị",
+    "–",
+    "–",
+    "–",
+    "C: Cơ quan tài chính; P: đơn vị dự toán cấp I",
+    [
+      [
+        "104",
+        "điểm d khoản 1 Điều 21"
+      ]
+    ],
+    "Là kiểm tra phân bổ ngân sách, khác thẩm định thiết kế hoặc dự toán xây dựng. Nếu cần điều chỉnh, hoàn tất trước khi chi theo phần dự toán bị yêu cầu sửa."
+  ],
+  [
+    "A",
+    "Giao chủ thể thực hiện và hình thức quản lý → quyết định giao nhiệm vụ/chủ đầu tư",
+    "P sau khi được giao",
+    "–",
+    "P nếu thuê QLDA",
+    "C/D: Người có thẩm quyền giao nhiệm vụ/quyết định đầu tư",
+    [
+      [
+        "XD",
+        "Điều 9; Điều 32"
+      ],
+      [
+        "217",
+        "Điều 6; khoản 3, 6 Điều 44"
+      ],
+      [
+        "104",
+        "điểm a, b khoản 2 Điều 21"
+      ]
+    ],
+    "Tách rõ đơn vị quản lý công trình, đơn vị sử dụng ngân sách, cơ quan chuẩn bị dự án, chủ đầu tư và người quyết định đầu tư. Với nhiệm vụ không hình thành dự án, giao đơn vị thực hiện, không gán tư cách chủ đầu tư xây dựng."
+  ],
+  [
+    "A",
+    "Đăng ký tài khoản và người giao dịch Kho bạc → hồ sơ tài khoản, mẫu chữ ký/dấu",
+    "P",
+    "–",
+    "–",
+    "C: Đơn vị giao dịch; C: KBNN tiếp nhận, xử lý",
+    [
+      [
+        "347",
+        "Điều 8"
+      ]
+    ],
+    "Chỉ phát sinh khi chưa đăng ký hoặc có thay đổi. Đơn vị giao dịch phải đúng quyết định giao dự toán/giao chủ đầu tư; không tự lập thêm tài khoản dự án nếu chưa có yêu cầu pháp lý."
+  ],
+  [
+    "B",
+    "Lập, thẩm định và phê duyệt chi phí chuẩn bị → dự toán chuẩn bị dự án",
+    "C/T/D khi được giao",
+    "–",
+    "P",
+    "C/T/D: Cơ quan chuẩn bị dự án nếu chưa có chủ đầu tư",
+    [
+      [
+        "206",
+        "khoản 1–3 Điều 11"
+      ]
+    ],
+    "Nhánh có dự án. Cơ quan chuẩn bị dự án hoặc chủ đầu tư tổ chức lập, thẩm định và phê duyệt; cập nhật vào tổng mức đầu tư. Chỉ triển khai trong phạm vi nhiệm vụ, kinh phí hợp pháp được giao."
+  ],
+  [
+    "B",
+    "Lựa chọn tư vấn chuẩn bị dự án → kế hoạch, kết quả lựa chọn và hợp đồng tư vấn",
+    "C/D nếu đã giao",
+    "–",
+    "P: tư vấn dự kiến được chọn",
+    "C/D: Cơ quan chuẩn bị dự án nếu chưa có chủ đầu tư",
+    [
+      [
+        "DT",
+        "khoản 5 Điều 37; khoản 2 Điều 40; Điều 78"
+      ],
+      [
+        "349",
+        "khoản 5 Điều 4; Điều 6"
+      ]
+    ],
+    "Thực hiện các bước lựa chọn nhà thầu tại giai đoạn C cho gói khảo sát, thiết kế, thẩm tra cần làm trước. Đây là vòng lựa chọn sớm, không chờ phê duyệt BCKTKT mới chọn đơn vị lập BCKTKT."
+  ],
+  [
+    "B",
+    "Lập và phê duyệt nhiệm vụ khảo sát → nhiệm vụ khảo sát",
+    "C/D",
+    "–",
+    "C: tư vấn lập theo giao việc",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 21; Điều 22"
+      ],
+      [
+        "217",
+        "Điều 10; Điều 11"
+      ]
+    ],
+    "Có điều kiện theo nhu cầu thiết kế và hiện trạng. Xác định phạm vi, tiêu chuẩn, khối lượng, thời gian. Có thể dùng số liệu hiện hữu khi được đánh giá đủ tin cậy theo quy định, không tự động khoan khảo sát mọi sửa chữa."
+  ],
+  [
+    "B",
+    "Lập, phê duyệt phương án kỹ thuật khảo sát → phương án được duyệt",
+    "D/P",
+    "–",
+    "C: nhà thầu khảo sát",
+    "–",
+    [
+      [
+        "217",
+        "Điều 12"
+      ]
+    ],
+    "Nếu thực hiện khảo sát xây dựng. Kiểm tra phương án đáp ứng nhiệm vụ, điều kiện hiện trường, an toàn và năng lực. Vai trò chủ đầu tư trước quyết định giao được thực hiện bởi cơ quan chuẩn bị dự án trong phạm vi được giao."
+  ],
+  [
+    "B",
+    "Thực hiện và quản lý khảo sát → báo cáo kết quả khảo sát, dữ liệu gốc",
+    "C: tổ chức quản lý",
+    "–",
+    "C: khảo sát; P: giám sát khảo sát",
+    "–",
+    [
+      [
+        "217",
+        "Điều 13; Điều 14"
+      ],
+      [
+        "XD",
+        "Điều 37"
+      ]
+    ],
+    "Nhà thầu chịu trách nhiệm kết quả; người quản lý kiểm tra việc tuân thủ nhiệm vụ/phương án. Bổ sung kiểm định hiện trạng nếu cần xác định khả năng chịu lực, phạm vi can thiệp."
+  ],
+  [
+    "B",
+    "Nghiệm thu và phê duyệt kết quả khảo sát → biên bản, văn bản phê duyệt",
+    "C/D",
+    "–",
+    "P: khảo sát, thiết kế",
+    "–",
+    [
+      [
+        "217",
+        "Điều 15"
+      ]
+    ],
+    "Kết quả đủ điều kiện mới dùng làm căn cứ thiết kế. Phê duyệt không làm giảm trách nhiệm của nhà thầu khảo sát về độ chính xác."
+  ],
+  [
+    "B",
+    "Lập, phê duyệt nhiệm vụ thiết kế → nhiệm vụ thiết kế",
+    "C/D",
+    "–",
+    "C/P: tư vấn thiết kế",
+    "–",
+    [
+      [
+        "217",
+        "Điều 17"
+      ],
+      [
+        "XD",
+        "Điều 19; Điều 20"
+      ]
+    ],
+    "Áp dụng khi cần thiết kế; nêu mục tiêu, quy mô, tiêu chuẩn, yêu cầu công năng/an toàn, nguồn số liệu. BCKTKT dùng thiết kế một bước là bản vẽ thi công theo khoản 1 Điều 19 Luật Xây dựng."
+  ],
+  [
+    "B",
+    "Lập hồ sơ kỹ thuật cho nhiệm vụ không lập dự án → phương án, khối lượng và dự toán",
+    "C",
+    "–",
+    "C/P nếu thuê",
+    "D: Thủ trưởng/chủ thể có thẩm quyền theo hồ sơ nhiệm vụ",
+    [
+      [
+        "104",
+        "điểm a khoản 2 Điều 21"
+      ],
+      [
+        "217",
+        "khoản 4 Điều 27"
+      ],
+      [
+        "207",
+        "Điều 34–39"
+      ]
+    ],
+    "Nhánh I nếu đúng công tác bảo trì được miễn lập dự án. Hồ sơ phải đủ xác định công việc, chất lượng, giá và nghiệm thu. Cần xác minh thẩm quyền duyệt dự toán công việc theo phân cấp; không coi đây là miễn thiết kế/an toàn."
+  ],
+  [
+    "B",
+    "Lập BCKTKT và thiết kế bản vẽ thi công → bộ BCKTKT, bản vẽ, chỉ dẫn kỹ thuật",
+    "C: tổ chức lập",
+    "–",
+    "C: tư vấn lập, thiết kế",
+    "–",
+    [
+      [
+        "104",
+        "điểm a khoản 2 Điều 21"
+      ],
+      [
+        "XD",
+        "Điều 23; Điều 25"
+      ],
+      [
+        "217",
+        "Điều 23; Điều 30"
+      ]
+    ],
+    "Bắt buộc cho nhánh II; nhánh I nếu hình thành dự án phải đối chiếu Điều 23 Luật Xây dựng. Không cần thêm báo cáo nghiên cứu khả thi theo thủ tục thông thường chỉ vì có hoạt động xây dựng."
+  ],
+  [
+    "B",
+    "Xác định dự toán và tổng mức đầu tư → bảng chi phí có căn cứ giá",
+    "C: tổ chức kiểm soát",
+    "–",
+    "C: tư vấn lập dự toán",
+    "P: cơ quan công bố giá/định mức",
+    [
+      [
+        "206",
+        "khoản 6 Điều 5; Điều 6; Điều 12; Điều 22"
+      ]
+    ],
+    "Tính đủ xây dựng, thiết bị, QLDA, tư vấn, chi khác, dự phòng tương ứng. BCKTKT phải có dự toán xây dựng công trình trong tổng mức đầu tư theo khoản 6 Điều 5 NĐ 206; xác định theo Điều 12. Không bỏ dự toán với lý do chỉ thiết kế một bước."
+  ],
+  [
+    "B",
+    "Thẩm tra thiết kế, chi phí → báo cáo thẩm tra",
+    "C: thuê/giao phù hợp",
+    "–",
+    "T: tư vấn độc lập đủ năng lực",
+    "–",
+    [
+      [
+        "XD",
+        "khoản 5 Điều 26"
+      ],
+      [
+        "206",
+        "Điều 8"
+      ],
+      [
+        "217",
+        "Điều 31"
+      ]
+    ],
+    "Bắt buộc khi thuộc khoản 5 Điều 26 Luật Xây dựng; ngoài ra theo yêu cầu quản lý hợp pháp. Thẩm tra là đầu vào cho thẩm định, không thay thế cơ quan thẩm định. Không để người lập tự thẩm tra phần việc của mình."
+  ],
+  [
+    "B",
+    "Thẩm định phần thiết kế BVTC, tổng mức đầu tư thuộc trách nhiệm chủ đầu tư → kết quả thẩm định",
+    "C/T",
+    "–",
+    "P: lập, thẩm tra",
+    "P: cơ quan chủ trì thẩm định",
+    [
+      [
+        "217",
+        "khoản 7, 8 Điều 31"
+      ],
+      [
+        "206",
+        "khoản 3, 4 Điều 7"
+      ]
+    ],
+    "Theo nhiệm vụ người quyết định đầu tư giao. Khi chủ đầu tư không phải cơ quan chuyên môn trực thuộc, vẫn thực hiện nội dung chi phí thuộc trách nhiệm để cơ quan chủ trì tổng hợp. Không đồng nhất ký kiểm soát nội bộ với phê duyệt BCKTKT."
+  ],
+  [
+    "B",
+    "Thẩm định và tổng hợp BCKTKT → báo cáo kết quả thẩm định",
+    "P",
+    "–",
+    "P: giải trình, hoàn thiện",
+    "C/T: Cơ quan/tổ chức được người quyết định đầu tư giao chủ trì",
+    [
+      [
+        "XD",
+        "Điều 26"
+      ],
+      [
+        "217",
+        "khoản 3–8 Điều 31"
+      ]
+    ],
+    "Người quyết định đầu tư giao cơ quan chuyên môn trực thuộc hoặc tổ chức có chuyên môn phù hợp theo khoản 3 Điều 31. Không mặc định BCKTKT dưới 3 tỷ phải chuyển cơ quan chuyên môn về xây dựng thẩm định BCNCKT theo Điều 27 Luật."
+  ],
+  [
+    "B",
+    "Phê duyệt BCKTKT và tổng mức đầu tư → quyết định phê duyệt dự án",
+    "P",
+    "–",
+    "P: hoàn thiện",
+    "C/D: Người quyết định đầu tư theo thẩm quyền, phân cấp hợp pháp",
+    [
+      [
+        "XD",
+        "khoản 1 Điều 28"
+      ],
+      [
+        "217",
+        "Điều 39; Mẫu 10 Phụ lục I"
+      ],
+      [
+        "206",
+        "Điều 9"
+      ]
+    ],
+    "Chỉ phê duyệt sau thẩm định và khắc phục yêu cầu. Cần xác minh văn bản giao thẩm quyền phê duyệt BCKTKT của bộ/địa phương; quyền duyệt chủ trương NĐ 104 không tự động là quyền duyệt BCKTKT."
+  ],
+  [
+    "B",
+    "Đóng dấu phê duyệt thiết kế BVTC và thống nhất bộ hồ sơ → thiết kế dùng thi công",
+    "C/D theo giao của người quyết định đầu tư",
+    "–",
+    "P",
+    "P: người quyết định đầu tư",
+    [
+      [
+        "217",
+        "khoản 5 Điều 39"
+      ]
+    ],
+    "Với BCKTKT, người quyết định đầu tư giao chủ đầu tư đóng dấu phê duyệt hồ sơ BVTC. Không dựng thêm quy trình thẩm định/phê duyệt thiết kế sau dự án như dự án thiết kế nhiều bước nếu không có bước thiết kế đó."
+  ],
+  [
+    "B",
+    "Sàng lọc và thực hiện yêu cầu đất đai, quy hoạch, PCCC, môi trường → hồ sơ chuyên ngành",
+    "C",
+    "–",
+    "C/P: thiết kế, môi trường",
+    "C/T/D: Cơ quan đất đai, môi trường, PCCC hoặc chuyên ngành có thẩm quyền",
+    [
+      [
+        "XD",
+        "Điều 18; Điều 25; điểm đ khoản 3 Điều 26"
+      ],
+      [
+        "217",
+        "khoản 5 Điều 31"
+      ]
+    ],
+    "Có điều kiện theo loại, cấp, công năng và mức can thiệp; làm đồng thời với lập/thẩm định để kịp thời điểm pháp luật yêu cầu. Cần xác minh điều khoản chuyên ngành trực tiếp sau khi có dữ liệu công trình; không mặc định mọi sửa chữa phải có ĐTM hoặc thẩm định PCCC."
+  ],
+  [
+    "B",
+    "Xin giấy phép hoặc xác lập căn cứ miễn → giấy phép/phiếu xác định miễn kèm hồ sơ",
+    "C",
+    "–",
+    "P: thiết kế",
+    "C/D: Cơ quan cấp phép theo Điều 53 NĐ 217",
+    [
+      [
+        "XD",
+        "Điều 43; Điều 44"
+      ],
+      [
+        "217",
+        "Điều 51; Điều 53; Điều 54; Điều 61"
+      ]
+    ],
+    "Trước khởi công nếu thuộc diện cấp phép. Miễn phải đối chiếu đúng khoản 2 Điều 43 và điều kiện thực tế; chi thường xuyên, dưới 500 triệu hoặc dưới 3 tỷ không tự tạo miễn giấy phép."
+  ],
+  [
+    "C",
+    "Lập danh mục gói thầu và giá gói → dự thảo kế hoạch lựa chọn nhà thầu",
+    "C",
+    "–",
+    "P nếu thuê",
+    "P: cơ quan chuẩn bị dự án cho gói làm trước",
+    [
+      [
+        "DT",
+        "Điều 37; Điều 38; Điều 39"
+      ],
+      [
+        "206",
+        "Điều 13; Điều 15"
+      ]
+    ],
+    "Lặp lại bước C cho từng nhóm tư vấn làm trước và các gói sau phê duyệt. Giá có thuế, dự phòng phù hợp; phân chia theo kỹ thuật, trình tự, không chia nhỏ để đạt hạn mức."
+  ],
+  [
+    "C",
+    "Chọn căn cứ hình thức, phương thức và quy trình → thuyết minh lựa chọn",
+    "C",
+    "–",
+    "P",
+    "–",
+    [
+      [
+        "DT",
+        "Điều 21; Điều 23; Điều 24"
+      ],
+      [
+        "214",
+        "Điều 78–80 đã sửa đổi"
+      ],
+      [
+        "349",
+        "khoản 5 Điều 4; Điều 6"
+      ]
+    ],
+    "Hạn mức hiện hành: dự toán mua sắm không hình thành dự án ≤1 tỷ; tư vấn thuộc dự án ≤3 tỷ; phi tư vấn/hàng hóa/xây lắp/hỗn hợp thuộc dự án ≤5 tỷ. Vẫn phải đủ điều kiện. Không chọn hạn mức dự án chỉ vì đã lập BCKTKT; xác định đúng hồ sơ và bản chất gói."
+  ],
+  [
+    "C",
+    "Phê duyệt kế hoạch lựa chọn nhà thầu → quyết định KHLCNT",
+    "C/D",
+    "–",
+    "P nếu thuê lập",
+    "C/D: Người đứng đầu cơ quan chuẩn bị dự án nếu chưa có chủ đầu tư",
+    [
+      [
+        "DT",
+        "khoản 2 Điều 40; khoản 2 Điều 41; điểm a khoản 1 Điều 78"
+      ]
+    ],
+    "Chủ đầu tư tổ chức lập, phê duyệt; không mặc định người quyết định đầu tư phê duyệt. Khoản 3 Điều 40 và khoản 3 Điều 41 đã bãi bỏ: không thêm bước thẩm định KHLCNT bắt buộc. Ngoại lệ gói ≤100 triệu xét riêng khoản 4 Điều 80 đã sửa đổi."
+  ],
+  [
+    "C",
+    "Đăng tải KHLCNT → bản công khai trên Hệ thống mạng đấu thầu quốc gia",
+    "C",
+    "–",
+    "P nếu được giao",
+    "–",
+    [
+      [
+        "DT",
+        "Điều 7; khoản 4 Điều 8"
+      ]
+    ],
+    "Thực hiện thời hạn công khai của từng thông tin; KHLCNT đăng tải chậm nhất 05 ngày làm việc từ ngày ban hành theo khoản 4 Điều 8 Luật. Giữ bằng chứng thời điểm đăng và nội dung khớp quyết định."
+  ],
+  [
+    "C",
+    "Chuẩn bị hồ sơ lựa chọn nhà thầu → HSMT/HSYC hoặc dự thảo hợp đồng",
+    "C",
+    "–",
+    "C/P: tư vấn được thuê, tổ chuyên gia",
+    "–",
+    [
+      [
+        "DT",
+        "Điều 43; Điều 78"
+      ],
+      [
+        "214",
+        "Điều 79; Điều 80"
+      ],
+      [
+        "349",
+        "khoản 3 Điều 6"
+      ]
+    ],
+    "Đấu thầu dùng HSMT theo loại gói; chỉ định thông thường dùng HSYC; chỉ định rút gọn gửi dự thảo hợp đồng. Không yêu cầu đủ cả ba bộ. Gói ≤100 triệu có thể áp dụng khoản 4 Điều 80, vẫn đủ hóa đơn/chứng từ."
+  ],
+  [
+    "C",
+    "Thẩm định HSMT/HSYC nếu quy trình yêu cầu → báo cáo thẩm định",
+    "C: tổ chức",
+    "–",
+    "T: tổ thẩm định/tư vấn đủ điều kiện",
+    "–",
+    [
+      [
+        "DT",
+        "khoản 2 Điều 78"
+      ],
+      [
+        "214",
+        "quy trình tương ứng; Điều 79"
+      ]
+    ],
+    "Có điều kiện. Tách lập hồ sơ và thẩm định theo yêu cầu bảo đảm độc lập; không thêm báo cáo thẩm định HSMT cho chỉ định rút gọn vốn không lập HSMT. Cần xác minh điều khoản quy trình cụ thể khi chốt hình thức từng gói."
+  ],
+  [
+    "C",
+    "Phê duyệt và phát hành hồ sơ → hồ sơ được duyệt, thông báo hoặc dự thảo đã gửi",
+    "C/D",
+    "P: nhận hồ sơ",
+    "P",
+    "–",
+    [
+      [
+        "DT",
+        "điểm c khoản 1 Điều 78"
+      ],
+      [
+        "214",
+        "Điều 79; Điều 80"
+      ],
+      [
+        "349",
+        "khoản 3 Điều 6"
+      ]
+    ],
+    "Chỉ định rút gọn theo quy định mới gửi dự thảo hợp đồng trên Hệ thống mạng đấu thầu quốc gia, trừ ngoại lệ pháp định. Đấu thầu qua mạng theo phạm vi/lộ trình hiện hành; không tự chuyển sang giấy vì gói nhỏ."
+  ],
+  [
+    "C",
+    "Đóng thầu, mở thầu theo hình thức cạnh tranh → biên bản và dữ liệu mở thầu",
+    "C",
+    "C: nộp hồ sơ đúng hạn",
+    "P: tổ chuyên gia/tư vấn",
+    "–",
+    [
+      [
+        "DT",
+        "Điều 43"
+      ],
+      [
+        "214",
+        "quy trình tương ứng tại Chương II–IV hoặc Điều 81"
+      ]
+    ],
+    "Có điều kiện khi áp dụng hình thức cạnh tranh; không phát sinh mở thầu cạnh tranh trong chỉ định. HSMT phải xác định hạn nộp, hiệu lực, bảo đảm dự thầu nếu thuộc diện; tuân thủ thao tác trên Hệ thống. Cần xác minh điều khoản và thời hạn cụ thể của phương thức được chọn trước phát hành."
+  ],
+  [
+    "C",
+    "Tiếp nhận, đánh giá hồ sơ và làm rõ → báo cáo đánh giá/biên bản hoàn thiện",
+    "C: tổ chức",
+    "C: nộp, giải trình",
+    "C: tổ chuyên gia/tư vấn đánh giá",
+    "–",
+    [
+      [
+        "DT",
+        "Điều 43; khoản 1a, 1b, 4 Điều 78"
+      ],
+      [
+        "214",
+        "Điều 79; Điều 80"
+      ]
+    ],
+    "Đúng quy trình đã duyệt, không bỏ kiểm tra tư cách, năng lực, tính hợp lý giá. Chỉ định rút gọn đánh giá khả năng thực hiện trên cơ sở dự thảo và hồ sơ nhà thầu, không lập giả hồ sơ dự thầu cạnh tranh."
+  ],
+  [
+    "C",
+    "Thương thảo hoặc hoàn thiện điều kiện hợp đồng → biên bản thống nhất",
+    "C",
+    "C: cùng hoàn thiện",
+    "P",
+    "–",
+    [
+      [
+        "DT",
+        "khoản 13 Điều 78"
+      ],
+      [
+        "214",
+        "Điều 79; Điều 80"
+      ]
+    ],
+    "Theo trường hợp, loại gói. Với chỉ định rút gọn, hoàn thiện dự thảo trước phê duyệt kết quả; với đấu thầu thực hiện thương thảo khi pháp luật yêu cầu, không đặt thành bước bắt buộc cho mọi gói."
+  ],
+  [
+    "C",
+    "Thẩm định kết quả nếu thuộc diện → báo cáo thẩm định kết quả",
+    "C: tổ chức",
+    "P nếu cần giải trình",
+    "T: tổ thẩm định/tư vấn",
+    "–",
+    [
+      [
+        "DT",
+        "khoản 2 Điều 78"
+      ],
+      [
+        "214",
+        "quy trình tương ứng; Điều 79; Điều 80"
+      ]
+    ],
+    "Có điều kiện theo quy trình; không biến thẩm định thành bước mặc định của chỉ định rút gọn nếu quy định không yêu cầu. Cần xác minh điều khoản trực tiếp của hình thức được chọn trước khi áp dụng."
+  ],
+  [
+    "C",
+    "Phê duyệt kết quả lựa chọn → quyết định kết quả",
+    "C/D",
+    "–",
+    "P",
+    "–",
+    [
+      [
+        "DT",
+        "điểm d khoản 1 Điều 78"
+      ],
+      [
+        "214",
+        "Điều 79; khoản 3 Điều 80"
+      ]
+    ],
+    "Người có thẩm quyền phía chủ đầu tư ký; kết quả chỉ rõ nhà thầu, giá, loại hợp đồng, thời gian và nội dung cần thiết. Riêng cơ chế ≤100 triệu thực hiện theo nhánh pháp định được chọn, không tạo đầy đủ quy trình rút gọn khi được miễn."
+  ],
+  [
+    "C",
+    "Công khai, thông báo kết quả → dữ liệu đăng tải và thông báo",
+    "C",
+    "P: nhận thông báo",
+    "P",
+    "–",
+    [
+      [
+        "DT",
+        "Điều 7; khoản 4 Điều 8"
+      ],
+      [
+        "214",
+        "Điều 80"
+      ]
+    ],
+    "Đăng đúng phạm vi, thời hạn; kết quả thuộc thông tin quy định tại khoản 4 Điều 8 Luật phải công khai chậm nhất 05 ngày làm việc từ ngày ban hành. Chứng minh việc gửi dự thảo hợp đồng không thay thế công khai kết quả."
+  ],
+  [
+    "C",
+    "Kiểm tra bảo đảm và ký hợp đồng → hợp đồng, phụ lục, bảo đảm liên quan",
+    "C: ký/giao thầu",
+    "C: ký/nhận thầu",
+    "P: theo phạm vi hợp đồng tư vấn",
+    "P: ngân hàng/tổ chức bảo lãnh nếu có",
+    [
+      [
+        "DT",
+        "Điều 65–68; khoản 3 Điều 78"
+      ],
+      [
+        "XD",
+        "Điều 81–83"
+      ],
+      [
+        "210",
+        "Điều 4–7; Điều 13"
+      ]
+    ],
+    "Kiểm tra thẩm quyền ký, điều kiện hiệu lực, bảo đảm thực hiện theo trường hợp/ngoại lệ. Quy định rõ phạm vi, giá, nghiệm thu, tạm ứng, thanh toán, bảo hành, quyết toán và thứ tự ưu tiên hồ sơ; tư vấn ký ở vai trò bên nhận thầu của hợp đồng tư vấn."
+  ],
+  [
+    "D",
+    "Bàn giao mặt bằng và mốc hiện trạng → biên bản bàn giao",
+    "C",
+    "C/P: nhận",
+    "P: giám sát, thiết kế",
+    "P: đơn vị quản lý sử dụng",
+    [
+      [
+        "XD",
+        "điểm a khoản 1 Điều 48; Điều 59"
+      ]
+    ],
+    "Mặt bằng toàn bộ hoặc từng phần theo tiến độ; ghi tài sản, tuyến điện/nước, khu vực đang hoạt động, mốc, biện pháp cách ly. Không tự bổ sung thu hồi đất/GPMB nếu thực tế không phát sinh."
+  ],
+  [
+    "D",
+    "Kiểm tra điều kiện khởi công → danh mục kiểm tra và hồ sơ đủ điều kiện",
+    "C",
+    "P",
+    "P: giám sát",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 48"
+      ],
+      [
+        "207",
+        "Điều 12"
+      ]
+    ],
+    "Mặt bằng, giấy phép nếu phải có, thiết kế được duyệt, hợp đồng và biện pháp an toàn/môi trường theo quy định. Thủ tục chuyên ngành cần có trước khởi công phải hoàn tất, không dùng hợp đồng để thay giấy phép."
+  ],
+  [
+    "D",
+    "Thông báo khởi công và thông tin công trường → thông báo, biển công trình",
+    "C",
+    "P/C: biển và tổ chức công trường",
+    "P",
+    "P: cơ quan quản lý trật tự xây dựng địa phương",
+    [
+      [
+        "XD",
+        "Điều 48; Điều 49"
+      ],
+      [
+        "207",
+        "Điều 12; Điều 13"
+      ]
+    ],
+    "Thông báo đúng đối tượng, nội dung và thời điểm thuộc diện phải thông báo. Gửi trước khi khởi công theo khoản 2 Điều 12 NĐ 207, Mẫu Phụ lục V. Quy định này không đặt mốc chung 03 ngày làm việc; không hiểu thông báo là giấy chấp thuận khởi công."
+  ],
+  [
+    "D",
+    "Kiểm tra nhân sự, năng lực và hệ thống quản lý → hồ sơ huy động, phân công",
+    "C: kiểm tra",
+    "C: huy động",
+    "P: tư vấn giám sát",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 88–90; Điều 61; Điều 63"
+      ],
+      [
+        "207",
+        "Điều 15; Điều 16"
+      ]
+    ],
+    "Đúng hồ sơ lựa chọn và hợp đồng; thay nhân sự phải đúng điều kiện. Chứng chỉ/chứng nhận chỉ yêu cầu theo loại công việc và đối tượng pháp luật quy định; không suy từ giá gói thầu để miễn toàn bộ năng lực."
+  ],
+  [
+    "D",
+    "Lập biện pháp thi công, an toàn, tiến độ → biện pháp và tiến độ được kiểm soát",
+    "C: tổ chức xem xét",
+    "C: lập và thực hiện",
+    "P: giám sát",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 50–52"
+      ],
+      [
+        "207",
+        "Điều 15; Điều 16; Điều 19"
+      ]
+    ],
+    "Trước các công việc tương ứng; kiểm soát làm việc trên cao, điện, phá dỡ và an toàn người đang sử dụng công trình. Nếu có phá dỡ, lập hồ sơ theo Điều 54 Luật và Điều 44 NĐ 207, không gộp mặc nhiên vào khởi công."
+  ],
+  [
+    "D",
+    "Mua bảo hiểm bắt buộc khi thuộc diện → hợp đồng/chứng nhận bảo hiểm",
+    "C: phần trách nhiệm mình",
+    "C: phần trách nhiệm mình",
+    "C: bảo hiểm nghề nghiệp khi thuộc diện",
+    "P: doanh nghiệp bảo hiểm",
+    [
+      [
+        "XD",
+        "Điều 10"
+      ],
+      [
+        "210",
+        "Điều 20"
+      ]
+    ],
+    "Có điều kiện theo loại công trình, hoạt động, lao động và trách nhiệm với bên thứ ba. Cần xác minh văn bản bảo hiểm chuyên ngành và đối tượng cụ thể khi có loại/cấp công trình; không tự miễn vì tổng kinh phí thấp."
+  ],
+  [
+    "D",
+    "Thực hiện thi công và ghi nhật ký → khối lượng thực tế, nhật ký thi công",
+    "P: quản lý",
+    "C",
+    "P: giám sát",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 50; Điều 61"
+      ],
+      [
+        "207",
+        "Điều 15"
+      ]
+    ],
+    "Thi công theo thiết kế, chỉ dẫn, hợp đồng. Nhật ký thể hiện thời tiết, nhân lực, vật liệu, công việc, vướng mắc và chỉ dẫn; tổ chức hồ sơ liên tục, không hoàn thiện hồi tố bằng số liệu không có thật."
+  ],
+  [
+    "D",
+    "Giám sát thi công → nhật ký/biên bản giám sát, báo cáo định kỳ",
+    "C: tổ chức",
+    "P",
+    "C: giám sát đủ năng lực",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 56; Điều 60; Điều 63"
+      ],
+      [
+        "207",
+        "Điều 20"
+      ]
+    ],
+    "Chủ đầu tư tự giám sát khi đủ điều kiện hoặc thuê tư vấn; kiểm tra chất lượng, khối lượng, tiến độ, an toàn. Cột tư vấn là người thực hiện chuyên môn, chủ đầu tư vẫn chịu trách nhiệm tổ chức."
+  ],
+  [
+    "D",
+    "Giám sát tác giả → chỉ dẫn thiết kế và báo cáo giám sát tác giả",
+    "P",
+    "P",
+    "C: nhà thầu thiết kế",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 62"
+      ],
+      [
+        "207",
+        "Điều 21"
+      ]
+    ],
+    "Trong phạm vi phần thiết kế đã lập và hợp đồng. Phát hiện thi công sai phải thông báo, kiến nghị; không để chỉ dẫn hiện trường thay thế quyết định phê duyệt điều chỉnh bắt buộc."
+  ],
+  [
+    "D",
+    "Kiểm soát vật liệu, cấu kiện, thiết bị → hồ sơ xuất xứ, chất lượng, kiểm tra đầu vào",
+    "C: tổ chức",
+    "C: cung cấp, tự kiểm tra",
+    "C/P: giám sát kiểm tra",
+    "P: phòng thí nghiệm/tổ chức đánh giá phù hợp",
+    [
+      [
+        "207",
+        "Điều 6; Điều 14; khoản 1 Điều 15"
+      ]
+    ],
+    "Chỉ dùng vật liệu phù hợp thiết kế và quy chuẩn/tiêu chuẩn; thí nghiệm theo kế hoạch và chỉ dẫn. CO/CQ hoặc hợp quy chỉ yêu cầu theo loại hàng, hợp đồng/pháp luật, không coi một bộ giấy chung thay kết quả thí nghiệm."
+  ],
+  [
+    "D",
+    "Thí nghiệm, quan trắc, kiểm định phát sinh → kết quả chuyên môn",
+    "C: tổ chức khi thuộc trách nhiệm",
+    "C/P",
+    "C/P: tư vấn chuyên môn",
+    "C/P: phòng thí nghiệm đủ điều kiện",
+    [
+      [
+        "207",
+        "Điều 6–8"
+      ],
+      [
+        "32",
+        "Điều 2–4"
+      ]
+    ],
+    "Theo thiết kế, kế hoạch thí nghiệm, dấu hiệu chất lượng hoặc yêu cầu cơ quan có thẩm quyền. Không bắt mọi sửa chữa nhỏ làm kiểm định độc lập; không bỏ thí nghiệm bắt buộc vì giá thấp."
+  ],
+  [
+    "D",
+    "Nghiệm thu công việc xây dựng → biên bản nghiệm thu công việc",
+    "P: theo tổ chức giám sát",
+    "C: phụ trách kỹ thuật",
+    "C: người trực tiếp giám sát",
+    "–",
+    [
+      [
+        "207",
+        "Điều 22"
+      ]
+    ],
+    "Không quá 24 giờ từ khi nhận đề nghị nghiệm thu; từ chối phải nêu lý do bằng văn bản (khoản 3). Đúng người ký theo khoản 5; nghiệm thu trước khi che khuất hoặc chuyển công việc tiếp theo."
+  ],
+  [
+    "D",
+    "Nghiệm thu bộ phận/giai đoạn khi cần → biên bản nghiệm thu",
+    "C",
+    "C/P",
+    "C/P: giám sát",
+    "–",
+    [
+      [
+        "207",
+        "Điều 23"
+      ]
+    ],
+    "Có điều kiện theo thỏa thuận và yêu cầu chuyển giai đoạn/kết thúc gói. Căn cứ các nghiệm thu công việc và kết quả thử nghiệm; không thêm nghiệm thu giai đoạn trùng lặp nếu không có nhu cầu pháp lý/kỹ thuật."
+  ],
+  [
+    "D",
+    "Đo bóc và xác nhận khối lượng, kiểm soát tiến độ → bảng khối lượng, báo cáo tiến độ",
+    "C/P",
+    "C",
+    "C/P: giám sát",
+    "–",
+    [
+      [
+        "207",
+        "Điều 18; Điều 19"
+      ],
+      [
+        "210",
+        "Điều 8; Điều 10"
+      ]
+    ],
+    "Đối chiếu hiện trường, hoàn công và loại hợp đồng. Khối lượng phát sinh chưa có căn cứ hợp lệ không được đưa ngay vào giá trị thanh toán. Theo dõi nguy cơ vượt tổng mức/dự toán và thời gian hợp đồng."
+  ],
+  [
+    "D",
+    "Đề xuất và phê duyệt điều chỉnh nhiệm vụ/dự án → quyết định điều chỉnh",
+    "C: lập, trình",
+    "P",
+    "P: tư vấn lập, thẩm tra",
+    "C/T/D: Cơ quan thẩm định, người có thẩm quyền tương ứng",
+    [
+      [
+        "104",
+        "điểm b, đ khoản 1 Điều 21"
+      ],
+      [
+        "XD",
+        "Điều 28"
+      ],
+      [
+        "217",
+        "Điều 40"
+      ],
+      [
+        "206",
+        "Điều 10"
+      ]
+    ],
+    "Chỉ phát sinh khi đủ điều kiện; phân biệt điều chỉnh chủ trương, dự toán ngân sách, dự án/tổng mức. Phải có nguồn hợp pháp, không thi công trước rồi bổ sung chữ ký để hợp thức hóa."
+  ],
+  [
+    "D",
+    "Thẩm định, phê duyệt điều chỉnh thiết kế/chi phí → hồ sơ điều chỉnh được duyệt",
+    "C/T/D theo thẩm quyền",
+    "P",
+    "C/T: thiết kế, thẩm tra",
+    "T/D: cấp có thẩm quyền nếu thay đổi nội dung thuộc cấp đó",
+    [
+      [
+        "XD",
+        "Điều 31"
+      ],
+      [
+        "217",
+        "Điều 40; Điều 43"
+      ],
+      [
+        "206",
+        "Điều 10; Điều 18"
+      ]
+    ],
+    "BCKTKT điều chỉnh theo chế độ điều chỉnh dự án khi ảnh hưởng nội dung đã duyệt. Điều 43 áp dụng thiết kế triển khai sau dự án nếu thực tế có bước này. Không áp dụng máy móc thẩm quyền chủ đầu tư cho mọi thay đổi thiết kế BCKTKT."
+  ],
+  [
+    "D",
+    "Sửa đổi hợp đồng → phụ lục/văn bản sửa đổi hợp lệ",
+    "C: bên giao thầu",
+    "C: bên nhận thầu",
+    "P",
+    "D: người có thẩm quyền nếu trường hợp cần chấp thuận",
+    [
+      [
+        "XD",
+        "Điều 84"
+      ],
+      [
+        "210",
+        "Điều 22–25"
+      ],
+      [
+        "DT",
+        "Điều 70"
+      ]
+    ],
+    "Sau khi có căn cứ điều chỉnh cần thiết, trong thời gian và điều kiện pháp luật cho phép. Kiểm tra giá, tiến độ, bảo đảm, dự toán/gói thầu và nguồn kinh phí; sửa hợp đồng không tự thay quyết định dự án/ngân sách."
+  ],
+  [
+    "D",
+    "Tạm ứng hợp đồng và lập đề nghị Kho bạc → hồ sơ tạm ứng, chứng từ giải ngân",
+    "C: kiểm tra, đề nghị",
+    "C: đề nghị, bảo đảm nếu phải có",
+    "P",
+    "C: KBNN kiểm soát, thanh toán",
+    [
+      [
+        "104",
+        "điểm c khoản 2 Điều 21"
+      ],
+      [
+        "210",
+        "Điều 12"
+      ],
+      [
+        "347",
+        "Điều 6"
+      ],
+      [
+        "254",
+        "Điều 8; Điều 9"
+      ]
+    ],
+    "Tách nhánh theo tổng kinh phí nhiệm vụ, không theo từng hợp đồng: dưới 500 triệu theo NĐ 347; từ 500 triệu theo NĐ 254 được NĐ 104 dẫn chiếu. Chỉ tạm ứng theo hợp đồng, nguồn và bảo lãnh thuộc trường hợp phải có."
+  ],
+  [
+    "D",
+    "Nghiệm thu giá trị thanh toán và lập hồ sơ hợp đồng → hồ sơ thanh toán từng đợt",
+    "C: kiểm tra/xác nhận",
+    "C: lập",
+    "P: kiểm tra theo hợp đồng",
+    "–",
+    [
+      [
+        "210",
+        "Điều 28; Điều 29"
+      ],
+      [
+        "254",
+        "khoản 3 Điều 8; Điều 10"
+      ]
+    ],
+    "Thanh toán theo loại giá hợp đồng, giá trị đã nghiệm thu, điều kiện thanh toán. Khấu trừ tạm ứng, giữ bảo hành, thuế theo quy định; không lấy hóa đơn thay nghiệm thu hoặc buộc quyết toán toàn dự án trước mọi thanh toán."
+  ],
+  [
+    "D",
+    "Gửi và xử lý thanh toán qua Kho bạc → chứng từ báo Nợ/Có, kết quả kiểm soát",
+    "C: đơn vị giao dịch/chủ đầu tư",
+    "P",
+    "P",
+    "C: KBNN nơi giao dịch",
+    [
+      [
+        "104",
+        "điểm c khoản 2 Điều 21"
+      ],
+      [
+        "347",
+        "khoản 2–5 Điều 6"
+      ],
+      [
+        "254",
+        "Điều 8; Điều 10"
+      ]
+    ],
+    "Nhánh I: NĐ 347, khoản 5 Điều 6 thường 01 ngày làm việc, riêng 25–31/01 và 25–31/12 tối đa 02 ngày. Nhánh II: gửi hồ sơ pháp lý và thanh toán theo NĐ 254 còn hiệu lực; không yêu cầu kế hoạch đầu tư công thay quyết định giao dự toán chi thường xuyên."
+  ],
+  [
+    "D",
+    "Thu hồi, thanh toán tạm ứng và đối chiếu lũy kế → sổ theo dõi, xác nhận thu hồi",
+    "C",
+    "P",
+    "P",
+    "C/P: KBNN",
+    [
+      [
+        "210",
+        "Điều 12"
+      ],
+      [
+        "254",
+        "Điều 9"
+      ],
+      [
+        "347",
+        "điểm e khoản 2 Điều 6"
+      ]
+    ],
+    "Gắn thu hồi với các lần thanh toán theo điều khoản áp dụng và hợp đồng; không để tạm ứng treo khi đã đủ khối lượng. Tỷ lệ/mốc thu hồi phải kiểm tra phạm vi áp dụng của từng quy định, không lấy thói quen thanh toán vốn đầu tư áp cho mọi nhiệm vụ."
+  ],
+  [
+    "E",
+    "Hoàn thiện hồ sơ chất lượng và bản vẽ hoàn công → hồ sơ hoàn thành",
+    "C: tổ chức",
+    "C: lập phần thi công",
+    "C/P: giám sát, thiết kế",
+    "–",
+    [
+      [
+        "207",
+        "Điều 28; Phụ lục hồ sơ hoàn thành"
+      ],
+      [
+        "XD",
+        "Điều 42"
+      ]
+    ],
+    "Lập hoàn công theo phần việc và trường hợp quy định; đầy đủ nhật ký, thí nghiệm, nghiệm thu, thay đổi thiết kế. Có thể hoàn thiện theo tiến độ, không chờ cuối mới thu thập."
+  ],
+  [
+    "E",
+    "Thử nghiệm, chạy thử và hoàn tất điều kiện chuyên ngành → kết quả thử/chấp thuận cần thiết",
+    "C",
+    "C/P",
+    "C/P",
+    "C/T: Cơ quan PCCC, môi trường/chuyên ngành nếu thuộc diện",
+    [
+      [
+        "207",
+        "điểm c, d khoản 1 Điều 24"
+      ],
+      [
+        "XD",
+        "Điều 57"
+      ]
+    ],
+    "Có điều kiện theo công năng, thiết bị, quy định chuyên ngành và thiết kế. Phải hoàn thành điều kiện liên quan trước nghiệm thu/đưa vào sử dụng ở thời điểm pháp luật yêu cầu. Cần xác minh thủ tục chuyên ngành cụ thể theo hồ sơ công trình."
+  ],
+  [
+    "E",
+    "Nghiệm thu hoàn thành → biên bản nghiệm thu hạng mục/công trình",
+    "C: tổ chức và trực tiếp tham gia",
+    "C/P: đúng thành phần",
+    "P: giám sát, thiết kế",
+    "P: đơn vị sử dụng nếu cần",
+    [
+      [
+        "207",
+        "Điều 24"
+      ],
+      [
+        "XD",
+        "Điều 57"
+      ]
+    ],
+    "Đủ điều kiện khoản 1 Điều 24; thành phần ký theo khoản 6. Nếu nghiệm thu có điều kiện phải đủ khoản 3, ghi tồn tại và hạn khắc phục; không dùng để bỏ qua lỗi chịu lực, an toàn hoặc chuyên ngành bắt buộc."
+  ],
+  [
+    "E",
+    "Kiểm tra công tác nghiệm thu của Nhà nước khi thuộc diện → thông báo kết quả",
+    "C: đề nghị, giải trình",
+    "P",
+    "P",
+    "C: Cơ quan có thẩm quyền theo Điều 26 NĐ 207",
+    [
+      [
+        "207",
+        "Điều 25–27"
+      ],
+      [
+        "XD",
+        "khoản 4 Điều 57"
+      ]
+    ],
+    "Chỉ khi thuộc Điều 25; không mặc định mọi công trình có ngân sách phải kiểm tra. Kiểm tra diễn ra trong thi công và khi hoàn thành; lập lịch từ giai đoạn D. Hồ sơ/chấp thuận là điều kiện đưa vào sử dụng nếu thuộc diện."
+  ],
+  [
+    "E",
+    "Bàn giao và đưa vào khai thác → biên bản bàn giao, hồ sơ vận hành",
+    "C",
+    "P",
+    "P",
+    "C: Chủ sở hữu/đơn vị quản lý, sử dụng tiếp nhận",
+    [
+      [
+        "XD",
+        "Điều 58"
+      ],
+      [
+        "207",
+        "Điều 29; Điều 30"
+      ]
+    ],
+    "Chỉ khi đủ Điều 29; bàn giao hồ sơ kỹ thuật, hoàn công, hướng dẫn sử dụng, danh mục thiết bị/tài sản, chìa khóa và nội dung bảo hành. Không chờ hết bảo hành mới bàn giao."
+  ],
+  [
+    "E",
+    "Bàn giao bảo hành và quy trình bảo trì → cam kết/bảo đảm bảo hành, quy trình được duyệt",
+    "C/D: tổ chức, phê duyệt theo trách nhiệm",
+    "C: bảo hành, hồ sơ thiết bị",
+    "C/P: thiết kế lập quy trình",
+    "C/P: Chủ sở hữu/người quản lý sử dụng",
+    [
+      [
+        "207",
+        "Điều 32–35"
+      ],
+      [
+        "XD",
+        "Điều 64; Điều 65"
+      ]
+    ],
+    "Với công trình ngân sách xây mới/cải tạo/nâng cấp: cấp còn lại bảo hành ít nhất 12 tháng, cấp đặc biệt/I ít nhất 24 tháng; tiền bảo hành tối thiểu tương ứng 5%/3% theo Điều 32. Trường hợp sửa chữa bảo trì đối chiếu riêng Điều 38 và hợp đồng."
+  ],
+  [
+    "F",
+    "Đối chiếu hoàn thành hợp đồng và công nợ → bảng đối chiếu A–B",
+    "C",
+    "C",
+    "P",
+    "P: KBNN đối chiếu tiền đã chi",
+    [
+      [
+        "210",
+        "Điều 30"
+      ],
+      [
+        "193",
+        "Điều 6; điểm d khoản 1 Điều 7"
+      ]
+    ],
+    "Xác định khối lượng hợp lệ, phát sinh được duyệt, tổng đã trả, tạm ứng chưa thu, thuế, giữ bảo hành và còn phải trả. Mẫu quyết toán A–B của NĐ 193 khác Mẫu báo cáo tổng hợp 01/QTDA của TT 73."
+  ],
+  [
+    "F",
+    "Lập và xác nhận quyết toán từng hợp đồng → hồ sơ quyết toán hợp đồng",
+    "C: kiểm tra/xác nhận",
+    "C: lập với hợp đồng thi công",
+    "C: lập với hợp đồng tư vấn; P: kiểm tra khi được thuê",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 87"
+      ],
+      [
+        "210",
+        "Điều 30"
+      ],
+      [
+        "193",
+        "điểm d khoản 1 Điều 7; Mẫu 01/QTDA"
+      ]
+    ],
+    "Áp dụng cả hai nhánh có hợp đồng. Thời hạn 60 ngày, tối đa 120 ngày cho hợp đồng lớn/phức tạp theo khoản 3 Điều 30 trong phạm vi quy định tại đoạn 2 khoản 1; đối chiếu điểm c khoản 1 Điều 17 Luật Xây dựng cho dự án chi thường xuyên."
+  ],
+  [
+    "F",
+    "Thanh toán cuối và giải quyết tiền giữ lại → hồ sơ thanh toán, chứng từ",
+    "C",
+    "C/P",
+    "P",
+    "C: KBNN",
+    [
+      [
+        "210",
+        "Điều 28–30"
+      ],
+      [
+        "254",
+        "Điều 8; Điều 10"
+      ],
+      [
+        "347",
+        "Điều 6"
+      ]
+    ],
+    "Thu hồi hết tạm ứng theo chế độ; tiền bảo hành chỉ hoàn trả theo điều kiện bảo hành hoặc thay bảo lãnh được chấp nhận. Thanh toán cuối hợp đồng khác phê duyệt quyết toán dự án hoàn thành."
+  ],
+  [
+    "F",
+    "Tổng hợp quyết toán ngân sách hằng năm → báo cáo quyết toán chi thường xuyên",
+    "P: cung cấp số liệu",
+    "P",
+    "P",
+    "C: Đơn vị sử dụng ngân sách; T/D: cấp xét duyệt/thẩm định ngân sách",
+    [
+      [
+        "104",
+        "Điều 22"
+      ],
+      [
+        "NS",
+        "Cần xác minh điều khoản, mẫu và thời hạn quyết toán năm theo cấp ngân sách, loại đơn vị"
+      ]
+    ],
+    "Bắt buộc cả hai nhánh, kể cả chưa kết thúc toàn nhiệm vụ. Số liệu khớp Kho bạc và sổ kế toán; không chờ quyết toán công trình hoàn thành mới ghi báo cáo ngân sách năm."
+  ],
+  [
+    "F",
+    "Xác định kiểm toán và lập hồ sơ quyết toán hoàn thành → hồ sơ theo NĐ 193",
+    "C",
+    "P: cung cấp quyết toán hợp đồng",
+    "P; C: kiểm toán nếu thuê",
+    "P: cơ quan chủ trì thẩm tra",
+    [
+      [
+        "104",
+        "khoản 2 Điều 22"
+      ],
+      [
+        "193",
+        "Điều 6; Điều 7; Điều 9; Điều 21"
+      ],
+      [
+        "73",
+        "khoản 1 Điều 4"
+      ]
+    ],
+    "Bắt buộc nhánh II; nhánh I nếu có dự án thuộc Điều 1 NĐ 193 thì đối chiếu riêng, không miễn chỉ do dưới 500 triệu. Dự án nhóm C: lập hồ sơ tối đa 04 tháng từ bàn giao hoặc mốc dừng theo Điều 21. Không bắt buộc kiểm toán độc lập chỉ vì kinh phí ngân sách."
+  ],
+  [
+    "F",
+    "Nộp, kiểm tra và tiếp nhận hồ sơ quyết toán → phiếu giao nhận, yêu cầu bổ sung",
+    "C",
+    "P nếu bổ sung",
+    "P",
+    "C: Cơ quan chủ trì thẩm tra; P: người phê duyệt",
+    [
+      [
+        "193",
+        "Điều 7"
+      ],
+      [
+        "73",
+        "khoản 6 Điều 4; Mẫu 12/QTDA"
+      ]
+    ],
+    "Gửi 01 bộ người phê duyệt và 01 bộ cơ quan thẩm tra; nếu người phê duyệt đồng thời là thủ trưởng cơ quan chủ trì thẩm tra chỉ gửi 01 bộ theo Điều 7. Ghi chính xác ngày đủ hồ sơ để tính thời hạn."
+  ],
+  [
+    "F",
+    "Thẩm tra quyết toán hoàn thành → báo cáo thẩm tra và dự thảo quyết định",
+    "P: giải trình",
+    "P",
+    "P: giải trình theo phần việc",
+    "C/T: Cơ quan chủ trì theo Điều 8 NĐ 193",
+    [
+      [
+        "193",
+        "Điều 8; Điều 10–19; Điều 21"
+      ]
+    ],
+    "Nhóm C: tối đa 02 tháng từ nhận đủ hồ sơ đến trình phê duyệt. Chủ thể tỉnh thường là Sở Tài chính theo điểm a khoản 2 Điều 8; trường hợp phân cấp/ủy quyền đối chiếu hồ sơ cụ thể. Kiểm toán không thay thẩm tra."
+  ],
+  [
+    "F",
+    "Phê duyệt quyết toán hoàn thành → quyết định và số liệu tài sản/công nợ",
+    "P",
+    "–",
+    "–",
+    "C/D: Người quyết định đầu tư hoặc chủ thể được phân cấp/ủy quyền hợp pháp",
+    [
+      [
+        "193",
+        "điểm b, d khoản 1 Điều 8; Điều 19; Điều 21"
+      ],
+      [
+        "73",
+        "khoản 4 Điều 4; Mẫu 10/QTDA"
+      ]
+    ],
+    "Nhóm C: tối đa 07 ngày từ khi người phê duyệt nhận đủ hồ sơ trình duyệt. Không coi thủ trưởng đơn vị sử dụng ngân sách tự có quyền duyệt nếu không là chủ thể được pháp luật giao."
+  ],
+  [
+    "F",
+    "Xử lý sau quyết toán và kinh phí dư → thu hồi/nộp trả, thanh toán công nợ",
+    "C",
+    "C/P: hoàn trả/thanh toán",
+    "P",
+    "C/P: đơn vị kế toán, KBNN, cơ quan tài chính",
+    [
+      [
+        "193",
+        "Điều 28"
+      ],
+      [
+        "347",
+        "điểm g, h khoản 2 Điều 6"
+      ],
+      [
+        "NS",
+        "Điều 66"
+      ]
+    ],
+    "Theo quyết định duyệt, thu hồi chi sai, xử lý dư dự toán/tạm ứng, thanh toán khoản còn hợp pháp. Chuyển nguồn chỉ khi đủ điều kiện, không mặc định kéo dài dự toán vì công trình chưa xong."
+  ],
+  [
+    "F",
+    "Ghi nhận, điều chỉnh tài sản công → biên bản và sổ tài sản cập nhật",
+    "C/P",
+    "P",
+    "P",
+    "C: Đơn vị tiếp nhận/quản lý tài sản và kế toán",
+    [
+      [
+        "193",
+        "Điều 16; Điều 28"
+      ],
+      [
+        "207",
+        "Điều 30"
+      ],
+      [
+        "104",
+        "khoản 1 Điều 20"
+      ]
+    ],
+    "Phân biệt chi sửa chữa hạch toán chi phí với nâng cấp làm tăng nguyên giá/tài sản mới theo chế độ kế toán và tài sản công. Cần xác minh điều khoản ghi tăng, thời hạn kê khai theo loại tài sản và đơn vị; không ghi tăng toàn bộ giá trị mọi sửa chữa."
+  ],
+  [
+    "F",
+    "Thanh lý hợp đồng khi đủ điều kiện → biên bản/văn bản thanh lý",
+    "C",
+    "C: hợp đồng thi công",
+    "C: hợp đồng tư vấn",
+    "–",
+    [
+      [
+        "XD",
+        "Điều 87"
+      ],
+      [
+        "210",
+        "Điều 31"
+      ]
+    ],
+    "Khi hoàn thành nghĩa vụ hoặc chấm dứt theo quy định; không ép thanh lý khi nghĩa vụ bảo hành còn chưa được xử lý theo thỏa thuận. Thời hạn 45/90 ngày trong phạm vi khoản 3 Điều 31; ghi rõ nghĩa vụ tiếp tục còn hiệu lực nếu có."
+  ],
+  [
+    "F",
+    "Lập mục lục, bàn giao và lưu trữ → hồ sơ hoàn thành, danh mục lưu trữ",
+    "C",
+    "C: bàn giao phần mình",
+    "C: bàn giao phần mình",
+    "C/P: đơn vị lưu trữ, đơn vị quản lý sử dụng",
+    [
+      [
+        "XD",
+        "Điều 42"
+      ],
+      [
+        "207",
+        "Điều 28"
+      ],
+      [
+        "DT",
+        "khoản 4–6 Điều 9; khoản 8 Điều 78"
+      ]
+    ],
+    "Tách hồ sơ gửi KBNN với bộ chứng từ gốc phải lưu. Lưu bản có chữ ký hợp lệ và phiên bản điện tử có thể truy vết. Hồ sơ lựa chọn nhà thầu tối thiểu 05 năm từ quyết toán hợp đồng theo khoản 6 Điều 9 Luật Đấu thầu, trừ nhóm hồ sơ luật quy định khác; hồ sơ hủy thầu theo khoản 4. Cần xác minh thời hạn xây dựng/kế toán riêng."
+  ],
+  [
+    "F",
+    "Theo dõi bảo hành, sửa lỗi và xác nhận kết thúc → biên bản bảo hành, hoàn trả bảo đảm",
+    "C: kiểm tra/xác nhận",
+    "C: sửa lỗi, báo cáo",
+    "P",
+    "C/P: chủ sở hữu/đơn vị sử dụng",
+    [
+      [
+        "207",
+        "Điều 32; khoản 1–5 Điều 33"
+      ]
+    ],
+    "Tiếp tục sau thanh toán/quyết toán. Khi hết hạn, kiểm tra thực hiện, xác nhận bằng văn bản và hoàn trả tiền/giải tỏa bảo lãnh nếu đạt yêu cầu. Lưu hồ sơ khiếm khuyết, thông báo, sửa chữa và nghiệm thu bảo hành."
+  ]
+]

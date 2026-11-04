@@ -80,8 +80,8 @@ Cần có (thiếu thì hỏi, **không tự điền**):
    tên. Liệt kê ứng viên cho người dùng chọn: `python scripts/kpi_calc.py tim --tu-khoa "<từ khóa>"` (kết quả có cả
    `ma_spcv` và `ma_san_pham`); ghi **mã phần mềm** đã chọn vào trường `ma_danh_muc` của đầu việc, để kế hoạch nạp
    thẳng lên phần mềm được. Mã sản phẩm ≠ mã nhiệm vụ chuẩn `A01`–`S04` ≠ Task_ID. Không khớp → **dừng hỏi**, không
-   tự gán. Mã `T1`–`T6` và `N1_460` chưa có trong QĐ 2119 → `THIEU_DU_LIEU`, **không tự đặt hệ số**; đề nghị
-   P-TCCB bổ sung danh mục (Điều 3 QĐ 2119).
+   tự gán. Mã `T1`–`T6` là sản phẩm **chưa gán Nhóm** (mã đặt theo Lĩnh vực = Trục 1–6), cùng `N1_460` là 39 mã
+   `THIEU_DU_LIEU` — **không tự đặt hệ số**; đề nghị P-TCCB gán Nhóm và bổ sung danh mục (Điều 3 QĐ 2119).
    - **Nạp lên phần mềm KPI tỉnh** (`kpi.quangngai.dcs.vn`, *Đăng ký kế hoạch công tác* → **[Thêm từ file]**):
      `python 29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp.xlsx>` (CSV 3 cột
      `ma_spcv,so_luong,mo_ta`). Giữ nguyên 4 cột của mẫu — phần mềm bắt buộc. Chi tiết:

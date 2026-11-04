@@ -1,11 +1,19 @@
 ---
 name: ktc-kpi-tu-danh-gia
-description: "Tự đánh giá, chấm điểm và đề xuất mức xếp loại chất lượng CÁ NHÂN theo quý của viên chức, người lao động Trường Cao đẳng Kon Tum theo QĐ 1923/QĐ-CĐKT (Quy chế đánh giá gắn KPI), điền Bản tự đánh giá, xếp loại cá nhân quý (sheet Đánh giá của mẫu Kế hoạch + KPI theo 6 nhóm vị trí). Từ kế hoạch KPI đã duyệt: sinh bảng hỏi Excel (điểm 3 nhóm tiêu chí chung, số lượng, chất lượng, tiến độ thực tế từng chỉ tiêu, điều kiện kèm theo, trường hợp đặc thù), tính điểm A 30 + B 70 có chặn trần 100% từng chỉ tiêu, đối chiếu ngưỡng 90/70/50 và điều kiện Điều 19. Dùng khi người dùng nói 'tự đánh giá KPI quý', 'chấm điểm KPI của tôi', 'quý này tôi xếp loại mức nào', 'tôi có được Hoàn thành xuất sắc không', 'điền Bản tự đánh giá'. Chỉ ra ĐỀ XUẤT của cá nhân, không quyết định thay Trưởng đơn vị, Hiệu trưởng. KHÔNG lập kế hoạch KPI đầu quý (dùng kpi-lap-ke-hoach); KHÔNG xếp loại tập thể, tổng hợp xếp loại cả đơn vị, trần tỷ lệ HTXS; KHÔNG tính % KPI theo Trục trong báo cáo tháng/quý của đơn vị (dùng bao-cao)."
+description: "Tự đánh giá, chấm điểm và đề xuất mức xếp loại chất lượng CÁ NHÂN theo quý của viên chức, người lao động Trường Cao đẳng Kon Tum theo QĐ 1923/QĐ-CĐKT, điền Bản tự đánh giá quý (sheet Đánh giá của mẫu Kế hoạch + KPI theo 6 nhóm vị trí). Từ kế hoạch KPI đã duyệt: sinh bảng hỏi Excel, tính điểm A 30 + B 70 có chặn trần 100% từng chỉ tiêu, đối chiếu ngưỡng 90/70/50 và điều kiện Điều 19; kiểm nhất quán NQ01–NQ10 (chặn khai “đúng hạn” khi tiến độ chưa 100%, “vượt mức” không căn cứ); dựng Bảng tổng hợp hồ sơ, minh chứng (bản nội bộ có cờ, bản nộp sạch); đối chiếu chéo nhiều hồ sơ. Dùng khi người dùng nói 'tự đánh giá KPI quý', 'chấm điểm KPI của tôi', 'quý này tôi xếp loại mức nào', 'hồ sơ minh chứng xếp loại'. Chỉ ra ĐỀ XUẤT của cá nhân, không quyết định thay Trưởng đơn vị, Hiệu trưởng. KHÔNG lập kế hoạch KPI đầu quý (dùng kpi-lap-ke-hoach); KHÔNG xếp loại tập thể, tổng hợp xếp loại cả đơn vị, trần tỷ lệ HTXS; KHÔNG tính % KPI theo Trục trong báo cáo tháng/quý của đơn vị (dùng bao-cao)."
 ---
 
 # KTC-KPI — Tự đánh giá, đề xuất xếp loại cá nhân theo quý
 
-## Phiên bản: v1.3 — 28/9/2026
+## Phiên bản: v1.4 — 28/10/2026
+
+> v1.4 (28/10/2026, lệnh nâng cấp sau phiên hồ sơ Quý III): bộ kiểm nhất quán **NQ01–NQ10** (lệnh con
+> `kiem-nhat-quan`, tự chạy trong `danh-gia`; LỖI chặn xuất bản chính thức); bảng hỏi thêm 6 cột (ngày hoàn
+> thành thực tế, loại vượt, căn cứ vượt mức, lý do chưa đạt 100%, số hiệu minh chứng, nơi lưu) và cột Ghi chú
+> ở sheet C; **C08, C09 tự suy từ sheet B**, người dùng chỉ xác nhận hoặc nêu ngoại lệ; mẫu Phụ lục II/VII
+> (sheet KPI không trỏ 1-1 sang Ke Hoach) báo rõ thay vì `KeyError`; thêm `lap_ho_so_minh_chung.py`
+> (bản nội bộ có cờ / bản nộp sạch) và `kpi_doi_chieu_cheo.py` (đối chiếu chéo nhiều hồ sơ).
+> **Tương thích ngược:** bảng hỏi v1.3 vẫn đọc được — các phép kiểm cần cột mới hạ xuống cảnh báo.
 
 > v1.3 (28/9/2026): lưu tệp ra thư mục làm việc của đơn vị khi đã kết nối (plugin 1.3.5).
 
@@ -80,8 +88,43 @@ Theo thứ tự: tệp đính kèm trong phiên → thư mục dự án → hỏ
    Công cụ tính: mục A theo điểm người dùng; mục B = % hoàn thành × điểm tối đa Trục, **chặn trần 100% từng chỉ tiêu**
    [Đ11.6] (mẫu không chặn — Known-Issues #7; tệp ra thay công thức % Trục bằng công thức có chặn); tổng A + B; mức theo
    ngưỡng 90/70/50 [Đ19.1] trên giá trị chính xác, hiển thị cắt 2 chữ số (không làm tròn lên). **Không tự nhẩm điểm.**
-5. **Trình bày** theo mục 6. Điều kiện "Thiếu dữ liệu" → người dùng tự xác nhận; không tự cho "Đạt".
-6. **Thể thức:** có `kiem_the_thuc.py` thì đo tệp ra (phông đã chuẩn hóa Times New Roman).
+5. **Bộ kiểm nhất quán NQ01–NQ10** (tự chạy trong `danh-gia`; chạy riêng khi muốn soát trước):
+   ```
+   python scripts/kpi_danh_gia.py kiem-nhat-quan --ke-hoach <KH.xlsx> --bang-hoi <Bang-hoi.xlsx> [--ban-nop]
+   ```
+   | Mã | Bắt | Mức |
+   |---|---|---|
+   | NQ01 | Khai “Vượt mức”/“Hoàn thành đúng hạn” nhưng % tiến độ < 100 hoặc SL thực < SL kế hoạch | LỖI |
+   | NQ02 | Khai “Hoàn thành chậm tiến độ” nhưng % tiến độ = 100 | CẢNH_BÁO |
+   | NQ03 | “Vượt mức” mà thiếu Loại vượt hoặc Căn cứ vượt mức kèm số liệu [TB 1105, mục 2.3] | LỖI |
+   | NQ04 | Tự đề xuất HTXS khi tỷ lệ việc vượt mức < 30% [Đ19.1a; TB 1105, mục 2.2] | LỖI |
+   | NQ05 | “Vượt mức” nhưng ngày hoàn thành thực tế muộn hơn thời hạn | LỖI |
+   | NQ06 | Còn chuỗi cấm (`CẦN BỔ SUNG`, `DỰ THẢO`, `em đã`, `TODO`, `[CẦN`) | LỖI ở bản nộp |
+   | NQ07 | Không có số hiệu minh chứng và không ghi lý do “không yêu cầu minh chứng” | CẢNH_BÁO |
+   | NQ08 | Tổng % theo Trục lệch quá 0,01 khi tính lại sau chặn trần [Đ11.6] | LỖI |
+   | NQ09 | Mức tự đề xuất cao hơn mức theo ngưỡng điểm | CẢNH_BÁO |
+   | NQ10 | C08 khai “Có” nhưng còn việc chưa trọn 100% — **nêu cả hai, không tự chọn** | CẢNH_BÁO |
+   Có LỖI → `danh-gia` **dừng, mã thoát 2**, không xuất bản chính thức. Không tự sửa số liệu của người dùng.
+6. **Hồ sơ minh chứng** (khi cần nộp theo TB 1105 hoặc rà soát xếp loại):
+   ```
+   python scripts/lap_ho_so_minh_chung.py --tdg <TDG.xlsx> --bang-hoi <BH.xlsx> [--tra-minh-chung mc.csv]           --ky "Quý III năm 2026" --ra-noi-bo <noi-bo.docx> [--ra-nop <nop.docx>]
+   ```
+   Bản nội bộ mang cờ `[CẦN XÁC NHẬN]`, `[SUY LUẬN]`, `[THIẾU DỮ LIỆU]`; **bản nộp chỉ sinh khi hết cờ**.
+7. **Đối chiếu chéo nhiều hồ sơ** (việc của người này được tính cho người kia, nhiều đợt):
+   `python scripts/kpi_doi_chieu_cheo.py <hs1.xlsx> <hs2.xlsx> [--csv ra.csv]` — gom theo số hiệu văn bản và nội
+   dung chuẩn hóa, nêu đủ các bên khai lệch, **không chọn bên nào đúng**.
+8. **Trình bày** theo mục 6. Điều kiện "Thiếu dữ liệu" → người dùng tự xác nhận; không tự cho "Đạt".
+9. **Thể thức:** có `kiem_the_thuc.py` thì đo tệp ra (phông đã chuẩn hóa Times New Roman).
+
+## 5b. Kiểm đầu ra — bắt buộc trước khi báo "xong"
+
+**Không có "đã xong" nếu chưa đọc lại tệp đầu ra.** Với mọi sản phẩm sinh ra:
+
+- [ ] Mở lại tệp, **đếm số dòng việc** bằng số việc đầu vào; bảng không còn ô trống.
+- [ ] Quét chuỗi cấm trong bản nộp: `CẦN BỔ SUNG`, `DỰ THẢO`, `em đã`, `TODO`, `[CẦN`, và ba cờ nội bộ.
+- [ ] Chạy `kiem_the_thuc.py` — 0 lỗi Mức 1–2.
+- [ ] Nêu lại số liệu chính (tổng điểm, số việc trọn 100%, số cờ còn lại) trong câu trả lời.
+`lap_ho_so_minh_chung.py` tự làm ba việc đầu (`kiem_dau_ra`) và dừng khi lệch — đừng bỏ qua thông báo của nó.
 
 ## 6. Định dạng đầu ra
 
@@ -106,6 +149,9 @@ Theo thứ tự: tệp đính kèm trong phiên → thư mục dự án → hỏ
 - [ ] Không kết luận mức xếp loại; có dòng cuối bắt buộc; nhắc trần tỷ lệ HTXS thuộc giai đoạn 3.
 - [ ] Hai điều khoản chưa nhất quán (Đ19.1a lưu ý / Đ19.5 — Câu hỏi mở #8) nêu cả hai khi gặp, không chọn.
 - [ ] Tệp lưu đúng thư mục `KPI-ca-nhan/`; không ghi đè kế hoạch đã duyệt, không ghi vào `assets/`.
+- [ ] Bộ kiểm NQ01–NQ10 đã chạy; còn LỖI thì **không** xuất bản chính thức.
+- [ ] C08, C09 lấy theo số liệu sheet B; người dùng nêu ngoại lệ thì chép **nguyên văn** lý do, không tự gỡ.
+- [ ] Đã đọc lại tệp đầu ra theo mục 5b trước khi báo kết quả.
 
 ## 8. Ví dụ
 

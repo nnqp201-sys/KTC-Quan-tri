@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 kiem_tra_the_thuc.py – Đo thể thức, kỹ thuật trình bày của dự thảo .docx
-Gói ktc-ra-soat-897 v4.5 (27/10/2026)
+Gói ktc-ra-soat-897 v4.6 (02/11/2026 – bản sửa, chưa nghiệm thu độc lập)
 
 Đo trực tiếp từ XML của tệp .docx (không ước lượng từ bản hiển thị) theo
 "Bảng thông số thể thức KTC" (references/Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md).
@@ -22,6 +22,9 @@ Yêu cầu | Căn cứ | Mức) và bảng các mục đạt (kèm số đo) đ�
 """
 import sys, os, re, json, zipfile, argparse, subprocess, tempfile, shutil, unicodedata
 from lxml import etree
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.dont_write_bytecode = True  # v4.6.4: không ghi __pycache__ vào thư mục Skill
+import nhan_dien_chung as ND  # v4.6.3: kiểm/ghi tệp kết quả an toàn (dùng chung)
 
 W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
 R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
@@ -394,7 +397,14 @@ def walk(D):
         P.runs = [(run_props(D, p, r, P.sid), t) for r, t in p_runs(p)]
         paras.append(P); idx += 1
         return P
-    for ch in D.body:
+    def con_than(el):  # v4.6 (KTS-09): đi vào content control (w:sdt/w:sdtContent) ở cấp thân văn bản
+        for ch in el:
+            if ch.tag == q('sdt'):
+                c_ = ch.find(q('sdtContent'))
+                if c_ is not None: yield from con_than(c_)
+            else:
+                yield ch
+    for ch in con_than(D.body):
         if ch.tag == q('p'):
             add_par(ch, False, None)
             sp = ch.find(q('pPr') + '/' + q('sectPr'))
@@ -445,7 +455,11 @@ def render_section_pages(path, paras, n_sec):
                 data = etree.tostring(doc, xml_declaration=True, encoding='UTF-8', standalone=True)
             zout.writestr(it, data)
         zout.close()
-        subprocess.run([soffice, '--headless', '--convert-to', 'pdf', '--outdir', tmp, out],
+        # v4.6.3 (D3): hồ sơ người dùng LibreOffice RIÊNG cho mỗi lần dựng – không đụng phiên LibreOffice đang mở/tiến trình chạy song song
+        # (dùng chung hồ sơ mặc định làm lần dựng thứ hai thất bại → số trang “chưa kiểm” → tính lại khác → từ chối nhầm)
+        import pathlib
+        prof = pathlib.Path(tmp, 'lo_profile').as_uri()
+        subprocess.run([soffice, '-env:UserInstallation=' + prof, '--headless', '--convert-to', 'pdf', '--outdir', tmp, out],
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=180)
         pdf = os.path.join(tmp, 'mark.pdf')
         if not os.path.exists(pdf): return None, None
@@ -673,7 +687,9 @@ def check(path, he='auto', do_render=True):
             R_.ok(ten, '“%s” – cỡ %s%s%s' % (P.text[:50], hp_pt(s), ', đậm' if all_bold(P) else '', ', nghiêng' if all_ital(P) else ''), can_cu)
 
     first = lambda pred: next((P for P in paras if pred(P)), None)
-    head_lines = [L for P in paras[:40] if P.in_table for L in lines_of(D, P)]
+    # v4.6 (KTS-10): thành phần đầu văn bản đo ở cả bố cục bảng và ngoài bảng (ưu tiên dòng trong bảng)
+    # chỉ nhận dòng NGẮN ở vùng đầu (15 đoạn đầu, ≤ 80 ký tự) – không lấy câu lời văn có nhắc chữ “CỘNG HÒA…” (ví dụ hướng dẫn thể thức)
+    head_lines = [L for P in paras[:40] if P.in_table for L in lines_of(D, P)] + [L for P in paras[:15] if not P.in_table and P.sec == 0 and len(P.text) <= 80 for L in lines_of(D, P)]
     firstL = lambda pred: next((L for L in head_lines if pred(L)), None)
     if he == 'chinh_quyen':
         P = firstL(lambda P: re.search(r'CỘNG H(?:ÒA|OÀ) XÃ HỘI CHỦ NGHĨA VIỆT NAM', P.text.upper()))
@@ -759,6 +775,17 @@ def check(path, he='auto', do_render=True):
                            'cỡ 12, nghiêng, đậm', CC_TB + ' mục 9', 'Mức 2')
                 else:
                     R_.ok('Từ “Nơi nhận:”', 'cỡ 12, nghiêng, đậm', CC_TB + ' mục 9')
+            else:  # v4.6 (KTS-10): văn bản Đảng – nhãn “Nơi nhận:” cỡ 14, đứng, gạch chân (01 mục B; HD 05 Phụ lục 2)
+                runs_nn = [(rp, t) for rp, t in P.runs if 'Nơi' in unicodedata.normalize('NFC', t)]
+                if runs_nn:
+                    rp0 = runs_nn[0][0]; sai_ = []
+                    if rp0['sz'] != S['noi_nhan_label_sz']: sai_.append('cỡ %s' % hp_pt(rp0['sz']))
+                    if rp0['i']: sai_.append('nghiêng')
+                    if not rp0['u']: sai_.append('không gạch chân')
+                    if sai_:
+                        R_.add('TT-19', 'Từ “Nơi nhận:” (văn bản Đảng)', 'Đoạn %d' % (P.idx + 1), ', '.join(sai_), 'cỡ 14, đứng, gạch chân', CC_HD + ' Phụ lục 2', 'Mức 2')
+                    else:
+                        R_.ok('Từ “Nơi nhận:” (văn bản Đảng)', 'cỡ 14, đứng, gạch chân', CC_HD + ' Phụ lục 2')
             # danh sách nơi nhận: các run sau nhãn
             after, nghieng, nhan_xong, acc = [], [], False, ''
             for rp, t in P.runs:
@@ -861,9 +888,10 @@ def check(path, he='auto', do_render=True):
     bad_sz, bad_bef, bad_aft, bad_line, bad_ind, bad_jc, bad_gap = [], [], [], [], [], [], []
     sat_nguong, co_nhieu = [], []
     for P in body:
-        s = runs_sz(P)
-        if s is not None and s not in S['body_szs']:
-            bad_sz.append((P, s))
+        # v4.6 (KTS-09): xét MỌI run có chữ (không chỉ cỡ phổ biến) – một run cỡ khác trong đoạn lời văn cũng là TT-20
+        s_sai = sorted({rp['sz'] for rp, t in P.runs if rp['sz'] and re.search(r'\w', t) and rp['sz'] not in S['body_szs']})
+        if s_sai:
+            bad_sz.append((P, s_sai[0]))
         pr = P.props
         d_ = dong(P)  # v4.4 (D2): TT-24 chỉ đoạn nhiều dòng – đếm số dòng thật; sát ngưỡng một/hai dòng → chưa kiểm
         nhieu = (d_[0] > 1) if d_ else (len(P.text) > 100)
@@ -1006,7 +1034,9 @@ def check(path, he='auto', do_render=True):
         if ftr_any(si) and not has_num_default:
             R_.add('TT-31', 'Vị trí số trang', lab, 'số trang đặt ở chân trang (footer)', 'giữa lề trên (header)', cc_st, 'Mức 2')
         if k == 'chinh':
-            if not has_num_default and (sec_pages or 2) > 1:
+            if not has_num_default and sec_pages is None:  # v4.6 (KTS-11): chưa biết số trang thì không giả định nhiều trang
+                R_.na('Đánh số trang %s' % lab, 'không có trường số trang ở header và chưa dựng được bản để biết văn bản có nhiều trang hay không – người kiểm tra xem bản in')
+            elif not has_num_default and sec_pages > 1:
                 R_.add('TT-32', 'Đánh số trang văn bản chính', lab, 'không có trường số trang ở header', 'đánh số từ 1, giữa lề trên, cỡ 14', cc_st + ('' if he == 'dang' else '; ' + CC_HT), 'Mức 2')
             elif has_num_default:
                 if S['hide_first'] and not titlePg:
@@ -1014,7 +1044,7 @@ def check(path, he='auto', do_render=True):
                 elif titlePg and has_page_field(h_first):
                     R_.add('TT-33', 'Trang thứ nhất hiển thị số trang', lab, 'header trang đầu có trường số trang', 'không hiển thị số trang thứ nhất', cc_st, 'Mức 2')
                 else:
-                    R_.ok('Số trang văn bản chính', 'header giữa trang; trang 1 không hiển thị (titlePg)', cc_st)
+                    R_.ok('Số trang văn bản chính%s' % ('' if sec_pages is not None else ' (cấu hình XML; chưa dựng bản để xem hiển thị)'), 'header giữa trang; trang 1 không hiển thị (titlePg)', cc_st)
                 if start not in (None, 1):
                     R_.add('TT-32', 'Số bắt đầu văn bản chính', lab, 'start=%d' % start, 'bắt đầu từ 1', cc_st, 'Mức 2')
         elif k == 'kem_theo' and si == 0:
@@ -1037,6 +1067,11 @@ def check(path, he='auto', do_render=True):
                 R_.add('TT-35', 'Trang đầu văn bản kèm theo không hiện số', lab, 'titlePg bật, header trang đầu không có số trang', 'hiển thị số trang liên tục (ví dụ trang 4)', CC_HT, 'Mức 2')
             if not has_num_default:
                 R_.add('TT-34', 'Đánh số trang văn bản kèm theo', lab, 'không có trường số trang', 'đánh liên tục với văn bản chính, giữa lề trên, cỡ 14', CC_HT, 'Mức 2')
+        elif k == 'phu_luc' and sec_pages is None and he != 'dang':
+            # v4.6 (KTS-11): quy tắc phụ thuộc số trang (phụ lục một trang không đánh số; trang đầu phụ lục nhiều trang hiện số)
+            # chỉ kết luận khi dựng được đúng tệp – chưa biết số trang thì ghi “chưa kiểm”, không TT-36/TT-37, không Đạt
+            R_.na('Số trang %s' % lab, 'chưa dựng được bản PDF để đếm trang – chưa kết luận quy tắc phụ lục một trang/nhiều trang (TT-36, TT-37); cấu hình XML: %s' % (
+                'có trường số trang' if has_num_default else 'không có trường số trang'))
         elif k == 'phu_luc':
             one_page = sec_pages == 1 and he != 'dang'
             if one_page:
@@ -1053,8 +1088,6 @@ def check(path, he='auto', do_render=True):
                         R_.add('TT-36', 'Số trang phụ lục – bắt đầu', lab, 'start=%s' % ('không đặt (chạy tiếp)' if start is None else start), 'đánh riêng, bắt đầu từ 1', CC_HT + '; ' + CC_ND + ' mục III.1.đ', 'Mức 2')
                     if not shows_first:
                         R_.add('TT-37', 'Số trang phụ lục – trang đầu', lab, 'trang đầu phụ lục không hiển thị số', 'hiển thị số ở trang đầu tiên của phụ lục', CC_HT, 'Mức 2')
-                    if sec_pages is None:
-                        R_.na('Số trang của %s' % lab, 'không dựng được bản PDF để đếm trang (quy tắc “phụ lục chỉ có một trang”)')
                     if start == 1 and shows_first:
                         R_.ok('Số trang phụ lục (%s)' % lab, 'bắt đầu từ 1, hiển thị trang đầu', CC_HT)
         # cỡ chữ, canh lề số trang
@@ -1247,8 +1280,12 @@ def check(path, he='auto', do_render=True):
         for so, x in het.items():
             pat = mau_so(so)
             for m_ in re.finditer(r'(?<![\d/])' + pat, P.text):
-                if not m_.group(0).endswith(so) and not re.search(r'(Nghị định|NĐ|Quyết định|QĐ|Thông tư|TT)\s+(số\s+)?$', P.text[max(0, m_.start() - 20):m_.start()]):
-                    continue  # dạng rút gọn “13/2023” chỉ nhận khi đứng sau tên loại văn bản
+                if not m_.group(0).endswith(so):
+                    # dạng rút gọn “13/2023” chỉ nhận khi đứng sau tên loại văn bản CÙNG LOẠI (v4.6 – KTS-12: “Thông tư 13/2023” ≠ NĐ 13/2023)
+                    ky_ = re.split(r'[-/]', re.match(r'^\d+/\d{4}/(.+)$', so).group(1))[0] if re.match(r'^\d+/\d{4}/(.+)$', so) else ''
+                    ten_l = {'NĐ': r'(?:Nghị định|NĐ)', 'QĐ': r'(?:Quyết định|QĐ)', 'TT': r'(?:Thông tư|TT)'}.get(ky_)
+                    if not ten_l or not re.search(r'(?<!\w)' + ten_l + r'\s+(?:số\s+)?$', P.text[max(0, m_.start() - 20):m_.start()]):
+                        continue
                 if la_cau_thay_the(P.text, m_.start(), m_.end()):
                     continue  # v4.3 (TH-08): CHÍNH lần nhắc này nằm trong cụm nêu việc thay thế/bãi bỏ – không phải viện dẫn sai
                 if (so, P.idx, P.text[:30]) in da_bao: continue
@@ -1348,12 +1385,26 @@ def main():
     a = ap.parse_args()
     if not a.docx.lower().endswith('.docx'):
         print('LỖI: chỉ đo được tệp .docx. Tệp .doc/.pdf/ảnh phải được chuyển thành .docx trước (xem Cổng hồ sơ).'); sys.exit(2)
-    he, S, R_, info = check(a.docx, a.he, not a.khong_dung_ban)
+    if not os.path.isfile(a.docx):
+        print('LỖI: không có tệp “%s”.' % a.docx); sys.exit(2)
+    if a.json:  # v4.6.3: không ghi đè tệp đo, thư mục phải có
+        e_ = ND.kiem_duong_dan_ghi(a.json, [a.docx], '.json')
+        if e_: print('LỖI THAM SỐ --json: %s.' % e_); sys.exit(2)
+    try:
+        he, S, R_, info = check(a.docx, a.he, not a.khong_dung_ban)
+    except (zipfile.BadZipFile, KeyError, OSError, etree.XMLSyntaxError) as e:  # v4.6.3: tệp hỏng/không phải .docx thật → lỗi có kiểm soát, không Traceback
+        print('LỖI: không đọc được tệp .docx “%s” (%s) – tệp hỏng hoặc không phải Word .docx.' % (a.docx, type(e).__name__)); sys.exit(2)
     print(to_md(a.docx, he, S, R_, info))
     if a.json:
         import hashlib  # v4.3 (TH-11): tên và mã băm tệp đo để tao_bao_cao.py kiểm cùng hồ sơ với cổng
         sha = hashlib.sha256(open(a.docx, 'rb').read()).hexdigest()
-        json.dump(dict(he=he, tep=os.path.basename(a.docx), sha256=sha, phien_ban='ktc-ra-soat-897 v4.5', loi=R_.loi, dat=R_.dat, chua_kiem=R_.chua, info={k: v for k, v in info.items()}), open(a.json, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, default=str)
+        kq_ = dict(he=he, tep=os.path.basename(a.docx), sha256=sha, phien_ban='ktc-ra-soat-897 v4.6.4',
+                   tham_so=dict(he=a.he, khong_dung_ban=bool(a.khong_dung_ban)),  # v4.6.2 (F11): để tao_bao_cao.py tính lại từ tệp, không tin JSON
+                   loi=R_.loi, dat=R_.dat, chua_kiem=R_.chua, info={k: v for k, v in info.items()})
+        def _ghi(tam):
+            with open(tam, 'w', encoding='utf-8') as f_: json.dump(kq_, f_, ensure_ascii=False, indent=1, default=str)
+        e_ = ND.ghi_tep_an_toan(a.json, _ghi)
+        if e_: print('LỖI GHI KẾT QUẢ: %s.' % e_); sys.exit(2)
 
 if __name__ == '__main__':
     main()

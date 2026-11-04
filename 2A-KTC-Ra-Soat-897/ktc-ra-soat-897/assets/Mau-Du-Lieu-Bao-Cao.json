@@ -1,5 +1,5 @@
 {
-  "_huong_dan": "Mẫu dữ liệu cho tools/tao_bao_cao.py (v4.5). Không điền nhãn kết luận, Bảng 1, Bảng 2 (script tự tính). Phát hiện do script đo (TT, TB, TD-01..05, CC-01, CC-02, CC-06) được nhập tự động từ kiem_tra_the_thuc.py – chỉ ghi vào 'phat_hien' các phát hiện về nội dung, căn cứ, thẩm quyền, đối chiếu chéo, văn phong. Mã và mức theo references/Quy-Tac-KTC/02-Quy-Tac-Xep-Muc.md. Nguyên văn đặt trong ngoặc kép “…”. Văn bản đã ban hành: thêm \"da_ban_hanh\": true. Chế độ ĐC: điền 'doi_chieu' và 'hoi_quy'. Nội dung dưới đây là VÍ DỤ MINH HỌA với dự thảo giả định; trích QĐ 2307 đúng nguyên văn. v4.2: ghi \"kieu_bao_cao\" = chinh_thuc | nhanh | so_sanh (khớp tác vụ); với so_sanh chạy kèm --so-sanh ss.json và điền so_sanh.ket_luan. Dòng ma trận “Khớp” ghi yeu_to_khop dạng bảng {chu_the, hanh_vi, muc_thoi_han}, mỗi yếu tố nêu cả hai bên. Mục “Đạt” nhóm Nội dung/Điều khoản bắt buộc phải có vi_tri. Hồi quy (chế độ ĐC) mỗi dòng có ma_cu và ket_qua. v4.3: (1) mỗi yếu tố yeu_to_khop trích HAI PHÍA trong ngoặc kép; (2) dòng ma trận Mâu thuẫn/Hẹp hơn/Rộng hơn trỏ đúng DC-01/DC-02/DC-03 Mức 1–2; (3) cổng ghi “PHẢI XEM ẢNH” thì điền “xem_anh” cho từng tệp: {tep, so_anh_da_xem, ket_luan: so_do | van_ban_chup, mo_ta} – có “van_ban_chup” thì hồ sơ CHẶN G1, không lập báo cáo; (4) “bo_qua_the_thuc” chỉ bỏ từng phát hiện: {ma, vi_tri đúng như script ghi, ly_do cụ thể; Mức 1 thêm nguyen_van trong ngoặc kép}; (5) truyền --the-thuc cho MỌI tệp dự thảo và phụ lục/văn bản kèm theo (tệp riêng) – kết quả đo phải thuộc hồ sơ đã qua cổng (khớp mã băm).",
+  "_huong_dan": "Mẫu dữ liệu cho tools/tao_bao_cao.py (v4.6.4; cấu trúc như v4.6.1). Tác vụ so sánh (D10): vị trí phía dự thảo phải ghi tên tệp đúng bản như cổng ghi. Không điền nhãn kết luận, Bảng 1, Bảng 2 (script tự tính). Phát hiện do script đo (TT, TB, TD-01..05, CC-01, CC-02, CC-06) được nhập tự động từ kiem_tra_the_thuc.py – chỉ ghi vào 'phat_hien' các phát hiện về nội dung, căn cứ, thẩm quyền, đối chiếu chéo, văn phong. Mã và mức theo references/Quy-Tac-KTC/02-Quy-Tac-Xep-Muc.md. Nguyên văn đặt trong ngoặc kép “…”. Văn bản đã ban hành: thêm \"da_ban_hanh\": true. Chế độ ĐC: điền 'doi_chieu' và 'hoi_quy'. Nội dung dưới đây là VÍ DỤ MINH HỌA với dự thảo giả định; trích QĐ 2307 đúng nguyên văn. v4.2: ghi \"kieu_bao_cao\" = chinh_thuc | nhanh | so_sanh (khớp tác vụ); với so_sanh chạy kèm --so-sanh ss.json và điền so_sanh.ket_luan. Dòng ma trận “Khớp” ghi yeu_to_khop dạng bảng {chu_the, hanh_vi, muc_thoi_han}, mỗi yếu tố nêu cả hai bên. Mục “Đạt” nhóm Nội dung/Điều khoản bắt buộc phải có vi_tri. Hồi quy (chế độ ĐC) mỗi dòng có ma_cu và ket_qua. v4.3: (1) mỗi yếu tố yeu_to_khop trích HAI PHÍA trong ngoặc kép; (2) dòng ma trận Mâu thuẫn/Hẹp hơn/Rộng hơn trỏ đúng DC-01/DC-02/DC-03 Mức 1–2; (3) cổng ghi “PHẢI XEM ẢNH” thì điền “xem_anh” cho từng tệp: {tep, so_anh_da_xem, ket_luan: so_do | van_ban_chup, mo_ta} – có “van_ban_chup” thì hồ sơ CHẶN G1, không lập báo cáo; (4) “bo_qua_the_thuc” chỉ bỏ từng phát hiện: {ma, vi_tri đúng như script ghi, ly_do cụ thể; Mức 1 thêm nguyen_van trong ngoặc kép}; (5) truyền --the-thuc cho MỌI tệp dự thảo và phụ lục/văn bản kèm theo (tệp riêng) – kết quả đo phải thuộc hồ sơ đã qua cổng (khớp mã băm). v4.6: (1) mọi đoạn trích trong ngoặc kép (phát hiện Mức 1–2 do AI lập, ma trận kể cả yeu_to_khop, mục Đạt, đối chiếu) phải đúng chữ của tệp thật – dự thảo/văn bản kèm theo đã qua cổng, hoặc văn bản nguồn trong hồ sơ, Kho, quy tắc của Skill; trích lược dùng “…”; script từ chối đoạn không tìm thấy (nội dung VÍ DỤ dưới đây sẽ bị từ chối nếu chạy nguyên trạng với hồ sơ thật); (2) mục chua_kiem thuộc chủ đề trọng yếu ghi \"trong_yeu\": true – tính vào nhãn; (3) kiem_tra_chat_luong bắt buộc; (4) phát hiện bắt buộc có ma, muc, vi_tri, mo_ta, kien_nghi, không trùng nhau; (5) chế độ ĐC: hồ sơ phải có du_thao_cu và chạy kèm --so-sanh ss.json của bản cũ – bản hiện hành; ma_cu phải có trong báo cáo rà soát lần trước; (6) kết quả cổng và đo thể thức phải do cùng gói v4.6 tạo. v4.6.1: (1) đoạn trích nguồn phải có trong ĐÚNG văn bản dòng dẫn (vblq, can_cu) chỉ tới – tên tệp như cổng ghi, số hiệu đã qua cổng/Kho, tên luật hoặc dòng quy tắc của Skill – và trong Điều đã ghi; phía dự thảo theo vi_tri/du_thao_vi_tri; (2) không đặt khóa bắt đầu “_” ngoài _huong_dan, _ghi_chu, _vi_du_…; (3) che_do chỉ ĐL hoặc ĐC; ĐL ở lần ≥ 2 ghi yeu_cau_doc_lap (nguyên văn yêu cầu “rà soát lại toàn bộ” của người dùng); (4) ĐC: doi_chieu phủ đủ danh mục mã cũ của báo cáo lần trước (<Mã>#<STT> theo bảng Phần II, hoặc M<số>-<số>); (5) “Khớp – có điều khoản thay thế” ghi thêm vblq_thay_the. v4.6.2: (1) mọi trường đúng kiểu như mẫu (chuỗi, danh sách, đối tượng) – sai kiểu bị từ chối với đường dẫn trường; (2) mỗi dòng dẫn (vblq, can_cu, vi_tri…) chỉ tới MỘT nguồn: tên tệp như cổng ghi (trùng tên thì ghi đường dẫn tương đối), tên tệp quy tắc .md, số hiệu hoặc tên luật – không ghi “A hoặc B”, không ghi chung “quy tắc”, “KTC”; (3) văn bản có Điều lặp ở nhiều phần (Quyết định + Quy định/Quy chế kèm theo) ghi rõ phần, ví dụ “Quy định, Điều 7 khoản 2”; được ghi nhiều Điều (“Điều 5 và Điều 7”); (4) không đặt khóa “_…” dành cho script ở bất kỳ cấp nào, kể cả trong _vi_du_…; (5) không sửa tay JSON cổng, đo thể thức, so sánh – trình dựng tính lại và từ chối.",
   "ten_du_thao": "Dự thảo Quyết định ban hành Quy định …",
   "loai_van_ban": "Quyết định (kèm Quy định)",
   "don_vi_soan_thao": "phòng Tổng hợp – Hành chính và Quản trị",
@@ -61,7 +61,14 @@
       "vi_tri": "Căn cứ thứ nhất"
     }
   ],
-  "chua_kiem": [],
+  "chua_kiem": [
+    {
+      "noi_dung": "Thời hạn báo cáo sự cố tại Điều 5 khoản 2 – chưa đối chiếu được với văn bản của Sở (chưa có toàn văn)",
+      "ly_do": "Hồ sơ và Kho chưa có toàn văn văn bản được dẫn",
+      "trong_yeu": true,
+      "nguoi_xac_minh": "Đơn vị soạn thảo"
+    }
+  ],
   "xem_anh": [],
   "doi_chieu": [],
   "hoi_quy": [],
@@ -139,7 +146,8 @@
   },
   "_vi_du_khop_co_dieu_khoan_thay_the": {
     "ket_qua": "Khớp – có điều khoản thay thế",
-    "nguyen_van_thay_the": "“Quyết định này thay thế Điều 5 khoản 1 Quyết định số 2307/QĐ-CĐKT …”"
+    "nguyen_van_thay_the": "“Quyết định này thay thế Điều 5 khoản 1 Quyết định số 2307/QĐ-CĐKT …”",
+    "vblq_thay_the": "Tên tệp hoặc số hiệu văn bản chứa điều khoản thay thế, Điều …"
   },
   "_vi_du_so_sanh_vi_tri": "Tác vụ so sánh hai bản: “vi_tri” của phát hiện, “du_thao_vi_tri” của ma trận, “vi_tri” của mục Đạt ghi tên tệp như cổng hồ sơ ghi, ví dụ “Du thao_V2.docx – Quy định, Điều 7 khoản 2”."
 }

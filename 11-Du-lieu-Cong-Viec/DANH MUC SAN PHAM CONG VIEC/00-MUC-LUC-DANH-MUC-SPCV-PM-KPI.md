@@ -15,15 +15,30 @@ nay mã này là **mã chính** của sản phẩm trong toàn hệ KTC; mã QĐ
 
 Sinh lại dẫn xuất: `python 29-Cong-Cu/trich_danh_muc_pm_kpi.py`
 
-## Quy tắc mã
+## Quy tắc mã — hai trường phân loại độc lập
 
-Phần mềm sinh mã theo quy tắc **"Mã nhóm SPCV_số thứ tự tăng dần"**, trong đó *Nhóm SPCV* là một trường danh
-mục do quản trị đơn vị khai báo (HDSD VNPT–ĐGCB v2.0, mục IV.2.4.2.2, tr. 35). Mã **không sửa được sau khi tạo**.
+Phần mềm có **hai trường khác nhau**, đừng lẫn (HDSD VNPT–ĐGCB v2.0):
 
-| Tiền tố | Nghĩa | Số mã | Hệ số |
-|---|---|---|---|
-| `N1`–`N5` | **Nhóm 1–5 theo QĐ 2119** | 220 · 179 · 11 · 4 · 3 = 417 | Lấy đúng theo từng sản phẩm trong PL-2119 |
-| `T1`–`T6` | Sáu nhóm Trường khai thêm cho sản phẩm **chưa có trong QĐ 2119** | 8 · 2 · 3 · 15 · 9 · 1 = 38 | **THIEU_DU_LIEU** — chưa có văn bản |
+| Trường | Nghĩa | Giá trị của Trường |
+|---|---|---|
+| **Nhóm SPCV** | *"Phân loại **mức độ phức tạp** của công việc thông qua **điểm tối đa** tương ứng với từng nhóm"* — `N1`=100, `N2`=200, `N3`=300, `N4`=400, `N5`=500 điểm (tr. 30–32) | `N1`–`N5` = **Nhóm 1–5 của QĐ 2119** |
+| **Lĩnh vực SPCV** | Lĩnh vực chuyên môn, trường bắt buộc riêng khi tạo sản phẩm (tr. 35) | `T1`–`T6` = **Trục (1)–(6)** theo TB 817 |
+
+Mã sản phẩm sinh theo **"Mã nhóm SPCV_số thứ tự tăng dần"** và **không sửa được sau khi tạo** (tr. 35).
+
+> **Bằng chứng `T` = Trục** (không phải Nhóm): video hướng dẫn 27/10/2026, phút ~2:16 — hộp thoại *Thêm: Danh
+> sách công việc* hiển thị sản phẩm `N2_219 "Giảng dạy theo kế hoạch"` với cột **Lĩnh vực SPCV = "T1 - Trục (1)
+> THỰC HIỆN MỤC TIÊU PHÁT TRIỂN KINH TẾ - XÃ HỘI VÀ NHIỆM VỤ CHÍNH TRỊ ĐƯỢC GIAO"**. Ảnh lưu
+> `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/Bang-chung_Linh-vuc-SPCV-la-Truc_video-27102026-phut-2-16.png`.
+
+| Tiền tố | Số mã | Hệ số |
+|---|---|---|
+| `N1`–`N5` (Nhóm 1–5) | 220 · 179 · 11 · 4 · 3 = 417 | Lấy đúng theo từng sản phẩm trong PL-2119 |
+| `T1`–`T6` (Trục 1–6) | 8 · 2 · 3 · 15 · 9 · 1 = 38 | **THIEU_DU_LIEU** — sản phẩm **chưa được gán Nhóm** nên chưa có hệ số |
+
+**Hệ số trên phần mềm = hệ số QĐ 2119 theo từng sản phẩm** — kiểm chứng bằng số thật trong video (phút ~2:32):
+`N2_219` hệ số 1,2 → 50 × 1,2 = **60,00**; `N2_220` hệ số 1,5 → 5 × 1,5 = **7,50**; tổng **67,50** đúng như phần
+mềm hiển thị. Ảnh: `…/Bang-chung_He-so-QD2119-khop-quy-doi_video-27102026-phut-2-32.png`.
 
 **Đối chiếu ngày 27/10/2026**: 416/455 mã khớp tên với PL-2119, và **nhóm khớp 100% — 0 mã lệch** (`N3_34` ↔
 Nhóm 3, `N5_10` ↔ Nhóm 5…). Hai sản phẩm được đổi tên khi đưa lên phần mềm, cột `ghi_chu` đánh dấu:
@@ -35,15 +50,17 @@ Nhóm 3, `N5_10` ↔ Nhóm 5…). Hai sản phẩm được đổi tên khi đư
 
 ## 39 mã chưa có hệ số — không tự đặt
 
-38 mã `T1`–`T6` và `N1_460` (*Báo cáo năm thực hiện quy chế dân chủ ở cơ sở*) **không có trong PL-2119**, nên
-cột `he_so` để trống và `ghi_chu` ghi `THIEU_DU_LIEU`. Không được suy hệ số từ tiền tố (CLAUDE.md — hệ số lấy
-đúng theo từng sản phẩm).
+| Nhóm mã | Vì sao chưa có hệ số |
+|---|---|
+| 38 mã `T1`–`T6` | **Chưa được gán Nhóm SPCV**. Hệ số gắn theo Nhóm/sản phẩm, nên khi chưa phân nhóm thì chưa có hệ số; mã phải đặt theo Lĩnh vực (Trục) thay cho Nhóm. **Trục của các mã này là chắc chắn** (đọc thẳng từ mã), chỉ thiếu Nhóm và hệ số |
+| `N1_460` — *Báo cáo năm thực hiện quy chế dân chủ ở cơ sở* | Thêm sau QĐ 2119 (mã cuối cùng của N1, ngay sau `N1_459` là sản phẩm cuối của phụ lục). Đã **thuộc Nhóm 1** → hệ số nằm trong {0,3; 0,5; 1,0}; sản phẩm cùng họ *Báo cáo 6 tháng thực hiện quy chế dân chủ ở cơ sở* (`4.5.BC01.01`, Trục 4) có hệ số **1,0** |
 
-Nội dung 6 nhóm `T` khớp rất sát **6 Trục TB 817** — T1 đào tạo · T2 thể chế, công khai · T3 chuyển đổi số, AI ·
-T4 xây dựng Đảng, tổ chức cán bộ, đoàn thể · T5 văn hóa, an sinh, HSSV, cơ sở vật chất · T6 đối ngoại, hội nhập.
-Đây là **giả thuyết có bằng chứng nội dung, chưa có văn bản xác nhận**: cột `truc` của các dòng `T` ghi theo giả
-thuyết này để tra cứu, không dùng làm căn cứ. **Việc cần làm**: đề nghị P-TCCB xác nhận nghĩa nhóm `T` và bổ
-sung 39 sản phẩm vào lần rà soát danh mục hằng năm (Điều 3 QĐ 2119, Phòng TCCB&CTHSSV tổng hợp).
+Cả 39 sản phẩm **không có trong PL-2119 lẫn bảng dự thảo 371** (đối chiếu 0/39) — tức là phát sinh sau
+28/9/2026, được thêm thẳng trên phần mềm khi đơn vị, viên chức đăng ký kế hoạch. Không suy hệ số từ tiền tố,
+không gán hệ số theo sản phẩm "cùng họ" (CLAUDE.md — hệ số lấy đúng theo từng sản phẩm).
+
+**Việc cần làm:** đề nghị Phòng TCCB&CTHSSV (a) gán Nhóm cho 38 mã `T`, (b) xác nhận hệ số cho cả 39 sản phẩm,
+(c) đưa vào lần rà soát, bổ sung danh mục theo **Điều 3 QĐ 2119** (P-TCCB tổng hợp, Hiệu trưởng quyết định).
 
 ## Cấu trúc `danh-muc-spcv-pm-kpi.csv`
 

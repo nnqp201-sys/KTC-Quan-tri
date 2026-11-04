@@ -705,22 +705,58 @@ def c14_cong_cu_agent_duoc_dong_goi(du_an=DU_AN):
 
 
 def c897_loi_nguyen_ban(du_an=DU_AN):
-    """C-897: loi ktc-ra-soat-897 v4.5 phai NGUYEN BAN (TB 1206/TB-CDKT muc 6).
+    """C-897: ktc-ra-soat-897 phai khop hash goc (v4.6.4 chinh thuc hoac v4.5 + lop bo sung).
 
-    Ban tich hop ca nhan 2A-KTC-Ra-Soat-897 = loi v4.5 + lop bo sung. Sua mot byte tep loi
-    (vi du tools/tao_bao_cao.py) la dung vao quy dinh cua Truong -> phai bao loi.
-    Dung chung ham kiem voi dong_goi_ra_soat_897.py. Thu nguoc: test_c897_loi_nguyen_ban.py.
+    Kiem bang sha256sum -c LOI-V464.sha256 (hoac LOI-V45.sha256 cho ban cu).
+    Thu nguoc: test_c897_loi_nguyen_ban.py.
     """
-    tieu_de("C-897. Lõi ktc-ra-soat-897 v4.5 nguyên bản")
-    if not os.path.isdir(os.path.join(du_an, "2A-KTC-Ra-Soat-897")):
+    import subprocess
+    import hashlib
+    import re
+
+    he_dir = os.path.join(du_an, "2A-KTC-Ra-Soat-897")
+    tieu_de("C-897. Lõi ktc-ra-soat-897 nguyên bản")
+    if not os.path.isdir(he_dir):
         print("  – không có 2A-KTC-Ra-Soat-897 (bỏ qua)")
         return
-    sys.path.insert(0, os.path.join(du_an, "29-Cong-Cu"))
-    import dong_goi_ra_soat_897 as G
-    ds = G.kiem_loi(du_an)
-    for x in ds:
+
+    # Tim file hash
+    hash_file = None
+    for ten in ["LOI-V464.sha256", "LOI-V45.sha256"]:
+        p = os.path.join(he_dir, ten)
+        if os.path.isfile(p):
+            hash_file = p
+            break
+    if not hash_file:
+        loi.append("C-897 không tìm thấy LOI-V464.sha256 hoặc LOI-V45.sha256")
+        print("  ✗ không tìm thấy file hash")
+        return
+
+    # Kiem hash
+    ds_loi = []
+    with open(hash_file, encoding="utf-8") as f:
+        for dong in f:
+            dong = dong.rstrip("\r\n")
+            if not dong:
+                continue
+            m = re.match(r"^([0-9a-f]{64})  (.+)$", dong)
+            if not m:
+                ds_loi.append(f"không đọc được {os.path.basename(hash_file)}: dòng sai định dạng: {dong[:80]}")
+                break
+            hash_goc, tep = m.group(1), m.group(2)
+            tep_day_du = os.path.join(he_dir, tep)
+            if not os.path.isfile(tep_day_du):
+                ds_loi.append(f"thiếu tệp: {tep}")
+                continue
+            with open(tep_day_du, "rb") as tf:
+                hash_thuc = hashlib.sha256(tf.read()).hexdigest()
+            if hash_thuc != hash_goc:
+                ds_loi.append(f"hash sai: {tep}")
+
+    for x in ds_loi:
         loi.append(f"C-897 {x}")
-    print(f"  {'✗' if ds else '✓'} {len(ds)} lỗi lõi v4.5")
+    phien_ban = "v4.6.4" if "V464" in hash_file else "v4.5"
+    print(f"  {'✗' if ds_loi else '✓'} {len(ds_loi)} lỗi ({phien_ban})")
 
 
 def main():

@@ -3,11 +3,22 @@
 
 Tu 27/10/2026, Truong dang ky ke hoach cong tac quy tren phan mem KPI tinh Quang Ngai
 (https://kpi.quangngai.dcs.vn). Phan mem dinh danh san pham bang ma rieng, quy tac
-"Ma nhom SPCV_so thu tu tang dan" (HDSD VNPT-DGCB v2.0, muc IV.2.4.2.2, tr. 35):
-  - N1..N5 = Nhom 1..5 theo QD 2119 (doi chieu 27/10/2026: khop 414/414 san pham, 0 lech nhom)
-  - T1..T6 = sau nhom Truong khai them cho san pham chua co trong QD 2119 (39 san pham).
-    Noi dung khop 6 Truc TB 817 — nhung CHUA co van ban xac nhan, nen cot he_so de trong
-    va ghi THIEU_DU_LIEU. Khong tu dat he so (CLAUDE.md, QD 2119).
+"Ma nhom SPCV_so thu tu tang dan" (HDSD VNPT-DGCB v2.0, muc IV.2.4.2.2, tr. 35).
+
+Phan mem co HAI truong phan loai doc lap (HDSD tr. 30-32 va tr. 35):
+  - Nhom SPCV  : phan loai MUC DO PHUC TAP qua Diem toi da (N1=100 ... N5=500)
+                 -> N1..N5 = Nhom 1..5 cua QD 2119 (doi chieu 27/10/2026: khop 416/416, 0 lech)
+  - Linh vuc SPCV: T1..T6 = **Truc (1)..(6)** theo TB 817
+                 (bang chung: video HDSD 27/10/2026 phut ~2:16, cot "Linh vuc SPCV" hien
+                  "T1 - Truc (1) THUC HIEN MUC TIEU PHAT TRIEN KINH TE - XA HOI...";
+                  anh luu 91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/Bang-chung_*.png)
+
+38 san pham mang ma "T<n>_" la san pham CHUA DUOC GAN NHOM: ma duoc dat theo Linh vuc (Truc)
+thay cho Nhom, nen chua co he so. Cung voi N1_460 (them sau 416 san pham QD 2119) thanh 39 dong
+ghi THIEU_DU_LIEU. Khong tu dat he so (CLAUDE.md, QD 2119 Dieu 3 — P-TCCB tong hop, Hieu truong quyet).
+
+He so tren phan mem = he so QD 2119 theo tung san pham (kiem chung so that trong video:
+N2_219 he so 1,2 -> 50 x 1,2 = 60,00; N2_220 he so 1,5 -> 5 x 1,5 = 7,50; tong 67,50).
 
 Nguon:
   1. Tep mau import cua phan mem: 11-Du-lieu-Cong-Viec/*Import*.xlsx, sheet `SPCV`
@@ -122,11 +133,15 @@ def ghep(pm, pl):
                          "san_pham_minh_chung": str(o[4] or "").strip(), "mo_ta": str(o[3] or "").strip(),
                          "ghi_chu": "Đổi tên so với PL-2119" if k in DOI_TEN else ""})
         else:
+            # Ma T<n>_ : chua gan Nhom, ma dat theo Linh vuc = Truc <n> -> Truc la CHAC CHAN
             hang.append({"ma_spcv": ma, "ten_spcv": ten, "nhom_pm": nhom_pm, "ma_qd2119": "",
                          "nhom_qd2119": "", "he_so": "",
                          "truc": nhom_pm[1] if nhom_pm.startswith("T") else "",
                          "noi_ham": "", "ma_vb": "", "san_pham_minh_chung": "", "mo_ta": "",
-                         "ghi_chu": "THIEU_DU_LIEU — chưa có trong PL-2119, chưa có hệ số"})
+                         "ghi_chu": ("THIEU_DU_LIEU — chưa gán Nhóm (mã đặt theo Lĩnh vực = Trục), "
+                                     "chưa có trong PL-2119, chưa có hệ số"
+                                     if nhom_pm.startswith("T") else
+                                     "THIEU_DU_LIEU — thêm sau QĐ 2119, thuộc Nhóm 1, chưa có hệ số")})
     return hang, loi
 
 

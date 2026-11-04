@@ -1,5 +1,99 @@
 # CHANGELOG – Skill ktc-ra-soat-897
 
+## v4.6.4 – 03/11/2026 (v4.6.3 + quyết định Q1–Q5 của người phụ trách ngày 03/11/2026; tự kiểm của người sửa; Hiệu trưởng phê duyệt chính thức ngày 03/11/2026)
+- Q1: chủ đề AI – ma trận đối chiếu luôn gồm thêm QĐ 2487/QĐ-CĐKT (SKILL Bước 4.2, checklist, chỉ mục Kho). Người rà soát thực hiện; script không tự nhận chủ đề nên không ép buộc (chỉ ép QĐ 1976, 2073 như trước).
+- Q2: đối chiếu Danh mục AI (QĐ 2487) bằng mã sẵn có, không mã mới: ngoài/trái Danh mục → DC-01; rộng hơn (loại dữ liệu, nhóm người dùng, phạm vi) → DC-03; tên công cụ/nhà cung cấp/mức rủi ro khác Danh mục (ví dụ “NotebookLM”) → DC-06; đều Mức 2, Mức 1 nếu trái pháp luật/văn bản cấp trên (SKILL Bước 4 mục 4; 02-Quy-Tac-Xep-Muc DC-06).
+- Q3: lưu ý bảo mật (SKILL.md, 05-Cong-Ho-So, 29-Skill-Van-Ban-Dang) dẫn thêm QĐ 2487 – Claude thuộc Danh mục (mục 2), dữ liệu theo Phụ lục I QĐ 2307, gói tổ chức Team/Enterprise.
+- Q4: Kho v4.3 bổ sung Luật An ninh mạng 116/2025/QH15, Luật Giáo dục nghề nghiệp 124/2025/QH15, Luật Trí tuệ nhân tạo 134/2025/QH15 (cùng ngày 10/12/2025; tệp do người phụ trách cung cấp, đã kiểm số, ngày, toàn văn có Điều) – 01-Legal-Database, text/, kho_manifest.json, chỉ mục. Không đưa luật cũ vào danh sách “đã bị thay thế” (Luật 74/2014/QH13 hết hiệu lực có ngoại lệ chuyển tiếp) – chưa đổi quy tắc CC-01.
+- Q5: cổng `--xac-nhan-toan-van "<tệp>=<lý do>"` cho văn bản nguồn rất ngắn mà cổng không xác định được thân (05-Cong-Ho-So mục 2e); không dùng được cho tệp chỉ có định danh + một đoạn trích yếu; ghi JSON, I.7 chữ đỏ; trình dựng tính lại với tham số này.
+- Phiên bản dữ liệu: kết quả cổng/đo/so sánh phải do v4.6.4 tạo (JSON v4.6.3 chạy lại).
+- Câu chữ Q3 được THÊM thành câu riêng, giữ nguyên câu cũ (dữ liệu báo cáo cũ trích nguyên văn quy tắc Skill vẫn khớp – ca hồi quy F03-03).
+- Kỹ thuật: các công cụ không ghi `__pycache__` vào thư mục Skill (`sys.dont_write_bytecode` trước khi nạp mô-đun dùng chung); `--xac-nhan-toan-van` thiếu “=” → CHẶN, nêu cách ghi.
+
+## v4.6.3 – 03/11/2026 (BẢN SỬA HOÀN THIỆN sau nghiệm thu độc lập lần 3 – đã TỰ KIỂM của người sửa; KHÔNG phải nghiệm thu độc lập; CHƯA được duyệt phát hành, CHƯA cài)
+Căn cứ: Tóm tắt nghiệm thu độc lập lần 3 (v4.6.2 CHƯA ĐẠT – giữ nguyên kết luận); phiếu quyết định D1–D11 ngày 02/11/2026 (đã ký xác nhận bổ sung 03/11/2026); chỉ dẫn đợt sửa hoàn thiện 03/11/2026 (không tổ chức nghiệm thu lần 4; thực hiện D2, D10). Số 4.6.3 chỉ là nhãn kỹ thuật.
+Thay đổi có chủ đích của hợp đồng (dữ liệu cũ phải chạy lại – xem `Hop_dong_du_lieu_va_thay_doi_tuong_thich.md` trong hồ sơ bàn giao):
+- D2: `--kho` khác Kho của gói → cổng CHẶN; trình dựng từ chối JSON cổng ghi Kho ngoài gói (trước: cảnh báo chữ đỏ). Cách viết tương đương của chính Kho gói được nhận.
+- D10: tác vụ so sánh – vị trí phía dự thảo dùng đối chiếu trích dẫn phải ghi tên tệp đúng bản; xác định tệp trước, kiểm Điều/phần/chương trong tệp đó (giao thoa D5/D10).
+- Phiên bản dữ liệu: kết quả cổng/đo/so sánh phải do v4.6.3 tạo (bảng so sánh nay cũng kiểm phiên bản).
+Lỗi cài đặt đã sửa:
+- Mục 1 (F01/F02/F06): đọc mọi JSON có kiểm soát – kích thước, độ sâu lồng, số nguyên quá lớn, số thực vô hạn/NaN, khóa lặp, ký tự điều khiển/nửa cặp thay thế (trước: Traceback ở trình dựng, kể cả nhánh dựng .docx); chuỗi số chỉ chữ số ASCII (trước: “²” vỡ int()); lỗi nêu đường dẫn trường và giới hạn; chú thích `_vi_du…` lồng trong giới hạn vẫn dùng được.
+- Mục 2 (D6/F04): kiểm TẤT CẢ định danh trong dòng dẫn – số hiệu không thuộc tệp đã ghi tên, tên luật thứ hai (kể cả tên lồng nhau “Luật Giáo dục nghề nghiệp và Luật Giáo dục”), tên luật chỉ khớp phần đầu → từ chối; đồng nghĩa thật (tệp + số hiệu của chính nó, tên luật + số của chính luật đó) được nhận. Khóa so tên tệp cùng chuẩn trình bày với dòng dẫn.
+- Mục 3 (N12/F08): quy tắc cấu trúc mới cho trích yếu và thân văn bản (`05-Cong-Ho-So.md` mục 2d) – độ dài, căn lề, dấu câu, một cụm mở đầu không còn một mình kết luận có thân; khối căn cứ, “QUYẾT ĐỊNH:”, Nơi nhận, chữ ký không tính là thân. `.xlsx` đọc theo hàng.
+- Mục 4 (F11): trình dựng dùng kết quả tính lại của cổng/đo/so sánh; tên/đường dẫn bản cũ – mới trong JSON so sánh phải đúng tệp thật của mã băm (sửa tên, trỏ tệp khác, đảo tên → từ chối); II.D in tên tệp như cổng ghi; lỗi tiến trình con có chẩn đoán.
+- Mục 5: trường bắt buộc có nội dung kiểm sau chuẩn hóa khoảng trắng (zero-width, NBSP, U+3000…): `ten_du_thao`, `loai_van_ban`, `don_vi_soan_thao`, `nguoi_kiem_tra`, `chua_kiem[i].noi_dung/ly_do`, `uu_tien[i]`, các trường bắt buộc của phát hiện, ma trận, đối chiếu, hồi quy, xem ảnh, kiểm tra chất lượng, `yeu_cau_doc_lap`.
+- Tệp kết quả: `-o`/`--json`/`--md` không được trùng tệp đầu vào/hồ sơ (trước: có thể ghi đè dự thảo), thư mục phải có, ghi qua tệp tạm; `--json` không ghi được → thông báo, mã 2 (trước: Traceback). Tệp .docx hỏng/không có ở `kiem_tra_the_thuc.py`, `so_sanh_ban.py` → lỗi có kiểm soát.
+- D3 (độ ổn định): LibreOffice dùng hồ sơ người dùng riêng cho mỗi lần dựng trang (trước: dùng chung → xung đột với phiên đang mở/tiến trình song song → tính lại khác → từ chối nhầm).
+Kho dữ liệu (v4.2 – 03/11/2026): bổ sung QĐ 2487/QĐ-CĐKT ngày 03/11/2026 ban hành Danh mục các hệ thống trí tuệ nhân tạo (AI) được phép sử dụng trong hoạt động của nhà trường (Phụ lục 10 công cụ) – tệp `02-KTC-Regulations/QD-2487-QD-CDKT-Danh-muc-he-thong-AI-duoc-phep-su-dung.docx`, bản chữ `text/`, mục `kho_manifest.json`, chỉ mục `00-Chi-Muc-Metadata.md`. Không thêm quy tắc kiểm mới theo QĐ 2487 (các câu hỏi gửi người phụ trách ghi trong hồ sơ bàn giao).
+Giữ nguyên (không đổi nghiệp vụ): D1, D3, D4, D5, D6, D7, D8, D11; QĐ-5, QĐ-7, KTS-25; không kiểm khoản/điểm; Điều đánh số tự động chỉ ghi “chưa kiểm được vị trí Điều”. F11 KHÔNG ghi là đã đóng: `tham_so` sửa tay và người có quyền sửa gói vẫn ngoài khả năng kiểm (D1).
+
+## v4.6.2 – 02/11/2026 (ỨNG VIÊN KỸ THUẬT sau nghiệm thu độc lập lần 2 – CHƯA nghiệm thu, CHƯA phát hành, CHƯA cài)
+Căn cứ: Tóm tắt nghiệm thu độc lập lần 2 (v4.6.1 CHƯA ĐẠT; F01–F13). Số phiên bản 4.6.2 chỉ là nhãn kỹ thuật, không phải quyết định ban hành. Không đổi quy tắc nghiệp vụ đã chốt (N12, N46, N31, N32, N33, VBHN, KTS-18, QĐ-5, QĐ-6, QĐ-7).
+- F01, F02 (trình dựng): mô-đun mới `tools/kiem_kieu_du_lieu.py` – hợp đồng kiểu cho mọi trường dữ liệu báo cáo (kể cả đối tượng lồng, phần tử danh sách), kiểm TRƯỚC mọi xử lý; sai kiểu → “DỮ LIỆU BÁO CÁO CHƯA HỢP LỆ”, báo đường dẫn trường (chỉ số đếm từ 1) và kiểu hợp lệ, mã thoát 1, không dựng tệp; JSON hỏng/thiếu tệp → từ chối có kiểm soát. `mo_ta`, `kien_nghi`… không phải chuỗi bị từ chối. Quy ước null tạm thời (F12 – chờ quyết định): trường đơn null = không có; danh sách/đối tượng null = lỗi, trừ `chua_kiem`.
+- F03, F04, F05, F09 (trình dựng): dòng dẫn phải chỉ tới MỘT nguồn. Tên tệp (như cổng ghi, đường dẫn tuyệt đối, tệp quy tắc `references/…md`) được nhận trước và bỏ khỏi dòng dẫn trước khi rút số hiệu – “02-Quy-Tac-Xep-Muc.md” không còn bị hiểu là số hiệu; từ chối: hai nguồn trở lên (“A hoặc B”, “A, B”, hai số hiệu), tên ngắn trùng nhiều tệp (đề nghị ghi đường dẫn), tên tệp không có trong hồ sơ, tệp sai vai trò (vị trí dự thảo ghi tệp văn bản liên quan; căn cứ ghi tệp dự thảo), dòng dẫn chỉ ghi chung (“quy tắc”, “KTC”, “bảng thông số”, “references/”). Tệp gộp trùng nội dung (N46) là một nguồn. Không ghi tên tệp ở vị trí dự thảo → giữ hành vi tìm trên các tệp dự thảo/văn bản kèm theo.
+- F06 (trình dựng): kiểm khóa dành cho script ở MỌI cấp, kể cả bên trong `_vi_du_…`, `_ghi_chu`, `_huong_dan`; chú thích hợp lệ vẫn được nhận.
+- F07 (trình dựng): bề rộng cột tối thiểu theo từ dài nhất không bẻ được (STT, mã, “Mức n”); hàng tiêu đề cột giữ cùng hàng dữ liệu đầu; chỉ cấm tách hàng khi hàng vừa một trang; đoạn đệm sau bảng 1 pt (hết trang cuối chỉ có số trang). I.7 in đủ đường dẫn tệp gộp, tham số chạy cổng, ghi chú cổng nguyên văn. Kiểm bằng LibreOffice; CHƯA kiểm bằng Microsoft Word.
+- F08 (cổng): trích yếu nhiều đoạn (tối đa 4) sau tên loại được nhận theo cấu trúc (không dấu hiệu thân, không kết thúc bằng dấu câu, không in hoa, không canh đều) – tệp chỉ có định danh + trích yếu hai, ba dòng → CHẶN (N12). Ngưỡng 30 ký tự giữ nguyên (vấn đề mở).
+- F10 (trình dựng): nhận nhiều Điều trên một dòng dẫn (“Điều 1 và Điều 2”, “Điều 1, 3”, “từ Điều 2 đến Điều 4”); văn bản có nhiều phần (Quyết định + Quy chế/Quy định kèm theo, Phụ lục) và Chương được phân vùng; “Quy chế, Điều 2”, “Chương II, Điều 5” kiểm đúng phần/chương; Điều lặp ở nhiều phần mà dòng dẫn không ghi phần → từ chối “mơ hồ”; tên văn bản chính (“Quyết định…”) chỉ dùng để phân biệt khi số Điều lặp. Điều đánh số tự động: giữ “chưa kiểm được vị trí Điều”. Khoản, điểm vẫn không kiểm (vấn đề mở D).
+- F11 (cổng, đo, so sánh, trình dựng): `kiem_ke_ho_so.py` ghi `tham_so` (đường dẫn tuyệt đối, tác vụ, vòng, `--vai-tro`, `--du-thao`, `--xac-nhan-kem`, Kho, thư mục chạy); `kiem_tra_the_thuc.py` ghi `tham_so`; `tao_bao_cao.py` CHẠY LẠI cổng, đo thể thức, so sánh từ tệp thật với tham số đã ghi và từ chối khi JSON khác kết quả tính lại. Không dùng checksum tự khai hay khóa bí mật. Ranh giới tin cậy mới (tham số chạy là đầu vào hợp lệ, in ở I.7; `--kho` khác mặc định chỉ được cảnh báo) CHỜ người phụ trách quyết định.
+- Phiên bản dữ liệu: kết quả cổng/đo phải do v4.6.2 tạo; phiên bản khác → dừng ngay (không xử lý tiếp).
+
+## v4.6.1 – 02/11/2026 (bản sửa sau nghiệm thu độc lập lần 1 – CHƯA nghiệm thu lại, chưa cài thay bản chính thức)
+Căn cứ: Báo cáo nghiệm thu độc lập v4.6 ngày 02/11/2026 (kết luận CHƯA ĐẠT, 57/69 ca; 12 ca chưa đạt); quyết định của người phụ trách cùng ngày về N12, N46, N31, N32.
+- N07, N09 (cổng): `--vai-tro`, `--du-thao`, `--xac-nhan-kem` kiểm và áp dụng cùng một bộ phân giải (đường dẫn tuyệt đối, khoảng trắng ngoài tên).
+- N12 (cổng – quyết định 02/11/2026): tệp nguồn chỉ có phần định danh, không có thân văn bản → CHẶN (cả VBHN); tiêu chí cấu trúc, ngưỡng 30 ký tự chỉ là điều kiện phụ tạm thời.
+- N46 (cổng – quyết định 02/11/2026): gộp tệp trùng phần nội dung (bỏ metadata), ghi đủ đường dẫn; khác chữ vẫn MƠ HỒ.
+- N34 (cổng): `--kiem-moi-truong` chạy được không cần đường dẫn (đúng lệnh trong README, SKILL.md).
+- N20, N21 (trình dựng): đoạn trích nguồn đối chiếu với đúng văn bản dòng dẫn chỉ tới (tên tệp, số hiệu, tên luật, quy tắc Skill), tên tệp phải mang số hiệu ghi kèm, và nằm trong Điều đã ghi; phía dự thảo theo vị trí; dòng dẫn không chỉ ra văn bản → từ chối; văn bản đánh số Điều tự động → ghi “chưa kiểm được vị trí Điều”. “Khớp – có điều khoản thay thế” cần `vblq_thay_the`.
+- N24 (trình dựng): phát hiện thiếu `ma` → từ chối có thông báo, không vỡ chương trình.
+- N25 (trình dựng): dữ liệu người nhập không được đặt khóa bắt đầu “_” (dành cho script: `_nguon`, `_ss`…), trừ chú thích `_huong_dan`, `_ghi_chu`, `_vi_du_…`.
+- N31 (trình dựng – quyết định 02/11/2026): danh mục mã cũ từ bảng Phần II của báo cáo lần trước (`<Mã>#<STT>`) hoặc mã `M<số>-<số>`; phủ hai chiều; không nhận ra mã → không dùng ĐC.
+- N32, N33 (trình dựng – quyết định 02/11/2026): `che_do` chỉ ĐL/ĐC; ĐL ở lần ≥ 2 phải có `yeu_cau_doc_lap` (≥ 20 ký tự, in ở I.7).
+- I.7 ghi việc dùng VBHN thay Luật gốc và các tệp đã gộp (nhận xét của nghiệm thu).
+- Phiên bản dữ liệu: kết quả cổng/đo phải do v4.6.1 tạo (có `dinh_danh`).
+
+## v4.6 – 02/11/2026 (bản sửa – CHƯA nghiệm thu độc lập, chưa cài thay bản chính thức)
+Căn cứ: Báo cáo kiểm toán độc lập Skill ktc-ra-soat-897 ngày 01/11/2026 (28 mã KTS-01…28); phát hiện mới ở Giai đoạn 0 (PH-01, PH-02); phát hiện bổ sung F-X; quyết định của người phụ trách ngày 02/11/2026:
+- Quy tắc VBHN (xác nhận bằng lời trong phiên làm việc, chưa có văn bản): luật có VBHN chỉ cần 01 VBHN khớp số, ngày, luật được hợp nhất; VBHN khác hoặc cũ hơn không thỏa; ghi việc thay thế, nguồn và giới hạn (`Quy-Tac-KTC/04` mục 5).
+- KTS-18: DC-02 được Mức 1 khi trái pháp luật/văn bản cấp trên.
+- Giữ nguyên: CC-01 cho dạng rút gọn cùng loại (KTS-12 F09); không đưa `--dinh-danh` của bản rời v4.5.2 (KTS-27).
+
+F-X: kết luận SAI qua nhật ký 2 lần chạy (02/11/2026) – lần chạy có VBHN 115 trong hồ sơ, cổng khớp đúng; không sửa riêng. Hiện tượng chặn 2251/319 ở lần đầu tái hiện được khi số hiệu có khoảng trắng trình bày → xử lý chung ở KTS-01.
+
+Thay đổi theo từng điểm:
+- KTS-01 (Cao): mô-đun mới `tools/nhan_dien_chung.py` – chuẩn hóa số, ký hiệu chịu khoảng trắng thường/không ngắt/zero-width/xuống dòng, quanh “/” và “-”; Unicode theo thuộc tính ký tự; chứng cứ giữ nguyên văn gốc.
+- KTS-02 (Cao): Kho chỉ tính có toàn văn khi tệp có thật và đọc được chữ; mục “Phụ lục …” không thay văn bản chính.
+- KTS-03 (Cao), PH-01: nhiều ứng viên khác nội dung → “MƠ HỒ”, CHẶN; tên luật khớp đúng, không khớp tiền tố; tên luật ở tiêu đề tệp luật ghép tối đa 3 dòng in hoa, bỏ đoạn trống.
+- KTS-04 (Cao): so sánh hai bản – một tệp kèm theo riêng chỉ đáp ứng một văn bản kèm theo của MỘT bản (không dùng chung giữa hai bản); phụ lục được nhắc trong tệp kèm theo riêng cũng phải có (kiểm đệ quy). Hai bản thật sự dùng chung một tệp kèm theo thì phải nộp hai bản sao – cơ chế khai báo dùng chung chưa làm (chờ quyết định).
+- KTS-05 (Cao): ghép phụ lục, văn bản kèm theo 1:1 tối ưu (không phụ thuộc thứ tự); trích yếu giữ chữ số.
+- KTS-06 (TB): nhận lần rà soát theo tên tệp không phân biệt dấu; “lần 10” không nhầm “lần 1”.
+- KTS-07 (TB): kiểm đầu vào – đường dẫn, `--vai-tro`, `--du-thao`, `--xac-nhan-kem` sai thì dừng, báo lỗi.
+- KTS-08 (TB): cổng đọc căn lề theo kế thừa kiểu (style, docDefaults) khi nhận vai trò tệp theo dòng canh giữa.
+- KTS-09 (TB): đo cả đoạn trong `w:sdt`; TT-20 xét mọi run có chữ.
+- KTS-10 (TB): vùng đầu văn bản gồm các dòng ngắn ngoài bảng trong 15 đoạn đầu; nhãn “Nơi nhận:” văn bản Đảng cỡ 14, đứng, gạch chân.
+- KTS-11 (TB): không dựng được trang → TT-32/36/37 “chưa kiểm”; mục Đạt ghi rõ là cấu hình XML.
+- KTS-12 (TB): F08 – CC-01 dạng rút gọn chỉ khớp cùng loại văn bản; F09 giữ quy tắc hiện hành.
+- KTS-13 (Cao): đối chiếu mọi đoạn trích (phát hiện Mức 1–2 do AI lập, ma trận kể cả yeu_to_khop, mục Đạt, đối chiếu) với chữ của tệp thật.
+- KTS-14 (TB): ma trận chính thức/so sánh phải có QĐ 1976, QĐ 2073.
+- KTS-15 (TB): `kieu_bao_cao` phải khớp tác vụ cổng; cổng chuẩn hóa không lập báo cáo.
+- KTS-16 (Cao): chế độ ĐC bắt buộc du_thao_cu, `--so-sanh` đúng cặp bản; mã cũ phải có trong báo cáo lần trước.
+- KTS-17 (TB): “Chưa kiểm” trọng yếu ở I.8 (`trong_yeu`) tính vào nhãn.
+- KTS-18 (TB): DC-02 cho phép Mức 1 (quyết định 02/11/2026).
+- KTS-19 (Cao): trùng vị trí theo cấu trúc (Phụ lục/Chương/Mục/Điều/khoản/điểm/đoạn, tên tệp); kiểm cả dòng “Khớp – có điều khoản thay thế”.
+- KTS-20 (TB): mức chỉ nhận 1/2/3; trường bắt buộc; phát hiện trùng bị từ chối ngay ở `--chi-kiem`.
+- KTS-21 (Cao): tính lại mã băm từ tệp thật (cổng ghi `duong_dan`) – tệp sửa sau cổng bị từ chối.
+- KTS-22 (TB): ngày tài liệu chỉ lấy ở dòng địa danh – ngày hợp lệ.
+- KTS-23 (TB): thiếu pdftotext → CHẶN vì lỗi môi trường; thêm `--kiem-moi-truong`.
+- KTS-24 (TB): thống nhất phiên bản v4.6 ở SKILL.md, README, script; trình dựng từ chối kết quả cổng/đo của phiên bản khác.
+- KTS-25: chưa đủ căn cứ – không sửa (cần ý kiến pháp lý).
+- KTS-26 (Cao): một cách nhận diện tiêu đề văn bản kèm theo (in hoa theo thuộc tính Unicode, không giới hạn độ dài) cho tệp dự thảo và tệp riêng.
+- KTS-27: không đưa `--dinh-danh` (chưa có căn cứ).
+- KTS-28 (Thấp): bảng trong báo cáo có hàng tiêu đề lặp lại, không tách dòng qua trang; đề mục đậm giữ cùng trang với đoạn sau.
+- PH-02: quy tắc VBHN 02/11/2026 (số, ngày, luật được hợp nhất).
+- Tự kiểm trên Kho: bỏ việc gộp tiền tố tên luật làm sót “Luật Giáo dục nghề nghiệp”, “Luật Giáo dục quốc phòng và an ninh”, “Luật Đầu tư công”; bỏ tên luật bị cắt (“Luật Khám bệnh”); tên luật yếu kéo dài qua “và” viết thường.
+
+Tương thích dữ liệu cũ: kết quả cổng v4.5 thiếu `duong_dan`, `phien_ban` v4.6 → trình dựng từ chối; chạy lại ba script của cùng gói. Dữ liệu báo cáo v4.5 dùng lại được nếu nguyên văn trích đúng chữ tệp thật, có `kiem_tra_chat_luong`, mức là 1/2/3.
+
 ## v4.5 – 27/10/2026
 Căn cứ: 2 báo cáo phản biện lần 5 (ChatGPT 6 điểm PB5-GPT-01…06; Work 17 điểm PB5-WORK-01…17 – cả hai chạy thử) và báo cáo tổng hợp, kiểm chứng của Claude ngày 27/10/2026 (18 vấn đề độc lập sau khi gộp 5 cặp trùng, đều tái hiện được trên v4.4); 2 quyết định của Hiệu trưởng ngày 27/10/2026:
 - F1 – Văn bản kèm theo cùng tên loại nhưng trích yếu không khớp hoặc không có, người rà soát xác định đúng là văn bản kèm theo: cho xác nhận bằng --xac-nhan-kem "<tệp>=<lý do ≥ 20 ký tự>"; cổng ĐỦ, kết quả cổng và báo cáo I.7 ghi “xác nhận thủ công”; khác tên loại thì vẫn CHẶN; --vai-tro chỉ sửa vai trò.

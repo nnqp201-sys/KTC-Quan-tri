@@ -64,6 +64,8 @@ def dien(khd, bh, A=None, B=None, C=None):
         if ma.startswith("B"):
             L, N, P, kq = (B or {}).get(ma, (row[4].value, 100, 100, "Hoàn thành đúng hạn"))
             row[8].value, row[9].value, row[10].value, row[11].value = L, N, P, kq
+            if kq == "Vượt mức" and len(row) > 16:   # bang hoi v1.4: vuot muc phai co loai + can cu (NQ03)
+                row[15].value, row[16].value = "số lượng", f"Kế hoạch {row[4].value}, thực hiện {L}"
     ws = wb["C-Dieu-kien"]
     mac_dinh = {"C07": "Có", "C08": "Có", "C09": "Không", "C10": "Không", "C11": "Không", "C12": "Không",
                 "C13": "Chưa có", "C14": "Không", "C15": kd.MUC[1]}
@@ -258,11 +260,14 @@ p = lap("truong-pho-don-vi", "ql.xlsx")
 khd = kd.doc_ke_hoach(p)
 bh = os.path.join(T, "ql_bh.xlsx")
 kd.sinh_bang_hoi(khd, bh)
-kq = kd.tinh(khd, dien(khd, bh, C={"C12": "Có", "C13": kd.MUC[1], "C15": kd.MUC[0]}))
+# 28/10/2026: tu de xuat HTXS can >= 30% viec vuot muc co can cu (NQ04 chan) — cho moi viec vuot muc de
+# ca thu van kiem duoc canh bao D14.4 va "cao hon muc theo diem"
+VM = {v["ma"]: (v["so_luong"], 100, 100, "Vượt mức") for v in khd["viec"]}
+kq = kd.tinh(khd, dien(khd, bh, B=VM, C={"C12": "Có", "C13": kd.MUC[1], "C15": kd.MUC[0]}))
 kiem(any("Đ14.4" in x for x in kq["canh_bao"]), "đứng đầu: HTXS theo điểm > tập thể HTT -> cảnh báo Đ14.4")
 kq = kd.tinh(khd, dien(khd, bh, C={"C12": "Không", "C13": kd.MUC[1]}))
 kiem(not any("Đ14.4, Đ19.4]" in x and "cao hơn" in x for x in kq["canh_bao"]), "ca ngược: cấp phó -> không áp")
-kq = kd.tinh(khd, dien(khd, bh, A={f"A1{k}": 0 for k in "abcdđeghik"}, C={"C15": kd.MUC[0]}))
+kq = kd.tinh(khd, dien(khd, bh, B=VM, A={f"A1{k}": 0 for k in "abcdđeghik"}, C={"C15": kd.MUC[0]}))
 kiem(kq["muc_theo_diem"] == kd.MUC[1] and any("CAO HƠN" in x for x in kq["canh_bao"]),
      f"tự đề xuất HTXS khi điểm {kd.cat2(kq['tong'])} -> cảnh báo")
 

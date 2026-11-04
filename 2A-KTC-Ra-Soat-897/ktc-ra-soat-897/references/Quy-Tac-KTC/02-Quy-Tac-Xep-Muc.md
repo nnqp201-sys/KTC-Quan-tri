@@ -1,4 +1,4 @@
-# 02 – Quy tắc xếp mức và gán nhãn kết luận cố định (v4.5, 27/10/2026)
+# 02 – Quy tắc xếp mức và gán nhãn kết luận cố định (v4.6, 02/11/2026)
 
 Mục đích: cùng một hồ sơ, mọi lần chạy, mọi tài khoản phải cho **cùng mức** cho cùng một phát hiện và **cùng nhãn** kết luận. Người rà soát (AI) **không tự chọn mức** ngoài bảng này.
 
@@ -33,11 +33,11 @@ Mục đích: cùng một hồ sơ, mọi lần chạy, mọi tài khoản phả
 | TQ-01 | Sai thẩm quyền ban hành/ký (QĐ 1976 Điều 21–22; QĐ 2073 Điều 6 k3, Điều 19) | **Mức 1** | |
 | TQ-02 | Giao nhiệm vụ cho đơn vị không có chức năng đó theo quyết định chức năng, nhiệm vụ (QĐ 2041…2054, 794, 969, 1997, 101) | **Mức 2** | |
 | DC-01 | Ma trận: **Mâu thuẫn** với văn bản của Trường đang có hiệu lực | **Mức 2** | Mức 1 nếu trái pháp luật/văn bản cấp trên |
-| DC-02 | Ma trận: **Hẹp hơn** (chặt hơn) văn bản đã ban hành của Trường, kể cả chặt hơn QĐ 2307 | **Mức 2** | trả lời điểm 4 ngày 26/10/2026 |
+| DC-02 | Ma trận: **Hẹp hơn** (chặt hơn) văn bản đã ban hành của Trường, kể cả chặt hơn QĐ 2307 | **Mức 2** | trả lời điểm 4 ngày 26/10/2026; **Mức 1 nếu trái pháp luật/văn bản cấp trên** (v4.6, KTS-18 – quyết định của người phụ trách ngày 02/11/2026) |
 | DC-03 | Ma trận: **Rộng hơn** văn bản đã ban hành của Trường | **Mức 2** | Mức 1 nếu rộng hơn pháp luật cho phép |
 | DC-04 | Thuật ngữ định nghĩa khác văn bản của Trường cùng chủ đề | Mức 2 | |
 | DC-05 | Thiếu cơ chế thực hiện cho quy định đã đặt ra (không có đơn vị chủ trì, thời hạn, biểu mẫu) | Mức 2 | |
-| DC-06 | Dự thảo dùng mức, nhóm, tên phân loại không có trong văn bản liên quan cùng chủ đề (ví dụ mức phân loại tài liệu khác Danh mục QĐ 2307) | Mức 2 | B2 đề xuất 3 (M2-5 của V1) |
+| DC-06 | Dự thảo dùng mức, nhóm, tên phân loại không có trong văn bản liên quan cùng chủ đề (ví dụ mức phân loại tài liệu khác Danh mục QĐ 2307; tên công cụ AI khác Danh mục QĐ 2487, như “NotebookLM” thay “Gemini Notebook”) | Mức 2 | B2 đề xuất 3 (M2-5 của V1); v4.6.4 – Q2: đối chiếu Danh mục QĐ 2487 – công cụ ngoài/trái Danh mục → DC-01, phạm vi dữ liệu/người dùng rộng hơn → DC-03, tên khác → DC-06; đều Mức 2 (Mức 1 nếu trái pháp luật/văn bản cấp trên) |
 | ND-01 | Sai logic, mâu thuẫn nội tại giữa các điều, khoản của dự thảo | Mức 2 | Mức 1 nếu làm thay đổi nội dung quy phạm |
 | ND-02 | Thiếu điều khoản bắt buộc (hiệu lực, trách nhiệm thi hành, thay thế văn bản cũ…) | **Mức 1** | |
 | ND-03 | Đánh số điều, khoản, điểm sai; viện dẫn nội bộ sai | Mức 2 | |
@@ -71,7 +71,7 @@ Ngoại lệ: dự thảo nêu rõ thay thế/sửa đổi văn bản kia và đ
 | Thứ tự | Điều kiện | Nhãn |
 |---|---|---|
 | 1 | Số Mức 1 ≥ 1 | **Chưa đủ điều kiện ban hành** |
-| 2 | Số Mức 2 ≥ 1, hoặc ma trận còn “Chưa kiểm” ở chủ đề trọng yếu (thẩm quyền, thời hạn, điều cấm/cho phép, đối tượng, hiệu lực) | **Cần chỉnh sửa trước khi trình ký** |
+| 2 | Số Mức 2 ≥ 1, hoặc còn “Chưa kiểm” ở chủ đề trọng yếu (thẩm quyền, thời hạn, điều cấm/cho phép, đối tượng, hiệu lực) – ở ma trận **hoặc ở mục I.8 `chua_kiem`** (v4.6, KTS-17: ghi `"trong_yeu": true` hoặc nội dung nêu chủ đề trọng yếu) | **Cần chỉnh sửa trước khi trình ký** |
 | 3 | Số Mức 3 ≥ 1 | **Có thể ban hành sau khi chỉnh sửa nhỏ** |
 | 4 | Còn lại (0 Mức 1, 0 Mức 2, 0 Mức 3) | **Có thể ban hành ngay** |
 
@@ -97,5 +97,6 @@ Ngoại lệ: dự thảo nêu rõ thay thế/sửa đổi văn bản kia và đ
 | Kiến nghị lần trước không còn phù hợp | kiến nghị cũ sai căn cứ; ghi căn cứ đúng (trường `can_cu_dung`), không bắt đơn vị sửa theo kiến nghị sai |
 
 - Chế độ ĐC bắt buộc có II.C Kiểm hồi quy (mỗi dòng đủ `ma_cu`, `ket_qua`; in sau II.B); chỉ dùng khi cổng xác định lần rà soát ≥ 2.
+- v4.6.1 (quyết định 02/11/2026): danh mục mã cũ lấy từ báo cáo rà soát lần trước – bảng Phần II (“STT”, “Mã”) → `<Mã>#<STT>`; không có bảng → mã dạng `M<số>-<số>`. Bảng đối chiếu phủ hai chiều; không nhận ra mã nào thì không dùng ĐC. `che_do` chỉ ĐL/ĐC; ĐL ở lần ≥ 2 phải có `yeu_cau_doc_lap` (nguyên văn yêu cầu “rà soát lại toàn bộ”, ≥ 20 ký tự, in ở I.7).
 - Không lấy lời khẳng định trong Báo cáo tiếp thu, giải trình thay cho việc kiểm tệp thực.
 - Trước khi kế thừa một kiến nghị của báo cáo lần trước, kiểm lại kiến nghị đó với văn bản nguồn; kiến nghị cũ sai căn cứ → ghi “Kiến nghị lần trước không còn phù hợp” và nêu căn cứ đúng (không bắt đơn vị sửa theo kiến nghị sai).

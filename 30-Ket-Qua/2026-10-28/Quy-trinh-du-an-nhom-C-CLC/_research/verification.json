@@ -1,0 +1,12 @@
+{
+  "steps": 75,
+  "columns": 8,
+  "phases": 6,
+  "pages": 34,
+  "math": "PASS",
+  "continuous_numbers": "PASS",
+  "placeholders": "PASS",
+  "format_check": "0 suggestions",
+  "visual_review": "all pages, contact sheets; sample pages enlarged",
+  "official_897_review": false
+}

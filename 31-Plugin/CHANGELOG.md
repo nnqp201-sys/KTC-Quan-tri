@@ -1,5 +1,28 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## Chưa phát hành — dồn cho 1.3.14 (ghi 28/10/2026)
+
+**Kỹ năng `kpi-tu-danh-gia` 1.4** (lệnh nâng cấp sau phiên hồ sơ minh chứng xếp loại Quý III/2026 theo TB 1105).
+Gói nguồn `28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.4.skill` đã đóng; **plugin chưa dựng lại** (phát hành
+1.3.14 đang chờ người phụ trách quyết).
+
+- Bộ kiểm nhất quán **NQ01–NQ10** (`kpi_nhat_quan.py`, lệnh con `kiem-nhat-quan`); LỖI chặn xuất bản chính thức.
+  Bắt đúng sự cố thật: khai “Hoàn thành đúng hạn” khi tiến độ 75%, SL 5/7; “Vượt mức” không căn cứ; chữ “DỰ THẢO”
+  trong cột minh chứng.
+- Bảng hỏi thêm 6 cột ở sheet B và cột Ghi chú ở sheet C; **C08, C09 tự suy từ sheet B** (trước đây người dùng trả
+  lời Có/Không bằng tay). Bảng hỏi v1.3 vẫn đọc được, phép kiểm cần cột mới hạ xuống cảnh báo.
+- Mẫu Phụ lục II/VII đã sửa cấu trúc → báo rõ “chưa hỗ trợ tự động”, mã thoát 2 (trước đây vỡ bằng `KeyError`).
+- `lap_ho_so_minh_chung.py`: Bảng tổng hợp hồ sơ, minh chứng — bản nội bộ có cờ, bản nộp chỉ sinh khi sạch; độ rộng
+  cột theo twips, chữ 14 cả trong bảng, tự đọc lại tệp đầu ra.
+- `kpi_doi_chieu_cheo.py`: đối chiếu chéo nhiều hồ sơ theo số hiệu văn bản và nội dung chuẩn hóa.
+- Tác tử mới (nguồn `29-Cong-Cu/plugin_src/agents/`): `ktc-doi-chieu-ho-so-cheo`, `ktc-kiem-ho-so-tdg`,
+  `ktc-ho-so-xep-loai-don-vi`; mở rộng `ktc-xac-minh-minh-chung` (khớp số hiệu từ QLVB&ĐH, mức tin cậy từng cặp).
+- Ca thử mới: `test_kpi_nhat_quan.py`, `test_lap_ho_so_minh_chung.py`.
+
+**Dữ liệu và kỹ năng khác đã sửa nguồn từ 27–28/10/2026** (cũng dồn cho 1.3.14): mã sản phẩm phần mềm KPI tỉnh
+(`N1_241`, `T4_461`), `xuat_mau_import_kpi.py`, `trich_danh_muc_pm_kpi.py`; SKILL.md `ke-hoach`, `bao-cao`,
+`kpi-lap-ke-hoach` (chưa nâng số phiên bản).
+
 ## 1.3.13 — 2026-09-29
 
 **Tiếp thu thẩm định lần 5 (L5-04, ChatGPT; mục 2.1, Grok): gói phát hành phải truy về được một commit.** Dựng lại bản

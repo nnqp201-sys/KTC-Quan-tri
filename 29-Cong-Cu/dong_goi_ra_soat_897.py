@@ -46,7 +46,15 @@ def sha256(b: bytes) -> str:
 
 
 def doc_loi_sha(du_an: str) -> dict[str, str]:
-    p = os.path.join(du_an, HE, "LOI-V45.sha256")
+    # Tim file hash theo thu tu uu tien: v4.6.4 → v4.5
+    p = None
+    for ten_hash in ["LOI-V464.sha256", "LOI-V45.sha256"]:
+        p_thu = os.path.join(du_an, HE, ten_hash)
+        if os.path.exists(p_thu):
+            p = p_thu
+            break
+    if p is None:
+        raise FileNotFoundError("Khong tim thay LOI-V464.sha256 hoac LOI-V45.sha256")
     kq = {}
     with open(p, encoding="utf-8") as f:
         for dong in f:
@@ -55,7 +63,7 @@ def doc_loi_sha(du_an: str) -> dict[str, str]:
                 continue
             m = re.match(r"^([0-9a-f]{64})  (.+)$", dong)
             if not m:
-                raise ValueError(f"LOI-V45.sha256: dòng sai định dạng: {dong[:80]}")
+                raise ValueError(f"{os.path.basename(p)}: dòng sai định dạng: {dong[:80]}")
             kq[m.group(2)] = m.group(1)
     return kq
 

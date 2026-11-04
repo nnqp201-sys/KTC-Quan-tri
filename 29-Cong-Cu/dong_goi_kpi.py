@@ -31,7 +31,9 @@ HE = os.path.join(DU_AN, "28-KTC-KPI")
 TDG = "Tu-Danh-Gia"
 SKILL = {
     "ktc-kpi-lap-ke-hoach": {"goc": HE, "script": ["kpi_calc.py", "kpi_mau.py", "validate_plan.py"], "ref": []},
-    "ktc-kpi-tu-danh-gia": {"goc": os.path.join(HE, TDG), "script": ["kpi_calc.py", "kpi_mau.py", "kpi_danh_gia.py"],
+    "ktc-kpi-tu-danh-gia": {"goc": os.path.join(HE, TDG),
+                            "script": ["kpi_calc.py", "kpi_mau.py", "kpi_danh_gia.py", "kpi_nhat_quan.py",
+                                       "kpi_doi_chieu_cheo.py", "lap_ho_so_minh_chung.py"],
                             "ref": ["Cau-Hoi-Mo.md", "Known-Issues-Bieu-Mau.md", "Thuat-Ngu.md", "quy/*.yaml"]},
 }
 sys.path.insert(0, HERE)

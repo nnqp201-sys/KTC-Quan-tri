@@ -9,6 +9,8 @@ Nguồn sự thật: `du-an_CLC-2026-2030.yaml` (tên dự án, vốn, số/ngà
 | `kiem_nhat_quan_du_an.py` | Đối chiếu văn bản (.docx) với YAML: ngày vô lý, ngày/số hiệu lệch, tên dự án, số tiền lạ, lỗi gõ đã gặp |
 | `lap_ttr_khlcnt.py`, `build_khlcnt_v5.py`, `lap_phieu_897_khlcnt.py` | Tờ trình, QĐ KHLCNT, phiếu rà soát 897 (đợt 07/10/2026; còn số liệu trong script, chưa chuyển sang YAML) |
 | `lap_bc_giai_ngan_t9.py`, `lap_bieu_04a_t9.py` | Báo cáo giải ngân tháng 9 (Track Changes) và Biểu 04a (đợt 14/10/2026; chưa chuyển sang YAML) |
+| `lap_hop_dong_tu_van.py` + `vb_mau.py` | Hợp đồng tư vấn (khung 20 điều theo mẫu QĐ 1040/QĐ-BXD, NĐ 210/2026), biên bản đối chiếu tài liệu (Phụ lục 4A) và biên bản thương thảo (Phụ lục 4C TT 79/2025) cho gói KS-BCKTKT và QLDA: `--out`, `--goi`, `--chi hd\|bb\|dc`. Dựng từ mẫu 03-Templates/03-09 Biên bản (không dựng bảng tiêu đề, chữ ký bằng tay). Chỗ chưa có nguồn để "…………". `vb_lib.py` chỉ còn hàm đọc số tiền bằng chữ |
+| `lap_quy_trinh_tu_van.py` + `qt_tu_van_noi_dung.py` | Hai bảng quy trình riêng cho gói tư vấn KS-BCKTKT và QLDA, tách từ bản "Quy trình dự án nhóm C" (đợt 28/10/2026): `--out`, `--goi KS\|QLDA`. Số liệu gói thầu đọc từ YAML; mức tạm ứng tính theo NĐ 210. Mẫu thể thức lấy từ `_base.docx` trong thư mục kết quả `Quy-trinh-du-an-nhom-C-CLC` |
 
 Công cụ liên quan ngoài thư mục: `29-Cong-Cu/ocr_pdf.py` (OCR tiếng Việt cho bản scan), `kiem_the_thuc.py`, `kiem_vien_dan.py` (VD13-VD15).
 

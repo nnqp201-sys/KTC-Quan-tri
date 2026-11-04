@@ -1,5 +1,5 @@
 {
- "phien_ban_kho": "v4.1 – cập nhật 26/10/2026 (bổ sung Luật 91/2025/QH15, NĐ 356/2025/NĐ-CP)",
+ "phien_ban_kho": "v4.3 – cập nhật 03/11/2026 (bổ sung QĐ 2487/QĐ-CĐKT; Luật 116/2025/QH15, 124/2025/QH15, 134/2025/QH15 – căn cứ của QĐ 2487)",
  "ghi_chu": "Danh mục máy đọc được của Kho-Du-Lieu-897. Script tools/kiem_ke_ho_so.py dùng các trường 'so_hieu' và 'tu_khoa' để xác định văn bản được dự thảo viện dẫn đã có sẵn trong kho hay chưa. Toàn văn dạng text: thư mục text/ (cùng tên tệp, đuôi .md).",
  "van_ban": [
   {
@@ -55,6 +55,48 @@
     "356/2025/NĐ-CP",
     "Nghị định số 356/2025",
     "bảo vệ dữ liệu cá nhân"
+   ]
+  },
+  {
+   "so_hieu": "116/2025/QH15",
+   "ten_luat": "Luật An ninh mạng",
+   "ngay": "10/12/2025",
+   "co_quan": "Quốc hội",
+   "trich_yeu": "Luật An ninh mạng",
+   "file": "01-Legal-Database/Luat-116-2025-QH15-An-ninh-mang.docx",
+   "he": "chung",
+   "hieu_luc": "Có hiệu lực từ 01/7/2026 (Điều 44 k1); thay Luật An toàn thông tin mạng 86/2015/QH13 và Luật An ninh mạng 24/2018/QH14 (Điều 44 k2)",
+   "tu_khoa": [
+    "116/2025/QH15",
+    "Luật An ninh mạng"
+   ]
+  },
+  {
+   "so_hieu": "124/2025/QH15",
+   "ten_luat": "Luật Giáo dục nghề nghiệp",
+   "ngay": "10/12/2025",
+   "co_quan": "Quốc hội",
+   "trich_yeu": "Luật Giáo dục nghề nghiệp",
+   "file": "01-Legal-Database/Luat-124-2025-QH15-Giao-duc-nghe-nghiep.docx",
+   "he": "chung",
+   "hieu_luc": "Có hiệu lực từ 01/01/2026, một số khoản, điều từ 01/7/2026 (Điều 44); thay Luật Giáo dục nghề nghiệp 74/2014/QH13",
+   "tu_khoa": [
+    "124/2025/QH15",
+    "Luật Giáo dục nghề nghiệp"
+   ]
+  },
+  {
+   "so_hieu": "134/2025/QH15",
+   "ten_luat": "Luật Trí tuệ nhân tạo",
+   "ngay": "10/12/2025",
+   "co_quan": "Quốc hội",
+   "trich_yeu": "Luật Trí tuệ nhân tạo",
+   "file": "01-Legal-Database/Luat-134-2025-QH15-Tri-tue-nhan-tao.docx",
+   "he": "chung",
+   "hieu_luc": "Có hiệu lực từ 01/3/2026, trừ nội dung tại Điều 35 (Điều 34)",
+   "tu_khoa": [
+    "134/2025/QH15",
+    "Luật Trí tuệ nhân tạo"
    ]
   },
   {
@@ -244,6 +286,19 @@
    "tu_khoa": [
     "2328/QĐ-CĐKT",
     "quy tắc ứng xử về sử dụng trí tuệ nhân tạo"
+   ]
+  },
+  {
+   "so_hieu": "2487/QĐ-CĐKT",
+   "ngay": "03/11/2026",
+   "co_quan": "Trường Cao đẳng Kon Tum",
+   "trich_yeu": "Quyết định ban hành Danh mục các hệ thống trí tuệ nhân tạo (AI) được phép sử dụng trong hoạt động của nhà trường",
+   "file": "02-KTC-Regulations/QD-2487-QD-CDKT-Danh-muc-he-thong-AI-duoc-phep-su-dung.docx",
+   "he": "truong",
+   "hieu_luc": "Đang có hiệu lực (kể từ ngày ký 03/11/2026 – Điều 2)",
+   "tu_khoa": [
+    "2487/QĐ-CĐKT",
+    "Danh mục các hệ thống trí tuệ nhân tạo (AI) được phép sử dụng"
    ]
   },
   {

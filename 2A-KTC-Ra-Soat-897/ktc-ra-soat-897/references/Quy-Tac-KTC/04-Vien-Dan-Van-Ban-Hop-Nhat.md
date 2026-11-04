@@ -1,4 +1,4 @@
-# 04 – Viện dẫn văn bản hợp nhất (v4.5, 27/10/2026)
+# 04 – Viện dẫn văn bản hợp nhất (v4.6, 02/11/2026)
 
 ## 1. Căn cứ
 - **Pháp lệnh số 01/2026/UBTVQH16 ngày 10/6/2026** của Ủy ban Thường vụ Quốc hội sửa đổi, bổ sung một số điều của Pháp lệnh Hợp nhất văn bản quy phạm pháp luật (hiệu lực từ 01/7/2026), khoản 3 Điều 1 sửa đổi **Điều 4**:
@@ -42,3 +42,13 @@ Danh sách máy đọc: `references/Kho-Du-Lieu-897/kho_manifest.json` → `van_
 
 ## 4. Quyết định đã chốt (26/10/2026)
 Hiệu trưởng quyết định theo **mẫu của Trường** (không ghi số, ký hiệu của luật). Dự thảo ghi số, ký hiệu luật trong căn cứ → CC-06, Mức 2. Script `kiem_tra_the_thuc.py` tự phát hiện CC-02 (khi đã biết VBHN) và CC-06.
+
+## 5. VBHN trong hồ sơ thay toàn văn Luật gốc ở cổng hồ sơ (v4.6, 02/11/2026)
+**Nguồn:** quy tắc nghiệp vụ do người phụ trách xác nhận trong phiên làm việc sửa Skill ngày 02/11/2026 – **chưa có văn bản**; thay bằng quy định chính thức khi có.
+
+1. Luật được dự thảo dẫn theo mẫu “Luật … ngày … (hợp nhất tại Văn bản hợp nhất số N/VBHN-X ngày …)”: hồ sơ có **01 VBHN khớp** thì đủ, không đòi thêm toàn văn Luật gốc.
+2. “Khớp” = cùng **số, ký hiệu** VBHN, cùng **ngày** VBHN, và VBHN hợp nhất **đúng luật** được dẫn (đọc từ phần đầu tệp VBHN). Lệch một yếu tố → cổng CHẶN, ghi “không khớp” kèm yếu tố lệch. VBHN cũ hơn của cùng luật **không** thay được.
+3. Giữ đúng số, ngày của Luật và của VBHN theo nguồn; không gộp hai ngày.
+4. Khi dùng VBHN thay Luật gốc, cổng ghi vào `ghi_chu` (đưa vào I.7): việc thay thế, nguồn quy tắc này và **giới hạn** – VBHN là bản hợp nhất phục vụ tra cứu, sử dụng theo Pháp lệnh Hợp nhất văn bản quy phạm pháp luật (mục 1).
+5. Không có ngoại lệ theo tên luật hay số VBHN cụ thể; quy tắc áp như nhau cho mọi luật, pháp lệnh.
+6. Không thay đổi các quy tắc kiểm CC-02, CC-03, CC-06 ở mục 2 (đó là kiểm cách viết căn cứ khi rà soát nội dung).
