@@ -397,9 +397,9 @@ class HoiDapCrawler:
         try:
             import sys
             sys.path.insert(0, str(Path(__file__).parent.parent))
-            from duong_dan import KTC_DATABASE_DIR
+            from duong_dan import ktc_database
 
-            output_dir = Path(KTC_DATABASE_DIR) / 'Input' / 'hoi-dap-chinh-sach'
+            output_dir = Path(ktc_database()) / '07-Hoi-Dap-Chinh-Sach'
             output_dir.mkdir(parents=True, exist_ok=True)
 
             # Xuất JSON để agent tra cứu

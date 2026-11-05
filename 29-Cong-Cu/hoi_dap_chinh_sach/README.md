@@ -1,113 +1,82 @@
-# Công cụ Thu thập Hỏi đáp Chính sách
+# Tra cứu Hỏi đáp Chính sách
 
-**Phiên bản:** 1.1.0 (04/11/2026)  
+**Phiên bản:** 2.0.0 (04/11/2026)  
 **Dự án:** KTC-Quan-tri — Trường Cao đẳng Kon Tum
 
 ---
 
 ## Tổng quan
 
-Bộ công cụ thu thập, phân loại và tra cứu hỏi đáp chính sách từ các nguồn chính thức, phục vụ công tác tham mưu.
+Module tra cứu hỏi đáp chính sách từ kho `KTC-Database/07-Hoi-Dap-Chinh-Sach`.
+
+**Dữ liệu được cập nhật tự động** bởi routine ở tài khoản `phongthhcqt@gmail.com` (KTC-Database), chạy 14:00 thứ 7 hằng tuần.
 
 ## Cấu trúc
 
 ```
 29-Cong-Cu/hoi_dap_chinh_sach/
-├── crawl_hoi_dap.py      ← Script thu thập chính
-├── config.json           ← Cấu hình nguồn
-├── requirements.txt      ← Thư viện Python
-├── run.py                ← Điểm khởi động
-├── README.md             ← Tài liệu này
-├── DE_XUAT_LUU_TRU_KTC_DATABASE.md  ← Đề xuất lưu trữ
-└── output/               ← Kết quả xuất ra
-    └── Co_so_du_lieu_*.xlsx
-```
-
-## Cài đặt
-
-```bash
-cd "D:/.CLAUDE code/KTC-Quan-tri/29-Cong-Cu/hoi_dap_chinh_sach"
-pip install -r requirements.txt
+├── tra_cuu.py        ← Module tra cứu
+├── README.md         ← Tài liệu này
+└── _archive/         ← Script cũ (không dùng)
 ```
 
 ## Sử dụng
 
-### Thu thập dữ liệu
+### Trong Python
 
-```bash
-# Nhanh (5 trang, ~2 phút)
-python run.py --quick
+```python
+from hoi_dap_chinh_sach.tra_cuu import tim_kiem, thong_ke
 
-# Đầy đủ (30 trang, ~15 phút)
-python run.py --full
+# Tìm kiếm theo từ khóa
+ket_qua = tim_kiem('viên chức')
 
-# Chỉ xuất từ dữ liệu cũ
-python run.py --export-only
+# Tìm theo Trục
+ket_qua = tim_kiem('lương', truc=5)
+
+# Thống kê
+stats = thong_ke()
+print(f"Tổng: {stats['tong']} bản ghi")
 ```
 
-### Sử dụng qua Agent
+### Trong agent
 
 ```
-Gọi agent: ktc-hoi-dap-dieu-phoi
-  → Điều phối tự động
-  → Tra cứu dữ liệu có sẵn
-  → Gọi AI (Consensus/Exa/Perplexity) khi cần
+Gọi agent: ktc-hoi-dap-chinh-sach
+Prompt: "Tìm hỏi đáp về chế độ viên chức giáo dục"
 ```
 
 ## Nguồn dữ liệu
 
-| Nguồn | URL | Trạng thái |
-|-------|-----|------------|
-| Chính sách Online | chinhsachonline.chinhphu.vn | ✓ Hoạt động |
-| Bộ GD&ĐT | moet.gov.vn | ✓ Hoạt động |
-| Bộ Tài chính | mof.gov.vn | ○ Chưa triển khai |
-| Thư viện pháp luật | thuvienphapluat.vn | ○ Chưa triển khai |
-| **AI Tools** | Consensus, Exa, Perplexity | ✓ Qua agent |
-
-## Phân loại
-
-Dữ liệu được phân loại theo **6 Trục TB 817/TB-CĐKT**:
-
-| Trục | Nội dung | Từ khóa |
-|------|----------|---------|
-| 1 | Đào tạo, tuyển sinh, chất lượng | đào tạo, sinh viên, giảng viên |
-| 2 | Thể chế, cải cách hành chính | quy chế, thủ tục, thanh tra |
-| 3 | KHCN, chuyển đổi số | công nghệ, phần mềm, dữ liệu |
-| 4 | Xây dựng Đảng | đảng viên, chi bộ, thi đua |
-| 5 | Tài chính, nhân sự, tài sản | lương, thuế, đấu thầu, mua sắm |
-| 6 | Quốc phòng, an ninh, đối ngoại | bảo vệ, hợp tác quốc tế |
-
-## Đầu ra
-
-### Excel
-- Sheet `TẤT CẢ`: toàn bộ bản ghi
-- Sheet `Trục 1-6`: theo phân loại
-- Sheet `TỔNG QUAN`: thống kê
-- Sheet `METADATA`: thông tin phiên bản
-
-### JSON (cho agent)
-- `KTC-Database/Input/hoi-dap-chinh-sach/hoi_dap_index.json`
-
-## Agent liên quan
-
-| Agent | Nhiệm vụ |
+| Nguồn | Cập nhật |
 |-------|----------|
-| `ktc-hoi-dap-dieu-phoi` | Điều phối tổng thể |
-| `ktc-hoi-dap-chinh-sach` | Chạy script Python |
-| `ktc-nghien-cuu-chinh-sach` | Tìm kiếm bằng AI (Consensus, Exa, Perplexity) |
+| KTC-Database/07-Hoi-Dap-Chinh-Sach | Tự động, thứ 7 hằng tuần |
+| chinhsachonline.chinhphu.vn | Qua routine |
+| moet.gov.vn | Qua routine |
+| Perplexity, Exa | Qua routine |
+
+## Phân loại 6 Trục TB 817
+
+| Trục | Nội dung |
+|------|----------|
+| 1 | Đào tạo, tuyển sinh, chất lượng |
+| 2 | Thể chế, cải cách hành chính |
+| 3 | KHCN, chuyển đổi số |
+| 4 | Xây dựng Đảng |
+| 5 | Tài chính, nhân sự, tài sản |
+| 6 | Quốc phòng, an ninh, đối ngoại |
 
 ## Lưu ý
 
-1. **Lưu trữ tăng dần**: Mỗi lần chạy merge với dữ liệu cũ, không mất bản ghi
-2. **Khử trùng**: Hash nội dung để không lưu trùng
-3. **Nguồn chính thức**: Ưu tiên nguồn Chính phủ, Bộ ngành
-4. **Hỏi đáp là tham khảo**: Không thay thế văn bản quy phạm pháp luật
+- **Chỉ đọc** — không thu thập tại KTC-Quan-tri
+- **Dữ liệu tham khảo** — không thay thế văn bản quy phạm pháp luật
+- **Routine chạy ở KTC-Database** — liên hệ admin nếu cần cập nhật
 
 ## Changelog
 
+### v2.0.0 (04/11/2026)
+- Chuyển sang chỉ tra cứu (không crawl)
+- Dữ liệu cập nhật tự động từ KTC-Database
+- Lược bỏ script thu thập
+
 ### v1.1.0 (04/11/2026)
-- Lưu trữ tăng dần (merge dữ liệu cũ)
-- Phân loại theo 6 Trục TB 817
-- Bổ sung nguồn moet.gov.vn
-- Tích hợp agent điều phối
-- Hỗ trợ Consensus, Exa, Perplexity qua subagent
+- Phiên bản crawl đầy đủ (đã archive)

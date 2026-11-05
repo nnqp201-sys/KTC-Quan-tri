@@ -1,0 +1,127 @@
+{
+ "he": "chinh_quyen",
+ "tep": "BC_Ket-qua_Hoi-nghi-hop-tac-giao-duc_Ha-Noi.docx",
+ "sha256": "730c32dbac43d913ced475c16dd9ba3c87b4214a476ee92b4678aacf30d7cfbc",
+ "phien_ban": "ktc-ra-soat-897 v4.6.4",
+ "tham_so": {
+  "he": "auto",
+  "khong_dung_ban": true
+ },
+ "loi": [],
+ "dat": [
+  {
+   "hang_muc": "Khổ giấy (Phần 1/1)",
+   "do": "A4 11906 × 16838 twips",
+   "can_cu": "NĐ 30/2020/NĐ-CP, Phụ lục I mục I.1"
+  },
+  {
+   "hang_muc": "Lề trang (Phần 1/1)",
+   "do": "trên 2.00 cm, dưới 2.00 cm, trái 3.00 cm, phải 2.00 cm",
+   "can_cu": "Chỉ đạo của Hiệu trưởng ngày 26/10/2026 (bảng thông số KTC)"
+  },
+  {
+   "hang_muc": "Header/footer (Phần 1/1)",
+   "do": "header 1.27 cm, footer 1.27 cm",
+   "can_cu": "Chỉ đạo của Hiệu trưởng ngày 26/10/2026 (bảng thông số KTC)"
+  },
+  {
+   "hang_muc": "Phông chữ",
+   "do": "Mọi đoạn có chữ dùng Times New Roman (theo kiểu hoặc định dạng trực tiếp)",
+   "can_cu": "NĐ 30/2020/NĐ-CP, Phụ lục I mục I.4"
+  },
+  {
+   "hang_muc": "Quốc hiệu",
+   "do": "“CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM” – cỡ 13 pt, đậm",
+   "can_cu": "TB 597/TB-CĐKT mục 1.2"
+  },
+  {
+   "hang_muc": "Tiêu ngữ",
+   "do": "“Độc lập - Tự do - Hạnh phúc” – cỡ 14 pt, đậm",
+   "can_cu": "TB 597/TB-CĐKT mục 1.2"
+  },
+  {
+   "hang_muc": "Tên cơ quan chủ quản",
+   "do": "“UBND TỈNH QUẢNG NGÃI” – cỡ 13 pt",
+   "can_cu": "TB 597/TB-CĐKT mục 2.2"
+  },
+  {
+   "hang_muc": "Tên đơn vị ban hành",
+   "do": "“TRƯỜNG CAO ĐẲNG KON TUM” – cỡ 13 pt, đậm",
+   "can_cu": "TB 597/TB-CĐKT mục 2.2"
+  },
+  {
+   "hang_muc": "Địa danh, ngày tháng",
+   "do": "“Quảng Ngãi, ngày tháng 11 năm 2026” – cỡ 14 pt, nghiêng",
+   "can_cu": "TB 597/TB-CĐKT mục 4.2"
+  },
+  {
+   "hang_muc": "Tên loại văn bản",
+   "do": "“BÁO CÁO” – cỡ 14 pt, đậm",
+   "can_cu": "TB 597/TB-CĐKT mục 5.2"
+  },
+  {
+   "hang_muc": "Trích yếu",
+   "do": "“kết quả tham dự Hội nghị quốc tế về hợp tác giáo d” – cỡ 14 pt, đậm",
+   "can_cu": "TB 597/TB-CĐKT mục 5.2"
+  },
+  {
+   "hang_muc": "Căn cứ ban hành",
+   "do": "1 đoạn căn cứ: nghiêng, cỡ 14",
+   "can_cu": "TB 597/TB-CĐKT mục 6"
+  },
+  {
+   "hang_muc": "Từ “Nơi nhận:”",
+   "do": "cỡ 12, nghiêng, đậm",
+   "can_cu": "TB 597/TB-CĐKT mục 9"
+  },
+  {
+   "hang_muc": "Danh sách nơi nhận",
+   "do": "cỡ 11 pt",
+   "can_cu": "TB 597/TB-CĐKT"
+  },
+  {
+   "hang_muc": "Canh lề lời văn",
+   "do": "dàn đều hai lề ở 19/19 đoạn lời văn dài hơn một dòng",
+   "can_cu": "TB 597/TB-CĐKT mục 6"
+  },
+  {
+   "hang_muc": "Cỡ chữ phần nội dung",
+   "do": "25/25 đoạn lời văn cỡ 14",
+   "can_cu": "TB 597/TB-CĐKT mục 6"
+  },
+  {
+   "hang_muc": "Khoảng cách đoạn",
+   "do": "Before và After ≥ 6 pt ở 25/25 đoạn lời văn",
+   "can_cu": "Chỉ đạo của Hiệu trưởng ngày 26/10/2026 (bảng thông số KTC)"
+  },
+  {
+   "hang_muc": "Giãn dòng",
+   "do": "trong giới hạn ở 25/25 đoạn lời văn",
+   "can_cu": "TB 597/TB-CĐKT mục 6"
+  },
+  {
+   "hang_muc": "Thụt đầu dòng",
+   "do": "đúng ở 25/25 đoạn lời văn",
+   "can_cu": "TB 597/TB-CĐKT mục 6"
+  },
+  {
+   "hang_muc": "Số trang văn bản chính (cấu hình XML; chưa dựng bản để xem hiển thị)",
+   "do": "header giữa trang; trang 1 không hiển thị (titlePg)",
+   "can_cu": "NĐ 30/2020/NĐ-CP, Phụ lục I mục I.7"
+  }
+ ],
+ "chua_kiem": [
+  {
+   "hang_muc": "Canh đều đoạn sát ngưỡng một dòng",
+   "ly_do": "Đoạn 16: số dòng hiển thị sát ngưỡng một/hai dòng, không kết luận TT-24 – người soạn thảo xem trong Word"
+  }
+ ],
+ "info": {
+  "n_sections": 1,
+  "kinds": [
+   "chinh"
+  ],
+  "pages": null,
+  "start_page": {}
+ }
+}
