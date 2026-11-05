@@ -5,7 +5,7 @@ Kich hoat: nguoi dung noi "Track Changes" HOAC "ghi nhat ky sua doi".
 
 Can cu:
   - KTC-Quan-tri/20-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md (NT-2)
-  - KTC-Ra-Soat-897-v2-Cai-tien/references/Skill-Library/
+  - 92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/
       Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md
 
 Ba nhom API:
@@ -476,6 +476,16 @@ def kiem_tra(duong_dan: str) -> dict:
     for ins in body.iter(qn("w:ins")):
         for r in ins.iter(qn("w:r")):
             if r.find(qn("w:delText")) is not None:
+                # hợp lệ khi người khác xóa chữ do người trước chèn: <w:ins><w:del><w:r><w:delText/>
+                long_trong_del = False
+                for a in r.iterancestors():
+                    if a is ins:
+                        break
+                    if a.tag == qn("w:del"):
+                        long_trong_del = True
+                        break
+                if long_trong_del:
+                    continue
                 loi.append("Run trong <w:ins> có <w:delText> — sai loại")
 
     # 4. rPr long nhau

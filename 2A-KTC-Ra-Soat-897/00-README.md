@@ -26,6 +26,25 @@ Căn cứ CHANGELOG.md trong gói:
 - **v4.5 + KI-021:** Bản cá nhân v4.5-ca-nhan.1 (30/10/2026) hết hiệu lực. Các fix N1–N8 của KI-021 đã được P-QLKHCN&HTPT xem xét khi phát triển v4.6.x; không còn lớp bổ sung cá nhân.
 - **Decision Log:** `DL-20261030-001-Sua-cong-ho-so-897.md` — trạng thái: ĐÓNG (thay bằng v4.6.4 chính thức)
 
+## Lớp kiểm thuật ngữ pháp lý — chạy SONG SONG, không nhúng vào 897
+
+Lõi v4.6.4 khóa băm từng byte và **không còn lớp bổ sung cá nhân**, nên phép kiểm thuật ngữ
+pháp lý (TN01–TN04) được dựng thành lớp độc lập, **không sửa gì trong `ktc-ra-soat-897/`**:
+
+| Thành phần | Đường dẫn |
+|---|---|
+| Quy tắc gốc | `20-Chuan-Chung/21-Quy-Tac-Thuat-Ngu.md` |
+| Công cụ | `29-Cong-Cu/kiem_thuat_ngu.py` |
+| Agent | `ktc-kiem-thuat-ngu` |
+| Kho nguồn | `KTC-Database/08-Tu-Dien-Phap-Ly` · `07-Hoi-Dap-Chinh-Sach` (chỉ đọc) |
+
+Thứ tự dùng: **đang soạn** → `kiem_thuat_ngu.py` phát hiện sớm (gần đúng, hết hiệu lực nguồn,
+không nhất quán) → **trước trình ký** → rà soát 897 đầy đủ. Lớp này **không thay 897**;
+còn vấn đề Mức 1 của 897 thì vẫn không được trình.
+
+Giao nhau một điểm: **hỏi đáp chính sách không bao giờ là "Căn cứ"** — đưa vào phần căn cứ là
+lỗi **Mức 1** theo 897, giống mọi tài liệu nội bộ, mẫu, checklist.
+
 ## Cấu trúc
 
 ```

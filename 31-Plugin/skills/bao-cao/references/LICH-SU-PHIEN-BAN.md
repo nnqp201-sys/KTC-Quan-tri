@@ -1,5 +1,7 @@
 # Lịch sử phiên bản (tách khỏi SKILL.md khi dựng plugin 1.3.1 — không nạp khi làm việc)
 
+> **v3.21** (10/10/2026) — **Skill 38**: tra cứu kết quả công việc, văn bản đã xử lý của cá nhân trên Hệ thống QLVB&ĐH (`office.quangngai.gov.vn`) theo khoảng thời gian, vai trò xử lý chính/phối hợp — một nguồn của báo cáo cá nhân; công cụ `office_ca_nhan.py`. *Nguồn rời, chưa đóng gói: plugin 1.3.13 đang thẩm định, đưa vào gói ở bản 1.3.14 (DL-20261010-003).*
+
 > **v3.20** (28/9/2026) — Tự đủ trong plugin (rà soát 28/9/2026): mẫu trắng báo cáo tháng (dự phòng, đã sửa 3 lỗi) vào `assets/`.
 
 > **v3.19** (28/9/2026) — Chạy thật plugin 1.3.6 (Claude Code, thư mục thành viên): bỏ số hiệu dị dạng của bản gốc ('Số375BC-CĐKT'), đổi kỳ ở tiêu đề nhóm, Trục của phụ lục; bộ nhớ quá trình không ghi vào tệp plugin khi chạy ngoài dự án (ghi vào ghi chú đối soát).

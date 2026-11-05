@@ -12,6 +12,7 @@ import glob
 import io
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -214,7 +215,8 @@ finally:
 
 print("== D. Bản dựng 31-Plugin 1.3.1 ==")
 pj = json.load(io.open(os.path.join(PLUGIN, ".claude-plugin", "plugin.json"), encoding="utf-8"))
-kiem(pj.get("version", "").startswith("1.3."), f"plugin.json 1.3.x (đang {pj.get('version')})")
+kiem(re.match(r"^1\.[34]\.", pj.get("version", "")) is not None,
+     f"plugin.json 1.3.x hoặc 1.4.x (đang {pj.get('version')})")
 skills = sorted(glob.glob(os.path.join(PLUGIN, "skills", "*", "SKILL.md")))
 agents = sorted(glob.glob(os.path.join(PLUGIN, "agents", "*.md")))
 NGUONG_KHOI = 2500

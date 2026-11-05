@@ -15,7 +15,7 @@ description: "Thu thap, tong hop, xay dung ke hoach cong tac nam/quy/thang cua T
 > - Dựng `.xlsx` bằng cách phát triển từ bản đã ban hành; **gỡ vùng gộp ô trước khi xóa hàng**.
 > - **Không tự sửa lỗi dữ liệu của đơn vị** — ghi vào cột Ghi chú.
 
-**Phiên bản: 3.12 — 28/9/2026** — Tự đủ trong plugin (rà soát 28/9/2026): gói tự học kế hoạch `ktc-tu-hoc-ke-hoach` giải nén sẵn trong plugin. Trước đó 3.11: Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5). Trước đó 3.10: Chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002). Trước đó 3.9: Nguyên tắc 6 — chuẩn thể thức sản phẩm .docx/.xlsx theo 03-Templates(1)/04-Good-Documents, dùng kèm skill the-thuc (DL-20260919-003). Trước đó 3.8: Quy tắc viện dẫn văn bản: NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường; VBHC không ghi số hiệu Luật (DL-20260919-002). Trước đó 3.7: Đơn vị nộp qua khung chat: tên tệp trả về chuẩn + phiếu tự kiểm, tải về gửi P-THHC (DL-20260919-001). Trước đó 3.6: KTC-Database đọc bản gốc trên Google Drive (ổ Drive), bản chép cục bộ có thể cũ — đính chính DL-20260918-005. Trước đó 3.5: Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005); `02-Cap-Truong/<nhóm kỳ>/`, văn bản cấp trên đọc tại KTC-Database/01. Trước đó 3.4: Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team
+**Phiên bản: 3.13 — 5/11/2026** — nhân bản quy tắc dùng chung bản 29/10/2026 từ `20-Chuan-Chung/` (17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham, 00-Nguyen-Tac-Chung, 19-Quy-Tac-KPI); không đổi nghiệp vụ. — Tự đủ trong plugin (rà soát 28/9/2026): gói tự học kế hoạch `ktc-tu-hoc-ke-hoach` giải nén sẵn trong plugin. Trước đó 3.11: Nguyên tắc 3: kết nối thư mục làm việc của đơn vị (Cowork, Claude Code ngoài dự án) — đọc `10-Dau-Vao/`, lưu `30-Ket-Qua/` trong thư mục đó (plugin 1.3.5). Trước đó 3.10: Chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002). Trước đó 3.9: Nguyên tắc 6 — chuẩn thể thức sản phẩm .docx/.xlsx theo 03-Templates(1)/04-Good-Documents, dùng kèm skill the-thuc (DL-20260919-003). Trước đó 3.8: Quy tắc viện dẫn văn bản: NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường; VBHC không ghi số hiệu Luật (DL-20260919-002). Trước đó 3.7: Đơn vị nộp qua khung chat: tên tệp trả về chuẩn + phiếu tự kiểm, tải về gửi P-THHC (DL-20260919-001). Trước đó 3.6: KTC-Database đọc bản gốc trên Google Drive (ổ Drive), bản chép cục bộ có thể cũ — đính chính DL-20260918-005. Trước đó 3.5: Nguyên tắc 4 — nơi lưu đầu vào, tìm KTC-Database không qua ổ đĩa, Google Drive (DL-20260918-005); `02-Cap-Truong/<nhóm kỳ>/`, văn bản cấp trên đọc tại KTC-Database/01. Trước đó 3.4: Kết cấu lại thư mục theo nhóm INPUT/PROCESS/OUTPUT (DL-20260918-004); thêm Nguyên tắc 3 — đầu vào từ tệp đính kèm cho tài khoản Team
 
 ## Quy tắc bất biến và khuôn đầu ra (chuẩn chung KTC-Quan-tri — lõi)
 
@@ -90,6 +90,14 @@ Hệ chuyên biệt thứ 3 trong hệ thống KTC, **dùng chung** kho dữ li�
 | 6 | — | Xuất .docx → lưu `30-Ket-Qua/YYYY-MM-DD/<loại thao tác>/` |
 
 **Bước 0 bắt buộc — có quyền CHẶN toàn bộ:** FAIL → không chạy Bước 2.
+
+**Mã sản phẩm, công việc trong kế hoạch — từ 27/10/2026 dùng mã của phần mềm KPI tỉnh** (VNPT–ĐGCB,
+`kpi.quangngai.dcs.vn`): `N1_241`, `T4_461`. Mã QĐ 2119 (`1.1.KH01.04`) giữ làm mã tham chiếu tra hệ số, Trục,
+Nội hàm. Tra `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv` (455 mã); mã không có
+trong danh mục → **dừng hỏi**, không tự đặt mã. `T1`–`T6` là mã Lĩnh vực = Trục 1–6 (sản phẩm chưa gán Nhóm); 38 mã này + `N1_460` chưa có hệ số → `THIEU_DU_LIEU`.
+Kế hoạch đã chốt thì xuất tệp nạp lên phần mềm:
+`python 29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp.xlsx>` — giữ nguyên
+4 cột của mẫu. Đầy đủ: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md`.
 
 ## 4 Skill của hệ PIS
 | Skill | Prompt tương ứng | Chức năng |

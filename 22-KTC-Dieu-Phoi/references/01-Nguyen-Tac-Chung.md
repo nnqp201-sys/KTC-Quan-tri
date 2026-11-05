@@ -187,5 +187,48 @@ Bộ lệnh Google Drive hiện có: đọc nội dung, tạo file mới, sao ch
 - **Không tự ý xóa file gốc.** Tuy lệnh xóa đã có, việc xóa chỉ được thực hiện khi người dùng xác nhận rõ ràng cho từng đợt — và phải kiểm tra lại bằng cách tìm kiếm sau khi xóa, không tin kết quả trả về của lệnh.
 - Không được báo cáo "đã làm sạch 11-Input" hoặc "đã hoàn tất" nếu file gốc trên thực tế vẫn còn đó — chỉ báo cáo "đã tạo bản sao tại [vị trí], còn [n] file gốc tại [vị trí] chờ xác nhận xóa".
 
+## Nguyên tắc 7 — Tra cứu hỏi đáp chính sách khi soạn thảo và rà soát (04/11/2026)
+
+Khi soạn thảo văn bản hoặc rà soát 897, **tra cứu kho hỏi đáp chính sách** (`KTC-Database/07-Hoi-Dap-Chinh-Sach/`)
+để bổ sung căn cứ, tiền lệ từ cơ quan có thẩm quyền.
+
+**7.1. Khi nào tra cứu**
+- Soạn văn bản liên quan chế độ, chính sách (lương, phụ cấp, bảo hiểm, đào tạo, tuyển sinh, đấu thầu…)
+- Rà soát 897 gặp nội dung cần xác minh quy định
+- Người dùng hỏi về chế độ, quy định mà kho 01–02 chưa đủ rõ
+
+**7.2. Cách tra cứu**
+```python
+from duong_dan import ktc_database
+from pathlib import Path
+import json
+
+index = Path(ktc_database()) / '07-Hoi-Dap-Chinh-Sach/hoi_dap_index.json'
+with open(index, 'r', encoding='utf-8') as f:
+    data = json.load(f)
+# Tìm theo từ khóa trong data['records']
+```
+
+Hoặc gọi agent `ktc-hoi-dap-chinh-sach`.
+
+**7.3. Quy ước màu khi trích dẫn hỏi đáp** (để người dùng nhận biết)
+
+| Nội dung | Định dạng | Màu |
+|----------|-----------|-----|
+| Trích dẫn hỏi đáp chính sách | Chữ màu **xanh dương** + in nghiêng | RGB(0, 112, 192) |
+| Nguồn, ngày trả lời | In nghiêng, cỡ nhỏ hơn | Xám |
+| Ký hiệu nhận biết | 📋 đầu đoạn | — |
+
+**Ví dụ:**
+> 📋 *Theo trả lời của Bộ GD&ĐT ngày 15/10/2026 trên chinhsachonline.chinhphu.vn: "Viên chức giảng dạy
+> được hưởng phụ cấp ưu đãi theo Nghị định 76/2019/NĐ-CP..."*
+>
+> <small>*Nguồn: chinhsachonline.chinhphu.vn · Trục 5 · Cập nhật: 04/11/2026*</small>
+
+**7.4. Lưu ý**
+- Hỏi đáp chỉ mang tính **tham khảo**, không thay thế văn bản quy phạm pháp luật
+- Luôn ghi rõ nguồn, ngày trả lời, cơ quan trả lời
+- Ưu tiên kho 01 (văn bản pháp luật) khi có, hỏi đáp là bổ sung
+
 ## Áp dụng
 Các nguyên tắc này được tham chiếu (không lặp lại toàn văn) trong từng Workflow ở `07-Workflow/` — xem bước tương ứng trong mỗi file workflow.

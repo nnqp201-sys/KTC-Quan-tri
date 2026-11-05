@@ -11,6 +11,7 @@ import glob
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -70,7 +71,8 @@ kiem(guard(None, raw="[1,2]") == 2, "fail-closed: JSON không phải đối tư�
 
 print("== B. Bản dựng 31-Plugin ==")
 pj = json.load(io.open(os.path.join(PLUGIN, ".claude-plugin", "plugin.json"), encoding="utf-8"))
-kiem(pj.get("version", "").startswith("1.3."), f"plugin.json version 1.3.x (đang {pj.get('version')})")
+kiem(re.match(r"^1\.[34]\.", pj.get("version", "")) is not None,
+     f"plugin.json version 1.3.x hoặc 1.4.x (đang {pj.get('version')})")
 kiem("backup" not in pj.get("description", "").lower(), "mô tả plugin không còn nói backup")
 hk = io.open(os.path.join(PLUGIN, "hooks", "hooks.json"), encoding="utf-8").read()
 kiem("ktc_backup_github" not in hk, "hooks.json không còn gọi backup GitHub")
@@ -86,7 +88,10 @@ kiem(os.path.isfile(os.path.join(PLUGIN, "scripts", "ktc_guard.py")), "script gu
 TRANG_THAI = ("DAT", "DAT_CO_DIEU_KIEN", "CAN_BO_SUNG", "CAN_XAC_MINH", "DUNG", "KHONG_DAT")
 skills = sorted(glob.glob(os.path.join(PLUGIN, "skills", "*", "SKILL.md")))
 agents = sorted(glob.glob(os.path.join(PLUGIN, "agents", "*.md")))
-kiem(len(skills) == 8 and len(agents) == 7, f"đủ 8 skill, 7 agent (đang {len(skills)}, {len(agents)})")
+# 1.4.0 (5/11/2026): 7 -> 39 agent (them 29 agent dung chung tu .claude/agents/, xem GOI_NGUON/plugin_src).
+# Nguong "khong duoc it hon" de bat MAT agent, van cho phep them agent moi.
+kiem(len(skills) == 8 and len(agents) >= 38,
+     f"đủ 8 skill, >= 38 agent (đang {len(skills)}, {len(agents)})")
 for p in skills + agents:
     s = io.open(p, encoding="utf-8").read()
     ten = os.path.relpath(p, PLUGIN)

@@ -7,8 +7,8 @@
     {
       "name": "ktc-quan-tri",
       "source": "./31-Plugin",
-      "description": "Quản trị nhiệm vụ hợp nhất Trường CĐ Kon Tum: 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, kpi-lap-ke-hoach, kpi-tu-danh-gia) + 7 agent + hook nhật ký, thể thức, backup",
-      "version": "1.2.1"
+      "description": "Quản trị nhiệm vụ hợp nhất Trường CĐ Kon Tum: 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, kpi-lap-ke-hoach, kpi-tu-danh-gia) + 38 agent (tra cứu căn cứ, kiểm hồ sơ, kiểm sản phẩm, hiệu lực viện dẫn, thuật ngữ pháp lý TN01–TN04, Từ điển pháp lý và Hỏi đáp chính sách 13 lĩnh vực) + hook chặn ghi kho chuẩn, nhật ký, thể thức",
+      "version": "1.4.2"
     }
   ]
 }

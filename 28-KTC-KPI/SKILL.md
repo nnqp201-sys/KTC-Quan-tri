@@ -5,7 +5,7 @@ description: "Lập kế hoạch công tác quý và danh mục sản phẩm/ch�
 
 # KTC-KPI — Lập kế hoạch và KPI cá nhân theo quý
 
-## Phiên bản: v1.4 — 28/9/2026
+## Phiên bản: v1.5 — 5/11/2026 — nhân bản quy tắc dùng chung bản 29/10/2026 từ `20-Chuan-Chung/` (17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham, 00-Nguyen-Tac-Chung, 19-Quy-Tac-KPI); không đổi nghiệp vụ.
 
 > v1.4 (28/9/2026): lưu tệp ra thư mục làm việc của đơn vị khi đã kết nối (plugin 1.3.5).
 

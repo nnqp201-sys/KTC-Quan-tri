@@ -23,22 +23,46 @@ import zipfile
 DU_AN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NGOAI = os.path.dirname(DU_AN)
 
-# He dang dung -> (thu muc, goi .skill)
-HE = {
-    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "25-KTC-Bao-Cao/ktc-bao-cao-v3.20.skill"),
-    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "23-KTC-Ke-Hoach/ktc-ke-hoach-v3.12.skill"),
-    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "26-KTC-Soan-Thao-VB/ktc-soan-thao-vb-v1.15.skill"),
-    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "24-KTC-Theo-doi-CV/ktc-theo-doi-cv-v1.10.skill"),
-    "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "22-KTC-Dieu-Phoi/ktc-quan-tri.skill"),
-    "ktc-the-thuc":     ("27-KTC-The-Thuc", "27-KTC-The-Thuc/ktc-the-thuc-v1.3.skill"),
-    "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "28-KTC-KPI/ktc-kpi-lap-ke-hoach-v1.4.skill"),
-    "ktc-kpi-tu-danh-gia": ("28-KTC-KPI/Tu-Danh-Gia", "28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.4.skill"),
+def _goi_moi_nhat(thu_muc, tien_to):
+    """Goi .skill moi nhat cua mot he, theo THOI GIAN SUA.
+
+    Truoc 5/11/2026 bang HE ghi CUNG ten tep .skill. Moi lan dong goi moi lai quen sua ->
+    phep kiem C5 van soi goi CU va bao lech, trong khi goi moi da dung. Hai nguon su that
+    cho cung mot thong tin — dung cai benh ma chinh C5 sinh ra de bat.
+    """
+    d = os.path.join(DU_AN, thu_muc)
+    if not os.path.isdir(d):
+        return thu_muc + "/" + tien_to + ".skill"
+    ung = [f for f in os.listdir(d)
+           if f.startswith(tien_to) and f.endswith(".skill")
+           and os.path.isfile(os.path.join(d, f))]
+    if not ung:
+        return thu_muc + "/" + tien_to + ".skill"
+    ung.sort(key=lambda f: os.path.getmtime(os.path.join(d, f)))
+    return thu_muc + "/" + ung[-1]
+
+
+# He dang dung -> (thu muc, goi .skill moi nhat — tu tim, khong ghi cung ten tep)
+_HE_NGUON = {
+    "ktc-bao-cao":      ("25-KTC-Bao-Cao", "ktc-bao-cao"),
+    "ktc-ke-hoach":     ("23-KTC-Ke-Hoach", "ktc-ke-hoach"),
+    "ktc-soan-thao-vb": ("26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb"),
+    "ktc-theo-doi-cv":  ("24-KTC-Theo-doi-CV", "ktc-theo-doi-cv"),
+    "ktc-quan-tri":     ("22-KTC-Dieu-Phoi", "ktc-quan-tri"),
+    "ktc-the-thuc":     ("27-KTC-The-Thuc", "ktc-the-thuc"),
+    "ktc-kpi-lap-ke-hoach": ("28-KTC-KPI", "ktc-kpi-lap-ke-hoach"),
+    "ktc-kpi-tu-danh-gia": ("28-KTC-KPI/Tu-Danh-Gia", "ktc-kpi-tu-danh-gia"),
 }
+HE = {ten: (tm, _goi_moi_nhat(tm, tt)) for ten, (tm, tt) in _HE_NGUON.items()}
 # He da thay the — bo qua, khong bat loi
 # KTC-DIS-Tong-Hop-VB da chuyen vao 99-Luu-Tru/He-da-thay-the/ ngay 14/9/2026,
 # nen 99-Luu-Tru bao tron no. Giu ten cu trong danh sach de an toan neu ai do
 # chuyen nguoc ra.
-BO_QUA = ("KTC-DIS-Tong-Hop-VB", "99-Luu-Tru", "__pycache__", ".git")
+BO_QUA = ("KTC-DIS-Tong-Hop-VB", "99-Luu-Tru", "__pycache__", ".git",
+          # 5/11/2026: .kilo/worktrees la BAN SAO ca kho do cong cu khac tao ra — quet vao
+          # thi moi loi cu bi dem lai nhieu lan (13 loi C7 deu tu day). _trung_gian la ban
+          # trung gian "xoa duoc" theo CLAUDE.md. Ca hai khong phai tep nguon cua du an.
+          ".kilo", "_trung_gian")
 
 CHUNG = ["00-Nguyen-Tac-Chung.md", "00-Metadata-Schema.md",
          "04-Nguyen-Tac-Nap-Van-Ban-Tu-Internet.md", "30-Skill-Phan-Loai-6-Truc.md",
@@ -103,7 +127,9 @@ CHI_TIET = "--chi-tiet" in sys.argv
 
 
 def md5(p):
-    return hashlib.md5(open(p, "rb").read()).hexdigest()
+    """So bam BO QUA khac biet xuong dong — CRLF va LF cua cung noi dung la MOT tep.
+    (Bo dong goi ghi LF; ban goc tren Windows giu CRLF.)"""
+    return hashlib.md5(open(p, "rb").read().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def doc(p):
@@ -286,7 +312,11 @@ def _noi_dung_goi(goi_rel):
         for n in z.namelist():
             if n.endswith("/") or "/" not in n:
                 continue
-            b = z.read(n)
+            # Chuan hoa xuong dong truoc khi bam: tu plugin 1.3.13 buoc dong goi ghi LF,
+            # trong khi ban goc tren o Windows giu CRLF. Khac xuong dong KHONG phai khac
+            # noi dung (C8 da chuan hoa tu lau) — truoc 5/11/2026 C5 bam byte tho nen bao
+            # lech gia hang loat ngay sau khi dong goi lai.
+            b = z.read(n).replace(b"\r\n", b"\n")
             ra[n.split("/", 1)[1]] = (hashlib.md5(b).hexdigest(), len(b))
     return ra
 

@@ -21,8 +21,30 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
 | Quy chế | **QĐ 1923/QĐ-CĐKT** ngày 30/8/2026, 5 chương 28 điều, kèm PL I (mẫu kế hoạch quý đơn vị), PL II (mẫu kế hoạch và danh mục công việc cá nhân), PL III (phiếu đánh giá năm) | Nguyên tắc, khung tiêu chí, thang điểm, quy trình, thẩm quyền | Hiệu lực từ ngày ký; thay QĐ 1490/QĐ-CĐKT (04/10/2024) và QĐ 366/QĐ-CĐKT (11/02/2026) [QĐ 1923, Điều 2 QĐ] |
 | Khung tiêu chí | **QĐ 2078/QĐ-CĐKT** ngày 23/9/2026, Phụ lục I–XXVIII | Biểu mẫu tự đánh giá theo đơn vị, vị trí | **Văn bản chính chưa có trong kho**; có 10/28 Phụ lục |
 | Cam kết | **TB 1052/TB-CĐKT** ngày 15/9/2026, kèm Mẫu Bản cam kết KPI và Danh mục sản phẩm/công việc quy đổi | Bản cam kết cá nhân – Hiệu trưởng; danh mục sản phẩm | Danh mục là **dự thảo** gửi đơn vị góp ý (hạn 20/9) [TB 1052, mục 3.1] |
+| Bộ chỉ số KPI | **QĐ 2164/QĐ-CĐKT** ngày 30/9/2026, 55 Phụ lục: I–XI tập thể 11 đơn vị; XII Lãnh đạo Trường; XIII–XXXII cá nhân theo đơn vị, chức danh | Danh mục chỉ số KPI (tiêu chí/nhiệm vụ, chỉ số, đơn vị đo) theo 6 Trục — cơ sở lập, ký Bản cam kết KPI, đánh giá quý, năm [QĐ 2164, Điều 1, 2] | **Chính thức** (30/9/2026), thay các bộ chỉ số dự thảo. Phụ lục **không có trọng số, chỉ tiêu** — xác định khi lập Bản cam kết; tổng trọng số mỗi bộ = 100% [QĐ 2164, Điều 3.1]. Bản gốc chờ nạp kho 02 |
 | Hướng dẫn quý | Quý III/2026: **CV 694/CĐKT-TCCB** ngày 24/9/2026 | Thời hạn, kỹ thuật của quý | Mỗi quý một văn bản — thời hạn đặt trong tệp cấu hình quý, không đặt ở đây |
 | Kế hoạch công tác | **QĐ 2073/QĐ-CĐKT** ngày 23/9/2026, Chương III | Quy trình, thời hạn kế hoạch năm/quý/tháng của Trường | Thay QĐ 1299 |
+| Công cụ vận hành | **Phần mềm KPI tỉnh Quảng Ngãi** (VNPT–ĐGCB, `kpi.quangngai.dcs.vn`) | Nơi đăng ký kế hoạch công tác, kê khai kết quả, tự đánh giá và xếp loại trên thực tế | Trường dùng từ **27/10/2026**; HDSD: `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/` |
+
+### Mã sản phẩm, công việc — từ 27/10/2026 lấy mã của phần mềm KPI
+
+- **Mã chính** là mã phần mềm: `N1_241`, `T4_461` — quy tắc "Mã nhóm SPCV_số thứ tự tăng dần", **không sửa được
+  sau khi tạo** (HDSD VNPT–ĐGCB v2.0, mục IV.2.4.2.2). Mã QĐ 2119 (`1.1.KH01.04`) giữ làm **mã tham chiếu** để
+  tra hệ số, Trục, Nội hàm. Mọi kế hoạch, bản cam kết, báo cáo đều ghi mã chính; ghi kèm mã QĐ 2119 khi cần
+  viện dẫn hệ số.
+- Phần mềm có **hai trường phân loại riêng** (HDSD VNPT–ĐGCB v2.0, tr. 30–32 và tr. 35):
+  - *Nhóm SPCV* — phân loại **mức độ phức tạp** qua **điểm tối đa** (`N1`=100 … `N5`=500);
+    `N1`–`N5` = **Nhóm 1–5 của QĐ 2119** (đối chiếu 27/10/2026: khớp 416/455, **0 mã lệch nhóm**);
+  - *Lĩnh vực SPCV* — `T1`–`T6` = **Trục (1)–(6)** theo TB 817 (bằng chứng: video HDSD 27/10/2026 phút ~2:16,
+    ảnh lưu `91-Tai-Lieu-Thiet-Ke/TL HDSD Phan mem KPI/Bang-chung_Linh-vuc-SPCV-la-Truc_*.png`).
+- **Hệ số trên phần mềm = hệ số QĐ 2119 theo từng sản phẩm** — kiểm chứng số thật: `N2_219` (1,2) → 50 × 1,2 =
+  60,00; `N2_220` (1,5) → 5 × 1,5 = 7,50; tổng 67,50 đúng như phần mềm.
+- 38 mã `T` là sản phẩm **chưa được gán Nhóm** (nên mã đặt theo Lĩnh vực), cùng `N1_460` thành 39 mã
+  `THIEU_DU_LIEU`: **Trục đã chắc chắn, còn thiếu Nhóm và hệ số**. Đề nghị P-TCCB gán Nhóm, xác nhận hệ số và
+  bổ sung danh mục theo Điều 3 QĐ 2119. **Không suy hệ số từ tiền tố, không lấy hệ số của sản phẩm cùng họ.**
+- Tra: `11-Du-lieu-Cong-Viec/DANH MUC SAN PHAM CONG VIEC/danh-muc-spcv-pm-kpi.csv`; giải thích đầy đủ ở
+  `00-MUC-LUC-DANH-MUC-SPCV-PM-KPI.md` cùng thư mục. Sinh lại: `29-Cong-Cu/trich_danh_muc_pm_kpi.py`.
+  Xuất tệp nạp lên phần mềm: `29-Cong-Cu/xuat_mau_import_kpi.py --don-vi "<đơn vị>" --ke-hoach kh.csv --ra <tệp>`.
 
 - Hướng dẫn đánh giá hằng quý/năm của Hiệu trưởng chỉ quy định biểu mẫu, tiêu chí hành vi và quy trình kỹ thuật
   **trong phạm vi khung mức của Quy chế**; không được thay đổi khung mức làm bất lợi cho viên chức với kỳ đã hoàn thành
@@ -75,7 +97,11 @@ toàn văn ngày 24/9/2026. Dòng không có dẫn nguồn thì không phải qu
   **theo từng sản phẩm**, không suy từ nhãn Nhóm (Nhóm 1 = 0,3/0,5/1,0 · Nhóm 2 = 1,2/1,5/2,0 · Nhóm 3 = 2,5 · Nhóm 4 = 3,5
   · Nhóm 5 = 4,5). Sản phẩm không có trong Danh mục → `THIEU_DU_LIEU`, hỏi; không tự gán. Thang 50/120/250/350/450
   của dự thảo **hết dùng** (KI-014 đã có văn bản phân định, DL-20260928-001).
-- **Chưa có văn bản:** quy ước A × B — phép nhân hệ số sản phẩm với hệ số mức độ (Phòng TH-HC&QT ghi nhận 24/9/2026).
+- **Ý kiến Phòng TCCB&CTHSSV ngày 06/10/2026** (Phiếu xin ý kiến của Phòng TH-HC&QT, bà Nguyễn Thị Lành ký; `DL-20261006-001`):
+  KPI cá nhân quy đổi **chỉ theo hệ số sản phẩm QĐ 2119** (phương án `A`), **từ Quý IV/2026**; **không nhân** với hệ số mức độ
+  (A × B không áp dụng). Cột “Điểm chấm công việc”, “Hệ số quy đổi” mẫu PL I, PL II QĐ 1923 **giữ thang 4 mức**. Trọng số chỉ
+  tiêu khi lập Bản cam kết: chấp nhận **cả 3 cách** (điểm tối đa theo Trục; tỷ lệ khối lượng quy đổi; Trưởng đơn vị và cá nhân
+  thống nhất) — ghi rõ cách đã chọn.
 - KPI đã chấm trước 28/9/2026 (Quý III/2026) **không tính lại** theo QĐ 2119, trừ khi Phòng TCCB&CTHSSV hướng dẫn khác.
 - **Không có mặc định, không tự chọn:** người lập kế hoạch chọn phương án; đầu ra ghi phương án và trạng thái. Xem Câu
   hỏi mở số 1 và `92-Kinh-Nghiem/05-Known-Issues/Pending.md` KI-014. **Không tự đặt quy tắc chuyển đổi giữa các thang.**
@@ -184,5 +210,6 @@ trung bình 3 chiều (số lượng, chất lượng, tiến độ) quy đổi 
 
 ## Nguồn dữ liệu để tra thêm
 
-`11-Du-lieu-Cong-Viec/` — `CHI SO KPI/` (KPI cấp Trường, KPI cá nhân theo chức danh) · `KHUNG TIEU CHI DANH GIA TAP THE
+`11-Du-lieu-Cong-Viec/` — `CHI SO KPI/` (Bộ chỉ số KPI chính thức theo QĐ 2164: `Bo-chi-so-KPIs/` 55 phụ lục, mục lục
+`00-MUC-LUC-BO-CHI-SO-KPI-QD2164.md`, dữ liệu `bo-chi-so-kpi-QD2164.csv` — 1.972 chỉ số) · `KHUNG TIEU CHI DANH GIA TAP THE
 VÀ CA NHAN/` (khung đánh giá tập thể, cá nhân). Bản gốc văn bản: KTC-Database kho 02 và `03-Templates/03-12-`.

@@ -97,8 +97,8 @@ Cỡ chữ của các thành phần còn lại (số ký hiệu, tên loại, tr
 
 ### 3a. Ánh xạ bộ quy tắc 897 → phép đo (28/9/2026)
 
-Nguồn là bản gốc trên Google Drive: `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/`. Gồm **quy định chung**
-`01-The-Thuc.md` (NĐ 30), `05-Hinh-Thuc.md`, và **quy định riêng của Trường** `08-Quy-Uoc-Rieng-CDKT.md` (TB 597).
+Nguồn là bộ quy tắc ktc-ra-soat-897 v4.5 (TB 1206/TB-CĐKT): `2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/`. Gồm **quy định chung**
+`Checklist/01-The-Thuc.md` (NĐ 30), `Checklist/05-Hinh-Thuc.md`, và **quy định riêng của Trường** `Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md` (TB 597; ở bảng dưới, “08” là tên cũ của bảng này trong 897 v2.x).
 Bảng dưới chỉ ghi mục nào được đo bằng mã nào; số đo xem tại chính mục đó. Khi 897 sửa số, sửa `kiem_the_thuc.py`
 theo, không sửa ở đây. Theo 01 mục 6, sai cỡ chữ, kiểu chữ hay vị trí là **Mức 2**.
 
@@ -117,6 +117,17 @@ theo, không sửa ở đây. Theo 01 mục 6, sai cỡ chữ, kiểu chữ hay 
 | 01 mục 1.9 · 08 mục 4 | "Nơi nhận" (12, nghiêng, đậm), danh sách (11), dòng "Lưu: VT, …" | TT10, TT17 |
 | 01 mục 5 · 08 mục 5.1 | KT./TL./TUQ. có dấu chấm, không K/T, T/L | TT19 |
 | Bảng tiêu đề (đo từ văn bản đã ban hành, không có số trong 897) | Độ rộng, tỉ lệ cột | TT12 |
+
+### Phụ lục văn bản .docx — bắt buộc khi dựng (NĐ 30 Phụ lục I; 897 Checklist 01 mục 1, 05 mục 4; người phụ trách chốt 06/10/2026)
+
+1. **Mỗi phụ lục một section riêng; số trang đánh riêng, bắt đầu lại từ 1** (`w:pgNumType w:start="1"` trên từng section).
+   Không dùng ngắt trang thường để tách phụ lục. Phụ lục khổ ngang thì section đó khổ ngang.
+2. **Không ghi dòng “(Kèm theo … số … ngày …)”** dưới tiêu đề phụ lục (897 Checklist 01). **100% văn bản của Trường là văn bản ký số** — không đề cập, không áp quy định riêng cho văn bản giấy.
+3. Không để trang trắng giữa thân văn bản và phụ lục (thừa ngắt trang kép); kiểm bằng bản PDF in thử: đếm trang, xem số trang
+   đầu mỗi phụ lục bằng 1. Rà soát 897 **không** nêu lỗi “trùng số trang” giữa các phụ lục.
+
+Đã áp: KH thí điểm KTC-Quan-tri v1 (06/10/2026). Chưa có mã đo trong `kiem_the_thuc.py`, chưa vào gói `.skill` (đóng băng) —
+xem Pending.
 
 **Không đo bằng máy, để 897 kiểm khi rà soát:** 08 mục 1 (căn cứ QĐ 1976), 2, 2b, 3 (từ ngữ, viết hoa, tên đơn vị,
 cơ sở, bộ môn, viết tắt), 7 (chọn mẫu theo hệ A/B/D); 01 mục 3–4 (dấu, ký số, mật, khẩn). Các mục này là nội dung,

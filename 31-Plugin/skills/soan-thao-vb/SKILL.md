@@ -51,7 +51,9 @@ thư mục dự án KTC-Quan-tri vào phiên** để đọc quy tắc — thư m
 thấy tệp → làm theo SKILL.md, ghi `THIEU_DU_LIEU`, không đoán. Đầu vào, đầu ra: thư mục làm việc của người dùng (Nguyên tắc 3).
 </plugin_paths>
 
-## Phiên bản: v1.15 — 29/9/2026
+## Phiên bản: v1.17 — 5/11/2026 — nhân bản quy tắc dùng chung bản 29/10/2026 từ `20-Chuan-Chung/` (17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham, 00-Nguyen-Tac-Chung, 19-Quy-Tac-KPI); không đổi nghiệp vụ.
+
+> v1.16: Thuật ngữ pháp lý đúng ngữ cảnh (TN01–TN04) — `Skill-Library/21-Quy-Tac-Thuat-Ngu.md`; tự kiểm bằng `kiem_thuat_ngu.py` khi đang soạn, trước rà soát 897. Hỏi đáp chính sách **không bao giờ là "Căn cứ"**.
 
 > v1.15: Thứ tự dựng văn bản theo chỉ đạo 28/9/2026 (văn bản tương tự → mẫu `03-Templates(1)` ráp nội dung → xin đính kèm → khung); không ghép nhiều văn bản.
 
@@ -191,6 +193,7 @@ Chuyển sang `ktc-ra-soat-897`, skill văn bản Đảng.
 | Phân loại nhiệm vụ vào 6 Trục | `Skill-Library/30-Skill-Phan-Loai-6-Truc.md` |
 | Căn cứ, viện dẫn (NĐ 30 · Pháp lệnh hợp nhất · quy ước Trường) | `Skill-Library/17-Quy-Tac-Vien-Dan.md` · tự kiểm `Skill-Library/kiem_vien_dan.py` |
 | Viện dẫn văn bản hợp nhất | `Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` |
+| Thuật ngữ pháp lý đúng ngữ cảnh (TN01–TN04) — hỏi đáp chính sách **không là "Căn cứ"** | `Skill-Library/21-Quy-Tac-Thuat-Ngu.md` · tự kiểm `29-Cong-Cu/kiem_thuat_ngu.py` (agent `ktc-kiem-thuat-ngu`) |
 | Đề xuất quy trình trình ký | `Skill-Library/16-Skill-De-Xuat-Quy-Trinh-Trinh-Ky.md` |
 
 ## Vòng đời văn bản

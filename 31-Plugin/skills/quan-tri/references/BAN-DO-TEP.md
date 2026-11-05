@@ -1,6 +1,6 @@
 # Bảng đối chiếu tên tệp — bản gốc (dự án) → vị trí trong plugin
 
-Sinh tự động khi dựng plugin 1.3.13 (`dong_goi_plugin.py`, so nội dung sha256). Tài liệu nhắc tên thư mục
+Sinh tự động khi dựng plugin 1.4.2 (`dong_goi_plugin.py`, so nội dung sha256). Tài liệu nhắc tên thư mục
 dự án (`20-Chuan-Chung/…`, `29-Cong-Cu/…`): tra bảng này, **không xin quyền thư mục dự án**.
 
 | Bản gốc trên máy phát triển | Bản sao trong plugin |
@@ -17,6 +17,7 @@ dự án (`20-Chuan-Chung/…`, `29-Cong-Cu/…`): tra bảng này, **không xin
 | `20-Chuan-Chung/17-Quy-Tac-Vien-Dan.md` | `skills/bao-cao/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` · `skills/ke-hoach/references/Skill-Library/17-Quy-Tac-Vien-Dan.md` · `skills/quan-tri/references/17-Quy-Tac-Vien-Dan.md` (+2) |
 | `20-Chuan-Chung/18-Chuan-The-Thuc-San-Pham.md` | `skills/bao-cao/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` · `skills/ke-hoach/references/Skill-Library/18-Chuan-The-Thuc-San-Pham.md` · `skills/quan-tri/references/18-Chuan-The-Thuc-San-Pham.md` (+3) |
 | `20-Chuan-Chung/19-Quy-Tac-KPI.md` | `skills/kpi-lap-ke-hoach/references/Skill-Library/19-Quy-Tac-KPI.md` · `skills/kpi-tu-danh-gia/references/Skill-Library/19-Quy-Tac-KPI.md` · `skills/quan-tri/references/30-KPI-Va-Xep-Loai.md` |
+| `20-Chuan-Chung/21-Quy-Tac-Thuat-Ngu.md` | `skills/soan-thao-vb/references/Skill-Library/21-Quy-Tac-Thuat-Ngu.md` |
 | `20-Chuan-Chung/30-Skill-Phan-Loai-6-Truc.md` | `skills/bao-cao/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` · `skills/ke-hoach/references/Skill-Library/30-Skill-Phan-Loai-6-Truc.md` · `skills/quan-tri/references/11-Skill-Phan-Loai-6-Truc.md` (+2) |
 | `20-Chuan-Chung/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` | `skills/bao-cao/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` · `skills/ke-hoach/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` · `skills/soan-thao-vb/references/Skill-Library/Skill-Vien-Dan-Van-Ban-Hop-Nhat.md` |
 | `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md` | `skills/*/references/00-Quy-Tac-Bat-Bien-Day-Du.md` |

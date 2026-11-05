@@ -4,7 +4,7 @@ description: "Quản trị nhiệm vụ hợp nhất của Trường Cao đẳng
 ---
 
 # KTC-Quan-tri — Hệ quản trị nhiệm vụ hợp nhất
-**Phiên bản: 1.16 — 28/9/2026** — kết nối thư mục làm việc của đơn vị (`scripts/ktc_thu_muc.py`, Nguyên tắc 3); 1.15: `11-Skill-Phan-Loai-6-Truc.md`: chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002); Danh mục sản phẩm, công việc CHÍNH THỨC ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 (thay thế dự thảo kèm TB 1052); quy tắc bất biến, khuôn đầu ra chuẩn chung chèn khi đóng gói từ `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md`. Lịch sử phiên bản: `CHANGELOG.md`.
+**Phiên bản: 1.17 — 5/11/2026** — nhân bản quy tắc dùng chung bản 29/10/2026 từ `20-Chuan-Chung/` (17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham, 00-Nguyen-Tac-Chung, 19-Quy-Tac-KPI); không đổi nghiệp vụ. — kết nối thư mục làm việc của đơn vị (`scripts/ktc_thu_muc.py`, Nguyên tắc 3); 1.15: `11-Skill-Phan-Loai-6-Truc.md`: chuẩn 6 Trục: căn cứ Quyết định số 1923/QĐ-CĐKT Phụ lục I, II cho cột Điểm chấm, Hệ số quy đổi; quan hệ với Danh mục sản phẩm, công việc theo Quyết định số 2119/QĐ-CĐKT (DL-20260928-002); Danh mục sản phẩm, công việc CHÍNH THỨC ban hành kèm Quyết định số 2119/QĐ-CĐKT ngày 28/9/2026 (thay thế dự thảo kèm TB 1052); quy tắc bất biến, khuôn đầu ra chuẩn chung chèn khi đóng gói từ `20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md`. Lịch sử phiên bản: `CHANGELOG.md`.
 
 ## Vai trò trong kiến trúc hệ thống KTC
 

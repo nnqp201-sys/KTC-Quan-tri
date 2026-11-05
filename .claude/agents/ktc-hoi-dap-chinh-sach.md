@@ -1,11 +1,13 @@
 ---
 name: ktc-hoi-dap-chinh-sach
-description: Tra cứu hỏi đáp chính sách từ KTC-Database phục vụ tham mưu, soạn thảo, rà soát 897
+description: Điều phối tra cứu hỏi đáp chính sách — tự động gọi sub-agent chuyên sâu theo lĩnh vực
 model: sonnet
+autorun: true
 tools:
   - Read
   - Grep
   - Glob
+  - Agent
 ---
 
 # Agent Tra cứu Hỏi đáp Chính sách
@@ -62,6 +64,30 @@ for r in data['records']:
     if 'từ khóa' in r.get('Nội dung câu hỏi', '').lower():
         print(r)
 ```
+
+## Tự động gọi sub-agent chuyên sâu
+
+Khi nhận yêu cầu tra cứu, **tự động dispatch** sang sub-agent phù hợp:
+
+| Từ khóa | Sub-agent |
+|---------|-----------|
+| giáo dục, đào tạo, tuyển sinh, chương trình | `ktc-hdcs-giao-duc` |
+| sinh viên, học sinh, học bổng, miễn giảm | `ktc-hdcs-hssv` |
+| viên chức, tuyển dụng, bổ nhiệm, kỷ luật | `ktc-hdcs-vien-chuc` |
+| lương, phụ cấp, thưởng, nâng lương | `ktc-hdcs-tien-luong` |
+| thuế, phí, kế toán, hóa đơn | `ktc-hdcs-thue-phi` |
+| bảo hiểm, BHXH, BHYT, hưu trí | `ktc-hdcs-bao-hiem` |
+| đấu thầu, mua sắm, nhà thầu, hợp đồng | `ktc-hdcs-dau-thau` |
+| tài sản, thanh lý, khấu hao | `ktc-hdcs-tai-san` |
+| xây dựng, dự án, thiết kế | `ktc-hdcs-xay-dung` |
+| thi đua, khen thưởng, danh hiệu | `ktc-hdcs-thi-dua` |
+| khoa học, công nghệ, chuyển đổi số | `ktc-hdcs-khcn` |
+| hành chính, thủ tục, văn thư | `ktc-hdcs-hanh-chinh` |
+
+**Quy trình:**
+1. Phân tích từ khóa trong yêu cầu
+2. Gọi sub-agent phù hợp (có thể nhiều agent nếu liên quan nhiều lĩnh vực)
+3. Tổng hợp kết quả, trích dẫn theo quy ước màu 📋
 
 ## Lưu ý
 

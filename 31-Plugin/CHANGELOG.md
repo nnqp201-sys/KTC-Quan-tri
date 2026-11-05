@@ -1,5 +1,28 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.4.0 — 5/11/2026
+
+**Lớp kiểm thuật ngữ pháp lý + mở 29 agent tra cứu cho tài khoản Trường.**
+
+- **Quy tắc mới** `20-Chuan-Chung/21-Quy-Tac-Thuat-Ngu.md` (bản sao trong `skills/soan-thao-vb/references/Skill-Library/`):
+  4 phép kiểm **TN01** cách viết gần đúng · **TN02** nguồn hết hiệu lực (Mức 2) hoặc đã sửa đổi (Mức 3) ·
+  **TN02b** kho chưa xác minh (Mức 4, hạn chế của kho) · **TN03** không nhất quán trong một văn bản ·
+  **TN04** hỏi đáp chính sách liên quan. Ba ràng buộc bất biến, trong đó **hỏi đáp chính sách không bao giờ
+  là "Căn cứ"** — đưa vào phần căn cứ là lỗi Mức 1 theo KTC-Ra-Soat-897.
+- **Công cụ** `scripts/kiem_thuat_ngu.py` — đọc `.docx`, `.md`, `.txt`; mã thoát 1 khi có vấn đề Mức 1–2.
+- **Agent 7 → 38.** Thêm `ktc-kiem-thuat-ngu`, `ktc-tu-dien-phap-ly` + 13 `ktc-tdpl-*`,
+  `ktc-hoi-dap-chinh-sach` + 12 `ktc-hdcs-*`. Đọc **chỉ đọc** hai kho mới của `KTC-Database`:
+  `08-Tu-Dien-Phap-Ly` (1.370 thuật ngữ, 13 lĩnh vực — thêm lĩnh vực `khac`) và `07-Hoi-Dap-Chinh-Sach`.
+- **Kỹ năng `soan-thao-vb` 1.16** — nối quy tắc thuật ngữ vào bảng tra của skill.
+- **Sửa lỗi dựng gói:** bước **nhân bản quy tắc dùng chung** `20-Chuan-Chung/` xuống bản sao trong mọi gói
+  skill, trước nay thiếu nên **16 bản sao đã cũ hơn bản gốc** mà không ai thấy (`00-Nguyen-Tac-Chung`,
+  `17-Quy-Tac-Vien-Dan`, `18-Chuan-The-Thuc-San-Pham`, `19-Quy-Tac-KPI`). Đây là lỗi tồn từ trước 1.4.0.
+- **Công cụ mới cho người dựng:** `29-Cong-Cu/dong_goi_mot_skill.py` — đóng lại một gói `.skill` từ thư mục
+  nguồn, chuẩn hóa LF, đọc phiên bản tự khai, in rõ tệp thêm/bớt so với gói cũ (`--kiem` để thử không ghi).
+
+**Không thay đổi:** lõi `ktc-ra-soat-897` v4.6.4 (khóa băm 147 tệp, kiểm lại ĐẠT 5/11/2026). Lớp thuật ngữ
+chạy **song song và sớm hơn**, không thay chốt chặn rà soát trước trình ký.
+
 ## Chưa phát hành — dồn cho 1.3.14 (ghi 28/10/2026)
 
 **Kỹ năng `kpi-tu-danh-gia` 1.4** (lệnh nâng cấp sau phiên hồ sơ minh chứng xếp loại Quý III/2026 theo TB 1105).

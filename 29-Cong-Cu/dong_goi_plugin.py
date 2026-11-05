@@ -29,18 +29,18 @@ PLUGIN_DIR = os.path.join(DU_AN, "31-Plugin")
 
 # (goi .skill nguon, ten thu muc trong goi .skill, ten skill moi trong plugin)
 GOI_NGUON = [
-    (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri.skill"), "ktc-quan-tri", "quan-tri"),
-    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.20.skill"), "ktc-bao-cao", "bao-cao"),
-    (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.12.skill"), "ktc-ke-hoach", "ke-hoach"),
-    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.15.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
-    (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.10.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
-    (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.3.skill"), "ktc-the-thuc", "the-thuc"),
-    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.4.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
+    (os.path.join(DU_AN, "22-KTC-Dieu-Phoi", "ktc-quan-tri-v1.17.skill"), "ktc-quan-tri", "quan-tri"),
+    (os.path.join(DU_AN, "25-KTC-Bao-Cao", "ktc-bao-cao-v3.21.skill"), "ktc-bao-cao", "bao-cao"),
+    (os.path.join(DU_AN, "23-KTC-Ke-Hoach", "ktc-ke-hoach-v3.13.skill"), "ktc-ke-hoach", "ke-hoach"),
+    (os.path.join(DU_AN, "26-KTC-Soan-Thao-VB", "ktc-soan-thao-vb-v1.17.skill"), "ktc-soan-thao-vb", "soan-thao-vb"),
+    (os.path.join(DU_AN, "24-KTC-Theo-doi-CV", "ktc-theo-doi-cv-v1.11.skill"), "ktc-theo-doi-cv", "theo-doi-cv"),
+    (os.path.join(DU_AN, "27-KTC-The-Thuc", "ktc-the-thuc-v1.4.skill"), "ktc-the-thuc", "the-thuc"),
+    (os.path.join(DU_AN, "28-KTC-KPI", "ktc-kpi-lap-ke-hoach-v1.5.skill"), "ktc-kpi-lap-ke-hoach", "kpi-lap-ke-hoach"),
     (os.path.join(DU_AN, "28-KTC-KPI", "Tu-Danh-Gia", "ktc-kpi-tu-danh-gia-v1.4.skill"), "ktc-kpi-tu-danh-gia",
      "kpi-tu-danh-gia"),
 ]
 
-PLUGIN_VERSION = "1.3.13"  # 1.3.13 (29/9/2026, tiep thu tham dinh lan 5 L5-04): dung lap lai duoc tu ban checkout sach cua commit — chuan hoa xuong dong LF truoc khi nen, BAN-DO-TEP so bam bo qua CR; noi dung chuc nang giong 1.3.12. 1.3.12 (29/9/2026): TT17 nhan vai tro phan dau theo vi tri dong (mau 2.2: ten Truong la co quan chu quan, khong dam) — sua bao nham BC cua Phong khi lap ho so vong 5; dinh chinh loi mau 06A, 06D; the-thuc 1.3. 1.3.11 (29/9/2026): nguyen tac sua van ban tuong tu / rap noi dung vao mau (chi dao 28/9); khung dung lai tu mau 03A (khung ghep tu TB 1060 hien "1" o trang 1, lech duong ke trich yeu); TT11b so trang o trang 1; chuan hoa NFC (mau luu NFD, phep so chu im lang truot); TT19 khoi chu ky 2 hang; loi mau 01, 03A; the-thuc 1.2, soan-thao-vb 1.15. 1.3.10 (28/9/2026): khung the thuc VBHC (tu TB 1060 da ban hanh, --khung) khi khong doc duoc kho; phep do TT12-TT19 anh xa 897 Checklist 01, 05, 08 (bang tieu de, duong ke, co/kieu tung thanh phan, ky thay, hoc ham); the-thuc 1.1, soan-thao-vb 1.14 — sua loi TB dung bang tieu de tay tren Cowork. 1.3.9 (28/9/2026): ra soat tu du — goi tu hoc ke hoach, mau dinh tuyen theo doi CV, mau trang bao cao vao goi; BAN-DO-TEP.md; agent tu-hoc/tu-cai-tien ghi pham vi chi du an; soan-thao sua duong dan cu, tro 17/29 ve plugin 897. 1.3.8 (28/9/2026): khoi <plugin_paths> chen vao moi skill, agent — khong xin quyen them thu muc du an vao phien (Cowork xin ca KTC-Quan-tri de doc ban goc 20-Chuan-Chung). 1.3.7 (28/9/2026): sua tu chay that 1.3.6 — so hieu di dang, ky cu o tieu de phu luc, guard chan Write/Edit vao tep plugin da cai, hook the thuc bo qua 10-Dau-Vao; bao-cao 3.19. 1.3.6 (28/9/2026): bao cao thang cap Truong dung tu ban DA BAN HANH (bc_thang.py, skill bao-cao v3.18, Skill 37) — khac phuc chay thu 28/9 kem ban 21/9; dong vao plugin bc_thang, vanphong, trich_tuong_thuat, ktc_trackchanges; mau trang sua 3 loi; agent kiem ho so: tra lai don vi khong loai khoi bao cao. 1.3.5 (28/9/2026): ket noi thu muc lam viec cua don vi (ktc_thu_muc.py, Nguyen tac 3) — tai khoan thanh vien tren Cowork doc 10-Dau-Vao/, luu 30-Ket-Qua/; hook do the thuc chay ca trong thu muc don vi; doctor bao che do thu muc, huong dan loi tat kho. ke-hoach 3.11, theo-doi-cv 1.9, bao-cao 3.17, soan-thao-vb 1.12, quan-tri 1.16, kpi-lap-ke-hoach 1.4, kpi-tu-danh-gia 1.3. 1.3.4 (28/9/2026): chuan 6 Truc — can cu QD 1923 PL I, II cho cot Diem cham/He so, quan he voi Danh muc QD 2119 (DL-20260928-002); ke-hoach 3.10, theo-doi-cv 1.8, bao-cao 3.16, soan-thao-vb 1.11, quan-tri 1.15; guard bo than heredoc dua cho trinh thong dich khoi phan tich cau lenh. 1.3.3 (28/9/2026): Danh muc san pham CHINH THUC QD 2119/QD-CDKT thay du thao TB 1052 (kpi_calc phuong an A co van ban, KH08, quan-tri 1.14, kpi-lap-ke-hoach 1.3, kpi-tu-danh-gia 1.2); guard: .replace/.rename chi la ghi khi co Path(...)/os. 1.3.2 (27/9/2026, tiep thu tham dinh lan 4): guard tang 2 CHAN thay vi hoi (F4-01); chan tao lien ket tro vao kho; sua nhan dang duong dan tuyet doi C:\; duong dan quy tac day du cho agent; kiem_vien_dan doc nhieu bang ma. 1.3.1 (27/9/2026, tiep thu tham dinh lan 3): guard 2 tang chan/hoi (ma nhung, vo lenh long, cd vao kho, UNC; vung = ca thanh phan duong dan); nhat ky khong luu lenh/mo ta tho, nap dau phien <= 4.500 ky tu; khoi chuan chung loi ~2.460 ky tu + ban day du trong references/; lich su phien ban tach khoi SKILL.md; quy tac bat dong skill-agent. 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
+PLUGIN_VERSION = "1.4.2"  # 1.4.2 (5/11/2026): mo ta plugin TU DEM so agent (ban 1.4.1 ghi tay "36 agent" trong khi goi co 38 — mo ta nay hien tren thu vien to chuc); doctor tim 897 ca o skill DONG BO tu tai khoan (~/.claude/skills/synced) va marketplace cuc bo, lay ban cao nhat — truoc chi tim trong .claude/plugins nen gap plugin v3.0 cu va BAO SAI "CU" du tai khoan da co v4.6.4. 1.4.1 (5/11/2026): nhan ban quy tac dung chung 20-Chuan-Chung ban 29/10 vao NGUON ROI va dong lai 7 goi .skill — truoc do goi roi (tai khoan Chat/Cowork nhan .skill truc tiep) mang 17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham, 00-Nguyen-Tac-Chung, 19-Quy-Tac-KPI ban 29/9, lech mot thang; them doctor kiem phien ban ktc-ra-soat-897 (bat ban cu/chua cai). quan-tri 1.17, bao-cao 3.21, ke-hoach 3.13, soan-thao-vb 1.17, theo-doi-cv 1.11, the-thuc 1.4, kpi-lap-ke-hoach 1.5. 1.4.0 (5/11/2026): lop kiem thuat ngu phap ly TN01-TN04 (20-Chuan-Chung/21-Quy-Tac-Thuat-Ngu.md, kiem_thuat_ngu.py) + 29 agent dung chung tu .claude/agents/ vao goi: ktc-kiem-thuat-ngu, ktc-tu-dien-phap-ly + 13 ktc-tdpl-*, ktc-hoi-dap-chinh-sach + 12 ktc-hdcs-*, ktc-kiem-nhat-quan-bo-van-ban; doc 2 kho moi KTC-Database 08-Tu-Dien-Phap-Ly, 07-Hoi-Dap-Chinh-Sach (chi doc). 1.3.13 (29/9/2026, tiep thu tham dinh lan 5 L5-04): dung lap lai duoc tu ban checkout sach cua commit — chuan hoa xuong dong LF truoc khi nen, BAN-DO-TEP so bam bo qua CR; noi dung chuc nang giong 1.3.12. 1.3.12 (29/9/2026): TT17 nhan vai tro phan dau theo vi tri dong (mau 2.2: ten Truong la co quan chu quan, khong dam) — sua bao nham BC cua Phong khi lap ho so vong 5; dinh chinh loi mau 06A, 06D; the-thuc 1.3. 1.3.11 (29/9/2026): nguyen tac sua van ban tuong tu / rap noi dung vao mau (chi dao 28/9); khung dung lai tu mau 03A (khung ghep tu TB 1060 hien "1" o trang 1, lech duong ke trich yeu); TT11b so trang o trang 1; chuan hoa NFC (mau luu NFD, phep so chu im lang truot); TT19 khoi chu ky 2 hang; loi mau 01, 03A; the-thuc 1.2, soan-thao-vb 1.15. 1.3.10 (28/9/2026): khung the thuc VBHC (tu TB 1060 da ban hanh, --khung) khi khong doc duoc kho; phep do TT12-TT19 anh xa 897 Checklist 01, 05, 08 (bang tieu de, duong ke, co/kieu tung thanh phan, ky thay, hoc ham); the-thuc 1.1, soan-thao-vb 1.14 — sua loi TB dung bang tieu de tay tren Cowork. 1.3.9 (28/9/2026): ra soat tu du — goi tu hoc ke hoach, mau dinh tuyen theo doi CV, mau trang bao cao vao goi; BAN-DO-TEP.md; agent tu-hoc/tu-cai-tien ghi pham vi chi du an; soan-thao sua duong dan cu, tro 17/29 ve plugin 897. 1.3.8 (28/9/2026): khoi <plugin_paths> chen vao moi skill, agent — khong xin quyen them thu muc du an vao phien (Cowork xin ca KTC-Quan-tri de doc ban goc 20-Chuan-Chung). 1.3.7 (28/9/2026): sua tu chay that 1.3.6 — so hieu di dang, ky cu o tieu de phu luc, guard chan Write/Edit vao tep plugin da cai, hook the thuc bo qua 10-Dau-Vao; bao-cao 3.19. 1.3.6 (28/9/2026): bao cao thang cap Truong dung tu ban DA BAN HANH (bc_thang.py, skill bao-cao v3.18, Skill 37) — khac phuc chay thu 28/9 kem ban 21/9; dong vao plugin bc_thang, vanphong, trich_tuong_thuat, ktc_trackchanges; mau trang sua 3 loi; agent kiem ho so: tra lai don vi khong loai khoi bao cao. 1.3.5 (28/9/2026): ket noi thu muc lam viec cua don vi (ktc_thu_muc.py, Nguyen tac 3) — tai khoan thanh vien tren Cowork doc 10-Dau-Vao/, luu 30-Ket-Qua/; hook do the thuc chay ca trong thu muc don vi; doctor bao che do thu muc, huong dan loi tat kho. ke-hoach 3.11, theo-doi-cv 1.9, bao-cao 3.17, soan-thao-vb 1.12, quan-tri 1.16, kpi-lap-ke-hoach 1.4, kpi-tu-danh-gia 1.3. 1.3.4 (28/9/2026): chuan 6 Truc — can cu QD 1923 PL I, II cho cot Diem cham/He so, quan he voi Danh muc QD 2119 (DL-20260928-002); ke-hoach 3.10, theo-doi-cv 1.8, bao-cao 3.16, soan-thao-vb 1.11, quan-tri 1.15; guard bo than heredoc dua cho trinh thong dich khoi phan tich cau lenh. 1.3.3 (28/9/2026): Danh muc san pham CHINH THUC QD 2119/QD-CDKT thay du thao TB 1052 (kpi_calc phuong an A co van ban, KH08, quan-tri 1.14, kpi-lap-ke-hoach 1.3, kpi-tu-danh-gia 1.2); guard: .replace/.rename chi la ghi khi co Path(...)/os. 1.3.2 (27/9/2026, tiep thu tham dinh lan 4): guard tang 2 CHAN thay vi hoi (F4-01); chan tao lien ket tro vao kho; sua nhan dang duong dan tuyet doi C:\; duong dan quy tac day du cho agent; kiem_vien_dan doc nhieu bang ma. 1.3.1 (27/9/2026, tiep thu tham dinh lan 3): guard 2 tang chan/hoi (ma nhung, vo lenh long, cd vao kho, UNC; vung = ca thanh phan duong dan); nhat ky khong luu lenh/mo ta tho, nap dau phien <= 4.500 ky tu; khoi chuan chung loi ~2.460 ky tu + ban day du trong references/; lich su phien ban tach khoi SKILL.md; quy tac bat dong skill-agent. 1.3.0 (26/9/2026, tiep thu tham dinh lan 1-2): go backup GitHub khoi plugin; PreToolUse guard chan ghi kho chuan (ktc_guard.py, fail-closed); nhat ky mac dinh chi ghi mo ta, noi dung chi khi chon #học / KTC_NHAT_KY_NOI_DUNG=1, xoa sau 30 ngay; chen chuan chung 20-Chuan-Chung/20-Quy-Tac-Bat-Bien-Va-Khuon-Dau-Ra.md vao 8 skill + 7 agent; quan-tri 1.13. 1.2.1 (25/9/2026): sheet KPI het che chu, du cot C–F; kpi-lap-ke-hoach 1.2, kpi-tu-danh-gia 1.1. 1.2.0 (25/9/2026): skill moi kpi-tu-danh-gia (giai doan 2); kpi-lap-ke-hoach 1.1. 1.1.2 (24/9/2026): nhat ky tu dong ra khoi git, "#riêng" khong ghi (CP-20260924-001). 1.1.1 (24/9/2026): doi_soat doc anh xa bo sung bang ma don vi; quan-tri 1.11. 1.1.0 (24/9/2026): skill moi kpi-lap-ke-hoach (QD 1923). 1.0.1: doi_soat; 1.0.0 (21/9): ban chinh thuc
 
 
 # Chi don cac thu muc SINH TU DONG. README.md/CHANGELOG.md o goc 31-Plugin/ la viet
@@ -62,7 +62,13 @@ CONG_CU_CHO_AGENT = ["tra_hieu_luc.py", "kiem_vien_dan.py", "duong_dan.py",
                      "kpi_nhat_quan.py", "lap_ho_so_minh_chung.py", "kpi_doi_chieu_cheo.py",
                      # 28/9/2026 (1.3.6): bo dung bao cao thang tu ban da ban hanh (skill bao-cao v3.18) va Track Changes
                      # (Nguyen tac 8) — truoc chi co trong du an, plugin phan phoi thieu -> san pham kem (chay thu 28/9)
-                     "bc_thang.py", "vanphong.py", "trich_tuong_thuat.py", "ktc_trackchanges.py"]
+                     "bc_thang.py", "vanphong.py", "trich_tuong_thuat.py", "ktc_trackchanges.py",
+                     # 5/11/2026 (1.4.0): kiem thuat ngu phap ly TN01-TN04 (agent ktc-kiem-thuat-ngu)
+                     "kiem_thuat_ngu.py",
+                     # 5/11/2026 (1.4.1): skill ke-hoach va kpi-lap-ke-hoach bao chay cong cu nay
+                     # (xuat tep nap phan mem KPI tinh, 27/10/2026) nhung no CHUA TUNG duoc dong vao
+                     # goi — goi .skill dong 29/9 con cu nen khong ai thay. Lo ra khi dong goi lai.
+                     "xuat_mau_import_kpi.py"]
 # Script chi chay tren may phat trien (Task Scheduler), KHONG dong vao plugin phan phoi (1.3.0, C-01/R2-01)
 CHI_DUNG_NOI_BO = {"ktc_backup_github.py"}
 # Chuan chung chen vao moi SKILL.md va agent khi dung (20-Chuan-Chung/20-..., 1.3.0)
@@ -126,6 +132,16 @@ def ghi_json(path: str, obj: dict):
         json.dumps(obj, ensure_ascii=False, indent=2) + "\n")
 
 
+def so_agent() -> int:
+    """Dem agent THAT SU se duoc dong vao goi. Khong ghi tay con so vao mo ta:
+    5/11/2026 mo ta ghi "36 agent" trong khi goi co 38 — viet tay luc du kien, sau do
+    go mot agent ma quen sua. Mo ta nay hien tren thu vien to chuc cho moi don vi doc."""
+    d = os.path.join(PLUGIN_SRC, "agents")
+    if not os.path.isdir(d):
+        return 0
+    return len([f for f in os.listdir(d) if f.endswith(".md") and f not in CHI_DUNG_NOI_BO])
+
+
 def build_manifest():
     print("── Ghi .claude-plugin/plugin.json ──")
     manifest = {
@@ -137,9 +153,10 @@ def build_manifest():
         "description": (
             "Quản trị nhiệm vụ khép kín của Trường Cao đẳng Kon Tum: Kế hoạch → Theo dõi → Báo cáo → "
             "Soạn thảo văn bản. 8 skill (quan-tri, ke-hoach, theo-doi-cv, bao-cao, soan-thao-vb, the-thuc, "
-            "kpi-lap-ke-hoach, kpi-tu-danh-gia); "
-            "7 agent (tự học, tự cải tiến, kiểm hồ sơ đơn vị, tra cứu căn cứ, kiểm sản phẩm, quét hiệu lực "
-            "viện dẫn, xác minh minh chứng); hook chặn ghi kho chuẩn, ghi nhật ký không lưu nội dung, đo thể thức."
+            f"kpi-lap-ke-hoach, kpi-tu-danh-gia); {so_agent()} agent — tra cứu căn cứ, kiểm hồ sơ đơn vị, kiểm sản phẩm, "
+            "quét hiệu lực viện dẫn, xác minh minh chứng, kiểm thuật ngữ pháp lý TN01–TN04, tra Từ điển pháp lý "
+            "và Hỏi đáp chính sách 13 lĩnh vực, tự học, tự cải tiến; "
+            "hook chặn ghi kho chuẩn, nhật ký không lưu nội dung, đo thể thức."
         ),
         "author": {
             "name": "Trường Cao đẳng Kon Tum - Phòng Tổng hợp - Hành chính và Quản trị"
@@ -152,9 +169,9 @@ def build_manifest():
             "claudeStrictValidation": "ĐẠT 26/9/2026 (bản 1.3.0, claude.exe 2.1.283) — `claude plugin validate "
                                        "./31-Plugin --strict`; bản 1.2.1 KHÔNG đạt với CLI 2.1.283 (YAML mô tả agent "
                                        "ktc-kiem-san-pham, đã sửa ở 1.3.0); chạy lại mỗi lần dựng.",
-            "parallelWith": ["ktc-quan-tri.skill", "ktc-bao-cao-v3.20.skill", "ktc-ke-hoach-v3.12.skill",
-                              "ktc-soan-thao-vb-v1.15.skill", "ktc-theo-doi-cv-v1.10.skill",
-                              "ktc-the-thuc-v1.3.skill", "ktc-kpi-lap-ke-hoach-v1.4.skill",
+            "parallelWith": ["ktc-quan-tri-v1.17.skill", "ktc-bao-cao-v3.21.skill", "ktc-ke-hoach-v3.13.skill",
+                              "ktc-soan-thao-vb-v1.17.skill", "ktc-theo-doi-cv-v1.11.skill",
+                              "ktc-the-thuc-v1.4.skill", "ktc-kpi-lap-ke-hoach-v1.5.skill",
                               "ktc-kpi-tu-danh-gia-v1.4.skill"],
         },
     }
@@ -275,7 +292,130 @@ def main():
     kiem_guard()
     kiem_phu_thuoc()
     kiem_thu_muc()
+    kiem_897()
     print("=" * 60)
+
+
+# Ban chinh thuc toan Truong tai 5/11/2026 (TB P-QLKHCN&HTPT, cai 4/11/2026).
+# Doi khi co ban moi: sua MOT cho nay.
+PB_897_CHINH_THUC = "4.6.4"
+
+
+# 897 duoc phat hanh theo HAI cach, khai phien ban o HAI cho khac nhau:
+#   a) goi plugin (ban cu, vd 1.0.3): rules/*.md ghi "KTC-Ra-Soat-897-v3-Core", "...-v2.24-BASELINE"
+#   b) goi .skill (ban chinh thuc v4.6.4): SKILL.md tieu de ghi "... (v4.6.4, 03/11/2026 ...)"
+# Phep kiem phai doc duoc CA HAI — bat duoc 5/11/2026: ban dau chi doc (a) nen se bao gia
+# "CHUA CAI" ngay sau khi nguoi dung cai dung ban v4.6.4.
+MAU_PB_897 = (
+    re.compile(r"KTC-Ra-Soat-897[ _-]?v([0-9]+(?:\.[0-9]+){1,2})"),
+    re.compile(r"R[àa] so[áa]t 897[^\n]{0,80}?\(v([0-9]+(?:\.[0-9]+){1,2})"),
+    re.compile(r"Phi[êe]n b[ảa]n:?\*{0,2}\s*v?([0-9]+(?:\.[0-9]+){1,2})"),
+)
+
+
+def _pb_897(thu_muc):
+    """Doc phien ban bo quy tac 897 tu NOI DUNG tep — KHONG suy dien tu ten thu muc
+    (bai hoc 18/9/2026). Tra ve chuoi vd '4.6.4', hoac None neu khong doc duoc."""
+    import glob
+    ung_vien = []
+    for mau in ("SKILL.md", "00-README.md", "rules/*.md", "core/*.md",
+                "skills/*/SKILL.md", "*/SKILL.md"):
+        ung_vien += glob.glob(os.path.join(thu_muc, mau))
+    cao_nhat = None
+    for p in sorted(set(ung_vien)):
+        try:
+            s = io.open(p, encoding="utf-8", errors="ignore").read(20000)
+        except OSError:
+            continue
+        for mau in MAU_PB_897:
+            for m in mau.finditer(s):
+                bo = tuple(int(x) for x in m.group(1).split("."))
+                if cao_nhat is None or bo > cao_nhat:
+                    cao_nhat = bo
+    return ".".join(str(x) for x in cao_nhat) if cao_nhat else None
+
+
+def kiem_897():
+    """1.4.0: bao ro plugin ktc-ra-soat-897 da cai chua va PHIEN BAN NAO.
+
+    Ly do: 5/11/2026 phat hien tai khoan ca nhan dang cai ban 1.0.3 (23/9/2026) nap bo quy tac
+    v2.24, trong khi ban chinh thuc toan Truong la v4.6.4 — soan thao va tu kiem im lang dung
+    chuan cu. Khong co phep kiem nao bao.
+    """
+    import glob
+    # Hai plugin co the nam o HAI nhanh khac nhau duoi .claude/plugins/:
+    #   cache/<marketplace>/<ten>/<phien ban>/     (ktc-quan-tri)
+    #   marketplaces/<marketplace>/<ten>/          (ktc-ra-soat-897)
+    # Nen phai leo den dung thu muc "plugins" roi moi tim, khong leo co dinh 3 cap
+    # (bao gia "CHUA CAI" khi thuc te da cai — bat duoc 5/11/2026 khi chay tren ban that).
+    goc_tim = None
+    d = GOC
+    for _ in range(8):
+        cha = os.path.dirname(d)
+        if cha == d:
+            break
+        if os.path.basename(d) == "plugins":
+            goc_tim = d
+            break
+        d = cha
+    # 897 co the den tu BA nguon khac nhau tren cung mot may (phat hien 5/11/2026):
+    #   1. skill DONG BO tu tai khoan claude.ai -> ~/.claude/skills/synced/<bucket>/ktc-ra-soat-897
+    #   2. plugin cai tay            -> ~/.claude/plugins/marketplaces/<mp>/ktc-ra-soat-897
+    #   3. marketplace cuc bo        -> ~/.claude/ktc-marketplace/ktc-ra-soat-897
+    # Ban dau chi tim (2)(3) nen gap plugin v3.0 cu truoc va BAO SAI "CU", trong khi tai khoan
+    # da co v4.6.4 qua (1). Phai gom HET roi lay ban CAO NHAT.
+    goc_nd = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.join(
+        os.path.expanduser("~"), ".claude")
+    tim = []
+    for muc in filter(None, (goc_tim, os.path.dirname(GOC),
+                             os.path.join(goc_nd, "skills"),
+                             os.path.join(goc_nd, "ktc-marketplace"))):
+        for x in glob.glob(os.path.join(muc, "**", "*ra-soat-897*"), recursive=True):
+            if not os.path.isdir(x):
+                continue
+            # Chi nhan thu muc THAT su chua bo quy tac, khong nhan thu muc trung ten.
+            # Ca hai cach phat hanh: goi plugin (rules/, core/) va goi .skill (SKILL.md).
+            if (os.path.isdir(os.path.join(x, "rules")) or os.path.isdir(os.path.join(x, "core"))
+                    or os.path.isfile(os.path.join(x, "SKILL.md"))):
+                tim.append(x)
+    # Lay ban CAO NHAT trong moi nguon tim duoc (khong phai ban tim thay dau tien):
+    # may nay dang co ba ban song song, bao theo ban nao gap truoc la vo nghia.
+    xep = []
+    for d in sorted(set(tim)):
+        pb = _pb_897(d)
+        if pb:
+            xep.append((tuple(int(x) for x in pb.split(".")), pb, d))
+    if xep:
+        xep.sort()
+        cao = xep[-1]
+        if len(xep) > 1:
+            print(f"  · 897: thấy {len(xep)} bản trên máy — lấy bản cao nhất v{cao[1]}")
+            for _, pb, d in xep[:-1]:
+                print(f"    (còn v{pb} tại {os.path.basename(os.path.dirname(d))}/{os.path.basename(d)})")
+        if cao[1] == PB_897_CHINH_THUC:
+            print(f"  ✓ ktc-ra-soat-897 v{cao[1]} (bản chính thức toàn Trường)")
+        else:
+            print(f"  ✗ ktc-ra-soat-897 v{cao[1]} — CŨ. Bản chính thức toàn Trường: v{PB_897_CHINH_THUC}")
+            print("    Soạn thảo và tự kiểm đang theo chuẩn cũ. Cài lại gói v"
+                  + PB_897_CHINH_THUC + " trước khi soạn văn bản trình ký.")
+        return
+
+    tim = sorted(set(tim), key=len)
+    if not tim:
+        print("  ✗ ktc-ra-soat-897: CHƯA CÀI — Nguyên tắc 9 (dùng bộ quy tắc 897 từ lúc bắt đầu viết)")
+        print("    không tự kiểm được thể thức, không rà soát trước trình ký. Cài gói v"
+              + PB_897_CHINH_THUC + " rồi mở lại phiên.")
+        return
+    for d in tim[:1]:
+        pb = _pb_897(d)
+        if pb is None:
+            print(f"  · ktc-ra-soat-897: đã cài, không đọc được phiên bản ({os.path.basename(d)})")
+        elif pb == PB_897_CHINH_THUC:
+            print(f"  ✓ ktc-ra-soat-897 v{pb} (bản chính thức toàn Trường)")
+        else:
+            print(f"  ✗ ktc-ra-soat-897 v{pb} — CŨ. Bản chính thức toàn Trường: v{PB_897_CHINH_THUC}")
+            print("    Soạn thảo và tự kiểm đang theo chuẩn cũ. Cài lại gói v"
+                  + PB_897_CHINH_THUC + " trước khi soạn văn bản trình ký.")
 
 
 def kiem_thu_muc():
@@ -602,10 +742,42 @@ def lap_ban_do_tep():
     print(f"  ✓ {os.path.relpath(p, PLUGIN_DIR)} ({len(dong)} dòng)")
 
 
+def nhan_ban_chuan_chung():
+    """Nhan ban quy tac dung chung tu 20-Chuan-Chung/ XUONG ban sao trong moi goi skill (CLAUDE.md:
+    "Sua o 20-Chuan-Chung/ truoc, roi nhan ban xuong tai buoc build").
+
+    Truoc 1.4.0 KHONG co buoc nay: ban sao trong .skill cu dan, lech ban goc ma khong ai thay
+    (phat hien 5/11/2026 — 00-Nguyen-Tac-Chung, 17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham
+    deu cu hon ban goc, BAN-DO-TEP mat 3 dong vi khong khop so bam).
+    """
+    print("── Nhân bản quy tắc dùng chung 20-Chuan-Chung/ xuống các gói skill ──")
+    goc_dir = os.path.join(DU_AN, "20-Chuan-Chung")
+    # "00-README.md" trung ten nhung KHAC noi dung (moi skill co README rieng) — khop ten tran
+    # se ghi de README cua skill. Chi nhan ban tep co so thu tu quy tac, va chi trong references/.
+    BO_QUA = {"00-README.md"}
+    ban_goc = {f: os.path.join(goc_dir, f) for f in os.listdir(goc_dir)
+               if f.endswith(".md") and f not in BO_QUA and re.match(r"^\d\d-", f)}
+    so = 0
+    for r, _ds, fs in os.walk(os.path.join(PLUGIN_DIR, "skills")):
+        if "references" not in os.path.relpath(r, PLUGIN_DIR).split(os.sep):
+            continue
+        for f in fs:
+            if f not in ban_goc:
+                continue
+            dich = os.path.join(r, f)
+            if _bam_lf(dich) == _bam_lf(ban_goc[f]):
+                continue
+            shutil.copyfile(ban_goc[f], dich)
+            so += 1
+            print(f"  ✓ {os.path.relpath(dich, PLUGIN_DIR)} ← 20-Chuan-Chung/{f}")
+    print(f"  {so} bản sao đã cập nhật" if so else "  ✓ mọi bản sao đã khớp bản gốc")
+
+
 if __name__ == "__main__":
     don_sach(PLUGIN_DIR)
     build_skills()
     giai_nen_goi_long()
+    nhan_ban_chuan_chung()
     build_manifest()
     build_hooks()
     build_doctor_script()

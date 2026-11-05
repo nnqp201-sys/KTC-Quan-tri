@@ -5,7 +5,7 @@ Kich hoat: nguoi dung noi "Track Changes" HOAC "ghi nhat ky sua doi".
 
 Can cu:
   - KTC-Quan-tri/20-Chuan-Chung/14-Nguyen-Tac-Soan-Thao-Bat-Bien.md (NT-2)
-  - KTC-Ra-Soat-897-v2-Cai-tien/references/Skill-Library/
+  - 92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/
       Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md
 
 Ba nhom API:

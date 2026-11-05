@@ -62,6 +62,9 @@ def muc_do_tu_chu(s):
 # QD 2119/QD-CDKT ngay 28/9/2026 thay the danh muc du thao kem TB 1052 (DL-20260928-001). CSV trich bang
 # 29-Cong-Cu/trich_danh_muc_qd2119.py tu phu luc PL-2119 trong KTC-Database (kem sha256 nguon).
 TEN_CSV = "he-so-san-pham-QD2119.csv"
+# Tu 27/10/2026 ma CHINH la ma cua phan mem KPI tinh (VNPT-DGCB): 'N1_241', 'T4_461'. Ma QD 2119
+# ('1.1.KH01.04') thanh ma THAM CHIEU de tra he so. Bang anh xa sinh boi 29-Cong-Cu/trich_danh_muc_pm_kpi.py.
+TEN_CSV_PM = "danh-muc-spcv-pm-kpi.csv"
 _DM = None
 
 
@@ -84,15 +87,41 @@ def danh_muc(p=None):
                 _DM.setdefault("ma:" + h["ma_san_pham"].strip().upper(), h)
                 _DM.setdefault("stt:" + str(h["stt"]).strip(), h)
                 _DM.setdefault(_kd(h["ten_san_pham"]), h)
+        _nap_ma_phan_mem(os.path.dirname(p))
     return _DM
 
 
+def _nap_ma_phan_mem(thu_muc):
+    """Gan them khoa 'ma:N1_241' (ma phan mem KPI tinh) vao chi muc QD 2119 — khong co bang anh xa thi bo qua.
+
+    Ma co trong danh muc phan mem nhung KHONG co trong QD 2119 (38 ma T1-T6 va N1_460) duoc ghi khoa
+    'pm_thieu:<ma>' de tra_A bao dung ly do THIEU_DU_LIEU, thay vi bao 'khong co trong danh muc'."""
+    p = os.path.join(thu_muc, TEN_CSV_PM)
+    if not os.path.exists(p):
+        return
+    with open(p, encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            ma = (r.get("ma_spcv") or "").strip()
+            ma2119 = (r.get("ma_qd2119") or "").strip().upper()
+            h = _DM.get("ma:" + ma2119) if ma2119 else None
+            if h is not None:
+                h["ma_spcv"] = ma
+                _DM.setdefault("ma:" + ma.upper(), h)
+            elif ma:
+                _DM.setdefault("pm_thieu:" + ma.upper(), r)
+
+
 def tra_A(ma_hoac_ten):
-    """Tra he so A theo MA SAN PHAM QD 2119 ('1.1.DA01.01'), STT phu luc ('1.1') hoac TEN SAN PHAM KHOP CHINH XAC
-    (chuan hoa). Khong co -> LoiKPI: dung hoi, KHONG tu gan A [Cau hoi mo so 2]."""
+    """Tra he so A theo MA PHAN MEM KPI ('N1_241'), MA SAN PHAM QD 2119 ('1.1.DA01.01'), STT phu luc ('1.1')
+    hoac TEN SAN PHAM KHOP CHINH XAC (chuan hoa). Khong co -> LoiKPI: dung hoi, KHONG tu gan A [Cau hoi mo so 2]."""
     dm = danh_muc()
     k = str(ma_hoac_ten or "").strip()
     h = dm.get("ma:" + k.upper()) or dm.get("stt:" + k) or dm.get(_kd(k))
+    if not h and dm.get("pm_thieu:" + k.upper()):
+        r = dm["pm_thieu:" + k.upper()]
+        raise LoiKPI(f"Sản phẩm '{k}' ({r.get('ten_spcv', '')}) có trong danh mục phần mềm KPI nhưng CHƯA có trong "
+                     "Danh mục kèm QĐ 2119 nên chưa có hệ số — THIEU_DU_LIEU, dừng hỏi người dùng; không tự gán hệ "
+                     "số A. Đề nghị P-TCCB bổ sung danh mục (Điều 3 QĐ 2119).")
     if not h:
         raise LoiKPI(f"Sản phẩm '{ma_hoac_ten}' không có trong Danh mục ban hành kèm QĐ 2119/QĐ-CĐKT — dừng, hỏi người "
                      "dùng (THIEU_DU_LIEU; không tự gán hệ số A).")
@@ -111,7 +140,8 @@ def tim_danh_muc(tu_khoa, loai=None, toi_da=15):
             continue
         tu = set(re.findall(r"\w+", _kd(f"{h['ten_san_pham']} {h['mo_ta']}")))
         if tk and all(t in tu for t in tk) and (not loai or _kd(loai) == _kd(h["loai_san_pham"])):
-            ra.append({"ma_san_pham": h["ma_san_pham"], "stt": h["stt"], "ten": h["ten_san_pham"],
+            ra.append({"ma_spcv": h.get("ma_spcv", ""),
+                       "ma_san_pham": h["ma_san_pham"], "stt": h["stt"], "ten": h["ten_san_pham"],
                        "loai": h["loai_san_pham"], "nhom": h["nhom"], "he_so": float(h["he_so"]),
                        "lech_nhom": h["lech_nhom"]})
     return ra[:toi_da]

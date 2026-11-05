@@ -5,7 +5,7 @@ description: "Chuan the thuc, ky thuat trinh bay BAT BUOC cho moi tep .docx va .
 
 # KTC-The-Thuc — Chuẩn thể thức sản phẩm .docx/.xlsx
 
-**Phiên bản: 1.3 — 29/9/2026** — Ban hành theo DL-20260919-003. 1.3: phép đo phần đầu nhận vai trò theo vị trí dòng —
+**Phiên bản: 1.4 — 5/11/2026** — nhân bản quy tắc dùng chung bản 29/10/2026 từ `20-Chuan-Chung/` (17-Quy-Tac-Vien-Dan, 18-Chuan-The-Thuc-San-Pham, 00-Nguyen-Tac-Chung, 19-Quy-Tac-KPI); không đổi nghiệp vụ. — Ban hành theo DL-20260919-003. 1.3: phép đo phần đầu nhận vai trò theo vị trí dòng —
 văn bản của đơn vị (mẫu 2.2) tên Trường là cơ quan chủ quản, không đậm; đính chính lỗi mẫu 06A, 06D. 1.2: nguyên tắc sửa văn bản tương tự hoặc ráp nội
 dung vào mẫu `03-Templates(1)`; khung dựng lại từ mẫu 03A; bước xem trang thật; phép đo TT11b (số trang ở trang 1),
 chuẩn hóa NFC. 1.1: khung `assets/Khung-the-thuc-VBHC.docx` (`--khung`); phép đo TT12–TT19 ánh xạ 897.
@@ -100,7 +100,7 @@ thấy tệp → làm theo SKILL.md, ghi `THIEU_DU_LIEU`, không đoán. Đầu 
 | Thứ tự nguồn, bảng chọn mẫu theo loại, số đo .docx/.xlsx, mã kiểm TT/TX, lỗi đã biết của mẫu | `references/18-Chuan-The-Thuc-San-Pham.md` |
 | Công cụ tạo từ mẫu, tạo từ khung và đo thể thức | `scripts/kiem_the_thuc.py` |
 | Khung thể thức văn bản hành chính (khi không đọc được kho) | `assets/Khung-the-thuc-VBHC.docx` |
-| Cỡ chữ từng thành phần (số ký hiệu, trích yếu, chữ ký…) | `KTC-Ra-Soat-897-v2-Cai-tien/references/Checklist/08-Quy-Uoc-Rieng-CDKT.md` mục 4 (bản gốc, không chép) |
+| Cỡ chữ từng thành phần (số ký hiệu, trích yếu, chữ ký…) | `2A-KTC-Ra-Soat-897/ktc-ra-soat-897/references/Quy-Tac-KTC/01-Bang-Thong-So-The-Thuc-KTC.md` (bản gốc, không chép) |
 
 ## Giới hạn
 

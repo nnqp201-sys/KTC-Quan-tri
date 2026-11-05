@@ -51,7 +51,7 @@ Danh sách dấu hiệu đầy đủ: `15-Skill-Track-Changes.md`.
 3. **Giao kèm bản đối chiếu**: nêu rõ đã sửa bao nhiêu chỗ, thuộc loại nào.
 
 **Đặc tả kỹ thuật đầy đủ — không viết lại ở đây, đọc trực tiếp:**
-`KTC-Ra-Soat-897-v2-Cai-tien/references/Skill-Library/Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md`
+`92-Kinh-Nghiem/07-Ra-Soat-897-v2.25/Bo-Sung-Chuan-Hoa-TrackChanges-MauChu-PhienBanSkill_20260825.md`
 
 Bốn điểm phải nhớ khi thi hành:
 
