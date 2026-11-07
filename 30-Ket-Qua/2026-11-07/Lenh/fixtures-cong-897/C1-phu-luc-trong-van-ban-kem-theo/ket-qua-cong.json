@@ -1,0 +1,69 @@
+{
+ "ket_luan": "CHAN",
+ "vong": 1,
+ "tac_vu": "ra-soat",
+ "anh_can_xem": [],
+ "du_thao": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C1-phu-luc-trong-van-ban-kem-theo\\hs\\Du-thao-QD-C1.docx",
+ "cac_ban_du_thao": [
+  "Du-thao-QD-C1.docx"
+ ],
+ "tep_kem_theo": {
+  "De-an-kem-theo-C1.docx": [
+   "kem_theo",
+   "(không có tiêu đề tên loại)"
+  ]
+ },
+ "sha256": {
+  "De-an-kem-theo-C1.docx": "0188b3e739bd95ecfaa279e00a685dcaf546131be5c2395a507e98a92ff07e23",
+  "Du-thao-QD-C1.docx": "b3315b57cc33ac9698cf2d93479c4a430cd6ebbf159552fe10cff9940f2f9b5b"
+ },
+ "xac_nhan_kem_thu_cong": [],
+ "xac_nhan_toan_van_thu_cong": [],
+ "phien_ban": "ktc-ra-soat-897 v4.6.4",
+ "duong_dan": {
+  "De-an-kem-theo-C1.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C1-phu-luc-trong-van-ban-kem-theo\\hs\\De-an-kem-theo-C1.docx",
+  "Du-thao-QD-C1.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C1-phu-luc-trong-van-ban-kem-theo\\hs\\Du-thao-QD-C1.docx"
+ },
+ "kho": "C:\\Users\\nnqp2\\.claude\\skills\\synced\\ce19c42a-5337-49be-bdaa-2c7a104ee5c0_b0ebabf2-9338-4829-bd3c-f5d273e5925a\\ktc-ra-soat-897\\references\\Kho-Du-Lieu-897\\kho_manifest.json",
+ "vbhn_thay_luat_goc": [],
+ "tep": [
+  [
+   "De-an-kem-theo-C1.docx",
+   ".docx",
+   "nhận"
+  ],
+  [
+   "Du-thao-QD-C1.docx",
+   ".docx",
+   "nhận"
+  ]
+ ],
+ "vai_tro": {
+  "De-an-kem-theo-C1.docx": "kem_theo",
+  "Du-thao-QD-C1.docx": "du_thao"
+ },
+ "van_ban_de_cap": [],
+ "dinh_danh": {},
+ "gop_trung_noi_dung": [],
+ "tham_so": {
+  "duong_dan": [
+   "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C1-phu-luc-trong-van-ban-kem-theo\\hs"
+  ],
+  "tac_vu": "ra-soat",
+  "vong": "auto",
+  "vai_tro": [
+   "De-an-kem-theo-C1.docx=kem_theo"
+  ],
+  "xac_nhan_kem": [],
+  "xac_nhan_toan_van": [],
+  "du_thao": "Du-thao-QD-C1.docx",
+  "kho": "C:\\Users\\nnqp2\\.claude\\skills\\synced\\ce19c42a-5337-49be-bdaa-2c7a104ee5c0_b0ebabf2-9338-4829-bd3c-f5d273e5925a\\ktc-ra-soat-897\\references\\Kho-Du-Lieu-897\\kho_manifest.json",
+  "cwd": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C1-phu-luc-trong-van-ban-kem-theo"
+ },
+ "ly_do_chan": [
+  "Dự thảo nhắc tới Phụ lục III nhưng hồ sơ không có phụ lục này – đề nghị bổ sung."
+ ],
+ "ghi_chu": [
+  "Vai trò “kem_theo” của tệp “De-an-kem-theo-C1.docx” do người rà soát chỉ định (--vai-tro)."
+ ]
+}

@@ -1,5 +1,110 @@
 # CHANGELOG – Skill ktc-ra-soat-897
 
+## v4.6.13-KTC – 07/11/2026 (bản bổ sung cá nhân – sửa cổng hồ sơ C1–C6, UTF-8 subprocess)
+
+Bản này sửa 6 tình huống chặn sai của cổng hồ sơ và lỗi mã hóa UTF-8, **không nằm trong lõi chính thức** của P-QLKHCN&HTPT.
+
+### A. Lỗi mã hóa UTF-8 subprocess (ưu tiên 1)
+- `tao_bao_cao.py`, `kiem_ke_ho_so.py`, `kiem_tra_the_thuc.py`: thêm `sys.stdout.reconfigure(encoding='utf-8', errors='replace')` ngay đầu script.
+- Mọi `subprocess.run(..., text=True)` trong `tools/` thêm `encoding='utf-8', errors='replace'`.
+- Nguồn byte `0xcd`: trang mã Windows cp1252 của PowerShell/cmd.exe khi in tiếng Việt.
+
+### C1. Phụ lục trong văn bản kèm theo
+- Dự thảo nhắc "Phụ lục N" mà văn bản vai trò `kem_theo` có tiêu đề "Phụ lục N" → coi là đủ.
+- `kiem_ke_ho_so.py`: thêm `pl_trong_kem` = phụ lục từ `phu_luc_tieu_de()` của tệp `kem_theo`.
+
+### C3. VBHN của Thông tư, Nghị định (không chỉ Luật)
+- Mở rộng nhận diện VBHN cho Thông tư, Nghị định, Quyết định (trước đó chỉ nhận Luật).
+- Gán `vbhn_key` cho tham chiếu theo số (ví dụ "Thông tư số 14/2025/TT-BXD").
+
+### C4. Ngày VBHN trong bảng chữ ký
+- `nhan_dien_chung.py`: thêm `docx_tables_text()` đọc text từ mọi bảng trong tệp docx.
+- `thong_tin_vbhn()`: nếu không tìm thấy ngày trong đoạn văn, tìm trong bảng (mẫu "XÁC THỰC VĂN BẢN HỢP NHẤT — Hà Nội, ngày …").
+
+### C5. "pháp luật" trong trích yếu
+- Pattern VBHN dùng negative lookbehind `(?<![pP]háp )` để không bắt "luật" trong "pháp luật về giao thông đường bộ".
+
+### C6. Tên văn bản sau dấu chấm phẩy
+- Pattern tìm TẤT CẢ tên văn bản trong phần trước "(hợp nhất tại ...)" rồi lấy CÁI CUỐI CÙNG (gần nhất với VBHN).
+- Ví dụ: "Nghị định 60/2021/NĐ-CP; khoản 5 Điều 54 Luật Quản lý..." → lấy "Luật Quản lý...".
+
+### Bộ ca kiểm thử
+- 5 ca mới C1, C3, C4, C5, C6 tại `30-Ket-Qua/2026-11-07/Lenh/fixtures-cong-897/` — mã thoát mong đợi 0.
+- Ca đối chứng chưa tạo (chờ phần F của lệnh).
+
+### Nhóm 6 sub-agent điều phối 897
+- Mô tả tại `2A-KTC-Ra-Soat-897/00-README.md` mục "Nhóm 6 sub-agent".
+- Đường dẫn: `.claude/agents/ktc-897-*.md`.
+
+## v4.6.12 – 06/11/2026 (sửa lỗi L5 của Báo cáo kiểm lại độc lập v4.6.11; chỉ sửa lỗi này)
+- **L5** `tools/track_changes.py`, `xac_minh`: tác giả Comment cũ không còn được dùng để miễn kiểm tác giả của dấu sửa mới (lỗi phát sinh từ bản sửa L2 của v4.6.11). Nay chỉ dấu sửa đã có trong bản gốc (khớp loại `w:ins`/`w:del` + `w:id` + tác giả, đếm cả số lần) và Comment đã có trong bản gốc (khớp id + tác giả) được giữ tên cũ; mọi dấu sửa/Comment khác phải mang tên “KTC Rà soát 897 (AI)”. Trường mới `tac_gia_sai` liệt kê dấu sửa/Comment sai tác giả. Tập tác giả cũ (dấu sửa ∪ Comment) chỉ còn dùng cho `tac_gia_cu_giu`.
+- SKILL.md Bước 8 mục 4: ghi quy tắc trên.
+- Bộ ca: thêm **L5** (X10, theo `bang_chung/x10_tac_gia_comment_cu.py`): đổi tác giả 1 dấu sửa mới thành “Nguyễn Văn B” (người viết Comment cũ) → `xac-minh` mã 1, `tac_gia_dung = False`; đối chứng bản giao đúng → mã 0. 36 mục: 35 ca cũ giữ 29 đạt · 6 một phần · 0 không đạt; L5 đạt. `x10_tac_gia_comment_cu.py` trên v4.6.11 → mã 0 (KHÔNG ĐẠT), trên v4.6.12 → mã 1 (ĐẠT). `tc_phong_phu.py` có Comment cũ: 16/16; `doi_khang.py`: 28/30 (D3, E5 như trước, ngoài phạm vi).
+- Phiên bản dữ liệu: kết quả cổng/đo/so sánh phải do v4.6.12 tạo.
+
+## v4.6.11 – 06/11/2026 (sửa 4 lỗi L1–L4 của Báo cáo nghiệm thu độc lập Bước 3 v4.6.10; chỉ sửa 4 lỗi này)
+- **L1** `tools/tao_bao_cao.py`, `DAU_HIEU_CHU_DE['AI']`: thêm trợ lý ảo, chatbot, Claude, A.I., học máy; mẫu “AI” nhận “GenAI”. Mẫu phân biệt hoa/thường nay viết trong `(?-i:…)` và mọi mẫu tìm với `re.I` (bỏ phép so chuỗi mẫu ở `phat_hien_chu_de`): “ai/mai/hai/Ai” tiếng Việt không bị bắt. **Ngoài danh sách được giao:** (1) “học máy” loại trừ “học máy tính” để không bắt nhầm môn tin học; (2) “Claude” chỉ khớp nguyên từ. Không thêm từ nào khác. Ca L1 (A1–A3 → mã 3; đối chứng “ai” viết thường + “học máy tính” → mã 0).
+- **L2** `tools/track_changes.py`, `xac_minh`: tập tác giả cũ = tác giả dấu sửa cũ ∪ tác giả Comment cũ của bản gốc. Ca L2 (T5, có và không có Comment cũ → ĐẠT, mã 0).
+- **L3** `ap_dung`, `xac_minh` (hàm mới `doc_sua`): tác giả luôn “KTC Rà soát 897 (AI)”; `sua.json` ghi `tac_gia` khác → từ chối, mã thoát 2, không tạo tệp. Ca L3 (X8 “Lê Trí Khải”, “Hiệu trưởng”, tên có khoảng trắng thừa → từ chối; ghi đúng tên → nhận). Ca 18 đổi cách dựng bản gốc có dấu cũ của người khác (đổi tên tác giả trong XML của bản tạm) vì `tac_gia` khác không còn được nhận.
+- **L4** `track_changes.py main`: `xac-minh` mã thoát 1 khi “KHÔNG ĐẠT”, 0 khi “ĐẠT (cấu trúc XML)”. SKILL.md Bước 4 mục 2 bỏ câu “script không tự nhận chủ đề”, ghi cho khớp Bước 7 mục 5 (script tự nhận dấu hiệu chủ đề AI); Bước 8 mục 4–5 và `tools/README.md` ghi mã thoát, quy tắc tác giả. Ca L4.
+- Bộ ca: 35 mục – 31 ca cũ giữ 25 đạt · 6 một phần · 0 không đạt; 4 ca mới L1–L4 đạt (và đều KHÔNG ĐẠT khi chạy trên v4.6.10). Chạy lại `bang_chung/doi_khang.py`: A1–A3 nay đạt; D3, E5 vẫn như bản nghiệm thu (ngoài phạm vi). `tc_phong_phu.py` có Comment cũ: 16/16.
+- Phiên bản dữ liệu: kết quả cổng/đo/so sánh phải do v4.6.11 tạo.
+
+## v4.6.10 – 06/11/2026 (theo quyết định của Hiệu trưởng sau Work lần 4)
+- Hiệu trưởng quyết định (06/11/2026): **bỏ hẳn miễn nguồn theo chủ đề, không cần xác nhận**. Mọi dự thảo có dấu hiệu chủ đề AI (nội dung hoặc dẫn chiếu QĐ 2307/2328/2487/2520) mà `chu_de` không khai AI → bắt buộc phủ nguồn AI, không có đường giải trình. `chu_de_giai_trinh` còn trong dữ liệu → báo “không còn hiệu lực” (chưa hoàn tất, mã 3). Cờ `--xac-nhan-mien-nguon` bị bỏ. Cách này đóng triệt để lỗ hổng Work lần 4 (không còn phụ thuộc từ khóa/cấu trúc đoạn).
+- Bộ ca P3: d3–d6 (đoạn kể hợp lệ về hình thức, “bố trí trợ lý AI”, tiêu đề, câu của Work) đều → mã 3; d7 cờ cũ bị từ chối; d8 khai chủ đề đầy đủ vẫn hoàn tất.
+- Đã chuyển v4.6.9 (có cờ xác nhận) thành lịch sử; v4.6.10 thay thế.
+
+## v4.6.9 – 06/11/2026 (sửa theo Ý KIẾN THẨM ĐỊNH ĐỘC LẬP LẦN 4 của Work; Work KHÔNG thẩm định lần 5 – chuyển Bước 3 nghiệm thu)
+- Lỗi chính (Work lần 4): danh sách từ khóa mệnh lệnh để lọt “Điều 1. Mỗi đơn vị bố trí một trợ lý AI.” và tiêu đề “Triển khai trợ lý AI trong toàn Trường” (từ “bố trí” không có trong danh sách) → báo cáo hoàn tất dù chỉ đối chiếu QĐ 1976/2073. Sửa theo hướng CẤU TRÚC, không thêm từ khóa:
+  * `doan_chi_nhac_duoc_xet` (tools/tao_bao_cao.py): chỉ đoạn văn kể/nêu sự việc (câu hoàn chỉnh ≥ 40 ký tự, kết thúc bằng dấu câu, không phải tiêu đề/“V/v”/Điều/Khoản/Mục/gạch đầu dòng/đề mục viết hoa) mới được xét miễn; tiêu đề, điều khoản, gạch đầu dòng, đề mục → luôn phải phủ nguồn chủ đề. Kiểm từ khóa mệnh lệnh giữ lại như lớp thứ hai.
+  * `--xac-nhan-mien-nguon CHỦ_ĐỀ=HỌ_TÊN`: ngoại lệ miễn nguồn chủ đề CHƯA có xác nhận của người dùng (họ tên trùng `nguoi_xac_nhan`) → không hoàn tất, mã 3. AI KHÔNG được tự đặt cờ này; phải hỏi người dùng sau khi đưa các đoạn trích. Phụ lục A in trạng thái xác nhận.
+- Ca 24: thiếu soffice/pdftotext hoặc lỗi chạy công cụ → “CHƯA KIỂM – thiếu công cụ” (không còn FileNotFoundError; tách lỗi công cụ khỏi lỗi tài liệu).
+- Bộ ca P3: d5a (không cờ → 3), d5b (có cờ đúng tên → hoàn tất, Phụ lục A in xác nhận), d5c (cờ sai tên → 3), d6 (ca của Work → 3), d7 (hàm cấu trúc). 
+- Giới hạn còn lại: chính sách miễn nguồn và dung sai hiển thị chờ Hiệu trưởng; Word chưa kiểm đầu/chân trang, trường PAGE, ảnh, đánh số, tác giả Comment, ca 21 tình huống thật, ca 24 trang.
+
+## v4.6.8 – 06/11/2026 (sửa theo Ý KIẾN THẨM ĐỊNH ĐỘC LẬP LẦN 3 của Work; CHƯA nghiệm thu)
+- `giai_trinh_chu_de_hop_le`: bỏ phép chứa-một-phần; `doan_trich` phải trùng NGUYÊN ĐOẠN với mọi đoạn có dấu hiệu (không thừa, không thiếu); thêm `nguoi_xac_nhan`; đoạn có từ ngữ điều chỉnh/cho phép việc dùng AI (được, không được, phải, sử dụng, hỗ trợ, soạn thảo…) bị từ chối – vẫn phải phủ nguồn chủ đề dù không dẫn chiếu số QĐ (câu của Work “Viên chức được sử dụng hệ thống AI…” nay → mã 3). Giới hạn: danh sách từ khóa là biện pháp thận trọng, có thể chặn cả đoạn chỉ nhắc AI; khi đó khai `chu_de` và phủ nguồn.
+- Báo cáo in ngoại lệ miễn nguồn ở Phụ lục A (chủ đề, nguồn bị loại, lý do, đoạn căn cứ, người xác nhận); Skill không xác nhận lý do miễn là đúng.
+- Bằng chứng Word gắn tệp: mỗi `caNN.json` khai `tep` {tên: SHA-256}; bộ ca chỉ nhận khi trùng tệp đóng gói tại `tests/ket_qua/word/tep/` (đã đóng gói 10 tệp thử). Ca 15, 17 (bằng chứng cũ không có SHA) hạ về “CHƯA KIỂM phần Word”.
+- Ca 19 hạ “ĐẠT MỘT PHẦN” (tệp thử không có đầu/chân trang, trường, ảnh, đánh số). Ca 21: chạy Word Compare trên hai tệp chỉ khác lề – Word báo 1 revision định dạng, KHÔNG phải 0; tình huống “Compare = 0 nhưng ảnh khác” chưa tái hiện → ca 21 “ĐẠT MỘT PHẦN”; Skill vẫn không có so ảnh/dung sai (hoãn theo Hiệu trưởng).
+- Bộ ca P3 thêm 7 tình huống hàm giải trình, ca đầu cuối cho câu của Work (mã 3) và ca miễn hợp lệ có in Phụ lục A.
+
+
+## v4.6.7 – 06/11/2026 (sửa theo Ý KIẾN THẨM ĐỊNH ĐỘC LẬP LẦN 2 của Work; CHƯA nghiệm thu)
+- `chu_de_giai_trinh.<chủ đề>` phải là đối tượng `{ly_do ≥ 20 ký tự, doan_trich: […]}` trích nguyên văn mọi đoạn có dấu hiệu; chuỗi trần bị từ chối; dự thảo có dẫn chiếu QĐ AI thì không được miễn (`giai_trinh_chu_de_hop_le`).
+- Nhật ký phạm vi: mục ngoài nguồn bắt buộc có `da_doc` ≠ `toan_van` phải có `loai_tru` {ngoai_pham_vi, ly_do ≥ 20}; `toan_van` mà còn `phan_chua_doc` thật là mâu thuẫn (mọi mục).
+- `--xac-nhan-phu-luc`: trích bằng chứng phải là tiêu đề phụ lục thật (bắt đầu “Phụ lục X”, không phải ghi chú phủ định/dự kiến/giả định, có đoạn nội dung theo sau); kết quả ghi vị trí và SHA-256 nguồn.
+- Tự ghép bản dự thảo (Hiệu trưởng duyệt 06/11/2026): chỉ khi CẢ HAI bản có đơn vị và ký hiệu số trùng và “Dự thảo lần N” khác nhau; thiếu một trong hai → hỏi một lần (`khong_ro`).
+- `track_changes.kiem_comment`: so mốc neo ở trạng thái Reject (sửa hợp lệ trong cùng đoạn không bị coi là Comment di chuyển).
+- Khóa bộ đệm: bỏ ghi nhớ `_MA_KHO`, băm lại Kho mỗi lần gọi.
+- Word thật (06/11/2026 11:41–11:45): ca 14, 18 (Reject theo tác giả), 20 đạt; ca 18 cho thấy Reject All mọi tác giả cũng bỏ dấu cũ của người khác; ca 21 (Word Compare) đạt trên tệp kiểm nhỏ, ca 19 đạt hạn chế (tệp không có đầu/chân trang, trường); ca 24 chưa kiểm.
+- Bộ ca: thêm P5 (nguồn ngoài bắt buộc), P6 (sửa + Comment cùng đoạn), mở rộng P2/P3/P4/c12. Chưa kiểm trong Word thật: ca 18–21, hiển thị.
+
+## v4.6.6 – 06/11/2026 (sửa theo Ý KIẾN THẨM ĐỊNH ĐỘC LẬP của Work ngày 06/11/2026; CHƯA nghiệm thu)
+Work kết luận v4.6.5 chưa nên sang Bước 3 (16 đạt, 6 một phần, 1 chưa kiểm, 2 không đạt khi Work chạy lại). Các lỗi kỹ thuật đã tái hiện và sửa (không cần quyết định chính sách):
+- `danh_gia_hoan_tat`: chủ đề không còn chỉ dựa vào khai báo – nhận dấu hiệu chủ đề AI từ nội dung dự thảo và dẫn chiếu QĐ 2307/2328/2487/2520 (`phat_hien_chu_de`), chưa khai thì vẫn buộc phủ nguồn AI trừ khi có `chu_de_giai_trinh`; `da_doc = toan_van` mà `phan_chua_doc` còn nội dung → chưa hoàn tất (mọi mục nhật ký, kể cả nguồn không bắt buộc).
+- Khóa bộ đệm (`_ma_ham_chay`) băm NỘI DUNG toàn bộ tệp Kho và quy tắc, không chỉ manifest; lỗi tạo thư mục tạm trong `_chay_json` được bắt và chẩn đoán.
+- `track_changes.xac_minh`: kiểm Comment cũ (id, tác giả, nội dung, mốc neo), Comment mới (nội dung, tác giả, đúng đoạn neo), không Comment thừa; xóa/sửa Comment → KHÔNG ĐẠT.
+- `phan_loai_phu_luc`: nhận “được ban hành kèm theo / đã được ban hành tại / đính kèm Quyết định số X”, dẫn chiếu trải đến 3 đoạn.
+- Quan hệ giữa các bản dự thảo: so thêm đơn vị ban hành và ký hiệu số (`dau_co_quan`, `quan_he_van_ban`); khác đơn vị → không tự ghép bản cũ–mới. Quy tắc “cùng nội dung” trong mã: tập từ trích yếu (bỏ từ chung) của văn bản ngắn hơn nằm trọn trong văn bản dài hơn và chiếm ≥ 50% (không phải “trùng ≥ 50%” đơn thuần); ngưỡng 50% là lựa chọn kỹ thuật của người sửa, chưa có căn cứ từ văn bản nào – chờ ý kiến.
+- `--xac-nhan-phu-luc`: phải kèm trích nguyên văn tiêu đề phụ lục (sau “||”) có trong văn bản chủ quản, ghi đoạn tìm thấy; thừa nhận phụ lục không tồn tại/dẫn chiếu sai bị từ chối.
+- Bộ thử: ca 11 không còn phụ thuộc /proc (Linux); ca 14, 18 thêm ca xóa Comment; ca 12 viết lại; thêm ca P1–P4; nhãn “đạt” ca 24 thu hẹp theo phạm vi thực kiểm.
+- Đã được Hiệu trưởng quyết định ngày 06/11/2026: (1) phạm vi tự ghép phiên bản như nêu ở mục “Quan hệ giữa các bản dự thảo” (cùng loại, trích yếu, đơn vị, ký hiệu số và có “Dự thảo lần N” khác nhau trong nội dung; còn lại hỏi một lần); (2) dẫn chiếu sai/phụ lục không tồn tại: giữ chặn, không thêm đường gỡ bằng xác nhận; (3) dung sai hiển thị: hoãn đến khi có kết quả kiểm Word thật.
+- Việc CÒN MỞ (không khẳng định): nguyên nhân treo 900 giây; Word Compare, Accept/Reject trong Word cho ca 18–20, dựng trang bằng Word; phán đoán nội dung ca 10; dấu hiệu chủ đề chỉ có cho AI. Còn chờ Hiệu trưởng: dung sai hiển thị (hoãn đến khi có kết quả kiểm Word thật).
+- Phiên bản dữ liệu: kết quả cổng/đo/so sánh phải do v4.6.6 tạo.
+
+## v4.6.5 – 06/11/2026 (cập nhật theo QĐ 2520/QĐ-CĐKT 05/11/2026 và yêu cầu của Work 05/11/2026; đã chạy bộ ca kiểm thử – xem hồ sơ bàn giao; Hiệu trưởng đã duyệt ba quy tắc mới ngày 06/11/2026)
+- QĐ 2520 (Điều 1 kh. 1–3, Điều 2): Kho v4.4 thêm QĐ 2520, ghi chú “đã được sửa đổi” ở QĐ 2307/2328/2487; SKILL.md Lưu ý bảo mật; Bước 4.2 thêm QĐ 2520 vào nguồn bắt buộc chủ đề AI; Bước 3A thủ tục văn bản sửa đổi (YC mục 5).
+- YC 1: phụ lục của văn bản được dẫn thuộc văn bản đó (`phan_loai_phu_luc`, `phu_luc_thuoc_van_ban_khac`); không đòi trong hồ sơ, không thay phụ lục của văn bản khác.
+- YC 2: định danh dự thảo/lần rà soát bằng nội dung (`dinh_danh_van_ban`, `quan_he_dinh_danh`); tên tệp chỉ cảnh báo; hỏi một lần.
+- YC 3–4: tách dữ liệu hợp lệ / hoàn tất rà soát (`danh_gia_hoan_tat`), mã thoát 3, “Chưa đủ cơ sở đánh giá”, `kieu_bao_cao: tien_do`, nhật ký phạm vi và Phụ lục A/B, Phần I dòng 11–12.
+- YC 6: `kiem_moi_truong`, `--thu-muc-lam-viec`, chẩn đoán theo bước, bộ đệm theo mã băm, dựng trang bằng Word khi thiếu LibreOffice (cần thử trên máy có Word).
+- YC 7: `--xac-nhan-phu-luc` / `--nguoi-xac-nhan` ghi vào kết quả cổng.
+- YC 9: Bước 8 và `tools/track_changes.py`.
+- Đã được Hiệu trưởng duyệt ngày 06/11/2026: (1) cụm “Chưa đủ cơ sở đánh giá”; (2) tác giả dấu sửa “KTC Rà soát 897 (AI)”; (3) việc chặn dựng báo cáo chính thức khi chưa hoàn tất.
+- Phiên bản dữ liệu: kết quả cổng/đo/so sánh phải do v4.6.5 tạo.
+
 ## v4.6.4 – 03/11/2026 (v4.6.3 + quyết định Q1–Q5 của người phụ trách ngày 03/11/2026; tự kiểm của người sửa; Hiệu trưởng phê duyệt chính thức ngày 03/11/2026)
 - Q1: chủ đề AI – ma trận đối chiếu luôn gồm thêm QĐ 2487/QĐ-CĐKT (SKILL Bước 4.2, checklist, chỉ mục Kho). Người rà soát thực hiện; script không tự nhận chủ đề nên không ép buộc (chỉ ép QĐ 1976, 2073 như trước).
 - Q2: đối chiếu Danh mục AI (QĐ 2487) bằng mã sẵn có, không mã mới: ngoài/trái Danh mục → DC-01; rộng hơn (loại dữ liệu, nhóm người dùng, phạm vi) → DC-03; tên công cụ/nhà cung cấp/mức rủi ro khác Danh mục (ví dụ “NotebookLM”) → DC-06; đều Mức 2, Mức 1 nếu trái pháp luật/văn bản cấp trên (SKILL Bước 4 mục 4; 02-Quy-Tac-Xep-Muc DC-06).

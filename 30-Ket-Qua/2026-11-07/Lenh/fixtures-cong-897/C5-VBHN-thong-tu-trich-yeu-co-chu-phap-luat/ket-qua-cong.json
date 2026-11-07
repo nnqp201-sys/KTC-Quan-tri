@@ -1,0 +1,106 @@
+{
+ "ket_luan": "CHAN",
+ "vong": 1,
+ "tac_vu": "ra-soat",
+ "anh_can_xem": [],
+ "du_thao": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C5-VBHN-thong-tu-trich-yeu-co-chu-phap-luat\\hs\\Du-thao-C5.docx",
+ "cac_ban_du_thao": [
+  "Du-thao-C5.docx"
+ ],
+ "tep_kem_theo": {},
+ "sha256": {
+  "Du-thao-C5.docx": "c3da9b952b8f5c10458c5c0f65c144688c88427dbb136f1a6a094cf6da5cb459",
+  "VBHN-27-VBHN-BXD.docx": "8e24b8e5f68d1ab5bd9eac0ab0ba4bbd29b040e74d96fefc8502723d6e0a24f9"
+ },
+ "xac_nhan_kem_thu_cong": [],
+ "xac_nhan_toan_van_thu_cong": [],
+ "phien_ban": "ktc-ra-soat-897 v4.6.12",
+ "duong_dan": {
+  "Du-thao-C5.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C5-VBHN-thong-tu-trich-yeu-co-chu-phap-luat\\hs\\Du-thao-C5.docx",
+  "VBHN-27-VBHN-BXD.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C5-VBHN-thong-tu-trich-yeu-co-chu-phap-luat\\hs\\VBHN-27-VBHN-BXD.docx"
+ },
+ "kho": "D:\\.CLAUDE code\\KTC-Quan-tri\\2A-KTC-Ra-Soat-897\\ktc-ra-soat-897\\references\\Kho-Du-Lieu-897\\kho_manifest.json",
+ "vbhn_thay_luat_goc": [],
+ "tep": [
+  [
+   "Du-thao-C5.docx",
+   ".docx",
+   "nhận"
+  ],
+  [
+   "VBHN-27-VBHN-BXD.docx",
+   ".docx",
+   "nhận"
+  ]
+ ],
+ "vai_tro": {
+  "Du-thao-C5.docx": "du_thao",
+  "VBHN-27-VBHN-BXD.docx": "lien_quan"
+ },
+ "van_ban_de_cap": [
+  {
+   "loai": "Thông tư",
+   "so": "14/2025/TT-BXD",
+   "key": "14/2025/TT-BXD",
+   "ten": null,
+   "doan": 10,
+   "ngu_canh": "Căn cứ Thông tư số 14/2025/TT-BXD ngày 30/6/2025 của Bộ trưởng Bộ Xây dựng quy định về đào tạ",
+   "can_cu": true,
+   "nguyen_van": "Căn cứ Thông tư số 14/2025/TT-BXD ngày 30/6/2025 của Bộ trưởng Bộ Xây dựng quy định về đào tạo lái xe; bồi dưỡng, kiểm tra, cấp chứng chỉ bồi dưỡng kiến thức pháp luật về giao thông đường bộ (hợp nhất tại Văn bản hợp nhất số 27/VBHN-BXD ngày 12/6/2026);",
+   "neu_thay_the": false,
+   "tep": "Du-thao-C5.docx",
+   "trang_thai": "THIẾU",
+   "nguon": ""
+  },
+  {
+   "loai": "Văn bản hợp nhất",
+   "so": "27/VBHN-BXD",
+   "key": "27/VBHN-BXD",
+   "ten": null,
+   "doan": 10,
+   "ngu_canh": " nhất tại Văn bản hợp nhất số 27/VBHN-BXD ngày 12/6/2026);",
+   "can_cu": true,
+   "nguyen_van": "Căn cứ Thông tư số 14/2025/TT-BXD ngày 30/6/2025 của Bộ trưởng Bộ Xây dựng quy định về đào tạo lái xe; bồi dưỡng, kiểm tra, cấp chứng chỉ bồi dưỡng kiến thức pháp luật về giao thông đường bộ (hợp nhất tại Văn bản hợp nhất số 27/VBHN-BXD ngày 12/6/2026);",
+   "neu_thay_the": false,
+   "luat_hop_nhat": "LUẬT VỀ GIAO THÔNG ĐƯỜNG BỘ",
+   "ngay_vbhn": [
+    2026,
+    6,
+    12
+   ],
+   "tep": "Du-thao-C5.docx",
+   "trang_thai": "KHÔNG KHỚP",
+   "nguon": "VBHN-27-VBHN-BXD.docx"
+  }
+ ],
+ "dinh_danh": {
+  "VBHN-27-VBHN-BXD.docx": [
+   "27/VBHN-BXD"
+  ]
+ },
+ "gop_trung_noi_dung": [],
+ "tham_so": {
+  "duong_dan": [
+   "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C5-VBHN-thong-tu-trich-yeu-co-chu-phap-luat\\hs"
+  ],
+  "tac_vu": "ra-soat",
+  "vong": "auto",
+  "vai_tro": [],
+  "xac_nhan_kem": [],
+  "xac_nhan_toan_van": [],
+  "xac_nhan_phu_luc": [],
+  "nguoi_xac_nhan": null,
+  "du_thao": null,
+  "kho": "D:\\.CLAUDE code\\KTC-Quan-tri\\2A-KTC-Ra-Soat-897\\ktc-ra-soat-897\\references\\Kho-Du-Lieu-897\\kho_manifest.json",
+  "cwd": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C5-VBHN-thong-tu-trich-yeu-co-chu-phap-luat"
+ },
+ "phu_luc_thuoc_van_ban_khac": [],
+ "xac_nhan_phu_luc_thu_cong": [],
+ "lich_su_ra_soat": [],
+ "xac_nhan_vong": null,
+ "ly_do_chan": [
+  "Thiếu toàn văn Thông tư số 14/2025/TT-BXD (tệp Du-thao-C5.docx, đoạn 10: \"Căn cứ Thông tư số 14/2025/TT-BXD ngày 30/6/2025 của Bộ trưởng Bộ Xây …\") – đề nghị cung cấp bản .docx/.xlsx hoặc PDF có lớp chữ.",
+  "Văn bản hợp nhất số 27/VBHN-BXD trong hồ sơ không khớp viện dẫn của dự thảo (VBHN-27-VBHN-BXD.docx: tệp hợp nhất \"Thông tư 14/2025/tt-bxd\", dự thảo dẫn \"Luật về giao thông đường bộ\") – đề nghị cung cấp đúng VBHN được dẫn hoặc sửa viện dẫn (quy tắc người phụ trách xác nhận 02/11/2026: VBHN phải khớp số, ngày, luật được hợp nhất)."
+ ],
+ "ghi_chu": []
+}

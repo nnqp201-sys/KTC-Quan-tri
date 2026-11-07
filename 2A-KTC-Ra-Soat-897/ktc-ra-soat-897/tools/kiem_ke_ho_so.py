@@ -20,11 +20,14 @@ Cách dùng:
   python3 kiem_ke_ho_so.py <thư mục hoặc tệp ...> [--vong auto|1|2|3...]
           [--du-thao <tệp>] [--kho <đường dẫn kho_manifest.json>] [--json out.json]
 """
-import sys, os, re, json, zipfile, subprocess, argparse, unicodedata, hashlib, shutil
+import sys, os, re, json, zipfile, subprocess, argparse, unicodedata, hashlib, shutil, tempfile
+# v4.6.13-KTC (A): ép UTF-8 cho stdout/stderr trên Windows, tránh UnicodeDecodeError
+if hasattr(sys.stdout, 'reconfigure'): sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'reconfigure'): sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.dont_write_bytecode = True  # v4.6.4: không ghi __pycache__ vào thư mục Skill
 import nhan_dien_chung as ND  # v4.6: nhận diện số hiệu, tiêu đề, Unicode dùng chung (KTS-01, KTS-26)
-PHIEN_BAN = 'ktc-ra-soat-897 v4.6.4'
+PHIEN_BAN = 'ktc-ra-soat-897 v4.6.13-KTC'
 from xml.etree import ElementTree as ET
 
 W = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -51,7 +54,7 @@ def _ptext(p):
 
 
 def docx_paras(path):
-    """Đoạn văn của thân văn bản, rồi đến chú thích cuối trang/cuối văn bản (đánh dấu “[Chú thích]”) – PB-05."""
+    """Đoạn văn của thân văn bản, rồi đến chú thích cuối trang/cuối văn bản (đánh dấu "[Chú thích]") – PB-05."""
     with zipfile.ZipFile(path) as z:
         root = ET.fromstring(z.read('word/document.xml'))
         out = [_ptext(p) for p in root.iter(W + 'p')]
@@ -62,6 +65,21 @@ def docx_paras(path):
                     t = _ptext(p)
                     if t: out.append('[Chú thích] ' + t)
     return out
+
+
+def docx_tables_text(path):
+    """v4.6.13-KTC (C4): đọc text từ tất cả bảng trong tệp docx."""
+    try:
+        with zipfile.ZipFile(path) as z:
+            root = ET.fromstring(z.read('word/document.xml'))
+            out = []
+            for tbl in root.iter(W + 'tbl'):
+                for p in tbl.iter(W + 'p'):
+                    t = _ptext(p)
+                    if t: out.append(t)
+            return out
+    except Exception:
+        return []
 
 
 def docx_jc(path):
@@ -150,9 +168,9 @@ def docx_anh_lon(path, xuat=None):
 
 
 def xlsx_text(path):
-    """v4.6.3: chữ của .xlsx theo TỪNG HÀNG (mỗi hàng một đoạn, các ô cách nhau “ | ”), giải đúng ô chuỗi dùng chung (t="s"), chuỗi
-    trong ô (inlineStr), ô số. v4.6.2 nối mọi chữ – kể cả chỉ số chuỗi dùng chung – thành MỘT đoạn: dòng “Số: …” không nhận được số hiệu,
-    và cả bảng bị coi là phần định danh khi ô đầu là “Số:”."""
+    """v4.6.3: chữ của .xlsx theo TỪNG HÀNG (mỗi hàng một đoạn, các ô cách nhau " | "), giải đúng ô chuỗi dùng chung (t="s"), chuỗi
+    trong ô (inlineStr), ô số. v4.6.2 nối mọi chữ – kể cả chỉ số chuỗi dùng chung – thành MỘT đoạn: dòng "Số: …" không nhận được số hiệu,
+    và cả bảng bị coi là phần định danh khi ô đầu là "Số:"."""
     NS_ = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
     with zipfile.ZipFile(path) as z:
         ten = z.namelist()
@@ -179,8 +197,8 @@ def pdf_info(path):
     if shutil.which('pdftotext') is None:
         return 'THIEU_CONG_CU', 0
     try:
-        t = subprocess.run(['pdftotext', '-layout', path, '-'], capture_output=True, text=True, timeout=120).stdout
-        n = subprocess.run(['pdfinfo', path], capture_output=True, text=True, timeout=60).stdout
+        t = subprocess.run(['pdftotext', '-layout', path, '-'], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120).stdout
+        n = subprocess.run(['pdfinfo', path], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=60).stdout
         pages = int(re.search(r'Pages:\s+(\d+)', n).group(1)) if re.search(r'Pages:\s+(\d+)', n) else 1
     except Exception:
         return None, 1
@@ -249,7 +267,7 @@ KEM_LOAI_HOA = r'(Quy định|Quy chế|Điều lệ|Nội quy|Kế hoạch|Danh
 
 
 def _tach_liet_ke(loai, ty):
-    """v4.5 (PB5-WORK-03): “Quy định A và Quy chế B, Kế hoạch C” → [(QUY ĐỊNH, A), (QUY CHẾ, B), (KẾ HOẠCH, C)]."""
+    """v4.5 (PB5-WORK-03): "Quy định A và Quy chế B, Kế hoạch C" → [(QUY ĐỊNH, A), (QUY CHẾ, B), (KẾ HOẠCH, C)]."""
     parts = re.split(r'\s*(?:,|;|\svà|\scùng)\s+(?=(?:' + KEM_LOAI_HOA[1:-1] + r')\b)', ty)
     out = [(loai, parts[0])]
     for q_ in parts[1:]:
@@ -259,7 +277,7 @@ def _tach_liet_ke(loai, ty):
 
 
 def kem_can(P):
-    """Các văn bản kèm theo mà dự thảo ban hành: [(LOẠI, trích yếu)] – “ban hành kèm theo Quyết định này Quy định …”, “Quy định … ban hành kèm theo Quyết định này”;
+    """Các văn bản kèm theo mà dự thảo ban hành: [(LOẠI, trích yếu)] – "ban hành kèm theo Quyết định này Quy định …", "Quy định … ban hành kèm theo Quyết định này";
     tách từng văn bản khi một câu liệt kê nhiều văn bản (v4.5)."""
     out = []
     for p in P:
@@ -276,7 +294,7 @@ def kem_can(P):
 
 
 def kem_trong(P):
-    """Các văn bản kèm theo đặt trong chính tệp (sau “Nơi nhận”): [(LOẠI, trích yếu)]."""
+    """Các văn bản kèm theo đặt trong chính tệp (sau "Nơi nhận"): [(LOẠI, trích yếu)]."""
     ki = next((i for i, p in enumerate(P) if re.match(r'^Nơi nhận\s*(?::|$)', p)), None)
     if ki is None: return []
     out = []
@@ -298,9 +316,9 @@ def tieu_de_kem(paras):
     """v4.3 (TH-02): tệp là phụ lục / văn bản kèm theo nộp riêng – tiêu đề ở đầu tệp, không có quốc hiệu, số văn bản.
     Trả về ('phu_luc', 'I') | ('kem_theo', 'QUY ĐỊNH') | None."""
     dau = [p for p in paras[:10] if p and not p.startswith('[Chú thích]')]
-    # phụ lục/văn bản kèm theo của văn bản ĐÃ BAN HÀNH (dòng “(Kèm theo … số 30/2020/NĐ-CP …)” có số) → văn bản liên quan, không phải tệp kèm của dự thảo
-    # v4.4 (PB4-WORK-02): nhận cả dạng không có chữ “số” (“Kèm theo Quyết định 123/QĐ-CĐKT”) và dạng có ngày đã điền
-    LOAI2 = r'(?:' + LOAI[3:-1] + r'|QĐ|NĐ|TT|TB|KH|NQ|HD|CT|TTr)'  # v4.5 (PB5-WORK-02): cả dạng viết tắt “QĐ 1355/QĐ-CĐKT”
+    # phụ lục/văn bản kèm theo của văn bản ĐÃ BAN HÀNH (dòng "(Kèm theo … số 30/2020/NĐ-CP …)" có số) → văn bản liên quan, không phải tệp kèm của dự thảo
+    # v4.4 (PB4-WORK-02): nhận cả dạng không có chữ "số" ("Kèm theo Quyết định 123/QĐ-CĐKT") và dạng có ngày đã điền
+    LOAI2 = r'(?:' + LOAI[3:-1] + r'|QĐ|NĐ|TT|TB|KH|NQ|HD|CT|TTr)'  # v4.5 (PB5-WORK-02): cả dạng viết tắt "QĐ 1355/QĐ-CĐKT"
     if any(re.search(r'(?i)kèm theo\s+' + LOAI2 + r'\s+(?:số\s*)?\d', p) or re.search(r'(?i)kèm theo\s+' + LOAI2 + r'[^)]{0,80}?ngày\s+\d{1,2}\s*(?:tháng|/)\s*\d{1,2}', p) for p in dau): return None
     for p in dau[:5]:
         m = PL_TITLE.match(p)
@@ -317,9 +335,9 @@ PHU_DINH = r'(?:chưa|không|chẳng)'
 
 def la_cau_thay_the(text, s, e):
     """v4.3 (TH-08), v4.4 (PB4-WORK-03), v4.5 (PB5-GPT-04, PB5-WORK-05): lần nhắc số hiệu này nằm trong câu NÊU VIỆC văn bản đã bị
-    thay thế/bãi bỏ/hết hiệu lực (cụm “thay thế/bãi bỏ” đứng ngay trước, tối đa 4 từ, hoặc “đã được thay thế/hết hiệu lực” ngay sau số hiệu).
-    Câu PHỦ ĐỊNH (“chưa được thay thế”, “không bị bãi bỏ”, “chưa hết hiệu lực”, “chưa có văn bản thay thế”) KHÔNG phải câu thay thế.
-    Câu nêu việc thay thế mà phần còn lại của câu vẫn cho áp dụng (“… đã hết hiệu lực nhưng vẫn áp dụng …”) cũng KHÔNG được miễn."""
+    thay thế/bãi bỏ/hết hiệu lực (cụm "thay thế/bãi bỏ" đứng ngay trước, tối đa 4 từ, hoặc "đã được thay thế/hết hiệu lực" ngay sau số hiệu).
+    Câu PHỦ ĐỊNH ("chưa được thay thế", "không bị bãi bỏ", "chưa hết hiệu lực", "chưa có văn bản thay thế") KHÔNG phải câu thay thế.
+    Câu nêu việc thay thế mà phần còn lại của câu vẫn cho áp dụng ("… đã hết hiệu lực nhưng vẫn áp dụng …") cũng KHÔNG được miễn."""
     truoc = re.split(r'[.;]', text[max(0, s - 90):s])[-1].lower()
     sau = text[e:e + 45].lower()
     con_lai = re.split(r'[.;]', text[e:e + 300])[0].lower()
@@ -337,7 +355,7 @@ HAU_TO = {'Nghị định': ('/ND-CP',), 'Thông tư': ('/TT-', 'TTLT'), 'Quyế
 
 
 def cung_loai(k, loai):
-    """Khóa số hiệu đầy đủ k (đã chuẩn hóa) có cùng loại văn bản với tên loại “loai” không (v4.4 – PB4-WORK-01)."""
+    """Khóa số hiệu đầy đủ k (đã chuẩn hóa) có cùng loại văn bản với tên loại "loai" không (v4.4 – PB4-WORK-01)."""
     return any(h in k for h in HAU_TO.get(loai, ()))
 
 
@@ -345,8 +363,8 @@ TU_NOI = set('trong có tại theo về kể đã được của này thì khi �
 
 
 def _mo_rong_rac(k, x):
-    """v4.6: tên k = tên x + phần lời văn (“LUẬT TRÍ TUỆ NHÂN TẠO TRONG THỜI HẠN…” = “LUẬT TRÍ TUỆ NHÂN TẠO” + “trong thời hạn…”).
-    Tên luật khác thật sự (“LUẬT GIÁO DỤC NGHỀ NGHIỆP” so với “LUẬT GIÁO DỤC”) KHÔNG bị coi là mở rộng rác."""
+    """v4.6: tên k = tên x + phần lời văn ("LUẬT TRÍ TUỆ NHÂN TẠO TRONG THỜI HẠN…" = "LUẬT TRÍ TUỆ NHÂN TẠO" + "trong thời hạn…").
+    Tên luật khác thật sự ("LUẬT GIÁO DỤC NGHỀ NGHIỆP" so với "LUẬT GIÁO DỤC") KHÔNG bị coi là mở rộng rác."""
     if not k.startswith(x + ' ') or k == x: return False
     return any(w.lower() in TU_NOI for w in k[len(x) + 1:].split())
 
@@ -356,7 +374,7 @@ def trich_dan(paras):
     out, seen = [], set()
     idx = {}
     def da_co(k, t, m):
-        """đã ghi khóa k: cập nhật cờ “chỉ nêu việc thay thế” (mọi lần nhắc đều là câu thay thế mới giữ True)."""
+        """đã ghi khóa k: cập nhật cờ "chỉ nêu việc thay thế" (mọi lần nhắc đều là câu thay thế mới giữ True)."""
         if k in idx and not la_cau_thay_the(t, m.start(), m.end()): out[idx[k]]['neu_thay_the'] = False
         return k in seen
     def them(k, d, t, m):
@@ -364,7 +382,7 @@ def trich_dan(paras):
         seen.add(k); idx[k] = len(out); d['neu_thay_the'] = la_cau_thay_the(t, m.start(), m.end()); out.append(d)
     for i, goc in enumerate(paras):
         if not goc: continue
-        # v4.6 (KTS-01): so khớp trên bản chuẩn hóa trình bày (NBSP, zero-width, xuống dòng, khoảng trắng quanh “/”, “-”, gạch Unicode);
+        # v4.6 (KTS-01): so khớp trên bản chuẩn hóa trình bày (NBSP, zero-width, xuống dòng, khoảng trắng quanh "/", "-", gạch Unicode);
         # chứng cứ lấy từ bản gốc
         t = ND.chuan_so_hieu(goc)
         is_cc = t.startswith('Căn cứ')
@@ -375,7 +393,7 @@ def trich_dan(paras):
             if da_co(k, t, m): continue
             them(k, {'loai': t[m.start():m.start() + 20].split(' số')[0], 'so': so, 'key': k, 'ten': None,
                      'doan': i + 1, 'ngu_canh': t[max(0, m.start() - 10):m.end() + 60], 'can_cu': is_cc}, t, m)
-        # số hiệu đứng riêng: “QĐ 2307/QĐ-CĐKT”, “Quyết định 2264/QĐ-CĐKT”, “Nghị định 13/2023/NĐ-CP”, “208-QĐ/TW” (PB-05)
+        # số hiệu đứng riêng: "QĐ 2307/QĐ-CĐKT", "Quyết định 2264/QĐ-CĐKT", "Nghị định 13/2023/NĐ-CP", "208-QĐ/TW" (PB-05)
         for m in list(re.finditer(r'(?<![\w/])(\d{1,5}/(?:\d{4}/[A-ZĐ][A-ZĐ0-9]*(?:-[A-ZĐa-zđ0-9]+)*|[A-ZĐ][A-ZĐ0-9]*(?:-[A-ZĐa-zđ0-9]+)+))(?![\w/])', t)) + \
                  list(re.finditer(r'(?<![\w/\-])(\d{1,4}-[A-ZĐ]{1,6}/[A-ZĐ]{1,6})(?![\w/])', t)):
             so = m.group(1)
@@ -385,21 +403,21 @@ def trich_dan(paras):
             loai = loai_theo_ky_hieu(so)
             them(k, {'loai': loai, 'so': so, 'key': k, 'ten': None,
                      'doan': i + 1, 'ngu_canh': t[max(0, m.start() - 25):m.end() + 50], 'can_cu': is_cc}, t, m)
-        # dạng rút gọn “Nghị định 13/2023”, “Thông tư 49/2026” (không có ký hiệu) – PB2-09
+        # dạng rút gọn "Nghị định 13/2023", "Thông tư 49/2026" (không có ký hiệu) – PB2-09
         for m in re.finditer(r'\b(Nghị định|Thông tư|NĐ|TT)\s+(?:số\s+)?(\d{1,5}/\d{4})(?![\d/])', t):
             k0 = key_so(m.group(2))
             loai_r = {'NĐ': 'Nghị định', 'TT': 'Thông tư'}.get(m.group(1), m.group(1))
             full = next((x for x in seen if x.startswith(k0 + '/') and cung_loai(x, loai_r)), None)  # v4.4 (PB4-WORK-01): cùng loại
             if full: da_co(full, t, m); continue
-            k = 'RG:%s:%s' % (loai_r, k0)  # v4.5 (PB5-WORK-01): khóa rút gọn gồm cả loại – “Nghị định 9090/2026” khác “Thông tư 9090/2026”
+            k = 'RG:%s:%s' % (loai_r, k0)  # v4.5 (PB5-WORK-01): khóa rút gọn gồm cả loại – "Nghị định 9090/2026" khác "Thông tư 9090/2026"
             if da_co(k, t, m): continue
             them(k, {'loai': loai_r, 'so': m.group(2), 'key': k, 'ten': None, 'rut_gon': True,
                      'doan': i + 1, 'ngu_canh': t[max(0, m.start() - 10):m.end() + 50], 'can_cu': is_cc}, t, m)
-        # v4.3 (TH-03): viện dẫn CHỈ CÓ SỐ, không năm, không ký hiệu: “NĐ 356”, “Quyết định 2307”, “TB 597”
+        # v4.3 (TH-03): viện dẫn CHỈ CÓ SỐ, không năm, không ký hiệu: "NĐ 356", "Quyết định 2307", "TB 597"
         for m in re.finditer(r'\b(Nghị định|Thông tư|Quyết định|Thông báo|NĐ|TT|QĐ|TB)\s+(?:số\s+)?(\d{1,5})(?![\d/]|[.,]\d|-\w)', t):
             loai = {'NĐ': 'Nghị định', 'TT': 'Thông tư', 'QĐ': 'Quyết định', 'TB': 'Thông báo'}.get(m.group(1), m.group(1))
             so = m.group(2)
-            # v4.4 (PB4-WORK-01): chỉ gộp vào viện dẫn đầy đủ CÙNG LOẠI, cùng số (“Nghị định 356/2025/NĐ-CP” không thay cho “Quyết định 356”)
+            # v4.4 (PB4-WORK-01): chỉ gộp vào viện dẫn đầy đủ CÙNG LOẠI, cùng số ("Nghị định 356/2025/NĐ-CP" không thay cho "Quyết định 356")
             full = next((x for x in seen if (x.startswith(so + '/') or x.startswith(so + '-')) and cung_loai(x, loai)), None)
             if full: da_co(full, t, m); continue
             k = 'CHISO:%s:%s' % (loai, so)
@@ -409,11 +427,11 @@ def trich_dan(paras):
         # Luật/Bộ luật/Pháp lệnh nêu theo tên (không có số)
         cands = list(re.finditer(r'\b(Bộ luật|Luật|Pháp lệnh)\s+([A-ZĐÀ-Ỹ](?:(?!Luật|Bộ luật|;|\(|\)).){1,90}?)(?=\s+(?:ngày\s+\d|số\s*:?\s*\d|năm\s+\d{4}))', t))
         spans = [(m.start(), m.end()) for m in cands]
-        n_chac = len(cands)  # v4.6: tên có mốc “ngày/số/năm” ngay sau là tên CHẮC; tên bắt bằng mẫu thứ hai là tên YẾU (có thể cắt thiếu/thừa)
+        n_chac = len(cands)  # v4.6: tên có mốc "ngày/số/năm" ngay sau là tên CHẮC; tên bắt bằng mẫu thứ hai là tên YẾU (có thể cắt thiếu/thừa)
         cands += [m for m in re.finditer(r'\b(Bộ luật|Luật|Pháp lệnh)\s+((?:[A-ZĐÀ-Ỹ][^\s;,.()]*)(?:\s+(?!ngày|số\s*:?\s*\d|năm|đã|được|sửa|và(?=\s+[A-ZĐÀ-Ỹ]|\s*$)|của|các|hiện)[^\s;,.()]+){0,9}?)(?=\s+(?:ngày|số\s*:?\s*\d|năm|đã|được|sửa đổi|và|của|hiện hành|mới nhất|quy định|tại|theo)|[;,.()]|$)', t) if not any(a <= m.start() < b for a, b in spans)]
         for i_c, m in enumerate(cands):
             ten = norm(m.group(1) + ' ' + m.group(2))
-            if i_c >= n_chac:  # v4.6: tên YẾU dừng trước “và” – nếu sau “và” chỉ là 1–4 từ viết thường rồi hết câu/dấu câu thì “và …” thuộc tên
+            if i_c >= n_chac:  # v4.6: tên YẾU dừng trước "và" – nếu sau "và" chỉ là 1–4 từ viết thường rồi hết câu/dấu câu thì "và …" thuộc tên
                 mv = re.match(r'\s+và((?:\s+[a-zà-ỹđ][^\s;,.()]*){1,4})(?=\s*(?:[;,.()]|$))', t[m.end():])
                 if mv: ten = norm(ten + ' và' + mv.group(1))
             cat = re.split(r'\s+(?:và|hoặc|,)\s+(?=(?:Nghị định|Thông tư|Quyết định|Luật|Bộ luật|Pháp lệnh|Nghị quyết|Chỉ thị|Thông báo)\b)', ten)
@@ -422,37 +440,49 @@ def trich_dan(paras):
             if re.match(r'^(Luật|Bộ luật|Pháp lệnh) (này|số)\b', ten): continue
             if len(ten.split()) < 2: continue
             k = 'TEN:' + ND.chuan_ten_luat(ten)
-            # v4.6 (KTS-03): chỉ bỏ trùng KHỚP ĐÚNG hoặc tên bị cắt ở dấu phẩy (“Luật Thi đua” của “Luật Thi đua, khen thưởng”);
-            # không coi “Luật Giáo dục nghề nghiệp” là bản trùng của “Luật Giáo dục”
+            # v4.6 (KTS-03): chỉ bỏ trùng KHỚP ĐÚNG hoặc tên bị cắt ở dấu phẩy ("Luật Thi đua" của "Luật Thi đua, khen thưởng");
+            # không coi "Luật Giáo dục nghề nghiệp" là bản trùng của "Luật Giáo dục"
             if da_co(k, t, m) or any(x.startswith(k + ',') for x in seen if x.startswith('TEN:')): continue
-            if any(x.startswith('TEN:') and _mo_rong_rac(k, x) for x in seen): continue  # “Luật X trong thời hạn…” là tên đã có + lời văn
+            if any(x.startswith('TEN:') and _mo_rong_rac(k, x) for x in seen): continue  # "Luật X trong thời hạn…" là tên đã có + lời văn
             if len(ten.split()) > 12: continue
             # đã có số hiệu ngay sau tên thì bỏ (đã bắt ở trên)
             after = t[m.end():m.end() + 25]
             if not bi_cat and re.match(r'\s*số\s*\d', after): continue
             them(k, {'loai': m.group(1), 'so': None, 'key': k, 'ten': ten, 'doan': i + 1, 'ten_chac': i_c < n_chac,
                      'ngu_canh': t[max(0, m.start() - 10):m.end() + 60], 'can_cu': is_cc}, t, m)
-        # v4.6 (quy tắc người phụ trách xác nhận 02/11/2026 – PH-02): “Luật … ngày … (hợp nhất tại Văn bản hợp nhất số N/VBHN-X ngày …)”
+        # v4.6 (quy tắc người phụ trách xác nhận 02/11/2026 – PH-02): "Luật … ngày … (hợp nhất tại Văn bản hợp nhất số N/VBHN-X ngày …)"
         # → ghép viện dẫn Luật với VBHN; VBHN mang theo tên luật được hợp nhất và ngày để kiểm khớp với tệp trong hồ sơ
-        for mh in re.finditer(r'\b(Bộ luật|Luật|Pháp lệnh)\s+(.{2,120}?)\s*(?:ngày\s+\d[^()]{0,40}?)?\(\s*(?:được\s+)?hợp nhất tại\s+'
-                              r'(?:Văn bản hợp nhất|VBHN)\s+(?:số\s*:?\s*)?(\d{1,5}/VBHN-[A-ZĐ]+)\s*(?:,?\s*ngày\s+([^)]{0,40}))?\)', t, re.I):
-            ten_l = ND.chuan_ten_luat(mh.group(1) + ' ' + re.split(r'\s+(?:ngày|số)\b', mh.group(2))[0])
-            kv = key_so(mh.group(3))
-            nd_ = re.search(r'(\d{1,2})\s*(?:tháng|/)\s*(\d{1,2})\s*(?:năm|/)\s*(\d{4})', mh.group(4) or '')
+        # v4.6.13-KTC (C3): mở rộng cho Thông tư, Nghị định, Quyết định (không chỉ Luật)
+        # v4.6.13-KTC (C5, C6): bắt phần trước "(hợp nhất tại ..." rồi tìm tên văn bản gần nhất (cuối cùng)
+        for mh in re.finditer(r'(.{10,300}?)\s*\(\s*(?:được\s+)?hợp nhất tại\s+(?:Văn bản hợp nhất|VBHN)\s+(?:số\s*:?\s*)?(\d{1,5}/VBHN-[A-ZĐ]+)\s*(?:,?\s*ngày\s+([^)]{0,40}))?\)', t, re.I):
+            truoc = mh.group(1)
+            # C5, C6: tìm TẤT CẢ tên văn bản, lấy CÁI CUỐI CÙNG (gần nhất với VBHN)
+            # Không bắt "luật" trong "pháp luật" - dùng negative lookbehind
+            all_vb = list(re.finditer(r'(?<![pP]háp )(?<![pP]háp)(Bộ luật|Luật|Pháp lệnh|Thông tư|Nghị định|Quyết định)\s+(?:số\s*)?(\S[^()]*?)(?=\s+ngày\s+\d|\s+của\s|\s*\(|\s*;|$)', truoc, re.I))
+            if not all_vb: continue
+            mv = all_vb[-1]  # lấy cái cuối cùng
+            ten_l = ND.chuan_ten_luat(mv.group(1) + ' ' + re.split(r'\s+(?:ngày|số)\b', mv.group(2))[0])
+            kv = key_so(mh.group(2))  # số hiệu VBHN
+            nd_ = re.search(r'(\d{1,2})\s*(?:tháng|/)\s*(\d{1,2})\s*(?:năm|/)\s*(\d{4})', mh.group(3) or '')
             if kv in idx:
                 out[idx[kv]].setdefault('luat_hop_nhat', ten_l)
                 if nd_: out[idx[kv]].setdefault('ngay_vbhn', [int(nd_.group(3)), int(nd_.group(2)), int(nd_.group(1))])
             kl = 'TEN:' + ten_l
             if kl in idx: out[idx[kl]].setdefault('vbhn_key', kv)
+            # v4.6.13-KTC (C3): gán vbhn_key cho viện dẫn theo SỐ HIỆU (Thông tư, Nghị định)
+            ms = re.match(SO, ND.chuan_so_hieu(mv.group(2)))  # số hiệu văn bản được hợp nhất
+            if ms:
+                ks = key_so(ms.group(1))
+                if ks in idx: out[idx[ks]].setdefault('vbhn_key', kv)
     # v4.6: tên luật bị cắt ở dấu phẩy xuất hiện TRƯỚC tên đầy đủ → bỏ bản cắt (không phụ thuộc thứ tự đoạn)
     ten_du = [x['key'] for x in out if x['key'].startswith('TEN:')]
     out = [x for x in out if not (x['key'].startswith('TEN:') and any(y.startswith(x['key'] + ',') for y in ten_du))]
     # tên YẾU (mẫu thứ hai) là phần đầu hoặc phần mở rộng của một tên khác → bỏ (không phụ thuộc thứ tự đoạn); hai tên CHẮC khác nhau được giữ
-    # riêng (“Luật Giáo dục” và “Luật Giáo dục nghề nghiệp” – KTS-03)
+    # riêng ("Luật Giáo dục" và "Luật Giáo dục nghề nghiệp" – KTS-03)
     ten_k = [x['key'] for x in out if x['key'].startswith('TEN:')]
     out = [x for x in out if not (x['key'].startswith('TEN:') and (
         any(y != x['key'] and _mo_rong_rac(x['key'], y) for y in ten_k) or                      # tên dài = tên khác + lời văn
-        (not x.get('ten_chac') and any(y.startswith(x['key'] + ' VÀ ') for y in ten_k))))]       # tên YẾU bị cắt ở chữ “và” của tên đầy đủ
+        (not x.get('ten_chac') and any(y.startswith(x['key'] + ' VÀ ') for y in ten_k))))]       # tên YẾU bị cắt ở chữ "và" của tên đầy đủ
     # v4.4 (PB4-WORK-01): không phụ thuộc thứ tự đoạn – dạng rút gọn/chỉ số đứng TRƯỚC viện dẫn đầy đủ cùng loại, cùng số thì gộp vào viện dẫn đầy đủ
     day_du = [x for x in out if not x.get('chi_so') and not x.get('rut_gon') and x.get('so')]
     giu = []
@@ -470,20 +500,20 @@ def trich_dan(paras):
 # ---------------------------------------------------------------- phân loại tệp
 def vai_tro(name, paras, jcs=None):
     """Nhận vai trò theo NỘI DUNG phần đầu; thứ tự cố định (v4.2 – PB2-03, PB2-08, PB2-14):
-    1) tiêu đề có “TIẾP THU” và “GIẢI TRÌNH” → Báo cáo tiếp thu, giải trình;
-    2) có dấu dự thảo (dòng “DỰ THẢO”/“Dự thảo lần …”, hoặc số văn bản để trống, kể cả kiểu số của văn bản Đảng) → dự thảo;
-    3) tiêu đề báo cáo rà soát của Skill (“BÁO CÁO RÀ SOÁT DỰ THẢO…”, “BẢN NHÁP RÀ SOÁT”, “KẾT LUẬN ĐIỀU KIỆN TRÌNH KÝ”) → báo cáo rà soát lần trước;
+    1) tiêu đề có "TIẾP THU" và "GIẢI TRÌNH" → Báo cáo tiếp thu, giải trình;
+    2) có dấu dự thảo (dòng "DỰ THẢO"/"Dự thảo lần …", hoặc số văn bản để trống, kể cả kiểu số của văn bản Đảng) → dự thảo;
+    3) tiêu đề báo cáo rà soát của Skill ("BÁO CÁO RÀ SOÁT DỰ THẢO…", "BẢN NHÁP RÀ SOÁT", "KẾT LUẬN ĐIỀU KIỆN TRÌNH KÝ") → báo cáo rà soát lần trước;
     4) chỉ khi nội dung không cho tín hiệu mới xét tên tệp. Có thể chỉ định thẳng bằng --vai-tro."""
-    # vùng tiêu đề: các đoạn đầu, dừng ở “Kính gửi”, đề mục I./1., hoặc đoạn lời văn dài > 200 ký tự
+    # vùng tiêu đề: các đoạn đầu, dừng ở "Kính gửi", đề mục I./1., hoặc đoạn lời văn dài > 200 ký tự
     vung, vj = [], []
     for k_, p in enumerate(paras[:15]):
         if not p or p.startswith('[Chú thích]'): continue
         if len(p) > 200 or re.match(r'^(Kính gửi|I\.|1\.|Căn cứ)', p): break
         vung.append(p); vj.append(jcs[k_] if jcs and k_ < len(jcs) else None)
-    # v4.3 (TH-14): chỉ xét tên loại “BÁO CÁO” và tối đa 3 dòng trích yếu liền sau (không xét câu lời văn ngắn ở đầu)
+    # v4.3 (TH-14): chỉ xét tên loại "BÁO CÁO" và tối đa 3 dòng trích yếu liền sau (không xét câu lời văn ngắn ở đầu)
     bc_i = next((i for i, p in enumerate(vung) if re.match(r'^BÁO CÁO\b', p) and len(p) <= 120), None)
     tieu_de = ''
-    if bc_i is not None:  # v4.4 (PB4-WORK-09): trích yếu dừng ở câu lời văn (kết thúc bằng dấu chấm) hoặc đề mục/“Kính gửi”
+    if bc_i is not None:  # v4.4 (PB4-WORK-09): trích yếu dừng ở câu lời văn (kết thúc bằng dấu chấm) hoặc đề mục/"Kính gửi"
         tieu_de = vung[bc_i]
         for p, j_ in zip(vung[bc_i + 1:bc_i + 4], vj[bc_i + 1:bc_i + 4]):
             if p.endswith(('.', ':', ';')) or re.match(r'^(Kính gửi|Căn cứ|Thực hiện|Phần|[IVX]+\.|\d+\.)', p) or len(p) > 160: break
@@ -509,7 +539,7 @@ def vai_tro(name, paras, jcs=None):
 
 
 def ngay_vb(paras):
-    """v4.6 (KTS-22): ngày ký của văn bản = dòng “<Địa danh>, ngày … tháng … năm …” (dòng ngắn, ở vùng thể thức),
+    """v4.6 (KTS-22): ngày ký của văn bản = dòng "<Địa danh>, ngày … tháng … năm …" (dòng ngắn, ở vùng thể thức),
     không lấy ngày trong câu căn cứ/lời văn; ngày phải hợp lệ theo lịch. Không xác định được → None."""
     for p in paras[:60]:
         t = ND.chuan_trinh_bay(p)
@@ -521,8 +551,8 @@ def ngay_vb(paras):
 
 
 def _ten_luat_tieu_de(head):
-    """v4.6 (PH-01, KTS-08): tên luật từ khối tiêu đề “LUẬT” + các dòng IN HOA liền sau (bỏ qua đoạn trống, nối tối đa 3 dòng,
-    dừng ở dòng không in hoa). Không có dòng tên → không tạo khóa (trước đây sinh khóa “TEN:LUẬT ” khớp mọi luật)."""
+    """v4.6 (PH-01, KTS-08): tên luật từ khối tiêu đề "LUẬT" + các dòng IN HOA liền sau (bỏ qua đoạn trống, nối tối đa 3 dòng,
+    dừng ở dòng không in hoa). Không có dòng tên → không tạo khóa (trước đây sinh khóa "TEN:LUẬT " khớp mọi luật)."""
     out = []
     for i, p in enumerate(head):
         t = ND.chuan_trinh_bay(p)
@@ -542,34 +572,34 @@ def _ten_luat_tieu_de(head):
 
 # v4.6.1 (N12 – quyết định người phụ trách 02/11/2026): tệp nguồn chỉ có phần định danh (số, tên loại, trích yếu) không phải toàn văn → CHẶN.
 # Tiêu chí chính là CẤU TRÚC (có thân văn bản); ngưỡng ký tự chỉ là điều kiện phụ, TẠM THỜI (vấn đề mở của tác giả).
-NGUONG_THAN_TOI_THIEU = 30  # tạm thời – ký tự chữ của thân văn bản, chỉ chặn “thân” gần như trống (ví dụ chỉ có “Điều 1.”)
+NGUONG_THAN_TOI_THIEU = 30  # tạm thời – ký tự chữ của thân văn bản, chỉ chặn "thân" gần như trống (ví dụ chỉ có "Điều 1.")
 _DH_THAN = re.compile(r'^(?:(?:Điều|Chương|Mục|Phần|Phụ lục)\s+[\dIVXLC]+|\d+(?:\.\d+)*[.)]\s*\S|[a-zđ]\)\s*\S|[IVXLC]+\.\s*\S|(?:Căn cứ|Thực hiện|Theo đề nghị|Xét đề nghị)\b)', re.I)
 _DINH_DANH = re.compile(r'^(?:Số\s*[:.]|Số hiệu\b|CỘNG HÒA|CỘNG HOÀ|Độc lập\s*[-–]|ĐẢNG CỘNG SẢN|Đảng Cộng sản Việt Nam|DỰ THẢO\b|[-–_=*.\s]+$)', re.I)
 _DONG_NGAY = re.compile(r'^[^\d]{0,60},?\s*ngày\s+\d{1,2}\s+tháng\s+\d{1,2}\s+năm\s+\d{4}\s*$', re.I)
 
 
 TRICH_YEU_TOI_DA = 4  # D8 (giữ): trích yếu sau tên loại tối đa 4 đoạn
-# v4.6.3 (nghiệm thu lần 3 – mục 3, N12/F08): dấu hiệu CẤU TRÚC kết thúc trích yếu – Điều/Chương/khoản/điểm/gạch đầu dòng, “Kính gửi”,
-# khối căn cứ, “Nơi nhận”. Độ dài, căn lề, dấu câu cuối, in hoa hay MỘT cụm mở đầu KHÔNG một mình kết luận đã có thân.
+# v4.6.3 (nghiệm thu lần 3 – mục 3, N12/F08): dấu hiệu CẤU TRÚC kết thúc trích yếu – Điều/Chương/khoản/điểm/gạch đầu dòng, "Kính gửi",
+# khối căn cứ, "Nơi nhận". Độ dài, căn lề, dấu câu cuối, in hoa hay MỘT cụm mở đầu KHÔNG một mình kết luận đã có thân.
 _DH_CAU_TRUC = re.compile(r'^(?:(?:Điều|Chương|Mục|Phần|Phụ lục)\s+[\dIVXLC]+\b|\d+(?:\.\d+)*[.)]\s*\S|[a-zđ]\)\s*\S|[IVXLC]+\.\s*\S|[-–•+*]\s*[^\W_])', re.I)
 _CAN_CU = re.compile(r'^(?:Căn cứ|Thực hiện|Theo đề nghị|Xét đề nghị|Xét)\b', re.I)
 _KINH_GUI = re.compile(r'^Kính gửi\b', re.I)
 _NOI_NHAN = re.compile(r'^Nơi nhận\b', re.I)
 _TEN_LOAI_DONG = re.compile(r'(?i)^(?:QUYẾT ĐỊNH|THÔNG BÁO|NGHỊ QUYẾT|TỜ TRÌNH|BÁO CÁO|KẾ HOẠCH|HƯỚNG DẪN|QUY ĐỊNH|QUY CHẾ|CHỈ THỊ|KẾT LUẬN|CHƯƠNG TRÌNH|ĐỀ ÁN|DANH MỤC|BIÊN BẢN|CÔNG VĂN|PHƯƠNG ÁN|QUY TRÌNH|NỘI QUY|ĐIỀU LỆ)(?=\s|$)')
-_DAU_CAU = re.compile(r'[.;:!?…]["”»)]*$')
+_DAU_CAU = re.compile(r'[.;:!?…][""»)]*$')
 _CANH = {'both': 'deu', 'distribute': 'deu', 'center': 'giua', 'right': 'phai', 'end': 'phai', 'left': 'trai', 'start': 'trai'}
 
 
 def than_van_ban(paras, jcs=None, chi_tiet=False):
     """→ (có thân văn bản?, số ký tự thân). v4.6.3 (nghiệm thu lần 3 – mục 3; N12, D8):
-    1) Phần định danh: quốc hiệu, tiêu ngữ, tên cơ quan in hoa, “Số:”, dòng địa danh – ngày, TÊN LOẠI (in hoa, hoặc viết thường đứng đầu đoạn
-       trong vùng đầu văn bản: “Quyết định về việc…”).
+    1) Phần định danh: quốc hiệu, tiêu ngữ, tên cơ quan in hoa, "Số:", dòng địa danh – ngày, TÊN LOẠI (in hoa, hoặc viết thường đứng đầu đoạn
+       trong vùng đầu văn bản: "Quyết định về việc…").
     2) Trích yếu: đoạn ĐẦU TIÊN sau tên loại luôn là trích yếu; tiếp theo tối đa TRICH_YEU_TOI_DA đoạn vẫn là trích yếu trừ khi gặp dấu hiệu
-       CẤU TRÚC thân (Điều/Chương/khoản/điểm/gạch đầu dòng, “Kính gửi”, khối căn cứ, “Nơi nhận”, dòng in hoa) hoặc một CÂU THÂN rõ ràng =
+       CẤU TRÚC thân (Điều/Chương/khoản/điểm/gạch đầu dòng, "Kính gửi", khối căn cứ, "Nơi nhận", dòng in hoa) hoặc một CÂU THÂN rõ ràng =
        kết thúc bằng dấu câu VÀ căn lề khác căn lề của đoạn trích yếu đầu (đọc được căn lề) VÀ không mở đầu bằng chữ thường (dòng tiếp nối).
        Độ dài, căn lề, dấu câu, in hoa hoặc một cụm mở đầu KHÔNG một mình kết luận có thân (v4.6.2 dùng riêng từng dấu hiệu → nhận nhầm).
-    3) Thân = phần còn lại, BỎ dòng căn cứ/“Thực hiện…”/“Xét đề nghị…”, dòng in hoa (“QUYẾT ĐỊNH:”, chức danh), dòng “Kính gửi”, và mọi
-       thứ từ “Nơi nhận” trở đi; có thân khi đủ NGUONG_THAN_TOI_THIEU ký tự (D8 – điều kiện phụ).
+    3) Thân = phần còn lại, BỎ dòng căn cứ/"Thực hiện…"/"Xét đề nghị…", dòng in hoa ("QUYẾT ĐỊNH:", chức danh), dòng "Kính gửi", và mọi
+       thứ từ "Nơi nhận" trở đi; có thân khi đủ NGUONG_THAN_TOI_THIEU ký tự (D8 – điều kiện phụ).
     Văn bản ngắn chỉ có ≤ 4 đoạn văn xuôi sau tên loại, không có dấu hiệu cấu trúc và không có câu thân rõ ràng → KHÔNG xác định được thân
     → coi như thiếu toàn văn (CHẶN, đề nghị cung cấp toàn văn) – giới hạn đã công bố, không tự nhận ĐỦ."""
     jj = list(jcs) if jcs else []
@@ -583,14 +613,14 @@ def than_van_ban(paras, jcs=None, chi_tiet=False):
     while i < len(ps) and i < 14 + TRICH_YEU_TOI_DA:
         p, _ = ps[i]
         if _DINH_DANH.match(p) and not ND.la_in_hoa(p): sau_ten_loai = False; i += 1; continue
-        if re.match(r'^V/[vV]\b', p): sau_ten_loai = False; i += 1; continue  # trích yếu công văn “V/v …” thuộc phần định danh
+        if re.match(r'^V/[vV]\b', p): sau_ten_loai = False; i += 1; continue  # trích yếu công văn "V/v …" thuộc phần định danh
         if la_dau_hieu(p) and not ND.la_in_hoa(p): break
         if _DINH_DANH.match(p) or _DONG_NGAY.match(p) or (ND.la_in_hoa(p) and len(p) <= 160 and not re.match(r'(?i)^(?:Điều|Chương)\s+\d', p)
                                                            and not re.match(r'^[IVXLC]+\.\s', p)):
             sau_ten_loai = ND.la_in_hoa(p) and not _DINH_DANH.match(p); i += 1; continue
         dau_ty = None
         if not sau_ten_loai and _TEN_LOAI_DONG.match(p) and len(p) <= 300 and not _DAU_CAU.search(p):
-            dau_ty = ps[i][1]; i += 1; n_ty = 1      # “Quyết định về việc…” viết thường: tên loại + trích yếu cùng một đoạn
+            dau_ty = ps[i][1]; i += 1; n_ty = 1      # "Quyết định về việc…" viết thường: tên loại + trích yếu cùng một đoạn
         elif sau_ten_loai:
             dau_ty = ps[i][1]; i += 1; n_ty = 1      # đoạn đầu sau tên loại luôn là trích yếu
         else:
@@ -603,7 +633,7 @@ def than_van_ban(paras, jcs=None, chi_tiet=False):
             i += 1; n_ty += 1
         sau_ten_loai = False; n_vung = max(n_vung, n_ty)
         if i < len(ps) and ND.la_in_hoa(ps[i][0]) and not _DH_CAU_TRUC.match(ps[i][0]):
-            continue  # sau trích yếu còn dòng in hoa (thẩm quyền ban hành, “HIỆU TRƯỞNG…”) – vẫn thuộc phần định danh
+            continue  # sau trích yếu còn dòng in hoa (thẩm quyền ban hành, "HIỆU TRƯỞNG…") – vẫn thuộc phần định danh
         break
     than = []
     for p, _ in ps[i:]:
@@ -640,7 +670,7 @@ def ma_bam_noi_dung(f):
 
 def ma_dinh_danh(name, paras):
     """Các khoá nhận diện một tệp được cung cấp: số hiệu + tên luật. v4.6: số hiệu đọc qua ND.chuan_so_hieu (KTS-01);
-    số trong tên tệp chỉ dùng khi nội dung không có dòng “Số:” khác số đó (tên tệp chỉ là ứng viên)."""
+    số trong tên tệp chỉ dùng khi nội dung không có dòng "Số:" khác số đó (tên tệp chỉ là ứng viên)."""
     keys = set()
     head = paras[:80]
     so_nd = set()
@@ -665,8 +695,9 @@ def ma_dinh_danh(name, paras):
     return keys
 
 
-def thong_tin_vbhn(paras):
-    """v4.6 (PH-02): số, ngày, luật được hợp nhất của một tệp VBHN – để kiểm khớp với viện dẫn “(hợp nhất tại VBHN số … ngày …)”."""
+def thong_tin_vbhn(paras, tables_text=None):
+    """v4.6 (PH-02): so, ngay, luat duoc hop nhat cua mot tep VBHN - de kiem khop voi vien dan (hop nhat tai VBHN so ... ngay ...).
+    v4.6.13-KTC (C4): doc them ngay tu bang chu ky cuoi tep (VBHN cua Van phong Quoc hoi)."""
     head = paras[:30]
     so, ngay, luat = None, None, None
     for p in head:
@@ -674,16 +705,191 @@ def thong_tin_vbhn(paras):
         m = re.match(r'^Số\s*:?\s*(\d{1,5}/VBHN-[A-ZĐ]+)', t)
         if m and so is None: so = key_so(m.group(1))
     ngay = ngay_vb(head)
+    # v4.6.13-KTC (C4): nếu không tìm thấy ngày trong đoạn văn, tìm trong bảng (bảng chữ ký cuối tệp)
+    if not ngay and tables_text:
+        for p in tables_text:
+            t = ND.chuan_trinh_bay(p)
+            if len(t) > 90: continue
+            # Dạng "Hà Nội, ngày 23 tháng 3 năm 2026" trong bảng XÁC THỰC VĂN BẢN HỢP NHẤT
+            m = re.match(r'^[^\W\d_][^,;:.]{0,40},\s*ngày\s+(\d{1,2})\s+tháng\s+(\d{1,2})\s+năm\s+(\d{4})\s*$', t)
+            if m and ND.ngay_hop_le(m.group(3), m.group(2), m.group(1)):
+                ngay = (int(m.group(3)), int(m.group(2)), int(m.group(1))); break
     ten = _ten_luat_tieu_de(head)
     if ten: luat = ten[0]
     else:
+        # v4.6.13-KTC (C3): mở rộng nhận diện Thông tư, Nghị định được hợp nhất (không chỉ Luật)
+        # v4.6.13-KTC (fix): dừng ở dấu chấm phẩy, không bắt cụm có "luật" viết thường trong trích yếu
         for p in head[:15]:
-            m = re.match(r'^(Bộ luật|Luật|Pháp lệnh)\s+(.{2,120}?)(?:\s+số\b|\s+ngày\b|,\s*có hiệu lực)', ND.chuan_trinh_bay(p))
+            m = re.match(r'^(Bộ luật|Luật|Pháp lệnh|Thông tư|Nghị định|Quyết định)\s+(?:số\s*)?([^;]{2,120}?)(?:\s+số\b|\s+ngày\b|,\s*có hiệu lực)', ND.chuan_trinh_bay(p))
             if m: luat = ND.chuan_ten_luat(m.group(1) + ' ' + m.group(2)); break
     return {'so': so, 'ngay': list(ngay) if ngay else None, 'luat': luat}
 
 
 # ---------------------------------------------------------------- chính
+# ---------------------------------------------------------------- v4.6.5: phụ lục thuộc văn bản được dẫn chiếu (YC mục 1)
+_PL_PHU_DINH = re.compile(r'(?i)(?:\b(?:chưa|không)\s+(?:được\s+)?(?:ban hành|tồn tại|có)\b|\b(?:dự kiến|dự định|giả định|tên gọi|ghi chú|lưu ý|bãi bỏ|hủy bỏ)\b|\b(?:sẽ|nếu)\s)')
+
+
+def la_tieu_de_phu_luc_that(P, i, pl):
+    """v4.6.7 (thẩm định Work lần 2, điểm 3): đoạn P[i] là TIÊU ĐỀ của Phụ lục `pl` thật, không chỉ là câu có chữ "Phụ lục X":
+    (1) bắt đầu bằng "Phụ lục X" (không đứng giữa câu/ghi chú); (2) không chứa từ phủ định/dự kiến/ghi chú; (3) có ít nhất một đoạn nội dung (≥ 20 ký tự)
+    ngay sau mà không phải tiêu đề phụ lục khác."""
+    y = P[i]
+    if not re.match(r'(?i)^\W{0,3}phụ lục\s+(?:số\s+)?' + re.escape(pl) + r'\b', y): return False
+    if _PL_PHU_DINH.search(y): return False
+    for z in P[i + 1:i + 6]:
+        z = z.strip()
+        if not z: continue
+        return len(ND.noi_dung(z)) >= 20 and not PL_TITLE.match(z)
+    return False
+
+
+def phu_luc_tieu_de(P):
+    """Số/ký hiệu các Phụ lục có TIÊU ĐỀ thật trong tệp (dòng ngắn "Phụ lục I", "PHỤ LỤC I. …")."""
+    return {m.group(1).upper() for x in P for m in [PL_TITLE.match(x)] if m and len(x) < 120}
+
+
+def bo_ngoac_dau(s_):
+    """Bỏ các cụm giải thích trong ngoặc (kể cả ngoặc lồng nhau, dài) đứng ngay sau tên phụ lục. → (phần còn lại, ngoặc có cân bằng?)."""
+    s_ = s_.lstrip(' ,;: ')
+    ok = True
+    while s_.startswith('('):
+        d_, end = 0, None
+        for i, ch in enumerate(s_[:1500]):
+            if ch == '(':
+                d_ += 1
+            elif ch == ')':
+                d_ -= 1
+                if d_ == 0:
+                    end = i; break
+        if end is None:
+            ok = False; break
+        s_ = s_[end + 1:].lstrip(' ,;: ')
+    return s_, ok
+
+
+_PL_NUM = r'(?:phụ lục\s+(?:số\s+)?)?([IVXLC]+|\d+)\b'
+_PL_CHUYEN = re.compile(r'(?i)^(?:ban hành\s+)?(?:kèm theo\s+|tại\s+|của\s+|thuộc\s+)?(?:' + LOAI + r'|NĐ|QĐ|TT|TB|HD|KH|NQ|CT)\s*(?:số\s*)?')
+_PL_SO = re.compile(r'^' + SO)
+_PL_DA_BAN_HANH = re.compile(r'(?i)^\W{0,3}(?:(?:được|đã|do|đính|kèm|theo|ban|hành|thuộc|của|tại|trong|nêu|ở)\s+)+(?:' + LOAI + r'|NĐ|QĐ|TT|TB|HD|KH|NQ|CT)\s*(?:số\s*)?' + SO)
+_PL_TU_CHUYEN = re.compile(r'(?i)\b(?:ban hành|đính kèm|kèm theo|thuộc|của|tại|trong)\b')
+
+
+def phan_loai_phu_luc(P):
+    """v4.6.5 (YC mục 1, ca 01–03): phân loại từng lần nhắc "Phụ lục …" → (tập phụ lục DO CHÍNH văn bản ban hành, danh sách phụ lục THUỘC VĂN BẢN KHÁC).
+    Không dùng cửa sổ ký tự cố định: bỏ cụm giải thích trong ngoặc (kể cả lồng nhau), nối sang đoạn kế khi câu xuống đoạn, nhận danh sách "Phụ lục I và II".
+    Mỗi phụ lục ngoài được gắn với số hiệu văn bản chủ quản (key_so) và vị trí (đoạn, trích)."""
+    own, ngoai = set(), []
+    for i, p in enumerate(P):
+        for m in re.finditer(r'(?i)phụ lục\s+(?:số\s+)?([IVXLC]+|\d+)\b', p):
+            ds = [m.group(1).upper()]
+            rest = p[m.end():] + ''.join(' ' + y for y in P[i + 1:i + 4])  # v4.6.6: câu dẫn chiếu có thể trải tới 3 đoạn kế (thẩm định Work, mục 1)
+            while True:  # danh sách "Phụ lục I và II", "Phụ lục I, Phụ lục II"
+                mm = re.match(r'(?i)^\s*(?:,|;|và|hoặc)\s*' + _PL_NUM, rest)
+                if not mm: break
+                ds.append(mm.group(1).upper()); rest = rest[mm.end():]
+            sau, can_bang = bo_ngoac_dau(rest)
+            sau = sau[:400]
+            mc = _PL_CHUYEN.match(sau)
+            if mc and 'này' not in sau[:mc.end() + 8]:
+                ms = _PL_SO.match(sau[mc.end():])
+                key = key_so(ms.group(1)) if ms else None
+                for d_ in ds:
+                    ngoai.append(dict(pl=d_, key=key, doan=i + 1, trich=p[max(0, m.start() - 20):m.end() + 140]))
+                continue
+            if not mc and rest.lstrip().startswith('('):  # chú thích trong ngoặc tự nêu văn bản ban hành phụ lục: "Phụ lục II (… , ban hành kèm theo Quyết định số X …)"
+                mt0 = re.search(r'(?i)(?:ban hành\s+)?(?:kèm theo|thuộc)\s+(?:' + LOAI + r'|NĐ|QĐ|TT|TB|HD|KH|NQ|CT)\s*(?:số\s*)?' + SO, rest[:600])
+                if mt0:
+                    for d_ in ds:
+                        ngoai.append(dict(pl=d_, key=key_so(mt0.group(1)), doan=i + 1, trich=p[max(0, m.start() - 20):m.end() + 140]))
+                    continue
+            mh = _PL_DA_BAN_HANH.match(sau)  # v4.6.6 (thẩm định Work, mục 1): "… được ban hành kèm theo / đã được ban hành tại / đính kèm Quyết định số X"
+            if mh and _PL_TU_CHUYEN.search(mh.group(0)[:mh.start(1)]):
+                for d_ in ds:
+                    ngoai.append(dict(pl=d_, key=key_so(mh.group(1)), doan=i + 1, trich=p[max(0, m.start() - 20):m.end() + 140]))
+                continue
+            if not can_bang:  # ngoặc không đóng trong phạm vi nối: tìm cấu trúc dẫn chiếu ngay trong ~300 ký tự
+                mt = re.search(r'(?i)(?:ban hành\s+)?(?:kèm theo|của|thuộc)\s+(?:' + LOAI + r'|NĐ|QĐ|TT|TB|HD|KH|NQ|CT)\s*(?:số\s*)?' + SO, rest[:300])
+                if mt:
+                    for d_ in ds:
+                        ngoai.append(dict(pl=d_, key=key_so(mt.group(1)), doan=i + 1, trich=p[max(0, m.start() - 20):m.end() + 140]))
+                    continue
+            own.update(ds)
+    return own, ngoai
+
+
+# ---------------------------------------------------------------- v4.6.5: định danh văn bản để xác định lịch sử rà soát (YC mục 2)
+_LOAI_HOA = r'(QUYẾT ĐỊNH|QUY CHẾ|QUY ĐỊNH|KẾ HOẠCH|BÁO CÁO|TỜ TRÌNH|THÔNG BÁO|CHỈ THỊ|NGHỊ QUYẾT|HƯỚNG DẪN|CHƯƠNG TRÌNH|ĐỀ ÁN|NỘI QUY|ĐIỀU LỆ|QUY TRÌNH|DANH MỤC|KẾT LUẬN|THÔNG TƯ|NGHỊ ĐỊNH|CÔNG VĂN)\b'
+_TU_CHUNG = {'dự', 'thảo', 'báo', 'cáo', 'rà', 'soát', 'lần', 'bản', 'nháp', 'tiếp', 'thu', 'giải', 'trình', 'hai', 'so', 'sánh', 'nhanh'}
+
+
+def dinh_danh_van_ban(paras, vai):
+    """Chuỗi định danh TỐI THIỂU (tên loại + trích yếu / tên dự thảo ghi ở báo cáo); '' nếu không xác định.
+    Chỉ đọc phần định danh, KHÔNG đọc kết luận của báo cáo cũ (chế độ ĐL – YC mục 2)."""
+    P = [x for x in paras[:80] if x]
+    if vai in ('bao_cao_ra_soat', 'bc_tiep_thu'):
+        for i, x in enumerate(P):
+            if re.match(r'^1\.\s*Dự thảo\s*$', x) and i + 1 < len(P):
+                return P[i + 1][:300]
+            m = re.match(r'^1\.\s*Dự thảo\s*[:|–-]\s*(\S.*)$', x)
+            if m: return m.group(1)[:300]
+        for i, x in enumerate(P[:12]):
+            if re.match(r'^BÁO CÁO\b', x) and i + 1 < len(P) and not re.match(r'^(BẢN NHÁP|Trạng thái|KẾT LUẬN|PHẦN)', P[i + 1]):
+                return ' '.join(P[i:i + 2])[:300]
+        return ''
+    for i, x in enumerate(P[:40]):
+        m = re.match(r'^' + _LOAI_HOA + r'(.*)$', x)
+        if m and len(x) < 200:
+            ty = [m.group(2).strip()]
+            for y in P[i + 1:i + 4]:
+                if y.endswith(('.', ':', ';')) or re.match(r'^(Kính gửi|Căn cứ|Điều|Chương|Mục|[IVX]+\.|\d+\.)', y) or len(y) > 200: break
+                ty.append(y)
+            return (m.group(1) + ' ' + ' '.join(ty)).strip()[:300]
+        m = re.match(r'^(?:V/v|Về việc)\s*(.*)$', x)
+        if m: return ('Công văn ' + m.group(1)).strip()[:300]
+    return ''
+
+
+_DAU_CHUNG = re.compile(r'(?i)^(CỘNG HÒA|ĐỘC LẬP|Số\b|KON TUM|ĐỊA ĐIỂM|DỰ THẢO|\(?DỰ THẢO|Kon Tum,|-{2,}|\*+$)')
+
+
+def dau_co_quan(paras):
+    """v4.6.6 (thẩm định Work, mục 2): cơ quan/đơn vị ban hành (các dòng IN HOA đứng TRƯỚC tên loại văn bản) và ký hiệu sau dấu "/" của số hiệu. → (tập từ, ký hiệu)."""
+    P = [x for x in paras[:40] if x]
+    dong, ky = [], ''
+    for x in P:
+        if re.match(r'^' + _LOAI_HOA, x): break
+        m = re.match(r'(?i)^Số\s*[:\-]?\s*[\w.]*\s*/\s*([\wĐđ\-]+(?:\s*/\s*[\wĐđ\-]+)*)', x)
+        if m: ky = ND.khong_dau(m.group(1)).upper().replace(' ', ''); continue
+        if _DAU_CHUNG.match(x) or len(x) > 80 or x != x.upper(): continue
+        dong.append(x)
+    return {w for w in tu_trich(' '.join(dong)) if len(w) > 1}, ky
+
+
+def quan_he_van_ban(pa, pb, a_, b_):
+    """Quan hệ hai VĂN BẢN dự thảo: định danh nội dung + cơ quan/đơn vị ban hành + ký hiệu số. Khác đơn vị/ký hiệu → 'khac'; chỉ một bên ghi đơn vị → 'khong_ro'."""
+    qh = quan_he_dinh_danh(a_, b_)
+    if qh != 'cung': return qh
+    (ua, ka), (ub, kb) = dau_co_quan(pa), dau_co_quan(pb)
+    if ua and ub and ua != ub: return 'khac'
+    if ka and kb and ka != kb: return 'khac'
+    # v4.6.7 (thẩm định Work lần 2, điểm 4; quyết định Hiệu trưởng 06/11/2026): chỉ "cùng" khi CẢ HAI bản đều ghi đơn vị ban hành và ký hiệu số và các giá trị trùng;
+    # thiếu một trong hai ở bất kỳ bản nào → chưa đủ căn cứ, hỏi một lần.
+    if not (ua and ub and ka and kb): return 'khong_ro'
+    return 'cung'
+
+
+def quan_he_dinh_danh(a_, b_):
+    """'cung' | 'khac' | 'khong_ro' – theo nội dung định danh (tên loại + trích yếu), không theo tên tệp/số phiên bản/ngày."""
+    A = {w for w in tu_trich(a_) if w not in _TU_CHUNG}
+    B = {w for w in tu_trich(b_) if w not in _TU_CHUNG}
+    if len(A) < 2 or len(B) < 2: return 'khong_ro'
+    nho, lon = (A, B) if len(A) <= len(B) else (B, A)
+    if nho <= lon and len(nho) >= 0.5 * len(lon): return 'cung'
+    return 'khac'
+
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('duong_dan', nargs='*')  # v4.6.1 (N34): không bắt buộc khi chỉ --kiem-moi-truong
@@ -696,36 +902,44 @@ def main():
                     help='v4.5 (quyết định F1): người rà soát xác nhận tệp là văn bản kèm theo của dự thảo khi trích yếu không khớp/không có (cùng tên loại); lý do ≥ 20 ký tự; ghi vào kết quả cổng và báo cáo I.7')
     ap.add_argument('--xac-nhan-toan-van', action='append', default=[], metavar='TÊN_TỆP=LÝ_DO',
                     help='v4.6.4 (Q5 – quyết định 03/11/2026): người rà soát xác nhận tệp nguồn RẤT NGẮN là toàn văn khi cổng không xác định được thân văn bản theo cấu trúc; lý do ≥ 20 ký tự; không dùng được cho tệp chỉ có phần định danh và một đoạn trích yếu; ghi vào kết quả cổng và báo cáo I.7 (chữ đỏ)')
+    ap.add_argument('--xac-nhan-phu-luc', action='append', default=[], metavar='PHỤ_LỤC@SỐ_HIỆU=LÝ_DO||TRÍCH_TIÊU_ĐỀ',
+                    help='v4.6.5 (YC mục 7): người rà soát xác nhận CHÍNH THỨC một cảnh báo phụ lục nhầm – "Phụ lục II@2307/QĐ-CĐKT=<lý do ≥ 20 ký tự>"; chỉ gỡ đúng cảnh báo phụ lục đó (văn bản chủ quản có trong hồ sơ/Kho; các điều kiện chặn khác vẫn áp dụng); bắt buộc kèm --nguoi-xac-nhan; ghi vào kết quả cổng và báo cáo')
+    ap.add_argument('--nguoi-xac-nhan', default=None, help='v4.6.5 (YC mục 7): họ tên, chức vụ người xác nhận (và chỉ đạo liên quan) cho --xac-nhan-phu-luc')
     ap.add_argument('--xuat-anh', default=None, help='thư mục lưu ảnh lớn trong tệp Word để người rà soát mở xem (PB2-07)')
     ap.add_argument('--du-thao', default=None)
     ap.add_argument('--kho', default=KHO_DEFAULT)
+    # v4.6.12-KTC: tự động tìm KTC-Database
+    _ktc_db_default = None
+    for _p in [os.environ.get('KTC_DATABASE_DIR'), r'H:\My Drive\KTC-Database', r'G:\My Drive\KTC-Database']:
+        if _p and os.path.isdir(_p): _ktc_db_default = _p; break
+    ap.add_argument('--kho-bo-sung', default=_ktc_db_default, help='v4.6.12-KTC: đường dẫn KTC-Database để tra thêm văn bản không có trong Kho gói; mặc định tự tìm')
     ap.add_argument('--json', default=None)
     ap.add_argument('--kiem-moi-truong', action='store_true', help='v4.6 (KTS-23): in tình trạng công cụ phụ thuộc (python-docx, pdftotext, pdfinfo, soffice) rồi thoát')
+    ap.add_argument('--thu-muc-lam-viec', default=None, help='v4.6.5 (YC mục 6): thư mục ghi tệp tạm do người dùng chỉ định, có thể NGOÀI cây hồ sơ đầu vào (kiểm tra ghi trước khi chạy)')
     a = ap.parse_args()
+    if a.thu_muc_lam_viec: os.environ['KTC_THU_MUC_LAM_VIEC'] = os.path.abspath(a.thu_muc_lam_viec); tempfile.tempdir = os.path.abspath(a.thu_muc_lam_viec) if os.path.isdir(a.thu_muc_lam_viec) else None
     if not a.duong_dan and not a.kiem_moi_truong:
         ap.error('cần ít nhất một đường dẫn hồ sơ (thư mục hoặc tệp), hoặc chỉ dùng --kiem-moi-truong')
     if a.kiem_moi_truong:
-        for c_ in ('pdftotext', 'pdfinfo', 'soffice', 'libreoffice'):
-            print('%-12s %s' % (c_, shutil.which(c_) or 'THIẾU'))
-        try:
-            import docx  # noqa: F401
-            print('python-docx  có')
-        except Exception:
-            print('python-docx  THIẾU')
-        sys.exit(0)
+        ds_, dat_ = ND.kiem_moi_truong(a.duong_dan, a.thu_muc_lam_viec)
+        for ten_, tt_, ct_, gi_ in ds_:
+            print('%-26s %-5s %5.2fs  %s' % (ten_, tt_, gi_, ct_))
+        print('KẾT LUẬN MÔI TRƯỜNG: %s' % ('ĐẠT các phép thử bắt buộc (đọc nguồn, tệp tạm, tiến trình con)' if dat_ else 'LỖI – xem dòng LỖI ở trên; sửa quyền/thư mục rồi chạy lại, không tăng thời gian chờ để che lỗi'))
+        sys.exit(0 if dat_ else 2)
 
     # v4.6.2 (F11): ghi tham số chạy THỰC để tao_bao_cao.py tính lại kết quả cổng từ tệp (không tin JSON cổng); đường dẫn đầu vào chuẩn hóa tuyệt đối
     a.duong_dan = [os.path.abspath(x) for x in a.duong_dan]
     THAM_SO = dict(duong_dan=list(a.duong_dan), tac_vu=a.tac_vu, vong=str(a.vong), vai_tro=list(a.vai_tro), xac_nhan_kem=list(a.xac_nhan_kem), xac_nhan_toan_van=list(a.xac_nhan_toan_van),
+                   xac_nhan_phu_luc=list(a.xac_nhan_phu_luc), nguoi_xac_nhan=a.nguoi_xac_nhan,
                    du_thao=a.du_thao, kho=os.path.abspath(a.kho), cwd=os.getcwd())
     files = []
     chan, canh_bao, bang, anh_xem = [], [], [], []
     # v4.6.3 (D2 – quyết định 02/11/2026, ưu tiên số 1): TỪ CHỐI Kho ngoài Kho của gói (v4.6.2 chỉ cảnh báo chữ đỏ). So đường dẫn thực
-    # đã chuẩn hóa theo hệ điều hành: cách viết tương đương của CÙNG Kho (“..”, “.”, liên kết tượng trưng tới đúng tệp) được nhận;
+    # đã chuẩn hóa theo hệ điều hành: cách viết tương đương của CÙNG Kho ("..", ".", liên kết tượng trưng tới đúng tệp) được nhận;
     # bản sao Kho, thư mục liên kết tới nơi khác, tệp không tồn tại → từ chối, không nạp Kho đó.
     kho_ngoai = not ND.cung_tep_kho(a.kho, KHO_DEFAULT)
     if kho_ngoai:
-        chan.append('Kho “%s” không phải Kho của gói Skill (%s) – từ v4.6.3 Kho ngoài gói bị từ chối (D2); bỏ tùy chọn --kho hoặc trỏ đúng Kho của gói rồi chạy lại cổng.' % (a.kho, os.path.normpath(KHO_DEFAULT)))
+        chan.append('Kho "%s" không phải Kho của gói Skill (%s) – từ v4.6.3 Kho ngoài gói bị từ chối (D2); bỏ tùy chọn --kho hoặc trỏ đúng Kho của gói rồi chạy lại cổng.' % (a.kho, os.path.normpath(KHO_DEFAULT)))
     for d in a.duong_dan:
         if os.path.isdir(d):
             for r, _, fs in os.walk(d):
@@ -733,7 +947,7 @@ def main():
         elif os.path.exists(d):
             files.append(d)
         else:  # v4.6 (KTS-07): đầu vào không tồn tại không được bỏ qua im lặng
-            chan.append('Đường dẫn đầu vào “%s” không tồn tại – kiểm tra lại tên tệp/thư mục rồi chạy lại cổng.' % d)
+            chan.append('Đường dẫn đầu vào "%s" không tồn tại – kiểm tra lại tên tệp/thư mục rồi chạy lại cổng.' % d)
     if a.json:  # v4.6.3: tệp kết quả không được trùng tệp hồ sơ/Kho (không ghi đè), thư mục phải có – kiểm TRƯỚC khi xử lý
         e_ = ND.kiem_duong_dan_ghi(a.json, [f for f in files if os.path.splitext(f)[1].lower() not in BO_QUA] + [KHO_DEFAULT], '.json')
         if e_:
@@ -755,46 +969,46 @@ def main():
         TEN = {f: (os.path.basename(f) if _dem[os.path.basename(f)] == 1 else os.path.abspath(f).replace(os.sep, '/')) for f in files}
     for n_, k_ in sorted(_dem.items()):
         if k_ > 1 and not (n_.startswith('~$') or n_.startswith('.')):
-            canh_bao.append('Có %d tệp cùng tên “%s” ở các thư mục khác nhau – script phân biệt theo đường dẫn (%s); khi chỉ định --vai-tro, --du-thao dùng đường dẫn này.' % (k_, n_, '; '.join(TEN[f] for f in files if os.path.basename(f) == n_)))
+            canh_bao.append('Có %d tệp cùng tên "%s" ở các thư mục khác nhau – script phân biệt theo đường dẫn (%s); khi chỉ định --vai-tro, --du-thao dùng đường dẫn này.' % (k_, n_, '; '.join(TEN[f] for f in files if os.path.basename(f) == n_)))
     for f in files:
         name = TEN[f]
         ext = os.path.splitext(name)[1].lower()
         if name.startswith('~$') or name.startswith('.') or ext in BO_QUA:
             bang.append((name, ext, 'bỏ qua (tệp hệ thống/không phải hồ sơ)')); continue
         if ext in NEN:
-            chan.append('Tệp nén “%s” – đề nghị giải nén và gửi từng tệp (.docx/.xlsx/PDF có lớp chữ); Skill không nhận tệp nén vì có thể chứa ảnh, bản scan.' % name)
+            chan.append('Tệp nén "%s" – đề nghị giải nén và gửi từng tệp (.docx/.xlsx/PDF có lớp chữ); Skill không nhận tệp nén vì có thể chứa ảnh, bản scan.' % name)
             bang.append((name, ext, 'CHẶN – tệp nén')); continue
         if ext in ANH:
-            chan.append('Tệp ảnh/bản chụp “%s” – không nhận ảnh hoặc bản chụp; đề nghị cung cấp bản .docx/.xlsx.' % name)
+            chan.append('Tệp ảnh/bản chụp "%s" – không nhận ảnh hoặc bản chụp; đề nghị cung cấp bản .docx/.xlsx.' % name)
             bang.append((name, ext, 'CHẶN – ảnh/bản chụp')); continue
         if ext in CU:
-            chan.append('Tệp “%s” định dạng %s – đề nghị lưu lại sang %s rồi gửi lại.' % (name, ext, CU[ext]))
+            chan.append('Tệp "%s" định dạng %s – đề nghị lưu lại sang %s rồi gửi lại.' % (name, ext, CU[ext]))
             bang.append((name, ext, 'CHẶN – định dạng không nhận')); continue
         if ext == '.pdf':
             t, pages = pdf_info(f)
             if t == 'THIEU_CONG_CU':  # v4.6 (KTS-23): lỗi môi trường, không quy thành tệp scan
-                chan.append('Không kiểm được lớp chữ của tệp PDF “%s”: máy chạy Skill thiếu công cụ pdftotext (Poppler) – đây là lỗi môi trường, chưa phải kết luận tệp là bản scan; cài Poppler (chạy kiem_ke_ho_so.py --kiem-moi-truong để kiểm) hoặc cung cấp bản .docx.' % name)
+                chan.append('Không kiểm được lớp chữ của tệp PDF "%s": máy chạy Skill thiếu công cụ pdftotext (Poppler) – đây là lỗi môi trường, chưa phải kết luận tệp là bản scan; cài Poppler (chạy kiem_ke_ho_so.py --kiem-moi-truong để kiểm) hoặc cung cấp bản .docx.' % name)
                 bang.append((name, ext, 'CHƯA KIỂM – thiếu công cụ pdftotext')); continue
             dens = len(re.sub(r'\s', '', t or '')) / max(pages, 1)
             if t is None or dens < 200:
-                chan.append('Tệp PDF “%s” không có lớp chữ (bản scan/ảnh, %.0f ký tự/trang) – đề nghị cung cấp bản .docx hoặc PDF có lớp chữ.' % (name, dens))
+                chan.append('Tệp PDF "%s" không có lớp chữ (bản scan/ảnh, %.0f ký tự/trang) – đề nghị cung cấp bản .docx hoặc PDF có lớp chữ.' % (name, dens))
                 bang.append((name, ext, 'CHẶN – PDF scan')); continue
             paras = [norm(x) for x in t.splitlines()]
             docs[f] = paras; bang.append((name, ext, 'nhận – PDF có lớp chữ (%.0f ký tự/trang)' % dens)); continue
         if ext not in NHAN:
-            chan.append('Tệp “%s” định dạng %s không thuộc định dạng được nhận (.docx, .xlsx, .pdf có lớp chữ).' % (name, ext))
+            chan.append('Tệp "%s" định dạng %s không thuộc định dạng được nhận (.docx, .xlsx, .pdf có lớp chữ).' % (name, ext))
             bang.append((name, ext, 'CHẶN – định dạng không nhận')); continue
         try:
             paras = docx_paras(f) if ext == '.docx' else xlsx_text(f)
             if ext == '.docx': JC[f] = docx_jc(f)
         except Exception as e:
-            chan.append('Không đọc được tệp “%s” (%s) – đề nghị kiểm tra và gửi lại.' % (name, type(e).__name__))
+            chan.append('Không đọc được tệp "%s" (%s) – đề nghị kiểm tra và gửi lại.' % (name, type(e).__name__))
             bang.append((name, ext, 'CHẶN – lỗi đọc tệp')); continue
         # v4.4 (PB4-GPT-05): tệp Word ngắn (phụ lục danh mục vài dòng) vẫn nhận; chỉ chặn khi ít chữ VÀ có ảnh (ảnh chụp dán vào Word) hoặc gần như trống
         n_chu0 = len(re.sub(r'\s', '', ''.join(paras)))
-        # v4.5 (PB5-WORK-09): ảnh nhỏ (biểu trưng, dưới 1/4 trang) không làm tệp bị coi là “không có chữ”
+        # v4.5 (PB5-WORK-09): ảnh nhỏ (biểu trưng, dưới 1/4 trang) không làm tệp bị coi là "không có chữ"
         if ext == '.docx' and (n_chu0 < 15 or (n_chu0 < 200 and docx_co_anh(f) and docx_anh_lon(f))):
-            chan.append('Tệp “%s” gần như không có chữ (%d ký tự%s) – đề nghị cung cấp bản có nội dung chữ.' % (name, n_chu0, ', có ảnh dán vào Word' if n_chu0 >= 15 else ''))
+            chan.append('Tệp "%s" gần như không có chữ (%d ký tự%s) – đề nghị cung cấp bản có nội dung chữ.' % (name, n_chu0, ', có ảnh dán vào Word' if n_chu0 >= 15 else ''))
             bang.append((name, ext, 'CHẶN – không có lớp chữ')); continue
         if ext == '.docx':
             lon = docx_anh_lon(f, a.xuat_anh)
@@ -803,11 +1017,11 @@ def main():
             # → người rà soát MỞ XEM ảnh; nếu là văn bản chụp/scan thì chặn (G1), nếu là sơ đồ/hình minh họa thì nhận
             if lon and not (n_chu / len(lon) < 3000 or any(cx * cy >= 0.8 * A4_EMU2 for cx, cy, _ in lon)):
                 anh_xem.append((name, len(lon), [p_ for _, _, p_ in lon if p_]))
-                canh_bao.append('PHẢI XEM ẢNH: tệp “%s” có %d ảnh ≥ 1/4 trang kèm %d ký tự chữ%s. Người rà soát mở xem từng ảnh: nếu là văn bản chụp/bản scan → coi như CHẶN (G1) và gửi thông báo chặn; nếu là sơ đồ, hình minh họa → nhận.' % (
+                canh_bao.append('PHẢI XEM ẢNH: tệp "%s" có %d ảnh ≥ 1/4 trang kèm %d ký tự chữ%s. Người rà soát mở xem từng ảnh: nếu là văn bản chụp/bản scan → coi như CHẶN (G1) và gửi thông báo chặn; nếu là sơ đồ, hình minh họa → nhận.' % (
                     name, len(lon), n_chu, (' – ảnh đã xuất: ' + '; '.join(p_ for _, _, p_ in lon if p_)) if any(p_ for _, _, p_ in lon) else ' (chạy lại với --xuat-anh <thư mục> để xuất ảnh)'))
                 lon = []
             if lon:
-                chan.append('Tệp “%s” chứa %d ảnh cỡ lớn (ảnh chụp/bản scan dán vào Word, ≥ 1/4 trang) – không nhận ảnh, bản scan; đề nghị cung cấp nội dung dạng chữ.' % (name, len(lon)))
+                chan.append('Tệp "%s" chứa %d ảnh cỡ lớn (ảnh chụp/bản scan dán vào Word, ≥ 1/4 trang) – không nhận ảnh, bản scan; đề nghị cung cấp nội dung dạng chữ.' % (name, len(lon)))
                 bang.append((name, ext, 'CHẶN – chứa ảnh chụp/scan')); continue
         docs[f] = paras; bang.append((name, ext, 'nhận'))
 
@@ -817,11 +1031,12 @@ def main():
         if vt[f] in ('lien_quan', 'du_thao'):
             tk = tieu_de_kem(p)
             # v4.4 (PB4-WORK-09): tệp có dấu DỰ THẢO mà tên loại có thể đứng riêng (Kế hoạch, Chương trình, Đề án, Hướng dẫn)
-            # và không có dòng “(Kèm theo …)” vẫn là dự thảo
+            # và không có dòng "(Kèm theo …)" vẫn là dự thảo
             if tk and vt[f] == 'du_thao' and tk[0] == 'kem_theo' and loai_kem(tk[1]) not in LUON_KEM and \
                     not any(re.search(r'(?i)\(\s*(?:ban hành\s+)?kèm theo', x) for x in p[:10]):
                 tk = None
             if tk: kem[f] = tk; vt[f] = 'kem_theo'
+    vai_chi_dinh = set()  # v4.6.5: tệp có vai trò do người rà soát chỉ định (--vai-tro) – ghi nhận, không tự ghi đè
     VAI_HL = ('du_thao', 'du_thao_cu', 'bao_cao_ra_soat', 'bc_tiep_thu', 'kem_theo', 'lien_quan')
     def tim_tep(ten_):  # v4.6 (KTS-07): một bộ phân giải tên tệp duy nhất – trùng tên ngắn hoặc không có thì báo, không chọn ngầm
         ten_ = ten_.strip()
@@ -832,19 +1047,19 @@ def main():
         ten_, _, vai_ = chi_dinh.partition('=')
         hit_ = tim_tep(ten_)
         if vai_.strip() not in VAI_HL:
-            chan.append('--vai-tro “%s”: vai trò “%s” không hợp lệ (chỉ nhận %s).' % (chi_dinh[:80], vai_.strip(), ', '.join(VAI_HL)))
+            chan.append('--vai-tro "%s": vai trò "%s" không hợp lệ (chỉ nhận %s).' % (chi_dinh[:80], vai_.strip(), ', '.join(VAI_HL)))
         elif not hit_:
-            chan.append('--vai-tro “%s”: không có tệp “%s” trong hồ sơ đã nhận.' % (chi_dinh[:80], ten_.strip()))
+            chan.append('--vai-tro "%s": không có tệp "%s" trong hồ sơ đã nhận.' % (chi_dinh[:80], ten_.strip()))
         elif len(hit_) > 1:
-            chan.append('--vai-tro “%s”: tên “%s” trùng %d tệp (%s) – ghi đường dẫn tương đối như cổng ghi.' % (chi_dinh[:80], ten_.strip(), len(hit_), '; '.join(TEN[f] for f in hit_)))
+            chan.append('--vai-tro "%s": tên "%s" trùng %d tệp (%s) – ghi đường dẫn tương đối như cổng ghi.' % (chi_dinh[:80], ten_.strip(), len(hit_), '; '.join(TEN[f] for f in hit_)))
         # v4.6.1 (N07): áp vai trò bằng CHÍNH kết quả bộ phân giải đã kiểm (tên như cổng ghi, tên ngắn duy nhất, đường dẫn tuyệt đối)
         if len(hit_) == 1 and vai_.strip() in VAI_HL:
             f = hit_[0]
-            vt[f] = vai_.strip(); canh_bao.append('Vai trò “%s” của tệp “%s” do người rà soát chỉ định (--vai-tro).' % (vai_.strip(), TEN[f]))
+            vt[f] = vai_.strip(); vai_chi_dinh.add(f); canh_bao.append('Vai trò "%s" của tệp "%s" do người rà soát chỉ định (--vai-tro).' % (vai_.strip(), TEN[f]))
             if vai_.strip() == 'kem_theo': kem[f] = tieu_de_kem(docs[f]) or ('kem_theo', '(không có tiêu đề tên loại)', '')  # v4.5: chỉ sửa vai trò, vẫn kiểm khớp
             if vai_.strip() != 'kem_theo': kem.pop(f, None)
     if a.du_thao and len(tim_tep(a.du_thao)) != 1:
-        chan.append('--du-thao “%s”: %s.' % (a.du_thao, 'không có tệp này trong hồ sơ' if not tim_tep(a.du_thao) else 'tên trùng nhiều tệp – ghi đường dẫn tương đối như cổng ghi'))
+        chan.append('--du-thao "%s": %s.' % (a.du_thao, 'không có tệp này trong hồ sơ' if not tim_tep(a.du_thao) else 'tên trùng nhiều tệp – ghi đường dẫn tương đối như cổng ghi'))
     if a.du_thao and len(tim_tep(a.du_thao)) == 1:  # v4.6.1 (N09): dùng cùng bộ phân giải (bỏ khoảng trắng ngoài tên, đường dẫn tuyệt đối)
         chon_ = tim_tep(a.du_thao)[0]
         for f in docs:
@@ -855,14 +1070,14 @@ def main():
     du_thao = [f for f in docs if vt[f] == 'du_thao']
     if a.tac_vu == 'so-sanh':
         # so sánh hai bản: ĐÚNG HAI bản dự thảo (quyết định của Hiệu trưởng 26/10/2026 điểm 3; 27/10/2026 – PB2-15; v4.3 – TH-01).
-        # Văn bản liên quan chỉ được coi là “bản” khi tên tệp ghi dự thảo/số phiên bản VÀ số văn bản chưa điền.
+        # Văn bản liên quan chỉ được coi là "bản" khi tên tệp ghi dự thảo/số phiên bản VÀ số văn bản chưa điền.
         du_thao = [f for f in docs if vt[f] in ('du_thao', 'du_thao_cu')]
         if len(du_thao) < 2:
             def ung_vien(f):
                 ten = nfc(os.path.splitext(os.path.basename(f))[0]).upper()
                 co_ten = re.search(r'DU[\s_-]*THAO|DỰ[\s_-]*THẢO|(?:^|[\s_\-(.])(?:V|LAN|LẦN|BAN|BẢN)\s*\d+', ten)
                 so_line = next((p for p in docs[f][:40] if re.match(r'^Số\b', p)), '')
-                # v4.4 (PB4-WORK-08): vắng dòng “Số” khác dòng số để trống – vắng thì chỉ nhận khi tên tệp ghi rõ “dự thảo”; tài liệu tham khảo không bao giờ là “bản”
+                # v4.4 (PB4-WORK-08): vắng dòng "Số" khác dòng số để trống – vắng thì chỉ nhận khi tên tệp ghi rõ "dự thảo"; tài liệu tham khảo không bao giờ là "bản"
                 tham_khao = any('THAM KHẢO' in nfc(p).upper() for p in docs[f][:10] if len(p) < 80)
                 co_so_trong = bool(so_line) and not re.match(r'^Số\s*:?\s*\d', so_line)
                 ghi_du_thao = re.search(r'DU[\s_-]*THAO|DỰ[\s_-]*THẢO', ten)
@@ -873,36 +1088,81 @@ def main():
             chan.append('So sánh hai bản: cần đúng 2 bản dự thảo (.docx) – hiện nhận diện được %d bản%s; đề nghị chỉ rõ hai tệp cần so sánh (chạy lại với --vai-tro "<tệp>=du_thao" cho hai bản, "<tệp>=lien_quan" cho tệp khác).' % (
                 len(du_thao), (' (' + '; '.join(TEN[x] for x in du_thao) + ')') if du_thao else ''))
     elif len(du_thao) > 1:
-        def ver(f):
-            m = re.findall(r'(?:^|[\s_\-(.])(?:V|LAN|BAN)\s*(\d+)(?![\d/])', ND.khong_dau(os.path.splitext(os.path.basename(f))[0]))  # v4.6 (KTS-06): so không dấu
-            return int(m[-1]) if m else -1
-        vs = sorted(du_thao, key=ver)
-        if ver(vs[-1]) > ver(vs[-2]):
-            for f in vs[:-1]: vt[f] = 'du_thao_cu'
-            du_thao = [vs[-1]]
-            canh_bao.append('Có %d bản dự thảo; xác định bản hiện hành là “%s” (số phiên bản lớn nhất). Nếu không đúng, chạy lại với --du-thao.' % (len(vs), TEN[vs[-1]]))
+        # v4.6.5 (YC mục 2, ca 06): KHÔNG chọn bản hiện hành theo số phiên bản/tên tệp/ngày sửa. Xác định quan hệ theo NỘI DUNG (tên loại + trích yếu).
+        # Chỉ tự chọn khi mọi tệp cùng một dự thảo VÀ mỗi tệp ghi dấu "Dự thảo lần N" khác nhau TRONG NỘI DUNG; còn lại hỏi một lần.
+        dd_ = {f: dinh_danh_van_ban(docs[f], 'du_thao') for f in du_thao}
+        def lan_nd(f):
+            for x_ in docs[f][:20]:
+                m_ = re.match(r'^[(\[]?\s*(?:DỰ THẢO|Dự thảo)\s*(?:lần|LẦN)\s*(\d+)\s*[)\]]?$', x_.strip())
+                if m_: return int(m_.group(1))
+            return None
+        cap = [(TEN[x], TEN[y], quan_he_van_ban(docs[x], docs[y], dd_[x], dd_[y])) for k_, x in enumerate(du_thao) for y in du_thao[k_ + 1:]]
+        lans = [lan_nd(f) for f in du_thao]
+        if all(c[2] == 'cung' for c in cap) and None not in lans and len(set(lans)) == len(lans):
+            f_moi = du_thao[lans.index(max(lans))]
+            for f in du_thao:
+                if f != f_moi: vt[f] = 'du_thao_cu'
+            du_thao = [f_moi]
+            canh_bao.append('Có %d bản dự thảo cùng nội dung định danh; xác định bản hiện hành là "%s" theo dấu "Dự thảo lần %d" GHI TRONG NỘI DUNG (không theo tên tệp, số phiên bản hay ngày sửa). Nếu không đúng, chạy lại với --du-thao.' % (len(lans), TEN[f_moi], max(lans)))
         else:
-            chan.append('Có %d tệp được nhận diện là dự thảo (%s) nhưng không xác định được bản hiện hành – đề nghị nói rõ bản nào cần rà soát.' % (len(du_thao), '; '.join(TEN[x] for x in du_thao)))
+            qh_ = {'cung': 'cùng nội dung định danh', 'khac': 'KHÁC nội dung (dự thảo khác nhau)', 'khong_ro': 'chưa đủ thông tin định danh để kết luận'}
+            chan.append('Có %d tệp được nhận diện là dự thảo (%s). Quan hệ theo nội dung: %s. Không xác định được bản hiện hành – Skill không chọn theo tên tệp, số phiên bản hay ngày sửa; đề nghị cho biết bản nào cần rà soát (chạy lại với --du-thao "<tệp>") và, nếu có, các bản còn lại là bản lần trước của chính dự thảo đó hay dự thảo khác.' % (
+                len(du_thao), '; '.join(TEN[x] for x in du_thao), '; '.join('"%s" – "%s": %s' % (x, y, qh_[r]) for x, y, r in cap)))
     if not du_thao and a.tac_vu != 'so-sanh':
         lq = [f for f in docs if vt[f] == 'lien_quan']
         if len(lq) == 1 and not any(v in ('bao_cao_ra_soat', 'bc_tiep_thu') for v in vt.values()):
             vt[lq[0]] = 'du_thao'; du_thao = lq
-            canh_bao.append('Không có tệp ghi “DỰ THẢO”; coi “%s” là dự thảo cần rà soát.' % TEN[lq[0]])
+            canh_bao.append('Không có tệp ghi "DỰ THẢO"; coi "%s" là dự thảo cần rà soát.' % TEN[lq[0]])
         else:
-            chan.append('Không xác định được dự thảo cần rà soát (không tệp nào có chữ “DỰ THẢO” hoặc số văn bản để trống) – đề nghị cung cấp/chỉ rõ tệp dự thảo.')
+            chan.append('Không xác định được dự thảo cần rà soát (không tệp nào có chữ "DỰ THẢO" hoặc số văn bản để trống) – đề nghị cung cấp/chỉ rõ tệp dự thảo.')
 
     # ---- vòng rà soát
-    co_bc_rs = [f for f in docs if vt[f] == 'bao_cao_ra_soat']
-    co_tt = [f for f in docs if vt[f] == 'bc_tiep_thu']
-    co_cu = [f for f in docs if vt[f] == 'du_thao_cu']
+    # v4.6.5 (YC mục 2, ca 04–06): lịch sử chỉ áp cho ĐÚNG dự thảo – xác định theo định danh NỘI DUNG (tên loại + trích yếu / tên dự thảo ghi ở báo cáo),
+    # không theo sự có mặt của báo cáo/dự thảo cũ trong thư mục, tên tệp hay số phiên bản. Chế độ ĐL: chỉ đọc phần định danh, không đọc kết luận báo cáo cũ.
+    ung_vien = [f for f in docs if vt[f] in ('bao_cao_ra_soat', 'bc_tiep_thu', 'du_thao_cu')]
+    dd_hh = dinh_danh_van_ban(docs[du_thao[0]], 'du_thao') if du_thao else ''
+    lich_su = []
+    quan_he = {}
+    for f in ung_vien:
+        dd_f = dinh_danh_van_ban(docs[f], vt[f])
+        if f in vai_chi_dinh: qh = 'cung'; ly_qh = 'người rà soát chỉ định vai trò (--vai-tro)'
+        else:
+            qh = quan_he_van_ban(docs[du_thao[0]], docs[f], dd_hh, dd_f) if (du_thao and vt[f] == 'du_thao_cu') else quan_he_dinh_danh(dd_hh, dd_f); ly_qh = 'so định danh nội dung' + (' + cơ quan/đơn vị ban hành, ký hiệu số' if vt[f] == 'du_thao_cu' else '')
+        quan_he[f] = qh
+        lich_su.append(dict(tep=TEN[f], vai_tro=vt[f], quan_he=qh, can_cu=ly_qh, dinh_danh=dd_f[:200]))
+    cung_ = [f for f in ung_vien if quan_he[f] == 'cung']
+    khac_ = [f for f in ung_vien if quan_he[f] == 'khac']
+    khongro_ = [f for f in ung_vien if quan_he[f] == 'khong_ro']
+    xac_nhan_vong = None
     if a.tac_vu != 'ra-soat':
         vong, vong_txt = 1, 'không áp dụng (tác vụ %s)' % a.tac_vu
     elif a.vong == 'auto':
-        # v4.6 (KTS-06): so tên tệp KHÔNG DẤU (“lần 2” = “lan 2” = “LẦN 2”), nhận cả số ≥ 10
-        vong = 2 if (co_bc_rs or co_cu or any(re.search(r'SUA\s*LAN|SAU\s*TRINH|(?:^|[\s_\-(.])LAN\s*(?:[2-9]|[1-9]\d+)(?!\d)', ND.khong_dau(os.path.basename(f))) for f in du_thao)) else 1
-        vong_txt = '%d (tự nhận diện)' % vong
+        if cung_:
+            vong = 2; vong_txt = '2 (tự nhận diện theo định danh nội dung: %s cùng dự thảo)' % '; '.join(TEN[f] for f in cung_)
+        elif khongro_:
+            vong = 1; vong_txt = '1 (CHƯA XÁC ĐỊNH – cần người dùng xác nhận)'
+            chan.append('Không xác định được tệp %s có phải là báo cáo/dự thảo lần trước của CHÍNH dự thảo "%s" hay không (định danh không đủ thông tin). Đề nghị xác nhận: đây là rà soát lần 1 hay lần ≥ 2? Nếu lần ≥ 2, ghi rõ tệp nào là báo cáo rà soát lần trước, báo cáo tiếp thu, dự thảo lần trước của dự thảo này (Skill chạy lại với --vong 2 và --vai-tro).' % (
+                '; '.join('"%s"' % TEN[f] for f in khongro_), TEN[du_thao[0]] if du_thao else '(chưa xác định)'))
+        else:
+            vong = 1; vong_txt = '1 (tự nhận diện: không có báo cáo/dự thảo lần trước CỦA dự thảo này)'
+        if khac_:
+            canh_bao.append('Tệp %s thuộc văn bản KHÁC (định danh không trùng dự thảo đang xét) – không dùng để xác định lần rà soát và không coi là báo cáo/dự thảo lần trước.' % '; '.join('"%s"' % TEN[f] for f in khac_))
+        if vong == 1 and du_thao and re.search(r'SUA\s*LAN|SAU\s*TRINH|(?:^|[\s_\-(.])LAN\s*(?:[2-9]|[1-9]\d+)(?!\d)', ND.khong_dau(os.path.basename(du_thao[0]))):
+            canh_bao.append('Tên tệp dự thảo gợi ý lần ≥ 2 nhưng KHÔNG dùng tên tệp để quyết định; nếu đây là rà soát lần ≥ 2, chạy lại với --vong 2 (xác nhận của người dùng).')
     else:
-        vong = int(a.vong); vong_txt = str(vong)
+        vong = int(a.vong); vong_txt = '%s (người dùng xác nhận)' % vong
+        xac_nhan_vong = dict(gia_tri=vong, nguon='nguoi_dung', bang_chung_trai=[])
+        if vong == 1 and cung_:
+            xac_nhan_vong['bang_chung_trai'] = [TEN[f] for f in cung_]
+            chan.append('Người dùng xác nhận lần 1 nhưng hồ sơ có tệp cùng định danh với dự thảo (%s) – có thể là báo cáo/dự thảo lần trước. Không tự ghi đè: đề nghị xác nhận lại (lần ≥ 2, chạy --vong 2) hoặc nêu rõ các tệp đó là văn bản khác (--vai-tro "<tệp>=lien_quan").' % '; '.join('"%s"' % TEN[f] for f in cung_))
+        if vong >= 2 and ung_vien and not cung_ and not khongro_:
+            xac_nhan_vong['bang_chung_trai'] = [TEN[f] for f in khac_]
+            canh_bao.append('Người dùng xác nhận lần %d nhưng các báo cáo/dự thảo cũ trong hồ sơ (%s) có định danh KHÁC dự thảo đang xét; chúng không được dùng làm lịch sử của dự thảo này.' % (vong, '; '.join(TEN[f] for f in khac_)))
+    # chỉ các tệp cùng dự thảo (hoặc chưa rõ khi người dùng xác nhận lần ≥ 2) mới được tính là lịch sử
+    hop_ = set(cung_) | (set(khongro_) if (a.vong != 'auto' and vong >= 2) else set())
+    co_bc_rs = [f for f in docs if vt[f] == 'bao_cao_ra_soat' and f in hop_]
+    co_tt = [f for f in docs if vt[f] == 'bc_tiep_thu' and f in hop_]
+    co_cu = [f for f in docs if vt[f] == 'du_thao_cu' and f in hop_]
     if vong >= 2:
         if not co_bc_rs:
             chan.append('Rà soát từ lần 2: thiếu Báo cáo rà soát lần trước – đề nghị cung cấp để đối chiếu việc tiếp thu.')
@@ -918,6 +1178,7 @@ def main():
 
     # ---- trích dẫn trong dự thảo, phụ lục
     tdan, pl_thieu, xac_nhan_ghi = [], [], []
+    pl_ngoai = []  # v4.6.5 (YC mục 1): phụ lục THUỘC VĂN BẢN KHÁC được dẫn chiếu – kiểm sau khi dựng bộ phân giải nguồn
     if du_thao and a.tac_vu != 'chuan-hoa':
         pham_vi = du_thao if a.tac_vu == 'so-sanh' else du_thao[:1]
         so_ban_than = {key_so(m.group(1)) for f in du_thao for p in docs[f][:40] for m in [re.match(r'^Số\s*:\s*' + SO, ND.chuan_so_hieu(p))] if m}
@@ -937,48 +1198,39 @@ def main():
             hit_k = [g_ for g_ in tim_tep(ten_) if g_ in kem]  # v4.6.1: cùng bộ phân giải với --vai-tro, --du-thao
             g = hit_k[0] if len(hit_k) == 1 else None
             if g is None:
-                chan.append('--xac-nhan-kem: không có tệp văn bản kèm theo tên “%s” trong hồ sơ.' % ten_.strip())
+                chan.append('--xac-nhan-kem: không có tệp văn bản kèm theo tên "%s" trong hồ sơ.' % ten_.strip())
             elif len(ly_.strip()) < 20:
-                chan.append('--xac-nhan-kem “%s”: phải ghi lý do cụ thể (≥ 20 ký tự) vì sao tệp này là văn bản kèm theo của dự thảo.' % ten_.strip())
+                chan.append('--xac-nhan-kem "%s": phải ghi lý do cụ thể (≥ 20 ký tự) vì sao tệp này là văn bản kèm theo của dự thảo.' % ten_.strip())
             else:
                 xac_nhan[g] = ly_.strip()
         kem_tep = [(g, v) for g, v in kem.items() if v and v[0] == 'kem_theo']
         dung_tep_chung = set()  # v4.6 (KTS-04, A15): một tệp kèm theo chỉ đáp ứng MỘT văn bản kèm theo của MỘT bản (không dùng chung giữa hai bản)
-        def phu_luc_nhac(P):
-            nhac = set()
-            for p in P:
-                for m in re.finditer(r'(?i)phụ lục\s+(?:số\s+)?([IVXLC]+|\d+)\b', p):
-                    sau = p[m.end():m.end() + 45]
-                    if re.match(r'\s*(?:ban hành\s+)?(?:kèm theo\s+|tại\s+|của\s+)?(?:' + LOAI + r'|NĐ|QĐ|TT|TB|HD|KH|NQ|CT)\s*(?:số\s*)?\d', sau) and 'này' not in sau[:30]:
-                        continue  # phụ lục của văn bản khác
-                    nhac.add(m.group(1).upper())
-            return nhac
-        def phu_luc_co(P):
-            return {m.group(1).upper() for x in P for m in [PL_TITLE.match(x)] if m and len(x) < 120}
+        def phu_luc_nhac(P, ten_tep=''):
+            own, ngoai_ = phan_loai_phu_luc(P)
+            for x_ in ngoai_: pl_ngoai.append(dict(x_, tep=ten_tep))
+            return own
+        phu_luc_co = phu_luc_tieu_de
         # v4.6 (KTS-04, G09): kiểm ĐỆ QUY – phụ lục được nhắc trong tệp văn bản kèm theo riêng cũng phải có trong hồ sơ
         for g, v in kem_tep:
             co_g = phu_luc_co(docs[g]) | pl_tep | {x for f in pham_vi for x in phu_luc_co(docs[f])}
-            for x in sorted(phu_luc_nhac(docs[g])):
+            for x in sorted(phu_luc_nhac(docs[g], TEN[g])):
                 if x not in co_g:
                     pl_thieu.append(x)
-                    chan.append('Văn bản kèm theo “%s” nhắc tới Phụ lục %s nhưng hồ sơ không có phụ lục này – đề nghị bổ sung.' % (TEN[g], x))
+                    chan.append('Văn bản kèm theo "%s" nhắc tới Phụ lục %s nhưng hồ sơ không có phụ lục này – đề nghị bổ sung.' % (TEN[g], x))
+        # v4.6.13-KTC (C1): phụ lục có tiêu đề trong văn bản kèm theo cũng tính là "có"
+        pl_trong_kem = {x for g, v in kem_tep for x in phu_luc_tieu_de(docs[g])}
         for f in pham_vi:
-            P = docs[f]; tien_to = ('Bản “%s”: ' % TEN[f]) if a.tac_vu == 'so-sanh' else ''
-            nhac = set()
-            for p in P:
-                for m in re.finditer(r'(?i)phụ lục\s+(?:số\s+)?([IVXLC]+|\d+)\b', p):
-                    sau = p[m.end():m.end() + 45]
-                    if re.match(r'\s*(?:ban hành\s+)?(?:kèm theo\s+|tại\s+|của\s+)?(?:' + LOAI + r'|NĐ|QĐ|TT|TB|HD|KH|NQ|CT)\s*(?:số\s*)?\d', sau) and 'này' not in sau[:30]:
-                        continue  # phụ lục của văn bản khác
-                    nhac.add(m.group(1).upper())
-            # v4.3 (TH-02c): chỉ coi là “có phụ lục” khi có TIÊU ĐỀ phụ lục thật (dòng “Phụ lục I”, “PHỤ LỤC I. …”), không phải câu lời văn
-            co = {m.group(1).upper() for x in P for m in [PL_TITLE.match(x)] if m and len(x) < 120} | pl_tep
+            P = docs[f]; tien_to = ('Bản "%s": ' % TEN[f]) if a.tac_vu == 'so-sanh' else ''
+            nhac = phu_luc_nhac(P, TEN[f])  # v4.6.5: chỉ phụ lục do CHÍNH bản này ban hành
+            # v4.3 (TH-02c): chỉ coi là "có phụ lục" khi có TIÊU ĐỀ phụ lục thật (dòng "Phụ lục I", "PHỤ LỤC I. …"), không phải câu lời văn
+            # v4.6.13-KTC (C1): mở rộng: phụ lục có tiêu đề trong văn bản kèm theo (vai trò kem_theo) cũng tính là "có"
+            co = {m.group(1).upper() for x in P for m in [PL_TITLE.match(x)] if m and len(x) < 120} | pl_tep | pl_trong_kem
             for x in sorted(nhac):
                 if x not in co:
                     pl_thieu.append(x)
                     chan.append(tien_to + 'Dự thảo nhắc tới Phụ lục %s nhưng hồ sơ không có phụ lục này – đề nghị bổ sung.' % x)
             # v4.4–v4.5 (PB4-GPT-01, PB4-WORK-02; PB5-GPT-01/02, PB5-WORK-02/03/08; quyết định F1): mỗi văn bản kèm theo mà CHÍNH bản này ban hành
-            # phải có trong bản (sau “Nơi nhận”) hoặc là tệp riêng CÙNG TÊN LOẠI và CÙNG TRÍCH YẾU; ghép 1:1 (một tệp chỉ đáp ứng một văn bản);
+            # phải có trong bản (sau "Nơi nhận") hoặc là tệp riêng CÙNG TÊN LOẠI và CÙNG TRÍCH YẾU; ghép 1:1 (một tệp chỉ đáp ứng một văn bản);
             # trích yếu không khớp/không có: chỉ nhận khi người rà soát xác nhận --xac-nhan-kem "<tệp>=<lý do>" (cùng tên loại), ghi vào kết quả
             can_ = kem_can(P)
             ung = [('trong', None, l2, t2) for l2, t2 in kem_trong(P)] + [('tep', g, loai_kem(v[1]), v[2] if len(v) > 2 else '') for g, v in kem_tep if g not in dung_tep_chung]
@@ -1004,18 +1256,18 @@ def main():
                 if xn_ is not None:
                     dung.add(xn_); g = ung[xn_][1]; dung_tep_chung.add(g)
                     xac_nhan_ghi.append(dict(ban=TEN[f], van_ban_kem_theo=mo_ta[:160], tep=TEN[g], tieu_de_tep=(kem[g][1] + ' ' + (kem[g][2] if len(kem[g]) > 2 else '')).strip()[:160], ly_do=xac_nhan[g]))
-                    canh_bao.append(tien_to + 'Người rà soát XÁC NHẬN THỦ CÔNG tệp “%s” là văn bản kèm theo “%s” (trích yếu không khớp/không có) – lý do: %s (quyết định F1 ngày 27/10/2026; ghi vào báo cáo I.7).' % (TEN[g], mo_ta[:100], xac_nhan[g]))
+                    canh_bao.append(tien_to + 'Người rà soát XÁC NHẬN THỦ CÔNG tệp "%s" là văn bản kèm theo "%s" (trích yếu không khớp/không có) – lý do: %s (quyết định F1 ngày 27/10/2026; ghi vào báo cáo I.7).' % (TEN[g], mo_ta[:100], xac_nhan[g]))
                     continue
                 lech = [(TEN[g] if g else 'trong dự thảo', l2, t2, ui in dung) for ui, (k_, g, l2, t2) in enumerate(ung)]
                 if lech:
-                    chan.append(tien_to + 'Dự thảo ban hành kèm theo “%s” nhưng không có văn bản kèm theo khớp tên loại và trích yếu (%s) – đề nghị bổ sung đúng văn bản; nếu đúng là văn bản kèm theo cùng tên loại mà trích yếu ghi khác/không có, người rà soát xác nhận bằng --xac-nhan-kem "<tệp>=<lý do>".' % (
+                    chan.append(tien_to + 'Dự thảo ban hành kèm theo "%s" nhưng không có văn bản kèm theo khớp tên loại và trích yếu (%s) – đề nghị bổ sung đúng văn bản; nếu đúng là văn bản kèm theo cùng tên loại mà trích yếu ghi khác/không có, người rà soát xác nhận bằng --xac-nhan-kem "<tệp>=<lý do>".' % (
                         mo_ta[:120], '; '.join('%s: %s%s' % (n_, ((l2 or '(không rõ tên loại)') + ' ' + (t2 or '(không có trích yếu)')).strip()[:80], ' – đã ghép với văn bản kèm theo khác' if dg else '') for n_, l2, t2, dg in lech)))
                 else:
-                    chan.append(tien_to + 'Dự thảo ban hành kèm theo “%s” nhưng không thấy văn bản kèm theo này trong dự thảo hoặc hồ sơ – đề nghị bổ sung.' % mo_ta[:120])
+                    chan.append(tien_to + 'Dự thảo ban hành kèm theo "%s" nhưng không thấy văn bản kèm theo này trong dự thảo hoặc hồ sơ – đề nghị bổ sung.' % mo_ta[:120])
 
     # ---- đối chiếu văn bản được đề cập
     # v4.6: bộ phân giải nguồn DUY NHẤT – ánh xạ một khóa → NHIỀU ứng viên (KTS-03); Kho chỉ tính là toàn văn khi tệp tồn tại và có
-    # bản chữ (text/*.md), PDF scan “chỉ tham khảo” không đủ G5 (KTS-02); mục “Phụ lục … NĐ 30” không ghi đè khóa của Nghị định (KTS-02);
+    # bản chữ (text/*.md), PDF scan "chỉ tham khảo" không đủ G5 (KTS-02); mục "Phụ lục … NĐ 30" không ghi đè khóa của Nghị định (KTS-02);
     # tên luật khớp ĐÚNG, không khớp tiền tố (KTS-03, PH-01); VBHN kiểm số, ngày, luật được hợp nhất (PH-02 – quy tắc 02/11/2026).
     kho_path = KHO_DEFAULT if not kho_ngoai else a.kho  # v4.6.3: cách viết tương đương đã được nhận → dùng ĐƯỜNG DẪN CHUẨN của Kho gói (tệp Kho tìm theo thư mục thật)
     kho = {'van_ban': []}
@@ -1026,8 +1278,10 @@ def main():
             kho = {'van_ban': []}
     kho_dir = os.path.dirname(os.path.abspath(kho_path))
     def kho_toan_van(v):
-        f_ = os.path.join(kho_dir, v.get('file', ''))
-        txt = os.path.join(kho_dir, 'text', os.path.splitext(os.path.basename(v.get('file', '')))[0] + '.md')
+        # v4.6.12-KTC: hỗ trợ kho bổ sung qua trường _kho_dir
+        d_ = v.get('_kho_dir') or kho_dir
+        f_ = os.path.join(d_, v.get('file', ''))
+        txt = os.path.join(d_, 'text', os.path.splitext(os.path.basename(v.get('file', '')))[0] + '.md')
         if not v.get('file') or not os.path.exists(f_): return False, 'tệp Kho không tồn tại (%s)' % v.get('file', '')
         if not os.path.exists(txt) and not f_.lower().endswith(('.docx', '.xlsx')): return False, 'Kho chỉ có bản scan/PDF không có bản chữ – chỉ tham khảo'
         return True, ''
@@ -1044,6 +1298,27 @@ def main():
             kho_keys.setdefault('TEN:' + ND.chuan_ten_luat(sh), []).append((0, v))
         if v.get('ten_luat'):
             kho_keys.setdefault('TEN:' + ND.chuan_ten_luat(v['ten_luat']), []).append((0, v))
+    # v4.6.12-KTC: tra thêm KTC-Database (kho bổ sung) với mức ưu tiên 2 (thấp hơn Kho gói)
+    kho_bo_sung_dir = None
+    if getattr(a, 'kho_bo_sung', None):
+        kho_bs_path = a.kho_bo_sung if a.kho_bo_sung.endswith('.json') else os.path.join(a.kho_bo_sung, '11-Input', 'kho_manifest.json')
+        if os.path.isfile(kho_bs_path):
+            kho_bs, e_bs = ND.doc_json_an_toan(kho_bs_path, 'KTC-Database', 'trung_gian')
+            if not e_bs and isinstance(kho_bs, dict):
+                kho_bo_sung_dir = os.path.dirname(os.path.abspath(kho_bs_path))
+                for v in kho_bs.get('van_ban', []):
+                    v['_kho_dir'] = kho_bo_sung_dir  # v4.6.12-KTC: đánh dấu để kho_toan_van tìm đúng thư mục
+                    sh = v.get('so_hieu', '') or ''
+                    la_pl = bool(re.match(r'(?i)^phụ lục\b', sh))
+                    m = re.fullmatch(SO, ND.chuan_so_hieu(sh))
+                    if m and not la_pl: kho_keys.setdefault(key_so(m.group(1)), []).append((2, v))  # mức 2: thấp hơn Kho gói
+                    for k in v.get('tu_khoa', []):
+                        m = re.fullmatch(r'(?:\D*?)' + SO, ND.chuan_so_hieu(k or ''))
+                        if m and not la_pl: kho_keys.setdefault(key_so(m.group(1)), []).append((3, v))
+                    if sh.upper().startswith(('LUẬT', 'PHÁP LỆNH')):
+                        kho_keys.setdefault('TEN:' + ND.chuan_ten_luat(sh), []).append((2, v))
+                    if v.get('ten_luat'):
+                        kho_keys.setdefault('TEN:' + ND.chuan_ten_luat(v['ten_luat']), []).append((2, v))
     def kho_chon(k):
         lst = kho_keys.get(k) or []
         if not lst: return None
@@ -1056,13 +1331,111 @@ def main():
     vbhn_tt = {}
     sha_tep = {}
     khong_than, khong_than_nd = {}, {}  # v4.6.1 (N12): tệp nguồn chỉ có phần định danh; v4.6.4: số đoạn nghi vấn (Q5)
+    doc_tables = {}  # v4.6.13-KTC (C4): cache text từ bảng để đọc ngày VBHN trong bảng chữ ký
     for f, pp in docs.items():
         if vt[f] in ('du_thao', 'du_thao_cu', 'bao_cao_ra_soat', 'bc_tiep_thu'): continue
         sha_tep[f] = ma_bam_noi_dung(f)  # v4.6.1 (N46): gộp theo phần nội dung, bỏ metadata
         co_than_, n_, nd_ = than_van_ban(pp, JC.get(f), chi_tiet=True)  # v4.6.2 (F08): căn lề hiệu lực để nhận trích yếu nhiều đoạn theo cấu trúc
         if not co_than_: khong_than[f] = n_; khong_than_nd[f] = nd_
         for k in ma_dinh_danh(os.path.basename(f), pp): hs_keys.setdefault(k, []).append(f)
-        if any('/VBHN-' in k for k in hs_keys if f in hs_keys[k]): vbhn_tt[f] = thong_tin_vbhn(pp)
+        if any('/VBHN-' in k for k in hs_keys if f in hs_keys[k]):
+            # v4.6.13-KTC (C4): đọc text từ bảng để tìm ngày VBHN trong bảng chữ ký cuối tệp
+            ext = os.path.splitext(f)[1].lower()
+            if ext == '.docx' and f not in doc_tables: doc_tables[f] = docx_tables_text(f)
+            vbhn_tt[f] = thong_tin_vbhn(pp, doc_tables.get(f))
+    # ---- v4.6.5 (YC mục 1, 7; ca 01–03, 12): phụ lục THUỘC VĂN BẢN ĐƯỢC DẪN CHIẾU phải có trong ĐÚNG văn bản chủ quản (tệp hồ sơ hoặc Kho);
+    # KHÔNG dùng phụ lục cùng số của văn bản khác thay thế; nhiều nguồn khác nội dung → chặn, nêu đủ nguồn, không tự chọn.
+    xac_nhan_pl_ghi, pl_ngoai_ket = [], []
+    xn_pl = {}
+    if a.xac_nhan_phu_luc and len((a.nguoi_xac_nhan or '').strip()) < 5:
+        chan.append('--xac-nhan-phu-luc: phải ghi người xác nhận (họ tên, chức vụ và chỉ đạo liên quan) bằng --nguoi-xac-nhan (≥ 5 ký tự).')
+    for x_ in a.xac_nhan_phu_luc:
+        kh_, co_bang_, ly_ = x_.partition('=')
+        pl_s, co_at_, so_s = kh_.partition('@')
+        mpl = re.match(r'(?i)^\s*(?:phụ lục\s+(?:số\s+)?)?([IVXLC]+|\d+)\s*$', pl_s)
+        mso = re.fullmatch(SO, ND.chuan_so_hieu(so_s.strip())) if co_at_ else None
+        if not (co_bang_ and mpl and mso):
+            chan.append('--xac-nhan-phu-luc "%s": phải ghi dạng "Phụ lục II@2307/QĐ-CĐKT=<lý do>".' % x_.strip()[:120]); continue
+        # v4.6.6 (thẩm định Work, mục 7/ca 12): xác nhận chỉ dành cho trường hợp phụ lục CÓ THẬT trong văn bản chủ quản nhưng cổng không nhận ra tiêu đề.
+        # Phải kèm TRÍCH NGUYÊN VĂN dòng tiêu đề phụ lục trong nguồn (sau "||"); cổng kiểm trích có trong nguồn và ghi vị trí. "Dẫn chiếu sai / phụ lục không tồn tại"
+        # KHÔNG phải trường hợp này: đó là phát hiện về dự thảo, không được dùng xác nhận để mở cổng.
+        ly_chinh, _sep, ly_trich = ly_.partition('||')
+        if re.search(r'(?i)không có phụ lục|không tồn tại|lỗi đánh máy|dẫn chiếu sai|ghi sai|không ban hành|phụ lục không có', ly_chinh):
+            chan.append('--xac-nhan-phu-luc "%s": lý do thừa nhận phụ lục KHÔNG tồn tại / dẫn chiếu sai – đó là phát hiện về dự thảo, không phải cảnh báo máy nhận nhầm; không dùng xác nhận để gỡ chặn (xử lý bằng cách sửa dự thảo hoặc ghi phát hiện).' % x_.strip()[:120]); continue
+        if len(ly_chinh.strip()) < 20:
+            chan.append('--xac-nhan-phu-luc "%s": phải ghi lý do cụ thể (≥ 20 ký tự) trước dấu "||".' % x_.strip()[:120]); continue
+        if len(ND.chuan_trinh_bay(ly_trich).strip()) < 8:
+            chan.append('--xac-nhan-phu-luc "%s": thiếu bằng chứng – ghi thêm "|| <trích nguyên văn dòng tiêu đề Phụ lục trong văn bản chủ quản>" để cổng kiểm trong nguồn.' % x_.strip()[:120]); continue
+        xn_pl[(mpl.group(1).upper(), key_so(mso.group(1)))] = (ly_chinh.strip(), ly_trich.strip())
+    xn_dung = set()
+    da_xet = set()
+    for x_ in pl_ngoai:
+        k_ = (x_['pl'], x_['key'])
+        if k_ in da_xet: continue
+        da_xet.add(k_)
+        pl_, key_ = k_
+        mo_ta_vb = ('văn bản số hiệu %s' % key_) if key_ else 'một văn bản được viện dẫn (không ghi đủ số, ký hiệu)'
+        if not key_:
+            canh_bao.append('Phụ lục %s thuộc %s (tệp "%s", đoạn %d) – không xác định được văn bản chủ quản vì thiếu số, ký hiệu; không kiểm được phụ lục này, không dùng phụ lục cùng số của văn bản khác thay thế.' % (pl_, mo_ta_vb, x_['tep'], x_['doan']))
+            pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=None, tep=x_['tep'], doan=x_['doan'], ket_qua='KHÔNG XÁC ĐỊNH CHỦ QUẢN')); continue
+        nguon = []  # (nhãn, đường dẫn, các phụ lục có tiêu đề)
+        for f_ in hs_keys.get(key_, []):
+            if vt.get(f_) in ('du_thao', 'du_thao_cu', 'bao_cao_ra_soat', 'bc_tiep_thu'): continue
+            nguon.append(('hồ sơ: ' + TEN[f_], f_, phu_luc_tieu_de(docs[f_]), sha_tep.get(f_)))
+        n_hs = len(nguon)
+        for v_ in (kho_chon(key_) or []):
+            ok_, _ = kho_toan_van(v_)
+            f_k = os.path.join(kho_dir, v_.get('file', ''))
+            if ok_ and f_k.lower().endswith('.docx'):
+                try: nguon.append(('Kho: ' + v_['file'], f_k, phu_luc_tieu_de(docx_paras(f_k)), None))
+                except Exception: pass
+        khop = [n_ for n_ in nguon if pl_ in n_[2]]
+        sha_hs = {n_[3] for n_ in nguon[:n_hs] if n_[3]}
+        da_tim = '; '.join(n_[0] for n_ in nguon) or '(không có tệp nào của văn bản này trong hồ sơ và Kho)'
+        vi_tri = 'tệp "%s", đoạn %d: "%s…"' % (x_['tep'], x_['doan'], x_['trich'][:110])
+        mem = len(sha_hs) > 1  # nhiều nguồn trong hồ sơ KHÁC nội dung → mơ hồ
+        if mem:
+            chan.append('Phụ lục %s thuộc QĐ/văn bản %s (viện dẫn tại %s): hồ sơ có %d tệp KHÁC nội dung cùng mang số hiệu này (%s) – nguồn mơ hồ, Skill không tự chọn; đề nghị giữ đúng một bản.' % (pl_, key_, vi_tri, len(sha_hs), '; '.join(n_[0] for n_ in nguon[:n_hs])))
+            pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=key_, tep=x_['tep'], doan=x_['doan'], ket_qua='MƠ HỒ', da_tim=[n_[0] for n_ in nguon]))
+        elif khop:
+            pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=key_, tep=x_['tep'], doan=x_['doan'], ket_qua='CÓ', nguon=khop[0][0], da_tim=[n_[0] for n_ in nguon]))
+            canh_bao.append('Phụ lục %s thuộc văn bản %s (viện dẫn tại %s) – có tiêu đề phụ lục trong %s; không dùng phụ lục cùng số của văn bản khác.' % (pl_, key_, vi_tri, khop[0][0]))
+        elif nguon:
+            bc_ = None
+            if k_ in xn_pl:  # kiểm bằng chứng: trích nguyên văn tiêu đề phụ lục phải có trong CHÍNH văn bản chủ quản
+                chuan_ = lambda t: re.sub(r'\s+', ' ', ND.chuan_trinh_bay(t or '')).strip().lower()
+                tr_ = chuan_(xn_pl[k_][1])
+                for n_ in nguon:
+                    pp_ = docs[n_[1]] if n_[1] in docs else (docx_paras(n_[1]) if n_[1].lower().endswith('.docx') else [])
+                    for j_, y_ in enumerate(pp_, 1):
+                        if tr_ and tr_ in chuan_(y_) and la_tieu_de_phu_luc_that(pp_, j_ - 1, pl_):
+                            bc_ = (n_, j_, y_[:150]); break
+                    if bc_: break
+                if bc_ is None:
+                    chan.append('--xac-nhan-phu-luc "Phụ lục %s@%s": trích bằng chứng "%s" KHÔNG có (hoặc không phải dòng nêu Phụ lục %s) trong văn bản chủ quản – không gỡ chặn.' % (pl_, key_, xn_pl[k_][1][:80], pl_))
+                    pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=key_, tep=x_['tep'], doan=x_['doan'], ket_qua='XÁC NHẬN BỊ TỪ CHỐI – BẰNG CHỨNG KHÔNG CÓ TRONG NGUỒN', da_tim=[n_[0] for n_ in nguon])); xn_dung.add(k_); continue
+            if k_ in xn_pl:
+                xn_dung.add(k_)
+                f_x = bc_[0][1]
+                sha_x = hashlib.sha256(open(f_x, 'rb').read()).hexdigest()
+                ghi_ = dict(canh_bao_goc='Phụ lục %s thuộc %s: văn bản chủ quản không có tiêu đề phụ lục này (đã tìm: %s)' % (pl_, key_, da_tim), phu_luc=pl_, van_ban_chu_quan=key_,
+                            tep_nguon=bc_[0][0], vi_tri_nguon='đoạn %d: "%s"' % (bc_[1], bc_[2]), vi_tri_vien_dan=vi_tri, sha256_nguon=sha_x, ly_do=xn_pl[k_][0], bang_chung=xn_pl[k_][1], nguoi_xac_nhan=(a.nguoi_xac_nhan or '').strip())
+                xac_nhan_pl_ghi.append(ghi_)
+                pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=key_, tep=x_['tep'], doan=x_['doan'], ket_qua='CÓ XÁC NHẬN THỦ CÔNG', nguon=bc_[0][0], da_tim=[n_[0] for n_ in nguon]))
+                canh_bao.append('XÁC NHẬN THỦ CÔNG (không phải kiểm tự động): Phụ lục %s thuộc %s – %s; bằng chứng trong nguồn: %s; người xác nhận: %s; mã băm nguồn %s.' % (pl_, key_, xn_pl[k_][0], ghi_['vi_tri_nguon'], (a.nguoi_xac_nhan or '').strip(), sha_x[:16]))
+            else:
+                msg_ = 'Phụ lục %s thuộc văn bản %s (viện dẫn tại %s): văn bản chủ quản có trong %s nhưng KHÔNG có tiêu đề Phụ lục %s. Không dùng Phụ lục %s của văn bản khác thay thế. Đã tìm trong: %s.' % (pl_, key_, vi_tri, 'hồ sơ/Kho', pl_, pl_, da_tim)
+                if a.tac_vu == 'so-sanh': canh_bao.append(msg_ + ' (So sánh: không chặn; đối chiếu ghi "Chưa kiểm".)')
+                else: chan.append(msg_ + ' Đề nghị bổ sung đúng phụ lục hoặc xác nhận (--xac-nhan-phu-luc).')
+                pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=key_, tep=x_['tep'], doan=x_['doan'], ket_qua='THIẾU PHỤ LỤC TRONG VĂN BẢN CHỦ QUẢN', da_tim=[n_[0] for n_ in nguon]))
+        else:
+            msg_ = 'Phụ lục %s thuộc văn bản %s (viện dẫn tại %s): hồ sơ và Kho không có văn bản chủ quản này. Đã tìm trong: %s. Không dùng Phụ lục %s của văn bản khác thay thế.' % (pl_, key_, vi_tri, da_tim, pl_)
+            if a.tac_vu == 'so-sanh': canh_bao.append(msg_ + ' (So sánh: không chặn; đối chiếu ghi "Chưa kiểm".)')
+            else: chan.append(msg_ + ' Đề nghị bổ sung toàn văn %s (kèm phụ lục).' % key_)
+            pl_ngoai_ket.append(dict(phu_luc=pl_, van_ban=key_, tep=x_['tep'], doan=x_['doan'], ket_qua='THIẾU VĂN BẢN CHỦ QUẢN', da_tim=[]))
+    for k_ in xn_pl:
+        if k_ not in xn_dung:
+            chan.append('--xac-nhan-phu-luc "Phụ lục %s@%s": không có cảnh báo phụ lục tương ứng cần xác nhận (xác nhận chỉ gỡ đúng cảnh báo "văn bản chủ quản có nhưng thiếu tiêu đề phụ lục") – bỏ tham số hoặc ghi đúng phụ lục, số hiệu.' % k_)
     # v4.6.4 (Q5 – quyết định của người phụ trách 03/11/2026): xác nhận THỦ CÔNG toàn văn cho tệp nguồn rất ngắn mà cổng không xác định được
     # thân theo cấu trúc (tương tự --xac-nhan-kem của quyết định F1). Chỉ nhận khi tệp CÓ nội dung ngoài phần định danh và đoạn trích yếu đầu;
     # tệp chỉ có định danh + một đoạn trích yếu vẫn CHẶN (N12). Ghi vào kết quả cổng và báo cáo I.7 (chữ đỏ) để người ký xem lại.
@@ -1070,23 +1443,23 @@ def main():
     for x_ in a.xac_nhan_toan_van:
         ten_, co_bang_, ly_ = x_.partition('=')
         if not co_bang_:
-            chan.append('--xac-nhan-toan-van “%s”: phải ghi dạng "TÊN_TỆP=LÝ_DO" (lý do ≥ 20 ký tự).' % x_.strip()[:120]); continue
+            chan.append('--xac-nhan-toan-van "%s": phải ghi dạng "TÊN_TỆP=LÝ_DO" (lý do ≥ 20 ký tự).' % x_.strip()[:120]); continue
         hit_ = [g_ for g_ in tim_tep(ten_) if g_ in docs]
         g = hit_[0] if len(hit_) == 1 else None
         if g is None:
-            chan.append('--xac-nhan-toan-van: không có tệp tên “%s” trong hồ sơ (hoặc tên trùng nhiều tệp – ghi đường dẫn như cổng ghi).' % ten_.strip())
+            chan.append('--xac-nhan-toan-van: không có tệp tên "%s" trong hồ sơ (hoặc tên trùng nhiều tệp – ghi đường dẫn như cổng ghi).' % ten_.strip())
         elif vt.get(g) in ('du_thao', 'du_thao_cu', 'bao_cao_ra_soat', 'bc_tiep_thu'):
-            chan.append('--xac-nhan-toan-van “%s”: chỉ dùng cho văn bản nguồn (văn bản liên quan, văn bản kèm theo), không dùng cho tệp vai trò %s.' % (TEN[g], vt.get(g)))
+            chan.append('--xac-nhan-toan-van "%s": chỉ dùng cho văn bản nguồn (văn bản liên quan, văn bản kèm theo), không dùng cho tệp vai trò %s.' % (TEN[g], vt.get(g)))
         elif len(ND.noi_dung(ly_)) < 20:
-            chan.append('--xac-nhan-toan-van “%s”: phải ghi lý do cụ thể (≥ 20 ký tự) vì sao tệp rất ngắn này là toàn văn.' % TEN[g])
+            chan.append('--xac-nhan-toan-van "%s": phải ghi lý do cụ thể (≥ 20 ký tự) vì sao tệp rất ngắn này là toàn văn.' % TEN[g])
         elif g not in khong_than:
-            canh_bao.append('--xac-nhan-toan-van “%s”: cổng đã nhận tệp có thân văn bản – không cần xác nhận, không ghi xác nhận thủ công.' % TEN[g])
+            canh_bao.append('--xac-nhan-toan-van "%s": cổng đã nhận tệp có thân văn bản – không cần xác nhận, không ghi xác nhận thủ công.' % TEN[g])
         elif khong_than_nd.get(g, 0) < 1:
-            chan.append('--xac-nhan-toan-van “%s”: không xác nhận được – tệp chỉ có phần định danh và một đoạn trích yếu, không có nội dung nào khác (N12); đề nghị cung cấp toàn văn.' % TEN[g])
+            chan.append('--xac-nhan-toan-van "%s": không xác nhận được – tệp chỉ có phần định danh và một đoạn trích yếu, không có nội dung nào khác (N12); đề nghị cung cấp toàn văn.' % TEN[g])
         else:
             xac_nhan_tv_ghi.append(dict(tep=TEN[g], ly_do=ND.noi_dung(ly_), so_ky_tu_than_nhan_duoc=khong_than[g], so_doan_ngoai_trich_yeu_dau=khong_than_nd.get(g)))
             del khong_than[g]
-            canh_bao.append('XÁC NHẬN THỦ CÔNG TOÀN VĂN: tệp “%s” rất ngắn, cổng không xác định được thân theo cấu trúc; người rà soát xác nhận là toàn văn (lý do: %s). Người ký xem lại ở I.7.' % (TEN[g], ND.noi_dung(ly_)[:200]))
+            canh_bao.append('XÁC NHẬN THỦ CÔNG TOÀN VĂN: tệp "%s" rất ngắn, cổng không xác định được thân theo cấu trúc; người rà soát xác nhận là toàn văn (lý do: %s). Người ký xem lại ở I.7.' % (TEN[g], ND.noi_dung(ly_)[:200]))
     gop_ghi, da_gop = [], set()
     def ung_vien(k):
         """Các tệp trong hồ sơ cho khóa k, gộp các tệp trùng PHẦN NỘI DUNG (v4.6.1 – N46); ghi đủ đường dẫn các tệp đã gộp."""
@@ -1097,8 +1470,8 @@ def main():
                 da_gop.add(tuple(fs))
                 trung_byte = len({hashlib.sha256(open(x, 'rb').read()).hexdigest() for x in fs}) == 1
                 gop_ghi.append(dict(tep=[TEN[x] for x in fs], duong_dan=[os.path.abspath(x) for x in fs], dung=TEN[fs[0]], kieu='trùng từng byte' if trung_byte else 'trùng phần nội dung, khác metadata'))
-                canh_bao.append('Các tệp %s trùng %s – coi là MỘT văn bản, dùng “%s” (đường dẫn: %s).' % (
-                    ', '.join('“%s”' % TEN[x] for x in fs), 'từng byte' if trung_byte else 'phần nội dung (thân, đầu/chân trang, chú thích, ảnh), chỉ khác metadata (tác giả, ngày tạo/sửa)',
+                canh_bao.append('Các tệp %s trùng %s – coi là MỘT văn bản, dùng "%s" (đường dẫn: %s).' % (
+                    ', '.join('"%s"' % TEN[x] for x in fs), 'từng byte' if trung_byte else 'phần nội dung (thân, đầu/chân trang, chú thích, ảnh), chỉ khác metadata (tác giả, ngày tạo/sửa)',
                     TEN[fs[0]], '; '.join(os.path.abspath(x) for x in fs)))
         return sorted((fs[0] for fs in nhom.values()), key=lambda f: TEN[f])
     vbhn_ghi = []
@@ -1111,13 +1484,17 @@ def main():
         if not uv: return None, '', None
         khop, lech = [], []
         for f in uv:
-            tt_ = vbhn_tt.get(f) or thong_tin_vbhn(docs[f])
+            # v4.6.13-KTC (C4): truyền tables_text nếu chưa có trong cache
+            if f not in vbhn_tt:
+                ext = os.path.splitext(f)[1].lower()
+                if ext == '.docx' and f not in doc_tables: doc_tables[f] = docx_tables_text(f)
+            tt_ = vbhn_tt.get(f) or thong_tin_vbhn(docs[f], doc_tables.get(f))
             ly = []
             if f in khong_than: ly.append('tệp chỉ có phần định danh, không có thân văn bản')  # v4.6.1 (N12)
             if tt_['so'] and tt_['so'] != x['key']: ly.append('tệp ghi số %s' % tt_['so'])
             if x.get('luat_hop_nhat'):
                 if not tt_['luat']: ly.append('không xác định được luật được hợp nhất trong tệp')
-                elif tt_['luat'] != x['luat_hop_nhat']: ly.append('tệp hợp nhất “%s”, dự thảo dẫn “%s”' % (tt_['luat'].capitalize(), x['luat_hop_nhat'].capitalize()))
+                elif tt_['luat'] != x['luat_hop_nhat']: ly.append('tệp hợp nhất "%s", dự thảo dẫn "%s"' % (tt_['luat'].capitalize(), x['luat_hop_nhat'].capitalize()))
             if x.get('ngay_vbhn'):
                 if not tt_['ngay']: ly.append('không đọc được ngày của VBHN trong tệp')
                 elif list(tt_['ngay']) != list(x['ngay_vbhn']): ly.append('tệp ngày %02d/%02d/%d, dự thảo dẫn ngày %02d/%02d/%d' % (tt_['ngay'][2], tt_['ngay'][1], tt_['ngay'][0], x['ngay_vbhn'][2], x['ngay_vbhn'][1], x['ngay_vbhn'][0]))
@@ -1131,20 +1508,20 @@ def main():
     for x in tdan:
         st, nguon = None, ''
         ly_do_rieng = None
-        if x.get('rut_gon'):  # “Nghị định 13/2023” → khóa đầy đủ “13/2023/NĐ-CP” nếu biết; v4.6 (KTS-03): nhiều ứng viên → mơ hồ, không chọn
+        if x.get('rut_gon'):  # "Nghị định 13/2023" → khóa đầy đủ "13/2023/NĐ-CP" nếu biết; v4.6 (KTS-03): nhiều ứng viên → mơ hồ, không chọn
             uv_full = sorted({k for bang_k in (hs_keys, kho_keys, het) for k in bang_k if k.startswith(key_so(x['so']) + '/') and cung_loai(k, x['loai'])})
             if len(uv_full) == 1: x = dict(x, key=uv_full[0])
             elif len(uv_full) > 1:
                 st = 'MƠ HỒ – nhiều văn bản: ' + ', '.join(uv_full)
-                ly_do_rieng = 'Viện dẫn rút gọn “%s %s” (tệp %s, đoạn %d) ứng với %d văn bản khác nhau (%s) – không tự chọn; đề nghị ghi đủ số, ký hiệu.' % (x['loai'], x['so'], x.get('tep', ''), x['doan'], len(uv_full), ', '.join(uv_full))
-        if x.get('chi_so'):  # v4.3 (TH-03): “NĐ 356” → khớp DUY NHẤT một văn bản cùng loại, cùng số trong hồ sơ/Kho
+                ly_do_rieng = 'Viện dẫn rút gọn "%s %s" (tệp %s, đoạn %d) ứng với %d văn bản khác nhau (%s) – không tự chọn; đề nghị ghi đủ số, ký hiệu.' % (x['loai'], x['so'], x.get('tep', ''), x['doan'], len(uv_full), ', '.join(uv_full))
+        if x.get('chi_so'):  # v4.3 (TH-03): "NĐ 356" → khớp DUY NHẤT một văn bản cùng loại, cùng số trong hồ sơ/Kho
             ung = sorted({k for bang_k in (hs_keys, kho_keys, het) for k in bang_k
                           if not k.startswith('TEN:') and (k.startswith(x['so'] + '/') or k.startswith(x['so'] + '-')) and any(h in k for h in HAU_TO.get(x['loai'], ()))})
             if len(ung) == 1:
                 x = dict(x, key=ung[0], so=ung[0])
             else:
                 st = 'Chưa xác định – viện dẫn chỉ có số (%s)' % ('trùng %d văn bản' % len(ung) if ung else 'không có trong hồ sơ, Kho')
-                ly_do_rieng = 'Viện dẫn “%s %s” (tệp %s, đoạn %d: “%s…”) chỉ có số, không xác định được văn bản – đề nghị ghi đủ số, ký hiệu và cung cấp toàn văn.' % (
+                ly_do_rieng = 'Viện dẫn "%s %s" (tệp %s, đoạn %d: "%s…") chỉ có số, không xác định được văn bản – đề nghị ghi đủ số, ký hiệu và cung cấp toàn văn.' % (
                     x['loai'], x['so'], x.get('tep', ''), x['doan'], x['ngu_canh'][:70])
         if x['key'] in da_giai: continue
         da_giai.add(x['key'])
@@ -1185,6 +1562,11 @@ def main():
                             st = 'THIẾU – chỉ có luật tên gần giống'
                             ly_do_rieng = 'Thiếu toàn văn %s (%sđoạn %d) – hồ sơ chỉ có luật tên gần giống (%s), không thay thế được; đề nghị cung cấp đúng luật được dẫn.' % (
                                 x['ten'], ('tệp %s, ' % x['tep']) if x.get('tep') else '', x['doan'], '; '.join(gan_giong))
+            # v4.6.13-KTC (C3): viện dẫn theo số hiệu có VBHN khớp -> coi là đủ, không yêu cầu văn bản gốc
+            elif x.get('vbhn_key') and tdan_ten.get(x['vbhn_key']) is not None and \
+                    giai_vbhn(tdan_ten[x['vbhn_key']])[0] == 'Có trong hồ sơ':
+                st, nguon = 'Có trong hồ sơ (qua VBHN %s)' % tdan_ten[x['vbhn_key']]['so'], giai_vbhn(tdan_ten[x['vbhn_key']])[1]
+                canh_bao.append('%s số %s: dùng Văn bản hợp nhất số %s (tệp %s) thay toàn văn văn bản gốc theo quy tắc mở rộng v4.6.13-KTC (VBHN của Thông tư, Nghị định). Giới hạn: VBHN là bản hợp nhất phục vụ tra cứu, sử dụng theo Pháp lệnh Hợp nhất VBQPPL; người rà soát ghi việc thay thế này ở I.7.' % (x['loai'], x['so'], tdan_ten[x['vbhn_key']]['so'], nguon))
             else:
                 uv = ung_vien(x['key'])
                 if len(uv) == 1:
@@ -1204,10 +1586,10 @@ def main():
             if tf_ and all(f_ in khong_than for f_ in tf_):
                 st = 'THIẾU – tệp chỉ có phần định danh'
                 ly_do_rieng = 'Thiếu toàn văn %s (%sđoạn %d) – tệp %s chỉ có phần định danh (số, tên loại, trích yếu), không xác định được thân văn bản theo cấu trúc (%d ký tự ngoài phần định danh, trích yếu, căn cứ); đề nghị cung cấp toàn văn.' % (
-                    x['ten'] or (x['loai'] + ' số ' + x['so']), ('tệp %s, ' % x['tep']) if x.get('tep') else '', x['doan'], ', '.join('“%s”' % n_ for n_ in nguon.split('; ')), max(khong_than[f_] for f_ in tf_))
+                    x['ten'] or (x['loai'] + ' số ' + x['so']), ('tệp %s, ' % x['tep']) if x.get('tep') else '', x['doan'], ', '.join('"%s"' % n_ for n_ in nguon.split('; ')), max(khong_than[f_] for f_ in tf_))
                 if vbhn_ghi and vbhn_ghi[-1].get('tep') == nguon: vbhn_ghi.pop()
         if ly_do_rieng and a.tac_vu == 'so-sanh':
-            st = (st or '') + ' – không chặn (so sánh); đối chiếu ghi “Chưa kiểm”'
+            st = (st or '') + ' – không chặn (so sánh); đối chiếu ghi "Chưa kiểm"'
         elif ly_do_rieng:
             chan.append(ly_do_rieng)
         if st is not None: pass
@@ -1215,10 +1597,10 @@ def main():
             st, nguon = 'Đã bị thay thế – không cần toàn văn (CC-01)', 'thay bằng ' + het[x['key']].get('thay_bang', '')
         if st is None and a.tac_vu == 'so-sanh':
             # PB2-15 (quyết định của Hiệu trưởng 27/10/2026): so sánh chỉ cần đủ hai bản và phụ lục/văn bản kèm theo
-            st = 'Chưa có – không chặn (so sánh); đối chiếu ghi “Chưa kiểm”'
+            st = 'Chưa có – không chặn (so sánh); đối chiếu ghi "Chưa kiểm"'
         if st is None:
             st = 'THIẾU'
-            chan.append('Thiếu toàn văn %s (%sđoạn %d: “%s…”) – đề nghị cung cấp bản .docx/.xlsx hoặc PDF có lớp chữ.' % (
+            chan.append('Thiếu toàn văn %s (%sđoạn %d: "%s…") – đề nghị cung cấp bản .docx/.xlsx hoặc PDF có lớp chữ.' % (
                 x['ten'] or (x['loai'] + ' số ' + x['so']), ('tệp %s, ' % x['tep']) if x.get('tep') else '', x['doan'], x['ngu_canh'][:70]))
         if x['key'] in het:
             if x.get('neu_thay_the'):  # v4.3 (TH-08): mọi lần nhắc đều là câu nêu việc thay thế → không phải viện dẫn sai
@@ -1270,6 +1652,7 @@ def main():
                    'tep': bang, 'vai_tro': {TEN[k]: v for k, v in vt.items()}, 'van_ban_de_cap': ket,
                    'dinh_danh': {TEN[f]: sorted(k for k, fs in hs_keys.items() if f in fs) for f in docs if any(f in fs for fs in hs_keys.values())},  # v4.6.1 (N20): trình dựng gắn trích dẫn với tệp
                    'gop_trung_noi_dung': gop_ghi, 'tham_so': THAM_SO,
+                   'phu_luc_thuoc_van_ban_khac': pl_ngoai_ket, 'xac_nhan_phu_luc_thu_cong': xac_nhan_pl_ghi, 'lich_su_ra_soat': lich_su, 'xac_nhan_vong': xac_nhan_vong,
                    'ly_do_chan': chan, 'ghi_chu': canh_bao}
         def _ghi(tam):
             with open(tam, 'w', encoding='utf-8') as f_: json.dump(kq_json, f_, ensure_ascii=False, indent=1)

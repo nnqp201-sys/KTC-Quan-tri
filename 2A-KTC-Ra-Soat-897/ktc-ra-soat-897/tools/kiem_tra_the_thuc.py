@@ -21,6 +21,9 @@ Kết quả in ra dạng Markdown: bảng phát hiện (Mã | Hạng mục | V�
 Yêu cầu | Căn cứ | Mức) và bảng các mục đạt (kèm số đo) để đưa vào Phần III.
 """
 import sys, os, re, json, zipfile, argparse, subprocess, tempfile, shutil, unicodedata
+# v4.6.13-KTC (A): ép UTF-8 cho stdout/stderr trên Windows, tránh UnicodeDecodeError
+if hasattr(sys.stdout, 'reconfigure'): sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'reconfigure'): sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 from lxml import etree
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.dont_write_bytecode = True  # v4.6.4: không ghi __pycache__ vào thư mục Skill
@@ -423,9 +426,16 @@ def walk(D):
 # Cách làm: chèn một mốc chữ nhỏ (§§Sn§§) vào đoạn đầu của mỗi phần trên bản sao
 # tạm, dựng PDF bằng LibreOffice, tìm trang chứa mốc. Tệp gốc không bị sửa.
 # ----------------------------------------------------------------------------
+CONG_CU_DUNG_TRANG = ['chưa dùng']  # v4.6.5: công cụ đã dùng để dựng trang (ghi vào kết quả)
+
+
 def render_section_pages(path, paras, n_sec):
     soffice = shutil.which('soffice') or shutil.which('libreoffice')
-    if not soffice or not shutil.which('pdftotext'):
+    dung_word = False
+    if not soffice and shutil.which('pdftotext') and ND.word_san_co():
+        dung_word = True  # v4.6.5 (YC mục 6): thiếu LibreOffice → dựng trang bằng Microsoft Word trên BẢN SAO; ghi rõ công cụ ở CONG_CU_DUNG_TRANG
+    if (not soffice and not dung_word) or not shutil.which('pdftotext'):
+        CONG_CU_DUNG_TRANG[0] = 'không có (thiếu LibreOffice/Word hoặc pdftotext)'
         return None, None
     tmp = tempfile.mkdtemp()
     try:
@@ -459,7 +469,13 @@ def render_section_pages(path, paras, n_sec):
         # (dùng chung hồ sơ mặc định làm lần dựng thứ hai thất bại → số trang “chưa kiểm” → tính lại khác → từ chối nhầm)
         import pathlib
         prof = pathlib.Path(tmp, 'lo_profile').as_uri()
-        subprocess.run([soffice, '-env:UserInstallation=' + prof, '--headless', '--convert-to', 'pdf', '--outdir', tmp, out],
+        if dung_word:
+            ok_w, mo_ta = ND.dung_word_xuat_pdf(out, os.path.join(tmp, 'mark.pdf'))
+            CONG_CU_DUNG_TRANG[0] = mo_ta if ok_w else 'Microsoft Word lỗi: ' + mo_ta
+            if not ok_w: return None, None
+        else:
+            CONG_CU_DUNG_TRANG[0] = 'LibreOffice'
+        if not dung_word: subprocess.run([soffice, '-env:UserInstallation=' + prof, '--headless', '--convert-to', 'pdf', '--outdir', tmp, out],
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=180)
         pdf = os.path.join(tmp, 'mark.pdf')
         if not os.path.exists(pdf): return None, None
@@ -1398,7 +1414,7 @@ def main():
     if a.json:
         import hashlib  # v4.3 (TH-11): tên và mã băm tệp đo để tao_bao_cao.py kiểm cùng hồ sơ với cổng
         sha = hashlib.sha256(open(a.docx, 'rb').read()).hexdigest()
-        kq_ = dict(he=he, tep=os.path.basename(a.docx), sha256=sha, phien_ban='ktc-ra-soat-897 v4.6.4',
+        kq_ = dict(he=he, tep=os.path.basename(a.docx), sha256=sha, phien_ban='ktc-ra-soat-897 v4.6.12', cong_cu_dung_trang=CONG_CU_DUNG_TRANG[0],
                    tham_so=dict(he=a.he, khong_dung_ban=bool(a.khong_dung_ban)),  # v4.6.2 (F11): để tao_bao_cao.py tính lại từ tệp, không tin JSON
                    loi=R_.loi, dat=R_.dat, chua_kiem=R_.chua, info={k: v for k, v in info.items()})
         def _ghi(tam):

@@ -1,0 +1,178 @@
+{
+ "ket_luan": "DU",
+ "vong": 1,
+ "tac_vu": "ra-soat",
+ "anh_can_xem": [],
+ "du_thao": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C4-VBHN-ngay-trong-bang-chu-ky\\hs\\Du-thao-C4.docx",
+ "cac_ban_du_thao": [
+  "Du-thao-C4.docx"
+ ],
+ "tep_kem_theo": {},
+ "sha256": {
+  "Du-thao-C4.docx": "9d45ac93b576b68e9c8b4bfc99bebe698be7a619ec2c307e10994f21a7b56e46",
+  "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx": "b4dcd4cef11eccb8251eea349ecdf89c1f192403d508e1ee39a53f90bbe1656d",
+  "VBHN-55-VBHN-VPQH.docx": "cd8c1e6c90ba291384ed8d53941b91c5abb12b483c2d3c7684716c3832ff90b9"
+ },
+ "xac_nhan_kem_thu_cong": [],
+ "xac_nhan_toan_van_thu_cong": [],
+ "phien_ban": "ktc-ra-soat-897 v4.6.12",
+ "duong_dan": {
+  "Du-thao-C4.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C4-VBHN-ngay-trong-bang-chu-ky\\hs\\Du-thao-C4.docx",
+  "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C4-VBHN-ngay-trong-bang-chu-ky\\hs\\VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx",
+  "VBHN-55-VBHN-VPQH.docx": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C4-VBHN-ngay-trong-bang-chu-ky\\hs\\VBHN-55-VBHN-VPQH.docx"
+ },
+ "kho": "d:\\.CLAUDE code\\KTC-Quan-tri\\2A-KTC-Ra-Soat-897\\ktc-ra-soat-897\\references\\Kho-Du-Lieu-897\\kho_manifest.json",
+ "vbhn_thay_luat_goc": [
+  {
+   "vbhn": "55/VBHN-VPQH",
+   "tep": "VBHN-55-VBHN-VPQH.docx",
+   "luat": "LUẬT TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ",
+   "ngay": [
+    2026,
+    3,
+    23
+   ]
+  },
+  {
+   "vbhn": "03/VBHN-VPQH",
+   "tep": "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx",
+   "luat": "LUẬT ĐẦU TƯ CÔNG",
+   "ngay": [
+    2026,
+    2,
+    5
+   ]
+  }
+ ],
+ "tep": [
+  [
+   "Du-thao-C4.docx",
+   ".docx",
+   "nhận"
+  ],
+  [
+   "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx",
+   ".docx",
+   "nhận"
+  ],
+  [
+   "VBHN-55-VBHN-VPQH.docx",
+   ".docx",
+   "nhận"
+  ]
+ ],
+ "vai_tro": {
+  "Du-thao-C4.docx": "du_thao",
+  "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx": "lien_quan",
+  "VBHN-55-VBHN-VPQH.docx": "lien_quan"
+ },
+ "van_ban_de_cap": [
+  {
+   "loai": "Văn bản hợp nhất",
+   "so": "55/VBHN-VPQH",
+   "key": "55/VBHN-VPQH",
+   "ten": null,
+   "doan": 10,
+   "ngu_canh": " nhất tại Văn bản hợp nhất số 55/VBHN-VPQH ngày 23/3/2026) và Luật Đầu tư công ngày 29/11/2024 (hợp nh",
+   "can_cu": true,
+   "nguyen_van": "Căn cứ Luật Trật tự, an toàn giao thông đường bộ ngày 27/6/2024 (hợp nhất tại Văn bản hợp nhất số 55/VBHN-VPQH ngày 23/3/2026) và Luật Đầu tư công ngày 29/11/2024 (hợp nhất tại Văn bản hợp nhất số 03/VBHN-VPQH ngày 05/02/2026).",
+   "neu_thay_the": false,
+   "luat_hop_nhat": "LUẬT TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ",
+   "ngay_vbhn": [
+    2026,
+    3,
+    23
+   ],
+   "tep": "Du-thao-C4.docx",
+   "trang_thai": "Có trong hồ sơ",
+   "nguon": "VBHN-55-VBHN-VPQH.docx"
+  },
+  {
+   "loai": "Văn bản hợp nhất",
+   "so": "03/VBHN-VPQH",
+   "key": "03/VBHN-VPQH",
+   "ten": null,
+   "doan": 10,
+   "ngu_canh": " nhất tại Văn bản hợp nhất số 03/VBHN-VPQH ngày 05/02/2026).",
+   "can_cu": true,
+   "nguyen_van": "Căn cứ Luật Trật tự, an toàn giao thông đường bộ ngày 27/6/2024 (hợp nhất tại Văn bản hợp nhất số 55/VBHN-VPQH ngày 23/3/2026) và Luật Đầu tư công ngày 29/11/2024 (hợp nhất tại Văn bản hợp nhất số 03/VBHN-VPQH ngày 05/02/2026).",
+   "neu_thay_the": false,
+   "luat_hop_nhat": "LUẬT ĐẦU TƯ CÔNG",
+   "ngay_vbhn": [
+    2026,
+    2,
+    5
+   ],
+   "tep": "Du-thao-C4.docx",
+   "trang_thai": "Có trong hồ sơ",
+   "nguon": "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx"
+  },
+  {
+   "loai": "Luật",
+   "so": null,
+   "key": "TEN:LUẬT TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ",
+   "ten": "Luật Trật tự, an toàn giao thông đường bộ",
+   "doan": 10,
+   "ten_chac": true,
+   "ngu_canh": "Căn cứ Luật Trật tự, an toàn giao thông đường bộ ngày 27/6/2024 (hợp nhất tại Văn bản hợp nhất số 55/VBHN-VP",
+   "can_cu": true,
+   "nguyen_van": "Căn cứ Luật Trật tự, an toàn giao thông đường bộ ngày 27/6/2024 (hợp nhất tại Văn bản hợp nhất số 55/VBHN-VPQH ngày 23/3/2026) và Luật Đầu tư công ngày 29/11/2024 (hợp nhất tại Văn bản hợp nhất số 03/VBHN-VPQH ngày 05/02/2026).",
+   "neu_thay_the": false,
+   "vbhn_key": "55/VBHN-VPQH",
+   "tep": "Du-thao-C4.docx",
+   "trang_thai": "Có trong hồ sơ (qua VBHN 55/VBHN-VPQH – không yêu cầu Luật gốc)",
+   "nguon": "VBHN-55-VBHN-VPQH.docx"
+  },
+  {
+   "loai": "Luật",
+   "so": null,
+   "key": "TEN:LUẬT ĐẦU TƯ CÔNG",
+   "ten": "Luật Đầu tư công",
+   "doan": 10,
+   "ten_chac": true,
+   "ngu_canh": "/2026) và Luật Đầu tư công ngày 29/11/2024 (hợp nhất tại Văn bản hợp nhất số 03/VBHN-V",
+   "can_cu": true,
+   "nguyen_van": "Căn cứ Luật Trật tự, an toàn giao thông đường bộ ngày 27/6/2024 (hợp nhất tại Văn bản hợp nhất số 55/VBHN-VPQH ngày 23/3/2026) và Luật Đầu tư công ngày 29/11/2024 (hợp nhất tại Văn bản hợp nhất số 03/VBHN-VPQH ngày 05/02/2026).",
+   "neu_thay_the": false,
+   "vbhn_key": "03/VBHN-VPQH",
+   "tep": "Du-thao-C4.docx",
+   "trang_thai": "Có trong hồ sơ (qua VBHN 03/VBHN-VPQH – không yêu cầu Luật gốc)",
+   "nguon": "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx"
+  }
+ ],
+ "dinh_danh": {
+  "VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx": [
+   "03/VBHN-VPQH",
+   "TEN:LUẬT ĐẦU TƯ CÔNG"
+  ],
+  "VBHN-55-VBHN-VPQH.docx": [
+   "55/VBHN-VPQH",
+   "TEN:LUẬT TRẬT TỰ, AN TOÀN GIAO THÔNG ĐƯỜNG BỘ"
+  ]
+ },
+ "gop_trung_noi_dung": [],
+ "tham_so": {
+  "duong_dan": [
+   "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C4-VBHN-ngay-trong-bang-chu-ky\\hs"
+  ],
+  "tac_vu": "ra-soat",
+  "vong": "auto",
+  "vai_tro": [],
+  "xac_nhan_kem": [],
+  "xac_nhan_toan_van": [],
+  "xac_nhan_phu_luc": [],
+  "nguoi_xac_nhan": null,
+  "du_thao": null,
+  "kho": "d:\\.CLAUDE code\\KTC-Quan-tri\\2A-KTC-Ra-Soat-897\\ktc-ra-soat-897\\references\\Kho-Du-Lieu-897\\kho_manifest.json",
+  "cwd": "D:\\.CLAUDE code\\KTC-Quan-tri\\30-Ket-Qua\\2026-11-07\\Lenh\\fixtures-cong-897\\C4-VBHN-ngay-trong-bang-chu-ky"
+ },
+ "phu_luc_thuoc_van_ban_khac": [],
+ "xac_nhan_phu_luc_thu_cong": [],
+ "lich_su_ra_soat": [],
+ "xac_nhan_vong": null,
+ "ly_do_chan": [],
+ "ghi_chu": [
+  "Luật Trật tự, an toàn giao thông đường bộ: dùng Văn bản hợp nhất số 55/VBHN-VPQH (tệp VBHN-55-VBHN-VPQH.docx) thay toàn văn Luật gốc theo quy tắc người phụ trách xác nhận ngày 02/11/2026 (chưa có văn bản). Giới hạn: VBHN là bản hợp nhất phục vụ tra cứu, sử dụng theo Pháp lệnh Hợp nhất VBQPPL; người rà soát ghi việc thay thế này ở I.7.",
+  "Luật Đầu tư công: dùng Văn bản hợp nhất số 03/VBHN-VPQH (tệp VBHN-03-VBHN-VPQH_Luat-Dau-tu-cong.docx) thay toàn văn Luật gốc theo quy tắc người phụ trách xác nhận ngày 02/11/2026 (chưa có văn bản). Giới hạn: VBHN là bản hợp nhất phục vụ tra cứu, sử dụng theo Pháp lệnh Hợp nhất VBQPPL; người rà soát ghi việc thay thế này ở I.7."
+ ]
+}

@@ -16,7 +16,10 @@ Cách dùng:
   python3 tao_bao_cao.py du_lieu.json ... --chi-kiem      (chỉ kiểm hợp lệ, không dựng tệp)
 Mẫu dữ liệu: assets/Mau-Du-Lieu-Bao-Cao.json
 """
-import sys, os, json, re, argparse, datetime, unicodedata, hashlib, glob
+import sys, os, json, re, argparse, datetime, unicodedata, hashlib, glob, time
+# v4.6.13-KTC (A): ép UTF-8 cho stdout/stderr trên Windows, tránh UnicodeDecodeError
+if hasattr(sys.stdout, 'reconfigure'): sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'reconfigure'): sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.dont_write_bytecode = True  # v4.6.4: không ghi __pycache__ vào thư mục Skill
 import nhan_dien_chung as ND  # v4.6: đối chiếu trích dẫn, chuẩn hóa dùng chung
@@ -32,8 +35,8 @@ from docx.enum.section import WD_ORIENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-PHIEN_BAN = 'ktc-ra-soat-897 v4.6.4 (03/11/2026 – bản hoàn thiện sau nghiệm thu độc lập lần 3 và quyết định Q1–Q5 của người phụ trách, đã tự kiểm của người sửa, Hiệu trưởng phê duyệt chính thức ngày 03/11/2026)'
-PHIEN_BAN_DU_LIEU = 'ktc-ra-soat-897 v4.6.4'
+PHIEN_BAN = 'ktc-ra-soat-897 v4.6.13-KTC (07/11/2026 – sửa cổng hồ sơ C1–C6, UTF-8 subprocess)'
+PHIEN_BAN_DU_LIEU = 'ktc-ra-soat-897 v4.6.13-KTC'
 _nd = ND.noi_dung  # v4.6.3 (mục 5): nội dung sau chuẩn hóa khoảng trắng (bỏ zero-width, mọi khoảng trắng Unicode)  # kết quả cổng/đo phải cùng phiên bản (KTS-24)
 TRANG_THAI = 'BẢN NHÁP RÀ SOÁT – CHƯA ĐƯỢC PHÊ DUYỆT CHÍNH THỨC'
 
@@ -163,6 +166,8 @@ def trai_nghia(a_, b_):
 
 
 GIAI_TRINH = []
+XAC_NHAN_MIEN = {}  # v4.6.10: không còn dùng (bỏ miễn nguồn)
+MIEN_NGUON = []  # v4.6.10: ngoại lệ miễn nguồn chủ đề đã được chấp nhận – in ở Phụ lục A
 
 
 DOI_CHIEU = {'so_trich': 0, 'kho_dir': None}
@@ -810,7 +815,7 @@ def kiem(d, cong, tts):
         loi.append('“kieu_bao_cao” chỉ nhận: %s.' % ', '.join(KIEU))
     tv = (cong or {}).get('tac_vu', 'ra-soat')
     # v4.6 (KTS-15): bảng ánh xạ tác vụ cổng ↔ loại báo cáo; cổng chuẩn hóa không lập báo cáo rà soát (SKILL Bước 7, tác vụ d)
-    hop_le_tv = {'chinh_thuc': 'ra-soat', 'nhanh': 'ra-soat', 'so_sanh': 'so-sanh'}
+    hop_le_tv = {'chinh_thuc': 'ra-soat', 'nhanh': 'ra-soat', 'so_sanh': 'so-sanh', 'tien_do': 'ra-soat'}
     if tv == 'chuan-hoa':
         loi.append('Cổng hồ sơ chạy cho tác vụ chuẩn hóa văn phong – tác vụ này không lập báo cáo rà soát, không gán nhãn trình ký; chạy lại cổng với --tac-vu ra-soat.')
     elif kieu in hop_le_tv and hop_le_tv[kieu] != tv:
@@ -935,7 +940,213 @@ def nhap_the_thuc(tts, bo_qua):
     return out, dat, chua, loai
 
 
-KIEU = {'chinh_thuc': 'rà soát chính thức', 'nhanh': 'rà soát nhanh', 'so_sanh': 'so sánh hai bản'}
+# ---------------------------------------------------------------- v4.6.5 (YC mục 3): “dữ liệu hợp lệ” ≠ “hoàn tất rà soát”
+NGUON_CO_BAN = ('1976', '2073')
+NGUON_THEO_CHU_DE = {'AI': ('2264', '2307', '2309', '2328', '2487', '2520'), 'MXH': ('2264', '2307', '2309', '2328'), 'ANM': ('2264', '2307', '2309', '2328')}
+LOAI_MENH_DE = [('quy_pham', 'mệnh đề quy phạm'), ('can_cu', 'căn cứ'), ('tham_quyen', 'thẩm quyền'), ('hieu_luc', 'hiệu lực'), ('chuyen_tiep', 'chuyển tiếp'), ('giu_nguyen', 'phần giữ nguyên')]
+
+
+def _so_khop(txt, so):
+    return re.search(r'(?<!\d)' + so + r'\s*/\s*Q[ĐD]', ND.chuan_trinh_bay(txt or ''), re.I) is not None
+
+
+# v4.6.11 (nghiệm thu Bước 3, L1): thêm trợ lý ảo, chatbot, Claude, A.I., học máy; “GenAI” khớp. Mẫu phân biệt hoa/thường đặt trong (?-i:…) để “ai” tiếng Việt viết
+# thường (ai, mai, hai…) không bị bắt; mọi mẫu được tìm với re.I. “học máy” loại “học máy tính” (tránh bắt nhầm môn tin học) – ghi ở CHANGELOG.
+DAU_HIEU_CHU_DE = {'AI': (r'trí tuệ nhân tạo', r'(?-i:(?:(?<![A-Za-z])|(?<=Gen))AI(?![A-Za-z]))', r'(?-i:(?<![A-Za-z])A\.I\.?(?![A-Za-z]))',
+                          r'chatgpt|gemini|copilot|mô hình ngôn ngữ|công cụ AI', r'trợ lý ảo|chatbot|(?<![A-Za-z])claude(?![A-Za-z])|học máy(?!\s*tính)')}
+DAU_HIEU_DAN_CHIEU = {'AI': ('2307', '2328', '2487', '2520')}
+
+
+_CHUAN_MENH_LENH_AI = r'(được|không được|cấm|bị cấm|phải|có trách nhiệm|chịu trách nhiệm|quy định|hướng dẫn|cho phép|sử dụng|ứng dụng|áp dụng|hỗ trợ|khai thác|đưa lên|nhập|tải lên|soạn thảo|chấm|đánh giá)'
+
+
+def doan_chi_nhac_duoc_xet(d):
+    """v4.6.10 (thẩm định Work lần 4, điểm 1): đoạn có dấu hiệu chủ đề CHỈ được xét miễn nguồn khi là đoạn kể/ghi chú hoàn chỉnh. Phân biệt theo CẤU TRÚC, không theo danh sách từ khóa:
+    KHÔNG xét miễn: điều/khoản/mục/chương đánh số, gạch đầu dòng, đoạn bắt đầu bằng chữ thường (nối tiếp tiêu đề/khoản), dòng không kết thúc bằng dấu câu (tiêu đề, trích yếu),
+    dòng ‘về việc’, dòng viết hoa toàn bộ, đoạn ngắn dưới 40 ký tự. Câu như “Điều 1. Mỗi đơn vị bố trí một trợ lý AI.” hay tiêu đề “Triển khai trợ lý AI…” luôn phải phủ nguồn."""
+    t = ND.chuan_trinh_bay(str(d)).strip()
+    if len(t) < 40 or not re.search(r'[.;:!?…]\s*$', t): return False
+    if re.match(r'^(Điều|Khoản|Mục|Chương|Phần)\s+[\dIVXLC]+|^\d+(\.\d+)*[.)]\s|^[a-zđ]\)\s|^[-•+–]\s', t): return False
+    if not t[0].isupper() or re.match(r'^(V/v|Về việc|VỀ VIỆC)\b', t, re.I): return False
+    letters = [c for c in t if c.isalpha()]
+    if letters and sum(c.isupper() for c in letters) / len(letters) > 0.6: return False
+    return True
+
+
+def giai_trinh_chu_de_hop_le(gt, dh):
+    """v4.6.10 (thẩm định Work lần 3, điểm 1): → None nếu giải trình hợp lệ, ngược lại chuỗi nêu lý do. Giải trình chỉ nhận khi:
+    (1) dự thảo KHÔNG dẫn chiếu QĐ của chủ đề; (2) là đối tượng {ly_do ≥ 20 ký tự, nguoi_xac_nhan ≥ 5 ký tự, doan_trich}; (3) doan_trich trùng KHỚP TỪNG ĐOẠN (sau chuẩn hóa
+    khoảng trắng, không nhận chứa-một-phần) với MỌI đoạn dự thảo có dấu hiệu, không thừa, không thiếu; (4) không đoạn nào có dấu hiệu CHỨA từ ngữ điều chỉnh/cho phép/hướng dẫn việc dùng
+    (được, không được, phải, sử dụng, hỗ trợ…) – đoạn như vậy là nội dung điều chỉnh việc dùng AI nên vẫn phải phủ nguồn chủ đề dù không ghi số QĐ. Giải trình đủ trường KHÔNG tự chứng minh lý do miễn là đúng."""
+    if dh.get('dan_chieu'):
+        return 'dự thảo có dẫn chiếu QĐ thuộc chủ đề này nên KHÔNG được miễn bằng giải trình – phải khai `chu_de` và phủ nguồn bắt buộc'
+    if not isinstance(gt, dict):
+        return 'chưa có `chu_de_giai_trinh.%s` dạng {"ly_do": …, "nguoi_xac_nhan": …, "doan_trich": […]} (chuỗi trần không được nhận)' % '<chủ đề>'
+    if not _nd_ok(gt.get('ly_do')) or len(ND.chuan_trinh_bay(gt['ly_do'])) < 20:
+        return '`chu_de_giai_trinh.ly_do` thiếu hoặc dưới 20 ký tự'
+    if not _nd_ok(gt.get('nguoi_xac_nhan')) or len(ND.chuan_trinh_bay(gt['nguoi_xac_nhan'])) < 5:
+        return '`chu_de_giai_trinh.nguoi_xac_nhan` thiếu (họ tên, chức danh người rà soát chịu trách nhiệm về ngoại lệ)'
+    chuan = lambda t: re.sub(r'\s+', ' ', ND.chuan_trinh_bay(str(t))).strip()
+    tr = [chuan(x) for x in (gt.get('doan_trich') or []) if _nd_ok(x)]
+    can = sorted({chuan(d) for _, d in dh.get('doan', [])})
+    if not tr: return '`chu_de_giai_trinh.doan_trich` trống – phải trích nguyên văn từng đoạn dự thảo chứa dấu hiệu (%d đoạn)' % len(can)
+    chua = [d for d in can if d not in tr]
+    if chua: return 'giải trình chưa trích NGUYÊN ĐOẠN cho %d/%d đoạn có dấu hiệu (ví dụ: “%s”)' % (len(chua), len(can), chua[0][:60])
+    ngoai = [t for t in tr if t not in can]
+    if ngoai: return 'đoạn trích “%s” không trùng nguyên đoạn nào của dự thảo' % ngoai[0][:60]
+    kc = [d for d in can if not doan_chi_nhac_duoc_xet(d)]
+    if kc: return 'đoạn “%s” là tiêu đề/điều khoản/mục đánh số hoặc câu lệnh của văn bản (không phải đoạn kể/ghi chú) – nội dung này triển khai hoặc điều chỉnh việc dùng AI nên PHẢI phủ nguồn chủ đề dù không ghi số QĐ' % kc[0][:70]
+    dieu_chinh = [d for d in can if re.search(r'(?<![\wÀ-ỹ])' + _CHUAN_MENH_LENH_AI + r'(?![\wÀ-ỹ])', d, re.I)]
+    if dieu_chinh: return 'đoạn “%s” có từ ngữ điều chỉnh/cho phép việc dùng (được, phải, sử dụng, hỗ trợ…) – nội dung điều chỉnh việc dùng AI vẫn phải phủ nguồn chủ đề dù không ghi số QĐ' % dieu_chinh[0][:70]
+    return None
+
+
+def phat_hien_chu_de(nguon_dt, van_ban_de_cap):
+    """→ {chủ đề: dict(bang_chung, dan_chieu: có dẫn chiếu QĐ của chủ đề?, doan: [(tên tệp, đoạn nguyên văn chứa dấu hiệu)])} từ toàn văn dự thảo/tệp kèm theo và văn bản được dẫn."""
+    kq = {}
+    for c_, mau in DAU_HIEU_CHU_DE.items():
+        doan = []
+        for ten, t in nguon_dt:
+            for dong in (t or '').splitlines():
+                dd = ND.chuan_trinh_bay(dong).strip()
+                if dd and any(re.search(m_, dd, re.I) for m_ in mau): doan.append((ten, dd))
+        dc = [str(x.get('so') or '') for x in (van_ban_de_cap or []) if any(_so_khop(str(x.get('so') or '') + '/QĐ', k) or str(x.get('so') or '').startswith(k + '/') for k in DAU_HIEU_DAN_CHIEU.get(c_, ()))]
+        if doan or dc:
+            kq[c_] = dict(bang_chung=('dẫn chiếu QĐ %s' % dc[0]) if dc else 'trong “%s” có “%s”' % (doan[0][0], doan[0][1][:40]), dan_chieu=bool(dc), doan=doan)
+    return kq
+
+
+def _nd_ok(x):
+    return isinstance(x, str) and ND.co_noi_dung(x)
+
+
+def phan_chua_doc_co_that(v):
+    """`phan_chua_doc` có nêu phần chưa đọc thật (khác rỗng / “không” / “không có” / “-”)."""
+    t = ND.chuan_trinh_bay(str(v or '')).strip().lower()
+    return bool(t) and not re.match(r'^(không( có| còn)?|none|n/?a|-+|—|0)\W*$', t)
+
+
+def danh_gia_hoan_tat(d, cong):
+    """Đánh giá TRẠNG THÁI HOÀN TẤT RÀ SOÁT (Bước 0–7), tách khỏi tính hợp lệ của dữ liệu.
+    → dict(ap_dung, hoan_tat, ly_do[], nguon[]). Hợp lệ về cấu trúc/trích dẫn/mã băm KHÔNG chứng minh đã hoàn tất: hoàn tất đòi hỏi (1) mọi nguồn
+    bắt buộc đã đọc toàn văn theo nhật ký phạm vi CÓ THỂ KIỂM TRA LẠI (số Điều, đoạn cuối văn bản); (2) hiệu lực đã kiểm; (3) ma trận bao phủ từng nguồn
+    và từng loại mệnh đề; (4) “Chưa kiểm” chỉ khi có trở ngại khách quan được ghi (nguyên nhân + phạm vi ảnh hưởng)."""
+    del MIEN_NGUON[:]
+    kieu = d.get('kieu_bao_cao', 'chinh_thuc')
+    if kieu == 'nhanh':
+        return dict(ap_dung=False, hoan_tat=None, ly_do=[], nguon=[])
+    ly, nguon_ds = [], []
+    mt = d.get('ma_tran', [])
+    nk = [x for x in d.get('nhat_ky_pham_vi', []) if isinstance(x, dict)]
+    chu_de = [str(x).strip().upper() for x in d.get('chu_de', [])]
+    bat_buoc = list(NGUON_CO_BAN)
+    for c_ in chu_de:
+        for so in NGUON_THEO_CHU_DE.get(c_, ()):
+            if so not in bat_buoc: bat_buoc.append(so)
+    for x in d.get('qd_chuc_nang', []):
+        m = re.match(r'^\s*(\d{1,5})\b', str(x))
+        if m and m.group(1) not in bat_buoc: bat_buoc.append(m.group(1))
+    NG_DT, NG_HS, NG_KHO, NG_QT, _ = kho_van_ban(cong) if (cong and cong.get('duong_dan')) else ([], {}, [], [], [])
+    # v4.6.6 (thẩm định Work, C2): chủ đề KHÔNG chỉ dựa vào khai báo. Dấu hiệu trong nội dung/dẫn chiếu → nếu chưa khai thì vẫn buộc phủ nguồn của chủ đề đó
+    # (trừ khi có `chu_de_giai_trinh` ≥ 20 ký tự cho chủ đề ấy). Dấu hiệu chỉ là căn cứ yêu cầu giải trình, không phải kết luận pháp lý.
+    if d.get('chu_de_giai_trinh'): ly.append('`chu_de_giai_trinh` không còn hiệu lực từ v4.6.10 (Hiệu trưởng bỏ hẳn miễn nguồn theo chủ đề 06/11/2026) – xóa trường này và khai `chu_de` đúng.')
+    chu_de_dau_hieu = phat_hien_chu_de(NG_DT, (cong or {}).get('van_ban_de_cap', []))
+    for c_, dh in chu_de_dau_hieu.items():
+        if c_ in chu_de: continue
+        # v4.6.10 (Hiệu trưởng 06/11/2026): BỎ HẲN miễn nguồn theo chủ đề – không có đường giải trình, không có cờ xác nhận.
+        loi_gt = 'quy định hiện hành không cho miễn nguồn theo chủ đề (Hiệu trưởng quyết định 06/11/2026)'
+        ly.append('Dự thảo có dấu hiệu chủ đề %s (%s) nhưng `chu_de` không khai %s và %s – áp dụng nguồn bắt buộc của chủ đề %s.' % (c_, dh['bang_chung'], c_, loi_gt, c_))
+        for so in NGUON_THEO_CHU_DE.get(c_, ()):
+            if so not in bat_buoc: bat_buoc.append(so)
+    def van_ban_goc(so):  # → chữ toàn văn nguồn nếu có trong Kho/hồ sơ
+        for k, nhan, t, kc in NG_KHO:
+            if any(_so_khop(kk, so) for kk in kc | {nhan}): return nhan, t
+        for ten, t in NG_HS.items():
+            if so in ten: return ten, t
+        return None, None
+    for so in bat_buoc:
+        ten_nguon = 'QĐ %s/QĐ-CĐKT' % so
+        # (3) ma trận bao phủ nguồn
+        if not any(_so_khop(r.get('vblq'), so) for r in mt):
+            ly.append('Ma trận chưa có dòng đối chiếu với %s (nguồn bắt buộc theo chủ đề %s).' % (ten_nguon, '/'.join(chu_de) or 'chung'))
+        # (1)(2) nhật ký phạm vi
+        e = next((x for x in nk if _so_khop(x.get('nguon'), so)), None)
+        nhan_k, chu = van_ban_goc(so)
+        if e is None:
+            ly.append('Nhật ký phạm vi chưa có mục của %s – chưa chứng minh đã đọc toàn văn và kiểm hiệu lực.' % ten_nguon)
+            nguon_ds.append((ten_nguon, 'chưa có trong nhật ký', '', '')); continue
+        da_doc = e.get('da_doc')
+        hl = e.get('hieu_luc') if isinstance(e.get('hieu_luc'), dict) else {}
+        loi_e = []
+        if da_doc != 'toan_van':
+            loi_e.append('chưa đọc toàn văn (da_doc = %s; phần chưa đọc: %s)' % (da_doc, e.get('phan_chua_doc') or 'không ghi'))
+        if hl.get('da_kiem') is not True or not _nd_ok(hl.get('ket_qua')):
+            loi_e.append('chưa ghi kết quả kiểm tra hiệu lực')
+        if chu is None:
+            loi_e.append('không có toàn văn trong Kho/hồ sơ để kiểm tra lại nhật ký')
+        elif da_doc == 'toan_van':
+            txt = ND.chuan_trinh_bay(chu)
+            n_dieu = len(re.findall(r'(?m)^\s*Điều\s+\d+\s*[.:]', chu))
+            sd = e.get('so_dieu_da_doc')
+            if n_dieu and sd != n_dieu:
+                loi_e.append('số Điều đã đọc ghi %s nhưng văn bản có %d tiêu đề Điều' % (sd, n_dieu))
+            tc = e.get('trich_cuoi')
+            if not _nd_ok(tc):
+                loi_e.append('thiếu `trich_cuoi` (trích nguyên văn đoạn CUỐI của văn bản để chứng minh đã đọc đến hết)')
+            else:
+                ntc = ND.chuan_trinh_bay(tc)
+                pos = txt.rfind(ntc) if ntc else -1
+                if pos < 0: loi_e.append('`trich_cuoi` không có trong văn bản')
+                elif pos < 0.7 * len(txt): loi_e.append('`trich_cuoi` không nằm ở phần cuối văn bản (vị trí %d%%)' % (100 * pos // max(len(txt), 1)))
+        if da_doc == 'toan_van' and phan_chua_doc_co_that(e.get('phan_chua_doc')):
+            loi_e.append('ghi đã đọc toàn văn nhưng `phan_chua_doc` còn nội dung (“%s”) – mâu thuẫn' % str(e.get('phan_chua_doc'))[:60])
+        if loi_e: ly.append('%s: %s.' % (ten_nguon, '; '.join(loi_e)))
+        nguon_ds.append((ten_nguon, 'toàn văn' if da_doc == 'toan_van' else str(da_doc), str(e.get('pham_vi_da_doc') or ''), (hl.get('ket_qua') or 'chưa kiểm hiệu lực') if hl else 'chưa kiểm hiệu lực'))
+    for x in nk:  # mọi mục nhật ký ngoài nguồn bắt buộc: toàn văn mà còn phần chưa đọc là mâu thuẫn; chưa đọc xong phải có lý do LOẠI TRỪ ngoài phạm vi
+        if any(_so_khop(x.get('nguon'), so) for so in bat_buoc): continue
+        nm = str(x.get('nguon'))[:70]
+        if x.get('da_doc') == 'toan_van':
+            if phan_chua_doc_co_that(x.get('phan_chua_doc')): ly.append('Nhật ký “%s”: ghi đã đọc toàn văn nhưng `phan_chua_doc` còn nội dung – mâu thuẫn.' % nm)
+        else:  # v4.6.7 (thẩm định Work lần 2, điểm 2): nguồn khai chưa đọc xong không được im lặng bỏ qua
+            lt = x.get('loai_tru') if isinstance(x.get('loai_tru'), dict) else {}
+            if not (_nd_ok(lt.get('ly_do')) and len(ND.chuan_trinh_bay(lt['ly_do'])) >= 20 and lt.get('ngoai_pham_vi') is True):
+                ly.append('Nhật ký “%s”: da_doc = %s (phần chưa đọc: %s) – nguồn này nếu thuộc phạm vi phải xử lý (ví dụ QĐ chức năng nhiệm vụ của đơn vị được giao việc, khai ở `qd_chuc_nang`) thì phải đọc xong; nếu ngoài phạm vi, ghi `loai_tru` {"ngoai_pham_vi": true, "ly_do": ≥ 20 ký tự}.' % (nm, x.get('da_doc'), x.get('phan_chua_doc') or 'không ghi'))
+    # hiệu lực của mọi văn bản làm căn cứ có toàn văn
+    for x in (cong or {}).get('van_ban_de_cap', []):
+        if not x.get('can_cu') or str(x.get('trang_thai', '')).startswith(('Đã bị thay thế', 'THIẾU', 'Chưa có')): continue
+        ten = x.get('ten') or ('%s số %s' % (x.get('loai'), x.get('so')))
+        so_x = x.get('so') or ''
+        e = next((y for y in nk if (so_x and ND.chuan_so_hieu(so_x).upper() in ND.chuan_so_hieu(str(y.get('nguon') or '')).upper()) or (ten and ND.chuan_trinh_bay(ten).lower() in ND.chuan_trinh_bay(str(y.get('nguon') or '')).lower())), None)
+        hl = (e or {}).get('hieu_luc') if isinstance((e or {}).get('hieu_luc'), dict) else {}
+        if e is None or hl.get('da_kiem') is not True or not _nd_ok(hl.get('ket_qua')):
+            ly.append('Căn cứ “%s” chưa có mục nhật ký ghi kết quả kiểm tra hiệu lực.' % ten[:90])
+    # (3) bao phủ loại mệnh đề
+    bp = d.get('bao_phu_menh_de') if isinstance(d.get('bao_phu_menh_de'), dict) else {}
+    for k, ten in LOAI_MENH_DE:
+        v = bp.get(k) if isinstance(bp.get(k), dict) else None
+        dong = (v or {}).get('dong_ma_tran') if v else None
+        if v is None:
+            ly.append('Chưa khai độ bao phủ ma trận đối với %s (`bao_phu_menh_de.%s`).' % (ten, k))
+        elif dong:
+            sai = [i for i in dong if not (isinstance(i, int) and not isinstance(i, bool) and 1 <= i <= len(mt))]
+            if sai: ly.append('`bao_phu_menh_de.%s` trỏ dòng ma trận không tồn tại: %s.' % (k, sai))
+        elif not _nd_ok(v.get('khong_co')) or len(ND.chuan_trinh_bay(v['khong_co'])) < 20:
+            ly.append('`bao_phu_menh_de.%s`: không có dòng ma trận thì phải ghi `khong_co` (≥ 20 ký tự) nêu vì sao dự thảo không có %s.' % (k, ten))
+    # (4) “Chưa kiểm” không thay thế bước bắt buộc
+    for i, r in enumerate(mt, 1):
+        if str(r.get('ket_qua', '')).startswith('Chưa kiểm'):
+            tn = r.get('tro_ngai') if isinstance(r.get('tro_ngai'), dict) else {}
+            if not (_nd_ok(tn.get('nguyen_nhan')) and _nd_ok(tn.get('pham_vi_anh_huong'))):
+                ly.append('Ma trận dòng %d ghi “Chưa kiểm” nhưng không ghi trở ngại khách quan (`tro_ngai`: nguyen_nhan, pham_vi_anh_huong) – không dùng “Chưa kiểm” thay cho bước bắt buộc.' % i)
+    for i, x in enumerate(d.get('chua_kiem', []), 1):
+        tn = x.get('tro_ngai') if isinstance(x.get('tro_ngai'), dict) else {}
+        if not (_nd_ok(tn.get('nguyen_nhan')) and _nd_ok(tn.get('pham_vi_anh_huong'))):
+            ly.append('I.8 mục %d (“%s”) không ghi trở ngại khách quan (`tro_ngai`: nguyen_nhan, pham_vi_anh_huong).' % (i, str(x.get('noi_dung', ''))[:50]))
+    hoan_tat = (not ly) and kieu != 'tien_do'
+    return dict(ap_dung=True, hoan_tat=hoan_tat, ly_do=ly, nguon=nguon_ds, bat_buoc=bat_buoc, mien_nguon=[dict(x) for x in MIEN_NGUON])
+
+
+KIEU = {'chinh_thuc': 'rà soát chính thức', 'nhanh': 'rà soát nhanh', 'so_sanh': 'so sánh hai bản', 'tien_do': 'bản lưu tiến độ (CHƯA hoàn tất rà soát)'}
 
 
 def la_trong_yeu(x, khoa='noi_dung'):
@@ -943,12 +1154,37 @@ def la_trong_yeu(x, khoa='noi_dung'):
     return x.get('trong_yeu') is True or any(k in str(x.get(khoa, '') or '').lower() for k in TRONG_YEU)
 
 
-def tinh(ph, ma_tran, da_ban_hanh=False, kieu='chinh_thuc', chua_kiem=None):
+def khoa_chu_de(x):
+    """v4.6.5 (YC mục 4): khóa chuẩn hóa của một chủ đề để không cộng trùng giữa ma trận (Bảng 3) và I.8 – ưu tiên mã chủ đề `ma_chu_de`."""
+    ma = x.get('ma_chu_de')
+    if isinstance(ma, str) and ND.co_noi_dung(ma): return 'MA:' + ND.chuan_trinh_bay(ma).upper()
+    return 'CD:' + re.sub(r'\W+', ' ', ND.chuan_trinh_bay(str(x.get('chu_de') or x.get('noi_dung') or '')).lower()).strip()
+
+
+def chua_kiem_trong_yeu(ma_tran, chua_kiem):
+    """Danh sách “Chưa kiểm” trọng yếu đã GỘP theo mã chủ đề (một vấn đề = một lần), từ ma trận và I.8."""
+    gop, da = [], set()
+    ds = [r for r in ma_tran if r.get('ket_qua', '').startswith('Chưa kiểm') and la_trong_yeu(r, 'chu_de')] + [x for x in (chua_kiem or []) if la_trong_yeu(x)]
+    for x in ds:
+        k = khoa_chu_de(x)
+        if k in da: continue
+        da.add(k); gop.append(x)
+    return gop
+
+
+def chu_de_ghi_trung(ma_tran, chua_kiem):
+    """Các chủ đề “Chưa kiểm” trọng yếu vừa có ở ma trận vừa có ở I.8 (hoặc lặp trong I.8) – báo cáo ghi chú đã tính một lần."""
+    dem = {}
+    for x in [r for r in ma_tran if r.get('ket_qua', '').startswith('Chưa kiểm') and la_trong_yeu(r, 'chu_de')] + [x for x in (chua_kiem or []) if la_trong_yeu(x)]:
+        dem.setdefault(khoa_chu_de(x), []).append(x)
+    return [(k, v) for k, v in dem.items() if len(v) > 1]
+
+
+def tinh(ph, ma_tran, da_ban_hanh=False, kieu='chinh_thuc', chua_kiem=None, chua_hoan_tat=False):
     dem = {m: 0 for m in (1, 2, 3, 4)}
     for f in ph: dem[muc_so(f['muc'])] += 1
-    ck_trong_yeu = [r for r in ma_tran if r.get('ket_qua', '').startswith('Chưa kiểm') and la_trong_yeu(r, 'chu_de')]
-    # v4.6 (KTS-17): “Chưa kiểm” trọng yếu ghi ở I.8 (chua_kiem) cũng tính vào nhãn – một nguồn dữ liệu thống nhất
-    ck_trong_yeu += [x for x in (chua_kiem or []) if la_trong_yeu(x)]
+    # v4.6 (KTS-17): “Chưa kiểm” trọng yếu ghi ở I.8 (chua_kiem) cũng tính vào nhãn; v4.6.5 (YC mục 4): gộp theo mã chủ đề, không cộng trùng
+    ck_trong_yeu = chua_kiem_trong_yeu(ma_tran, chua_kiem)
     if dem[1]: nhan, qt = 'Chưa đủ điều kiện ban hành', 'Quy tắc 1: còn %d lỗi Mức 1' % dem[1]
     elif dem[2] or ck_trong_yeu: nhan, qt = 'Cần chỉnh sửa trước khi trình ký', 'Quy tắc 2: 0 Mức 1; %d Mức 2%s' % (dem[2], ('; %d chủ đề trọng yếu “Chưa kiểm”' % len(ck_trong_yeu)) if ck_trong_yeu else '')
     elif dem[3]: nhan, qt = 'Có thể ban hành sau khi chỉnh sửa nhỏ', 'Quy tắc 3: 0 Mức 1, 0 Mức 2; %d Mức 3' % dem[3]
@@ -958,7 +1194,13 @@ def tinh(ph, ma_tran, da_ban_hanh=False, kieu='chinh_thuc', chua_kiem=None):
     if kieu in ('nhanh', 'so_sanh'):  # PB2-21: (b) và (c) không gán nhãn điều kiện trình ký
         nhan, qt = ('Rà soát nhanh – không gán nhãn trình ký' if kieu == 'nhanh' else 'So sánh hai bản – không gán nhãn trình ký'), \
                    'không áp dụng Quy tắc 1–4 của 02-Quy-Tac-Xep-Muc mục 5'
-    tuan_thu = 'Chưa đạt' if dem[1] else ('Đạt' if dem[2] else ('Tốt' if dem[3] else 'Rất tốt'))
+    if kieu == 'tien_do':  # v4.6.5 (YC mục 3): bản lưu tiến độ không phải kết quả rà soát chính thức
+        nhan, qt = 'Chưa hoàn tất rà soát – không gán nhãn trình ký', 'bản lưu tiến độ, không phải kết quả rà soát chính thức'
+    # v4.6.5 (YC mục 4): chưa đủ phạm vi kiểm tra → “Chưa đủ cơ sở đánh giá”; có Mức 1 vẫn là “Chưa đạt” (đã có bằng chứng vi phạm)
+    chua_du = bool(ck_trong_yeu) or bool(chua_hoan_tat) or kieu == 'tien_do'
+    if dem[1]: tuan_thu = 'Chưa đạt'
+    elif chua_du: tuan_thu = 'Chưa đủ cơ sở đánh giá'
+    else: tuan_thu = 'Đạt' if dem[2] else ('Tốt' if dem[3] else 'Rất tốt')
     nhom = {g: 0 for g in NHOM_LIST}
     for f in ph: nhom[f['nhom']] += 1
     return dem, nhan, qt, tuan_thu, nhom
@@ -1071,7 +1313,8 @@ def table(doc, header, rows, widths=None, size=11):
 
 def dung(d, cong, ph, dat, chua, out):
     kieu = d.get('kieu_bao_cao', 'chinh_thuc')
-    dem, nhan, qt, tuan_thu, nhom = tinh(ph, d.get('ma_tran', []), d.get('da_ban_hanh'), kieu, d.get('chua_kiem', []))
+    dem, nhan, qt, tuan_thu, nhom = tinh(ph, d.get('ma_tran', []), d.get('da_ban_hanh'), kieu, d.get('chua_kiem', []), d.get('_chua_hoan_tat'))
+    ht_ = d.get('_ht') or dict(ap_dung=False, hoan_tat=None, ly_do=[], nguon=[])
     doc = Document()
     st = doc.styles['Normal']; st.font.name = 'Times New Roman'; st.font.size = Pt(14)
     st.element.rPr.rFonts.set(qn('w:eastAsia'), 'Times New Roman')
@@ -1088,7 +1331,8 @@ def dung(d, cong, ph, dat, chua, out):
     st.paragraph_format.space_before = Pt(6); st.paragraph_format.space_after = Pt(6)
     para(doc, 'TRƯỜNG CAO ĐẲNG KON TUM', True, 13, 'c', before=0)
     tieu = {'chinh_thuc': 'BÁO CÁO RÀ SOÁT DỰ THẢO VĂN BẢN TRƯỚC KHI TRÌNH KÝ', 'nhanh': 'BÁO CÁO RÀ SOÁT NHANH DỰ THẢO VĂN BẢN',
-            'so_sanh': 'BÁO CÁO SO SÁNH HAI BẢN DỰ THẢO VĂN BẢN'}[d.get('kieu_bao_cao', 'chinh_thuc')]
+            'so_sanh': 'BÁO CÁO SO SÁNH HAI BẢN DỰ THẢO VĂN BẢN',
+            'tien_do': 'BẢN LƯU TIẾN ĐỘ – CHƯA HOÀN TẤT RÀ SOÁT DỰ THẢO VĂN BẢN'}[d.get('kieu_bao_cao', 'chinh_thuc')]
     para(doc, tieu, True, 15, 'c')
     para(doc, d['ten_du_thao'], True, 14, 'c')
     para(doc, TRANG_THAI, True, 13, 'c', color=(192, 0, 0))
@@ -1106,7 +1350,11 @@ def dung(d, cong, ph, dat, chua, out):
         ['4. Hệ văn bản', he], ['5. Tác vụ, chế độ', '%s – chế độ %s' % (KIEU.get(d.get('kieu_bao_cao', 'chinh_thuc')), d.get('che_do', 'ĐL'))],
         ['6. Lần rà soát', str(d.get('lan_ra_soat', cong.get('vong', 1)))], ['7. Ngày rà soát', d.get('ngay_ra_soat', datetime.date.today().strftime('%d/%m/%Y'))],
         ['8. Phiên bản Skill', PHIEN_BAN], ['9. Phạm vi', d.get('pham_vi', 'Toàn bộ dự thảo, văn bản kèm theo và phụ lục')],
-        ['10. Ghi chú', d.get('ghi_chu', '')]], [4.5, 12.5])
+        ['10. Ghi chú', d.get('ghi_chu', '')],
+        ['11. Bản dự thảo được đánh giá (không đổi sau khi tạo bản sửa)', '\n'.join('%s\nĐường dẫn: %s\nSHA-256: %s' % (n_, cong.get('duong_dan', {}).get(n_, ''), cong.get('sha256', {}).get(n_, '')) for n_ in (cong.get('cac_ban_du_thao') or [])) or '(không xác định)'],
+        ['12. Trạng thái hoàn tất rà soát', ('Rà soát nhanh – không áp dụng kiểm hoàn tất Bước 0–7.' if not ht_['ap_dung'] else
+            ('HOÀN TẤT: nguồn bắt buộc đã đọc toàn văn theo nhật ký kiểm tra lại được, hiệu lực đã kiểm, ma trận bao phủ (Phụ lục A).' if ht_['hoan_tat'] else
+             'CHƯA HOÀN TẤT RÀ SOÁT – %d điều kiện chưa đạt (Phụ lục A). “Dữ liệu hợp lệ” chỉ chứng minh cấu trúc, trích dẫn, mã băm; không chứng minh đã hoàn tất Bước 0–7.' % len(ht_['ly_do'])))]], [4.5, 12.5])
     para(doc, 'I.7. Kiểm kê hồ sơ (kết quả kiem_ke_ho_so.py: ĐỦ ĐIỀU KIỆN RÀ SOÁT)', True)
     vt = cong.get('vai_tro', {})
     table(doc, ['#', 'Tệp', 'Vai trò', 'Tình trạng'], [[i, t[0], {'du_thao': 'Dự thảo hiện hành', 'du_thao_cu': 'Dự thảo lần trước', 'bao_cao_ra_soat': 'Báo cáo rà soát lần trước', 'bc_tiep_thu': 'Báo cáo tiếp thu, giải trình', 'kem_theo': 'Phụ lục/văn bản kèm theo', 'lien_quan': 'Văn bản liên quan'}.get(vt.get(t[0], ''), '—'), t[2]] for i, t in enumerate(cong.get('tep', []), 1)], [1, 9, 4, 3])
@@ -1126,21 +1374,21 @@ def dung(d, cong, ph, dat, chua, out):
         para(doc, 'Các tệp %s %s – coi là một văn bản, dùng “%s”. Đường dẫn các tệp đã gộp: %s.' % (
             ', '.join('“%s”' % t for t in x.get('tep', [])), x.get('kieu', ''), x.get('dung'), '; '.join(x.get('duong_dan', [])) or '(cổng không ghi)'), False, 13)
     ts_ = cong.get('tham_so') or {}
-    if ts_:  # v4.6.2 (F11): tham số chạy cổng – trình dựng đã TÍNH LẠI cổng từ tệp với đúng các tham số này; người ký thấy mọi chỉ định thủ công
-        kho_md = ND.cung_tep_kho(ts_.get('kho', ''), KK.KHO_DEFAULT)  # v4.6.3: cách viết tương đương của Kho gói = mặc định (Kho ngoài gói đã bị từ chối – D2)
-        para(doc, 'Tham số chạy cổng hồ sơ (trình dựng đã tính lại kết quả cổng từ tệp với các tham số này): tác vụ %s; lần rà soát %s; --vai-tro: %s; --du-thao: %s; --xac-nhan-kem: %s; Kho: %s.' % (
-            ts_.get('tac_vu'), ts_.get('vong'), '; '.join(ts_.get('vai_tro') or []) or 'không', ts_.get('du_thao') or 'không',
-            '; '.join((ts_.get('xac_nhan_kem') or []) + ['toàn văn: ' + x for x in ts_.get('xac_nhan_toan_van') or []]) or 'không', 'Kho của Skill (mặc định)' if kho_md else ('KHÁC MẶC ĐỊNH – ' + ts_.get('kho', ''))), False, 13,
-             color=None if kho_md else (192, 0, 0))
-    gc_ = [x for x in cong.get('ghi_chu') or [] if not str(x).startswith('Các tệp ') and 'thay toàn văn Luật gốc' not in str(x)]
-    if gc_:  # v4.6.2: ghi chú của cổng đưa NGUYÊN VĂN vào I.7 (05-Cong-Ho-So mục 1)
-        para(doc, 'Ghi chú của cổng hồ sơ (nguyên văn):', True, 13)
-        for x in gc_: para(doc, '– ' + str(x), False, 13)
+    if cong.get('xac_nhan_phu_luc_thu_cong'):  # v4.6.5 (YC mục 7): kết quả có xác nhận thủ công tách khỏi kết quả tự động
+        para(doc, 'KẾT QUẢ CÓ XÁC NHẬN THỦ CÔNG (không phải kiểm tra tự động) – cảnh báo phụ lục thuộc văn bản được dẫn chiếu:', True, 13, color=(192, 0, 0))
+        table(doc, ['Cảnh báo gốc', 'Văn bản chủ quản, tệp nguồn, vị trí viện dẫn', 'Mã băm nguồn (SHA-256)', 'Lý do; người xác nhận'],
+              [[x.get('canh_bao_goc'), '%s; %s; %s\nBằng chứng trong nguồn: %s' % (x.get('van_ban_chu_quan'), x.get('tep_nguon'), x.get('vi_tri_vien_dan'), x.get('vi_tri_nguon') or '(không ghi)'), x.get('sha256_nguon'), '%s\nNgười xác nhận: %s' % (x.get('ly_do'), x.get('nguoi_xac_nhan'))] for x in cong['xac_nhan_phu_luc_thu_cong']], [4.5, 5, 3.5, 4], 10)
+    if cong.get('xac_nhan_vong'):
+        xv_ = cong['xac_nhan_vong']
+        para(doc, 'Lần rà soát do người dùng xác nhận: %s.%s' % (xv_.get('gia_tri'), (' Bằng chứng trái ngược ghi nhận: ' + '; '.join(xv_['bang_chung_trai']) + '.') if xv_.get('bang_chung_trai') else ''), False, 13)
+    para(doc, 'Tham số chạy cổng, ghi chú nguyên văn của cổng, phụ lục thuộc văn bản được dẫn chiếu, quan hệ lịch sử rà soát: xem Phụ lục B (truy vết kỹ thuật).', False, 13)
     if d.get('xem_anh'):
         table(doc, ['Tệp có ảnh ≥ 1/4 trang', 'Số ảnh đã xem', 'Kết luận', 'Mô tả'], [[x.get('tep'), x.get('so_anh_da_xem'), {'so_do': 'Sơ đồ/hình minh họa – nhận'}.get(x.get('ket_luan'), x.get('ket_luan')), x.get('mo_ta')] for x in d['xem_anh']], [5, 2.5, 4, 5.5])
     para(doc, 'I.8. Nội dung chưa kiểm được', True)
     ck = chua + d.get('chua_kiem', [])
-    if ck: table(doc, ['#', 'Nội dung', 'Lý do', 'Ai cần xác minh'], [[i, x['noi_dung'], x['ly_do'], x.get('nguoi_xac_minh', '')] for i, x in enumerate(ck, 1)], [1, 6, 6, 4])
+    for k_, v_ in chu_de_ghi_trung(d.get('ma_tran', []), d.get('chua_kiem', [])):
+        para(doc, 'Chủ đề “%s” vừa có ở Bảng 3 vừa có ở I.8: tính MỘT lần khi gán nhãn và mức tuân thủ (YC mục 4).' % (v_[0].get('chu_de') or v_[0].get('noi_dung') or k_), False, 13, italic=True)
+    if ck: table(doc, ['#', 'Nội dung', 'Lý do', 'Ai cần xác minh'], [[i, x['noi_dung'], x['ly_do'] + ((' – Trở ngại: %s; phạm vi ảnh hưởng: %s' % (x['tro_ngai'].get('nguyen_nhan'), x['tro_ngai'].get('pham_vi_anh_huong'))) if isinstance(x.get('tro_ngai'), dict) else ''), x.get('nguoi_xac_minh', '')] for i, x in enumerate(ck, 1)], [1, 6, 6, 4])
     else: para(doc, 'Không có.')
 
     para(doc, 'PHẦN II. KẾT QUẢ RÀ SOÁT CHI TIẾT', True)
@@ -1190,7 +1438,7 @@ def dung(d, cong, ph, dat, chua, out):
     mt = d.get('ma_tran', [])
     if mt:
         table(doc, ['STT', 'Chủ đề', 'Dự thảo: vị trí + nguyên văn', 'Văn bản liên quan + nguyên văn', 'Kết quả', 'Phát hiện'],
-              [[i, r.get('chu_de'), '%s: %s' % (r.get('du_thao_vi_tri', ''), r.get('du_thao_nguyen_van', '')), '%s: %s' % (r.get('vblq', ''), r.get('vblq_nguyen_van', '')), r.get('ket_qua') + (('\nĐiều khoản thay thế: ' + r['nguyen_van_thay_the']) if r.get('nguyen_van_thay_the') else ''), r.get('ma_phat_hien', '')] for i, r in enumerate(mt, 1)], [0.9, 2.4, 5, 5, 2, 1.7], 10)
+              [[i, r.get('chu_de'), '%s: %s' % (r.get('du_thao_vi_tri', ''), r.get('du_thao_nguyen_van', '')), '%s: %s' % (r.get('vblq', ''), r.get('vblq_nguyen_van', '')), r.get('ket_qua') + ((chr(10) + chr(10).join('%s: %s' % (t_, r['yeu_to_khop'][k_]) for k_, t_ in (('chu_the', 'Chủ thể'), ('hanh_vi', 'Hành vi'), ('muc_thoi_han', 'Mức/thời hạn')) if r['yeu_to_khop'].get(k_))) if isinstance(r.get('yeu_to_khop'), dict) and r['yeu_to_khop'] else '') + (('\nĐiều khoản thay thế: ' + r['nguyen_van_thay_the']) if r.get('nguyen_van_thay_the') else ''), r.get('ma_phat_hien', '')] for i, r in enumerate(mt, 1)], [0.9, 2.2, 4.6, 4.6, 3.1, 1.6], 10)
         if GIAI_TRINH:  # v4.5 – quyết định F2: “Khớp” mà script thấy dấu hiệu khác nhau, AI giải trình vẫn khớp
             para(doc, 'Giải trình “Khớp” khi script phát hiện dấu hiệu khác nhau giữa hai phía (quyết định F2) – người ký xem lại:', True, 13, color=(192, 0, 0))
             table(doc, ['Dòng', 'Yếu tố', 'Dấu hiệu script phát hiện', 'Giải trình'], [[x['dong'], x['yeu_to'], x['dau_hieu'], x['giai_trinh']] for x in GIAI_TRINH], [1.2, 2.3, 5.5, 8], 10)
@@ -1199,7 +1447,9 @@ def dung(d, cong, ph, dat, chua, out):
     else: para(doc, 'Không có văn bản liên quan cùng chủ đề để đối chiếu (đã xác nhận tại I.7).', italic=True)
 
     para(doc, 'PHẦN V. ĐÁNH GIÁ TỔNG THỂ', True)
-    para(doc, 'Mức độ tuân thủ pháp luật: %s (gán theo số lượng Mức 1–3, 02-Quy-Tac-Xep-Muc.md mục 5).' % tuan_thu, align='j')
+    para(doc, 'Mức độ tuân thủ pháp luật: %s (gán theo số lượng Mức 1–3 và phạm vi đã kiểm, 02-Quy-Tac-Xep-Muc.md mục 5).' % tuan_thu, align='j')
+    if tuan_thu == 'Chưa đủ cơ sở đánh giá':
+        para(doc, '“Chưa đủ cơ sở đánh giá” nghĩa là phạm vi kiểm tra chưa đủ (còn nội dung trọng yếu chưa kiểm hoặc chưa hoàn tất rà soát). Phân biệt: “chưa phát hiện lỗi” ở phần chưa kiểm KHÔNG có nghĩa là “đã kiểm và không có lỗi”; chỉ các mục ở Phần III kèm bằng chứng mới là “đã kiểm, không phát hiện lỗi”.', italic=True, align='j')
     para(doc, 'Mức độ sẵn sàng phát hành: %s – %s.' % (nhan, qt), True, align='j')
 
     para(doc, 'PHẦN VI. KẾT LUẬN', True)
@@ -1226,6 +1476,35 @@ def dung(d, cong, ph, dat, chua, out):
         ['Nguồn dữ liệu đã dùng', '; '.join(d.get('tai_lieu_da_dung', [])) or '; '.join(t[0] for t in cong.get('tep', []))],
         ['Người kiểm tra', d['nguoi_kiem_tra']],
         ['Trạng thái phê duyệt', TRANG_THAI + '. Kết quả AI chỉ có giá trị tham khảo; Trưởng/Phó đơn vị phê duyệt trước khi dùng chính thức.']], [5, 12])
+    # v4.6.5 (YC mục 3, 8): truy vết dài chuyển ra phụ lục – không bỏ bằng chứng bắt buộc
+    para(doc, 'PHỤ LỤC A. NHẬT KÝ PHẠM VI VÀ KIỂM TRA HOÀN TẤT RÀ SOÁT', True)
+    if ht_['ap_dung']:
+        para(doc, 'Trạng thái: %s. Dữ liệu hợp lệ (cấu trúc, trích dẫn, mã băm) và hoàn tất rà soát là hai trạng thái khác nhau.' % ('HOÀN TẤT' if ht_['hoan_tat'] else 'CHƯA HOÀN TẤT'), True, 13, color=None if ht_['hoan_tat'] else (192, 0, 0))
+        if ht_['nguon']: table(doc, ['Nguồn bắt buộc', 'Phạm vi đã đọc', 'Chi tiết phạm vi', 'Kiểm tra hiệu lực'], [list(x) for x in ht_['nguon']], [4, 3, 5, 5], 10)
+        for i, x in enumerate(ht_['ly_do'], 1): para(doc, '%d. %s' % (i, x), False, 13)
+        if ht_.get('mien_nguon'):  # v4.6.10 (thẩm định Work lần 3, điểm 2): ngoại lệ miễn nguồn phải hiện trong báo cáo, không chỉ nằm trong JSON đầu vào
+            para(doc, 'Ngoại lệ miễn nguồn bắt buộc theo giải trình của người rà soát (Skill không xác nhận lý do miễn là đúng; người rà soát chịu trách nhiệm):', True, 13)
+            table(doc, ['Chủ đề', 'Nguồn bị loại khỏi phạm vi', 'Lý do', 'Đoạn dự thảo làm căn cứ', 'Người xác nhận'], [[x['chu_de'], ', '.join('QĐ %s' % n for n in x['nguon']), x['ly_do'], '\n'.join('“%s”' % t for t in x['doan']), x['nguoi'] + (' – đã được người dùng xác nhận bằng --xac-nhan-mien-nguon' if x.get('da_xac_nhan') else ' – CHƯA xác nhận')] for x in ht_['mien_nguon']], [2, 3.5, 4.5, 5, 3], 10)
+    else:
+        para(doc, 'Rà soát nhanh – không áp dụng kiểm tra hoàn tất Bước 0–7.', False, 13)
+    para(doc, 'PHỤ LỤC B. TRUY VẾT KỸ THUẬT (CỔNG HỒ SƠ)', True)
+    if ts_:
+        kho_md = ND.cung_tep_kho(ts_.get('kho', ''), KK.KHO_DEFAULT)
+        para(doc, 'Tham số chạy cổng hồ sơ (trình dựng đã tính lại kết quả cổng từ tệp với các tham số này): tác vụ %s; lần rà soát %s; --vai-tro: %s; --du-thao: %s; --xac-nhan-kem: %s; --xac-nhan-phu-luc: %s; Kho: %s.' % (
+            ts_.get('tac_vu'), ts_.get('vong'), '; '.join(ts_.get('vai_tro') or []) or 'không', ts_.get('du_thao') or 'không',
+            '; '.join((ts_.get('xac_nhan_kem') or []) + ['toàn văn: ' + x for x in ts_.get('xac_nhan_toan_van') or []]) or 'không', '; '.join(ts_.get('xac_nhan_phu_luc') or []) or 'không',
+            'Kho của Skill (mặc định)' if kho_md else ('KHÁC MẶC ĐỊNH – ' + ts_.get('kho', ''))), False, 12, color=None if kho_md else (192, 0, 0))
+    if cong.get('phu_luc_thuoc_van_ban_khac'):
+        para(doc, 'Phụ lục thuộc văn bản được dẫn chiếu (mỗi phụ lục gắn với văn bản chủ quản, không dùng phụ lục cùng số của văn bản khác):', True, 12)
+        table(doc, ['Phụ lục', 'Văn bản chủ quản', 'Tệp, đoạn viện dẫn', 'Kết quả', 'Nguồn'], [[x.get('phu_luc'), x.get('van_ban') or '(không rõ số hiệu)', '%s, đoạn %s' % (x.get('tep'), x.get('doan')), x.get('ket_qua'), x.get('nguon') or '; '.join(x.get('da_tim') or [])] for x in cong['phu_luc_thuoc_van_ban_khac']], [2, 3.5, 4.5, 3, 4], 10)
+    if cong.get('lich_su_ra_soat'):
+        para(doc, 'Quan hệ của báo cáo/dự thảo cũ trong hồ sơ với dự thảo đang xét (theo định danh nội dung):', True, 12)
+        table(doc, ['Tệp', 'Vai trò', 'Quan hệ', 'Căn cứ'], [[x.get('tep'), x.get('vai_tro'), {'cung': 'Cùng dự thảo', 'khac': 'Văn bản khác', 'khong_ro': 'Chưa rõ'}.get(x.get('quan_he'), x.get('quan_he')), x.get('can_cu')] for x in cong['lich_su_ra_soat']], [6, 3.5, 3, 4.5], 10)
+    gc_ = [x for x in cong.get('ghi_chu') or [] if not str(x).startswith('Các tệp ') and 'thay toàn văn Luật gốc' not in str(x)]
+    if gc_:
+        para(doc, 'Ghi chú của cổng hồ sơ (nguyên văn):', True, 12)
+        for x in gc_: para(doc, '– ' + str(x), False, 12)
+    table(doc, ['Tệp', 'Mã băm SHA-256', 'Đường dẫn'], [[n_, cong.get('sha256', {}).get(n_, ''), cong.get('duong_dan', {}).get(n_, '')] for n_ in cong.get('sha256', {})], [4.5, 6.5, 6], 9)
     doc.core_properties.title = 'Báo cáo rà soát – ' + d['ten_du_thao'][:120]
     doc.core_properties.author = 'Skill ' + PHIEN_BAN
     doc.save(out)
@@ -1234,7 +1513,7 @@ def dung(d, cong, ph, dat, chua, out):
 
 # ---------------------------------------------------------------- v4.6.2 (F11): JSON trung gian không được tin – tính lại từ tệp và tham số chạy
 TRUONG_CONG = ('ket_luan', 'vong', 'tac_vu', 'du_thao', 'cac_ban_du_thao', 'tep_kem_theo', 'sha256', 'xac_nhan_kem_thu_cong', 'xac_nhan_toan_van_thu_cong', 'phien_ban', 'duong_dan',
-               'kho', 'vbhn_thay_luat_goc', 'tep', 'vai_tro', 'van_ban_de_cap', 'dinh_danh', 'gop_trung_noi_dung', 'ly_do_chan')
+               'kho', 'vbhn_thay_luat_goc', 'tep', 'vai_tro', 'van_ban_de_cap', 'dinh_danh', 'gop_trung_noi_dung', 'ly_do_chan', 'phu_luc_thuoc_van_ban_khac', 'xac_nhan_phu_luc_thu_cong', 'lich_su_ra_soat', 'xac_nhan_vong')
 
 
 def _j(x):
@@ -1258,20 +1537,79 @@ def _chan_doan(err):
     return (' | '.join(ds[-3:]))[:300]
 
 
+def _ma_ham_chay(argv):
+    """Mã băm của (lệnh + nội dung các tệp đầu vào + mã script + Kho) để dùng lại kết quả đã tính khi KHÔNG có gì đổi (YC mục 6/ca 23)."""
+    h = hashlib.sha256()
+    h.update(repr(argv).encode('utf-8'))
+    try:
+        for x in argv[1:]:
+            if os.path.isfile(x): h.update(hashlib.sha256(open(x, 'rb').read()).digest())
+            elif os.path.isdir(x):
+                for dp, _, fs in sorted(os.walk(x)):
+                    for f in sorted(fs): h.update(hashlib.sha256(open(os.path.join(dp, f), 'rb').read()).digest())
+        for f in sorted(os.listdir(HERE)):
+            if f.endswith('.py'): h.update(open(os.path.join(HERE, f), 'rb').read())
+        h.update(_ma_kho())  # v4.6.6 (thẩm định Work, C6): băm NỘI DUNG mọi tệp trong Kho (không chỉ manifest)
+        h.update(_ma_thu_muc(os.path.join(os.path.dirname(HERE), 'references', 'Quy-Tac-KTC')))
+    except OSError:
+        return None
+    return h.hexdigest()
+
+
+def _ma_thu_muc(thu_muc):
+    h = hashlib.sha256()
+    if os.path.isdir(thu_muc):
+        for dp, dn, fs in os.walk(thu_muc):
+            dn.sort()
+            for f in sorted(fs):
+                q = os.path.join(dp, f)
+                h.update(os.path.relpath(q, thu_muc).encode('utf-8')); h.update(hashlib.sha256(open(q, 'rb').read()).digest())
+    return h.digest()
+
+
+def _ma_kho():
+    """v4.6.7 (thẩm định Work lần 2, điểm 6): KHÔNG nhớ mã băm trong tiến trình – tính lại mỗi lần (~0,03 giây) để nguồn Kho đổi giữa chừng cho khóa khác."""
+    return _ma_thu_muc(os.path.dirname(os.path.abspath(KK.KHO_DEFAULT)))
+
+
+def _thoi_han():
+    try: return max(60, int(os.environ.get('KTC_THOI_HAN', '900')))
+    except ValueError: return 900
+
+
 def _chay_json(argv, cwd=None):
-    """→ (mã thoát | None, kết quả JSON | None, chẩn đoán). Không có JSON → chẩn đoán nêu stderr/quá thời gian để người dùng biết nguyên nhân."""
-    tmpd = tempfile.mkdtemp(prefix='ktc897_tinh_lai_')
+    """→ (mã thoát | None, kết quả JSON | None, chẩn đoán). Chẩn đoán nêu BƯỚC (script), thời gian, stderr; không suy đoán nguyên nhân.
+    Dùng lại kết quả nếu mã băm (lệnh+tệp+mã+Kho) không đổi và thư mục đệm KTC_THU_MUC_LAM_VIEC có sẵn (YC mục 6)."""
+    buoc = os.path.basename(argv[1]) if len(argv) > 1 and argv[1].endswith('.py') else 'tiến trình con'
+    nen = os.environ.get('KTC_THU_MUC_LAM_VIEC')
+    ma = _ma_ham_chay(argv) if nen else None
+    dem = os.path.join(nen, 'dem_' + ma[:32] + '.json') if ma else None
+    if dem and os.path.exists(dem):
+        kq, e_ = ND.doc_json_an_toan(dem, 'kết quả đã lưu', 'trung_gian')
+        if kq is not None:
+            ND.tien_do('dùng lại kết quả %s (mã băm %s… không đổi)' % (buoc, ma[:12]))
+            return 0 if '_rc' not in kq else kq['_rc'], kq, 'dùng lại kết quả đã kiểm (mã băm không đổi)'
+    t0 = time.time()
+    ND.tien_do('chạy %s' % buoc)
+    try:  # v4.6.6 (thẩm định Work, mục 6): lỗi tạo thư mục tạm được bắt và chẩn đoán như mọi lỗi môi trường khác
+        tmpd = tempfile.mkdtemp(prefix='ktc897_tinh_lai_', dir=nen if nen and os.path.isdir(nen) else None)
+    except OSError as e:
+        return None, None, 'bước %s: không tạo được thư mục tạm (%s%s) – đặt --thu-muc-lam-viec/KTC_THU_MUC_LAM_VIEC tới thư mục có quyền ghi' % (buoc, e.strerror or e, ', ' + str(e.filename) if getattr(e, 'filename', None) else '')
     j = os.path.join(tmpd, 'kq.json')
     try:
         p = subprocess.run(argv + ['--json', j] if '--' not in argv else argv[:argv.index('--')] + ['--json', j] + argv[argv.index('--'):],
-                           capture_output=True, text=True, timeout=900, cwd=cwd if cwd and os.path.isdir(cwd) else None)
+                           capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=_thoi_han(), cwd=cwd if cwd and os.path.isdir(cwd) else None)
         kq, e_ = (ND.doc_json_an_toan(j, 'kết quả tính lại', 'trung_gian') if os.path.exists(j) else (None, None))
+        gi = 'bước %s, %.1f giây' % (buoc, time.time() - t0)
         cd = _chan_doan(p.stderr) or (e_ or '') or ('không tạo được JSON; stdout: ' + _chan_doan(p.stdout) if not os.path.exists(j) else '')
-        return p.returncode, kq, cd
+        if kq is not None and dem and p.returncode in (0, 3):
+            try: json.dump(dict(kq, _rc=p.returncode), open(dem, 'w', encoding='utf-8'), ensure_ascii=False)
+            except OSError: pass
+        return p.returncode, kq, (gi + (': ' + cd if cd else ''))
     except subprocess.TimeoutExpired:
-        return None, None, 'quá thời gian 900 giây'
+        return None, None, 'bước %s quá thời gian %d giây (chưa xác định được thao tác bên trong bị chậm – chạy lại với KTC_TIEN_DO=1 và --kiem-moi-truong để biết bước/tệp; không coi suy đoán là nguyên nhân)' % (buoc, _thoi_han())
     except OSError as e:
-        return None, None, 'không chạy được Python/script (%s)' % (e.strerror or e)
+        return None, None, 'bước %s: không chạy được Python/script (%s)' % (buoc, e.strerror or e)
     finally:
         shutil.rmtree(tmpd, ignore_errors=True)
 
@@ -1287,6 +1625,7 @@ def tai_tinh_cong(cong):
     hop = isinstance(ts, dict) and isinstance(ts.get('duong_dan'), list) and ts['duong_dan'] and all(isinstance(x, str) for x in ts['duong_dan']) \
         and ts.get('tac_vu') in ('ra-soat', 'so-sanh', 'chuan-hoa') and isinstance(ts.get('vong'), str) and isinstance(ts.get('kho'), str) \
         and all(isinstance(ts.get(k), list) and all(isinstance(x, str) for x in ts[k]) for k in ('vai_tro', 'xac_nhan_kem', 'xac_nhan_toan_van')) \
+        and all(isinstance(ts.get(k), list) and all(isinstance(x, str) for x in ts[k]) for k in ('xac_nhan_phu_luc',) if k in ts) and (ts.get('nguoi_xac_nhan') is None or isinstance(ts.get('nguoi_xac_nhan'), str)) \
         and (ts.get('du_thao') is None or isinstance(ts.get('du_thao'), str)) and (ts.get('cwd') is None or isinstance(ts.get('cwd'), str))
     if not hop:
         return None, ['Kết quả cổng hồ sơ không có tham số chạy hợp lệ (“tham_so”) – không tính lại được để kiểm JSON cổng chưa bị sửa tay; chạy lại kiem_ke_ho_so.py %s và dùng nguyên JSON mới.' % PHIEN_BAN_DU_LIEU[-6:]]
@@ -1298,6 +1637,8 @@ def tai_tinh_cong(cong):
     for x in ts['vai_tro']: argv += ['--vai-tro', x]
     for x in ts['xac_nhan_kem']: argv += ['--xac-nhan-kem', x]
     for x in ts['xac_nhan_toan_van']: argv += ['--xac-nhan-toan-van', x]  # v4.6.4 (Q5)
+    for x in ts.get('xac_nhan_phu_luc') or []: argv += ['--xac-nhan-phu-luc', x]  # v4.6.5 (YC mục 7): dùng CÙNG tham số xác nhận khi tính lại cổng
+    if ts.get('nguoi_xac_nhan'): argv += ['--nguoi-xac-nhan', ts['nguoi_xac_nhan']]
     if ts.get('du_thao'): argv += ['--du-thao', ts['du_thao']]
     rc, moi, cd = _chay_json(argv + ['--'] + ts['duong_dan'], ts.get('cwd'))
     if rc not in (0, 2) or not isinstance(moi, dict):
@@ -1389,9 +1730,15 @@ def main():
         pass
     ap = argparse.ArgumentParser()
     ap.add_argument('du_lieu'); ap.add_argument('--cong'); ap.add_argument('--the-thuc', action='append', default=[])
+    ap.add_argument('--thu-muc-lam-viec', default=None, help='v4.6.5 (YC mục 6): thư mục tạm/đệm chỉ định, có thể ngoài cây hồ sơ; kiểm tra ghi trước khi tính lại và lưu kết quả để chạy lại phần bị ảnh hưởng')
     ap.add_argument('-o', '--out', default='bao_cao_ra_soat.docx'); ap.add_argument('--chi-kiem', action='store_true')
     ap.add_argument('--so-sanh', default=None, help='JSON do so_sanh_ban.py tạo (bắt buộc với kieu_bao_cao = so_sanh)')
     a = ap.parse_args()
+    # v4.6.5 (YC mục 6): kiểm tra sớm môi trường THỰC sẽ dùng (đọc nguồn, tạo–đọc–ghi tệp tạm, tiến trình con) trước khi tính lại cổng
+    if a.thu_muc_lam_viec: os.environ['KTC_THU_MUC_LAM_VIEC'] = os.path.abspath(a.thu_muc_lam_viec)
+    ds_mt, dat_mt = ND.kiem_moi_truong([x for x in [a.du_lieu, a.cong, a.so_sanh] + list(a.the_thuc) if x], os.environ.get('KTC_THU_MUC_LAM_VIEC'))
+    if not dat_mt:
+        dung_lai(['Môi trường chạy chưa đạt – %s. Dữ liệu và mã băm đã có được GIỮ NGUYÊN; sửa quyền/thư mục (có thể chỉ định --thu-muc-lam-viec) rồi chạy lại; không cần tăng thời gian chờ.' % '; '.join('%s: %s (%s)' % (t[0], t[1], t[2]) for t in ds_mt if t[1] == 'LỖI')])
     if not a.chi_kiem:  # v4.6.3: kiểm tệp kết quả TRƯỚC – không ghi đè tệp đầu vào, thư mục phải có
         e = ND.kiem_duong_dan_ghi(a.out, [a.du_lieu, a.cong, a.so_sanh] + list(a.the_thuc), '.docx')
         if e: dung_lai(['Tham số -o: ' + e + '.'])
@@ -1460,16 +1807,29 @@ def main():
     ph.sort(key=lambda f: (muc_so(f.get('muc')) or 9, NHOM_LIST.index(f['nhom']), str(f.get('ma') or '')))  # thứ tự cố định
     loi = loi_khoa + kiem(dict(d, phat_hien=ph), cong, tts)
     if loi: dung_lai(loi)
+    ht = danh_gia_hoan_tat(d, cong)  # v4.6.5 (YC mục 3): “dữ liệu hợp lệ” ≠ “hoàn tất rà soát”
+    d['_ht'] = ht
+    d['_chua_hoan_tat'] = bool(ht['ap_dung'] and not ht['hoan_tat'])
+    kieu_bc = d.get('kieu_bao_cao', 'chinh_thuc')
+    if kieu_bc in ('chinh_thuc', 'so_sanh') and not ht['hoan_tat'] and not a.chi_kiem:
+        print('DỮ LIỆU HỢP LỆ nhưng CHƯA HOÀN TẤT RÀ SOÁT – không dựng báo cáo %s. Còn %d điều kiện chưa đạt:' % (KIEU[kieu_bc], len(ht['ly_do'])))
+        for i_, x_ in enumerate(ht['ly_do'], 1): print('  %d. %s' % (i_, x_))
+        print('Hoàn tất các bước còn thiếu (đọc nguồn, kiểm hiệu lực, đối chiếu ma trận) rồi dựng lại; nếu chỉ cần lưu tiến độ, đặt "kieu_bao_cao": "tien_do" (bản lưu tiến độ – không phải kết quả rà soát chính thức).')
+        sys.exit(3)
     if a.chi_kiem:
-        dem, nhan, qt, tt = tinh(ph, d.get('ma_tran', []), d.get('da_ban_hanh'), d.get('kieu_bao_cao', 'chinh_thuc'), d.get('chua_kiem', []))[:4]
+        dem, nhan, qt, tt = tinh(ph, d.get('ma_tran', []), d.get('da_ban_hanh'), d.get('kieu_bao_cao', 'chinh_thuc'), d.get('chua_kiem', []), d.get('_chua_hoan_tat'))[:4]
     else:  # v4.6.3: ghi qua tệp tạm rồi thay thế – từ chối/lỗi giữa chừng không để lại tệp dở dang, không đổi tệp cũ
         kq_ = {}
         e = ND.ghi_tep_an_toan(a.out, lambda tam: kq_.update(r=dung(d, cong, ph, sdat, schua, tam)))
         if e: dung_lai(['Không dựng được báo cáo: ' + e + '.'])
         dem, nhan, qt, tt = kq_['r']
     n_l1 = sum(1 for x in sloai if muc_so(x['muc']) == 1)
+    print('DỮ LIỆU HỢP LỆ (cấu trúc, trích dẫn, mã băm). HOÀN TẤT RÀ SOÁT: %s.' % ('không áp dụng (rà soát nhanh)' if not ht['ap_dung'] else ('ĐẠT' if ht['hoan_tat'] else 'CHƯA – %d điều kiện chưa đạt%s' % (len(ht['ly_do']), '' if kieu_bc == 'tien_do' else '; không dựng được báo cáo chính thức'))))
+    if ht['ap_dung'] and not ht['hoan_tat']:
+        for i_, x_ in enumerate(ht['ly_do'], 1): print('  %d. %s' % (i_, x_))
     print('HỢP LỆ. Nhãn: %s (%s). Mức 1/2/3/4 = %d/%d/%d/%d. Tuân thủ: %s.%s%s' % (nhan, qt, dem[1], dem[2], dem[3], dem[4], tt,
           (' Đã loại %d phát hiện Mức 1 của script (in ở Bảng 2a).' % n_l1) if n_l1 else '', '' if a.chi_kiem else ' Đã ghi: ' + a.out))
+    if a.chi_kiem and kieu_bc in ('chinh_thuc', 'so_sanh') and not ht['hoan_tat']: sys.exit(3)
 
 
 if __name__ == '__main__':

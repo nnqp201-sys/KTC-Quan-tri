@@ -383,9 +383,113 @@ def doc_chu(path):
                 return html.unescape(' '.join(re.sub(r'<[^>]+>', ' ', z.read(n).decode('utf-8', 'ignore')) for n in z.namelist() if n.startswith('xl/sharedStrings') or n.startswith('xl/worksheets/sheet')))
         if ext == '.pdf':
             if shutil.which('pdftotext') is None: return None
-            return subprocess.run(['pdftotext', '-layout', path, '-'], capture_output=True, text=True, timeout=120).stdout
+            return subprocess.run(['pdftotext', '-layout', path, '-'], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120).stdout
         if ext in ('.md', '.txt'):
             return open(path, encoding='utf-8', errors='ignore').read()
     except Exception:
         return None
     return None
+
+
+# ----------------------------------------------------------------------------
+# v4.6.5 (YC mục 6): kiểm tra sớm môi trường THỰC SẼ DÙNG – đọc nguồn, tạo–đọc–ghi tệp tạm, tiến trình con, công cụ dựng trang.
+# Mỗi phép thử ghi rõ bước, tệp, thời gian, lỗi; KHÔNG suy đoán nguyên nhân (chỉ nêu lỗi quan sát được).
+# ----------------------------------------------------------------------------
+def tien_do(msg):
+    """Ghi tiến độ ra stderr khi KTC_TIEN_DO=1 (hoặc luôn khi gọi từ kiem_moi_truong) để không im lặng chờ lâu rồi chỉ báo “quá thời gian”."""
+    import os, sys
+    if os.environ.get('KTC_TIEN_DO') == '1':
+        sys.stderr.write('[tiến độ] %s\n' % msg); sys.stderr.flush()
+
+
+def kiem_moi_truong(nguon=None, thu_muc_lam_viec=None, thoi_han=20):
+    """→ (ds, dat) ; ds = [(phép thử, 'ĐẠT'|'LỖI'|'THIẾU'|'CÓ', chi tiết, giây)]. dat=False nếu một phép BẮT BUỘC lỗi.
+    nguon: danh sách tệp/thư mục sẽ đọc; thu_muc_lam_viec: nơi ghi tệp tạm (có thể nằm NGOÀI cây hồ sơ đầu vào)."""
+    import os, sys, time, shutil, subprocess, tempfile
+    ds, dat = [], True
+
+    def ghi(ten, tt, ct, t0):
+        ds.append((ten, tt, ct, round(time.time() - t0, 2)))
+    # 1) đọc nguồn
+    for p in (nguon or []):
+        t0 = time.time()
+        try:
+            if os.path.isdir(p):
+                n = sum(len(f) for _, _, f in os.walk(p)); ghi('đọc nguồn', 'ĐẠT', '%s (%d tệp)' % (p, n), t0)
+            else:
+                with open(p, 'rb') as f: f.read(4096)
+                ghi('đọc nguồn', 'ĐẠT', p, t0)
+        except OSError as e:
+            dat = False; ghi('đọc nguồn', 'LỖI', '%s: %s' % (p, e.strerror or e), t0)
+    # 2) tạo–đọc–ghi tệp tạm (ở thư mục chỉ định hoặc thư mục tạm hệ thống)
+    nen = thu_muc_lam_viec or tempfile.gettempdir()
+    t0 = time.time()
+    try:
+        os.makedirs(nen, exist_ok=True)
+        d = tempfile.mkdtemp(prefix='ktc897_', dir=nen)
+        try:
+            f1 = os.path.join(d, 'thu.txt')
+            with open(f1, 'w', encoding='utf-8') as f: f.write('kiểm tra ghi')
+            with open(f1, 'a', encoding='utf-8') as f: f.write(' + ghi thêm')
+            with open(f1, encoding='utf-8') as f: ok = f.read() == 'kiểm tra ghi + ghi thêm'
+            os.remove(f1)
+            ghi('tạo–đọc–ghi tệp tạm', 'ĐẠT' if ok else 'LỖI', nen if ok else 'đọc lại khác nội dung đã ghi: ' + nen, t0)
+            dat = dat and ok
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
+    except OSError as e:
+        dat = False; ghi('tạo–đọc–ghi tệp tạm', 'LỖI', '%s: %s' % (nen, e.strerror or e), t0)
+    # 3) tiến trình con
+    t0 = time.time()
+    try:
+        r = subprocess.run([sys.executable, '-c', 'print(1+1)'], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=thoi_han)
+        ok = r.returncode == 0 and r.stdout.strip() == '2'
+        dat = dat and ok
+        ghi('tiến trình con (Python)', 'ĐẠT' if ok else 'LỖI', sys.executable if ok else 'mã %s; %s' % (r.returncode, (r.stderr or '')[-200:]), t0)
+    except subprocess.TimeoutExpired:
+        dat = False; ghi('tiến trình con (Python)', 'LỖI', 'quá %ds' % thoi_han, t0)
+    except OSError as e:
+        dat = False; ghi('tiến trình con (Python)', 'LỖI', e.strerror or str(e), t0)
+    # 4) công cụ (không bắt buộc, nhưng ảnh hưởng số trang/trích xuất)
+    for c in ('pdftotext', 'pdfinfo', 'soffice', 'libreoffice'):
+        t0 = time.time(); w = shutil.which(c)
+        ghi('công cụ ' + c, 'CÓ' if w else 'THIẾU', w or '', t0)
+    try:
+        import docx  # noqa: F401
+        ghi('python-docx', 'CÓ', '', time.time())
+    except Exception:
+        ghi('python-docx', 'THIẾU', '', time.time())
+    # 5) Microsoft Word (phương án dựng trang khi thiếu LibreOffice) – chỉ báo có/không; thử THỰC mở–lưu–xuất ở dung_word_dung_trang
+    w = word_san_co()
+    ghi('Microsoft Word', 'CÓ' if w else 'THIẾU', w or 'không thấy WINWORD.EXE/COM trên máy chạy Skill', time.time())
+    return ds, dat
+
+
+def word_san_co():
+    import os, shutil
+    if os.name != 'nt': return None
+    w = shutil.which('winword') or shutil.which('WINWORD.EXE')
+    if w: return w
+    for base in (os.environ.get('ProgramFiles'), os.environ.get('ProgramFiles(x86)')):
+        if not base: continue
+        for sub in ('Microsoft Office\\root\\Office16', 'Microsoft Office\\Office16', 'Microsoft Office\\Office15'):
+            p = os.path.join(base, sub, 'WINWORD.EXE')
+            if os.path.exists(p): return p
+    return None
+
+
+def dung_word_xuat_pdf(docx_path, pdf_path, thoi_han=180):
+    """Phương án khi thiếu LibreOffice (chỉ Windows có Word): mở BẢN SAO bằng Word qua PowerShell COM, xuất PDF. → (ok, mô tả công cụ/lỗi).
+    Không sửa tệp gốc; người gọi phải ghi “công cụ dựng trang: Microsoft Word” vào kết quả."""
+    import subprocess, os
+    if not word_san_co(): return False, 'không có Microsoft Word'
+    ps = ("$w=New-Object -ComObject Word.Application;$w.Visible=$false;$w.DisplayAlerts=0;try{$d=$w.Documents.Open('%s',$false,$true);"
+          "$d.ExportAsFixedFormat('%s',17);$d.Close($false)}finally{$w.Quit()}") % (docx_path.replace("'", "''"), pdf_path.replace("'", "''"))
+    try:
+        r = subprocess.run(['powershell', '-NoProfile', '-Command', ps], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=thoi_han)
+        if r.returncode == 0 and os.path.exists(pdf_path): return True, 'Microsoft Word (COM)'
+        return False, 'Word lỗi mã %s: %s' % (r.returncode, (r.stderr or '')[-200:])
+    except subprocess.TimeoutExpired:
+        return False, 'Word quá %ds' % thoi_han
+    except OSError as e:
+        return False, e.strerror or str(e)
