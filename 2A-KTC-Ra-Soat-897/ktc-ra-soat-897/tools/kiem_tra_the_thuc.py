@@ -721,7 +721,15 @@ def check(path, he='auto', do_render=True):
                 R_.add('TT-12', 'Tên cơ quan chủ quản', 'Đoạn %d' % (P.idx + 1), P.text, 'UBND TỈNH QUẢNG NGÃI', CC_TB + ' mục 2.1', 'Mức 2')
             expect(P, 'TT-12', 'Tên cơ quan chủ quản', 26, False, False, CC_TB + ' mục 2.2')
         P = firstL(lambda P: P.text.strip().upper() == 'TRƯỜNG CAO ĐẲNG KON TUM')
-        if P: expect(P, 'TT-13', 'Tên đơn vị ban hành', 26, True, False, CC_TB + ' mục 2.2')
+        if P:
+            # v4.6.13-KTC (B/TT-13): nếu có tên đơn vị ban hành khác bên dưới (Tổ, Ban, Hội đồng),
+            # thì "TRƯỜNG CAO ĐẲNG KON TUM" là cơ quan chủ quản → không cần in đậm
+            don_vi_duoi = next((Q for Q in head_lines[head_lines.index(P)+1:head_lines.index(P)+5]
+                               if re.match(r'^(TỔ|BAN|HỘI ĐỒNG|PHÒNG|KHOA|TRUNG TÂM)\s', Q.text.upper())), None)
+            if don_vi_duoi:
+                expect(P, 'TT-13', 'Tên cơ quan chủ quản (trên tên đơn vị ban hành)', 26, False, False, CC_TB + ' mục 2.2')
+            else:
+                expect(P, 'TT-13', 'Tên đơn vị ban hành', 26, True, False, CC_TB + ' mục 2.2')
         P = firstL(lambda P: P.text.startswith('Số:'))
         if P:
             expect(P, 'TT-14', 'Số, ký hiệu', 26, None, False, CC_TB + ' mục 3.2')
@@ -873,6 +881,10 @@ def check(path, he='auto', do_render=True):
     _td_kem = set()
     def la_loi_van(P):
         if not P.text or P.in_table or P.la_trich_yeu or P.idx in vung_nn or P.idx in tieu_de_phan or P.idx in chu_ky: return False
+        # v4.6.13-KTC (B/TT-23): bỏ qua đoạn trong Mục lục (style TOC 1, TOC 2, ...)
+        if P.sid and (P.sid.upper().startswith('TOC') or 'MUCLUC' in P.sid.upper().replace(' ', '')): return False
+        # v4.6.13-KTC (B/TT-24): bỏ qua tên bảng/hình/biểu đồ canh giữa
+        if P.props['jc'] == 'center' and re.match(r'^(Bảng|Hình|Biểu đồ|Sơ đồ|BẢNG|HÌNH)\s+(\d+|[IVXLCDM]+)\b', P.text, re.I): return False
         if P.text.upper() == P.text: return False  # dòng tiêu đề in hoa, “QUYẾT ĐỊNH:”
         if la_dong_pl(P): return False
         if re.match(r'^(Số\s*:|Số\s+\S*-|Kính gửi|Quảng Ngãi, ngày|Kon Tum, ngày|\(|\*)', P.text): return False

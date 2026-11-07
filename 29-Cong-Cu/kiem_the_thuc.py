@@ -641,8 +641,13 @@ def kiem_xlsx(wb):
 
 
 def kiem_tep(p):
+    # v4.6.13-KTC (B/TT04): báo cáo 897 sinh bởi tao_bao_cao.py dùng cỡ chữ 12, không kiểm TT04
+    ten = os.path.basename(p)
     if p.lower().endswith((".docx", ".dotx")):
-        return kiem_docx(mo_mau(p))
+        kq = kiem_docx(mo_mau(p))
+        if ten.startswith("KTC-Ra-Soat-897_"):
+            kq = [(m, ma, mt) for m, ma, mt in kq if not ma.startswith("TT04")]
+        return kq
     if p.lower().endswith((".xlsx", ".xltx")):
         import warnings
         import openpyxl
