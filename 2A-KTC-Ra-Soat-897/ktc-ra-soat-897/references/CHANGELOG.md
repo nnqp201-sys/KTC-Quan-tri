@@ -28,6 +28,27 @@ Bản này sửa 6 tình huống chặn sai của cổng hồ sơ và lỗi mã 
 - Pattern tìm TẤT CẢ tên văn bản trong phần trước "(hợp nhất tại ...)" rồi lấy CÁI CUỐI CÙNG (gần nhất với VBHN).
 - Ví dụ: "Nghị định 60/2021/NĐ-CP; khoản 5 Điều 54 Luật Quản lý..." → lấy "Luật Quản lý...".
 
+### B. Sửa dương tính giả thể thức (kiem_tra_the_thuc.py)
+- **TT-23**: bỏ qua đoạn trong Mục lục (style TOC n, MUCLUC).
+- **TT-24**: bỏ qua tên bảng/hình canh giữa ("Bảng 1…", "Hình 2…", "Biểu đồ…", "Sơ đồ…").
+- **TT-13**: phân biệt cơ quan chủ quản vs đơn vị ban hành (có Tổ/Ban/Hội đồng bên dưới → không yêu cầu in đậm).
+- **TT04**: loại trừ báo cáo `KTC-Ra-Soat-897_*` khỏi kiểm tra mẫu (29-Cong-Cu/kiem_the_thuc.py).
+
+### C. Công cụ sinh nhật ký phạm vi (sinh_nhat_ky_pham_vi.py)
+- Đọc `cong.json`, đếm "Điều N.", trích đầu/cuối 60 ký tự.
+- Để trống `hieu_luc` với cảnh báo NGƯỜI RÀ SOÁT PHẢI ĐIỀN.
+
+### D. Xử lý bản scan PDF (xu_ly_pdf.py)
+- `kiem_tra_pdf()`: nhận diện PDF có text layer hay scan bằng pdffonts/pdfinfo.
+- `ocr_pdf_scan()`: OCR bằng ocrmypdf hoặc tesseract, trích số hiệu và ngày tháng.
+- `tao_ban_chu_danh_dau()`: tạo `<tên>_ocr.txt` và `<tên>_metadata.json`.
+- Tích hợp logic từ skill `chuyen-pdf`.
+
+### E. Đọc chữ ký số PDF (xu_ly_pdf.py)
+- `doc_chu_ky_so()`: đọc thông tin chữ ký bằng pdfsig (poppler-utils) hoặc pikepdf.
+- Trích xuất: người ký, thời gian, chứng thư, tính hợp lệ, tính toàn vẹn.
+- Dùng để xác minh văn bản đã ký số trong bộ hồ sơ.
+
 ### Bộ ca kiểm thử
 - 5 ca mới C1, C3, C4, C5, C6 tại `30-Ket-Qua/2026-11-07/Lenh/fixtures-cong-897/` — mã thoát mong đợi 0.
 - Ca đối chứng chưa tạo (chờ phần F của lệnh).
