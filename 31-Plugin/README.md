@@ -26,19 +26,18 @@ khỏi lệch.
 
 Gọi bằng `<tên-plugin>:<tên-skill>`, ví dụ `ktc-quan-tri:bao-cao`.
 
-## 7 agent
+## 38 agent (từ 1.4.0)
 
-| Agent | Việc |
-|---|---|
-| `ktc-tu-hoc` | Rút tri thức từ nhật ký (sửa sai, quy ước, quyết định) vào `TRI-THUC.md` |
-| `ktc-tu-cai-tien` | Viết đề xuất cải tiến `CP-...` chờ duyệt — không tự sửa |
-| `ktc-kiem-ho-so-don-vi` | Kiểm hồ sơ kế hoạch/báo cáo đơn vị nộp (Phụ lục TB 736) |
-| `ktc-tra-cuu-can-cu` | Tra căn cứ, chủ trương trong KTC-Database |
-| `ktc-kiem-san-pham` | Kiểm tra cuối, độc lập sản phẩm .docx/.xlsx trước khi giao |
-| `ktc-hieu-luc-vien-dan` | Quét hiệu lực và cách viện dẫn văn bản |
-| `ktc-xac-minh-minh-chung` | Kiểm sơ bộ minh chứng trước khi chốt kỳ |
+Xem danh sách đầy đủ tại `.claude-plugin/marketplace.json` mục `agents`. Nhóm chính:
 
-## Runtime support (mô tả theo năng lực — chưa có biên bản nghiệm thu Claude, Cowork)
+| Nhóm | Số lượng | Ví dụ |
+|---|---|---|
+| Quản trị, tự học, cải tiến | 7 | `ktc-tu-hoc`, `ktc-tu-cai-tien`, `ktc-kiem-san-pham` |
+| Từ điển pháp lý (13 lĩnh vực) | 14 | `ktc-tu-dien-phap-ly`, `ktc-tdpl-vien-chuc`, `ktc-tdpl-dau-thau` |
+| Hỏi đáp chính sách (12 lĩnh vực) | 13 | `ktc-hoi-dap-chinh-sach`, `ktc-hdcs-tien-luong` |
+| KPI và hồ sơ đơn vị | 4 | `ktc-kiem-ho-so-don-vi`, `ktc-kiem-ho-so-tdg`, `ktc-doi-chieu-ho-so-cheo` |
+
+## Runtime support (nghiệm thu Code ĐẠT, Cowork/Chat đang kiểm)
 
 - **Claude Code:** đầy đủ skill + agent + hook + script trong `scripts/`; nền tảng **đã kiểm thử đầy đủ** (đo lề/cỡ
   chữ thật từ `.docx`, Track Changes mức OOXML, hook chặn ghi).

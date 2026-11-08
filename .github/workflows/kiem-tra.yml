@@ -1,0 +1,34 @@
+name: Kiểm tra hệ thống
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - '30-Ket-Qua/**'
+      - '99-Luu-Tru/**'
+      - '*.md'
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  kiem-tra:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install python-docx openpyxl
+
+      - name: Kiểm tra hệ thống (Tầng 1)
+        run: python 29-Cong-Cu/kiem_tra_he_thong.py
+        continue-on-error: true
+
+      - name: Doctor (nhanh)
+        run: python 29-Cong-Cu/doctor.py --nhanh

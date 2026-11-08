@@ -1,5 +1,16 @@
 # Changelog — KTC-Quan-tri Plugin
 
+## 1.4.2 — 5/11/2026
+
+- Sửa lỗi doctor báo sai phiên bản bản cài (`~/.claude/ktc-marketplace`) khi so với repo.
+- Hook nhật ký bỏ qua thư mục `.kilo/worktrees/` (worktree của Claude Code).
+
+## 1.4.1 — 5/11/2026
+
+- `soan-thao-vb` 1.17: cập nhật quy tắc viện dẫn văn bản hợp nhất (bỏ NĐ sửa đổi khi VBHN đã gộp).
+- `bao-cao` 3.21: đồng bộ quy tắc dùng chung bản 29/10/2026.
+- Sửa đường dẫn cũ `KTC-Ra-Soat-897-v2-Cai-tien` → `2A-KTC-Ra-Soat-897` trong skill và agent.
+
 ## 1.4.0 — 5/11/2026
 
 **Lớp kiểm thuật ngữ pháp lý + mở 29 agent tra cứu cho tài khoản Trường.**
@@ -23,7 +34,7 @@
 **Không thay đổi:** lõi `ktc-ra-soat-897` v4.6.4 (khóa băm 147 tệp, kiểm lại ĐẠT 5/11/2026). Lớp thuật ngữ
 chạy **song song và sớm hơn**, không thay chốt chặn rà soát trước trình ký.
 
-## Chưa phát hành — dồn cho 1.3.14 (ghi 28/10/2026)
+## Chưa phát hành — dồn cho 1.4.3 (ghi 28/10/2026)
 
 **Kỹ năng `kpi-tu-danh-gia` 1.4** (lệnh nâng cấp sau phiên hồ sơ minh chứng xếp loại Quý III/2026 theo TB 1105).
 Gói nguồn `28-KTC-KPI/Tu-Danh-Gia/ktc-kpi-tu-danh-gia-v1.4.skill` đã đóng; **plugin chưa dựng lại** (phát hành

@@ -55,13 +55,10 @@ Drive tới `KTC-Quan-tri/` và `KTC-Database/`.
 
 ## Trạng thái hiện tại
 
-Giai đoạn **chuẩn hóa** (giai đoạn 1/6 của lộ trình). Đã có bộ thuật ngữ, bảng mã đơn vị, dự thảo bộ trường
-và quy tắc Task_ID. **Chưa chốt** Master Task Register, chưa có dữ liệu vận hành thật trong
-`KTC-Theo-doi-CV`.
+**Đã phát hành chính thức:** TB 1153/TB-CĐKT ngày 12/10/2026.
 
-Ba nút thắt cần gỡ, theo thứ tự:
+- **Plugin `ktc-quan-tri` 1.4.2** — 8 skill, 38 agent, hook chặn ghi kho chuẩn + nhật ký + đo thể thức.
+- **`ktc-ra-soat-897` v4.6.4** — bản chính thức toàn Trường.
+- Phân phối qua tài khoản `phongthhcqt`, cài từ marketplace `ktc-local`.
 
-1. **Phụ lục Ia/Ib của TB736 chưa có cột `Task_ID`** — chừng nào chưa có, kế hoạch và báo cáo chỉ đối chiếu
-   gần đúng theo Trục + tên nhiệm vụ, không đối chiếu 1-1 được.
-2. **Danh mục 122 nhiệm vụ chuẩn mới phủ 5/11 đơn vị**, sáu Khoa hoàn toàn vắng mặt.
-3. **Hai nhánh `.skill` của `KTC-Bao-Cao` chưa gộp** — xem `25-KTC-Bao-Cao/00-TRANG-THAI-GOI-SKILL.md`.
+Trạng thái chi tiết: `90-Nhat-Ky-Van-Hanh/MEMORY-INDEX.md`. Việc đang mở: `92-Kinh-Nghiem/05-Known-Issues/Pending.md`.

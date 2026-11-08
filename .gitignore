@@ -1,6 +1,9 @@
 # Cache Python — sinh lai moi lan chay, khong dua vao backup
 __pycache__/
 *.pyc
+
+# Worktree của Claude Code (kilo) — bản sao tạm, không đưa lên git
+.kilo/
 # Ket qua trung gian cua 29-Cong-Cu/ (CLAUDE.md: "xoa duoc")
 29-Cong-Cu/_trung_gian/
 
