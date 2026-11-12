@@ -72,6 +72,4 @@ Chạy thử không ghi gì: `Cap-nhat-CSDL.bat --thu`.
 ## 7. Nối tiếp (không bắt buộc)
 
 Sau khi CSDL có tệp chính đúng: trích nhiệm vụ chi tiết bằng skill `29-Cong-Cu/ktc-trich-nhiem-vu/`
-(`kiem_trich_nhiem_vu.py --chuan-bi` → AI trích JSON → kiểm → duyệt → `nap_master.py`). Phần này nằm trên nhánh
-`claude/charming-cray-lhv264` (PR #2 chưa gộp) — nếu cần, lấy riêng:
-`git checkout origin/claude/charming-cray-lhv264 -- 29-Cong-Cu/ktc-trich-nhiem-vu 29-Cong-Cu/doc_van_ban.py 29-Cong-Cu/kiem_trich_nhiem_vu.py 29-Cong-Cu/nap_master.py 29-Cong-Cu/tong_hop_nhiem_vu.py`
+(`kiem_trich_nhiem_vu.py --chuan-bi` → AI trích JSON → kiểm → duyệt → `nap_master.py`). Các tệp này cũng **đã có trên main**.
